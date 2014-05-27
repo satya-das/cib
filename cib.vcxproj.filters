@@ -17,9 +17,6 @@
     <ClInclude Include="cppapi.h">
       <Filter>inc</Filter>
     </ClInclude>
-    <ClInclude Include="overview.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="cppprogex.h">
       <Filter>inc</Filter>
     </ClInclude>

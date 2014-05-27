@@ -104,7 +104,6 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="cppapi.h" />
     <ClInclude Include="cppprogex.h" />
-    <ClInclude Include="overview.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\third_party\boost_tp\msvs10\filesystem.vcxproj">
