@@ -1,6 +1,5 @@
 #include "cppprogex.h"
 #include "cppapi.h"
-#include "config.h"
 
 #include "cppdom.h"
 
@@ -51,24 +50,37 @@ inline void make_preferred_dir_format(boost::filesystem::path& path) {
       path = path.native() + path.preferred_separator;
 }
 
+//////////////////////////////////////////////////////////////////////////
+
+typedef std::map<std::string, std::string> StringToStringMap;
+
+template<typename _FwdIterType>
+void replacePlaceholdersInTemplate(_FwdIterType beg, _FwdIterType end, const StringToStringMap& substitionInfo, std::string& outstr)
+{
+	_FwdIterType i = beg;
+	for(; i != end; ++i)
+	{
+		_FwdIterType s = std::find(i, end, '$');
+		if(s == end) break;
+		outstr.append(i, s);
+		++s;
+		_FwdIterType e = std::find(s, end, '$');
+		i = e;
+		if(e == end) break;
+		std::string placeholderToken(s, e);
+		StringToStringMap::const_iterator itr = substitionInfo.find(placeholderToken);
+		if(itr == substitionInfo.end())
+			continue;
+		outstr.append(itr->second.begin(), itr->second.end());
+	}
+	outstr.append(i, end);
+}
+
 typedef boost::filesystem::path::value_type chartype;
 #ifndef _T
 #  define _T(x)       L ## x
 #endif //#ifndef _T
 
-/*
-TODO:
-   # Better parsing of enum.
-   # Also parse and store function definition.
-ALGO:
-   Scan each DOM and mark what all functions for which definition is found.
-      Make sure to mark it inline if definition is found in a header file.
-   For each DOM start emitting objects from top to bottom.
-      For class whose all non-static methods are inline we will emit the definition as-is except for static methods unless they too are inline.
-      If its comment/preprocessor/typedef/enum/namespace-alias emit them as-is with/without altered formatting.
-*/
-
-Config gConfig;
 CppProgramEx gCppProgram;
 
 int main(int argc, char* argv[])
@@ -81,6 +93,7 @@ int main(int argc, char* argv[])
       ("input-folder,i",   po::value<std::string>(), "Input folder from where the headers and source files will be parsed.")
       ("output-folder,o",  po::value<std::string>(), "Output folder for emitting files for client.")
       ("bind-folder,b",    po::value<std::string>(), "Folder where binding code will be emitted for library.")
+	  ("module,m",         po::value<std::string>(), "Name of module/library.")
       ;
 
    po::variables_map vm;
@@ -102,6 +115,9 @@ int main(int argc, char* argv[])
       outputPath = vm["output-folder"].as<std::string>();
    if(vm.count("bind-folder"))
       binderPath = vm["bind-folder"].as<std::string>();
+   if(vm.count("module") == 1)
+	   gParams.moduleName = vm["module"].as<std::string>();
+
    bool recurse    = true;
 
    if(!bfs::is_directory(inputPath) || (bfs::exists(outputPath) && !bfs::is_directory(outputPath)) || (bfs::exists(binderPath) && !bfs::is_directory(binderPath)))
@@ -119,26 +135,36 @@ int main(int argc, char* argv[])
    bfs::create_directories(outputPath);
    // First load all files as DOM.
    gCppProgram.loadProgramEx(inputPath);
+
+   StringToStringMap substituteInfo;
+   substituteInfo["MODULE"]		= gParams.moduleName;
+   substituteInfo["CIBEXPAPI"]	= "__declspec(dllexport)";
    // Now emit declarations.
    { // Emit cib.h for library.
       std::strstreambuf tmpbuf;
       std::ifstream((resDir / "lib_cib.h").native(), std::ios_base::in) >> &tmpbuf;
-      tmpbuf.str()[tmpbuf.pcount()] = '\0';
-      std::ofstream cibLibIncStm((binderPath / "cib.h").native(), std::ios_base::out);
-      cibLibIncStm << tmpbuf.str();
+	  std::string cibcode;
+	  replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo, cibcode);
+      std::ofstream cibLibIncStm((binderPath / ("cib_" + gParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+      cibLibIncStm << cibcode;
    }
    { // Emit cib.h for client.
       std::strstreambuf tmpbuf;
       std::ifstream((resDir / "usr_cib.h").native(), std::ios_base::in) >> &tmpbuf;
-      tmpbuf.str()[tmpbuf.pcount()] = '\0';
-      std::ofstream cibUsrIncStm((outputPath / "cib.h").native(), std::ios_base::out);
-      cibUsrIncStm << tmpbuf.str();
+	  std::string cibcode;
+	  replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo, cibcode);
+      std::ofstream cibUsrIncStm((outputPath / ("cib_" + gParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+      cibUsrIncStm << cibcode;
    }
-   std::strstreambuf tmpbuf;
-   std::ifstream((resDir / "lib_cib.cpp").native(), std::ios_base::in) >> &tmpbuf;
-   tmpbuf.str()[tmpbuf.pcount()] = '\0';
-   std::ofstream cibLibSrcStm((binderPath / "cib.cpp").native(), std::ios_base::out);
-   cibLibSrcStm << tmpbuf.str();
+   // Emit cib.cpp for library.
+   std::ofstream cibLibSrcStm((binderPath / ("cib_" + gParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
+   { // Emit boiler plate code for cib.cpp of library
+	   std::strstreambuf tmpbuf;
+	   std::ifstream((resDir / "lib_cib.cpp").native(), std::ios_base::in) >> &tmpbuf;
+	   std::string cibcode;
+	   replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo, cibcode);
+	   cibLibSrcStm << cibcode;
+   }
 
    std::ofstream allLibCibSources((binderPath / "cib_all_sources.cpp").native(), std::ios_base::out);
    std::ofstream allUsrCibSources((outputPath / "cib_all_sources.cpp").native(), std::ios_base::out);
@@ -174,7 +200,7 @@ int main(int argc, char* argv[])
    }
 
    cibLibSrcStm << '\n';
-   cibLibSrcStm << indentation << "namespace _cib_ {\n";
+   cibLibSrcStm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " {\n";
    ++indentation;
    cibLibSrcStm << indentation << "void InitMetaInterfaceRepository() {\n";
    ++indentation;
@@ -185,7 +211,7 @@ int main(int argc, char* argv[])
        cppapiCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, indentation);
    }
    cibLibSrcStm << --indentation << "}\n";
-   cibLibSrcStm << --indentation << "}\n";
+   cibLibSrcStm << --indentation << "}}\n";
 
    return 0;
 }

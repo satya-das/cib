@@ -38,7 +38,7 @@ typedef std::vector<Geometry::Shape*> Shapes;
 	};
 }
 
-namespace _cib_ { namespace bridge {
+namespace _cib_ { namespace Shape { namespace CppToC {
 	namespace Geometry {
 		struct Composite {
 			typedef ::Geometry::Composite::_h_Composite* (__stdcall *__newProc) ();
@@ -70,10 +70,10 @@ namespace _cib_ { namespace bridge {
 			Composite();
 		};
 	}
-}}
+}}}
 
 inline ::Geometry::Shape::_h_Shape* Geometry::Composite::__cast_to_Geometry__Shape(::Geometry::Composite::_h_Composite* h) {
-	return _cib_::bridge::Geometry::Composite::instance().__cast_to_Geometry__Shape(h);
+	return _cib_::Shape::CppToC::Geometry::Composite::instance().__cast_to_Geometry__Shape(h);
 }
 
 inline void Geometry::Composite::__set(::Geometry::Composite::_h_Composite* h) {
@@ -82,38 +82,38 @@ inline void Geometry::Composite::__set(::Geometry::Composite::_h_Composite* h) {
 }
 
 inline Geometry::Composite::Composite(): Geometry::Shape(0) {
-	__set(_cib_::bridge::Geometry::Composite::instance().__new());
+	__set(_cib_::Shape::CppToC::Geometry::Composite::instance().__new());
 }
 
 inline void Geometry::Composite::Add(Shape* shape){
-	_cib_::bridge::Geometry::Composite::instance().Add(h_, shape->__handle());
+	_cib_::Shape::CppToC::Geometry::Composite::instance().Add(h_, shape->__handle());
 }
 
 inline size_t Geometry::Composite::NumShapes() const {
-	return _cib_::bridge::Geometry::Composite::instance().NumShapes(h_);
+	return _cib_::Shape::CppToC::Geometry::Composite::instance().NumShapes(h_);
 }
 
 inline ::Geometry::Shape* Geometry::Composite::ShapeAt(size_t idxShape) const {
 	return new Geometry::Shape(
-		_cib_::bridge::Geometry::Composite::instance().ShapeAt(h_, idxShape)
+		_cib_::Shape::CppToC::Geometry::Composite::instance().ShapeAt(h_, idxShape)
 	);
 }
 
 inline double Geometry::Composite::Area() const {
-	return _cib_::bridge::Geometry::Composite::instance().Area(h_);
+	return _cib_::Shape::CppToC::Geometry::Composite::instance().Area(h_);
 }
 
 inline double Geometry::Composite::Perimeter() const {
-	return _cib_::bridge::Geometry::Composite::instance().Perimeter(h_);
+	return _cib_::Shape::CppToC::Geometry::Composite::instance().Perimeter(h_);
 }
 
 inline void Geometry::Composite::Draw(HDC hdc) const {
-	_cib_::bridge::Geometry::Composite::instance().Draw(h_, hdc);
+	_cib_::Shape::CppToC::Geometry::Composite::instance().Draw(h_, hdc);
 }
 
 inline ::Geometry::Composite* Geometry::Composite::CreateCompositeOfRectAndCircle(){
 	return new Geometry::Composite(
-		_cib_::bridge::Geometry::Composite::instance().CreateCompositeOfRectAndCircle()
+		_cib_::Shape::CppToC::Geometry::Composite::instance().CreateCompositeOfRectAndCircle()
 	);
 }
 

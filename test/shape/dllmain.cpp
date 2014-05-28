@@ -16,10 +16,3 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	}
 	return TRUE;
 }
-
-extern "C" void* __stdcall cibGetMetaInterfaceMethod(char methodId);
-
-extern "C" __declspec(dllexport) void* GetGetMetaInterfaceMethod()
-{
-    return (void*) cibGetMetaInterfaceMethod;
-}

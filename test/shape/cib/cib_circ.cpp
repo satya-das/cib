@@ -1,7 +1,7 @@
-#include "cib.h"
+#include "cib_ShapeLib.h"
 #include "circ.h"
 
-namespace _cib_ { namespace bind {
+namespace _cib_ { namespace Shape { namespace CtoCpp {
 	namespace Geometry {
 		namespace Circle {
 			::Geometry::Circle* __stdcall __new(int Ox, int Oy, int radius) {
@@ -24,7 +24,7 @@ namespace _cib_ { namespace bind {
 				return pCircleObj;
 			}
 
-			class MetaInterface : public ::_cib_::MetaInterface {
+			class MetaInterface : public ::_cib_::Shape::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
 					AddMethod(20100, (void*) __new);
@@ -34,7 +34,7 @@ namespace _cib_ { namespace bind {
 					AddMethod(20001, (void*) __cast_to_Geometry__Shape);
 				}
 			};
-			::_cib_::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
-}}
+}}}

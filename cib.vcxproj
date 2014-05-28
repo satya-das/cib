@@ -101,7 +101,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.h" />
     <ClInclude Include="cppapi.h" />
     <ClInclude Include="cppprogex.h" />
   </ItemGroup>

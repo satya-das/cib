@@ -65,7 +65,7 @@
       </Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>..\..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib</Command>
+      <Command>..\..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib -m Shape</Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>Running cib.exe to generate binder code.</Message>
@@ -94,7 +94,7 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="cib\cib.h" />
+    <ClInclude Include="cib\cib_ShapeLib.h" />
     <ClInclude Include="pub\circ.h" />
     <ClInclude Include="pub\composite.h" />
     <ClInclude Include="pub\rect.h" />
@@ -104,15 +104,13 @@
     <ClInclude Include="yawg.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cib\cib.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">StdAfx.h</ForcedIncludeFiles>
-    </ClCompile>
     <ClCompile Include="cib\cib_circ.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">StdAfx.h</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="cib\cib_composite.cpp" />
     <ClCompile Include="cib\cib_rect.cpp" />
     <ClCompile Include="cib\cib_shape.cpp" />
+    <ClCompile Include="cib\cib_ShapeLib.cpp" />
     <ClCompile Include="circ.cpp" />
     <ClCompile Include="composite.cpp" />
     <ClCompile Include="dllmain.cpp">

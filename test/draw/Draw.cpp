@@ -112,9 +112,7 @@ BOOL CDrawApp::InitInstance()
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
     HMODULE hShape = ::LoadLibraryA("shape.dll");
-    typedef void* (*GetGetMetaInterfaceMethodProcType)();
-    GetGetMetaInterfaceMethodProcType GetGetMetaInterfaceMethodProc = (GetGetMetaInterfaceMethodProcType) GetProcAddress(hShape, "GetGetMetaInterfaceMethod");
-    cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType) GetGetMetaInterfaceMethodProc();
+    cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType) GetProcAddress(hShape, "_cibShapeGetMetaInterfaceMethod@4");
 	// The one and only window has been initialized, so show and update it
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();

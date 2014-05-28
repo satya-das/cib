@@ -1,6 +1,5 @@
 #include "cppapi.h"
 #include "cppprogex.h"
-#include "cppwriter.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -395,7 +394,7 @@ void CppApiCompound::emitBridgeDecl(std::ostream& stm, CppApiIndent indentation 
     if((cppCompoundObj_->isNamespaceLike()) == 0 || needsBridging_.empty())
         return; // Nothing to do if it is not namespace/class/struct/union.
     stm     << '\n'; // Start in new line.
-    stm     << indentation << "namespace _cib_ { namespace bridge {\n";
+    stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " { namespace CppToC {\n";
     if(!wrappingNamespaceDeclarations().empty())
        stm  << ++indentation << wrappingNamespaceDeclarations() << '\n';
     stm     << ++indentation << "struct " << name() << " {\n";
@@ -430,7 +429,7 @@ void CppApiCompound::emitBridgeDecl(std::ostream& stm, CppApiIndent indentation 
     stm     << --indentation << "};\n";
     if(!wrappingNamespaceDeclarations().empty())
        stm  << --indentation << closingBracesForWrappingNamespaces() << '\n';
-    stm     << --indentation << "}}\n";
+	stm     << --indentation << "}}}\n";
 }
 
 void CppApiCompound::emitDefn(std::ostream& stm, CppApiIndent indentation /* = CppApiIndent */)
@@ -441,7 +440,7 @@ void CppApiCompound::emitDefn(std::ostream& stm, CppApiIndent indentation /* = C
         if(mem->objType_ == CppObj::kCompound)
             ((CppApiCompound*) gCppProgram.CppApiObjFromCppObj(mem))->emitDefn(stm, indentation);
     }
-    // First emit the bridge class declaration.
+    // First emit the CppToC class declaration.
     emitBridgeDecl(stm, indentation);
     // Emit the implementation of class methods/constructors added as part of glue code.
     stm     << '\n'; // Start in new line.
@@ -450,7 +449,7 @@ void CppApiCompound::emitDefn(std::ostream& stm, CppApiIndent indentation /* = C
     {
         const CppApiCompound* pubParent = *parentItr;
         stm << indentation << "inline " << pubParent->fullHandleName() << "* " << fullName() << "::" << castToBaseName(pubParent) << '(' << fullHandleName() << "* h) {\n";
-        stm << ++indentation << "return _cib_::" << bridgeName() << "::instance()." << castToBaseName(pubParent) << "(h);\n";
+        stm << ++indentation << "return _cib_::" << gParams.moduleName << "::" << bridgeName() << "::instance()." << castToBaseName(pubParent) << "(h);\n";
         stm << --indentation << "}\n";
     }
     if(cppCompoundObj_->isClassLike())
@@ -505,7 +504,7 @@ void CppApiCompound::emitDefn(std::ostream& stm, CppApiIndent indentation /* = C
                stm << ++indentation;
             }
         }
-        stm     << "_cib_::" << bridgeName() << "::instance()." << func->procName() << "(";
+        stm     << "_cib_::" << gParams.moduleName << "::" << bridgeName() << "::instance()." << func->procName() << "(";
         if(!func->isConstructor() && !func->isStatic())
         {
             stm << "h_";
@@ -527,7 +526,7 @@ void CppApiCompound::emitLibGlueCode(std::ostream& stm, CppApiIndent indentation
 {
     if(cppCompoundObj_->isCppFile())
     {
-        stm     << "#include \"cib.h\"\n";
+        stm     << "#include \"cib_" << gParams.moduleName << "Lib.h\"\n";
         std::string incName = name();
         std::string::size_type sepPos = incName.rfind('/');
         if(sepPos == incName.npos)
@@ -536,7 +535,7 @@ void CppApiCompound::emitLibGlueCode(std::ostream& stm, CppApiIndent indentation
             incName = incName.substr(sepPos+1);
         stm     << indentation << "#include \"" << incName << "\"\n";
         stm     << '\n'; // Start in new line.
-        stm     << indentation << "namespace _cib_ { namespace bind {\n";
+        stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " { namespace CtoCpp {\n";
         ++indentation;
     }
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
@@ -573,7 +572,7 @@ void CppApiCompound::emitLibGlueCode(std::ostream& stm, CppApiIndent indentation
             stm << '\n'; // Start in new line.
         if(!needsBridging_.empty())
         {
-            stm     << indentation << "class MetaInterface" << " : public ::_cib_::MetaInterface {\n";
+            stm     << indentation << "class MetaInterface" << " : public ::_cib_::" << gParams.moduleName << "::MetaInterface {\n";
             stm     << indentation << "protected:\n";
             stm     << ++indentation << "virtual void LoadMethods() {\n";
             ++indentation;
@@ -590,13 +589,13 @@ void CppApiCompound::emitLibGlueCode(std::ostream& stm, CppApiIndent indentation
             }
             stm     << --indentation << "}\n";
             stm     << --indentation << "};\n";
-            stm     << indentation << "::_cib_::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }\n";
+            stm     << indentation << "::_cib_::" << gParams.moduleName << "::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }\n";
         }
         stm         << --indentation << "}\n";
     }
     if(cppCompoundObj_->isCppFile())
     {
-            stm     << --indentation << "}}\n";
+		stm     << --indentation << "}}}\n";
     }
 }
 
@@ -604,7 +603,7 @@ void CppApiCompound::emitUsrGlueCode(std::ostream& stm, CppApiIndent indentation
 {
     if(cppCompoundObj_->isCppFile())
     {
-        stm     << "#include \"cib.h\"\n";
+        stm     << "#include \"cib_" << gParams.moduleName << "Lib.h\"\n";
         std::string incName = name();
         std::string::size_type sepPos = incName.rfind('/');
         if(sepPos == incName.npos)
@@ -613,7 +612,7 @@ void CppApiCompound::emitUsrGlueCode(std::ostream& stm, CppApiIndent indentation
             incName = incName.substr(sepPos+1);
         stm     << indentation << "#include \"" << incName << "\"\n";
         stm     << '\n';
-        stm     << indentation << "namespace _cib_ {\n";
+        stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " {\n";
         ++indentation;
     }
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
@@ -625,7 +624,7 @@ void CppApiCompound::emitUsrGlueCode(std::ostream& stm, CppApiIndent indentation
     if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
     {
         stm     << indentation++ << bridgeName() << "::" << name() <<"() {\n";
-        stm     << indentation << "_cib_::MetaInterface metaIntrface(" << cibId_ << ");\n";
+        stm     << indentation << "_cib_::" << gParams.moduleName << "::MetaInterface metaIntrface(" << cibId_ << ");\n";
         for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
         {
             CppApiFunction* func = needsBridging_[idxFunc];
@@ -643,7 +642,7 @@ void CppApiCompound::emitUsrGlueCode(std::ostream& stm, CppApiIndent indentation
     }
     if(cppCompoundObj_->isCppFile())
     {
-        stm     << --indentation << "}\n";
+		stm     << --indentation << "}}\n";
     }
 }
 
@@ -657,9 +656,9 @@ void CppApiCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, CppApiInden
    }
    if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
    {
-      stm << indentation << "namespace _cib_ { namespace bind {\n";
-      stm << ++indentation << wrappingNamespaceDeclarations() << " namespace " << name() << " { ::_cib_::MetaInterface* CreateMetaInterface(); }" << closingBracesForWrappingNamespaces() << '\n';;
-      stm << --indentation << "}}\n";
+      stm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " { namespace CtoCpp {\n";
+      stm << ++indentation << wrappingNamespaceDeclarations() << " namespace " << name() << " { ::_cib_::" << gParams.moduleName << "::MetaInterface* CreateMetaInterface(); }" << closingBracesForWrappingNamespaces() << '\n';;
+	  stm << --indentation << "}}}\n";
    }
 }
 
@@ -672,5 +671,5 @@ void CppApiCompound::emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm
             ((CppApiCompound*) gCppProgram.CppApiObjFromCppObj(mem))->emitCodeToPopulateMetaInterfaceRepository(stm, indentation);
     }
     if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
-        stm << indentation << "gMetaInterfaceRepository[" << cibId_ << "] = _cib_::bind" << wrappingNses() << "::" << name() << "::CreateMetaInterface();\n";
+        stm << indentation << "gMetaInterfaceRepository[" << cibId_ << "] = _cib_::" << gParams.moduleName << "::CtoCpp" << wrappingNses() << "::" << name() << "::CreateMetaInterface();\n";
 }

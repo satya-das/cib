@@ -33,7 +33,7 @@ namespace Geometry
 
 }
 
-namespace _cib_ { namespace bridge {
+namespace _cib_ { namespace Shape { namespace CppToC {
 	namespace Geometry {
 		struct Circle {
 			typedef ::Geometry::Circle::_h_Circle* (__stdcall *__newProc) (int Ox, int Oy, int radius);
@@ -57,10 +57,10 @@ namespace _cib_ { namespace bridge {
 			Circle();
 		};
 	}
-}}
+}}}
 
 inline ::Geometry::Shape::_h_Shape* Geometry::Circle::__cast_to_Geometry__Shape(::Geometry::Circle::_h_Circle* h) {
-	return _cib_::bridge::Geometry::Circle::instance().__cast_to_Geometry__Shape(h);
+	return _cib_::Shape::CppToC::Geometry::Circle::instance().__cast_to_Geometry__Shape(h);
 }
 
 inline void Geometry::Circle::__set(::Geometry::Circle::_h_Circle* h) {
@@ -69,19 +69,19 @@ inline void Geometry::Circle::__set(::Geometry::Circle::_h_Circle* h) {
 }
 
 inline Geometry::Circle::Circle(int Ox, int Oy, int radius): Geometry::Shape(0) {
-	__set(_cib_::bridge::Geometry::Circle::instance().__new(Ox, Oy, radius));
+	__set(_cib_::Shape::CppToC::Geometry::Circle::instance().__new(Ox, Oy, radius));
 }
 
 inline double Geometry::Circle::Area() const {
-	return _cib_::bridge::Geometry::Circle::instance().Area(h_);
+	return _cib_::Shape::CppToC::Geometry::Circle::instance().Area(h_);
 }
 
 inline double Geometry::Circle::Perimeter() const {
-	return _cib_::bridge::Geometry::Circle::instance().Perimeter(h_);
+	return _cib_::Shape::CppToC::Geometry::Circle::instance().Perimeter(h_);
 }
 
 inline void Geometry::Circle::Draw(HDC hdc) const {
-	_cib_::bridge::Geometry::Circle::instance().Draw(h_, hdc);
+	_cib_::Shape::CppToC::Geometry::Circle::instance().Draw(h_, hdc);
 }
 
 

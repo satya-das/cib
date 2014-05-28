@@ -1,7 +1,7 @@
-#include "cib.h"
+#include "cib_ShapeLib.h"
 #include "composite.h"
 
-namespace _cib_ { namespace bind {
+namespace _cib_ { namespace Shape { namespace CtoCpp {
 	namespace Geometry {
 		namespace Composite {
 			::Geometry::Composite* __stdcall __new() {
@@ -40,7 +40,7 @@ namespace _cib_ { namespace bind {
 				return pCompositeObj;
 			}
 
-			class MetaInterface : public ::_cib_::MetaInterface {
+			class MetaInterface : public ::_cib_::Shape::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
 					AddMethod(40100, (void*) __new);
@@ -54,7 +54,7 @@ namespace _cib_ { namespace bind {
 					AddMethod(40001, (void*) __cast_to_Geometry__Shape);
 				}
 			};
-			::_cib_::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
-}}
+}}}

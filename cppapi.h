@@ -2,6 +2,7 @@
 #define __CPPAPI_H__
 
 #include "cppdom.h"
+#include "cppwriter.h"
 
 #include <iostream>
 #include <map>
@@ -25,8 +26,8 @@ public:
     std::string     ctorCAPIPrefix;
     std::string     dtorCAPIPrefix;
     std::string     castToBasePrefix;
-    std::string     scopeOperSubstitute; // Substitute for "::"
     const int       globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
+	std::string     moduleName;
 
     static CppApiParams& instance() { static CppApiParams singleton; return singleton; }
 
@@ -40,41 +41,15 @@ private:
         ,ctorCAPIPrefix             ("__new")
         ,dtorCAPIPrefix             ("__delete")
         ,castToBasePrefix           ("__cast_to_")
-        ,scopeOperSubstitute        ("__")
         ,globalFuncCibClassId      (1)
         ,nextCibClassId            (0)
     {
     }
 };
 
-static const CppApiParams& gParams = CppApiParams::instance();
+static CppApiParams& gParams = CppApiParams::instance();
 
-/**
- * \brief Helper class to manage indentation.
- */
-class CppApiIndent
-{
-private:
-   unsigned indentLevel_;
-   unsigned initialLevel_;
-
-public:
-   CppApiIndent(unsigned initialLevel = 0) : indentLevel_(0), initialLevel_(initialLevel) {}
-   CppApiIndent& operator++() { ++indentLevel_; return *this; }
-   CppApiIndent& operator--() { if(indentLevel_) --indentLevel_; return *this; }
-   CppApiIndent operator++(int) { CppApiIndent ret = *this; ++indentLevel_; return ret; }
-   CppApiIndent operator--(int) { CppApiIndent ret = *this; if(indentLevel_) --indentLevel_; return ret; }
-
-   std::ostream& emit(std::ostream& stm) const {
-      for(unsigned i = 0; i < initialLevel_+indentLevel_; ++i)
-         stm << '\t';
-      return stm;
-   }
-};
-
-inline std::ostream& operator <<(std::ostream& stm, const CppApiIndent& indentation) {
-   return indentation.emit(stm);
-}
+typedef CppWriter::Indentation CppApiIndent;
 
 class CppApiEnum;
 class CppApiCompound;
@@ -130,7 +105,7 @@ private:
    void calcHandleName() const { handleName_ = CppApiParams::instance().classHandlePrefix + cppCompoundObj_->name_; }
    void calcFullHandleName() const { fullHandleName_ = "::" + fullName() + "::" + handleName(); }
    void calcObjName () const { objName_ = "p" + cppCompoundObj_->name_ + "Obj"; }
-   void calcBridgeName() const { bridgeName_ = "bridge::" + fullName(); }
+   void calcBridgeName() const { bridgeName_ = "CppToC::" + fullName(); }
    void calcWrappingNamespaceSeq() const;
 
    void emitBridgeDecl(std::ostream& stm, CppApiIndent indentation = CppApiIndent());

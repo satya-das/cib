@@ -1,7 +1,7 @@
-#include "cib.h"
+#include "cib_ShapeLib.h"
 #include "shape.h"
 
-namespace _cib_ { namespace bind {
+namespace _cib_ { namespace Shape { namespace CtoCpp {
 	namespace Geometry {
 		namespace Shape {
 			double __stdcall Area(::Geometry::Shape* pShapeObj) {
@@ -20,7 +20,7 @@ namespace _cib_ { namespace bind {
 				delete pShapeObj;
 			}
 
-			class MetaInterface : public ::_cib_::MetaInterface {
+			class MetaInterface : public ::_cib_::Shape::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
 					AddMethod(80100, (void*) Area);
@@ -29,7 +29,7 @@ namespace _cib_ { namespace bind {
 					AddMethod(80103, (void*) __delete);
 				}
 			};
-			::_cib_::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
-}}
+}}}

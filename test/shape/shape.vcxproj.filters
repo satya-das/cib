@@ -38,7 +38,7 @@
     <ClInclude Include="yawg.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="cib\cib.h">
+    <ClInclude Include="cib\cib_ShapeLib.h">
       <Filter>cib</Filter>
     </ClInclude>
   </ItemGroup>
@@ -61,9 +61,6 @@
     <ClCompile Include="composite.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="cib\cib.cpp">
-      <Filter>cib</Filter>
-    </ClCompile>
     <ClCompile Include="cib\cib_circ.cpp">
       <Filter>cib</Filter>
     </ClCompile>
@@ -74,6 +71,9 @@
       <Filter>cib</Filter>
     </ClCompile>
     <ClCompile Include="cib\cib_shape.cpp">
+      <Filter>cib</Filter>
+    </ClCompile>
+    <ClCompile Include="cib\cib_ShapeLib.cpp">
       <Filter>cib</Filter>
     </ClCompile>
   </ItemGroup>

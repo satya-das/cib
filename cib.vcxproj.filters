@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.h">
-      <Filter>inc</Filter>
-    </ClInclude>
     <ClInclude Include="cppapi.h">
       <Filter>inc</Filter>
     </ClInclude>

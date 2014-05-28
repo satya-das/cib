@@ -1,9 +1,9 @@
-#include "cib.h"
+#include "cib_ShapeLib.h"
 #include "composite.h"
 
-namespace _cib_ {
-	bridge::Geometry::Composite::Composite() {
-		_cib_::MetaInterface metaIntrface(40000);
+namespace _cib_ { namespace Shape {
+	CppToC::Geometry::Composite::Composite() {
+		_cib_::Shape::MetaInterface metaIntrface(40000);
 		__new = (__newProc) metaIntrface.GetMethod(40100);
 		Add = (AddProc) metaIntrface.GetMethod(40101);
 		NumShapes = (NumShapesProc) metaIntrface.GetMethod(40102);
@@ -14,4 +14,4 @@ namespace _cib_ {
 		CreateCompositeOfRectAndCircle = (CreateCompositeOfRectAndCircleProc) metaIntrface.GetMethod(40107);
 		__cast_to_Geometry__Shape = (__cast_to_Geometry__ShapeProc) metaIntrface.GetMethod(40001);
 	}
-}
+}}
