@@ -35,7 +35,7 @@ namespace _cib_ { namespace $MODULE$ {
  * This library must have a way to let client call this API
  * This is kind of a hook that client needs to use all methods and classes that this library wants to expose.
  */
-extern "C" $CIBEXPAPI$ void* __stdcall cib$MODULE$GetMetaInterfaceMethod(char methodId)
+extern "C" $CIBEXPAPI$ void* __stdcall cib$MODULE$GetMetaInterfaceMethod(int methodId)
 {
    switch(methodId)
    {
