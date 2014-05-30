@@ -30,7 +30,7 @@ namespace Geometry
 
 }
 
-namespace _cib_ { namespace Shape { namespace CppToC {
+namespace _cib_ { namespace ShapeLib { namespace CppToC {
 	namespace Geometry {
 		struct Shape {
 			typedef double (__stdcall *AreaProc) (::Geometry::Shape::_h_Shape* pShapeObj);
@@ -60,19 +60,19 @@ inline void Geometry::Shape::__set(::Geometry::Shape::_h_Shape* h) {
 }
 
 inline double Geometry::Shape::Area() const {
-	return _cib_::Shape::CppToC::Geometry::Shape::instance().Area(h_);
+	return _cib_::ShapeLib::CppToC::Geometry::Shape::instance().Area(h_);
 }
 
 inline double Geometry::Shape::Perimeter() const {
-	return _cib_::Shape::CppToC::Geometry::Shape::instance().Perimeter(h_);
+	return _cib_::ShapeLib::CppToC::Geometry::Shape::instance().Perimeter(h_);
 }
 
 inline void Geometry::Shape::Draw(HDC hdc) const {
-	_cib_::Shape::CppToC::Geometry::Shape::instance().Draw(h_, hdc);
+	_cib_::ShapeLib::CppToC::Geometry::Shape::instance().Draw(h_, hdc);
 }
 
 inline Geometry::Shape::~Shape(){
-	_cib_::Shape::CppToC::Geometry::Shape::instance().__delete(h_);
+	_cib_::ShapeLib::CppToC::Geometry::Shape::instance().__delete(h_);
 }
 
 

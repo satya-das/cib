@@ -98,11 +98,13 @@
   <ItemGroup>
     <ClCompile Include="cppapi.cpp" />
     <ClCompile Include="cppprogex.cpp" />
+    <ClCompile Include="idmgr.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cppapi.h" />
     <ClInclude Include="cppprogex.h" />
+    <ClInclude Include="idmgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\third_party\boost_tp\msvs10\filesystem.vcxproj">

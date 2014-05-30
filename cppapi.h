@@ -17,8 +17,6 @@
  */
 struct CppApiParams
 {
-private:
-    mutable int     nextCibClassId;
 public:
     std::string     classHandlePrefix;
     std::string     handleGetterMethod;
@@ -31,8 +29,6 @@ public:
 
     static CppApiParams& instance() { static CppApiParams singleton; return singleton; }
 
-    int getNextCibClassId() const { nextCibClassId += 10000; return nextCibClassId; }
-
 private:
     CppApiParams()
         :classHandlePrefix          ("_h_")
@@ -42,7 +38,6 @@ private:
         ,dtorCAPIPrefix             ("__delete")
         ,castToBasePrefix           ("__cast_to_")
         ,globalFuncCibClassId      (1)
-        ,nextCibClassId            (0)
     {
     }
 };
@@ -59,9 +54,7 @@ typedef std::list<CppDocComment*> CppApiDocs;
 class CppApiObj
 {
 public:
-   int cibId_;
-
-   CppApiObj() :cibId_(0) {}
+   CppApiObj() {}
 };
 
 typedef std::vector<CppApiCompound*>                    CppApiCompoundArray;
@@ -87,6 +80,7 @@ private:
    mutable std::string  wrappingNsDecl_; // Sequence of namespace declaration of all namespaces that wrap this one.
    mutable std::string  wrappingNses_; // Sequence of all wrapping namespaces separated by ::
    mutable std::string  closingNsBraces_; // Sequence of braces to close all wrapping namespaces.
+   mutable std::string	cibIdBase_;
    mutable bool         wrappingNsCalculated_;
    bool                 inline_;    // true when all non-static methods are inline.
    CppApiFunctionArray  needsBridging_; // Array of all functions that require bridging for implementation at client side.
@@ -107,9 +101,9 @@ private:
    void calcObjName () const { objName_ = "p" + cppCompoundObj_->name_ + "Obj"; }
    void calcBridgeName() const { bridgeName_ = "CppToC::" + fullName(); }
    void calcWrappingNamespaceSeq() const;
+   void calcCibIdBase() const { cibIdBase_ = "::_cib_::" + gParams.moduleName + "Lib" + wrappingNses(); }
 
    void emitBridgeDecl(std::ostream& stm, CppApiIndent indentation = CppApiIndent());
-   void emitBridgeDefn(std::ostream& stm, CppApiIndent indentation = CppApiIndent());
 
 public:
    CppApiCompound(CppCompound* cppClassObj, CppApiCompound* outer = NULL)
@@ -157,6 +151,12 @@ public:
    std::string castToBaseName(const CppApiCompound* base) const {
        return CppApiParams::instance().castToBasePrefix + base->uniqName();
    }
+   /// @return CibId of function that casts to object of parent class
+   std::string cibIdOfCastToBaseName(const CppApiCompound* base) const {
+	   if(cibIdBase_.empty())
+		   calcCibIdBase();
+	   return cibIdBase_ + "::" + name() + "::kCIBID_" + castToBaseName(base);
+   }
    /// @return string that represents a sequence of all wrapping namespaces
    const std::string& wrappingNamespaceDeclarations() const {
       if(!wrappingNsCalculated_) calcWrappingNamespaceSeq();
@@ -170,6 +170,12 @@ public:
    /// @return sequence of closing braces that closes all wrapping namespace definitions.
    const std::string& closingBracesForWrappingNamespaces() const {
       return closingNsBraces_;
+   }
+   /// @return CibId of this compound object
+   std::string cibId() const {
+	   if(cibIdBase_.empty())
+		   calcCibIdBase();
+	   return cibIdBase_ + "::kCIBID_" + name();
    }
    ///@ return CppApiObj corresponding to name of a given type
    const CppApiObj* resolveTypeName(const std::string& typeName) const;
@@ -201,7 +207,7 @@ private:
    mutable std::string  capiName_; // Name of C API function corresponding to this CppApiFunction object.
    mutable std::string  procType_; // ProcType is name of function-pointer-type defined using typedef for the raw C API corresponding to the C++ function.
    mutable std::string  procName_; // Name of variable that holds the function pointer.
-   mutable std::string	procId_;   // Unique ID of proc wrt owner.
+   mutable std::string	cibId_;
    std::string          procNameSfx_; // Suffix to be used for proc name. It is needed to make overloaded methods have different proc name.
    unsigned int			attr_; // e.g.: const, static, virtual, inline, etc.
    CppParamList*		params_;
@@ -223,7 +229,12 @@ private:
    void calcCAPIName() const;
    void calcProcType() const { if(!procType_.empty()) return; procType_ = procName() + "Proc"; }
    void calcProcName() const;
-   void calcProcID  () const;
+   void calcCibId() const {
+	   cibId_ = "::_cib_::" + gParams.moduleName + "Lib";
+	   if(owner_)
+		   cibId_ += owner_->wrappingNses() + "::" + owner_->name();
+	   cibId_ += "::kCIBID_" + capiName();
+   }
 
 public:
 
@@ -274,6 +285,13 @@ public:
    const std::string& procName() const {
       if(procName_.empty()) calcProcName();
       return procName_;
+   }
+
+   /// @return CibId of this compound object
+   const std::string& cibId() const {
+	   if(cibId_.empty())
+		   calcCibId();
+	   return cibId_;
    }
 
    /// Sets proc name suffix

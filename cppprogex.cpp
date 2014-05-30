@@ -50,7 +50,6 @@ CppApiCompound* CppProgramEx::CppCompoundObjToCppApiCompound(CppCompound* cppCom
 
 const CppApiObj* CppProgramEx::getCppApiObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode)
 {
-
     size_t nameBegPos = 0;
     size_t nameEndPos = name.find("::", nameBegPos);
     if(nameEndPos == std::string::npos)
@@ -76,7 +75,7 @@ const CppApiObj* CppProgramEx::getCppApiObjFromTypeName(const std::string& name,
             typeNode = &itr->second;
         } while (nameEndPos >= name.length());
     }
-    return typeNode ? CppApiObjFromCppObj(typeNode->cppObj) : NULL;
+    return typeNode ? CppApiObjFromCppObj(*(typeNode->cppObjSet.begin())) : NULL;
 }
 
 void CppProgramEx::resolveInheritance(CppCompound* cppCompound)

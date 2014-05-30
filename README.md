@@ -23,7 +23,8 @@ For example it can be used by an application program to export C++ SDK which can
  - To become an easier and better alternative of COM.
  - To become an easier and better alternative of DCOM.
  - To work on all platforms without any gotcha.
- - To make it possible for client of a library to choose compiler of its own choice and not constrained by library vendor..
+ - To make it possible for client of a library to choose compiler of its own choice and not constrained by library vendor.
+ - 
 
 ## How CIB works ##
  Following are the broad things that CIB does:

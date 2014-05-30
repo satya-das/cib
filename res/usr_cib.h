@@ -11,7 +11,7 @@ typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (char methodId);
  */
 extern cibGetMetaInterfaceMethodProcType cibGetMetaInterfaceMethodProc;
 
-namespace _cib_ { namespace $MODULE$ {
+namespace _cib_ { namespace $MODULE$Lib {
    class _h_MetaInterface;
    class MetaInterface
    {

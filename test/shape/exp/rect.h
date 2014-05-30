@@ -33,7 +33,7 @@ namespace Geometry
 
 }
 
-namespace _cib_ { namespace Shape { namespace CppToC {
+namespace _cib_ { namespace ShapeLib { namespace CppToC {
 	namespace Geometry {
 		struct Rectangle {
 			typedef ::Geometry::Rectangle::_h_Rectangle* (__stdcall *__newProc) (int left, int top, int right, int bottom);
@@ -60,7 +60,7 @@ namespace _cib_ { namespace Shape { namespace CppToC {
 }}}
 
 inline ::Geometry::Shape::_h_Shape* Geometry::Rectangle::__cast_to_Geometry__Shape(::Geometry::Rectangle::_h_Rectangle* h) {
-	return _cib_::Shape::CppToC::Geometry::Rectangle::instance().__cast_to_Geometry__Shape(h);
+	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().__cast_to_Geometry__Shape(h);
 }
 
 inline void Geometry::Rectangle::__set(::Geometry::Rectangle::_h_Rectangle* h) {
@@ -69,19 +69,19 @@ inline void Geometry::Rectangle::__set(::Geometry::Rectangle::_h_Rectangle* h) {
 }
 
 inline Geometry::Rectangle::Rectangle(int left, int top, int right, int bottom): Geometry::Shape(0) {
-	__set(_cib_::Shape::CppToC::Geometry::Rectangle::instance().__new(left, top, right, bottom));
+	__set(_cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().__new(left, top, right, bottom));
 }
 
 inline double Geometry::Rectangle::Area() const {
-	return _cib_::Shape::CppToC::Geometry::Rectangle::instance().Area(h_);
+	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Area(h_);
 }
 
 inline double Geometry::Rectangle::Perimeter() const {
-	return _cib_::Shape::CppToC::Geometry::Rectangle::instance().Perimeter(h_);
+	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Perimeter(h_);
 }
 
 inline void Geometry::Rectangle::Draw(HDC hdc) const {
-	_cib_::Shape::CppToC::Geometry::Rectangle::instance().Draw(h_, hdc);
+	_cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Draw(h_, hdc);
 }
 
 

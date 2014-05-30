@@ -1,7 +1,9 @@
+#include "ShapeLib_cibids.h"
+
 #include "cib_ShapeLib.h"
 #include "composite.h"
 
-namespace _cib_ { namespace Shape { namespace CtoCpp {
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 	namespace Geometry {
 		namespace Composite {
 			::Geometry::Composite* __stdcall __new() {
@@ -40,21 +42,21 @@ namespace _cib_ { namespace Shape { namespace CtoCpp {
 				return pCompositeObj;
 			}
 
-			class MetaInterface : public ::_cib_::Shape::MetaInterface {
+			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(40100, (void*) __new);
-					AddMethod(40101, (void*) Add);
-					AddMethod(40102, (void*) NumShapes);
-					AddMethod(40103, (void*) ShapeAt);
-					AddMethod(40104, (void*) Area);
-					AddMethod(40105, (void*) Perimeter);
-					AddMethod(40106, (void*) Draw);
-					AddMethod(40107, (void*) CreateCompositeOfRectAndCircle);
-					AddMethod(40001, (void*) __cast_to_Geometry__Shape);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_Add, (void*) Add);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_NumShapes, (void*) NumShapes);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_ShapeAt, (void*) ShapeAt);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID_CreateCompositeOfRectAndCircle, (void*) CreateCompositeOfRectAndCircle);
+					AddMethod(::_cib_::ShapeLib::Geometry::Composite::kCIBID___cast_to_Geometry__Shape, (void*) __cast_to_Geometry__Shape);
 				}
 			};
-			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

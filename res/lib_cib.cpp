@@ -1,28 +1,29 @@
 #include "cib_$MODULE$Lib.h"
+#include "$CIBIDHDR$"
 #include <map>
 
-namespace _cib_ { namespace $MODULE$ {
-   typedef std::map<int, ::_cib_::$MODULE$::MetaInterface*> MetaInterfaceRepository;
+namespace _cib_ { namespace $MODULE$Lib {
+   typedef std::map<int, ::_cib_::$MODULE$Lib::MetaInterface*> MetaInterfaceRepository;
    MetaInterfaceRepository gMetaInterfaceRepository; // This map is filled by InitMetaInterfaceRepository.
    void InitMetaInterfaceRepository();
 
    namespace CtoCpp {
       namespace MetaInterface {
-         ::_cib_::$MODULE$::MetaInterface* __stdcall GetMetaInterface(int classCibId)
+         ::_cib_::$MODULE$Lib::MetaInterface* __stdcall GetMetaInterface(int classCibId)
          {
             if(classCibId == 0) // Requested an adhoc interface.
-               return new ::_cib_::$MODULE$::MetaInterface;
+               return new ::_cib_::$MODULE$Lib::MetaInterface;
             if(gMetaInterfaceRepository.empty())
                InitMetaInterfaceRepository();
             return gMetaInterfaceRepository[classCibId];
          }
 
-         void __stdcall AddMethod(::_cib_::$MODULE$::MetaInterface* intrface, int funcCibId, void* proc)
+         void __stdcall AddMethod(::_cib_::$MODULE$Lib::MetaInterface* intrface, int funcCibId, void* proc)
          {
             intrface->AddMethod(funcCibId, proc);
          }
 
-         void* __stdcall GetMethod(::_cib_::$MODULE$::MetaInterface* intrface, int funcCibId)
+         void* __stdcall GetMethod(::_cib_::$MODULE$Lib::MetaInterface* intrface, int funcCibId)
          {
             return intrface->GetMethod(funcCibId);
          }
@@ -39,9 +40,9 @@ extern "C" $CIBEXPAPI$ void* __stdcall cib$MODULE$GetMetaInterfaceMethod(int met
 {
    switch(methodId)
    {
-   case 0: return (void*) _cib_::$MODULE$::CtoCpp::MetaInterface::GetMetaInterface;
-   case 1: return (void*) _cib_::$MODULE$::CtoCpp::MetaInterface::AddMethod;
-   case 2: return (void*) _cib_::$MODULE$::CtoCpp::MetaInterface::GetMethod;
+   case 0: return (void*) _cib_::$MODULE$Lib::CtoCpp::MetaInterface::GetMetaInterface;
+   case 1: return (void*) _cib_::$MODULE$Lib::CtoCpp::MetaInterface::AddMethod;
+   case 2: return (void*) _cib_::$MODULE$Lib::CtoCpp::MetaInterface::GetMethod;
    }
    return 0;
 }

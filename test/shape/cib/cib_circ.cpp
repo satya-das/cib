@@ -1,7 +1,9 @@
+#include "ShapeLib_cibids.h"
+
 #include "cib_ShapeLib.h"
 #include "circ.h"
 
-namespace _cib_ { namespace Shape { namespace CtoCpp {
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 	namespace Geometry {
 		namespace Circle {
 			::Geometry::Circle* __stdcall __new(int Ox, int Oy, int radius) {
@@ -24,17 +26,17 @@ namespace _cib_ { namespace Shape { namespace CtoCpp {
 				return pCircleObj;
 			}
 
-			class MetaInterface : public ::_cib_::Shape::MetaInterface {
+			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(20100, (void*) __new);
-					AddMethod(20101, (void*) Area);
-					AddMethod(20102, (void*) Perimeter);
-					AddMethod(20103, (void*) Draw);
-					AddMethod(20001, (void*) __cast_to_Geometry__Shape);
+					AddMethod(::_cib_::ShapeLib::Geometry::Circle::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::ShapeLib::Geometry::Circle::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::ShapeLib::Geometry::Circle::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::ShapeLib::Geometry::Circle::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::ShapeLib::Geometry::Circle::kCIBID___cast_to_Geometry__Shape, (void*) __cast_to_Geometry__Shape);
 				}
 			};
-			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

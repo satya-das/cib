@@ -9,7 +9,7 @@
 
 #include <map>
 
-namespace _cib_ { namespace $MODULE$ {
+namespace _cib_ { namespace $MODULE$Lib {
     /**
      * \brief MetaInterface is just a map between unique id and function pointer.
 

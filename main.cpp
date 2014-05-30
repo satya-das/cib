@@ -1,5 +1,6 @@
 #include "cppprogex.h"
 #include "cppapi.h"
+#include "idmgr.h"
 
 #include "cppdom.h"
 
@@ -105,6 +106,12 @@ int main(int argc, char* argv[])
       return 0;
    }
 
+   if(vm.find("module") == vm.end())
+   {
+	   std::cerr << "Error: Module parameter is a must.\n\n";
+	   std::cout << desc << "\n";
+	   return -1;
+   }
    bfs::path inputPath;
    bfs::path outputPath;
    bfs::path binderPath;
@@ -135,10 +142,15 @@ int main(int argc, char* argv[])
    bfs::create_directories(outputPath);
    // First load all files as DOM.
    gCppProgram.loadProgramEx(inputPath);
-
+   CibIdMgr idMgr(gParams.moduleName);
+   idMgr.assignIds(gCppProgram);
+   std::string cibIdFileName = gParams.moduleName + "Lib_cibids.h";
+   idMgr.saveIds((binderPath / cibIdFileName).string());
+   idMgr.saveIds((outputPath / cibIdFileName).string());
    StringToStringMap substituteInfo;
    substituteInfo["MODULE"]		= gParams.moduleName;
    substituteInfo["CIBEXPAPI"]	= "__declspec(dllexport)";
+   substituteInfo["CIBIDHDR"]	= cibIdFileName;
    // Now emit declarations.
    { // Emit cib.h for library.
       std::strstreambuf tmpbuf;
@@ -180,9 +192,11 @@ int main(int argc, char* argv[])
        cppapiCompound->emitDecl(incStm);
        bfs::path usrSrcPath = usrIncPath; usrSrcPath.replace_extension(".cpp");
        std::ofstream srcStm(usrSrcPath.native(), std::ios_base::out);
+	   srcStm << "#include \"" << cibIdFileName << "\"\n\n";
        cppapiCompound->emitUsrGlueCode(srcStm);
        bfs::path bndSrcPath = binderPath / (_T("cib_") + usrSrcPath.filename().native());
        std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
+	   bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
        cppapiCompound->emitLibGlueCode(bindSrcStm);
 
        // Emit #include in cib_all_sources.cpp.
@@ -200,7 +214,7 @@ int main(int argc, char* argv[])
    }
 
    cibLibSrcStm << '\n';
-   cibLibSrcStm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << " {\n";
+   cibLibSrcStm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib {\n";
    ++indentation;
    cibLibSrcStm << indentation << "void InitMetaInterfaceRepository() {\n";
    ++indentation;

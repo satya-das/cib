@@ -89,7 +89,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>..\..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib</Command>
+      <Command>..\..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib -m Shape</Command>
       <Message>Running cib.exe to generate binder code.</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>

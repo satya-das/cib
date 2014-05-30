@@ -17,6 +17,9 @@
     <ClInclude Include="cppprogex.h">
       <Filter>inc</Filter>
     </ClInclude>
+    <ClInclude Include="idmgr.h">
+      <Filter>inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -26,6 +29,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="cppprogex.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="idmgr.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

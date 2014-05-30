@@ -1,7 +1,9 @@
+#include "ShapeLib_cibids.h"
+
 #include "cib_ShapeLib.h"
 #include "shape.h"
 
-namespace _cib_ { namespace Shape { namespace CtoCpp {
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 	namespace Geometry {
 		namespace Shape {
 			double __stdcall Area(::Geometry::Shape* pShapeObj) {
@@ -20,16 +22,16 @@ namespace _cib_ { namespace Shape { namespace CtoCpp {
 				delete pShapeObj;
 			}
 
-			class MetaInterface : public ::_cib_::Shape::MetaInterface {
+			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(80100, (void*) Area);
-					AddMethod(80101, (void*) Perimeter);
-					AddMethod(80102, (void*) Draw);
-					AddMethod(80103, (void*) __delete);
+					AddMethod(::_cib_::ShapeLib::Geometry::Shape::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::ShapeLib::Geometry::Shape::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::ShapeLib::Geometry::Shape::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::ShapeLib::Geometry::Shape::kCIBID___delete, (void*) __delete);
 				}
 			};
-			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

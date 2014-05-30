@@ -1,28 +1,29 @@
 #include "cib_ShapeLib.h"
+#include "ShapeLib_cibids.h"
 #include <map>
 
-namespace _cib_ { namespace Shape {
-   typedef std::map<int, ::_cib_::Shape::MetaInterface*> MetaInterfaceRepository;
+namespace _cib_ { namespace ShapeLib {
+   typedef std::map<int, ::_cib_::ShapeLib::MetaInterface*> MetaInterfaceRepository;
    MetaInterfaceRepository gMetaInterfaceRepository; // This map is filled by InitMetaInterfaceRepository.
    void InitMetaInterfaceRepository();
 
    namespace CtoCpp {
       namespace MetaInterface {
-         ::_cib_::Shape::MetaInterface* __stdcall GetMetaInterface(int classCibId)
+         ::_cib_::ShapeLib::MetaInterface* __stdcall GetMetaInterface(int classCibId)
          {
             if(classCibId == 0) // Requested an adhoc interface.
-               return new ::_cib_::Shape::MetaInterface;
+               return new ::_cib_::ShapeLib::MetaInterface;
             if(gMetaInterfaceRepository.empty())
                InitMetaInterfaceRepository();
             return gMetaInterfaceRepository[classCibId];
          }
 
-         void __stdcall AddMethod(::_cib_::Shape::MetaInterface* intrface, int funcCibId, void* proc)
+         void __stdcall AddMethod(::_cib_::ShapeLib::MetaInterface* intrface, int funcCibId, void* proc)
          {
             intrface->AddMethod(funcCibId, proc);
          }
 
-         void* __stdcall GetMethod(::_cib_::Shape::MetaInterface* intrface, int funcCibId)
+         void* __stdcall GetMethod(::_cib_::ShapeLib::MetaInterface* intrface, int funcCibId)
          {
             return intrface->GetMethod(funcCibId);
          }
@@ -39,33 +40,33 @@ extern "C" __declspec(dllexport) void* __stdcall cibShapeGetMetaInterfaceMethod(
 {
    switch(methodId)
    {
-   case 0: return (void*) _cib_::Shape::CtoCpp::MetaInterface::GetMetaInterface;
-   case 1: return (void*) _cib_::Shape::CtoCpp::MetaInterface::AddMethod;
-   case 2: return (void*) _cib_::Shape::CtoCpp::MetaInterface::GetMethod;
+   case 0: return (void*) _cib_::ShapeLib::CtoCpp::MetaInterface::GetMetaInterface;
+   case 1: return (void*) _cib_::ShapeLib::CtoCpp::MetaInterface::AddMethod;
+   case 2: return (void*) _cib_::ShapeLib::CtoCpp::MetaInterface::GetMethod;
    }
    return 0;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-namespace _cib_ { namespace Shape { namespace CtoCpp {
-	namespace Geometry { namespace Circle { ::_cib_::Shape::MetaInterface* CreateMetaInterface(); }}
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+	namespace Geometry { namespace Circle { ::_cib_::ShapeLib::MetaInterface* CreateMetaInterface(); }}
 }}}
-namespace _cib_ { namespace Shape { namespace CtoCpp {
-	namespace Geometry { namespace Composite { ::_cib_::Shape::MetaInterface* CreateMetaInterface(); }}
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+	namespace Geometry { namespace Composite { ::_cib_::ShapeLib::MetaInterface* CreateMetaInterface(); }}
 }}}
-namespace _cib_ { namespace Shape { namespace CtoCpp {
-	namespace Geometry { namespace Rectangle { ::_cib_::Shape::MetaInterface* CreateMetaInterface(); }}
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+	namespace Geometry { namespace Rectangle { ::_cib_::ShapeLib::MetaInterface* CreateMetaInterface(); }}
 }}}
-namespace _cib_ { namespace Shape { namespace CtoCpp {
-	namespace Geometry { namespace Shape { ::_cib_::Shape::MetaInterface* CreateMetaInterface(); }}
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+	namespace Geometry { namespace Shape { ::_cib_::ShapeLib::MetaInterface* CreateMetaInterface(); }}
 }}}
 
-namespace _cib_ { namespace Shape {
+namespace _cib_ { namespace ShapeLib {
 	void InitMetaInterfaceRepository() {
-		gMetaInterfaceRepository[20000] = _cib_::Shape::CtoCpp::Geometry::Circle::CreateMetaInterface();
-		gMetaInterfaceRepository[40000] = _cib_::Shape::CtoCpp::Geometry::Composite::CreateMetaInterface();
-		gMetaInterfaceRepository[60000] = _cib_::Shape::CtoCpp::Geometry::Rectangle::CreateMetaInterface();
-		gMetaInterfaceRepository[80000] = _cib_::Shape::CtoCpp::Geometry::Shape::CreateMetaInterface();
+		gMetaInterfaceRepository[::_cib_::ShapeLib::Geometry::kCIBID_Circle] = _cib_::ShapeLib::CtoCpp::Geometry::Circle::CreateMetaInterface();
+		gMetaInterfaceRepository[::_cib_::ShapeLib::Geometry::kCIBID_Composite] = _cib_::ShapeLib::CtoCpp::Geometry::Composite::CreateMetaInterface();
+		gMetaInterfaceRepository[::_cib_::ShapeLib::Geometry::kCIBID_Rectangle] = _cib_::ShapeLib::CtoCpp::Geometry::Rectangle::CreateMetaInterface();
+		gMetaInterfaceRepository[::_cib_::ShapeLib::Geometry::kCIBID_Shape] = _cib_::ShapeLib::CtoCpp::Geometry::Shape::CreateMetaInterface();
 	}
 }}

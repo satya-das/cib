@@ -9,7 +9,7 @@
 
 #include <map>
 
-namespace _cib_ { namespace Shape {
+namespace _cib_ { namespace ShapeLib {
     /**
      * \brief MetaInterface is just a map between unique id and function pointer.
 

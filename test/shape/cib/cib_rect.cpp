@@ -1,7 +1,9 @@
+#include "ShapeLib_cibids.h"
+
 #include "cib_ShapeLib.h"
 #include "rect.h"
 
-namespace _cib_ { namespace Shape { namespace CtoCpp {
+namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 	namespace Geometry {
 		namespace Rectangle {
 			::Geometry::Rectangle* __stdcall __new(int left, int top, int right, int bottom) {
@@ -24,17 +26,17 @@ namespace _cib_ { namespace Shape { namespace CtoCpp {
 				return pRectangleObj;
 			}
 
-			class MetaInterface : public ::_cib_::Shape::MetaInterface {
+			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(60100, (void*) __new);
-					AddMethod(60101, (void*) Area);
-					AddMethod(60102, (void*) Perimeter);
-					AddMethod(60103, (void*) Draw);
-					AddMethod(60001, (void*) __cast_to_Geometry__Shape);
+					AddMethod(::_cib_::ShapeLib::Geometry::Rectangle::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::ShapeLib::Geometry::Rectangle::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::ShapeLib::Geometry::Rectangle::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::ShapeLib::Geometry::Rectangle::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::ShapeLib::Geometry::Rectangle::kCIBID___cast_to_Geometry__Shape, (void*) __cast_to_Geometry__Shape);
 				}
 			};
-			::_cib_::Shape::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}
