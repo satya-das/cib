@@ -23,6 +23,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "idmgr.h"
 
+#include "cppparser.h"
+
 #include <strstream>
 #include <ostream>
 
@@ -32,15 +34,82 @@ void CibIdMgr::init()
 {
 }
 
+void CibIdMgr::loadIds(const CppCompound* nodeCompound, CibIdNode& idNode)
+{
+	for(CppObjArray::const_iterator nodeMemItr = nodeCompound->members_.begin(); nodeMemItr != nodeCompound->members_.end(); ++nodeMemItr)
+	{
+		CppObj* cppObj = *nodeMemItr;
+		if(cppObj->objType_ == CppObj::kEnum)
+		{
+			CppEnum* idEnum = (CppEnum*) cppObj;
+			if(idEnum->itemList_ == NULL)
+				continue;
+			for(CppEnumItemList::const_iterator enmItmItr = idEnum->itemList_->begin(); enmItmItr != idEnum->itemList_->end(); ++enmItmItr)
+			{
+				CppEnumItem* enmUniqStrItm = *enmItmItr;
+				if(!enmUniqStrItm->name_.empty())
+					continue;
+				if(enmUniqStrItm->anyItem_->objType_ != CppObj::kDocComment)
+					continue;
+				CppDocComment* uniqStrComment = (CppDocComment*) enmUniqStrItm->anyItem_;
+				size_t uniqStrStartPos = uniqStrComment->doc_.find('/');
+				if(uniqStrStartPos == uniqStrComment->doc_.npos)
+					continue;
+				if(uniqStrComment->doc_.length() < uniqStrStartPos+7 || uniqStrComment->doc_.back() != ';')
+					continue;
+				++enmItmItr;
+				if(enmItmItr == idEnum->itemList_->end())
+					break;
+				CppEnumItem* enmItmData = *enmItmItr;
+				if(enmItmData->name_.empty() || enmItmData->val_ == NULL || enmItmData->val_->objType_ != CppObj::kExpression)
+					continue;
+				CppExpr* valExpr = enmItmData->val_;
+				if(valExpr->expr1_.type != CppExprAtom::kAtom || valExpr->expr1_.atom == NULL || valExpr->expr1_.atom->length() == 0)
+					continue;
+				CibIdData& cibIdData = idNode.idEnum[uniqStrComment->doc_.substr(uniqStrStartPos+5)];
+				cibIdData.idName = enmItmData->name_;
+				cibIdData.idVal = atoi(valExpr->expr1_.atom->c_str());
+				if(lastCibId_ < cibIdData.idVal)
+					lastCibId_ = cibIdData.idVal;
+			}
+		}
+		else if(cppObj->objType_ == CppObj::kCompound)
+		{
+			CppCompound* childNode = (CppCompound*) cppObj;
+			loadIds(childNode, idNode.childs[childNode->name_]);
+		}
+	}
+}
+
 bool CibIdMgr::loadIds(const std::string& idsFilePath)
 {
-	if(!idTreeRoot_.idEnum.empty() || idTreeRoot_.childs.empty())
+	CppCompound* idsCppFile = parseSingleFile(idsFilePath.c_str());
+	if(idsCppFile == NULL)
 		return false;
-
+	for(CppObjArray::const_iterator idsFileMemItr = idsCppFile->members_.begin(); idsFileMemItr != idsCppFile->members_.end(); ++idsFileMemItr)
+	{
+		const CppObj* cppObj = *idsFileMemItr;
+		if(cppObj->objType_ != CppObj::kCompound)
+			continue;
+		CppCompound* cibNs = (CppCompound*) cppObj;
+		if(cibNs->name_ != "_cib_")
+			return false;
+		for(CppObjArray::const_iterator cibNsMemItr = cibNs->members_.begin(); cibNsMemItr != cibNs->members_.end(); ++cibNsMemItr)
+		{
+			const CppObj* cppObj = *cibNsMemItr;
+			if(cppObj->objType_ != CppObj::kCompound)
+				continue;
+			CppCompound* cibModuleNs = (CppCompound*) cppObj;
+			if(cibModuleNs->name_ != moduleName_ + "Lib")
+				return false;
+			loadIds(cibModuleNs, oldIdTreeRoot_);
+			return true;
+		}
+	}
 	return true;
 }
 
-void CibIdMgr::assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode)
+void CibIdMgr::assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode)
 {
 	CppApiInheritInfo::const_iterator parentSetItr = compound->parents_.find(kPublic);
 	if(parentSetItr == compound->parents_.end())
@@ -51,14 +120,26 @@ void CibIdMgr::assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNo
 	{
 		const CppApiCompound* pubParent = *parentItr;
 		std::ostrstream tmpbuf;
-		tmpbuf << compound->castToBaseName(pubParent) << "();\n";
-		CibIdData& itemData = idNode.idEnum[std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount())];
+		tmpbuf << compound->castToBaseName(pubParent) << "();";
+		std::string itmUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
+		CibIdData& itemData = idNode.idEnum[itmUniqStr];
 		itemData.idName = compound->castToBaseName(pubParent);
-		itemData.idVal = nextCibId_++;
+		if(oldIdNode)
+		{
+			 CibIdEnum::const_iterator oldItmItr = oldIdNode->idEnum.find(itmUniqStr);
+			 if(oldItmItr == oldIdNode->idEnum.end())
+				itemData.idVal = ++lastCibId_;
+			 else
+				 itemData.idVal = oldItmItr->second.idVal;
+		}
+		else
+		{
+			itemData.idVal = ++lastCibId_;
+		}
 	}
 }
 
-void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode)
+void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode)
 {
 	if(inList.empty())
 		return;
@@ -70,29 +151,49 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 		if(item->isFunctionLike())
 		{
 			CppApiFunction* func = (CppApiFunction*) expProg.CppApiObjFromCppObj(item);
-			enumItemData.idVal = nextCibId_++;
 			std::ostrstream tmpbuf;
 			func->emitOrigDecl(tmpbuf);
-			itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
+			itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
 			enumItemData.idName = func->capiName();
 		}
 		else if(item->isNamespaceLike())
 		{
 			CppCompound* compound = (CppCompound*) item;
-			assignIds(compound->members_, expProg, idNode.childs[compound->name_]);
+			const CibIdNode* childOldIdNode = NULL;
+			if(oldIdNode)
+			{
+				CibIdEnumTree::const_iterator itr = oldIdNode->childs.find(compound->name_);
+				if(itr != oldIdNode->childs.end())
+					childOldIdNode = &(itr->second);
+			}
+			assignIds(compound->members_, expProg, idNode.childs[compound->name_], childOldIdNode);
 			if(compound->isClassLike())
 			{
 				CppApiCompound* cmp = (CppApiCompound*) expProg.CppApiObjFromCppObj(compound);
-				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_]);
-				enumItemData.idVal = nextCibId_++;
+				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode);
 				std::ostrstream tmpbuf;
-				tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ";\n";
+				tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ';';
 				itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
 				enumItemData.idName = compound->name_;
 			}
 		}
 		if(!itemUniqStr.empty() && idNode.idEnum.find(itemUniqStr) == idNode.idEnum.end()) // Item does not exist
+		{
+			if(oldIdNode)
+			{
+				CibIdEnum::const_iterator oldItmItr = oldIdNode->idEnum.find(itemUniqStr);
+				if(oldItmItr == oldIdNode->idEnum.end())
+					enumItemData.idVal = ++lastCibId_;
+				else
+					enumItemData.idVal = oldItmItr->second.idVal;
+			}
+			else
+			{
+				enumItemData.idVal = ++lastCibId_;
+			}
+
 			idNode.idEnum[itemUniqStr] = enumItemData;
+		}
 	}
 }
 
@@ -103,7 +204,7 @@ void CibIdMgr::assignIds(CppProgramEx& expProg)
 	for(CppCompoundArray::const_iterator fileDomItr = fileDOMs.begin(); fileDomItr != fileDOMs.end(); ++fileDomItr)
 	{
 		const CppCompound* fileCmpound = *fileDomItr;
-		assignIds(fileCmpound->members_, expProg, idTreeRoot_);
+		assignIds(fileCmpound->members_, expProg, idTreeRoot_, &oldIdTreeRoot_);
 	}
 }
 
@@ -130,7 +231,7 @@ void CibIdMgr::emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::In
 		++indentation;
 		for(CibIdEnum::const_iterator enmItmItr = idNode.idEnum.begin(); enmItmItr != idNode.idEnum.end(); ++enmItmItr)
 		{
-			stm << indentation << "//#= " << enmItmItr->first;
+			stm << indentation << "//#= " << enmItmItr->first << '\n';
 			stm << indentation << "kCIBID_" << enmItmItr->second.idName << " = " << enmItmItr->second.idVal << ",\n";
 		}
 		--indentation;

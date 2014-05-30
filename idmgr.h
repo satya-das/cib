@@ -88,20 +88,21 @@ public:
 
 private:
 	void init();
-	void assignIds(const CppCompound* cmpound, CppTypeTreeNode* typeNode);
-	void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode);
-	void assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode);
+	void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
+	void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode);
+	void assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode);
 	void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
 
 private:
 	std::string		moduleName_;
 	CibIdNode		idTreeRoot_;
-	CibId			nextCibId_;
+	CibIdNode		oldIdTreeRoot_;
+	CibId			lastCibId_;
 };
 
 inline CibIdMgr::CibIdMgr(std::string moduleName)
 	: moduleName_(std::move(moduleName))
-	, nextCibId_(1)
+	, lastCibId_(0)
 {
 }
 

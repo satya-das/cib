@@ -142,9 +142,10 @@ int main(int argc, char* argv[])
    bfs::create_directories(outputPath);
    // First load all files as DOM.
    gCppProgram.loadProgramEx(inputPath);
-   CibIdMgr idMgr(gParams.moduleName);
-   idMgr.assignIds(gCppProgram);
    std::string cibIdFileName = gParams.moduleName + "Lib_cibids.h";
+   CibIdMgr idMgr(gParams.moduleName);
+   idMgr.loadIds((binderPath / cibIdFileName).string());
+   idMgr.assignIds(gCppProgram);
    idMgr.saveIds((binderPath / cibIdFileName).string());
    idMgr.saveIds((outputPath / cibIdFileName).string());
    StringToStringMap substituteInfo;
