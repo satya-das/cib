@@ -185,7 +185,7 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CppApiCompound* cppapiCompound = (CppApiCompound*) gCppProgram.CppApiObjFromCppObj(cppDom);
+       CibCppCompound* cppapiCompound = (CibCppCompound*) gCppProgram.CibCppObjFromCppObj(cppDom);
 	   if(cppapiCompound == NULL)
 		   continue;
        bfs::path usrIncPath = outputPath / cppDom->name_.substr(inputPath.native().length());
@@ -205,12 +205,12 @@ int main(int argc, char* argv[])
        allLibCibSources << "#include \"" << relative_path(binderPath, bndSrcPath).string() << "\"\n";
    }
 
-   CppApiIndent indentation;
+   CibIndent indentation;
    cibLibSrcStm << '\n';
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
       CppCompound* cppDom = *domItr;
-      CppApiCompound* cppapiCompound = (CppApiCompound*)gCppProgram.CppApiObjFromCppObj(cppDom);
+      CibCppCompound* cppapiCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
       cppapiCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, indentation);
    }
 
@@ -222,7 +222,7 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CppApiCompound* cppapiCompound = (CppApiCompound*)gCppProgram.CppApiObjFromCppObj(cppDom);
+       CibCppCompound* cppapiCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
        cppapiCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, indentation);
    }
    cibLibSrcStm << --indentation << "}\n";

@@ -109,16 +109,16 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
 	return true;
 }
 
-void CibIdMgr::assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode)
+void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode)
 {
-	CppApiInheritInfo::const_iterator parentSetItr = compound->parents_.find(kPublic);
+	CibCppInheritInfo::const_iterator parentSetItr = compound->parents_.find(kPublic);
 	if(parentSetItr == compound->parents_.end())
 		return;
-	const CppApiCompoundArray& pubParents = parentSetItr->second;
+	const CibCppCompoundArray& pubParents = parentSetItr->second;
 
-	for(CppApiCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
+	for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
 	{
-		const CppApiCompound* pubParent = *parentItr;
+		const CibCppCompound* pubParent = *parentItr;
 		std::ostrstream tmpbuf;
 		tmpbuf << compound->castToBaseName(pubParent) << "();";
 		std::string itmUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
@@ -150,7 +150,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 		CppObj* item = *itemItr;
 		if(item->isFunctionLike())
 		{
-			CppApiFunction* func = (CppApiFunction*) expProg.CppApiObjFromCppObj(item);
+			CibCppFunction* func = (CibCppFunction*) expProg.CibCppObjFromCppObj(item);
 			std::ostrstream tmpbuf;
 			func->emitOrigDecl(tmpbuf);
 			itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
@@ -169,7 +169,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 			assignIds(compound->members_, expProg, idNode.childs[compound->name_], childOldIdNode);
 			if(compound->isClassLike())
 			{
-				CppApiCompound* cmp = (CppApiCompound*) expProg.CppApiObjFromCppObj(compound);
+				CibCppCompound* cmp = (CibCppCompound*) expProg.CibCppObjFromCppObj(compound);
 				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode);
 				std::ostrstream tmpbuf;
 				tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ';';

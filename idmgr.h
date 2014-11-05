@@ -90,7 +90,7 @@ private:
 	void init();
 	void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
 	void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode);
-	void assignIdsToSpecialMethods(const CppApiCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode);
+	void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode);
 	void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
 
 private:

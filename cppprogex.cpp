@@ -3,19 +3,19 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-void CppProgramEx::buildCppApiObjTree()
+void CppProgramEx::buildCibCppObjTree()
 {
 	for(CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
-		CppCompoundObjToCppApiCompound(*domItr, NULL);
+		CppCompoundObjToCibCppCompound(*domItr, NULL);
 	for(CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
 		resolveInheritance(*domItr);
 }
 
-CppApiCompound* CppProgramEx::CppCompoundObjToCppApiCompound(CppCompound* cppCompound, CppApiCompound* owner)
+CibCppCompound* CppProgramEx::CppCompoundObjToCibCppCompound(CppCompound* cppCompound, CibCppCompound* owner)
 {
-   assert(cppObjToCppApiObjMap_.find(cppCompound) == cppObjToCppApiObjMap_.end()); // It must not be already present in repo.
-   CppApiCompound* apiCompound = new CppApiCompound(cppCompound, owner);
-   cppObjToCppApiObjMap_[cppCompound] = apiCompound;
+   assert(cppObjToCibCppObjMap_.find(cppCompound) == cppObjToCibCppObjMap_.end()); // It must not be already present in repo.
+   CibCppCompound* apiCompound = new CibCppCompound(cppCompound, owner);
+   cppObjToCibCppObjMap_[cppCompound] = apiCompound;
 
    for(CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
    {
@@ -24,22 +24,22 @@ CppApiCompound* CppProgramEx::CppCompoundObjToCppApiCompound(CppCompound* cppCom
       {
 	  case CppObj::kCompound:
          {
-            CppCompoundObjToCppApiCompound((CppCompound*) mem, apiCompound);
+            CppCompoundObjToCibCppCompound((CppCompound*) mem, apiCompound);
             break;
          }
       case CppObj::kFunction:
          {
-            CppFunctionObjToCppApiFunction((CppFunction*) mem, apiCompound);
+            CppFunctionObjToCibCppFunction((CppFunction*) mem, apiCompound);
             break;
          }
 	  case CppObj::kConstructor:
 		  {
-			  CppConstructorObjToCppApiFunction((CppConstructor*) mem, apiCompound);
+			  CppConstructorObjToCibCppFunction((CppConstructor*) mem, apiCompound);
 			  break;
 		  }
 	  case CppObj::kDestructor:
 		  {
-			  CppDestructorObjToCppApiFunction((CppDestructor*) mem, apiCompound);
+			  CppDestructorObjToCibCppFunction((CppDestructor*) mem, apiCompound);
 			  break;
 		  }
       }
@@ -48,7 +48,7 @@ CppApiCompound* CppProgramEx::CppCompoundObjToCppApiCompound(CppCompound* cppCom
    return apiCompound;
 }
 
-const CppApiObj* CppProgramEx::getCppApiObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode)
+const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode)
 {
     size_t nameBegPos = 0;
     size_t nameEndPos = name.find("::", nameBegPos);
@@ -75,7 +75,7 @@ const CppApiObj* CppProgramEx::getCppApiObjFromTypeName(const std::string& name,
             typeNode = &itr->second;
         } while (nameEndPos >= name.length());
     }
-    return typeNode ? CppApiObjFromCppObj(*(typeNode->cppObjSet.begin())) : NULL;
+    return typeNode ? CibCppObjFromCppObj(*(typeNode->cppObjSet.begin())) : NULL;
 }
 
 void CppProgramEx::resolveInheritance(CppCompound* cppCompound)
@@ -85,11 +85,11 @@ void CppProgramEx::resolveInheritance(CppCompound* cppCompound)
 	{
 		for(CppInheritanceList::const_iterator itrInh = cppCompound->inheritList_->begin(); itrInh != cppCompound->inheritList_->end(); ++itrInh)
 		{
-			CppApiCompound* parentObj = (CppApiCompound*) getCppApiObjFromTypeName(itrInh->baseName, &ownerTypeNode);
+			CibCppCompound* parentObj = (CibCppCompound*) getCibCppObjFromTypeName(itrInh->baseName, &ownerTypeNode);
 			// assert(parentObj != NULL); // we should actually give warning here.
 			if(parentObj == NULL)
 				continue;
-			CppApiCompound* apiCompound = (CppApiCompound*) cppObjToCppApiObjMap_[cppCompound];
+			CibCppCompound* apiCompound = (CibCppCompound*) cppObjToCibCppObjMap_[cppCompound];
 			CppObjProtLevel inhType = itrInh->inhType == kUnknownProt ? defaultInheritanceType(cppCompound->compoundType_) : itrInh->inhType;
 			apiCompound->parents_[inhType].push_back(parentObj);
 			parentObj->children_[inhType].push_back(apiCompound);
