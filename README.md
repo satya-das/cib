@@ -9,7 +9,7 @@ Component Interface Binder (CIB)	{#mainpage}
 *Because there is no way for C++ to be ABI compatible programmers use C for exporting APIs that can be called from across a DLL boundary.  
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers (and different versions of same compiler) and that does not change based on compiler switch, will make it possible, at-least in theory, to use C++ for exporting APIs.  
 But even if that becomes reality using C++ as public header will still be a difficulty in practice. A C++ class definition also contains private methods and data members which a programmer may not want its client to see. So, a C++ programmer will have to use a design pattern like [bridge](en.wikipedia.org/wiki/Bridge_pattern) or segregation of interface and implementation as used in COM.  
-CIB solves the incompatible ABI problem and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler trick, it does not try to to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
+CIB solves the incompatible ABI problem and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler trick, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
 
 ## Overview			{#Overview}
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component built using different compiler or different version of same compiler.
@@ -24,7 +24,7 @@ For example it can be used by an application program to export C++ SDK which can
   - Client can use library provided classes without linking with the library at compile time.
   - Client will not need recompiling when there is minor change in class inheritance. For example if in one version of library class B was derived from A and in next version class B is derived by both A and C then such change will not enforce client to recompile and clients compiled with previous version of headers will keep working with new version of library. **This too is something that no ABI compatible standard will be able to support.**
 
- ***Most/all of these features are provided by COM. But CIB has other advantages over COM.***
+ **Some of these features are provided by COM. But CIB has other advantages over COM.**
 
   - Client can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
   - No need to write interface definition files (.idl/.odl files).
@@ -46,7 +46,7 @@ For example it can be used by an application program to export C++ SDK which can
   - CIB parses all public C/C++ header files of library and creates two sets of files.
   - One set of files should be compiled with the library. We will call it library side glue code
   - The other set should be used by the client of the library. This is client side glue code.
-  - Library side glue code defines raw C APIs with calling convention __stdcall for all functions including class methods, constructors, and destructors. Calling convention **\_\_stdcall** is honored by all compilers on all platforms.
+  - Library side glue code defines raw C APIs with calling convention \_\_stdcall for all functions including class methods, constructors, and destructors. Calling convention **\_\_stdcall** is honored by all compilers on all platforms.
   - Implementation of such C APIs are just to delegate the call to original function/method/constructor/destructor/etc.
   - All C APIs are assigned an integer value as its ID. This ID for an API will remain same across releases.
   - For every class/struct/union/namespace a **MetaInterface** is defined which is nothing but a map between API Id and C API function pointer.
@@ -70,18 +70,20 @@ Files in **shape/exp** are meant for **draw** project to compile.
 Look at files in **shape/cib** and **shape/exp** folders to know how exactly **CIB** makes it possible to use C++ as an interface between two binary components even when C++ comes with inherent ABI incompatibility problem.
 
 ## Building CIB	{#BuildingCIB}
-To build CIB you need to pull ***common***, ***cppparser***, and ***cib*** source code in such a way that you get folders with these names in same parent folder. Basically you need to run git clone in same folder for all these projects.
-
-## Implementation Details 	{#ImplementationDetails}
-### Creating proxy class from handle	{#CreatingProxyClassFromHandle}
-When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class
+To build CIB you need to pull **common**, **cppparser**, and **cib** source code in such a way that you get folders with these names in same parent folder. Basically you need to run git clone in same folder for all these projects.
 
 ## Feature Progress	{#FeatureProgress}
 
 
 | Feature	| Description|	Status |  
 |------------|:---------------------------------|:---------|  
-| Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done
+| Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
+| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle.||
+| Allow inheritance by client | Client can derive from library provided class and should be able to pass a pointer of instance of client class to library API. ||
 
 
+---
 
+## Implementation Details 	{#ImplementationDetails}
+### Creating proxy class from handle	{#CreatingProxyClassFromHandle}
+When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class
