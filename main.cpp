@@ -1,5 +1,5 @@
 #include "cppprogex.h"
-#include "cppapi.h"
+#include "cib.h"
 #include "idmgr.h"
 
 #include "cppdom.h"

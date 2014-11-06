@@ -3,7 +3,7 @@
 
 #include "cppprog.h"
 
-#include "cppapi.h"
+#include "cib.h"
 
 #include <boost/filesystem.hpp>
 
