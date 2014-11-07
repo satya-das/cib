@@ -39,8 +39,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\build_results\$(Configuration)\bin\</OutDir>
-    <IntDir>..\build_results\$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir>build_results\$(Configuration)\bin\</OutDir>
+    <IntDir>build_results\$(Configuration)\obj\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -56,7 +56,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;BOOST_AUTO_LINK_NOMANGLE</PreprocessorDefinitions>
       <PrecompiledHeaderFile>
       </PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\cppparser\pub;../common/third_party/boost_tp</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>cppparser\pub;common/third_party/boost_tp</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -65,7 +65,7 @@
       <AdditionalLibraryDirectories>$(OutDir)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>XCOPY /Y /D /S res ..\build_results\$(Configuration)\bin\cibres\</Command>
+      <Command>XCOPY /Y /D /S res build_results\$(Configuration)\bin\cibres\</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying skeleton files to build result location. These files will be needed by cib.exe.</Message>
@@ -107,16 +107,16 @@
     <ClInclude Include="idmgr.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\filesystem.vcxproj">
+    <ProjectReference Include="common\third_party\boost_tp\msvs10\filesystem.vcxproj">
       <Project>{7399d785-1fb0-4bf1-99b0-749a834c27fe}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\program_options.vcxproj">
+    <ProjectReference Include="common\third_party\boost_tp\msvs10\program_options.vcxproj">
       <Project>{1676629e-f1ea-4b10-af62-db124f7896ef}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\system.vcxproj">
+    <ProjectReference Include="common\third_party\boost_tp\msvs10\system.vcxproj">
       <Project>{f18660c5-3dd5-4d9d-9d94-a6b347a0eabc}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\cppparser\cppparser.vcxproj">
+    <ProjectReference Include="cppparser\cppparser.vcxproj">
       <Project>{345c65d4-a3e2-43ab-ae1c-ba295119c74e}</Project>
     </ProjectReference>
   </ItemGroup>
