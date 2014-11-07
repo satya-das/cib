@@ -70,7 +70,20 @@ Files in **shape/exp** are meant for **draw** project to compile.
 Look at files in **shape/cib** and **shape/exp** folders to know how exactly **CIB** makes it possible to use C++ as an interface between two binary components even when C++ comes with inherent ABI incompatibility problem.
 
 ## Building CIB	{#BuildingCIB}
-To build CIB you need to pull **common**, **cppparser**, and **cib** source code in such a way that you get folders with these names in same parent folder. Basically you need to run git clone in same folder for all these projects.
+To build CIB you need to clone this repo and its submodules.
+
+Run the command :
+	
+	git clone --recursive https://github.com/satya-das/cib
+	cd cib
+
+If you already cloned or with Git versions prior to 1.6.5 use :
+
+	git clone https://github.com/satya-das/cib
+	cd cib
+	git submodule update --init --recursive
+
+Now build `cib.sln`.
 
 ## Feature Progress	{#FeatureProgress}
 
