@@ -44,8 +44,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\build_results\$(Configuration)\bin\cibtest\</OutDir>
-    <IntDir>..\..\..\build_results\$(Configuration)\obj\cibtest\$(ProjectName)\</IntDir>
+    <OutDir>..\..\build_results\$(Configuration)\bin\cibtest\</OutDir>
+    <IntDir>..\..\build_results\$(Configuration)\obj\cibtest\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -89,7 +89,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PreBuildEvent>
-      <Command>..\..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib -m Shape</Command>
+      <Command>..\..\build_results\$(Configuration)\bin\cib.exe -i .\pub -o .\exp -b .\cib -m Shape</Command>
       <Message>Running cib.exe to generate binder code.</Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
