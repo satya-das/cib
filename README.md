@@ -78,8 +78,12 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Feature	| Description|	Status |  
 |------------|:---------------------------------|:---------|  
 | Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
-| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle.||
-| Allow inheritance by client | Client can derive from library provided class and should be able to pass a pointer of instance of client class to library API. ||
+| Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected.|In Progress|
+| Allow library to call client side function| When library side code invokes a virtual function using a pointer of base class which is actually pointing to object on client side then calls should land to function defined on client side. |Plan has been chalked out|
+| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle so that equality check using '==' for two pointers of proxy classes should work as expected. |Plan has been chalked out|
+| Support struct | Automatically add getter/setter for public data members. |Needs to be implemented|
+| Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |Plan has been chalked out|
+| STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |Need to discover a good solution|
 
 
 ---
