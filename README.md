@@ -9,7 +9,7 @@ Component Interface Binder (CIB)	{#mainpage}
 *Because there is no way for C++ to be ABI compatible programmers use C for exporting APIs that can be called from across a DLL boundary.  
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers (and different versions of same compiler) and that does not change based on compiler switch, will make it possible, at-least in theory, to use C++ for exporting APIs.  
 But even if that becomes reality using C++ as public header will still be a difficulty in practice. A C++ class definition also contains private methods and data members which a programmer may not want its client to see. So, a C++ programmer will have to use a design pattern like [bridge](en.wikipedia.org/wiki/Bridge_pattern) or segregation of interface and implementation as used in COM.  
-CIB solves the incompatible ABI problem and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler trick, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
+CIB solves the incompatible ABI problem (and it does more than that) and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
 
 ## Overview			{#Overview}
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component built using different compiler or different version of same compiler.
@@ -29,18 +29,35 @@ For example it can be used by an application program to export C++ SDK which can
   - Client can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
   - No need to write interface definition files (.idl/.odl files).
   - No need to maintain order of virtual functions across releases.
+  - No need to maintain order of data members of structs.
+  - No need to have a size member in struct. *This is a big hack almost all C/C++ library uses*.
   - No need to declare all functions as pure virtual. CIB allows a class to export all kind of methods like static, virtual, pure virtual, inline etc. Only thing is that an inline function will not remain inline if invoked by the client.
 
  **CIB allows client of a library to use all exported classes as if those classes are part of the client code itself without exposing the internals of classes.**
 
-## CIB Goals ##
- - To become an easier and better alternative of COM (used as in-proc or out-proc both) for C++ developers.
- - To become an easier and better alternative of DCOM for C++ developers.
+## CIB Goals		{#CIB_Goals}
+ - To become an easier and superior alternative of COM (used as in-proc or out-proc both) for C++ developers.
+ - To become an easier and superior alternative of DCOM for C++ developers.
  - To work on all platforms without any gotcha.
- - To make it possible for client of a C++ library to choose compiler of its own choice and not constrained by library vendor.
+ - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will ofcourse be a small boiler plate code on both side but that's about it, the rest of the code will remain aloof about existence of CIB.
 
+## CIB Architecture		{#CIB_Architecture}
+**Or rather the architecture CIB produces for integration of library and it's client**
 
-## How CIB works ##
+![Integration architecture produced by CIB](file:///C:/github/cib/cib_design.svg "Integration architecture produced by CIB")
+
+**CIB achieves all its functionalities by using few simple design rules:**
+
+1. Only PODs (Plain Old Data) are used as function parameters
+    for calls between CIB layers of two components.
+2. All function calls between two CIB layers uses **__stdcall** convention.
+3. Pointer of an object belonging to a binary component is never dereferenced by another
+    binary component and they are only treated as opaque objects.
+4. Virtual function table of one component is not directly accessed by another component.
+
+**Note that all these restriction are not imposed on library/client developers. The CIB layer, which is automatically generated, takes care of all these rules.**
+
+## How CIB works		{#HowCIBworks}
  Following are the broad things that CIB does:
 
   - CIB parses all public C/C++ header files of library and creates two sets of files.
