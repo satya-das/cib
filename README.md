@@ -44,7 +44,7 @@ For example it can be used by an application program to export C++ SDK which can
 ## CIB Architecture		{#CIB_Architecture}
 **Or rather the architecture CIB produces for integration of library and it's client**
 
-![Integration architecture produced by CIB](cib_design.svg "Integration architecture produced by CIB")
+![Integration architecture produced by CIB](cib_design.png "Integration architecture produced by CIB")
 
 **CIB achieves all its functionalities by using few simple design rules:**
 
