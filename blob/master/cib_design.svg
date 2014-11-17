@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="cib_design.svg">
+   sodipodi:docname="cib_design.svg"
+   inkscape:export-filename="C:\github\cib\cib_design.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -352,7 +355,9 @@
                  y="950.44806"
                  x="243.42029"
                  sodipodi:role="line"
-                 id="tspan4542">2. All function calls between two CIB layers uses **__stdcall** convention.</tspan><tspan
+                 id="tspan4542">2. All function calls between two CIB layers uses <tspan
+   style="font-weight:bold"
+   id="tspan4550">__stdcall</tspan> convention.</tspan><tspan
                  style="font-size:14px"
                  y="967.94806"
                  x="243.42029"
