@@ -101,6 +101,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support struct | Automatically add getter/setter for public data members. |Needs to be implemented|
 | Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |Plan has been chalked out|
 | STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |Need to discover a good solution|
+| Minimize Rebuild | Avoid changing generated files timestamp if there is no change in content||
 
 
 ---

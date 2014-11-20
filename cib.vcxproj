@@ -109,13 +109,13 @@
     <ClInclude Include="idmgr.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\filesystem.vcxproj">
+    <ProjectReference Include="..\common\third_party\boost_tp\msvs\filesystem.vcxproj">
       <Project>{7399d785-1fb0-4bf1-99b0-749a834c27fe}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\program_options.vcxproj">
+    <ProjectReference Include="..\common\third_party\boost_tp\msvs\program_options.vcxproj">
       <Project>{1676629e-f1ea-4b10-af62-db124f7896ef}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\common\third_party\boost_tp\msvs10\system.vcxproj">
+    <ProjectReference Include="..\common\third_party\boost_tp\msvs\system.vcxproj">
       <Project>{f18660c5-3dd5-4d9d-9d94-a6b347a0eabc}</Project>
     </ProjectReference>
     <ProjectReference Include="..\cppparser\cppparser.vcxproj">

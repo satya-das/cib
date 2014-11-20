@@ -23,11 +23,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "draw", "test\draw\draw.vcxp
 		{F303CCF0-93F1-49FB-93F4-378CF8523426} = {F303CCF0-93F1-49FB-93F4-378CF8523426}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system", "..\common\third_party\boost_tp\msvs10\system.vcxproj", "{F18660C5-3DD5-4D9D-9D94-A6B347A0EABC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "system", "..\common\third_party\boost_tp\msvs\system.vcxproj", "{F18660C5-3DD5-4D9D-9D94-A6B347A0EABC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "program_options", "..\common\third_party\boost_tp\msvs10\program_options.vcxproj", "{1676629E-F1EA-4B10-AF62-DB124F7896EF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "program_options", "..\common\third_party\boost_tp\msvs\program_options.vcxproj", "{1676629E-F1EA-4B10-AF62-DB124F7896EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem", "..\common\third_party\boost_tp\msvs10\filesystem.vcxproj", "{7399D785-1FB0-4BF1-99B0-749A834C27FE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "filesystem", "..\common\third_party\boost_tp\msvs\filesystem.vcxproj", "{7399D785-1FB0-4BF1-99B0-749A834C27FE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppparser", "..\cppparser\cppparser.vcxproj", "{345C65D4-A3E2-43AB-AE1C-BA295119C74E}"
 	ProjectSection(ProjectDependencies) = postProject
