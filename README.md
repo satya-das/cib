@@ -9,7 +9,7 @@ Component Interface Binder (CIB)	{#mainpage}
 *Because there is no way for C++ to be ABI compatible programmers use C for exporting APIs that can be called from across a DLL boundary.  
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers (and different versions of same compiler) and that does not change based on compiler switch, will make it possible, at-least in theory, to use C++ for exporting APIs.  
 But even if that becomes reality using C++ as public header will still be a difficulty in practice. A C++ class definition also contains private methods and data members which a programmer may not want its client to see. So, a C++ programmer will have to use a design pattern like [bridge](en.wikipedia.org/wiki/Bridge_pattern) or segregation of interface and implementation as used in COM.  
-CIB solves the incompatible ABI problem (and it does more than that) and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
+CIB solves the incompatible ABI problem (and it does much more than that) and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
 
 ## Overview			{#Overview}
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component built using different compiler or different version of same compiler.
@@ -40,6 +40,13 @@ For example it can be used by an application program to export C++ SDK which can
  - To become an easier and superior alternative of DCOM for C++ developers.
  - To work on all platforms without any gotcha.
  - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will ofcourse be a small boiler plate code on both side but that's about it, the rest of the code will remain aloof about existence of CIB.
+
+## Other Solutions	{#Other_Solutions}
+I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across dll boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals ort some is too specific to the project it was developed for.
+
+ - **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
+ - **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
+ - **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
 
 ## CIB Architecture		{#CIB_Architecture}
 **Or rather the architecture CIB produces for integration of library and it's client**
@@ -101,7 +108,10 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support struct | Automatically add getter/setter for public data members. |Needs to be implemented|
 | Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |Plan has been chalked out|
 | STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |Need to discover a good solution|
-| Minimize Rebuild | Avoid changing generated files timestamp if there is no change in content||
+| Minimize Rebuild | Avoid changing generated files timestamp if there is no change in content. ||
+| Preprocessing | Add support for selective proprocessing and #include expansion. ||
+| Support out-proc | So that two EXEs can be integrated like COM out-proc ||
+| Support RPC |
 
 
 ---
