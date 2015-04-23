@@ -7,8 +7,12 @@
 
 #include <boost/filesystem.hpp>
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+#include <map>
+#include <set>
 
+typedef std::set<std::string> stringset;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * \brief Represents an entire C++ program.
@@ -19,9 +23,9 @@ class CppProgramEx : public CppProgram
 {
 public:
 	CppProgramEx();
-	CppProgramEx(const bfs::path& inputPath);
+	CppProgramEx(const char* inputPath);
 
-	void loadProgramEx(const bfs::path& inputPath) { loadProgram(inputPath); buildCibCppObjTree(); }
+	void loadProgramEx(const char* inputPath) { loadProgram(inputPath); buildCibCppObjTree(); }
 
 public:
     /**
@@ -54,25 +58,32 @@ private:
 	CibCppFunction* CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner);
     void resolveInheritance(CppCompound* cppCompound);
 	void buildCibCppObjTree();
+	/**
+	 * Evaluates argument and return type of function to detect attribute of classes used in args or return type.
+	 */
+	void evaluateArgs(CibCppFunction* func);
 
 private:
     typedef std::map<const CppObj*, const CibCppObj*>       CppObjToCibCppObjMap;
 
 private:
     CppObjToCibCppObjMap    cppObjToCibCppObjMap_;
-	bool					cppApiObjTreeCreated_;
+	bool					cibCppObjTreeCreated_;
+
+	std::map<CibCppCompound*, stringset> facadeLikeClasses_; ///< stringset is the set of names of classes
+	std::map<CibCppCompound*, stringset> intrfcLikeClasses_; ///< stringset is the set of names of classes
 };
 
 //////////////////////////////////////////////////////////////////////////
 
 inline CppProgramEx::CppProgramEx()
-	: cppApiObjTreeCreated_(false)
+	: cibCppObjTreeCreated_(false)
 {
 }
 
-inline CppProgramEx::CppProgramEx(const bfs::path& inputPath)
+inline CppProgramEx::CppProgramEx(const char* inputPath)
 	: CppProgram(inputPath)
-	, cppApiObjTreeCreated_(false)
+	, cibCppObjTreeCreated_(false)
 {
 	buildCibCppObjTree();
 }

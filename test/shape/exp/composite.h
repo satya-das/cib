@@ -28,6 +28,7 @@ typedef std::vector<Geometry::Shape*> Shapes;
 		class _h_Composite;
 		Composite(_h_Composite* h): Geometry::Shape(0) { __set(h); }
 		_h_Composite* __handle() const { return h_; }
+		static Composite* __fromHandle(_h_Composite* h);
 
 	protected :
 		static ::Geometry::Shape::_h_Shape* __cast_to_Geometry__Shape(_h_Composite* h);
@@ -94,7 +95,7 @@ inline size_t Geometry::Composite::NumShapes() const {
 }
 
 inline ::Geometry::Shape* Geometry::Composite::ShapeAt(size_t idxShape) const {
-	return new Geometry::Shape(
+	return Geometry::Shape::__fromHandle(
 		_cib_::ShapeLib::CppToC::Geometry::Composite::instance().ShapeAt(h_, idxShape)
 	);
 }
@@ -112,7 +113,7 @@ inline void Geometry::Composite::Draw(HDC hdc) const {
 }
 
 inline ::Geometry::Composite* Geometry::Composite::CreateCompositeOfRectAndCircle(){
-	return new Geometry::Composite(
+	return Geometry::Composite::__fromHandle(
 		_cib_::ShapeLib::CppToC::Geometry::Composite::instance().CreateCompositeOfRectAndCircle()
 	);
 }

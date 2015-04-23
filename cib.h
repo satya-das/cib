@@ -1,5 +1,5 @@
-#ifndef __CPPAPI_H__
-#define __CPPAPI_H__
+#ifndef __CIB_H__
+#define __CIB_H__
 
 #include "cppdom.h"
 #include "cppwriter.h"
@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * Parameter that contains variables for cppapi.
+ * Parameter that contains values of CIB options.
  */
 struct CibParams
 {
@@ -26,6 +26,7 @@ public:
     std::string     castToBasePrefix;
     const int       globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
 	std::string     moduleName;
+	std::string		fromHandle;
 
     static CibParams& instance() { static CibParams singleton; return singleton; }
 
@@ -37,7 +38,8 @@ private:
         ,ctorCAPIPrefix             ("__new")
         ,dtorCAPIPrefix             ("__delete")
         ,castToBasePrefix           ("__cast_to_")
-        ,globalFuncCibClassId      (1)
+        ,globalFuncCibClassId		(1)
+		,fromHandle					("__fromHandle")
     {
     }
 };
@@ -55,6 +57,7 @@ class CibCppObj
 {
 public:
    CibCppObj() {}
+   virtual ~CibCppObj() {}
 };
 
 typedef std::vector<CibCppCompound*>                    CibCppCompoundArray;
@@ -68,6 +71,7 @@ class CibCppCompound : public CibCppObj
 public:
    CibCppInheritInfo    parents_;   // List of all parents from which this compound object is derived.
    CibCppInheritInfo    children_;  // List of all children which are derived from this compound object.
+
 private:
    CppCompound*			cppCompoundObj_;
    CibCppCompound*      outer_;     // This will be NULL unless this class belongs to some other namespace/class/struct/union.
@@ -83,6 +87,9 @@ private:
    mutable std::string	cibIdBase_;
    mutable bool         wrappingNsCalculated_;
    bool                 inline_;    // true when all non-static methods are inline.
+   bool					interfaceLike_;
+   bool					facadeLike_;
+
    CibCppFunctionArray  needsBridging_; // Array of all functions that require bridging for implementation at client side.
    mutable TypeNameToCibCppObj  typeNameToCibCppObj_;
 
@@ -110,9 +117,13 @@ public:
        : cppCompoundObj_(cppClassObj)
        , outer_(outer)
        , inline_(false)
+	   , interfaceLike_(false)
+	   , facadeLike_(false)
        , wrappingNsCalculated_(false)
    {
    }
+
+   CppCompound* getCppCompound() const { return cppCompoundObj_; }
    /// @return name of this class.
    const std::string&   name() const {
       return cppCompoundObj_->name_;
@@ -181,7 +192,18 @@ public:
    const CibCppObj* resolveTypeName(const std::string& typeName) const;
    ///@ return The outer compound object (class/namespace/etc) that owns this one.
    const CibCppCompound* outer() const { return outer_; }
-
+   /**
+    * @ return true if this compound object is interface-like.
+	* \note Any class that has a public virtual function and somewhere there exists at-least one
+	* function that accepts pointer/reference of that class is an interface-like class.
+    */
+   bool isInterfaceLike() const { return interfaceLike_; }
+   /**
+    * @ return true if this compound object is facade-like.
+	* \note Any class that has a public virtual function and somewhere there exists at-least one
+	* function that returns pointer/reference of that class is a facade-like class.
+    */
+   bool isFacadeLike() const { return facadeLike_; }
    void setIsInline() { inline_ = true; }
    void emitDecl(std::ostream& stm, CibIndent indentation = CibIndent());
    void emitDefn(std::ostream& stm, CibIndent indentation = CibIndent());
@@ -189,6 +211,10 @@ public:
    void emitUsrGlueCode(std::ostream& stm, CibIndent indentation = CibIndent());
    void emitMetaInterfaceFactoryDecl(std::ostream& stm, CibIndent indentation = CibIndent());
    void emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, CibIndent indentation = CibIndent());
+
+   // Internal: Ideally should have been private with class CppProgramEx as friend.
+   void setInterfaceLike() { interfaceLike_ = true; }
+   void setFacadeLike() { facadeLike_ = true; }
 };
 
 /**
@@ -253,11 +279,15 @@ public:
    bool isMethod           () const { return owner_ && !(isConstructor() || isDestructor()) && owner_->cppCompoundObj_->isClass(); }
    bool isFunction         () const { return !(isConstructor() || isDestructor()); }
 
+   CibCppCompound* getOwner() const { return owner_; }
+
    void addAttrib(unsigned int attr) {
       attr_ |= attr;
    }
 
    bool hasParams() const { return params_ && params_->size() > 0; }
+   CppParamList* getParams() const { return params_; }
+   CppFunction* getCppFunction() const { return (isConstructor() || isDestructor()) ? NULL : func_; }
 
    /// Name of function.
    const std::string& funcName() const {
@@ -323,4 +353,4 @@ inline bool isMemberPublic(CppObjProtLevel protLevel, CppCompoundType ownerType)
 	return protLevel == kPublic || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPublic);
 }
 
-#endif //__CPPAPI_H__
+#endif //__CIB_H__

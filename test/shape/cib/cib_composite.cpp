@@ -11,27 +11,27 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 			}
 
 			void __stdcall Add(::Geometry::Composite* pCompositeObj, ::Geometry::Shape* shape) {
-				pCompositeObj->Add(shape);
+				pCompositeObj->::Geometry::Composite::Add(shape);
 			}
 
 			size_t __stdcall NumShapes(::Geometry::Composite* pCompositeObj) {
-				return pCompositeObj->NumShapes();
+				return pCompositeObj->::Geometry::Composite::NumShapes();
 			}
 
 			::Geometry::Shape* __stdcall ShapeAt(::Geometry::Composite* pCompositeObj, size_t idxShape) {
-				return pCompositeObj->ShapeAt(idxShape);
+				return pCompositeObj->::Geometry::Composite::ShapeAt(idxShape);
 			}
 
 			double __stdcall Area(::Geometry::Composite* pCompositeObj) {
-				return pCompositeObj->Area();
+				return pCompositeObj->::Geometry::Composite::Area();
 			}
 
 			double __stdcall Perimeter(::Geometry::Composite* pCompositeObj) {
-				return pCompositeObj->Perimeter();
+				return pCompositeObj->::Geometry::Composite::Perimeter();
 			}
 
 			void __stdcall Draw(::Geometry::Composite* pCompositeObj, HDC hdc) {
-				pCompositeObj->Draw(hdc);
+				pCompositeObj->::Geometry::Composite::Draw(hdc);
 			}
 
 			::Geometry::Composite* __stdcall CreateCompositeOfRectAndCircle() {

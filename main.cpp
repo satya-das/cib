@@ -84,6 +84,8 @@ typedef boost::filesystem::path::value_type chartype;
 
 CppProgramEx gCppProgram;
 
+namespace bfs = boost::filesystem;
+
 int main(int argc, char* argv[])
 {
    namespace po = boost::program_options;
@@ -141,7 +143,7 @@ int main(int argc, char* argv[])
    bfs::create_directories(binderPath);
    bfs::create_directories(outputPath);
    // First load all files as DOM.
-   gCppProgram.loadProgramEx(inputPath);
+   gCppProgram.loadProgramEx(inputPath.string().c_str());
    std::string cibIdFileName = gParams.moduleName + "Lib_cibids.h";
    CibIdMgr idMgr(gParams.moduleName);
    idMgr.loadIds((binderPath / cibIdFileName).string());
@@ -185,20 +187,20 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CibCppCompound* cppapiCompound = (CibCppCompound*) gCppProgram.CibCppObjFromCppObj(cppDom);
-	   if(cppapiCompound == NULL)
+       CibCppCompound* cibCppCompound = (CibCppCompound*) gCppProgram.CibCppObjFromCppObj(cppDom);
+	   if(cibCppCompound == NULL)
 		   continue;
        bfs::path usrIncPath = outputPath / cppDom->name_.substr(inputPath.native().length());
        std::ofstream incStm(usrIncPath.native(), std::ios_base::out);
-       cppapiCompound->emitDecl(incStm);
+       cibCppCompound->emitDecl(incStm);
        bfs::path usrSrcPath = usrIncPath; usrSrcPath.replace_extension(".cpp");
        std::ofstream srcStm(usrSrcPath.native(), std::ios_base::out);
 	   srcStm << "#include \"" << cibIdFileName << "\"\n\n";
-       cppapiCompound->emitUsrGlueCode(srcStm);
+       cibCppCompound->emitUsrGlueCode(srcStm);
        bfs::path bndSrcPath = binderPath / (_T("cib_") + usrSrcPath.filename().native());
        std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
 	   bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-       cppapiCompound->emitLibGlueCode(bindSrcStm);
+       cibCppCompound->emitLibGlueCode(bindSrcStm);
 
        // Emit #include in cib_all_sources.cpp.
        allUsrCibSources << "#include \"" << relative_path(outputPath, usrSrcPath).string() << "\"\n";
@@ -210,8 +212,8 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
       CppCompound* cppDom = *domItr;
-      CibCppCompound* cppapiCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
-      cppapiCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, indentation);
+      CibCppCompound* cibCppCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
+      cibCppCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, indentation);
    }
 
    cibLibSrcStm << '\n';
@@ -222,8 +224,8 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CibCppCompound* cppapiCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
-       cppapiCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, indentation);
+       CibCppCompound* cibCppCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
+       cibCppCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, indentation);
    }
    cibLibSrcStm << --indentation << "}\n";
    cibLibSrcStm << --indentation << "}}\n";

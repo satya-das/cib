@@ -22,6 +22,7 @@ namespace Geometry
 		class _h_Rectangle;
 		Rectangle(_h_Rectangle* h): Geometry::Shape(0) { __set(h); }
 		_h_Rectangle* __handle() const { return h_; }
+		static Rectangle* __fromHandle(_h_Rectangle* h);
 
 	protected :
 		static ::Geometry::Shape::_h_Shape* __cast_to_Geometry__Shape(_h_Rectangle* h);

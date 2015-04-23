@@ -11,15 +11,15 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 			}
 
 			double __stdcall Area(::Geometry::Rectangle* pRectangleObj) {
-				return pRectangleObj->Area();
+				return pRectangleObj->::Geometry::Rectangle::Area();
 			}
 
 			double __stdcall Perimeter(::Geometry::Rectangle* pRectangleObj) {
-				return pRectangleObj->Perimeter();
+				return pRectangleObj->::Geometry::Rectangle::Perimeter();
 			}
 
 			void __stdcall Draw(::Geometry::Rectangle* pRectangleObj, HDC hdc) {
-				pRectangleObj->Draw(hdc);
+				pRectangleObj->::Geometry::Rectangle::Draw(hdc);
 			}
 
 			::Geometry::Shape* __stdcall __cast_to_Geometry__Shape(::Geometry::Rectangle* pRectangleObj) {

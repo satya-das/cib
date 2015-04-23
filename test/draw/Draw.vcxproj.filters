@@ -60,6 +60,24 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\shape\exp\cib_ShapeLib.h">
+      <Filter>cib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shape\exp\circ.h">
+      <Filter>cib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shape\exp\composite.h">
+      <Filter>cib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shape\exp\rect.h">
+      <Filter>cib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shape\exp\shape.h">
+      <Filter>cib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\shape\exp\ShapeLib_cibids.h">
+      <Filter>cib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Draw.cpp">

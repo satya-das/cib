@@ -67,12 +67,12 @@ namespace _cib_ { namespace ShapeLib {
 		}
 		namespace Shape {
 			enum {
-				//#= virtual double Area() const /*= 0*/;
-				kCIBID_Area = 23,
-				//#= virtual double Perimeter() const /*= 0*/;
-				kCIBID_Perimeter = 24,
-				//#= virtual void Draw(HDC hdc) const /*= 0*/;
-				kCIBID_Draw = 25,
+				//#= virtual double Area() const = 0;
+				kCIBID_Area = 28,
+				//#= virtual double Perimeter() const = 0;
+				kCIBID_Perimeter = 29,
+				//#= virtual void Draw(HDC hdc) const = 0;
+				kCIBID_Draw = 30,
 				//#= virtual ~Shape();
 				kCIBID___delete = 26,
 			};

@@ -118,6 +118,12 @@
     <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\shape\exp\cib_ShapeLib.h" />
+    <ClInclude Include="..\shape\exp\circ.h" />
+    <ClInclude Include="..\shape\exp\composite.h" />
+    <ClInclude Include="..\shape\exp\rect.h" />
+    <ClInclude Include="..\shape\exp\shape.h" />
+    <ClInclude Include="..\shape\exp\ShapeLib_cibids.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="DrawDoc.h" />
     <ClInclude Include="DrawView.h" />

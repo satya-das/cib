@@ -3,10 +3,7 @@
 #include "cib_ShapeLib.h"
 #include "circ.h"
 
-#include <typeindex>
-
 namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
-
 	namespace Geometry {
 		namespace Circle {
 			::Geometry::Circle* __stdcall __new(int Ox, int Oy, int radius) {
@@ -14,15 +11,15 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 			}
 
 			double __stdcall Area(::Geometry::Circle* pCircleObj) {
-				return pCircleObj->Area();
+				return pCircleObj->::Geometry::Circle::Area();
 			}
 
 			double __stdcall Perimeter(::Geometry::Circle* pCircleObj) {
-				return pCircleObj->Perimeter();
+				return pCircleObj->::Geometry::Circle::Perimeter();
 			}
 
 			void __stdcall Draw(::Geometry::Circle* pCircleObj, HDC hdc) {
-				pCircleObj->Draw(hdc);
+				pCircleObj->::Geometry::Circle::Draw(hdc);
 			}
 
 			::Geometry::Shape* __stdcall __cast_to_Geometry__Shape(::Geometry::Circle* pCircleObj) {
@@ -40,7 +37,6 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 				}
 			};
 			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
-			std::type_index GetTypeIndex() { return typeid(::Geometry::Circle); }
 		}
 	}
 }}}

@@ -159,7 +159,7 @@ void CibCppFunction::emitOrigDecl(std::ostream& stm, CibIndent indentation /* = 
     if(isConst())
         stm << " const";
     if(isPureVirtual())
-        stm << " /*= 0*/";
+        stm << " = 0";
     stm     << ";\n";
 }
 
@@ -198,10 +198,9 @@ void CibCppFunction::emitCAPIDefn(std::ostream& stm, CibIndent indentation /* = 
     {
         if(func_->retType_ && !func_->retType_->isVoid())
             stm << "return ";
-        if(isStatic())
-           stm  << "::" << owner_->fullName() << "::";
-        else
+        if(!isStatic())
            stm  << owner_->objName() << "->";
+		stm		<< "::" << owner_->fullName() << "::";
         stm     << funcName();
         stm     << '(';
         emitArgsForCall(stm);
@@ -340,6 +339,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibI
             }
             stm << "{ __set(h); }\n";
             stm << indentation << handleName() << "* " << gParams.handleGetterMethod << "() const { return h_; }\n";
+			stm << indentation << "static " << name() << "* " << gParams.fromHandle << "(" << handleName() << "* h);\n";
             stm << '\n' << --indentation << "protected :\n";
             ++indentation;
             for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
@@ -395,7 +395,11 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
     stm     << ++indentation << "struct " << name() << " {\n";
     ++indentation;
     for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
+	{
+		if(needsBridging_[idxFunc]->isPureVirtual())
+			continue;
         needsBridging_[idxFunc]->emitProcType(stm, indentation);
+	}
     CibCppCompoundArray& pubParents = parents_[kPublic];
     for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
     {
@@ -406,6 +410,8 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
     for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
     {
         CibCppFunction* func = needsBridging_[idxFunc];
+		if(func->isPureVirtual())
+			continue;
         stm << indentation << func->procType() << ' ' << func->procName() << ";\n";
     }
     for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
@@ -462,8 +468,10 @@ void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibI
     }
     for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
     {
-        stm     << '\n'; // Start in new line.
         CibCppFunction* func = needsBridging_[idxFunc];
+		if(func->isPureVirtual())
+			continue;
+        stm     << '\n'; // Start in new line.
         stm     << indentation << "inline ";
         if(func->isFunction())
 		{
@@ -495,7 +503,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibI
             retType = (CibCppCompound*) resolveTypeName(func->func_->retType_->baseType_);
             if(retType)
             {
-               stm << "new " << retType->fullName() << "(\n";
+               stm << retType->fullName() << "::" << gParams.fromHandle << "(\n";
                stm << ++indentation;
             }
         }
@@ -551,6 +559,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
         for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
         {
             CibCppFunction* func = needsBridging_[idxFunc];
+			if(func->isPureVirtual())
+				continue;
             func->emitCAPIDefn(stm, indentation);
             stm << '\n'; // Start in new line.
         }
@@ -574,6 +584,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
             for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
             {
                 CibCppFunction* func = needsBridging_[idxFunc];
+				if(func->isPureVirtual())
+					continue;
                 stm << indentation << "AddMethod(" << func->cibId() << ", (void*) " << func->capiName() << ");\n";
             }
 
@@ -624,6 +636,8 @@ void CibCppCompound::emitUsrGlueCode(std::ostream& stm, CibIndent indentation /*
         for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
         {
             CibCppFunction* func = needsBridging_[idxFunc];
+			if(func->isPureVirtual())
+				continue;
             stm << indentation << func->procName() << " = ("<< func->procType() << ") metaIntrface.GetMethod(" << func->cibId() << ");\n";
         }
         
