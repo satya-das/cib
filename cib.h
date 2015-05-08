@@ -3,6 +3,7 @@
 
 #include "cppdom.h"
 #include "cppwriter.h"
+#include "params.h"
 
 #include <iostream>
 #include <map>
@@ -12,39 +13,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-/**
- * Parameter that contains values of CIB options.
- */
-struct CibParams
-{
-public:
-    std::string     classHandlePrefix;
-    std::string     handleGetterMethod;
-    std::string     copyCtorCAPIPrefix;
-    std::string     ctorCAPIPrefix;
-    std::string     dtorCAPIPrefix;
-    std::string     castToBasePrefix;
-    const int       globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
-	std::string     moduleName;
-	std::string		fromHandle;
-
-    static CibParams& instance() { static CibParams singleton; return singleton; }
-
-private:
-    CibParams()
-        :classHandlePrefix          ("_h_")
-        ,handleGetterMethod         ("__handle")
-        ,copyCtorCAPIPrefix         ("__copy")
-        ,ctorCAPIPrefix             ("__new")
-        ,dtorCAPIPrefix             ("__delete")
-        ,castToBasePrefix           ("__cast_to_")
-        ,globalFuncCibClassId		(1)
-		,fromHandle					("__fromHandle")
-    {
-    }
-};
-
-static CibParams& gParams = CibParams::instance();
+class CppProgramEx;
 
 typedef CppWriter::Indentation CibIndent;
 
@@ -66,6 +35,9 @@ typedef std::map<CppObjProtLevel, CibCppCompoundArray>  CibCppInheritInfo;
 typedef std::list<std::string>                          stringlist;
 typedef std::map<std::string, const CibCppObj*>         TypeNameToCibCppObj;
 
+/**
+ * Responsible for emitting code required for CIB functionality of C++ compound object.
+ */
 class CibCppCompound : public CibCppObj
 {
 public:
@@ -75,17 +47,6 @@ public:
 private:
    CppCompound*			cppCompoundObj_;
    CibCppCompound*      outer_;     // This will be NULL unless this class belongs to some other namespace/class/struct/union.
-   mutable std::string  fullName_;  // Full name of this compound object.
-   mutable std::string  handleName_;// Name of opaque class.
-   mutable std::string  fullHandleName_; // Full name of opaque class.
-   mutable std::string  objName_;   // Name of variable that holds pointer to object of this compound type.
-   mutable std::string  bridgeName_;// Name of bridge class.
-   mutable std::string  uniqName_;  // Unique name of class.
-   mutable std::string  wrappingNsDecl_; // Sequence of namespace declaration of all namespaces that wrap this one.
-   mutable std::string  wrappingNses_; // Sequence of all wrapping namespaces separated by ::
-   mutable std::string  closingNsBraces_; // Sequence of braces to close all wrapping namespaces.
-   mutable std::string	cibIdBase_;
-   mutable bool         wrappingNsCalculated_;
    bool                 inline_;    // true when all non-static methods are inline.
    bool					interfaceLike_;
    bool					facadeLike_;
@@ -95,22 +56,7 @@ private:
 
    friend class CibCppFunction;
 
-   void calcFullName() const {
-      if(outer_ && (outer_->cppCompoundObj_->isNamespace())) fullName_ = outer_->fullName() + "::" + cppCompoundObj_->name_;
-      else fullName_ = cppCompoundObj_->name_;
-   }
-   void calcUniqName() const {
-       uniqName_ = fullName();
-       std::replace(uniqName_.begin(), uniqName_.end(), ':', '_');
-   }
-   void calcHandleName() const { handleName_ = CibParams::instance().classHandlePrefix + cppCompoundObj_->name_; }
-   void calcFullHandleName() const { fullHandleName_ = "::" + fullName() + "::" + handleName(); }
-   void calcObjName () const { objName_ = "p" + cppCompoundObj_->name_ + "Obj"; }
-   void calcBridgeName() const { bridgeName_ = "CppToC::" + fullName(); }
-   void calcWrappingNamespaceSeq() const;
-   void calcCibIdBase() const { cibIdBase_ = "::_cib_::" + gParams.moduleName + "Lib" + wrappingNses(); }
-
-   void emitBridgeDecl(std::ostream& stm, CibIndent indentation = CibIndent());
+   void emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
 
 public:
    CibCppCompound(CppCompound* cppClassObj, CibCppCompound* outer = NULL)
@@ -119,77 +65,75 @@ public:
        , inline_(false)
 	   , interfaceLike_(false)
 	   , facadeLike_(false)
-       , wrappingNsCalculated_(false)
    {
    }
 
    CppCompound* getCppCompound() const { return cppCompoundObj_; }
    /// @return name of this class.
    const std::string&   name() const {
-      return cppCompoundObj_->name_;
+	   return cppCompoundObj_->name_;
    }
    /// @return full name of this class.
-   const std::string&   fullName() const {
-      if(fullName_.empty()) calcFullName();
-      return fullName_;
+   std::string   fullName() const {
+	   if (outer_ && (outer_->cppCompoundObj_->isNamespaceLike()))
+		   return outer_->fullName() + "::" + cppCompoundObj_->name_;
+	   else
+		   return cppCompoundObj_->name_;
    }
    /// @return Unique name of this class
-   const std::string&   uniqName() const {
-       if(uniqName_.empty()) calcUniqName();
-       return uniqName_;
+   std::string   uniqName() const {
+	   std::string uname = fullName();
+	   std::replace(uname.begin(), uname.end(), ':', '_');
+	   return uname;
    }
    /// @return name of handle class for this compound object.
-   const std::string&   handleName() const {
-       if(handleName_.empty()) calcHandleName();
-       return handleName_;
+   std::string   handleName(const CibParams& cibParams) const {
+	   return cibParams.classHandlePrefix + cppCompoundObj_->name_;
    }
    /// @return full name of handle class for this compound object.
-   const std::string&   fullHandleName() const {
-       if(fullHandleName_.empty()) calcFullHandleName();
-       return fullHandleName_;
+   std::string   fullHandleName(const CibParams& cibParams) const {
+	   return "::" + fullName() + "::" + handleName(cibParams);
    }
    /// @return Name of variable for pointer of this compound object.
-   const std::string& objName() const {
-       if(objName_.empty()) calcObjName();
-       return objName_;
+   std::string objName() const {
+	   return "p" + cppCompoundObj_->name_ + "Obj";
    }
    /// @return Name of bridge class.
-   const std::string& bridgeName() const {
-       if(bridgeName_.empty()) calcBridgeName();
-       return bridgeName_;
+   std::string bridgeName() const {
+	   return "CppToC::" + fullName();;
    }
    /// @return Name of function that casts to object of parent class
-   std::string castToBaseName(const CibCppCompound* base) const {
-       return CibParams::instance().castToBasePrefix + base->uniqName();
+   std::string castToBaseName(const CibCppCompound* base, const CibParams& cibParams) const {
+	   return cibParams.castToBasePrefix + base->uniqName();
    }
    /// @return CibId of function that casts to object of parent class
-   std::string cibIdOfCastToBaseName(const CibCppCompound* base) const {
-	   if(cibIdBase_.empty())
-		   calcCibIdBase();
-	   return cibIdBase_ + "::" + name() + "::kCIBID_" + castToBaseName(base);
+   std::string cibIdOfCastToBaseName(const CibCppCompound* base, const CibParams& cibParams) const {
+	   return "::_cib_::" + cibParams.moduleName + "Lib" + wrappingNses() + "::" + name() + "::kCIBID_" + castToBaseName(base, cibParams);
    }
    /// @return string that represents a sequence of all wrapping namespaces
-   const std::string& wrappingNamespaceDeclarations() const {
-      if(!wrappingNsCalculated_) calcWrappingNamespaceSeq();
-      return wrappingNsDecl_;
+   std::string wrappingNamespaceDeclarations() const {
+	   if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+		   return "";
+	   return outer_->wrappingNamespaceDeclarations() + "namespace " + outer_->name() + " {";
    }
    ///
-   const std::string& wrappingNses() const {
-      if(!wrappingNsCalculated_) calcWrappingNamespaceSeq();
-      return wrappingNses_;
+   std::string wrappingNses() const {
+	   if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+		   return "::";
+	   return outer_->wrappingNses() + outer_->name();
    }
    /// @return sequence of closing braces that closes all wrapping namespace definitions.
-   const std::string& closingBracesForWrappingNamespaces() const {
-      return closingNsBraces_;
+   std::string closingBracesForWrappingNamespaces() const {
+	   if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+		   return "";
+	   return outer_->closingBracesForWrappingNamespaces() + '}';
    }
    /// @return CibId of this compound object
-   std::string cibId() const {
-	   if(cibIdBase_.empty())
-		   calcCibIdBase();
-	   return cibIdBase_ + "::kCIBID_" + name();
+   std::string cibId(const CibParams& cibParams) const {
+	   return "::_cib_::" + cibParams.moduleName + "Lib" + wrappingNses() + "::kCIBID_" + name();
    }
    ///@ return CibCppObj corresponding to name of a given type
-   const CibCppObj* resolveTypeName(const std::string& typeName) const;
+   const CibCppObj* resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const;
    ///@ return The outer compound object (class/namespace/etc) that owns this one.
    const CibCppCompound* outer() const { return outer_; }
    /**
@@ -205,12 +149,12 @@ public:
     */
    bool isFacadeLike() const { return facadeLike_; }
    void setIsInline() { inline_ = true; }
-   void emitDecl(std::ostream& stm, CibIndent indentation = CibIndent());
-   void emitDefn(std::ostream& stm, CibIndent indentation = CibIndent());
-   void emitLibGlueCode(std::ostream& stm, CibIndent indentation = CibIndent());
-   void emitUsrGlueCode(std::ostream& stm, CibIndent indentation = CibIndent());
-   void emitMetaInterfaceFactoryDecl(std::ostream& stm, CibIndent indentation = CibIndent());
-   void emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, CibIndent indentation = CibIndent());
+   void emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
+   void emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
+   void emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
+   void emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
+   void emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
+   void emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
 
    // Internal: Ideally should have been private with class CppProgramEx as friend.
    void setInterfaceLike() { interfaceLike_ = true; }
@@ -230,10 +174,6 @@ private:
    CppDestructor*		dtor_;
    };
    CibCppCompound*      owner_;    // Class of which this function is a member
-   mutable std::string  capiName_; // Name of C API function corresponding to this CibCppFunction object.
-   mutable std::string  procType_; // ProcType is name of function-pointer-type defined using typedef for the raw C API corresponding to the C++ function.
-   mutable std::string  procName_; // Name of variable that holds the function pointer.
-   mutable std::string	cibId_;
    std::string          procNameSfx_; // Suffix to be used for proc name. It is needed to make overloaded methods have different proc name.
    unsigned int			attr_; // e.g.: const, static, virtual, inline, etc.
    CppParamList*		params_;
@@ -251,16 +191,6 @@ private:
       kVirualDestructor = kDestructor | kVirtual,
       kPureVirtualDtor  = kDestructor | kPureVirtual
    };
-
-   void calcCAPIName() const;
-   void calcProcType() const { if(!procType_.empty()) return; procType_ = procName() + "Proc"; }
-   void calcProcName() const;
-   void calcCibId() const {
-	   cibId_ = "::_cib_::" + gParams.moduleName + "Lib";
-	   if(owner_)
-		   cibId_ += owner_->wrappingNses() + "::" + owner_->name();
-	   cibId_ += "::kCIBID_" + capiName();
-   }
 
 public:
 
@@ -291,37 +221,47 @@ public:
 
    /// Name of function.
    const std::string& funcName() const {
-      if(isConstructor())
-		  return ctor_->name_;
-	  else if(isDestructor())
-		  return dtor_->name_;
-	  else
-		  return func_->name_;
+	   if (isConstructor())
+		   return ctor_->name_;
+	   else if (isDestructor())
+		   return dtor_->name_;
+	   else
+		   return func_->name_;
    }
 
    /// Name of raw C API corresponding to method of C++ class.
-   const std::string& capiName() const {
-      if(capiName_.empty()) calcCAPIName();
-      return capiName_;
+   std::string capiName(const CibParams& cibParams) const {
+	   return procName(cibParams);
    }
 
    /// ProcType that is used by client side glue code to define function pointer variable.
-   const std::string& procType() const {
-      if(procType_.empty()) calcProcType();
-      return procType_;
+   std::string procType(const CibParams& cibParams) const {
+	   return procName(cibParams) + "Proc";
    }
-   
+
    /// ProcName that is used to name the variable that holds the function pointer.
-   const std::string& procName() const {
-      if(procName_.empty()) calcProcName();
-      return procName_;
+   std::string procName(const CibParams& cibParams) const {
+	   std::string pname;
+	   if (isCopyConstructor())
+		   pname = cibParams.copyCtorCAPIPrefix;
+	   else if (isConstructor())
+		   pname = cibParams.ctorCAPIPrefix;
+	   else if (isDestructor())
+		   pname = cibParams.dtorCAPIPrefix;
+	   else
+		   pname = funcName();
+	   pname += procNameSfx_;
+
+	   return pname;
    }
 
    /// @return CibId of this compound object
-   const std::string& cibId() const {
-	   if(cibId_.empty())
-		   calcCibId();
-	   return cibId_;
+   std::string cibId(const CibParams& cibParams) const {
+	   std::string cId = "::_cib_::" + cibParams.moduleName + "Lib";
+	   if (owner_)
+		   cId += owner_->wrappingNses() + "::" + owner_->name();
+	   cId += "::kCIBID_" + capiName(cibParams);
+	   return cId;
    }
 
    /// Sets proc name suffix
@@ -329,15 +269,15 @@ public:
        procNameSfx_ = sfx;
    }
    /// Emits function arguments for function definition/declaration.
-   void emitArgsForDecl(std::ostream& stm, bool resolveTypes = false, bool emitHandle = false) const;
+   void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool resolveTypes = false, bool emitHandle = false) const;
    /// Emits function arguments for function call.
-   void emitArgsForCall(std::ostream& stm, bool emitHandle = false) const;
+   void emitArgsForCall(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle = false) const;
    /// Emits declaration as originally defined/declared.
-   void emitOrigDecl(std::ostream& stm, CibIndent indentation  = CibIndent()) const;
+   void emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation  = CibIndent()) const;
    /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-   void emitCAPIDefn(std::ostream& stm, CibIndent indentation  = CibIndent()) const;
+   void emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation  = CibIndent()) const;
    /// Emits the ProcType definition for the C++ method, meant for client side glue code.
-   void emitProcType(std::ostream& stm, CibIndent indentation  = CibIndent()) const;
+   void emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation  = CibIndent()) const;
 };
 
 //////////////////////////////////////////////////////////////////////////

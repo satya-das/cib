@@ -82,8 +82,6 @@ typedef boost::filesystem::path::value_type chartype;
 #  define _T(x)       L ## x
 #endif //#ifndef _T
 
-CppProgramEx gCppProgram;
-
 namespace bfs = boost::filesystem;
 
 int main(int argc, char* argv[])
@@ -118,6 +116,7 @@ int main(int argc, char* argv[])
    bfs::path outputPath;
    bfs::path binderPath;
 
+   CibParams cibParams;
    if(vm.count("input-folder"))
       inputPath = vm["input-folder"].as<std::string>();
    if(vm.count("output-folder"))
@@ -125,7 +124,7 @@ int main(int argc, char* argv[])
    if(vm.count("bind-folder"))
       binderPath = vm["bind-folder"].as<std::string>();
    if(vm.count("module") == 1)
-	   gParams.moduleName = vm["module"].as<std::string>();
+	   cibParams.moduleName = vm["module"].as<std::string>();
 
    bool recurse    = true;
 
@@ -143,15 +142,15 @@ int main(int argc, char* argv[])
    bfs::create_directories(binderPath);
    bfs::create_directories(outputPath);
    // First load all files as DOM.
-   gCppProgram.loadProgramEx(inputPath.string().c_str());
-   std::string cibIdFileName = gParams.moduleName + "Lib_cibids.h";
-   CibIdMgr idMgr(gParams.moduleName);
+   CppProgramEx cppProgram(inputPath.string().c_str());
+   std::string cibIdFileName = cibParams.moduleName + "Lib_cibids.h";
+   CibIdMgr idMgr(cibParams.moduleName);
    idMgr.loadIds((binderPath / cibIdFileName).string());
-   idMgr.assignIds(gCppProgram);
+   idMgr.assignIds(cppProgram, cibParams);
    idMgr.saveIds((binderPath / cibIdFileName).string());
    idMgr.saveIds((outputPath / cibIdFileName).string());
    StringToStringMap substituteInfo;
-   substituteInfo["MODULE"]		= gParams.moduleName;
+   substituteInfo["MODULE"]		= cibParams.moduleName;
    substituteInfo["CIBEXPAPI"]	= "__declspec(dllexport)";
    substituteInfo["CIBIDHDR"]	= cibIdFileName;
    // Now emit declarations.
@@ -160,7 +159,7 @@ int main(int argc, char* argv[])
       std::ifstream((resDir / "lib_cib.h").native(), std::ios_base::in) >> &tmpbuf;
 	  std::string cibcode;
 	  replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo, cibcode);
-      std::ofstream cibLibIncStm((binderPath / ("cib_" + gParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+      std::ofstream cibLibIncStm((binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
       cibLibIncStm << cibcode;
    }
    { // Emit cib.h for client.
@@ -168,11 +167,11 @@ int main(int argc, char* argv[])
       std::ifstream((resDir / "usr_cib.h").native(), std::ios_base::in) >> &tmpbuf;
 	  std::string cibcode;
 	  replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo, cibcode);
-      std::ofstream cibUsrIncStm((outputPath / ("cib_" + gParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+      std::ofstream cibUsrIncStm((outputPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
       cibUsrIncStm << cibcode;
    }
    // Emit cib.cpp for library.
-   std::ofstream cibLibSrcStm((binderPath / ("cib_" + gParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
+   std::ofstream cibLibSrcStm((binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
    { // Emit boiler plate code for cib.cpp of library
 	   std::strstreambuf tmpbuf;
 	   std::ifstream((resDir / "lib_cib.cpp").native(), std::ios_base::in) >> &tmpbuf;
@@ -183,24 +182,24 @@ int main(int argc, char* argv[])
 
    std::ofstream allLibCibSources((binderPath / "cib_all_sources.cpp").native(), std::ios_base::out);
    std::ofstream allUsrCibSources((outputPath / "cib_all_sources.cpp").native(), std::ios_base::out);
-   const CppCompoundArray& fileDOMs = gCppProgram.getFileDOMs();
+   const CppCompoundArray& fileDOMs = cppProgram.getFileDOMs();
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CibCppCompound* cibCppCompound = (CibCppCompound*) gCppProgram.CibCppObjFromCppObj(cppDom);
+       CibCppCompound* cibCppCompound = (CibCppCompound*) cppProgram.CibCppObjFromCppObj(cppDom);
 	   if(cibCppCompound == NULL)
 		   continue;
        bfs::path usrIncPath = outputPath / cppDom->name_.substr(inputPath.native().length());
        std::ofstream incStm(usrIncPath.native(), std::ios_base::out);
-       cibCppCompound->emitDecl(incStm);
+       cibCppCompound->emitDecl(incStm, cppProgram, cibParams);
        bfs::path usrSrcPath = usrIncPath; usrSrcPath.replace_extension(".cpp");
        std::ofstream srcStm(usrSrcPath.native(), std::ios_base::out);
 	   srcStm << "#include \"" << cibIdFileName << "\"\n\n";
-       cibCppCompound->emitUsrGlueCode(srcStm);
+       cibCppCompound->emitUsrGlueCode(srcStm, cppProgram, cibParams);
        bfs::path bndSrcPath = binderPath / (_T("cib_") + usrSrcPath.filename().native());
        std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
 	   bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-       cibCppCompound->emitLibGlueCode(bindSrcStm);
+       cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams);
 
        // Emit #include in cib_all_sources.cpp.
        allUsrCibSources << "#include \"" << relative_path(outputPath, usrSrcPath).string() << "\"\n";
@@ -212,20 +211,20 @@ int main(int argc, char* argv[])
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
       CppCompound* cppDom = *domItr;
-      CibCppCompound* cibCppCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
-      cibCppCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, indentation);
+      CibCppCompound* cibCppCompound = (CibCppCompound*)cppProgram.CibCppObjFromCppObj(cppDom);
+      cibCppCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, cppProgram, cibParams, indentation);
    }
 
    cibLibSrcStm << '\n';
-   cibLibSrcStm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib {\n";
+   cibLibSrcStm << indentation << "namespace _cib_ { namespace " << cibParams.moduleName << "Lib {\n";
    ++indentation;
    cibLibSrcStm << indentation << "void InitMetaInterfaceRepository() {\n";
    ++indentation;
    for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
    {
        CppCompound* cppDom = *domItr;
-       CibCppCompound* cibCppCompound = (CibCppCompound*)gCppProgram.CibCppObjFromCppObj(cppDom);
-       cibCppCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, indentation);
+       CibCppCompound* cibCppCompound = (CibCppCompound*)cppProgram.CibCppObjFromCppObj(cppDom);
+       cibCppCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, cppProgram, cibParams, indentation);
    }
    cibLibSrcStm << --indentation << "}\n";
    cibLibSrcStm << --indentation << "}}\n";

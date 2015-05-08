@@ -79,7 +79,7 @@ CibCppCompound* CppProgramEx::CppCompoundObjToCibCppCompound(CppCompound* cppCom
    return apiCompound;
 }
 
-const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode)
+const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
     size_t nameBegPos = 0;
     size_t nameEndPos = name.find("::", nameBegPos);

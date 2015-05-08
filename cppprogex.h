@@ -34,14 +34,14 @@ public:
      * @param typeNode CppTypeTreeNode object from where the search should begin.
      * @return CppObj corresponding to the name given.
      */
-    const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode);
+    const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const;
     /**
      * Resolves a name of type A::B (with or without scope resolution operators).
      * @param name Name which may contain many scope resolution operators.
      * @param begScope Compound object from where the search should begin.
      * @return CppObj corresponding to the name given.
      */
-    const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope);
+    const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const;
     /**
      * @return CibCppObj corresponding to given CppObj.
      */
@@ -117,7 +117,7 @@ inline const CibCppObj* CppProgramEx::CibCppObjFromCppObj(const CppObj* cppObj) 
     return NULL;
 }
 
-inline const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope)
+inline const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
 {
     return getCibCppObjFromTypeName(name, cppObjToTypeNode_[begScope]);
 }

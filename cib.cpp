@@ -1,12 +1,12 @@
 #include "cib.h"
 #include "cppprogex.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
 
-extern CppProgramEx gCppProgram;
-CppWriter gCppWriter;
+static CppWriter gCppWriter;
 
 //////////////////////////////////////////////////////////////////////////
+
 // CibCppFunction method implementations:
 
 CibCppFunction::CibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
@@ -45,33 +45,15 @@ CibCppFunction::CibCppFunction(CppDestructor* dtor, CibCppCompound* owner)
 	this->addAttrib(kDestructor);
 }
 
-void CibCppFunction::calcCAPIName() const
-{
-    capiName_ = procName();
-}
-
-void CibCppFunction::calcProcName() const
-{
-    if(isCopyConstructor())
-        procName_ = gParams.copyCtorCAPIPrefix;
-    else if(isConstructor())
-        procName_ = gParams.ctorCAPIPrefix;
-    else if(isDestructor())
-        procName_ = gParams.dtorCAPIPrefix;
-    else
-        procName_ = funcName();
-    procName_ += procNameSfx_;
-}
-
-inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppCompound* typeResolver, bool emitHandle = false) {
+inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle = false) {
     if(typeObj == NULL) return;
     if(typeObj->typeAttr_&kConst)
         stm << "const ";
     // FIXME: We are assuming that all types will be of some sort of compound object.
     // This will break when there will be some typedefed or enum type is used.
-    CibCppCompound* resolvedType = (CibCppCompound*) (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType_) : NULL);
+    CibCppCompound* resolvedType = (CibCppCompound*) (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType_, cppProgram) : NULL);
     if(resolvedType != NULL)
-        stm << (emitHandle ? resolvedType->fullHandleName() : "::" + resolvedType->fullName());
+        stm << (emitHandle ? resolvedType->fullHandleName(cibParams) : "::" + resolvedType->fullName());
     else
         stm << typeObj->baseType_;
     for(unsigned short i = 0; i < typeObj->ptrLevel_; ++i)
@@ -80,48 +62,28 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
         stm << '&';
 }
 
-inline std::ostream& operator <<(std::ostream& stm, const CppVarType* typeObj) {
-    emitType(stm, typeObj, NULL);
-    return stm;
-}
-
-inline std::ostream& operator <<(std::ostream& stm, const CppVarType& typeObj) {
-    stm << &typeObj;
-    return stm;
-}
-
-inline void emitVar(std::ostream& stm, const CppVar* varObj, const CibCppCompound* typeResolver, bool emitHandle = false) {
+inline void emitVar(std::ostream& stm, const CppVar* varObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle = false) {
     if(varObj == NULL) return;
-    emitType(stm, varObj, typeResolver, emitHandle);
+    emitType(stm, varObj, typeResolver, cppProgram, cibParams, emitHandle);
     stm << ' ' << varObj->name_;
 }
 
-inline std::ostream& operator <<(std::ostream& stm, const CppVar* varObj) {
-    emitVar(stm, varObj, NULL);
-    return stm;
-}
-
-inline std::ostream& operator <<(std::ostream& stm, const CppVar& varObj) {
-    stm << &varObj;
-    return stm;
-}
-
-void CibCppFunction::emitArgsForDecl(std::ostream& stm, bool resolveTypes /*= false*/, bool emitHandle /*= false*/) const
+void CibCppFunction::emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool resolveTypes /*= false*/, bool emitHandle /*= false*/) const
 {
 	//FIXME for function pointer type params, it currently handles only functions whose parameter is not function-pointer type.
 
     if(!hasParams())
         return;
     const CibCppCompound* typeResolver = resolveTypes ? owner_ : NULL;
-    emitVar(stm, params_->front().varObj, typeResolver, emitHandle);
+    emitVar(stm, params_->front().varObj, typeResolver, cppProgram, cibParams, emitHandle);
     for(CppParamList::const_iterator paramIter = params_->begin(); (++paramIter) != params_->end();)
     {
         stm << ", ";
-        emitVar(stm, paramIter->varObj, typeResolver, emitHandle);
+        emitVar(stm, paramIter->varObj, typeResolver, cppProgram, cibParams, emitHandle);
     }
 }
 
-void CibCppFunction::emitArgsForCall(std::ostream& stm, bool emitHandle /*= false*/) const
+void CibCppFunction::emitArgsForCall(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle /*= false*/) const
 {
 	//FIXME for function pointer type params, it currently handles only functions whose parameter is not function-pointer type.
 
@@ -129,20 +91,20 @@ void CibCppFunction::emitArgsForCall(std::ostream& stm, bool emitHandle /*= fals
         return;
     stm     << params_->front().varObj->name_;
     //FIXME for enum and other non compound types.
-    CibCppCompound* resolvedType = (CibCppCompound*) ((owner_ && emitHandle) ? owner_->resolveTypeName(params_->front().varObj->baseType_) : NULL);
+    CibCppCompound* resolvedType = (CibCppCompound*) ((owner_ && emitHandle) ? owner_->resolveTypeName(params_->front().varObj->baseType_, cppProgram) : NULL);
     if(resolvedType)
-        stm << "->" << gParams.handleGetterMethod << "()";
+        stm << "->" << cibParams.handleGetterMethod << "()";
     for(CppParamList::const_iterator paramIter = params_->begin(); (++paramIter) != params_->end();)
     {
         stm << ", " << paramIter->varObj->name_;
         //FIXME for enum and other non compound types.
-        CibCppCompound* resolvedType = (CibCppCompound*) ((owner_ && emitHandle) ? owner_->resolveTypeName(paramIter->varObj->baseType_) : NULL);
+        CibCppCompound* resolvedType = (CibCppCompound*) ((owner_ && emitHandle) ? owner_->resolveTypeName(paramIter->varObj->baseType_, cppProgram) : NULL);
         if(resolvedType)
-            stm << "->" << gParams.handleGetterMethod << "()";
+            stm << "->" << cibParams.handleGetterMethod << "()";
     }
 }
 
-void CibCppFunction::emitOrigDecl(std::ostream& stm, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
 {
     stm     << indentation;
     if(isStatic())
@@ -152,9 +114,12 @@ void CibCppFunction::emitOrigDecl(std::ostream& stm, CibIndent indentation /* = 
     else if(isInline())
         stm << "inline ";
     if(isFunction() && func_->retType_)
-        stm << func_->retType_ << ' ';
+	{
+		emitType(stm, func_->retType_, NULL, cppProgram, cibParams, false);
+        stm << ' ';
+	}
     stm     << funcName() << '(';
-    emitArgsForDecl(stm);
+    emitArgsForDecl(stm, cppProgram, cibParams);
     stm     << ')';
     if(isConst())
         stm << " const";
@@ -163,7 +128,7 @@ void CibCppFunction::emitOrigDecl(std::ostream& stm, CibIndent indentation /* = 
     stm     << ";\n";
 }
 
-void CibCppFunction::emitCAPIDefn(std::ostream& stm, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
 {
     stm     << indentation;
     if(isConstructor())
@@ -171,23 +136,23 @@ void CibCppFunction::emitCAPIDefn(std::ostream& stm, CibIndent indentation /* = 
     else if(isDestructor())
         stm << "void";
     else
-		emitType(stm, func_->retType_, owner_);
+		emitType(stm, func_->retType_, owner_, cppProgram, cibParams);
     stm     << " __stdcall ";
-    stm     << capiName() << '(';
+    stm     << capiName(cibParams) << '(';
     if(!isStatic() && (isMethod() || isDestructor()))
     {
         stm << "::" << owner_->fullName() << "* " << owner_->objName();
         if(hasParams())
             stm << ", ";
     }
-    emitArgsForDecl(stm, true);
+    emitArgsForDecl(stm, cppProgram, cibParams, true);
     stm     << ") {\n";
     stm     << ++indentation;
     if(isConstructor())
     {
         stm << "return new ::" << owner_->fullName();
         stm     << '(';
-        emitArgsForCall(stm);
+        emitArgsForCall(stm, cppProgram, cibParams);
         stm     << ");\n";
     }
     else if(isDestructor())
@@ -203,30 +168,30 @@ void CibCppFunction::emitCAPIDefn(std::ostream& stm, CibIndent indentation /* = 
 		stm		<< "::" << owner_->fullName() << "::";
         stm     << funcName();
         stm     << '(';
-        emitArgsForCall(stm);
+        emitArgsForCall(stm, cppProgram, cibParams);
         stm     << ");\n";
     }
     stm     << --indentation << "}\n";
 }
 
-void CibCppFunction::emitProcType(std::ostream& stm, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
 {
     stm     << indentation;
     stm     << "typedef ";
     if(isConstructor())
-        stm << owner_->fullHandleName() << "*";
+        stm << owner_->fullHandleName(cibParams) << "*";
     else if(isDestructor())
         stm << "void";
     else
-		emitType(stm, func_->retType_, owner_, true);
-    stm     << " (__stdcall *" << procType() << ") (";
+		emitType(stm, func_->retType_, owner_, cppProgram, cibParams, true);
+    stm     << " (__stdcall *" << procType(cibParams) << ") (";
     if(!isStatic() && (isDestructor() || isMethod()))
     {
-        stm << owner_->fullHandleName() << "* " << owner_->objName();
+        stm << owner_->fullHandleName(cibParams) << "* " << owner_->objName();
         if(hasParams())
             stm << ", ";
     }
-    emitArgsForDecl(stm, true, true);
+    emitArgsForDecl(stm, cppProgram, cibParams, true, true);
     stm     << ");\n";
 }
 
@@ -247,34 +212,17 @@ void emitInheritanceList(std::ostream& stm, CibCppCompoundArray& inhList, CppObj
         stm << sep << prot << ' ' << (*itr)->fullName();
 }
 
-void CibCppCompound::calcWrappingNamespaceSeq() const
-{
-   typedef std::stack<const CibCppCompound*> CibCppCompoundStack;
-   CibCppCompoundStack owners;
-   for(const CibCppCompound* owner = outer(); owner != NULL && owner->cppCompoundObj_->isNamespaceLike(); owner = owner->outer())
-      owners.push(owner);
-   while(!owners.empty())
-   {
-      const CibCppCompound* owner = owners.top();
-      wrappingNsDecl_ += "namespace " + owner->name() + " {";
-      wrappingNses_ += "::" + owner->name();
-      closingNsBraces_ += '}';
-      owners.pop();
-   }
-   wrappingNsCalculated_ = true;
-}
-
-const CibCppObj* CibCppCompound::resolveTypeName(const std::string& typeName) const
+const CibCppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const
 {
     TypeNameToCibCppObj::const_iterator itr = typeNameToCibCppObj_.find(typeName);
     if(itr != typeNameToCibCppObj_.end())
         return itr->second;
-    const CibCppObj* resolvedType = gCppProgram.getCibCppObjFromTypeName(typeName, cppCompoundObj_);
+    const CibCppObj* resolvedType = cppProgram.getCibCppObjFromTypeName(typeName, cppCompoundObj_);
     typeNameToCibCppObj_[typeName] = resolvedType;
     return resolvedType;
 }
 
-void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     stm     << indentation;
     stm     << cppCompoundObj_->compoundType_;
@@ -308,12 +256,12 @@ void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibI
         }
         if(mem->objType_ == CppObj::kCompound)
 		{
-            ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitDecl(stm, indentation);
+            ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitDecl(stm, cppProgram, cibParams, indentation);
 		}
         else if(mem->objType_ == CppObj::kFunction || mem->objType_ == CppObj::kConstructor || mem->objType_ == CppObj::kDestructor)
         {
-            CibCppFunction* func = (CibCppFunction*) gCppProgram.CibCppObjFromCppObj(mem);
-            func->emitOrigDecl(stm, indentation);
+            CibCppFunction* func = (CibCppFunction*) cppProgram.CibCppObjFromCppObj(mem);
+            func->emitOrigDecl(stm, cppProgram, cibParams, indentation);
         }
 		else
 		{
@@ -327,8 +275,8 @@ void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibI
             // Everything below this is for glue code
             // Emit forward declaration of original class as handle.
             stm << '\n' << --indentation << "public:\n";
-            stm << ++indentation << cppCompoundObj_->compoundType_ << ' ' << handleName() << ";\n";
-            stm << indentation << name() << '(' << handleName() << "* h)";
+            stm << ++indentation << cppCompoundObj_->compoundType_ << ' ' << handleName(cibParams) << ";\n";
+            stm << indentation << name() << '(' << handleName(cibParams) << "* h)";
             CibCppCompoundArray& pubParents = parents_[kPublic];
             char baseClassCtorPrefix = ':';
             for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
@@ -338,19 +286,19 @@ void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibI
                 baseClassCtorPrefix = ',';
             }
             stm << "{ __set(h); }\n";
-            stm << indentation << handleName() << "* " << gParams.handleGetterMethod << "() const { return h_; }\n";
-			stm << indentation << "static " << name() << "* " << gParams.fromHandle << "(" << handleName() << "* h);\n";
+            stm << indentation << handleName(cibParams) << "* " << cibParams.handleGetterMethod << "() const { return h_; }\n";
+			stm << indentation << "static " << name() << "* " << cibParams.fromHandle << "(" << handleName(cibParams) << "* h);\n";
             stm << '\n' << --indentation << "protected :\n";
             ++indentation;
             for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
             {
                 const CibCppCompound* pubParent = *parentItr;
-                stm << indentation << "static " << pubParent->fullHandleName() << "* " << castToBaseName(pubParent) << "(" << handleName() << "* h);\n";
+                stm << indentation << "static " << pubParent->fullHandleName(cibParams) << "* " << castToBaseName(pubParent, cibParams) << "(" << handleName(cibParams) << "* h);\n";
             }
-            stm << indentation << "void __set(" << handleName() << "* h);\n";
+            stm << indentation << "void __set(" << handleName(cibParams) << "* h);\n";
             // Now emit members that are required for glueing.
             stm << '\n' << --indentation << "private :\n";
-            stm << ++indentation << handleName() << "* h_;\n";
+            stm << ++indentation << handleName(cibParams) << "* h_;\n";
         }
         stm     << --indentation << "};\n";
     }
@@ -361,11 +309,11 @@ void CibCppCompound::emitDecl(std::ostream& stm, CibIndent indentation /* = CibI
 
     if(outer_ && outer_->cppCompoundObj_->isCppFile())
     {
-        emitDefn(stm, indentation);
+        emitDefn(stm, cppProgram, cibParams, indentation);
     }
 }
 
-void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
     {
@@ -374,7 +322,7 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
             continue;
         if(mem->objType_ == CppObj::kFunction || mem->objType_ == CppObj::kConstructor || mem->objType_ == CppObj::kDestructor)
         {
-            CibCppFunction* func = (CibCppFunction*) gCppProgram.CibCppObjFromCppObj(mem);
+            CibCppFunction* func = (CibCppFunction*) cppProgram.CibCppObjFromCppObj(mem);
             if(inline_) // If class is inline
             {
                 if(func->isStatic() && !func->isInline()) // only non-inline static methods need bridging.
@@ -389,7 +337,7 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
     if((cppCompoundObj_->isNamespaceLike()) == 0 || needsBridging_.empty())
         return; // Nothing to do if it is not namespace/class/struct/union.
     stm     << '\n'; // Start in new line.
-    stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib { namespace CppToC {\n";
+    stm     << indentation << "namespace _cib_ { namespace " << cibParams.moduleName << "Lib { namespace CppToC {\n";
     if(!wrappingNamespaceDeclarations().empty())
        stm  << ++indentation << wrappingNamespaceDeclarations() << '\n';
     stm     << ++indentation << "struct " << name() << " {\n";
@@ -398,13 +346,13 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
 	{
 		if(needsBridging_[idxFunc]->isPureVirtual())
 			continue;
-        needsBridging_[idxFunc]->emitProcType(stm, indentation);
+        needsBridging_[idxFunc]->emitProcType(stm, cppProgram, cibParams, indentation);
 	}
     CibCppCompoundArray& pubParents = parents_[kPublic];
     for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
     {
         const CibCppCompound* pubParent = *parentItr;
-        stm << indentation << "typedef "<< pubParent->fullHandleName() << "* (__stdcall *" << castToBaseName(pubParent) << "Proc) (" << fullHandleName() << "* h);\n";
+        stm << indentation << "typedef "<< pubParent->fullHandleName(cibParams) << "* (__stdcall *" << castToBaseName(pubParent, cibParams) << "Proc) (" << fullHandleName(cibParams) << "* h);\n";
     }
     stm     << '\n'; // Start in new line.
     for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
@@ -412,12 +360,12 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
         CibCppFunction* func = needsBridging_[idxFunc];
 		if(func->isPureVirtual())
 			continue;
-        stm << indentation << func->procType() << ' ' << func->procName() << ";\n";
+        stm << indentation << func->procType(cibParams) << ' ' << func->procName(cibParams) << ";\n";
     }
     for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
     {
         const CibCppCompound* pubParent = *parentItr;
-        stm << indentation << castToBaseName(pubParent) << "Proc " << castToBaseName(pubParent) << ";\n";
+        stm << indentation << castToBaseName(pubParent, cibParams) << "Proc " << castToBaseName(pubParent, cibParams) << ";\n";
     }
     stm     << '\n'; // Start in new line.
     stm     << indentation << "static const " << name() << "& instance() {\n";
@@ -433,35 +381,35 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, CibIndent indentation /* 
 	stm     << --indentation << "}}}\n";
 }
 
-void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
     {
         CppObj* mem = *memItr;
         if(mem->objType_ == CppObj::kCompound)
-            ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitDefn(stm, indentation);
+            ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitDefn(stm, cppProgram, cibParams, indentation);
     }
     // First emit the CppToC class declaration.
-    emitBridgeDecl(stm, indentation);
+    emitBridgeDecl(stm, cppProgram, cibParams, indentation);
     // Emit the implementation of class methods/constructors added as part of glue code.
     stm     << '\n'; // Start in new line.
     CibCppCompoundArray& pubParents = parents_[kPublic];
     for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
     {
         const CibCppCompound* pubParent = *parentItr;
-        stm << indentation << "inline " << pubParent->fullHandleName() << "* " << fullName() << "::" << castToBaseName(pubParent) << '(' << fullHandleName() << "* h) {\n";
-        stm << ++indentation << "return _cib_::" << gParams.moduleName << "Lib::" << bridgeName() << "::instance()." << castToBaseName(pubParent) << "(h);\n";
+        stm << indentation << "inline " << pubParent->fullHandleName(cibParams) << "* " << fullName() << "::" << castToBaseName(pubParent, cibParams) << '(' << fullHandleName(cibParams) << "* h) {\n";
+        stm << ++indentation << "return _cib_::" << cibParams.moduleName << "Lib::" << bridgeName() << "::instance()." << castToBaseName(pubParent, cibParams) << "(h);\n";
         stm << --indentation << "}\n";
     }
     if(cppCompoundObj_->isClassLike())
     {
         stm     << '\n'; // Start in new line.
-        stm     << indentation << "inline void " << fullName() << "::__set(" << fullHandleName() << "* h) {\n";
+        stm     << indentation << "inline void " << fullName() << "::__set(" << fullHandleName(cibParams) << "* h) {\n";
         ++indentation;
         for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
         {
             const CibCppCompound* pubParent = *parentItr;
-            stm << indentation << pubParent->fullName() << "::" << "__set(" << castToBaseName(pubParent) << "(h));\n";
+            stm << indentation << pubParent->fullName() << "::" << "__set(" << castToBaseName(pubParent, cibParams) << "(h));\n";
         }
         stm     << indentation << "h_ = h;\n";
         stm     << --indentation << "}\n";
@@ -475,10 +423,10 @@ void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibI
         stm     << indentation << "inline ";
         if(func->isFunction())
 		{
-			emitType(stm, func->func_->retType_, this);
+			emitType(stm, func->func_->retType_, this, cppProgram, cibParams);
 			stm << ' ';
 		}
-        stm     << fullName() << "::" << func->funcName() << '('; func->emitArgsForDecl(stm); stm     << ")";
+        stm     << fullName() << "::" << func->funcName() << '('; func->emitArgsForDecl(stm, cppProgram, cibParams); stm     << ")";
         if(func->isConst())
             stm << " const ";
         else if(func->isConstructor())
@@ -500,21 +448,21 @@ void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibI
         else if(func->isFunction() && func->func_->retType_ && !func->func_->retType_->isVoid())
         {
             stm << "return ";
-            retType = (CibCppCompound*) resolveTypeName(func->func_->retType_->baseType_);
+            retType = (CibCppCompound*) resolveTypeName(func->func_->retType_->baseType_, cppProgram);
             if(retType)
             {
-               stm << retType->fullName() << "::" << gParams.fromHandle << "(\n";
+               stm << retType->fullName() << "::" << cibParams.fromHandle << "(\n";
                stm << ++indentation;
             }
         }
-        stm     << "_cib_::" << gParams.moduleName << "Lib::" << bridgeName() << "::instance()." << func->procName() << "(";
+        stm     << "_cib_::" << cibParams.moduleName << "Lib::" << bridgeName() << "::instance()." << func->procName(cibParams) << "(";
         if(!func->isConstructor() && !func->isStatic())
         {
             stm << "h_";
             if(func->hasParams())
                 stm << ", ";
         }
-        func->emitArgsForCall(stm, true);
+        func->emitArgsForCall(stm, cppProgram, cibParams, true);
         stm     << ')';
         if(func->isConstructor())
             stm << ')';
@@ -525,11 +473,11 @@ void CibCppCompound::emitDefn(std::ostream& stm, CibIndent indentation /* = CibI
     }
 }
 
-void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     if(cppCompoundObj_->isCppFile())
     {
-        stm     << "#include \"cib_" << gParams.moduleName << "Lib.h\"\n";
+        stm     << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n";
         std::string incName = name();
         std::string::size_type sepPos = incName.rfind('/');
         if(sepPos == incName.npos)
@@ -538,7 +486,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
             incName = incName.substr(sepPos+1);
         stm     << indentation << "#include \"" << incName << "\"\n";
         stm     << '\n'; // Start in new line.
-        stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib { namespace CtoCpp {\n";
+        stm     << indentation << "namespace _cib_ { namespace " << cibParams.moduleName << "Lib { namespace CtoCpp {\n";
         ++indentation;
     }
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
@@ -548,7 +496,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
         {
             if(cppCompoundObj_->isNamespaceLike())
                stm << indentation++ << "namespace " << name() << " {\n";
-            ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitLibGlueCode(stm, indentation);
+            ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitLibGlueCode(stm, cppProgram, cibParams, indentation);
             if(cppCompoundObj_->isNamespaceLike())
                stm << --indentation << "}\n";
         }
@@ -561,7 +509,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
             CibCppFunction* func = needsBridging_[idxFunc];
 			if(func->isPureVirtual())
 				continue;
-            func->emitCAPIDefn(stm, indentation);
+            func->emitCAPIDefn(stm, cppProgram, cibParams, indentation);
             stm << '\n'; // Start in new line.
         }
 
@@ -569,7 +517,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
         for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
         {
             const CibCppCompound* pubParent = *parentItr;
-            stm << indentation << "::" << pubParent->fullName() << "* __stdcall " << castToBaseName(pubParent) << "(::" << fullName() << "* " << objName() << ") {\n";
+            stm << indentation << "::" << pubParent->fullName() << "* __stdcall " << castToBaseName(pubParent, cibParams) << "(::" << fullName() << "* " << objName() << ") {\n";
             stm << ++indentation << "return " << objName() << ";\n";
             stm << --indentation << "}\n";
         }
@@ -577,7 +525,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
             stm << '\n'; // Start in new line.
         if(!needsBridging_.empty())
         {
-            stm     << indentation << "class MetaInterface" << " : public ::_cib_::" << gParams.moduleName << "Lib::MetaInterface {\n";
+            stm     << indentation << "class MetaInterface" << " : public ::_cib_::" << cibParams.moduleName << "Lib::MetaInterface {\n";
             stm     << indentation << "protected:\n";
             stm     << ++indentation << "virtual void LoadMethods() {\n";
             ++indentation;
@@ -586,17 +534,17 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
                 CibCppFunction* func = needsBridging_[idxFunc];
 				if(func->isPureVirtual())
 					continue;
-                stm << indentation << "AddMethod(" << func->cibId() << ", (void*) " << func->capiName() << ");\n";
+                stm << indentation << "AddMethod(" << func->cibId(cibParams) << ", (void*) " << func->capiName(cibParams) << ");\n";
             }
 
 			for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
             {
                 const CibCppCompound* pubParent = *parentItr;
-                stm << indentation << "AddMethod(" << cibIdOfCastToBaseName(pubParent) << ", (void*) " << castToBaseName(pubParent) << ");\n";
+                stm << indentation << "AddMethod(" << cibIdOfCastToBaseName(pubParent, cibParams) << ", (void*) " << castToBaseName(pubParent, cibParams) << ");\n";
             }
             stm     << --indentation << "}\n";
             stm     << --indentation << "};\n";
-            stm     << indentation << "::_cib_::" << gParams.moduleName << "Lib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }\n";
+            stm     << indentation << "::_cib_::" << cibParams.moduleName << "Lib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }\n";
         }
         stm         << --indentation << "}\n";
     }
@@ -606,11 +554,11 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, CibIndent indentation /*
     }
 }
 
-void CibCppCompound::emitUsrGlueCode(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     if(cppCompoundObj_->isCppFile())
     {
-        stm     << "#include \"cib_" << gParams.moduleName << "Lib.h\"\n";
+        stm     << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n";
         std::string incName = name();
         std::string::size_type sepPos = incName.rfind('/');
         if(sepPos == incName.npos)
@@ -619,33 +567,33 @@ void CibCppCompound::emitUsrGlueCode(std::ostream& stm, CibIndent indentation /*
             incName = incName.substr(sepPos+1);
         stm     << indentation << "#include \"" << incName << "\"\n";
         stm     << '\n';
-        stm     << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib {\n";
+        stm     << indentation << "namespace _cib_ { namespace " << cibParams.moduleName << "Lib {\n";
         ++indentation;
     }
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
     {
         CppObj* mem = *memItr;
         if(mem->objType_ == CppObj::kCompound)
-            ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitUsrGlueCode(stm, indentation);
+            ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitUsrGlueCode(stm, cppProgram, cibParams, indentation);
     }
 
 	if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
     {
         stm     << indentation++ << bridgeName() << "::" << name() <<"() {\n";
-        stm     << indentation << "_cib_::" << gParams.moduleName << "Lib::MetaInterface metaIntrface(" << cibId() << ");\n";
+        stm     << indentation << "_cib_::" << cibParams.moduleName << "Lib::MetaInterface metaIntrface(" << cibId(cibParams) << ");\n";
         for(size_t idxFunc = 0; idxFunc < needsBridging_.size(); ++idxFunc)
         {
             CibCppFunction* func = needsBridging_[idxFunc];
 			if(func->isPureVirtual())
 				continue;
-            stm << indentation << func->procName() << " = ("<< func->procType() << ") metaIntrface.GetMethod(" << func->cibId() << ");\n";
+            stm << indentation << func->procName(cibParams) << " = ("<< func->procType(cibParams) << ") metaIntrface.GetMethod(" << func->cibId(cibParams) << ");\n";
         }
         
         CibCppCompoundArray& pubParents = parents_[kPublic];
         for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
         {
             const CibCppCompound* pubParent = *parentItr;
-            stm << indentation << castToBaseName(pubParent) << " = (" << castToBaseName(pubParent) << "Proc) metaIntrface.GetMethod(" << cibIdOfCastToBaseName(pubParent) << ");\n";
+            stm << indentation << castToBaseName(pubParent, cibParams) << " = (" << castToBaseName(pubParent, cibParams) << "Proc) metaIntrface.GetMethod(" << cibIdOfCastToBaseName(pubParent, cibParams) << ");\n";
         }
         stm     << --indentation << "}\n";
     }
@@ -655,30 +603,30 @@ void CibCppCompound::emitUsrGlueCode(std::ostream& stm, CibIndent indentation /*
     }
 }
 
-void CibCppCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
    for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
    {
       CppObj* mem = *memItr;
       if(mem->objType_ == CppObj::kCompound)
-         ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitMetaInterfaceFactoryDecl(stm, indentation);
+         ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitMetaInterfaceFactoryDecl(stm, cppProgram, cibParams, indentation);
    }
    if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
    {
-      stm << indentation << "namespace _cib_ { namespace " << gParams.moduleName << "Lib { namespace CtoCpp {\n";
-      stm << ++indentation << wrappingNamespaceDeclarations() << " namespace " << name() << " { ::_cib_::" << gParams.moduleName << "Lib::MetaInterface* CreateMetaInterface(); }" << closingBracesForWrappingNamespaces() << '\n';;
+      stm << indentation << "namespace _cib_ { namespace " << cibParams.moduleName << "Lib { namespace CtoCpp {\n";
+      stm << ++indentation << wrappingNamespaceDeclarations() << " namespace " << name() << " { ::_cib_::" << cibParams.moduleName << "Lib::MetaInterface* CreateMetaInterface(); }" << closingBracesForWrappingNamespaces() << '\n';;
 	  stm << --indentation << "}}}\n";
    }
 }
 
-void CibCppCompound::emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
 {
     for(CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
     {
         CppObj* mem = *memItr;
         if(mem->objType_ == CppObj::kCompound)
-            ((CibCppCompound*) gCppProgram.CibCppObjFromCppObj(mem))->emitCodeToPopulateMetaInterfaceRepository(stm, indentation);
+            ((CibCppCompound*) cppProgram.CibCppObjFromCppObj(mem))->emitCodeToPopulateMetaInterfaceRepository(stm, cppProgram, cibParams, indentation);
     }
     if(cppCompoundObj_->isNamespaceLike() && !needsBridging_.empty())
-        stm << indentation << "gMetaInterfaceRepository[" << cibId() << "] = _cib_::" << gParams.moduleName << "Lib::CtoCpp" << wrappingNses() << "::" << name() << "::CreateMetaInterface();\n";
+        stm << indentation << "gMetaInterfaceRepository[" << cibId(cibParams) << "] = _cib_::" << cibParams.moduleName << "Lib::CtoCpp" << wrappingNses() << "::" << name() << "::CreateMetaInterface();\n";
 }

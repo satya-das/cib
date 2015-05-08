@@ -109,7 +109,7 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
 	return true;
 }
 
-void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode)
+void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams)
 {
 	CibCppInheritInfo::const_iterator parentSetItr = compound->parents_.find(kPublic);
 	if(parentSetItr == compound->parents_.end())
@@ -120,10 +120,10 @@ void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNo
 	{
 		const CibCppCompound* pubParent = *parentItr;
 		std::ostrstream tmpbuf;
-		tmpbuf << compound->castToBaseName(pubParent) << "();";
+		tmpbuf << compound->castToBaseName(pubParent, cibParams) << "();";
 		std::string itmUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
 		CibIdData& itemData = idNode.idEnum[itmUniqStr];
-		itemData.idName = compound->castToBaseName(pubParent);
+		itemData.idName = compound->castToBaseName(pubParent, cibParams);
 		if(oldIdNode)
 		{
 			 CibIdEnum::const_iterator oldItmItr = oldIdNode->idEnum.find(itmUniqStr);
@@ -139,7 +139,7 @@ void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNo
 	}
 }
 
-void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode)
+void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams)
 {
 	if(inList.empty())
 		return;
@@ -152,9 +152,9 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 		{
 			CibCppFunction* func = (CibCppFunction*) expProg.CibCppObjFromCppObj(item);
 			std::ostrstream tmpbuf;
-			func->emitOrigDecl(tmpbuf);
+			func->emitOrigDecl(tmpbuf, expProg, cibParams);
 			itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
-			enumItemData.idName = func->capiName();
+			enumItemData.idName = func->capiName(cibParams);
 		}
 		else if(item->isNamespaceLike())
 		{
@@ -166,11 +166,11 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 				if(itr != oldIdNode->childs.end())
 					childOldIdNode = &(itr->second);
 			}
-			assignIds(compound->members_, expProg, idNode.childs[compound->name_], childOldIdNode);
+			assignIds(compound->members_, expProg, idNode.childs[compound->name_], childOldIdNode, cibParams);
 			if(compound->isClassLike())
 			{
 				CibCppCompound* cmp = (CibCppCompound*) expProg.CibCppObjFromCppObj(compound);
-				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode);
+				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode, cibParams);
 				std::ostrstream tmpbuf;
 				tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ';';
 				itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
@@ -197,14 +197,14 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 	}
 }
 
-void CibIdMgr::assignIds(CppProgramEx& expProg)
+void CibIdMgr::assignIds(CppProgramEx& expProg, const CibParams& cibParams)
 {
 	// First create Ids for global functions
 	const CppCompoundArray& fileDOMs = expProg.getFileDOMs();
 	for(CppCompoundArray::const_iterator fileDomItr = fileDOMs.begin(); fileDomItr != fileDOMs.end(); ++fileDomItr)
 	{
 		const CppCompound* fileCmpound = *fileDomItr;
-		assignIds(fileCmpound->members_, expProg, idTreeRoot_, &oldIdTreeRoot_);
+		assignIds(fileCmpound->members_, expProg, idTreeRoot_, &oldIdTreeRoot_, cibParams);
 	}
 }
 

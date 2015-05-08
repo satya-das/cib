@@ -107,6 +107,7 @@
     <ClInclude Include="cib.h" />
     <ClInclude Include="cppprogex.h" />
     <ClInclude Include="idmgr.h" />
+    <ClInclude Include="params.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\third_party\boost_tp\msvs\filesystem.vcxproj">
