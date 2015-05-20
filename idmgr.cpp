@@ -1,25 +1,25 @@
 /*
-The MIT License (MIT)
+   The MIT License (MIT)
 
-Copyright (c) 2014
+   Copyright (c) 2014
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 
 #include "idmgr.h"
 
@@ -46,12 +46,12 @@ void CibIdMgr::loadIds(const CppCompound* nodeCompound, CibIdNode& idNode)
 				continue;
 			for(CppEnumItemList::const_iterator enmItmItr = idEnum->itemList_->begin(); enmItmItr != idEnum->itemList_->end(); ++enmItmItr)
 			{
-				CppEnumItem* enmUniqStrItm = *enmItmItr;
+				CppEnumItem*   enmUniqStrItm = *enmItmItr;
 				if(!enmUniqStrItm->name_.empty())
 					continue;
 				if(enmUniqStrItm->anyItem_->objType_ != CppObj::kDocComment)
 					continue;
-				CppDocComment* uniqStrComment = (CppDocComment*) enmUniqStrItm->anyItem_;
+				CppDocComment* uniqStrComment  = (CppDocComment*) enmUniqStrItm->anyItem_;
 				size_t uniqStrStartPos = uniqStrComment->doc_.find('/');
 				if(uniqStrStartPos == uniqStrComment->doc_.npos)
 					continue;
@@ -60,15 +60,15 @@ void CibIdMgr::loadIds(const CppCompound* nodeCompound, CibIdNode& idNode)
 				++enmItmItr;
 				if(enmItmItr == idEnum->itemList_->end())
 					break;
-				CppEnumItem* enmItmData = *enmItmItr;
+				CppEnumItem*   enmItmData = *enmItmItr;
 				if(enmItmData->name_.empty() || enmItmData->val_ == NULL || enmItmData->val_->objType_ != CppObj::kExpression)
 					continue;
-				CppExpr* valExpr = enmItmData->val_;
+				CppExpr*       valExpr    = enmItmData->val_;
 				if(valExpr->expr1_.type != CppExprAtom::kAtom || valExpr->expr1_.atom == NULL || valExpr->expr1_.atom->length() == 0)
 					continue;
-				CibIdData& cibIdData = idNode.idEnum[uniqStrComment->doc_.substr(uniqStrStartPos+5)];
+				CibIdData&     cibIdData  = idNode.idEnum[uniqStrComment->doc_.substr(uniqStrStartPos+5)];
 				cibIdData.idName = enmItmData->name_;
-				cibIdData.idVal = atoi(valExpr->expr1_.atom->c_str());
+				cibIdData.idVal  = atoi(valExpr->expr1_.atom->c_str());
 				if(lastCibId_ < cibIdData.idVal)
 					lastCibId_ = cibIdData.idVal;
 			}
@@ -91,15 +91,15 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
 		const CppObj* cppObj = *idsFileMemItr;
 		if(cppObj->objType_ != CppObj::kCompound)
 			continue;
-		CppCompound* cibNs = (CppCompound*) cppObj;
+		CppCompound*  cibNs  = (CppCompound*) cppObj;
 		if(cibNs->name_ != "_cib_")
 			return false;
 		for(CppObjArray::const_iterator cibNsMemItr = cibNs->members_.begin(); cibNsMemItr != cibNs->members_.end(); ++cibNsMemItr)
 		{
-			const CppObj* cppObj = *cibNsMemItr;
+			const CppObj* cppObj      = *cibNsMemItr;
 			if(cppObj->objType_ != CppObj::kCompound)
 				continue;
-			CppCompound* cibModuleNs = (CppCompound*) cppObj;
+			CppCompound*  cibModuleNs = (CppCompound*) cppObj;
 			if(cibModuleNs->name_ != moduleName_ + "Lib")
 				return false;
 			loadIds(cibModuleNs, oldIdTreeRoot_);
@@ -114,23 +114,23 @@ void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNo
 	CibCppInheritInfo::const_iterator parentSetItr = compound->parents_.find(kPublic);
 	if(parentSetItr == compound->parents_.end())
 		return;
-	const CibCppCompoundArray& pubParents = parentSetItr->second;
+	const CibCppCompoundArray&        pubParents   = parentSetItr->second;
 
 	for(CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
 	{
-		const CibCppCompound* pubParent = *parentItr;
+		const CibCppCompound* pubParent  = *parentItr;
 		std::ostrstream tmpbuf;
 		tmpbuf << compound->castToBaseName(pubParent, cibParams) << "();";
 		std::string itmUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
-		CibIdData& itemData = idNode.idEnum[itmUniqStr];
+		CibIdData&            itemData   = idNode.idEnum[itmUniqStr];
 		itemData.idName = compound->castToBaseName(pubParent, cibParams);
 		if(oldIdNode)
 		{
-			 CibIdEnum::const_iterator oldItmItr = oldIdNode->idEnum.find(itmUniqStr);
-			 if(oldItmItr == oldIdNode->idEnum.end())
+			CibIdEnum::const_iterator oldItmItr = oldIdNode->idEnum.find(itmUniqStr);
+			if(oldItmItr == oldIdNode->idEnum.end())
 				itemData.idVal = ++lastCibId_;
-			 else
-				 itemData.idVal = oldItmItr->second.idVal;
+			else
+				itemData.idVal = oldItmItr->second.idVal;
 		}
 		else
 		{
@@ -147,18 +147,18 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 	{
 		std::string itemUniqStr;
 		CibIdData enumItemData;
-		CppObj* item = *itemItr;
+		CppObj*     item = *itemItr;
 		if(item->isFunctionLike())
 		{
 			CibCppFunction* func = (CibCppFunction*) expProg.CibCppObjFromCppObj(item);
 			std::ostrstream tmpbuf;
 			func->emitOrigDecl(tmpbuf, expProg, cibParams);
-			itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
+			itemUniqStr         = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
 			enumItemData.idName = func->capiName(cibParams);
 		}
 		else if(item->isNamespaceLike())
 		{
-			CppCompound* compound = (CppCompound*) item;
+			CppCompound*     compound       = (CppCompound*) item;
 			const CibIdNode* childOldIdNode = NULL;
 			if(oldIdNode)
 			{
@@ -173,7 +173,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
 				assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode, cibParams);
 				std::ostrstream tmpbuf;
 				tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ';';
-				itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
+				itemUniqStr         = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
 				enumItemData.idName = compound->name_;
 			}
 		}
