@@ -522,7 +522,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
 			stm << --indentation << "}\n";
 		}
 		if(!pubParents.empty())
-			stm << '\n';                                                                                                                    // Start in new line.
+			stm << '\n';                                                                                                                                                                                                // Start in new line.
 		if(!needsBridging_.empty())
 		{
 			stm     << indentation << "class MetaInterface" << " : public ::_cib_::" << cibParams.moduleName << "Lib::MetaInterface {\n";
