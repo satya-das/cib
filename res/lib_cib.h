@@ -8,6 +8,7 @@
 #define __CIB_$MODULE$_H__
 
 #include <map>
+#include <cstdint>
 
 namespace _cib_ { namespace $MODULE$Lib {
     /**
@@ -20,7 +21,7 @@ namespace _cib_ { namespace $MODULE$Lib {
     class MetaInterface
     {
     private:
-        typedef std::map<int, void*> MethodIdToProcMap;
+        typedef std::map<std::uint32_t, void*> MethodIdToProcMap;
         MethodIdToProcMap methods;
 
     protected:
@@ -31,11 +32,11 @@ namespace _cib_ { namespace $MODULE$Lib {
         virtual void LoadMethods() {}
 
     public:
-        void AddMethod(int funcCibId, void* proc)
+        void AddMethod(std::uint32_t funcCibId, void* proc)
         {
             methods[funcCibId] = proc;
         }
-        void* GetMethod(int funcCibId)
+        void* GetMethod(std::uint32_t funcCibId)
         {
             if(methods.empty())
                 LoadMethods();

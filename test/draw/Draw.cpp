@@ -3,8 +3,9 @@
 
 #include <iostream>
 #include <Windows.h>
+#include <cstdint>
 
-typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (int methodId);
+typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (std::uint32_t methodId);
 cibGetMetaInterfaceMethodProcType cibGetMetaInterfaceMethodProc;
 
 void initShapeLib()
