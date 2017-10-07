@@ -9,7 +9,7 @@ Component Interface Binder (CIB)	{#mainpage}
 *Because there is no way for C++ to be ABI compatible programmers use C for exporting APIs that can be called from across a DLL boundary.  
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers (and different versions of same compiler) and that does not change based on compiler switch, will make it possible, at-least in theory, to use C++ for exporting APIs.  
 But even if that becomes reality using C++ as public header will still be a difficulty in practice. A C++ class definition also contains private methods and data members which a programmer may not want its client to see. So, a C++ programmer will have to use a design pattern like [bridge](en.wikipedia.org/wiki/Bridge_pattern) or segregation of interface and implementation as used in COM.  
-CIB solves the incompatible ABI problem (and it does much more than that) and still allows programmer to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
+CIB solves the incompatible ABI problem (and it does much more than that) and still allows programmers to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
 
 ## Overview			{#Overview}
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component built using different compiler or different version of same compiler.
@@ -117,5 +117,14 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 ---
 
 ## Implementation Details 	{#ImplementationDetails}
+### Parsing Technique {#ParsingTechnique}
+We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
+
+`
+void ExampleFunction(wxInt32 i);
+`
+
+cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
+
 ### Creating proxy class from handle	{#CreatingProxyClassFromHandle}
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class
