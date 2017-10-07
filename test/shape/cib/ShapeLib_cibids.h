@@ -4,28 +4,32 @@
 #define __CIBID_ShapeLib_H__
 
 namespace _cib_ { namespace ShapeLib {
-	namespace Geometry {
+	namespace Graphics {
 		enum {
 			//#= class Circle;
 			kCIBID_Circle = 6,
 			//#= class Composite;
 			kCIBID_Composite = 16,
+			//#= class Context;
+			kCIBID_Context = 21,
+			//#= class ContextLogger;
+			kCIBID_ContextLogger = 27,
 			//#= class Rectangle;
-			kCIBID_Rectangle = 22,
+			kCIBID_Rectangle = 33,
 			//#= class Shape;
-			kCIBID_Shape = 27,
+			kCIBID_Shape = 38,
 		};
 		namespace Circle {
 			enum {
-				//#= Circle(int Ox, int Oy, int radius);
+				//#= Circle(float Ox, float Oy, float radius);
 				kCIBID___new = 1,
-				//#= __cast_to_Geometry__Shape();
-				kCIBID___cast_to_Geometry__Shape = 5,
-				//#= virtual double Area() const;
+				//#= __cast_to_Graphics__Shape();
+				kCIBID___cast_to_Graphics__Shape = 5,
+				//#= virtual float Area() const;
 				kCIBID_Area = 2,
-				//#= virtual double Perimeter() const;
+				//#= virtual float Perimeter() const;
 				kCIBID_Perimeter = 3,
-				//#= virtual void Draw(HDC hdc) const;
+				//#= virtual void Draw(Context* ctx) const;
 				kCIBID_Draw = 4,
 			};
 		}
@@ -35,46 +39,74 @@ namespace _cib_ { namespace ShapeLib {
 				kCIBID___new = 7,
 				//#= Shape* ShapeAt(size_t idxShape) const;
 				kCIBID_ShapeAt = 10,
-				//#= __cast_to_Geometry__Shape();
-				kCIBID___cast_to_Geometry__Shape = 15,
+				//#= __cast_to_Graphics__Shape();
+				kCIBID___cast_to_Graphics__Shape = 15,
 				//#= size_t NumShapes() const;
 				kCIBID_NumShapes = 9,
 				//#= static Composite* CreateCompositeOfRectAndCircle();
 				kCIBID_CreateCompositeOfRectAndCircle = 14,
-				//#= virtual double Area() const;
+				//#= virtual float Area() const;
 				kCIBID_Area = 11,
-				//#= virtual double Perimeter() const;
+				//#= virtual float Perimeter() const;
 				kCIBID_Perimeter = 12,
-				//#= virtual void Draw(HDC hdc) const;
+				//#= virtual void Draw(Context* ctx) const;
 				kCIBID_Draw = 13,
 				//#= void Add(Shape* shape);
 				kCIBID_Add = 8,
 			};
 		}
+		namespace Context {
+			enum {
+				//#= virtual void Close() = 0;
+				kCIBID_Close = 20,
+				//#= virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3) = 0;
+				kCIBID_Curve = 19,
+				//#= virtual void Line(float x, float y) = 0;
+				kCIBID_Line = 18,
+				//#= virtual void Move(float x, float y) = 0;
+				kCIBID_Move = 17,
+			};
+		}
+		namespace ContextLogger {
+			enum {
+				//#= ContextLogger();
+				kCIBID___new = 40,
+				//#= __cast_to_Graphics__Context();
+				kCIBID___cast_to_Graphics__Context = 26,
+				//#= virtual void Close();
+				kCIBID_Close = 25,
+				//#= virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3);
+				kCIBID_Curve = 24,
+				//#= virtual void Line(float x, float y);
+				kCIBID_Line = 23,
+				//#= virtual void Move(float x, float y);
+				kCIBID_Move = 22,
+			};
+		}
 		namespace Rectangle {
 			enum {
-				//#= Rectangle(int left, int top, int right, int bottom);
-				kCIBID___new = 17,
-				//#= __cast_to_Geometry__Shape();
-				kCIBID___cast_to_Geometry__Shape = 21,
-				//#= virtual double Area() const;
-				kCIBID_Area = 18,
-				//#= virtual double Perimeter() const;
-				kCIBID_Perimeter = 19,
-				//#= virtual void Draw(HDC hdc) const;
-				kCIBID_Draw = 20,
+				//#= Rectangle(float left, float top, float right, float bottom);
+				kCIBID___new = 28,
+				//#= __cast_to_Graphics__Shape();
+				kCIBID___cast_to_Graphics__Shape = 32,
+				//#= virtual float Area() const;
+				kCIBID_Area = 29,
+				//#= virtual float Perimeter() const;
+				kCIBID_Perimeter = 30,
+				//#= virtual void Draw(Context* ctx) const;
+				kCIBID_Draw = 31,
 			};
 		}
 		namespace Shape {
 			enum {
-				//#= virtual double Area() const = 0;
-				kCIBID_Area = 28,
-				//#= virtual double Perimeter() const = 0;
-				kCIBID_Perimeter = 29,
-				//#= virtual void Draw(HDC hdc) const = 0;
-				kCIBID_Draw = 30,
+				//#= virtual float Area() const = 0;
+				kCIBID_Area = 34,
+				//#= virtual float Perimeter() const = 0;
+				kCIBID_Perimeter = 35,
+				//#= virtual void Draw(Context* ctx) const = 0;
+				kCIBID_Draw = 36,
 				//#= virtual ~Shape();
-				kCIBID___delete = 26,
+				kCIBID___delete = 37,
 			};
 		}
 	}

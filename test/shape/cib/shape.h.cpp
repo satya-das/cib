@@ -4,16 +4,16 @@
 #include "shape.h"
 
 namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
-	namespace Geometry {
+	namespace Graphics {
 		namespace Shape {
-			void __stdcall __delete(::Geometry::Shape* pShapeObj) {
+			void __stdcall __delete(::Graphics::Shape* pShapeObj) {
 				delete pShapeObj;
 			}
 
 			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(::_cib_::ShapeLib::Geometry::Shape::kCIBID___delete, (void*) __delete);
+					AddMethod(::_cib_::ShapeLib::Graphics::Shape::kCIBID___delete, (void*) __delete);
 				}
 			};
 			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }

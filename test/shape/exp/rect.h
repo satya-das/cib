@@ -1,53 +1,52 @@
-#ifndef __RECT_H__
-#	define __RECT_H__
+#pragma  once
 
-#	include "shape.h"
+#include "shape.h"
+#include "context.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace Geometry
+namespace Graphics
 {
-/**
- * \brief Represents a rectangle.
- */
-	class Rectangle : public Geometry::Shape
+   /**
+    * \brief Represents a rectangle.
+    */
+	class Rectangle : public Graphics::Shape
 	{
 	public:
-		Rectangle(int left, int top, int right, int bottom);
-		virtual double Area() const;
-		virtual double Perimeter() const;
-		virtual void Draw(HDC hdc) const;
+		Rectangle(float left, float top, float right, float bottom);
+		virtual float Area() const;
+		virtual float Perimeter() const;
+		virtual void Draw(Context* ctx) const;
 
 	public:
 		class _h_Rectangle;
-		Rectangle(_h_Rectangle* h): Geometry::Shape(0) { __set(h); }
+		Rectangle(_h_Rectangle* h): Graphics::Shape(0) { __set(h); }
 		_h_Rectangle* __handle() const { return h_; }
 		static Rectangle* __fromHandle(_h_Rectangle* h);
 
 	protected :
-		static ::Geometry::Shape::_h_Shape* __cast_to_Geometry__Shape(_h_Rectangle* h);
+		static ::Graphics::Shape::_h_Shape* __cast_to_Graphics__Shape(_h_Rectangle* h);
 		void __set(_h_Rectangle* h);
 
 	private :
 		_h_Rectangle* h_;
 	};
-
 }
 
 namespace _cib_ { namespace ShapeLib { namespace CppToC {
-	namespace Geometry {
+	namespace Graphics {
 		struct Rectangle {
-			typedef ::Geometry::Rectangle::_h_Rectangle* (__stdcall *__newProc) (int left, int top, int right, int bottom);
-			typedef double (__stdcall *AreaProc) (::Geometry::Rectangle::_h_Rectangle* pRectangleObj);
-			typedef double (__stdcall *PerimeterProc) (::Geometry::Rectangle::_h_Rectangle* pRectangleObj);
-			typedef void (__stdcall *DrawProc) (::Geometry::Rectangle::_h_Rectangle* pRectangleObj, HDC hdc);
-			typedef ::Geometry::Shape::_h_Shape* (__stdcall *__cast_to_Geometry__ShapeProc) (::Geometry::Rectangle::_h_Rectangle* h);
+			typedef ::Graphics::Rectangle::_h_Rectangle* (__stdcall *__newProc) (float left, float top, float right, float bottom);
+			typedef float (__stdcall *AreaProc) (::Graphics::Rectangle::_h_Rectangle* pRectangleObj);
+			typedef float (__stdcall *PerimeterProc) (::Graphics::Rectangle::_h_Rectangle* pRectangleObj);
+			typedef void (__stdcall *DrawProc) (::Graphics::Rectangle::_h_Rectangle* pRectangleObj, ::Graphics::Context::_h_Context* ctx);
+			typedef ::Graphics::Shape::_h_Shape* (__stdcall *__cast_to_Graphics__ShapeProc) (::Graphics::Rectangle::_h_Rectangle* h);
 
 			__newProc __new;
 			AreaProc Area;
 			PerimeterProc Perimeter;
 			DrawProc Draw;
-			__cast_to_Geometry__ShapeProc __cast_to_Geometry__Shape;
+			__cast_to_Graphics__ShapeProc __cast_to_Graphics__Shape;
 
 			static const Rectangle& instance() {
 				static Rectangle bridgeIns;
@@ -60,30 +59,28 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 	}
 }}}
 
-inline ::Geometry::Shape::_h_Shape* Geometry::Rectangle::__cast_to_Geometry__Shape(::Geometry::Rectangle::_h_Rectangle* h) {
-	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().__cast_to_Geometry__Shape(h);
+inline ::Graphics::Shape::_h_Shape* Graphics::Rectangle::__cast_to_Graphics__Shape(::Graphics::Rectangle::_h_Rectangle* h) {
+	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().__cast_to_Graphics__Shape(h);
 }
 
-inline void Geometry::Rectangle::__set(::Geometry::Rectangle::_h_Rectangle* h) {
-	Geometry::Shape::__set(__cast_to_Geometry__Shape(h));
+inline void Graphics::Rectangle::__set(::Graphics::Rectangle::_h_Rectangle* h) {
+	Graphics::Shape::__set(__cast_to_Graphics__Shape(h));
 	h_ = h;
 }
 
-inline Geometry::Rectangle::Rectangle(int left, int top, int right, int bottom): Geometry::Shape(0) {
-	__set(_cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().__new(left, top, right, bottom));
+inline Graphics::Rectangle::Rectangle(float left, float top, float right, float bottom): Graphics::Shape(0) {
+	__set(_cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().__new(left, top, right, bottom));
 }
 
-inline double Geometry::Rectangle::Area() const {
-	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Area(h_);
+inline float Graphics::Rectangle::Area() const {
+	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Area(h_);
 }
 
-inline double Geometry::Rectangle::Perimeter() const {
-	return _cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Perimeter(h_);
+inline float Graphics::Rectangle::Perimeter() const {
+	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Perimeter(h_);
 }
 
-inline void Geometry::Rectangle::Draw(HDC hdc) const {
-	_cib_::ShapeLib::CppToC::Geometry::Rectangle::instance().Draw(h_, hdc);
+inline void Graphics::Rectangle::Draw(Context* ctx) const {
+	_cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Draw(h_, ctx->__handle());
 }
 
-
-#endif

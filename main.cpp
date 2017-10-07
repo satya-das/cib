@@ -180,8 +180,6 @@ int main(int argc, char* argv[])
 		cibLibSrcStm << cibcode;
 	}
 
-	std::ofstream allLibCibSources((binderPath / "cib_all_sources.cpp").native(), std::ios_base::out);
-	std::ofstream allUsrCibSources((outputPath / "cib_all_sources.cpp").native(), std::ios_base::out);
 	const CppCompoundArray& fileDOMs = cppProgram.getFileDOMs();
 	for(CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
 	{
@@ -192,18 +190,14 @@ int main(int argc, char* argv[])
 		bfs::path usrIncPath     = outputPath / cppDom->name_.substr(inputPath.native().length());
 		std::ofstream incStm(usrIncPath.native(), std::ios_base::out);
 		cibCppCompound->emitDecl(incStm, cppProgram, cibParams);
-		bfs::path usrSrcPath     = usrIncPath; usrSrcPath.replace_extension(".cpp");
+		bfs::path usrSrcPath     = usrIncPath; usrSrcPath.replace_extension(usrIncPath.extension().string() + ".cpp");
 		std::ofstream srcStm(usrSrcPath.native(), std::ios_base::out);
 		srcStm << "#include \"" << cibIdFileName << "\"\n\n";
 		cibCppCompound->emitUsrGlueCode(srcStm, cppProgram, cibParams);
-		bfs::path bndSrcPath = binderPath / (_T("cib_") + usrSrcPath.filename().native());
+		bfs::path bndSrcPath = binderPath / usrSrcPath.filename().native();
 		std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
 		bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
 		cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams);
-
-		// Emit #include in cib_all_sources.cpp.
-		allUsrCibSources << "#include \"" << relative_path(outputPath, usrSrcPath).string() << "\"\n";
-		allLibCibSources << "#include \"" << relative_path(binderPath, bndSrcPath).string() << "\"\n";
 	}
 
 	CibIndent indentation;

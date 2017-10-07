@@ -1,35 +1,34 @@
-#ifndef __RECT_H__
-#define __RECT_H__
+#pragma once
 
 #include "shape.h"
+#include "context.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace Geometry {
-/**
- * \brief Represents a rectangle.
- */
-class Rectangle : public Shape
-{
-	int left_, top_, right_, bottom_;
+namespace Graphics {
+   /**
+    * \brief Represents a rectangle.
+    */
+   class Rectangle : public Shape
+   {
+	   float left_, top_, right_, bottom_;
 
-public:
-	Rectangle(int left, int top, int right, int bottom) : left_(left), top_(top), right_(right), bottom_(bottom) {
-	}
-	/**
-	 * @return Area of this shape object.
-	 */
-	virtual double Area() const;
-	/**
-	 * @return Perimeter of this shape object.
-	 */
-	virtual double Perimeter() const;
-	/**
-	 * Draws this shape on a given device context.
-	 */
-	virtual void Draw(HDC hdc) const;
-};
-
+   public:
+	   Rectangle(float left, float top, float right, float bottom)
+         : left_(left), top_(top), right_(right), bottom_(bottom)
+      {
+	   }
+	   /**
+	    * @return Area of this shape object.
+	    */
+	   virtual float Area() const;
+	   /**
+	    * @return Perimeter of this shape object.
+	    */
+	   virtual float Perimeter() const;
+	   /**
+	    * Draws this shape on a given device context.
+	    */
+	   virtual void Draw(Context* ctx) const;
+   };
 }
-
-#endif //__RECT_H__

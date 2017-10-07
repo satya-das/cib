@@ -1,25 +1,27 @@
-#include "stdafx.h"
 #include "rect.h"
-#include <stdlib.h>
-#include <iostream>
+#include "context_log.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-double Geometry::Rectangle::Area() const
+float Graphics::Rectangle::Area() const
 {
-	int w = right_- left_;
-	int h = bottom_ - top_;
+	float w = right_- left_;
+	float h = bottom_ - top_;
 	return w * h;
 }
 
-double Geometry::Rectangle::Perimeter() const
+float Graphics::Rectangle::Perimeter() const
 {
-	int w = right_- left_;
-	int h = bottom_ - top_;
+	float w = right_- left_;
+	float h = bottom_ - top_;
 	return 2 * (w + h);
 }
 
-void Geometry::Rectangle::Draw(HDC hdc) const
+void Graphics::Rectangle::Draw(Context* ctx) const
 {
-	::Rectangle(hdc, left_, top_, right_, bottom_);
+   ctx->Move(left_, bottom_);
+   ctx->Line(right_, bottom_);
+   ctx->Line(right_, top_);
+   ctx->Line(left_, top_);
+   ctx->Close();
 }

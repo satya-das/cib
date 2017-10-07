@@ -4,7 +4,7 @@
 /**
  * Type of function that is provided by library.
  */
-typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (char methodId);
+typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (int methodId);
 /**
  * Library provides a way to client to call cibGetMetaInterfaceMethod() API.
  * Client must define and initialize the value of cibGetMetaInterfaceMethodProc.

@@ -1,19 +1,19 @@
-#ifndef __SHAPE_H__
-#	define __SHAPE_H__
+#pragma  once
 
-#	include <WinDef.h>
+#include "context.h"
 
-namespace Geometry
+namespace Graphics
 {
-/**
- * \brief Abstract base class for all shapes
- */
+
+   /**
+    * \brief Abstract base class for all shapes
+    */
 	class Shape
 	{
 	public:
-		virtual double Area() const = 0;
-		virtual double Perimeter() const = 0;
-		virtual void Draw(HDC hdc) const = 0;
+		virtual float Area() const = 0;
+		virtual float Perimeter() const = 0;
+		virtual void Draw(Context* ctx) const = 0;
 		virtual ~Shape();
 
 	public:
@@ -32,9 +32,9 @@ namespace Geometry
 }
 
 namespace _cib_ { namespace ShapeLib { namespace CppToC {
-	namespace Geometry {
+	namespace Graphics {
 		struct Shape {
-			typedef void (__stdcall *__deleteProc) (::Geometry::Shape::_h_Shape* pShapeObj);
+			typedef void (__stdcall *__deleteProc) (::Graphics::Shape::_h_Shape* pShapeObj);
 
 			__deleteProc __delete;
 
@@ -50,13 +50,11 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 }}}
 
 
-inline void Geometry::Shape::__set(::Geometry::Shape::_h_Shape* h) {
+inline void Graphics::Shape::__set(::Graphics::Shape::_h_Shape* h) {
 	h_ = h;
 }
 
-inline Geometry::Shape::~Shape(){
-	_cib_::ShapeLib::CppToC::Geometry::Shape::instance().__delete(h_);
+inline Graphics::Shape::~Shape(){
+	_cib_::ShapeLib::CppToC::Graphics::Shape::instance().__delete(h_);
 }
 
-
-#endif
