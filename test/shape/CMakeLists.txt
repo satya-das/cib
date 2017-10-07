@@ -2,19 +2,8 @@ project(shape)
 
 cmake_minimum_required(VERSION 3.4)
 
-if (CMAKE_BUILD_TYPE MATCHES Release)
-	set(TARGET_SUBDIR Release)
-else()
-	set(TARGET_SUBDIR Debug)
-endif()
+include("../../../common/cmake/conf.cmake")
 
-if(MSVC)
-	SET(CMAKE_CXX_FLAGS "/EHsc")
-endif(MSVC)
-
-set(ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/../../..)
-set(BASEOUTDIR ${ROOT_DIR}/build_results/${TARGET_SUBDIR})
-set(BINDIR ${BASEOUTDIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
