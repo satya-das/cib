@@ -8,9 +8,9 @@
 namespace Graphics
 {
 class Context;
-   /**
-    * \brief Represents a rectangle.
-    */
+/**
+ * \brief Represents a rectangle.
+ */
 	class Circle : public Graphics::Shape
 	{
 	public:

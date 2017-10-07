@@ -7,9 +7,9 @@
 
 namespace Graphics
 {
-   /**
-    * \brief Represents a rectangle.
-    */
+/**
+ * \brief Represents a rectangle.
+ */
 	class Rectangle : public Graphics::Shape
 	{
 	public:

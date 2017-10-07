@@ -5,9 +5,9 @@
 namespace Graphics
 {
 
-   /**
-    * \brief Abstract base class for all shapes
-    */
+/**
+ * \brief Abstract base class for all shapes
+ */
 	class Shape
 	{
 	public:

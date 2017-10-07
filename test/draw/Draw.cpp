@@ -10,14 +10,14 @@ cibGetMetaInterfaceMethodProcType cibGetMetaInterfaceMethodProc;
 
 void initShapeLib()
 {
-   HMODULE hShape = ::LoadLibraryA("shape.dll");
-   cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType)GetProcAddress(hShape, "_cibShapeGetMetaInterfaceMethod@4");
+  HMODULE hShape = ::LoadLibraryA("shape.dll");
+  cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType)GetProcAddress(hShape, "_cibShapeGetMetaInterfaceMethod@4");
 }
 
 int main()
 {
-   initShapeLib();
-   Graphics::Rectangle rect(0, 0, 100, 100);
-   Graphics::ContextLogger ctx;
-   rect.Draw(&ctx);
+  initShapeLib();
+  Graphics::Rectangle rect(0, 0, 100, 100);
+  Graphics::ContextLogger ctx;
+  rect.Draw(&ctx);
 }

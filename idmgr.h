@@ -42,8 +42,8 @@ typedef int CibId;
  */
 struct CibIdData
 {
-	std::string idName;     ///< This is the name of enum item.
-	CibId idVal;            ///< This is the value of item.
+  std::string idName;     ///< This is the name of enum item.
+  CibId idVal;            ///< This is the value of item.
 };
 /**
  * A map between unique string that identifies a C/C++ item and CibIdData.
@@ -64,8 +64,8 @@ typedef std::map<std::string, CibIdNode> CibIdEnumTree;
  */
 struct CibIdNode
 {
-	CibIdEnum idEnum;
-	CibIdEnumTree childs;
+  CibIdEnum idEnum;
+  CibIdEnumTree childs;
 };
 /**
  * Manages Ids of all exportable entities of a library.
@@ -76,34 +76,34 @@ struct CibIdNode
 class CibIdMgr
 {
 public:
-	CibIdMgr(std::string moduleName);
+  CibIdMgr(std::string moduleName);
 
 public:
-	/**
-	 * Loads IDs from file emitted in previous run.
-	 * @return true on success. Will return false if it is called more than once or it is called after assignIds().
-	 */
-	bool loadIds(const std::string& idsFilePath);
-	void assignIds(CppProgramEx& expProg, const CibParams& cibParams);
-	bool saveIds(const std::string& idsFilePath) const;
+  /**
+   * Loads IDs from file emitted in previous run.
+   * @return true on success. Will return false if it is called more than once or it is called after assignIds().
+   */
+  bool loadIds(const std::string& idsFilePath);
+  void assignIds(CppProgramEx& expProg, const CibParams& cibParams);
+  bool saveIds(const std::string& idsFilePath) const;
 
 private:
-	void init();
-	void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
-	void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
-	void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
-	void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
+  void init();
+  void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
+  void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
+  void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
+  void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
 
 private:
-	std::string moduleName_;
-	CibIdNode idTreeRoot_;
-	CibIdNode oldIdTreeRoot_;
-	CibId lastCibId_;
+  std::string moduleName_;
+  CibIdNode idTreeRoot_;
+  CibIdNode oldIdTreeRoot_;
+  CibId lastCibId_;
 };
 
 inline CibIdMgr::CibIdMgr(std::string moduleName)
-	: moduleName_(std::move(moduleName))
-	, lastCibId_(0)
+  : moduleName_(std::move(moduleName))
+  , lastCibId_(0)
 {
 }
 

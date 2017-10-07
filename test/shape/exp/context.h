@@ -2,9 +2,9 @@
 
 namespace Graphics
 {
-   /*!
-    * Drawing context to draw graphics primitives.
-    */
+/*!
+ * Drawing context to draw graphics primitives.
+ */
 	class Context
 	{
 	public:
