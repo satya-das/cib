@@ -33,7 +33,7 @@ namespace Graphics
 	};
 }
 
-namespace _cib_ { namespace ShapeLib { namespace CppToC {
+namespace _cib_ { namespace GraphicsLib { namespace CppToC {
 	namespace Graphics {
 		struct Rectangle {
 			typedef ::Graphics::Rectangle::_h_Rectangle* (__stdcall *__newProc) (float left, float top, float right, float bottom);
@@ -60,7 +60,7 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 }}}
 
 inline ::Graphics::Shape::_h_Shape* Graphics::Rectangle::__cast_to_Graphics__Shape(::Graphics::Rectangle::_h_Rectangle* h) {
-	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().__cast_to_Graphics__Shape(h);
+	return _cib_::GraphicsLib::CppToC::Graphics::Rectangle::instance().__cast_to_Graphics__Shape(h);
 }
 
 inline void Graphics::Rectangle::__set(::Graphics::Rectangle::_h_Rectangle* h) {
@@ -69,18 +69,18 @@ inline void Graphics::Rectangle::__set(::Graphics::Rectangle::_h_Rectangle* h) {
 }
 
 inline Graphics::Rectangle::Rectangle(float left, float top, float right, float bottom): Graphics::Shape(0) {
-	__set(_cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().__new(left, top, right, bottom));
+	__set(_cib_::GraphicsLib::CppToC::Graphics::Rectangle::instance().__new(left, top, right, bottom));
 }
 
 inline float Graphics::Rectangle::Area() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Area(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Rectangle::instance().Area(h_);
 }
 
 inline float Graphics::Rectangle::Perimeter() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Perimeter(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Rectangle::instance().Perimeter(h_);
 }
 
 inline void Graphics::Rectangle::Draw(Context* ctx) const {
-	_cib_::ShapeLib::CppToC::Graphics::Rectangle::instance().Draw(h_, ctx->__handle());
+	_cib_::GraphicsLib::CppToC::Graphics::Rectangle::instance().Draw(h_, ctx->__handle());
 }
 

@@ -1,2 +1,2 @@
-add_subdirectory(shape)
+add_subdirectory(graphics)
 add_subdirectory(draw)

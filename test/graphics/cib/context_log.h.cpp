@@ -1,9 +1,9 @@
-#include "ShapeLib_cibids.h"
+#include "GraphicsLib_cibids.h"
 
-#include "cib_ShapeLib.h"
+#include "cib_GraphicsLib.h"
 #include "context_log.h"
 
-namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
 	namespace Graphics {
 		namespace ContextLogger {
 			::Graphics::ContextLogger* __stdcall __new() {
@@ -30,18 +30,18 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 				return pContextLoggerObj;
 			}
 
-			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
+			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID_Move, (void*) Move);
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID_Line, (void*) Line);
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID_Curve, (void*) Curve);
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID_Close, (void*) Close);
-					AddMethod(::_cib_::ShapeLib::Graphics::ContextLogger::kCIBID___cast_to_Graphics__Context, (void*) __cast_to_Graphics__Context);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID_Move, (void*) Move);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID_Line, (void*) Line);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID_Curve, (void*) Curve);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID_Close, (void*) Close);
+					AddMethod(::_cib_::GraphicsLib::Graphics::ContextLogger::kCIBID___cast_to_Graphics__Context, (void*) __cast_to_Graphics__Context);
 				}
 			};
-			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

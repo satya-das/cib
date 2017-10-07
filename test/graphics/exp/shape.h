@@ -31,7 +31,7 @@ namespace Graphics
 
 }
 
-namespace _cib_ { namespace ShapeLib { namespace CppToC {
+namespace _cib_ { namespace GraphicsLib { namespace CppToC {
 	namespace Graphics {
 		struct Shape {
 			typedef void (__stdcall *__deleteProc) (::Graphics::Shape::_h_Shape* pShapeObj);
@@ -55,6 +55,6 @@ inline void Graphics::Shape::__set(::Graphics::Shape::_h_Shape* h) {
 }
 
 inline Graphics::Shape::~Shape(){
-	_cib_::ShapeLib::CppToC::Graphics::Shape::instance().__delete(h_);
+	_cib_::GraphicsLib::CppToC::Graphics::Shape::instance().__delete(h_);
 }
 

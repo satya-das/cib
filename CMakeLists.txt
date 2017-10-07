@@ -39,7 +39,7 @@ endforeach()
 # Below lines are for making sure we also build
 # test projects in proper order when cib is built.
 add_subdirectory(test)
-add_custom_target(cibtestshape)
-add_dependencies(cibtestshape shape)
+add_custom_target(cibtestgraphics)
+add_dependencies(cibtestgraphics graphics)
 add_custom_target(cibtestdraw)
-add_dependencies(cibtestdraw cibtestshape draw)
+add_dependencies(cibtestdraw cibtestgraphics draw)

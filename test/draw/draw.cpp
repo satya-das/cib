@@ -8,15 +8,20 @@
 typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (std::uint32_t methodId);
 cibGetMetaInterfaceMethodProcType cibGetMetaInterfaceMethodProc;
 
-void initShapeLib()
+void initGraphicsLib()
 {
-  HMODULE hShape = ::LoadLibraryA("shape.dll");
-  cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType)GetProcAddress(hShape, "_cibShapeGetMetaInterfaceMethod@4");
+  HMODULE hGraphics = ::LoadLibraryA("graphics.dll");
+  if (hGraphics == NULL)
+  {
+    std::cout << "ERROR: Null handle." << std::endl;
+    exit(-1);
+  }
+  cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType)GetProcAddress(hGraphics, "_cibGraphicsGetMetaInterfaceMethod@4");
 }
 
 int main()
 {
-  initShapeLib();
+  initGraphicsLib();
   Graphics::Rectangle rect(0, 0, 100, 100);
   Graphics::ContextLogger ctx;
   rect.Draw(&ctx);

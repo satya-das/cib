@@ -1,9 +1,9 @@
-#include "ShapeLib_cibids.h"
+#include "GraphicsLib_cibids.h"
 
-#include "cib_ShapeLib.h"
+#include "cib_GraphicsLib.h"
 #include "circ.h"
 
-namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
 	namespace Graphics {
 		namespace Circle {
 			::Graphics::Circle* __stdcall __new(float Ox, float Oy, float radius) {
@@ -26,17 +26,17 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 				return pCircleObj;
 			}
 
-			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
+			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(::_cib_::ShapeLib::Graphics::Circle::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::ShapeLib::Graphics::Circle::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::ShapeLib::Graphics::Circle::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::ShapeLib::Graphics::Circle::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::ShapeLib::Graphics::Circle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
 				}
 			};
-			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

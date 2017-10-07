@@ -1,9 +1,9 @@
-#include "ShapeLib_cibids.h"
+#include "GraphicsLib_cibids.h"
 
-#include "cib_ShapeLib.h"
+#include "cib_GraphicsLib.h"
 #include "composite.h"
 
-namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
 	namespace Graphics {
 		namespace Composite {
 			::Graphics::Composite* __stdcall __new() {
@@ -42,21 +42,21 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 				return pCompositeObj;
 			}
 
-			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
+			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_Add, (void*) Add);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_NumShapes, (void*) NumShapes);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_ShapeAt, (void*) ShapeAt);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID_CreateCompositeOfRectAndCircle, (void*) CreateCompositeOfRectAndCircle);
-					AddMethod(::_cib_::ShapeLib::Graphics::Composite::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Add, (void*) Add);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_NumShapes, (void*) NumShapes);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_ShapeAt, (void*) ShapeAt);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_CreateCompositeOfRectAndCircle, (void*) CreateCompositeOfRectAndCircle);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
 				}
 			};
-			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

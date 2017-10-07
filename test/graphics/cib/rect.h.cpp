@@ -1,9 +1,9 @@
-#include "ShapeLib_cibids.h"
+#include "GraphicsLib_cibids.h"
 
-#include "cib_ShapeLib.h"
+#include "cib_GraphicsLib.h"
 #include "rect.h"
 
-namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
+namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
 	namespace Graphics {
 		namespace Rectangle {
 			::Graphics::Rectangle* __stdcall __new(float left, float top, float right, float bottom) {
@@ -26,17 +26,17 @@ namespace _cib_ { namespace ShapeLib { namespace CtoCpp {
 				return pRectangleObj;
 			}
 
-			class MetaInterface : public ::_cib_::ShapeLib::MetaInterface {
+			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
 			protected:
 				virtual void LoadMethods() {
-					AddMethod(::_cib_::ShapeLib::Graphics::Rectangle::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::ShapeLib::Graphics::Rectangle::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::ShapeLib::Graphics::Rectangle::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::ShapeLib::Graphics::Rectangle::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::ShapeLib::Graphics::Rectangle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID___new, (void*) __new);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Area, (void*) Area);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Perimeter, (void*) Perimeter);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Draw, (void*) Draw);
+					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
 				}
 			};
-			::_cib_::ShapeLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
+			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
 	}
 }}}

@@ -31,7 +31,7 @@ namespace Graphics
 	};
 }
 
-namespace _cib_ { namespace ShapeLib { namespace CppToC {
+namespace _cib_ { namespace GraphicsLib { namespace CppToC {
 	namespace Graphics {
 		struct ContextLogger {
 			typedef ::Graphics::ContextLogger::_h_ContextLogger* (__stdcall *__newProc) ();
@@ -60,7 +60,7 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 }}}
 
 inline ::Graphics::Context::_h_Context* Graphics::ContextLogger::__cast_to_Graphics__Context(::Graphics::ContextLogger::_h_ContextLogger* h) {
-	return _cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().__cast_to_Graphics__Context(h);
+	return _cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().__cast_to_Graphics__Context(h);
 }
 
 inline void Graphics::ContextLogger::__set(::Graphics::ContextLogger::_h_ContextLogger* h) {
@@ -69,22 +69,22 @@ inline void Graphics::ContextLogger::__set(::Graphics::ContextLogger::_h_Context
 }
 
 inline Graphics::ContextLogger::ContextLogger(): Graphics::Context(0) {
-	__set(_cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().__new());
+	__set(_cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().__new());
 }
 
 inline void Graphics::ContextLogger::Move(float x, float y){
-	_cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().Move(h_, x, y);
+	_cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().Move(h_, x, y);
 }
 
 inline void Graphics::ContextLogger::Line(float x, float y){
-	_cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().Line(h_, x, y);
+	_cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().Line(h_, x, y);
 }
 
 inline void Graphics::ContextLogger::Curve(float x1, float y1, float x2, float y2, float x3, float y3){
-	_cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().Curve(h_, x1, y1, x2, y2, x3, y3);
+	_cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().Curve(h_, x1, y1, x2, y2, x3, y3);
 }
 
 inline void Graphics::ContextLogger::Close(){
-	_cib_::ShapeLib::CppToC::Graphics::ContextLogger::instance().Close(h_);
+	_cib_::GraphicsLib::CppToC::Graphics::ContextLogger::instance().Close(h_);
 }
 

@@ -35,7 +35,7 @@ class Context;
 
 }
 
-namespace _cib_ { namespace ShapeLib { namespace CppToC {
+namespace _cib_ { namespace GraphicsLib { namespace CppToC {
 	namespace Graphics {
 		struct Circle {
 			typedef ::Graphics::Circle::_h_Circle* (__stdcall *__newProc) (float Ox, float Oy, float radius);
@@ -62,7 +62,7 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 }}}
 
 inline ::Graphics::Shape::_h_Shape* Graphics::Circle::__cast_to_Graphics__Shape(::Graphics::Circle::_h_Circle* h) {
-	return _cib_::ShapeLib::CppToC::Graphics::Circle::instance().__cast_to_Graphics__Shape(h);
+	return _cib_::GraphicsLib::CppToC::Graphics::Circle::instance().__cast_to_Graphics__Shape(h);
 }
 
 inline void Graphics::Circle::__set(::Graphics::Circle::_h_Circle* h) {
@@ -71,18 +71,18 @@ inline void Graphics::Circle::__set(::Graphics::Circle::_h_Circle* h) {
 }
 
 inline Graphics::Circle::Circle(float Ox, float Oy, float radius): Graphics::Shape(0) {
-	__set(_cib_::ShapeLib::CppToC::Graphics::Circle::instance().__new(Ox, Oy, radius));
+	__set(_cib_::GraphicsLib::CppToC::Graphics::Circle::instance().__new(Ox, Oy, radius));
 }
 
 inline float Graphics::Circle::Area() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Circle::instance().Area(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Circle::instance().Area(h_);
 }
 
 inline float Graphics::Circle::Perimeter() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Circle::instance().Perimeter(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Circle::instance().Perimeter(h_);
 }
 
 inline void Graphics::Circle::Draw(Context* ctx) const {
-	_cib_::ShapeLib::CppToC::Graphics::Circle::instance().Draw(h_, ctx->__handle());
+	_cib_::GraphicsLib::CppToC::Graphics::Circle::instance().Draw(h_, ctx->__handle());
 }
 

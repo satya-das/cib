@@ -39,7 +39,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
 	};
 }
 
-namespace _cib_ { namespace ShapeLib { namespace CppToC {
+namespace _cib_ { namespace GraphicsLib { namespace CppToC {
 	namespace Graphics {
 		struct Composite {
 			typedef ::Graphics::Composite::_h_Composite* (__stdcall *__newProc) ();
@@ -74,7 +74,7 @@ namespace _cib_ { namespace ShapeLib { namespace CppToC {
 }}}
 
 inline ::Graphics::Shape::_h_Shape* Graphics::Composite::__cast_to_Graphics__Shape(::Graphics::Composite::_h_Composite* h) {
-	return _cib_::ShapeLib::CppToC::Graphics::Composite::instance().__cast_to_Graphics__Shape(h);
+	return _cib_::GraphicsLib::CppToC::Graphics::Composite::instance().__cast_to_Graphics__Shape(h);
 }
 
 inline void Graphics::Composite::__set(::Graphics::Composite::_h_Composite* h) {
@@ -83,38 +83,38 @@ inline void Graphics::Composite::__set(::Graphics::Composite::_h_Composite* h) {
 }
 
 inline Graphics::Composite::Composite(): Graphics::Shape(0) {
-	__set(_cib_::ShapeLib::CppToC::Graphics::Composite::instance().__new());
+	__set(_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().__new());
 }
 
 inline void Graphics::Composite::Add(Shape* shape){
-	_cib_::ShapeLib::CppToC::Graphics::Composite::instance().Add(h_, shape->__handle());
+	_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().Add(h_, shape->__handle());
 }
 
 inline size_t Graphics::Composite::NumShapes() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Composite::instance().NumShapes(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Composite::instance().NumShapes(h_);
 }
 
 inline ::Graphics::Shape* Graphics::Composite::ShapeAt(size_t idxShape) const {
 	return Graphics::Shape::__fromHandle(
-		_cib_::ShapeLib::CppToC::Graphics::Composite::instance().ShapeAt(h_, idxShape)
+		_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().ShapeAt(h_, idxShape)
 	);
 }
 
 inline float Graphics::Composite::Area() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Composite::instance().Area(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Composite::instance().Area(h_);
 }
 
 inline float Graphics::Composite::Perimeter() const {
-	return _cib_::ShapeLib::CppToC::Graphics::Composite::instance().Perimeter(h_);
+	return _cib_::GraphicsLib::CppToC::Graphics::Composite::instance().Perimeter(h_);
 }
 
 inline void Graphics::Composite::Draw(Context* ctx) const {
-	_cib_::ShapeLib::CppToC::Graphics::Composite::instance().Draw(h_, ctx->__handle());
+	_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().Draw(h_, ctx->__handle());
 }
 
 inline ::Graphics::Composite* Graphics::Composite::CreateCompositeOfRectAndCircle(){
 	return Graphics::Composite::__fromHandle(
-		_cib_::ShapeLib::CppToC::Graphics::Composite::instance().CreateCompositeOfRectAndCircle()
+		_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().CreateCompositeOfRectAndCircle()
 	);
 }
 

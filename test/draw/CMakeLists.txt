@@ -12,14 +12,14 @@ set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
 set(DRAW_SOURCES
 	draw.cpp
 )
-file(GLOB SHAPE_EXP_SOURCES
-	../shape/exp/*.cpp
+file(GLOB GRAPHICS_EXP_SOURCES
+	../graphics/exp/*.cpp
 )
 add_executable(draw
 	${DRAW_SOURCES}
-	${SHAPE_EXP_SOURCES}
+	${GRAPHICS_EXP_SOURCES}
 )
 target_include_directories(draw
 	PRIVATE
-		../shape/exp
+		../graphics/exp
 )
