@@ -20,7 +20,7 @@ namespace Graphics
 		class _h_ContextLogger;
 		ContextLogger(_h_ContextLogger* h): Graphics::Context(0) { __set(h); }
 		_h_ContextLogger* __handle() const { return h_; }
-		static ContextLogger* __fromHandle(_h_ContextLogger* h)
+		static ContextLogger* __from_handle(_h_ContextLogger* h)
 		{
 			return new ContextLogger(h);
 		}

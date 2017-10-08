@@ -30,28 +30,31 @@ auto parseCmdLine(int argc, char* argv[])
   po::options_description desc("Allowed options");
   desc.add_options()
     ("help,h", "produce help message")
-    ("input-folder,i", po::value<std::string>(), "Input folder from where the headers and source files will be parsed.")
-    ("output-folder,o", po::value<std::string>(), "Output folder for emitting files for client.")
-    ("bind-folder,b", po::value<std::string>(), "Folder where binding code will be emitted for library.")
-    ("module,m", po::value<std::string>(), "Name of module/library.")
+    ("input-folder,i", po::value<std::string>()->required(), "Input folder from where the headers and source files will be parsed.")
+    ("output-folder,o", po::value<std::string>()->required(), "Output folder for emitting files for client.")
+    ("bind-folder,b", po::value<std::string>()->required(), "Folder where binding code will be emitted for library.")
+    ("module,m", po::value<std::string>()->required(), "Name of module/library.")
     ;
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
-  po::notify(vm);
 
   if (vm.count("help"))
   {
     std::cout << desc << "\n";
     exit(0);
   }
-
-  if (vm.find("module") == vm.end())
+  try
   {
-    std::cerr << "Error: Module parameter is a must.\n\n";
+    po::notify(vm);
+  }
+  catch(std::exception& e)
+  {
+    std::cerr << "Error: " << e.what() << "\n";
     std::cout << desc << "\n";
     exit(-1);
   }
+
   bfs::path inputPath   = vm["input-folder"].as<std::string>();
   bfs::path outputPath  = vm["output-folder"].as<std::string>();
   bfs::path binderPath  = vm["bind-folder"].as<std::string>();
@@ -73,30 +76,28 @@ auto parseCmdLine(int argc, char* argv[])
   bfs::create_directories(binderPath);
   bfs::create_directories(outputPath);
 
-  return std::make_tuple(inputPath, outputPath, binderPath, moduleName, resDir);
+  return std::make_tuple(moduleName, inputPath, outputPath, binderPath, resDir);
 }
 
-std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams, const bfs::path& outputPath, const bfs::path& binderPath)
+std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams)
 {
   std::string cibIdFileName = cibParams.moduleName + "Lib_cibids.h";
   CibIdMgr idMgr(cibParams.moduleName);
-  idMgr.loadIds((binderPath / cibIdFileName).string());
+  idMgr.loadIds((cibParams.binderPath / cibIdFileName).string());
   idMgr.assignIds(cppProgram, cibParams);
-  idMgr.saveIds((binderPath / cibIdFileName).string());
-  idMgr.saveIds((outputPath / cibIdFileName).string());
+  idMgr.saveIds((cibParams.binderPath / cibIdFileName).string());
+  idMgr.saveIds((cibParams.outputPath / cibIdFileName).string());
 
   return cibIdFileName;
 }
 
 int main(int argc, char* argv[])
 {
-  CibParams cibParams;
-  bfs::path inputPath, outputPath, binderPath, resDir;
-  std::tie(inputPath, outputPath, binderPath, cibParams.moduleName, resDir) = parseCmdLine(argc, argv);
+  CibParams cibParams(parseCmdLine(argc, argv));
   
   // First load all files as DOM.
-  CppProgramEx cppProgram(inputPath.string().c_str());
-  auto cibIdFileName = generateCibIds(cppProgram, cibParams, outputPath, binderPath);
+  CppProgramEx cppProgram(cibParams.inputPath.string().c_str());
+  auto cibIdFileName = generateCibIds(cppProgram, cibParams);
   StringToStringMap substituteInfo;
   substituteInfo["MODULE"]    = cibParams.moduleName;
   substituteInfo["CIBEXPAPI"] = "__declspec(dllexport)";
@@ -105,25 +106,25 @@ int main(int argc, char* argv[])
   {
     // Emit cib.h for library.
     std::strstreambuf tmpbuf;
-    std::ifstream((resDir / "lib_cib.h").native(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "lib_cib.h").native(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibLibIncStm((binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+    std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
     cibLibIncStm << cibcode;
   }
   {
     // Emit cib.h for client.
     std::strstreambuf tmpbuf;
-    std::ifstream((resDir / "usr_cib.h").native(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "usr_cib.h").native(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibUsrIncStm((outputPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+    std::ofstream cibUsrIncStm((cibParams.outputPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
     cibUsrIncStm << cibcode;
   }
   // Emit cib.cpp for library.
-  std::ofstream cibLibSrcStm((binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
+  std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
   {
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
-    std::ifstream((resDir / "lib_cib.cpp").native(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "lib_cib.cpp").native(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
     cibLibSrcStm << cibcode;
   }
@@ -135,7 +136,7 @@ int main(int argc, char* argv[])
     CibCppCompound* cibCppCompound = (CibCppCompound*) cppProgram.CibCppObjFromCppObj(cppDom);
     if (cibCppCompound == NULL)
       continue;
-    bfs::path usrIncPath     = outputPath / cppDom->name_.substr(inputPath.native().length());
+    bfs::path usrIncPath     = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.native().length());
     std::ofstream incStm(usrIncPath.native(), std::ios_base::out);
     cibCppCompound->emitDecl(incStm, cppProgram, cibParams);
     bfs::path usrSrcPath     = usrIncPath;
@@ -143,10 +144,11 @@ int main(int argc, char* argv[])
     std::ofstream srcStm(usrSrcPath.native(), std::ios_base::out);
     srcStm << "#include \"" << cibIdFileName << "\"\n\n";
     cibCppCompound->emitUsrGlueCode(srcStm, cppProgram, cibParams);
-    bfs::path bndSrcPath = binderPath / usrSrcPath.filename().native();
+    bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().native();
     std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
     bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
     cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams);
+
   }
 
   CibIndent indentation;

@@ -28,7 +28,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		class _h_Composite;
 		Composite(_h_Composite* h): Graphics::Shape(0) { __set(h); }
 		_h_Composite* __handle() const { return h_; }
-		static Composite* __fromHandle(_h_Composite* h);
+		static Composite* __from_handle(_h_Composite* h);
 
 	protected :
 		static ::Graphics::Shape::_h_Shape* __cast_to_Graphics__Shape(_h_Composite* h);
@@ -95,7 +95,7 @@ inline size_t Graphics::Composite::NumShapes() const {
 }
 
 inline ::Graphics::Shape* Graphics::Composite::ShapeAt(size_t idxShape) const {
-	return Graphics::Shape::__fromHandle(
+	return Graphics::Shape::__from_handle(
 		_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().ShapeAt(h_, idxShape)
 	);
 }
@@ -113,7 +113,7 @@ inline void Graphics::Composite::Draw(Context* ctx) const {
 }
 
 inline ::Graphics::Composite* Graphics::Composite::CreateCompositeOfRectAndCircle(){
-	return Graphics::Composite::__fromHandle(
+	return Graphics::Composite::__from_handle(
 		_cib_::GraphicsLib::CppToC::Graphics::Composite::instance().CreateCompositeOfRectAndCircle()
 	);
 }

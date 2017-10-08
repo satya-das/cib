@@ -20,7 +20,7 @@ namespace Graphics
 		class _h_Shape;
 		Shape(_h_Shape* h){ __set(h); }
 		_h_Shape* __handle() const { return h_; }
-		static Shape* __fromHandle(_h_Shape* h);
+		static Shape* __from_handle(_h_Shape* h);
 
 	protected :
 		void __set(_h_Shape* h);

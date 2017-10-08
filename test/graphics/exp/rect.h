@@ -22,7 +22,7 @@ namespace Graphics
 		class _h_Rectangle;
 		Rectangle(_h_Rectangle* h): Graphics::Shape(0) { __set(h); }
 		_h_Rectangle* __handle() const { return h_; }
-		static Rectangle* __fromHandle(_h_Rectangle* h)
+		static Rectangle* __from_handle(_h_Rectangle* h)
 		{
 			return new Rectangle(h);
 		}
