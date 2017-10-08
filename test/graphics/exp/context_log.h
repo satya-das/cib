@@ -20,8 +20,10 @@ namespace Graphics
 		class _h_ContextLogger;
 		ContextLogger(_h_ContextLogger* h): Graphics::Context(0) { __set(h); }
 		_h_ContextLogger* __handle() const { return h_; }
-		static ContextLogger* __fromHandle(_h_ContextLogger* h);
-
+		static ContextLogger* __fromHandle(_h_ContextLogger* h)
+		{
+			return new ContextLogger(h);
+		}
 	protected :
 		static ::Graphics::Context::_h_Context* __cast_to_Graphics__Context(_h_ContextLogger* h);
 		void __set(_h_ContextLogger* h);

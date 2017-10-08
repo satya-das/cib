@@ -23,14 +23,14 @@ public:
 
 public:
   CibParams()
-    : classHandlePrefix                     ("_h_")
-    , handleGetterMethod            ("__handle")
-    , copyCtorCAPIPrefix            ("__copy")
-    , ctorCAPIPrefix                        ("__new")
-    , dtorCAPIPrefix                        ("__delete")
-    , castToBasePrefix                      ("__cast_to_")
-    , fromHandle                            ("__fromHandle")
-    , globalFuncCibClassId          (1)
+    : classHandlePrefix     ("_h_")
+    , handleGetterMethod    ("__handle")
+    , copyCtorCAPIPrefix    ("__copy")
+    , ctorCAPIPrefix        ("__new")
+    , dtorCAPIPrefix        ("__delete")
+    , castToBasePrefix      ("__cast_to_")
+    , fromHandle            ("__fromHandle")
+    , globalFuncCibClassId  (1)
   {
   }
 };

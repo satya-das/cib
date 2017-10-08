@@ -62,10 +62,15 @@ private:
   CibCppFunction* CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner);
   void resolveInheritance(CppCompound* cppCompound);
   void buildCibCppObjTree();
+  void markInterfaceAndFacade(CppCompound* cppCompound);
   /**
-   * Evaluates argument and return type of function to detect attribute of classes used in args or return type.
+   * Evaluates argument function to detect attribute of classes used in args.
    */
   void evaluateArgs(CibCppFunction* func);
+  /**
+  * Evaluates return type of function to detect attribute of class used in return type.
+  */
+  void evaluateReturnType(CibCppFunction* func);
 
 private:
   typedef std::map<const CppObj*, const CibCppObj*> CppObjToCibCppObjMap;
@@ -73,9 +78,6 @@ private:
 private:
   CppObjToCibCppObjMap cppObjToCibCppObjMap_;
   bool cibCppObjTreeCreated_;
-
-  std::map<CibCppCompound*, stringset> facadeLikeClasses_;                ///< stringset is the set of names of classes
-  std::map<CibCppCompound*, stringset> intrfcLikeClasses_;                ///< stringset is the set of names of classes
 };
 
 //////////////////////////////////////////////////////////////////////////

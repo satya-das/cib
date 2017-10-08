@@ -9,36 +9,8 @@ void CppProgramEx::buildCibCppObjTree()
     CppCompoundObjToCibCppCompound(*domItr, NULL);
   for (CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
     resolveInheritance(*domItr);
-
-for (auto facadeLike : facadeLikeClasses_)
-  {
-for (auto className : facadeLike.second)
-    {
-      CibCppCompound* cibCppOwner    = facadeLike.first;
-      CibCppObj*      cibCppObj      = const_cast<CibCppObj*>(getCibCppObjFromTypeName(className, cibCppOwner ? NULL : cibCppOwner->getCppCompound()));
-      if (cibCppObj == NULL)
-        continue;
-      CibCppCompound* cibCppCompound = dynamic_cast<CibCppCompound*>(cibCppObj);
-      if (cibCppCompound = NULL)
-        continue;
-      cibCppCompound->setFacadeLike();
-    }
-  }
-
-for (auto intrfcLike : intrfcLikeClasses_)
-  {
-for (auto className : intrfcLike.second)
-    {
-      CibCppCompound* cibCppOwner    = intrfcLike.first;
-      CibCppObj*      cibCppObj      = const_cast<CibCppObj*>(getCibCppObjFromTypeName(className, cibCppOwner ? NULL : cibCppOwner->getCppCompound()));
-      if (cibCppObj == NULL)
-        continue;
-      CibCppCompound* cibCppCompound = dynamic_cast<CibCppCompound*>(cibCppObj);
-      if (cibCppCompound = NULL)
-        continue;
-      cibCppCompound->setInterfaceLike();
-    }
-  }
+  for (auto fileDom : fileDoms_)
+    markInterfaceAndFacade(fileDom);
 }
 
 CibCppCompound* CppProgramEx::CppCompoundObjToCibCppCompound(CppCompound* cppCompound, CibCppCompound* owner)
@@ -140,20 +112,51 @@ void CppProgramEx::evaluateArgs(CibCppFunction* func)
   // Evaluate the arguments to detect if any of them uses a class that is interface-like.
   if (func->hasParams())
   {
-for (auto param : *(func->getParams()))
+    for (auto param : *(func->getParams()))
     {
       if (param.cppObj->objType_ != CppObj::kVar)
         continue;
       if (param.varObj->ptrLevel_ == 1 || param.varObj->refType_ == kByRef)
-        intrfcLikeClasses_[func->getOwner()].insert(param.varObj->baseType_);
+      {
+        auto paramObj = (CibCppCompound*)getCibCppObjFromTypeName(param.varObj->baseType_, func->getOwner()->getCppCompound());
+        if (paramObj && paramObj->getCppCompound()->hasVirtualMethod())
+        {
+          paramObj->setInterfaceLike();
+        }
+      }
     }
   }
+}
+void CppProgramEx::evaluateReturnType(CibCppFunction* func)
+{
   // Evaluate to detect if the return type is a facade-like class.
   CppFunction* cppFunc = func->getCppFunction();
   assert(cppFunc);
   if (cppFunc && cppFunc->retType_)
   {
     if (cppFunc->retType_->ptrLevel_ == 1 || cppFunc->retType_->refType_ == kByRef)
-      facadeLikeClasses_[func->getOwner()].insert(cppFunc->retType_->baseType_);
+    {
+      auto returnObj = (CibCppCompound*)getCibCppObjFromTypeName(cppFunc->retType_->baseType_, func->getOwner()->getCppCompound());
+      if (returnObj && returnObj->getCppCompound()->hasVirtualMethod())
+      {
+        returnObj->setFacadeLike();
+      }
+    }
+  }
+}
+
+void CppProgramEx::markInterfaceAndFacade(CppCompound* cppCompound)
+{
+  for (auto mem : cppCompound->members_)
+  {
+    if (mem->objType_ == CppObj::kCompound)
+    {
+      markInterfaceAndFacade((CppCompound*) mem);
+    }
+    else if(mem->objType_ == CppObj::kFunction)
+    {
+      evaluateArgs((CibCppFunction*)CibCppObjFromCppObj(mem));
+      evaluateReturnType((CibCppFunction*)CibCppObjFromCppObj(mem));
+    }
   }
 }

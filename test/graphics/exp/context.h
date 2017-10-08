@@ -17,8 +17,10 @@ namespace Graphics
 		class _h_Context;
 		Context(_h_Context* h){ __set(h); }
 		_h_Context* __handle() const { return h_; }
-		static Context* __fromHandle(_h_Context* h);
-
+		static Context* __fromHandle(_h_Context* h)
+		{
+			return new Context(h);
+		}
 	protected :
 		void __set(_h_Context* h);
 

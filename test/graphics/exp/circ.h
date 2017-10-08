@@ -23,8 +23,10 @@ class Context;
 		class _h_Circle;
 		Circle(_h_Circle* h): Graphics::Shape(0) { __set(h); }
 		_h_Circle* __handle() const { return h_; }
-		static Circle* __fromHandle(_h_Circle* h);
-
+		static Circle* __fromHandle(_h_Circle* h)
+		{
+			return new Circle(h);
+		}
 	protected :
 		static ::Graphics::Shape::_h_Shape* __cast_to_Graphics__Shape(_h_Circle* h);
 		void __set(_h_Circle* h);

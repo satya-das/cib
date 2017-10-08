@@ -22,8 +22,10 @@ namespace Graphics
 		class _h_Rectangle;
 		Rectangle(_h_Rectangle* h): Graphics::Shape(0) { __set(h); }
 		_h_Rectangle* __handle() const { return h_; }
-		static Rectangle* __fromHandle(_h_Rectangle* h);
-
+		static Rectangle* __fromHandle(_h_Rectangle* h)
+		{
+			return new Rectangle(h);
+		}
 	protected :
 		static ::Graphics::Shape::_h_Shape* __cast_to_Graphics__Shape(_h_Rectangle* h);
 		void __set(_h_Rectangle* h);

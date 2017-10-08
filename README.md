@@ -127,4 +127,15 @@ void ExampleFunction(wxInt32 i);
 cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
 
 ### Creating proxy class from handle	{#CreatingProxyClassFromHandle}
-When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class
+When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
+
+## CIB Terminology {#CIBTerminology}
+### Proxy Class
+For each public class of a library CIB produces another class with same name and methods but all calls to those methods are delegated to library side methods. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
+### Handle
+Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
+### Facade Class
+A C++ class that has at-least one public virtual method other than destructor and there exists at-least one public function/method that returns a pointer or reference of this class.
+### Interface Class
+A C++ class that has at-least one public virtual method other than destructor and there exists a way for library to call that method on an object of client's derived class.
+It's not straight forward to correctly detect an interface class so cib will identify all classes with at-least one virtual method as an interface.
