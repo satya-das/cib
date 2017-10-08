@@ -187,7 +187,7 @@ public:
   void emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
   void emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
   void emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation = CibIndent());
-
+  void emitFromHanldeDecl(std::ostream& stm, const CibParams& cibParams, CibIndent indentation = CibIndent()) const;
   // Internal: Ideally should have been private with class CppProgramEx as friend.
   void setInterfaceLike()
   {

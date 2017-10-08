@@ -290,17 +290,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
       }
       stm << "{ __set(h); }\n";
       stm << indentation << handleName(cibParams) << "* " << cibParams.handleGetterMethod << "() const { return h_; }\n";
-      stm << indentation << "static " << name() << "* " << cibParams.fromHandle << "(" << handleName(cibParams) << "* h)";
-      if (isFacadeLike())
-      {
-        stm << ";\n"; // For Facade classes definition of __fromHandle() will be more elaborative.
-      }
-      else
-      {
-        stm << "\n" << indentation++ << "{\n";
-        stm << indentation << "return new " << name() << "(h);\n";
-        stm << --indentation << "}";
-      }
+      emitFromHanldeDecl(stm, cibParams, indentation);
       stm << '\n' << --indentation << "protected :\n";
       ++indentation;
       for (CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
@@ -323,6 +313,23 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
   if (outer_ && outer_->cppCompoundObj_->isCppFile())
   {
     emitDefn(stm, cppProgram, cibParams, indentation);
+  }
+}
+
+void CibCppCompound::emitFromHanldeDecl(std::ostream& stm, const CibParams& cibParams, CibIndent indentation) const
+{
+  if (!isFacadeLike() && cppCompoundObj_->isAbstract())
+    return; // Nothing to do for abstract class that isn't a facade.
+  stm << indentation << "static " << name() << "* " << cibParams.fromHandle << "(" << handleName(cibParams) << "* h)";
+  if (isFacadeLike())
+  {
+    stm << ";\n"; // For Facade classes definition of __fromHandle() will be more elaborative.
+  }
+  else
+  {
+    stm << "\n" << indentation++ << "{\n";
+    stm << indentation << "return new " << name() << "(h);\n";
+    stm << --indentation << "}";
   }
 }
 
