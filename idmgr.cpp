@@ -139,7 +139,7 @@ void CibIdMgr::assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNo
   }
 }
 
-void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CppObjArray& inList, const CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams)
 {
   if (inList.empty())
     return;
@@ -197,7 +197,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibId
   }
 }
 
-void CibIdMgr::assignIds(CppProgramEx& expProg, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams)
 {
   // First create Ids for global functions
   const CppCompoundArray& fileDOMs = expProg.getFileDOMs();

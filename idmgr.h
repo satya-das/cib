@@ -84,13 +84,13 @@ public:
    * @return true on success. Will return false if it is called more than once or it is called after assignIds().
    */
   bool loadIds(const std::string& idsFilePath);
-  void assignIds(CppProgramEx& expProg, const CibParams& cibParams);
+  void assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
   bool saveIds(const std::string& idsFilePath) const;
 
 private:
   void init();
   void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
-  void assignIds(const CppObjArray& inList, CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
+  void assignIds(const CppObjArray& inList, const CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
   void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
   void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
 

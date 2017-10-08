@@ -76,6 +76,18 @@ auto parseCmdLine(int argc, char* argv[])
   return std::make_tuple(inputPath, outputPath, binderPath, moduleName, resDir);
 }
 
+std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams, const bfs::path& outputPath, const bfs::path& binderPath)
+{
+  std::string cibIdFileName = cibParams.moduleName + "Lib_cibids.h";
+  CibIdMgr idMgr(cibParams.moduleName);
+  idMgr.loadIds((binderPath / cibIdFileName).string());
+  idMgr.assignIds(cppProgram, cibParams);
+  idMgr.saveIds((binderPath / cibIdFileName).string());
+  idMgr.saveIds((outputPath / cibIdFileName).string());
+
+  return cibIdFileName;
+}
+
 int main(int argc, char* argv[])
 {
   CibParams cibParams;
@@ -84,12 +96,7 @@ int main(int argc, char* argv[])
   
   // First load all files as DOM.
   CppProgramEx cppProgram(inputPath.string().c_str());
-  std::string cibIdFileName = cibParams.moduleName + "Lib_cibids.h";
-  CibIdMgr idMgr(cibParams.moduleName);
-  idMgr.loadIds((binderPath / cibIdFileName).string());
-  idMgr.assignIds(cppProgram, cibParams);
-  idMgr.saveIds((binderPath / cibIdFileName).string());
-  idMgr.saveIds((outputPath / cibIdFileName).string());
+  auto cibIdFileName = generateCibIds(cppProgram, cibParams, outputPath, binderPath);
   StringToStringMap substituteInfo;
   substituteInfo["MODULE"]    = cibParams.moduleName;
   substituteInfo["CIBEXPAPI"] = "__declspec(dllexport)";
