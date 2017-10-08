@@ -4,6 +4,12 @@ cmake_minimum_required(VERSION 3.4)
 
 include("../common/cmake/conf.cmake")
 
+#[[
+if(MSVC)
+	add_compile_options("/std:c++latest")
+endif(MSVC)
+]]
+
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(${ROOT_DIR}/cppparser  ${CMAKE_OBJFILE_OUTPUT_DIRECTORY}/cppparser)
 
@@ -22,6 +28,10 @@ target_link_libraries(cib
 	PRIVATE
 		cppparser
 		boost_filesystem
+)
+target_include_directories(cib
+	PRIVATE
+		${ROOT_DIR}/common
 )
 
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
