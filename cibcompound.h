@@ -42,7 +42,7 @@ private:
   void emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
 
 public:
-  CibCppCompound(CppCompound* cppClassObj, CibCppCompound* outer = NULL)
+  CibCppCompound(CppCompound* cppClassObj, CibCppCompound* outer)
     : cppCompoundObj_(cppClassObj)
     , outer_(outer)
     , inline_(false)
