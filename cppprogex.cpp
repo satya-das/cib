@@ -1,7 +1,44 @@
+#include "cibfunction.h"
+#include "cibcompound.h"
+
 #include "cppprogex.h"
 #include "cppparser.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+CibCppFunction* CppProgramEx::CppFunctionObjToCibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
+{
+  CibCppFunction* func = new CibCppFunction(cppFunc, owner);
+  cppObjToCibCppObjMap_[cppFunc] = func;
+  return func;
+}
+
+CibCppFunction* CppProgramEx::CppConstructorObjToCibCppFunction(CppConstructor* ctor, CibCppCompound* owner)
+{
+  CibCppFunction* func = new CibCppFunction(ctor, owner);
+  cppObjToCibCppObjMap_[ctor] = func;
+  return func;
+}
+
+CibCppFunction* CppProgramEx::CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner)
+{
+  CibCppFunction* func = new CibCppFunction(dtor, owner);
+  cppObjToCibCppObjMap_[dtor] = func;
+  return func;
+}
+
+const CibCppObj* CppProgramEx::CibCppObjFromCppObj(const CppObj* cppObj) const
+{
+  CppObjToCibCppObjMap::const_iterator itr = cppObjToCibCppObjMap_.find(cppObj);
+  if (itr != cppObjToCibCppObjMap_.end())
+    return itr->second;
+  return NULL;
+}
+
+const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
+{
+  return getCibCppObjFromTypeName(name, cppObjToTypeNode_[begScope]);
+}
 
 void CppProgramEx::buildCibCppObjTree()
 {

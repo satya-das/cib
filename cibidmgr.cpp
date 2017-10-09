@@ -21,7 +21,9 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "idmgr.h"
+#include "cibidmgr.h"
+#include "cibcompound.h"
+#include "cibfunction.h"
 
 #include "cppparser.h"
 
@@ -215,7 +217,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath) const
   cibIdStm << "#ifndef __CIBID_" << moduleName_ << "Lib_H__\n";
   cibIdStm << "#define __CIBID_" << moduleName_ << "Lib_H__\n\n";
   cibIdStm << "namespace _cib_ { namespace " << moduleName_ << "Lib {\n";
-  CppWriter::Indentation indentation;
+  CppIndent indentation;
   emitIds(cibIdStm, idTreeRoot_, ++indentation);
   cibIdStm << --indentation << "}}\n\n";
   cibIdStm << "#endif\n";
@@ -223,7 +225,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath) const
   return true;
 }
 
-void CibIdMgr::emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const
+void CibIdMgr::emitIds(std::ostream& stm, const CibIdNode& idNode, CppIndent indentation) const
 {
   if (!idNode.idEnum.empty())
   {

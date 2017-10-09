@@ -12,6 +12,9 @@ namespace bfs = boost::filesystem;
 
 /**
  * Parameter that contains values of CIB options.
+ *
+ * Some values are hardcoded and others must be provided.
+ * Hardcoded values can be changed to configurable in future.
  */
 struct CibParams
 {

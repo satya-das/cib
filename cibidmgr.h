@@ -24,10 +24,12 @@
 #ifndef __CIB_ID_MGR_H__
 #define __CIB_ID_MGR_H__
 
-#include "cppprogex.h"
 #include "cppwriter.h"
+#include "cppindent.h"
+
+#include "cppprogex.h"
 #include "cib.h"
-#include "params.h"
+#include "cibparams.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -92,7 +94,7 @@ private:
   void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
   void assignIds(const CppObjArray& inList, const CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
   void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
-  void emitIds(std::ostream& stm, const CibIdNode& idNode, CppWriter::Indentation indentation) const;
+  void emitIds(std::ostream& stm, const CibIdNode& idNode, CppIndent indentation) const;
 
 private:
   std::string moduleName_;

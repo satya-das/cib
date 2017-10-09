@@ -1,6 +1,7 @@
 #include "cppprogex.h"
+#include "cibcompound.h"
 #include "cib.h"
-#include "idmgr.h"
+#include "cibidmgr.h"
 #include "res_template.h"
 
 #include "cppdom.h"
@@ -151,7 +152,7 @@ int main(int argc, char* argv[])
 
   }
 
-  CibIndent indentation;
+  CppIndent indentation;
   cibLibSrcStm << '\n';
   for (CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
   {

@@ -1,18 +1,22 @@
 #ifndef __CPPPROGEX_H__
 #define __CPPPROGEX_H__
 
-#include "cppprog.h"
+#include "cibtypes.h"
 
-#include "cib.h"
+#include "cppprog.h"
 
 #include <boost/filesystem.hpp>
 
 #include <map>
 #include <set>
 
-typedef std::set<std::string> stringset;
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+class CibObj;
+class CibCppCompound;
+class CibFunction;
+
+typedef std::set<std::string> stringset;
 
 /**
  * \brief Represents an entire C++ program.
@@ -92,40 +96,6 @@ inline CppProgramEx::CppProgramEx(const char* inputPath)
   , cibCppObjTreeCreated_(false)
 {
   buildCibCppObjTree();
-}
-
-inline CibCppFunction* CppProgramEx::CppFunctionObjToCibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
-{
-  CibCppFunction* func = new CibCppFunction(cppFunc, owner);
-  cppObjToCibCppObjMap_[cppFunc] = func;
-  return func;
-}
-
-inline CibCppFunction* CppProgramEx::CppConstructorObjToCibCppFunction(CppConstructor* ctor, CibCppCompound* owner)
-{
-  CibCppFunction* func = new CibCppFunction(ctor, owner);
-  cppObjToCibCppObjMap_[ctor] = func;
-  return func;
-}
-
-inline CibCppFunction* CppProgramEx::CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner)
-{
-  CibCppFunction* func = new CibCppFunction(dtor, owner);
-  cppObjToCibCppObjMap_[dtor] = func;
-  return func;
-}
-
-inline const CibCppObj* CppProgramEx::CibCppObjFromCppObj(const CppObj* cppObj) const
-{
-  CppObjToCibCppObjMap::const_iterator itr = cppObjToCibCppObjMap_.find(cppObj);
-  if (itr != cppObjToCibCppObjMap_.end())
-    return itr->second;
-  return NULL;
-}
-
-inline const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
-{
-  return getCibCppObjFromTypeName(name, cppObjToTypeNode_[begScope]);
 }
 
 #endif //__CPPPROGEX_H__

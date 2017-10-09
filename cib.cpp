@@ -1,50 +1,11 @@
 #include "cib.h"
 #include "cppprogex.h"
+#include "cibcompound.h"
+#include "cibfunction.h"
 
 //////////////////////////////////////////////////////////////////////////
 
 static CppWriter gCppWriter;
-
-//////////////////////////////////////////////////////////////////////////
-
-// CibCppFunction method implementations:
-
-CibCppFunction::CibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
-  : func_   (cppFunc)
-  , owner_  (owner)
-  , attr_   (cppFunc->attr_)
-  , params_ (cppFunc->params_)
-{
-  assert(func_ != NULL);
-}
-
-CibCppFunction::CibCppFunction(CppConstructor* ctor, CibCppCompound* owner)
-  : ctor_   (ctor)
-  , owner_  (owner)
-  , attr_   (ctor->attr_)
-  , params_ (ctor->args_)
-{
-  assert(ctor != NULL);
-  this->addAttrib(kConstructor);
-  if (params_ && params_->size() == 1 && params_->front().cppObj->objType_ == CppObj::kVar)
-  {
-    // Check if it is copy-constructor
-    const CppVar* argVar = params_->front().varObj;
-    if (argVar->baseType_ == ctor->name_ && argVar->typeAttr_&(kConst|kByRef))
-      this->addAttrib(kCopyConstructor);
-  }
-}
-
-CibCppFunction::CibCppFunction(CppDestructor* dtor, CibCppCompound* owner)
-  : dtor_   (dtor)
-  , owner_  (owner)
-  , attr_   (dtor->attr_)
-  , params_ (NULL)
-{
-  assert(dtor != NULL);
-  assert(dtor->name_.substr(1) == owner->name());
-  this->addAttrib(kDestructor);
-}
 
 inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle = false)
 {
@@ -107,7 +68,7 @@ void CibCppFunction::emitArgsForCall(std::ostream& stm, const CppProgramEx& cppP
   }
 }
 
-void CibCppFunction::emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
   stm << indentation;
   if (isStatic())
@@ -131,7 +92,7 @@ void CibCppFunction::emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProg
   stm << ";\n";
 }
 
-void CibCppFunction::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
   stm << indentation;
   if (isConstructor())
@@ -177,7 +138,7 @@ void CibCppFunction::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProg
   stm << --indentation << "}\n";
 }
 
-void CibCppFunction::emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */) const
+void CibCppFunction::emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
   stm << indentation;
   stm << "typedef ";
@@ -225,7 +186,7 @@ const CibCppObj* CibCppCompound::resolveTypeName(const std::string& typeName, co
   return resolvedType;
 }
 
-void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   stm     << indentation;
   stm     << cppCompoundObj_->compoundType_;
@@ -316,7 +277,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
   }
 }
 
-void CibCppCompound::emitFromHanldeDecl(std::ostream& stm, const CibParams& cibParams, CibIndent indentation) const
+void CibCppCompound::emitFromHanldeDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const
 {
   if (!isFacadeLike() && cppCompoundObj_->isAbstract())
     return; // Nothing to do for abstract class that isn't a facade.
@@ -333,7 +294,7 @@ void CibCppCompound::emitFromHanldeDecl(std::ostream& stm, const CibParams& cibP
   }
 }
 
-void CibCppCompound::emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   for (CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
   {
@@ -401,7 +362,7 @@ void CibCppCompound::emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppPr
   stm     << --indentation << "}}}\n";
 }
 
-void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   for (CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
   {
@@ -495,7 +456,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
   }
 }
 
-void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   if (cppCompoundObj_->isCppFile())
   {
@@ -576,7 +537,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
   }
 }
 
-void CibCppCompound::emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   if (cppCompoundObj_->isCppFile())
   {
@@ -625,7 +586,7 @@ void CibCppCompound::emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppP
   }
 }
 
-void CibCppCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   for (CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
   {
@@ -641,7 +602,7 @@ void CibCppCompound::emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppPr
   }
 }
 
-void CibCppCompound::emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CibIndent indentation /* = CibIndent */)
+void CibCppCompound::emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
 {
   for (CppObjArray::const_iterator memItr = cppCompoundObj_->members_.begin(); memItr != cppCompoundObj_->members_.end(); ++memItr)
   {
