@@ -1,5 +1,6 @@
 #include "cibfunction.h"
 #include "cibcompound.h"
+#include "cibutil.h"
 
 #include "cppprogex.h"
 #include "cppparser.h"

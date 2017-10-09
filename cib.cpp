@@ -2,6 +2,7 @@
 #include "cppprogex.h"
 #include "cibcompound.h"
 #include "cibfunction.h"
+#include "cibutil.h"
 
 //////////////////////////////////////////////////////////////////////////
 
