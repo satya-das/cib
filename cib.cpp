@@ -182,7 +182,7 @@ const CibCppObj* CibCppCompound::resolveTypeName(const std::string& typeName, co
   TypeNameToCibCppObj::const_iterator itr          = typeNameToCibCppObj_.find(typeName);
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
-  const CibCppObj*                    resolvedType = cppProgram.getCibCppObjFromTypeName(typeName, cppCompoundObj_);
+  const CibCppObj* resolvedType = cppProgram.getCibCppObjFromTypeName(typeName, cppCompoundObj_);
   typeNameToCibCppObj_[typeName] = resolvedType;
   return resolvedType;
 }

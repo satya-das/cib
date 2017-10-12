@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
     cibLibSrcStm << cibcode;
   }
 
-  const CppCompoundArray& fileDOMs = cppProgram.getFileDOMs();
+  const CppCompoundArray& fileDOMs = cppProgram.getProgram().getFileDOMs();
   for (CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
   {
     CppCompound*    cppDom         = *domItr;

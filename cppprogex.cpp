@@ -7,6 +7,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+CppProgramEx::CppProgramEx(const char* inputPath)
+  : program_(CppParser().loadProgram(inputPath))
+  , cibCppObjTreeCreated_(false)
+{
+  buildCibCppObjTree();
+}
+
 CibCppFunction* CppProgramEx::CppFunctionObjToCibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
 {
   CibCppFunction* func = new CibCppFunction(cppFunc, owner);
@@ -38,16 +45,16 @@ const CibCppObj* CppProgramEx::CibCppObjFromCppObj(const CppObj* cppObj) const
 
 const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
 {
-  return getCibCppObjFromTypeName(name, cppObjToTypeNode_[begScope]);
+  return getCibCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
 }
 
 void CppProgramEx::buildCibCppObjTree()
 {
-  for (CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
-    CppCompoundObjToCibCppCompound(*domItr, NULL);
-  for (CppCompoundArray::const_iterator domItr = fileDoms_.begin(); domItr != fileDoms_.end(); ++domItr)
-    resolveInheritance(*domItr);
-  for (auto fileDom : fileDoms_)
+  for (auto fileDom : program_->getFileDOMs())
+    CppCompoundObjToCibCppCompound(fileDom, NULL);
+  for (auto fileDom : program_->getFileDOMs())
+    resolveInheritance(fileDom);
+  for (auto fileDom : program_->getFileDOMs())
     markInterfaceAndFacade(fileDom);
 }
 
@@ -95,12 +102,12 @@ const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name,
   size_t nameEndPos = name.find("::", nameBegPos);
   if (nameEndPos == std::string::npos)
   {
-    typeNode = findTypeNode(name, typeNode);
+    typeNode = program_->findTypeNode(name, typeNode);
   }
   else
   {
     std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-    typeNode = findTypeNode(name.substr(nameBegPos, nameEndPos-nameBegPos), typeNode);
+    typeNode = program_->findTypeNode(name.substr(nameBegPos, nameEndPos-nameBegPos), typeNode);
     if (!typeNode)
       return NULL;
     do
@@ -122,7 +129,7 @@ const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name,
 
 void CppProgramEx::resolveInheritance(CppCompound* cppCompound)
 {
-  const CppTypeTreeNode& ownerTypeNode = *cppObjToTypeNode_[cppCompound->owner_];
+  const CppTypeTreeNode& ownerTypeNode = *program_->typeTreeNodeFromCppObj(cppCompound->owner_);
   if (cppCompound->inheritList_)
   {
     for (CppInheritanceList::const_iterator itrInh = cppCompound->inheritList_->begin(); itrInh != cppCompound->inheritList_->end(); ++itrInh)

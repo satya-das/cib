@@ -12,6 +12,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 class CppProgramEx;
+class CibCppFunction;
+class CibCppCompound;
 
 typedef std::vector<CibCppFunction*>			              CibCppFunctionArray;
 typedef std::vector<CibCppCompound*>			              CibCppCompoundArray;

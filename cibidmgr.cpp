@@ -85,7 +85,8 @@ void CibIdMgr::loadIds(const CppCompound* nodeCompound, CibIdNode& idNode)
 
 bool CibIdMgr::loadIds(const std::string& idsFilePath)
 {
-  CppCompound* idsCppFile = parseSingleFile(idsFilePath.c_str());
+  CppParser parser;
+  CppCompound* idsCppFile = parser.parseFile(idsFilePath.c_str());
   if (idsCppFile == NULL)
     return false;
   for (CppObjArray::const_iterator idsFileMemItr = idsCppFile->members_.begin(); idsFileMemItr != idsCppFile->members_.end(); ++idsFileMemItr)
@@ -202,7 +203,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, const CppProgramEx& expProg,
 void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams)
 {
   // First create Ids for global functions
-  const CppCompoundArray& fileDOMs = expProg.getFileDOMs();
+  const CppCompoundArray& fileDOMs = expProg.getProgram().getFileDOMs();
   for (CppCompoundArray::const_iterator fileDomItr = fileDOMs.begin(); fileDomItr != fileDOMs.end(); ++fileDomItr)
   {
     const CppCompound* fileCmpound = *fileDomItr;

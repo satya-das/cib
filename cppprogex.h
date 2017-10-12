@@ -23,17 +23,13 @@ typedef std::set<std::string> stringset;
  *
  * For our purpose we may use only C++ header files but this class can be used to load and parse C++ source files as well.
  */
-class CppProgramEx : public CppProgram
+class CppProgramEx
 {
 public:
   CppProgramEx();
   CppProgramEx(const char* inputPath);
 
-  void loadProgramEx(const char* inputPath)
-  {
-    loadProgram(inputPath);
-    buildCibCppObjTree();
-  }
+  const CppProgram& getProgram() const { return *program_.get(); }
 
 public:
   /**
@@ -82,6 +78,8 @@ private:
 private:
   CppObjToCibCppObjMap cppObjToCibCppObjMap_;
   bool cibCppObjTreeCreated_;
+
+  std::unique_ptr<CppProgram> program_;
 };
 
 //////////////////////////////////////////////////////////////////////////
@@ -89,13 +87,6 @@ private:
 inline CppProgramEx::CppProgramEx()
   : cibCppObjTreeCreated_(false)
 {
-}
-
-inline CppProgramEx::CppProgramEx(const char* inputPath)
-  : CppProgram(inputPath)
-  , cibCppObjTreeCreated_(false)
-{
-  buildCibCppObjTree();
 }
 
 #endif //__CPPPROGEX_H__
