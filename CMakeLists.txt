@@ -21,7 +21,9 @@ set(CIB_SOURCES
 	cppprogex.cpp
 	cibidmgr.cpp
 	main.cpp
-	cibfunction.cpp
+	cibobjfactory.cpp
+	cibfunction_helper.cpp
+	cibutil.cpp
 )
 
 add_executable(cib ${CIB_SOURCES})

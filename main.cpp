@@ -12,7 +12,7 @@
 
 #include <map>
 #include <strstream>
-#include <ostream>
+#include <iostream>
 #include <tuple>
 
 //////////////////////////////////////////////////////////////////////////
@@ -131,12 +131,9 @@ int main(int argc, char* argv[])
   }
 
   const CppCompoundArray& fileDOMs = cppProgram.getProgram().getFileDOMs();
-  for (CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
+  for (auto cppDom : fileDOMs)
   {
-    CppCompound*    cppDom         = *domItr;
-    CibCppCompound* cibCppCompound = (CibCppCompound*) cppProgram.CibCppObjFromCppObj(cppDom);
-    if (cibCppCompound == NULL)
-      continue;
+    CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
     bfs::path usrIncPath     = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.native().length());
     std::ofstream incStm(usrIncPath.native(), std::ios_base::out);
     cibCppCompound->emitDecl(incStm, cppProgram, cibParams);
@@ -154,10 +151,9 @@ int main(int argc, char* argv[])
 
   CppIndent indentation;
   cibLibSrcStm << '\n';
-  for (CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
+  for (auto cppDom : fileDOMs)
   {
-    CppCompound*    cppDom         = *domItr;
-    CibCppCompound* cibCppCompound = (CibCppCompound*)cppProgram.CibCppObjFromCppObj(cppDom);
+    CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
     cibCppCompound->emitMetaInterfaceFactoryDecl(cibLibSrcStm, cppProgram, cibParams, indentation);
   }
 
@@ -166,10 +162,9 @@ int main(int argc, char* argv[])
   ++indentation;
   cibLibSrcStm << indentation << "void InitMetaInterfaceRepository() {\n";
   ++indentation;
-  for (CppCompoundArray::const_iterator domItr = fileDOMs.begin(); domItr != fileDOMs.end(); ++domItr)
+  for (auto cppDom : fileDOMs)
   {
-    CppCompound*    cppDom         = *domItr;
-    CibCppCompound* cibCppCompound = (CibCppCompound*)cppProgram.CibCppObjFromCppObj(cppDom);
+    CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
     cibCppCompound->emitCodeToPopulateMetaInterfaceRepository(cibLibSrcStm, cppProgram, cibParams, indentation);
   }
   cibLibSrcStm << --indentation << "}\n";

@@ -1,102 +1,35 @@
 #include "cibfunction.h"
 #include "cibcompound.h"
+#include "cibfunction_helper.h"
 #include "cibutil.h"
-
+#include "cibobjfactory.h"
 #include "cppprogex.h"
 #include "cppparser.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 CppProgramEx::CppProgramEx(const char* inputPath)
-  : program_(CppParser().loadProgram(inputPath))
-  , cibCppObjTreeCreated_(false)
+  : cibCppObjTreeCreated_(false)
 {
+  CibObjFactory objFactory;
+  program_.reset(CppParser(&objFactory).loadProgram(inputPath));
   buildCibCppObjTree();
 }
 
-CibCppFunction* CppProgramEx::CppFunctionObjToCibCppFunction(CppFunction* cppFunc, CibCppCompound* owner)
+CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
 {
-  CibCppFunction* func = new CibCppFunction(cppFunc, owner);
-  cppObjToCibCppObjMap_[cppFunc] = func;
-  return func;
-}
-
-CibCppFunction* CppProgramEx::CppConstructorObjToCibCppFunction(CppConstructor* ctor, CibCppCompound* owner)
-{
-  CibCppFunction* func = new CibCppFunction(ctor, owner);
-  cppObjToCibCppObjMap_[ctor] = func;
-  return func;
-}
-
-CibCppFunction* CppProgramEx::CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner)
-{
-  CibCppFunction* func = new CibCppFunction(dtor, owner);
-  cppObjToCibCppObjMap_[dtor] = func;
-  return func;
-}
-
-const CibCppObj* CppProgramEx::CibCppObjFromCppObj(const CppObj* cppObj) const
-{
-  CppObjToCibCppObjMap::const_iterator itr = cppObjToCibCppObjMap_.find(cppObj);
-  if (itr != cppObjToCibCppObjMap_.end())
-    return itr->second;
-  return NULL;
-}
-
-const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
-{
-  return getCibCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
+  return getCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
 }
 
 void CppProgramEx::buildCibCppObjTree()
 {
   for (auto fileDom : program_->getFileDOMs())
-    CppCompoundObjToCibCppCompound(fileDom, NULL);
+    resolveInheritance(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
-    resolveInheritance(fileDom);
-  for (auto fileDom : program_->getFileDOMs())
-    markInterfaceAndFacade(fileDom);
+    markInterfaceAndFacade(static_cast<CibCppCompound*>(fileDom));
 }
 
-CibCppCompound* CppProgramEx::CppCompoundObjToCibCppCompound(CppCompound* cppCompound, CibCppCompound* owner)
-{
-  assert(cppObjToCibCppObjMap_.find(cppCompound) == cppObjToCibCppObjMap_.end()); // It must not be already present in repo.
-  CibCppCompound* apiCompound = new CibCppCompound(cppCompound, owner);
-  cppObjToCibCppObjMap_[cppCompound] = apiCompound;
-
-  for (CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
-  {
-    CppObj* mem = *itr;
-    switch (mem->objType_)
-    {
-    case CppObj::kCompound:
-    {
-      CppCompoundObjToCibCppCompound((CppCompound*) mem, apiCompound);
-      break;
-    }
-    case CppObj::kFunction:
-    {
-      CibCppFunction* func = CppFunctionObjToCibCppFunction((CppFunction*) mem, apiCompound);
-      evaluateArgs(func);
-      break;
-    }
-    case CppObj::kConstructor:
-    {
-      CppConstructorObjToCibCppFunction((CppConstructor*) mem, apiCompound);
-      break;
-    }
-    case CppObj::kDestructor:
-    {
-      CppDestructorObjToCibCppFunction((CppDestructor*) mem, apiCompound);
-      break;
-    }
-    }
-  }
-
-  return apiCompound;
-}
-
-const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
+CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
   size_t nameBegPos = 0;
   size_t nameEndPos = name.find("::", nameBegPos);
@@ -107,64 +40,63 @@ const CibCppObj* CppProgramEx::getCibCppObjFromTypeName(const std::string& name,
   else
   {
     std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-    typeNode = program_->findTypeNode(name.substr(nameBegPos, nameEndPos-nameBegPos), typeNode);
+    typeNode = program_->findTypeNode(nameToLookFor, typeNode);
     if (!typeNode)
-      return NULL;
+      return nullptr;
     do
     {
       nameBegPos = nameEndPos + 2;
       nameEndPos = name.find("::", nameBegPos);
       if (nameEndPos == std::string::npos)
         nameEndPos = name.length();
-      std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-      CppTypeTree::const_iterator itr           = typeNode->children.find(nameToLookFor);
+      auto nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
+      auto itr = typeNode->children.find(nameToLookFor);
       if (itr == typeNode->children.end())
-        return NULL;
+        return nullptr;
       typeNode = &itr->second;
     }
     while (nameEndPos >= name.length());
   }
-  return typeNode ? CibCppObjFromCppObj(*(typeNode->cppObjSet.begin())) : NULL;
+  return typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
 }
 
-void CppProgramEx::resolveInheritance(CppCompound* cppCompound)
+void CppProgramEx::resolveInheritance(CibCppCompound* cppCompound)
 {
   const CppTypeTreeNode& ownerTypeNode = *program_->typeTreeNodeFromCppObj(cppCompound->owner_);
   if (cppCompound->inheritList_)
   {
     for (CppInheritanceList::const_iterator itrInh = cppCompound->inheritList_->begin(); itrInh != cppCompound->inheritList_->end(); ++itrInh)
     {
-      CibCppCompound* parentObj = (CibCppCompound*) getCibCppObjFromTypeName(itrInh->baseName, &ownerTypeNode);
+      CibCppCompound* parentObj = (CibCppCompound*) getCppObjFromTypeName(itrInh->baseName, &ownerTypeNode);
       // assert(parentObj != NULL); // we should actually give warning here.
       if (parentObj == NULL)
         continue;
-      CibCppCompound* apiCompound = (CibCppCompound*) cppObjToCibCppObjMap_[cppCompound];
-      CppObjProtLevel inhType     = itrInh->inhType == kUnknownProt ? defaultInheritanceType(cppCompound->compoundType_) : itrInh->inhType;
-      apiCompound->parents_[inhType].push_back(parentObj);
-      parentObj->children_[inhType].push_back(apiCompound);
+      CppObjProtLevel inhType = resolveInheritanceType(itrInh->inhType, cppCompound->compoundType_);
+      cppCompound->parents_[inhType].push_back(parentObj);
+      parentObj->children_[inhType].push_back(cppCompound);
     }
   }
   for (CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
   {
     CppObj* mem = *itr;
     if (mem->objType_ == CppObj::kCompound)
-      resolveInheritance((CppCompound*) mem);
+      resolveInheritance((CibCppCompound*) mem);
   }
 }
 
-void CppProgramEx::evaluateArgs(CibCppFunction* func)
+void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
 {
   // Evaluate the arguments to detect if any of them uses a class that is interface-like.
-  if (func->hasParams())
+  if (func.hasParams())
   {
-    for (auto param : *(func->getParams()))
+    for (auto param : *(func.getParams()))
     {
       if (param.cppObj->objType_ != CppObj::kVar)
         continue;
       if (param.varObj->ptrLevel_ == 1 || param.varObj->refType_ == kByRef)
       {
-        auto paramObj = (CibCppCompound*)getCibCppObjFromTypeName(param.varObj->baseType_, func->getOwner()->getCppCompound());
-        if (paramObj && paramObj->getCppCompound()->hasVirtualMethod())
+        auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType_, func.getOwner()));
+        if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
         }
@@ -172,17 +104,16 @@ void CppProgramEx::evaluateArgs(CibCppFunction* func)
     }
   }
 }
-void CppProgramEx::evaluateReturnType(CibCppFunction* func)
+void CppProgramEx::evaluateReturnType(CibCppFunction* cppFunc)
 {
   // Evaluate to detect if the return type is a facade-like class.
-  CppFunction* cppFunc = func->getCppFunction();
   assert(cppFunc);
   if (cppFunc && cppFunc->retType_)
   {
     if (cppFunc->retType_->ptrLevel_ == 1 || cppFunc->retType_->refType_ == kByRef)
     {
-      auto returnObj = (CibCppCompound*)getCibCppObjFromTypeName(cppFunc->retType_->baseType_, func->getOwner()->getCppCompound());
-      if (returnObj && returnObj->getCppCompound()->hasVirtualMethod())
+      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(cppFunc->retType_->baseType_, cppFunc->owner_));
+      if (returnObj && returnObj->hasVirtualMethod())
       {
         returnObj->setFacadeLike();
       }
@@ -190,18 +121,18 @@ void CppProgramEx::evaluateReturnType(CibCppFunction* func)
   }
 }
 
-void CppProgramEx::markInterfaceAndFacade(CppCompound* cppCompound)
+void CppProgramEx::markInterfaceAndFacade(CibCppCompound* cppCompound)
 {
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
     {
-      markInterfaceAndFacade((CppCompound*) mem);
+      markInterfaceAndFacade(static_cast<CibCppCompound*>(mem));
     }
     else if(mem->objType_ == CppObj::kFunction)
     {
-      evaluateArgs((CibCppFunction*)CibCppObjFromCppObj(mem));
-      evaluateReturnType((CibCppFunction*)CibCppObjFromCppObj(mem));
+      evaluateArgs(static_cast<CibCppFunction*>(mem));
+      evaluateReturnType(static_cast<CibCppFunction*>(mem));
     }
   }
 }

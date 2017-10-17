@@ -1,8 +1,6 @@
 #ifndef __CPPPROGEX_H__
 #define __CPPPROGEX_H__
 
-#include "cibtypes.h"
-
 #include "cppprog.h"
 
 #include <boost/filesystem.hpp>
@@ -12,9 +10,11 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-class CibObj;
-class CibCppCompound;
-class CibFunction;
+class CppObj;
+
+struct CibCppCompound;
+struct CibCppFunction;
+class CibFunctionHelper;
 
 typedef std::set<std::string> stringset;
 
@@ -38,45 +38,33 @@ public:
    * @param typeNode CppTypeTreeNode object from where the search should begin.
    * @return CppObj corresponding to the name given.
    */
-  const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const;
+  CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const;
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain many scope resolution operators.
    * @param begScope Compound object from where the search should begin.
    * @return CppObj corresponding to the name given.
    */
-  const CibCppObj* getCibCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const;
-  /**
-   * @return CibCppObj corresponding to given CppObj.
-   */
-  const CibCppObj* CibCppObjFromCppObj(const CppObj* cppObj) const;
+  CppObj* getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const;
 
 private:
   /**
    * Creates CibCppCompound from CppCompound.
    * \note It does not populate inheritance info.
    */
-  CibCppCompound* CppCompoundObjToCibCppCompound(CppCompound* cppCompound, CibCppCompound* owner);
-  CibCppFunction* CppFunctionObjToCibCppFunction(CppFunction* cppFunc, CibCppCompound* owner);
-  CibCppFunction* CppConstructorObjToCibCppFunction(CppConstructor* ctor, CibCppCompound* owner);
-  CibCppFunction* CppDestructorObjToCibCppFunction(CppDestructor* dtor, CibCppCompound* owner);
-  void resolveInheritance(CppCompound* cppCompound);
+  void resolveInheritance(CibCppCompound* cppCompound);
   void buildCibCppObjTree();
-  void markInterfaceAndFacade(CppCompound* cppCompound);
+  void markInterfaceAndFacade(CibCppCompound* cppCompound);
   /**
    * Evaluates argument function to detect attribute of classes used in args.
    */
-  void evaluateArgs(CibCppFunction* func);
+  void evaluateArgs(const CibFunctionHelper& func);
   /**
   * Evaluates return type of function to detect attribute of class used in return type.
   */
   void evaluateReturnType(CibCppFunction* func);
 
 private:
-  typedef std::map<const CppObj*, const CibCppObj*> CppObjToCibCppObjMap;
-
-private:
-  CppObjToCibCppObjMap cppObjToCibCppObjMap_;
   bool cibCppObjTreeCreated_;
 
   std::unique_ptr<CppProgram> program_;

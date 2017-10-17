@@ -1,10 +1,10 @@
 #pragma once
 
-#include "cibobj.h"
 #include "cibparams.h"
 
 #include "cppdom.h"
 #include "cppindent.h"
+#include "cibfunction_helper.h"
 
 #include <map>
 #include <vector>
@@ -12,63 +12,51 @@
 //////////////////////////////////////////////////////////////////////////
 
 class CppProgramEx;
-class CibCppFunction;
-class CibCppCompound;
+class CibFunctionHelper;
 
-typedef std::vector<CibCppFunction*>			              CibCppFunctionArray;
+struct CibCppFunction;
+struct CibCppCompound;
+
+typedef std::vector<CibFunctionHelper>			            CibFunctionHelperArray;
 typedef std::vector<CibCppCompound*>			              CibCppCompoundArray;
 typedef std::map<CppObjProtLevel, CibCppCompoundArray>	CibCppInheritInfo;
-typedef std::map<std::string, const CibCppObj*>		      TypeNameToCibCppObj;
+typedef std::map<std::string, const CppObj*>		        TypeNameToCppObj;
 
 /**
 * Responsible for emitting code required for CIB functionality of C++ compound object.
 */
-class CibCppCompound : public CibCppObj
+struct CibCppCompound : public CppCompound
 {
+public:
+  using CppCompound::CppCompound;
+
 public:
   CibCppInheritInfo parents_;             // List of all parents from which this compound object is derived.
   CibCppInheritInfo children_;            // List of all children which are derived from this compound object.
 
 private:
-  CppCompound*                cppCompoundObj_;
-  CibCppCompound*             outer_;     // This will be NULL unless this class belongs to some other namespace/class/struct/union.
-  bool inline_;                           // true when all non-static methods are inline.
-  bool interfaceLike_;
-  bool facadeLike_;
+  bool inline_{ false };                           // true when all non-static methods are inline.
+  bool interfaceLike_{ false };
+  bool facadeLike_{ false };
 
-  CibCppFunctionArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
-  mutable TypeNameToCibCppObj typeNameToCibCppObj_;
-
-  friend class CibCppFunction;
+  CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
+  mutable TypeNameToCppObj typeNameToCibCppObj_;
 
   void emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
 
 public:
-  CibCppCompound(CppCompound* cppClassObj, CibCppCompound* outer)
-    : cppCompoundObj_(cppClassObj)
-    , outer_(outer)
-    , inline_(false)
-    , interfaceLike_(false)
-    , facadeLike_(false)
-  {
-  }
-
-  CppCompound* getCppCompound() const
-  {
-    return cppCompoundObj_;
-  }
   /// @return name of this class.
   const std::string&   name() const
   {
-    return cppCompoundObj_->name_;
+    return name_;
   }
   /// @return full name of this class.
   std::string   fullName() const
   {
-    if (outer_ && (outer_->cppCompoundObj_->isNamespaceLike()))
-      return outer_->fullName() + "::" + cppCompoundObj_->name_;
+    if (outer() && (outer()->isNamespaceLike()))
+      return outer()->fullName() + "::" + name_;
     else
-      return cppCompoundObj_->name_;
+      return name_;
   }
   /// @return Unique name of this class
   std::string   uniqName() const
@@ -80,7 +68,7 @@ public:
   /// @return name of handle class for this compound object.
   std::string   handleName(const CibParams& cibParams) const
   {
-    return cibParams.classHandlePrefix + cppCompoundObj_->name_;
+    return cibParams.classHandlePrefix + name_;
   }
   /// @return full name of handle class for this compound object.
   std::string   fullHandleName(const CibParams& cibParams) const
@@ -90,7 +78,7 @@ public:
   /// @return Name of variable for pointer of this compound object.
   std::string objName() const
   {
-    return "p" + cppCompoundObj_->name_ + "Obj";
+    return "p" + name_ + "Obj";
   }
   /// @return Name of bridge class.
   std::string bridgeName() const
@@ -110,35 +98,35 @@ public:
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations() const
   {
-    if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+    if (outer() == NULL || outer()->isCppFile())
       return "";
-    return outer_->wrappingNamespaceDeclarations() + "namespace " + outer_->name() + " {";
+    return outer()->wrappingNamespaceDeclarations() + "namespace " + outer()->name() + " {";
   }
   ///
   std::string wrappingNses() const
   {
-    if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+    if (outer() == NULL || outer()->isCppFile())
       return "::";
-    return outer_->wrappingNses() + outer_->name();
+    return outer()->wrappingNses() + outer()->name();
   }
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
   std::string closingBracesForWrappingNamespaces() const
   {
-    if (outer_ == NULL || outer_->cppCompoundObj_->isCppFile())
+    if (outer() == NULL || outer()->isCppFile())
       return "";
-    return outer_->closingBracesForWrappingNamespaces() + '}';
+    return outer()->closingBracesForWrappingNamespaces() + '}';
   }
   /// @return CibId of this compound object
   std::string cibId(const CibParams& cibParams) const
   {
     return "::_cib_::" + cibParams.moduleName + "Lib" + wrappingNses() + "::kCIBID_" + name();
   }
-  ///@ return CibCppObj corresponding to name of a given type
-  const CibCppObj* resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const;
+  ///@ return CppObj corresponding to name of a given type
+  const CppObj* resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const;
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const
   {
-    return outer_;
+    return static_cast<CibCppCompound*>(owner_);
   }
   /**
   * @ return true if this compound object is interface-like.

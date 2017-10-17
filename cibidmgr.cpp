@@ -22,6 +22,7 @@
  */
 
 #include "cibidmgr.h"
+#include "cibfunction_helper.h"
 #include "cibcompound.h"
 #include "cibfunction.h"
 
@@ -153,15 +154,15 @@ void CibIdMgr::assignIds(const CppObjArray& inList, const CppProgramEx& expProg,
     CppObj*     item = *itemItr;
     if (item->isFunctionLike())
     {
-      CibCppFunction* func = (CibCppFunction*) expProg.CibCppObjFromCppObj(item);
+      CibFunctionHelper func(item);
       std::ostrstream tmpbuf;
-      func->emitOrigDecl(tmpbuf, expProg, cibParams);
+      func.emitOrigDecl(tmpbuf, expProg, cibParams);
       itemUniqStr         = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount()-1);
-      enumItemData.idName = func->capiName(cibParams);
+      enumItemData.idName = func.capiName(cibParams);
     }
     else if (item->isNamespaceLike())
     {
-      CppCompound*     compound       = (CppCompound*) item;
+      CibCppCompound* compound       = static_cast<CibCppCompound*>(item);
       const CibIdNode* childOldIdNode = NULL;
       if (oldIdNode)
       {
@@ -172,8 +173,7 @@ void CibIdMgr::assignIds(const CppObjArray& inList, const CppProgramEx& expProg,
       assignIds(compound->members_, expProg, idNode.childs[compound->name_], childOldIdNode, cibParams);
       if (compound->isClassLike())
       {
-        CibCppCompound* cmp = (CibCppCompound*) expProg.CibCppObjFromCppObj(compound);
-        assignIdsToSpecialMethods(cmp, idNode.childs[compound->name_], childOldIdNode, cibParams);
+        assignIdsToSpecialMethods(compound, idNode.childs[compound->name_], childOldIdNode, cibParams);
         std::ostrstream tmpbuf;
         tmpbuf << compound->compoundType_ << ' ' << compound->name_ << ';';
         itemUniqStr         = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
