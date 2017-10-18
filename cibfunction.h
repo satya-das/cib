@@ -11,28 +11,39 @@ struct CibCppCompound;
 class CppProgramEx;
 struct CibParams;
 
+/*!
+ * Base class to add common attributes to function-like objects.
+
+ * It can be very easy to go wrong when dealing with
+ * CppConstructor, CppDestructor, and CppFunction; so,
+ * access to them is blocked by having protected inheritance.
+ * CibFunctionHelper should be used instead of directly accessing
+ * CppConstructor, CppDestructor, and CppFunction objects.
+ */
 template <typename _Base>
-struct CppFunctionMixin : public _Base
+struct CppFunctionLikeMixin : protected _Base
 {
   std::string procNameSfx_;               // Suffix to be used for proc name. It is needed to make overloaded methods have different proc name.
 
   using _Base::_Base;
 
 protected:
-  CppFunctionMixin() {}
+  CppFunctionLikeMixin() {}
+
+  friend class CibFunctionHelper;
 };
 
-struct CibCppFunction : public CppFunctionMixin<CppFunction>
+struct CibCppConstructor : public CppFunctionLikeMixin<CppConstructor>
 {
-  using CppFunctionMixin::CppFunctionMixin;
+  using CppFunctionLikeMixin::CppFunctionLikeMixin;
 };
 
-struct CibCppConstructor : public CppFunctionMixin<CppConstructor>
+struct CibCppDestructor : public CppFunctionLikeMixin<CppDestructor>
 {
-  using CppFunctionMixin::CppFunctionMixin;
+  using CppFunctionLikeMixin::CppFunctionLikeMixin;
 };
 
-struct CibCppDestructor : public CppFunctionMixin<CppDestructor>
+struct CibCppFunction : public CppFunctionLikeMixin<CppFunction>
 {
-  using CppFunctionMixin::CppFunctionMixin;
+  using CppFunctionLikeMixin::CppFunctionLikeMixin;
 };

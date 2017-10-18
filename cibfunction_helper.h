@@ -14,22 +14,30 @@ struct CibCppCompound;
 
 class CppProgramEx;
 
-/**
-* Helper class to deal with function like C++ constructs, viz. constructors, destructors, and regular functions.
-*/
+/*!
+ * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and regular functions.
+ * There is too much similiarity in constructor, destructor, and function but they are different too.
+ * cppparser have three different classes for these and it makes sense. But for pupose of cib their similarity
+ * is more important than their differences and so CibFunctionHelper provides a uniform interface and behaviour
+ * to deal with them in a uniform way.
+ */
 class CibFunctionHelper
 {
 private:
   union
   {
     CppObj*             cppObj_;
-    CibCppFunction*     func_;
     CibCppConstructor*  ctor_;
     CibCppDestructor*   dtor_;
+    CibCppFunction*     func_;
   };
 
 public:
+  static CppConstructor* CreateConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, unsigned int attr);
+  static CppDestructor* CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
+  static CppFunction* CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
 
+public:
   CibFunctionHelper(CppObj* cppObj);
   CibFunctionHelper(CibCppConstructor* ctor) : ctor_(ctor) {}
   CibFunctionHelper(CibCppDestructor* dtor) : dtor_(dtor) {}
@@ -73,7 +81,7 @@ public:
   }
   bool isMethod() const
   {
-    return isFunction() && func_->owner_ && func_->owner_->isClassLike();
+    return isFunction() && func_->isMethod();
   }
 
   CibCppCompound* getOwner() const;

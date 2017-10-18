@@ -104,15 +104,14 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
     }
   }
 }
-void CppProgramEx::evaluateReturnType(CibCppFunction* cppFunc)
+void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
 {
   // Evaluate to detect if the return type is a facade-like class.
-  assert(cppFunc);
-  if (cppFunc && cppFunc->retType_)
+  if (func.retType())
   {
-    if (cppFunc->retType_->ptrLevel_ == 1 || cppFunc->retType_->refType_ == kByRef)
+    if (func.retType()->ptrLevel_ == 1 || func.retType()->refType_ == kByRef)
     {
-      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(cppFunc->retType_->baseType_, cppFunc->owner_));
+      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType_, func.getOwner()));
       if (returnObj && returnObj->hasVirtualMethod())
       {
         returnObj->setFacadeLike();
@@ -131,8 +130,8 @@ void CppProgramEx::markInterfaceAndFacade(CibCppCompound* cppCompound)
     }
     else if(mem->objType_ == CppObj::kFunction)
     {
-      evaluateArgs(static_cast<CibCppFunction*>(mem));
-      evaluateReturnType(static_cast<CibCppFunction*>(mem));
+      evaluateArgs(mem);
+      evaluateReturnType(mem);
     }
   }
 }

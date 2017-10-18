@@ -62,7 +62,7 @@ private:
   /**
   * Evaluates return type of function to detect attribute of class used in return type.
   */
-  void evaluateReturnType(CibCppFunction* func);
+  void evaluateReturnType(const CibFunctionHelper& func);
 
 private:
   bool cibCppObjTreeCreated_;
