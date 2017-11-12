@@ -692,10 +692,15 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream& stm, const CppProgr
     {
       stm << ",\n" << indentation << "(MethodEntry) &" << func.capiName(cibParams);
     }
+    size_t numCastMethods = 0;
+    forEachParent(kPublic, [this, &indentation, &stm, &cibParams, &numCastMethods](const CibCppCompound* parent) {
+      stm << ",\n" << indentation << "(MethodEntry) &" << castToBaseName(parent, cibParams);
+      ++numCastMethods;
+    });
     stm << '\n';
     stm << --indentation << "};\n";
     stm << indentation << "*pMethodTable = methodTable;\n";
-    stm << indentation << "*pLen = " << 1+needsBridging_.size() << ";\n";
+    stm << indentation << "*pLen = " << 1+needsBridging_.size() + numCastMethods<< ";\n";
     stm << --indentation << "}\n";
     stm << --indentation << '}' << closingBracesForWrappingNamespaces() << '\n';;
   }

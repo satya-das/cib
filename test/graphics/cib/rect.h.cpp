@@ -38,9 +38,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 			(MethodEntry) &__zz_cib_new,
 			(MethodEntry) &Area,
 			(MethodEntry) &Perimeter,
-			(MethodEntry) &Draw
+			(MethodEntry) &Draw,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape
 		};
 		*pMethodTable = methodTable;
-		*pLen = 5;
+		*pLen = 6;
 	}
 }}}

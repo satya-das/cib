@@ -48,9 +48,10 @@ namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 			(MethodEntry) &Move,
 			(MethodEntry) &Line,
 			(MethodEntry) &Curve,
-			(MethodEntry) &Close
+			(MethodEntry) &Close,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Context
 		};
 		*pMethodTable = methodTable;
-		*pLen = 7;
+		*pLen = 8;
 	}
 }}}

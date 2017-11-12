@@ -10,7 +10,7 @@
 namespace {
   static HMODULE g_hGraphics = nullptr;
   using __zz_cib_GraphicsLib_GetMethodTableProc = void(*)(std::uint32_t, __zz_cib_::MethodTable*, size_t*);
-  __zz_cib_GraphicsLib_GetMethodTableProc __zz_cib_GraphicsLib_GetMethodTable;
+  static __zz_cib_GraphicsLib_GetMethodTableProc __zz_cib_GraphicsLib_GetMethodTable;
   void initGraphicsLib()
   {
     g_hGraphics = ::LoadLibraryA("graphics.dll");
@@ -19,7 +19,7 @@ namespace {
       std::cout << "ERROR: Null handle." << std::endl;
       exit(-1);
     }
-    __zz_cib_GraphicsLib_GetMethodTable = (__zz_cib_GraphicsLib_GetMethodTableProc) GetProcAddress(g_hGraphics, "__zz_cib_GraphicsLib_GetMethodTable@12");
+    __zz_cib_GraphicsLib_GetMethodTable = (__zz_cib_GraphicsLib_GetMethodTableProc) GetProcAddress(g_hGraphics, "__zz_cib_GraphicsLib_GetMethodTable");
   }
 }
 

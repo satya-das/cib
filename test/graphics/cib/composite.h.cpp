@@ -58,9 +58,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 			(MethodEntry) &Area,
 			(MethodEntry) &Perimeter,
 			(MethodEntry) &Draw,
-			(MethodEntry) &CreateCompositeOfRectAndCircle
+			(MethodEntry) &CreateCompositeOfRectAndCircle,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape
 		};
 		*pMethodTable = methodTable;
-		*pLen = 9;
+		*pLen = 10;
 	}
 }}}
