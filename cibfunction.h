@@ -28,8 +28,6 @@ struct CppFunctionLikeMixin : protected _Base
 protected:
   using _Base::_Base;
 
-  std::string procNameSfx_; // Suffix to be used for proc name. It is needed to make overloaded methods have different proc name.
-
   friend class CibFunctionHelper;
 };
 

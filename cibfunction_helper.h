@@ -106,12 +106,6 @@ public:
     return func_->name_;
   }
 
-  /// Name of raw C API corresponding to method of C++ class.
-  std::string capiName(const CibParams& cibParams) const
-  {
-    return procName(cibParams);
-  }
-
   /// ProcType that is used by client side glue code to define function pointer variable.
   std::string procType(const CibParams& cibParams) const
   {
@@ -123,31 +117,29 @@ public:
   {
     std::string pname;
     if (isCopyConstructor())
-      pname = cibParams.copyCtorCAPIPrefix + ctor_->procNameSfx_;
+      pname = cibParams.copyCtorCAPIPrefix;
     else if (isConstructor())
-      pname = cibParams.ctorCAPIPrefix + ctor_->procNameSfx_;
+      pname = cibParams.ctorCAPIPrefix;
     else if (isDestructor())
-      pname = cibParams.dtorCAPIPrefix + dtor_->procNameSfx_;
+      pname = cibParams.dtorCAPIPrefix;
     else
-      pname = funcName() + func_->procNameSfx_;
+      pname = funcName();
 
     return pname;
   }
 
   /// @return signature of this method.
   std::string signature() const;
-  /// @return CibId of this compound object
-  std::string cibId(const CibParams& cibParams) const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool resolveTypes = false, bool emitHandle = false) const;
+  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes = false, bool emitHandle = false) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool emitHandle = false) const;
   /// Emits declaration as originally defined/declared.
   void emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-  void emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const std::string& capiName, CppIndent indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
   void emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, CppIndent indentation = CppIndent()) const;
 };

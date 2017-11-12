@@ -68,14 +68,13 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
     itr = cibIdTable_.emplace(std::make_pair(compound->fullName(), CibIdData(classIdName, nextClassId_++))).first;
   }
   auto& cibIdData = itr->second;
-  auto&& methodIdTable = cibIdData.getMethodIdTable();
   for (auto& func : compound->getNeedsBridgingMethods())
   {
     auto&& sig = func.signature();
-    auto methodItr = methodIdTable.find(sig);
-    if (methodItr == methodIdTable.end())
+    if (!
+      cibIdData.hasMethod(func.signature()))
     {
-      cibIdData.addMethod(sig, func.capiName(cibParams));
+      cibIdData.addMethod(sig, func.procName(cibParams));
     }
   }
 
@@ -156,12 +155,11 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     stm << ++indentation << "namespace __zz_cib_methodid {\n";
     stm << ++indentation << "enum {\n";
     ++indentation;
-    for (const auto& methodId : cls.second.getMethodIdTable())
-    {
-      stm << indentation << "//#= " << methodId.first << '\n';
-      stm << indentation << methodId.second.second << " = " << methodId.second.first << ",\n";
-    }
-    stm << indentation << "__zz_cib_next_method_id = " << cls.second.getNextMethodId() << '\n';
+    auto nextMethodId = cls.second.forEachMethod([&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
+      stm << indentation << "//#= " << methodSig << '\n';
+      stm << indentation << methodName << " = " << methodId << ",\n";
+    });
+    stm << indentation << "__zz_cib_next_method_id = " << nextMethodId << '\n';
     stm << --indentation << "};\n";
     stm << --indentation << "}\n";
     stm << --indentation << closingNs(classIdName.begin(), classIdName.end()) << '\n';

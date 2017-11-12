@@ -177,14 +177,14 @@ int main(int argc, char* argv[])
     CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
     cibCppCompound->emitUserHeader(cppProgram, cibParams);
     cibCppCompound->emitImpl1Header(cppProgram, cibParams);
-    cibCppCompound->emitImpl2Header(cppProgram, cibParams);
+    cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);
     bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.native().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().native();
     std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
     bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-    cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams);
-    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams);
+    cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr);
   }
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);

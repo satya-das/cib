@@ -33,28 +33,34 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <map>
 
 //////////////////////////////////////////////////////////////////////////
 
 using CibClassId  = std::uint32_t;
 using CibMethodId = std::uint32_t;
 /*!
- * Unique name of method. It is NOT universaly unique but 
- * unique within the class/namespace to which it belongs.
- * It should be created from method declration without parameter names.
+ * Signature of method without name of parameters.
+ * The purpose is to create a unique name within the class/namespace to which it belongs.
  */
-using CibMethodUniqueName = std::string;
-using CibMethodIdTable = std::unordered_map<CibMethodUniqueName, std::pair<CibMethodId, std::string>>;
+using CibMethodSignature = std::string;
+/*!
+ * CAPI Name of method. It is formed by appending method id to original name of method
+ */
+using CibMethodCAPIName = std::string;
+using CibMethodIdTable = std::unordered_map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
 
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
  */
 class CibIdData
 {
-  std::string       classIdName; ///< Name of item in enum
-  CibClassId        classId;
-  CibMethodIdTable  methodIdTable;
-  CibMethodId       nextMethodId{ 1 };
+  using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
+  std::string             classIdName; ///< Name of item in enum
+  CibClassId              classId;
+  CibMethodIdTable        methodIdTable;
+  CibMethodIdToMethodMap  methodIdToMethodMap;
+  CibMethodId             nextMethodId{ 1 };
 
 public:
   CibIdData(std::string cIdName, CibClassId cId)
@@ -70,19 +76,22 @@ public:
     return classId;
   }
 
-  const CibMethodIdTable& getMethodIdTable() const {
-    return methodIdTable;
-  }
-
   CibMethodId getNextMethodId() const {
     return nextMethodId;
   }
 
-  bool hasMethod(const CibMethodUniqueName& uniqName) {
+  bool hasMethod(const CibMethodSignature& uniqName) {
     return methodIdTable.count(uniqName) > 0;
   }
 
-  void addMethod(CibMethodUniqueName uniqName, std::string methodName) {
+  CibMethodCAPIName getMethodCApiName(const CibMethodSignature& uniqName) const {
+    auto itr = methodIdTable.find(uniqName);
+    return (itr == methodIdTable.end()) ? CibMethodCAPIName() : itr->second.second;
+  }
+
+  void addMethod(CibMethodSignature uniqName, std::string methodName) {
+    methodName += std::to_string(nextMethodId);
+    methodIdToMethodMap.emplace(nextMethodId, std::make_pair(methodName, uniqName));
     methodIdTable.emplace(std::move(uniqName), std::make_pair(nextMethodId++, std::move(methodName)));
   }
 
@@ -90,11 +99,19 @@ public:
     // assert(nextMethodId isn't already used);
     nextMethodId = methodId;
   }
+
+public:
+  using MethodVisitor = std::function<void(CibMethodId, const CibMethodCAPIName&, const CibMethodSignature&)>;
+  /*!
+   * Visits each methods in ascending order of their id.
+   * @return Id of next method if that gets added.
+   */
+  CibMethodId forEachMethod(MethodVisitor methodVisitor) const;
 };
 
 using CibIdTable = std::unordered_map<std::string, CibIdData>;
 
-/**
+/*!
  * Manages Ids of all exportable entities of a library.
  * It can emit enum for Ids which can be used while calling GetMetaInterface() and GetMethod() APIs.
  * It can read the previously emitted enum and use the same integer values to
@@ -103,7 +120,7 @@ using CibIdTable = std::unordered_map<std::string, CibIdData>;
 class CibIdMgr
 {
 public:
-  /**
+  /*!
    * Loads IDs from file emitted in previous run.
    * @return true on success. Will return false if it is called more than once or it is called after assignIds().
    */
@@ -111,6 +128,17 @@ public:
   void assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
   bool saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
   const CibIdTable& getCibIdTable() const { return cibIdTable_; }
+  const CibIdData* getCibIdData(const std::string& className) const {
+    auto itr = cibIdTable_.find(className);
+    return itr == cibIdTable_.end() ? nullptr : &itr->second;
+  }
+
+public:
+  /*!
+   * Visits each method of a class.
+   * @return Id of next method if that gets added.
+   */
+  CibMethodId forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const;
 
 private:
   void assignIds(const CibCppCompound* compound, const CibParams& cibParams);
@@ -127,5 +155,20 @@ private:
   CibIdTable cibIdTable_;
   CibClassId nextClassId_{ 1 };
 };
+
+inline CibMethodId CibIdData::forEachMethod(MethodVisitor methodVisitor) const
+{
+  for (const auto& item : methodIdToMethodMap)
+    methodVisitor(item.first, item.second.first, item.second.second);
+  return nextMethodId;
+}
+
+inline CibMethodId CibIdMgr::forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const
+{
+  auto itr = cibIdTable_.find(className);
+  if (itr == cibIdTable_.end())
+    return 0;
+  return itr->second.forEachMethod(methodVisitor);
+}
 
 #endif //__CIB_ID_MGR_H__

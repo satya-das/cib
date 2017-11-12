@@ -26,16 +26,16 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Circle {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= virtual float Area() const;
-				Area = 2,
 				//#= Circle(floatfloat Ox, floatfloat Oy, floatfloat radius);
-				__zz_cib_new = 1,
+				__zz_cib_new1 = 1,
+				//#= virtual float Area() const;
+				Area2 = 2,
 				//#= virtual float Perimeter() const;
-				Perimeter = 3,
+				Perimeter3 = 3,
 				//#= virtual void Draw(Context*Context* ctx) const;
-				Draw = 4,
+				Draw4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape = 5,
+				__zz_cib_cast_to___Graphics__Shape5 = 5,
 				__zz_cib_next_method_id = 6
 			};
 		}
@@ -46,19 +46,19 @@ namespace __zz_cib_ {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= ContextLogger();
-				__zz_cib_new = 1,
+				__zz_cib_new1 = 1,
 				//#= ~ContextLogger()
-				__zz_cib_delete = 2,
-				//#= virtual void Curve(floatfloat x1, floatfloat y1, floatfloat x2, floatfloat y2, floatfloat x3, floatfloat y3);
-				Curve = 5,
+				__zz_cib_delete2 = 2,
 				//#= virtual void Move(floatfloat x, floatfloat y);
-				Move = 3,
-				//#= __zz_cib_cast_to___Graphics__Context
-				__zz_cib_cast_to___Graphics__Context = 7,
+				Move3 = 3,
 				//#= virtual void Line(floatfloat x, floatfloat y);
-				Line = 4,
+				Line4 = 4,
+				//#= virtual void Curve(floatfloat x1, floatfloat y1, floatfloat x2, floatfloat y2, floatfloat x3, floatfloat y3);
+				Curve5 = 5,
 				//#= virtual void Close();
-				Close = 6,
+				Close6 = 6,
+				//#= __zz_cib_cast_to___Graphics__Context
+				__zz_cib_cast_to___Graphics__Context7 = 7,
 				__zz_cib_next_method_id = 8
 			};
 		}
@@ -69,7 +69,7 @@ namespace __zz_cib_ {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= ~Context()
-				__zz_cib_delete = 1,
+				__zz_cib_delete1 = 1,
 				__zz_cib_next_method_id = 2
 			};
 		}
@@ -79,24 +79,24 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Composite {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= virtual float Area() const;
-				Area = 5,
 				//#= Composite();
-				__zz_cib_new = 1,
+				__zz_cib_new1 = 1,
 				//#= void Add(Shape*Shape* shape);
-				Add = 2,
-				//#= Shape* ShapeAt(size_tsize_t idxShape) const;
-				ShapeAt = 4,
-				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape = 9,
-				//#= static Composite* CreateCompositeOfRectAndCircle();
-				CreateCompositeOfRectAndCircle = 8,
+				Add2 = 2,
 				//#= size_t NumShapes() const;
-				NumShapes = 3,
+				NumShapes3 = 3,
+				//#= Shape* ShapeAt(size_tsize_t idxShape) const;
+				ShapeAt4 = 4,
+				//#= virtual float Area() const;
+				Area5 = 5,
 				//#= virtual float Perimeter() const;
-				Perimeter = 6,
+				Perimeter6 = 6,
 				//#= virtual void Draw(Context*Context* ctx) const;
-				Draw = 7,
+				Draw7 = 7,
+				//#= static Composite* CreateCompositeOfRectAndCircle();
+				CreateCompositeOfRectAndCircle8 = 8,
+				//#= __zz_cib_cast_to___Graphics__Shape
+				__zz_cib_cast_to___Graphics__Shape9 = 9,
 				__zz_cib_next_method_id = 10
 			};
 		}
@@ -107,7 +107,7 @@ namespace __zz_cib_ {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= ~Shape()
-				__zz_cib_delete = 1,
+				__zz_cib_delete1 = 1,
 				__zz_cib_next_method_id = 2
 			};
 		}
@@ -118,15 +118,15 @@ namespace __zz_cib_ {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= Rectangle(floatfloat left, floatfloat top, floatfloat right, floatfloat bottom);
-				__zz_cib_new = 1,
+				__zz_cib_new1 = 1,
 				//#= virtual float Area() const;
-				Area = 2,
+				Area2 = 2,
 				//#= virtual float Perimeter() const;
-				Perimeter = 3,
+				Perimeter3 = 3,
 				//#= virtual void Draw(Context*Context* ctx) const;
-				Draw = 4,
+				Draw4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape = 5,
+				__zz_cib_cast_to___Graphics__Shape5 = 5,
 				__zz_cib_next_method_id = 6
 			};
 		}

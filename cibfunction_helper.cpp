@@ -55,12 +55,3 @@ std::string CibFunctionHelper::signature() const
   auto itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount() - 1);
   return itemUniqStr;
 }
-
-std::string CibFunctionHelper::cibId(const CibParams& cibParams) const
-{
-  std::string cId = "::_cib_::" + cibParams.moduleName + "Lib";
-  if (getOwner())
-    cId += getOwner()->wrappingNses(cibParams) + "::" + getOwner()->name();
-  cId += "::kCIBID_" + capiName(cibParams);
-  return cId;
-}
