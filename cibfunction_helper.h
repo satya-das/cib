@@ -17,19 +17,20 @@ class CppProgramEx;
 /*!
  * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and regular functions.
  * There is too much similiarity in constructor, destructor, and function but they are different too.
- * cppparser have three different classes for these and it makes sense. But for pupose of cib their similarity
+ * cppparser has three different classes for these and it makes sense. But for pupose of cib their similarity
  * is more important than their differences and so CibFunctionHelper provides a uniform interface and behaviour
- * to deal with them in a uniform way.
+ * to deal with them uniformly.
+ * It is a wrapper class that provides access to underlying objects which are purposfully const.
  */
 class CibFunctionHelper
 {
 private:
   union
   {
-    CppObj*             cppObj_;
-    CibCppConstructor*  ctor_;
-    CibCppDestructor*   dtor_;
-    CibCppFunction*     func_;
+    const CppObj*             cppObj_;
+    const CibCppConstructor*  ctor_;
+    const CibCppDestructor*   dtor_;
+    const CibCppFunction*     func_;
   };
 
 public:
@@ -38,10 +39,10 @@ public:
   static CppFunction* CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
 
 public:
-  CibFunctionHelper(CppObj* cppObj);
-  CibFunctionHelper(CibCppConstructor* ctor) : ctor_(ctor) {}
-  CibFunctionHelper(CibCppDestructor* dtor) : dtor_(dtor) {}
-  CibFunctionHelper(CibCppFunction* func) : func_(func) {}
+  CibFunctionHelper(const CppObj* cppObj);
+  CibFunctionHelper(const CibCppConstructor* ctor) : ctor_(ctor) {}
+  CibFunctionHelper(const CibCppDestructor* dtor) : dtor_(dtor) {}
+  CibFunctionHelper(const CibCppFunction* func) : func_(func) {}
 
   bool isConstructor() const
   {
@@ -98,10 +99,6 @@ public:
   {
     return isFunction() ? func_->retType_ : nullptr;
   }
-  CppFunction* getCppFunction() const
-  {
-    return (isConstructor() || isDestructor()) ? nullptr : func_;
-  }
 
   /// Name of function.
   const std::string& funcName() const
@@ -126,17 +123,19 @@ public:
   {
     std::string pname;
     if (isCopyConstructor())
-      pname = cibParams.copyCtorCAPIPrefix;
+      pname = cibParams.copyCtorCAPIPrefix + ctor_->procNameSfx_;
     else if (isConstructor())
       pname = cibParams.ctorCAPIPrefix + ctor_->procNameSfx_;
     else if (isDestructor())
-      pname = cibParams.dtorCAPIPrefix;
+      pname = cibParams.dtorCAPIPrefix + dtor_->procNameSfx_;
     else
       pname = funcName() + func_->procNameSfx_;
 
     return pname;
   }
 
+  /// @return signature of this method.
+  std::string signature() const;
   /// @return CibId of this compound object
   std::string cibId(const CibParams& cibParams) const;
 
@@ -150,4 +149,5 @@ public:
   void emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
   void emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
 };

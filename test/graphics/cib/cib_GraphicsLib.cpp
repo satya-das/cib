@@ -1,81 +1,43 @@
-#include "cib_GraphicsLib.h"
-#include "GraphicsLib_cibids.h"
-#include <map>
+#include "__zz_cib_Graphics_ids.h"
 #include <cstdint>
 
-namespace _cib_ { namespace GraphicsLib {
-   typedef std::map<std::uint32_t, ::_cib_::GraphicsLib::MetaInterface*> MetaInterfaceRepository;
-   MetaInterfaceRepository gMetaInterfaceRepository; // This map is filled by InitMetaInterfaceRepository.
-   void InitMetaInterfaceRepository();
-
-   namespace CtoCpp {
-      namespace MetaInterface {
-         ::_cib_::GraphicsLib::MetaInterface* __stdcall GetMetaInterface(std::uint32_t classCibId)
-         {
-            if(classCibId == 0) // Requested an adhoc interface.
-               return new ::_cib_::GraphicsLib::MetaInterface;
-            if(gMetaInterfaceRepository.empty())
-               InitMetaInterfaceRepository();
-            return gMetaInterfaceRepository[classCibId];
-         }
-
-         void __stdcall AddMethod(::_cib_::GraphicsLib::MetaInterface* intrface, std::uint32_t funcCibId, void* proc)
-         {
-            intrface->AddMethod(funcCibId, proc);
-         }
-
-         void* __stdcall GetMethod(::_cib_::GraphicsLib::MetaInterface* intrface, std::uint32_t funcCibId)
-         {
-            return intrface->GetMethod(funcCibId);
-         }
-      }
-   }
-}}
-
-/**
- * Returns address of above declared APIs
- * This library must have a way to let client call this API
- * This is kind of a hook that client needs to use all methods and classes that this library wants to expose.
- */
-extern "C" __declspec(dllexport) void* __stdcall cibGraphicsGetMetaInterfaceMethod(std::uint32_t methodId)
-{
-   switch(methodId)
-   {
-   case 0: return (void*) _cib_::GraphicsLib::CtoCpp::MetaInterface::GetMetaInterface;
-   case 1: return (void*) _cib_::GraphicsLib::CtoCpp::MetaInterface::AddMethod;
-   case 2: return (void*) _cib_::GraphicsLib::CtoCpp::MetaInterface::GetMethod;
-   }
-   return 0;
+namespace __zz_cib_ {
+	using MethodEntry = void(*)();
+	using MethodTable = const MethodEntry*;
 }
 
-//////////////////////////////////////////////////////////////////////////
+namespace __zz_cib_ { namespace Graphics { namespace Circle { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Composite { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Context { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Shape { void GetMethodTable(MethodTable*, size_t*); }}}
 
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace Circle { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace Composite { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace Context { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace ContextLogger { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace Rectangle { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
-	namespace Graphics { namespace Shape { ::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface(); }}
-}}}
-
-namespace _cib_ { namespace GraphicsLib {
-	void InitMetaInterfaceRepository() {
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_Circle] = _cib_::GraphicsLib::CtoCpp::Graphics::Circle::CreateMetaInterface();
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_Composite] = _cib_::GraphicsLib::CtoCpp::Graphics::Composite::CreateMetaInterface();
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_Context] = _cib_::GraphicsLib::CtoCpp::Graphics::Context::CreateMetaInterface();
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_ContextLogger] = _cib_::GraphicsLib::CtoCpp::Graphics::ContextLogger::CreateMetaInterface();
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_Rectangle] = _cib_::GraphicsLib::CtoCpp::Graphics::Rectangle::CreateMetaInterface();
-		gMetaInterfaceRepository[::_cib_::GraphicsLib::Graphics::kCIBID_Shape] = _cib_::GraphicsLib::CtoCpp::Graphics::Shape::CreateMetaInterface();
+namespace __zz_cib_ {
+	void GraphicsLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, size_t* pLen)
+	{
+		switch(classId) {
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle:
+			__zz_cib_::Graphics::Circle::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger:
+			__zz_cib_::Graphics::ContextLogger::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context:
+			__zz_cib_::Graphics::Context::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
+			__zz_cib_::Graphics::Composite::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:
+			__zz_cib_::Graphics::Shape::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
+			__zz_cib_::Graphics::Rectangle::GetMethodTable(pMethodTable, pLen);
+			break;
+		default:
+			*pMethodTable = nullptr;
+			*pLen = 0;
+		}
 	}
-}}
+}

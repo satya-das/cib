@@ -16,5 +16,5 @@ std::string VarTypeResolver::operator()(const std::string& typeName) const
   auto resolvedType = TypeResolver::operator()(typeName);
   if (!resolvedType)
     return typeName;
-  return isHandle_ ? resolvedType->fullHandleName(cibParams_) : "::" + resolvedType->fullName();
+  return isHandle_ ? "__zz_cib::HANDLE" : "::" + resolvedType->fullName();
 }

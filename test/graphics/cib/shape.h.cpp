@@ -1,22 +1,28 @@
-#include "GraphicsLib_cibids.h"
+#include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
 #include "shape.h"
 
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
+namespace __zz_cib_ {
 	namespace Graphics {
 		namespace Shape {
-			void __stdcall __delete(::Graphics::Shape* pShapeObj) {
-				delete pShapeObj;
+			void __stdcall __zz_cib_delete(::Graphics::Shape* __zz_cib_obj) {
+				delete __zz_cib_obj;
 			}
 
-			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
-			protected:
-				virtual void LoadMethods() {
-					AddMethod(::_cib_::GraphicsLib::Graphics::Shape::kCIBID___delete, (void*) __delete);
-				}
-			};
-			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
+	}
+}
+namespace __zz_cib_ { namespace Graphics { namespace Shape {
+	using MethodEntry = void(*)();
+	using MethodTable = const MethodEntry*;
+	void GetMethodTable(MethodTable* pMethodTable, size_t* pLen)
+	{
+		static const MethodEntry methodTable[] = {
+			(MethodEntry) nullptr,
+			(MethodEntry) &__zz_cib_delete
+		};
+		*pMethodTable = methodTable;
+		*pLen = 2;
 	}
 }}}

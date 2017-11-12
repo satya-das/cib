@@ -2,6 +2,8 @@
 
 #include "context.h"
 
+#include "__zz_cib_internal/shape_impl1.h"
+
 namespace Graphics
 {
 
@@ -16,45 +18,11 @@ namespace Graphics
 		virtual void Draw(Context* ctx) const = 0;
 		virtual ~Shape();
 
-	public:
-		class _h_Shape;
-		Shape(_h_Shape* h){ __set(h); }
-		_h_Shape* __handle() const { return h_; }
-		static Shape* __from_handle(_h_Shape* h);
-
-	protected :
-		void __set(_h_Shape* h);
-
-	private :
-		_h_Shape* h_;
+	private:
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Shape, ::Graphics::Shape);
 	};
 
 }
 
-namespace _cib_ { namespace GraphicsLib { namespace CppToC {
-	namespace Graphics {
-		struct Shape {
-			typedef void (__stdcall *__deleteProc) (::Graphics::Shape::_h_Shape* pShapeObj);
 
-			__deleteProc __delete;
-
-			static const Shape& instance() {
-				static Shape bridgeIns;
-				return bridgeIns;
-			}
-
-		private:
-			Shape();
-		};
-	}
-}}}
-
-
-inline void Graphics::Shape::__set(::Graphics::Shape::_h_Shape* h) {
-	h_ = h;
-}
-
-inline Graphics::Shape::~Shape(){
-	_cib_::GraphicsLib::CppToC::Graphics::Shape::instance().__delete(h_);
-}
-
+#include "__zz_cib_internal/shape_impl2.h"

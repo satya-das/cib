@@ -1,42 +1,46 @@
-#include "GraphicsLib_cibids.h"
+#include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
 #include "circ.h"
 
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
+namespace __zz_cib_ {
 	namespace Graphics {
 		namespace Circle {
-			::Graphics::Circle* __stdcall __new(float Ox, float Oy, float radius) {
+			::Graphics::Circle* __stdcall __zz_cib_new(float Ox, float Oy, float radius) {
 				return new ::Graphics::Circle(Ox, Oy, radius);
 			}
 
-			float __stdcall Area(::Graphics::Circle* pCircleObj) {
-				return pCircleObj->::Graphics::Circle::Area();
+			float __stdcall Area(::Graphics::Circle* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Circle::Area();
 			}
 
-			float __stdcall Perimeter(::Graphics::Circle* pCircleObj) {
-				return pCircleObj->::Graphics::Circle::Perimeter();
+			float __stdcall Perimeter(::Graphics::Circle* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Circle::Perimeter();
 			}
 
-			void __stdcall Draw(::Graphics::Circle* pCircleObj, ::Graphics::Context* ctx) {
-				pCircleObj->::Graphics::Circle::Draw(ctx);
+			void __stdcall Draw(::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
+				__zz_cib_obj->::Graphics::Circle::Draw(ctx);
 			}
 
-			::Graphics::Shape* __stdcall __cast_to_Graphics__Shape(::Graphics::Circle* pCircleObj) {
-				return pCircleObj;
+			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape(::Graphics::Circle* __zz_cib_obj) {
+				return __zz_cib_obj;
 			}
-
-			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
-			protected:
-				virtual void LoadMethods() {
-					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Circle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
-				}
-			};
-			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
+	}
+}
+namespace __zz_cib_ { namespace Graphics { namespace Circle {
+	using MethodEntry = void(*)();
+	using MethodTable = const MethodEntry*;
+	void GetMethodTable(MethodTable* pMethodTable, size_t* pLen)
+	{
+		static const MethodEntry methodTable[] = {
+			(MethodEntry) nullptr,
+			(MethodEntry) &__zz_cib_new,
+			(MethodEntry) &Area,
+			(MethodEntry) &Perimeter,
+			(MethodEntry) &Draw
+		};
+		*pMethodTable = methodTable;
+		*pLen = 5;
 	}
 }}}

@@ -1,42 +1,46 @@
-#include "GraphicsLib_cibids.h"
+#include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
 #include "rect.h"
 
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
+namespace __zz_cib_ {
 	namespace Graphics {
 		namespace Rectangle {
-			::Graphics::Rectangle* __stdcall __new(float left, float top, float right, float bottom) {
+			::Graphics::Rectangle* __stdcall __zz_cib_new(float left, float top, float right, float bottom) {
 				return new ::Graphics::Rectangle(left, top, right, bottom);
 			}
 
-			float __stdcall Area(::Graphics::Rectangle* pRectangleObj) {
-				return pRectangleObj->::Graphics::Rectangle::Area();
+			float __stdcall Area(::Graphics::Rectangle* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Rectangle::Area();
 			}
 
-			float __stdcall Perimeter(::Graphics::Rectangle* pRectangleObj) {
-				return pRectangleObj->::Graphics::Rectangle::Perimeter();
+			float __stdcall Perimeter(::Graphics::Rectangle* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Rectangle::Perimeter();
 			}
 
-			void __stdcall Draw(::Graphics::Rectangle* pRectangleObj, ::Graphics::Context* ctx) {
-				pRectangleObj->::Graphics::Rectangle::Draw(ctx);
+			void __stdcall Draw(::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {
+				__zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 			}
 
-			::Graphics::Shape* __stdcall __cast_to_Graphics__Shape(::Graphics::Rectangle* pRectangleObj) {
-				return pRectangleObj;
+			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape(::Graphics::Rectangle* __zz_cib_obj) {
+				return __zz_cib_obj;
 			}
-
-			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
-			protected:
-				virtual void LoadMethods() {
-					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Rectangle::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
-				}
-			};
-			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
+	}
+}
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
+	using MethodEntry = void(*)();
+	using MethodTable = const MethodEntry*;
+	void GetMethodTable(MethodTable* pMethodTable, size_t* pLen)
+	{
+		static const MethodEntry methodTable[] = {
+			(MethodEntry) nullptr,
+			(MethodEntry) &__zz_cib_new,
+			(MethodEntry) &Area,
+			(MethodEntry) &Perimeter,
+			(MethodEntry) &Draw
+		};
+		*pMethodTable = methodTable;
+		*pLen = 5;
 	}
 }}}

@@ -31,44 +31,69 @@
 #include "cib.h"
 #include "cibparams.h"
 
+#include <cstdint>
+#include <unordered_map>
+
 //////////////////////////////////////////////////////////////////////////
 
-typedef int CibId;
-
-/**
- * Information about an item name and its value.
- * It is basically an item of an enum.
- * An item in CibId enum contains three things: unique string (as comment), name, and value.
- * The Unique string is not part of CibIdData but used as key in CibIdEnum.
- * It is designed this way to make search for an item efficient.
+using CibClassId  = std::uint32_t;
+using CibMethodId = std::uint32_t;
+/*!
+ * Unique name of method. It is NOT universaly unique but 
+ * unique within the class/namespace to which it belongs.
+ * It should be created from method declration without parameter names.
  */
-struct CibIdData
+using CibMethodUniqueName = std::string;
+using CibMethodIdTable = std::unordered_map<CibMethodUniqueName, std::pair<CibMethodId, std::string>>;
+
+/*!
+ * Represents an item in ClassId enum and all method-ids of corresponding class.
+ */
+class CibIdData
 {
-  std::string idName;     ///< This is the name of enum item.
-  CibId idVal;            ///< This is the value of item.
+  std::string       classIdName; ///< Name of item in enum
+  CibClassId        classId;
+  CibMethodIdTable  methodIdTable;
+  CibMethodId       nextMethodId{ 1 };
+
+public:
+  CibIdData(std::string cIdName, CibClassId cId)
+    : classIdName(std::move(cIdName))
+    , classId(cId)
+  {}
+
+  const std::string& getIdName() const {
+    return classIdName;
+  }
+
+  CibClassId getId() const {
+    return classId;
+  }
+
+  const CibMethodIdTable& getMethodIdTable() const {
+    return methodIdTable;
+  }
+
+  CibMethodId getNextMethodId() const {
+    return nextMethodId;
+  }
+
+  bool hasMethod(const CibMethodUniqueName& uniqName) {
+    return methodIdTable.count(uniqName) > 0;
+  }
+
+  void addMethod(CibMethodUniqueName uniqName, std::string methodName) {
+    methodIdTable.emplace(std::move(uniqName), std::make_pair(nextMethodId++, std::move(methodName)));
+  }
+
+  void setNextMethodId(CibMethodId methodId) {
+    // assert(nextMethodId isn't already used);
+    nextMethodId = methodId;
+  }
 };
-/**
- * A map between unique string that identifies a C/C++ item and CibIdData.
- * CibIdEnum represents an anonymous enum that defines id for all entities (class, and functions) of a compound type.
- * The key in the map is the unique string that identifies an exportable entity.
- */
-typedef std::map<std::string, CibIdData> CibIdEnum;
 
-struct CibIdNode;
+using CibIdTable = std::unordered_map<std::string, CibIdData>;
 
-typedef std::map<std::string, CibIdNode> CibIdEnumTree;
-
-/**
- * Represents a node in the tree of CibIdEnum.
- * A node contains ids of exportable entities of a compound type and a subtree
- * that defines ids of exportable entities of nested compound type.
- * A compound type can be a namespace/class/struct/union.
- */
-struct CibIdNode
-{
-  CibIdEnum idEnum;
-  CibIdEnumTree childs;
-};
 /**
  * Manages Ids of all exportable entities of a library.
  * It can emit enum for Ids which can be used while calling GetMetaInterface() and GetMethod() APIs.
@@ -78,35 +103,29 @@ struct CibIdNode
 class CibIdMgr
 {
 public:
-  CibIdMgr(std::string moduleName);
-
-public:
   /**
    * Loads IDs from file emitted in previous run.
    * @return true on success. Will return false if it is called more than once or it is called after assignIds().
    */
-  bool loadIds(const std::string& idsFilePath);
+  //bool loadIds(const std::string& idsFilePath, const CibParams& cibParams);
   void assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
-  bool saveIds(const std::string& idsFilePath) const;
+  bool saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
+  const CibIdTable& getCibIdTable() const { return cibIdTable_; }
 
 private:
-  void init();
-  void loadIds(const CppCompound* nodeCompound, CibIdNode& idNode);
+  void assignIds(const CibCppCompound* compound, const CibParams& cibParams);
+
+  /*
+private:
+  void loadIds(const CppCompound* nodeCompound);
   void assignIds(const CppObjArray& inList, const CppProgramEx& expProg, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
   void assignIdsToSpecialMethods(const CibCppCompound* compound, CibIdNode& idNode, const CibIdNode* oldIdNode, const CibParams& cibParams);
   void emitIds(std::ostream& stm, const CibIdNode& idNode, CppIndent indentation) const;
+  */
 
 private:
-  std::string moduleName_;
-  CibIdNode idTreeRoot_;
-  CibIdNode oldIdTreeRoot_;
-  CibId lastCibId_;
+  CibIdTable cibIdTable_;
+  CibClassId nextClassId_{ 1 };
 };
-
-inline CibIdMgr::CibIdMgr(std::string moduleName)
-  : moduleName_(std::move(moduleName))
-  , lastCibId_(0)
-{
-}
 
 #endif //__CIB_ID_MGR_H__

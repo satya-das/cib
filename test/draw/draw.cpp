@@ -1,22 +1,36 @@
 #include "rect.h"
 #include "context_log.h"
 
+#include "cib_GraphicsLib.h"
+
 #include <iostream>
 #include <Windows.h>
 #include <cstdint>
 
-typedef void* (__stdcall *cibGetMetaInterfaceMethodProcType) (std::uint32_t methodId);
-cibGetMetaInterfaceMethodProcType cibGetMetaInterfaceMethodProc;
-
-void initGraphicsLib()
-{
-  HMODULE hGraphics = ::LoadLibraryA("graphics.dll");
-  if (hGraphics == NULL)
+namespace {
+  static HMODULE g_hGraphics = nullptr;
+  using __zz_cib_GraphicsLib_GetMethodTableProc = void(*)(std::uint32_t, __zz_cib_::MethodTable*, size_t*);
+  __zz_cib_GraphicsLib_GetMethodTableProc __zz_cib_GraphicsLib_GetMethodTable;
+  void initGraphicsLib()
   {
-    std::cout << "ERROR: Null handle." << std::endl;
-    exit(-1);
+    g_hGraphics = ::LoadLibraryA("graphics.dll");
+    if (g_hGraphics == nullptr)
+    {
+      std::cout << "ERROR: Null handle." << std::endl;
+      exit(-1);
+    }
+    __zz_cib_GraphicsLib_GetMethodTable = (__zz_cib_GraphicsLib_GetMethodTableProc) GetProcAddress(g_hGraphics, "__zz_cib_GraphicsLib_GetMethodTable@12");
   }
-  cibGetMetaInterfaceMethodProc = (cibGetMetaInterfaceMethodProcType)GetProcAddress(hGraphics, "_cibGraphicsGetMetaInterfaceMethod@4");
+}
+
+namespace __zz_cib_ {
+  using MethodEntry = void(*)();
+  using MethodTable = const MethodEntry*;
+
+  void GraphicsLib_GetMethodTable(std::uint32_t classId, MethodTable* pMethodTable, size_t* pLen)
+  {
+    __zz_cib_GraphicsLib_GetMethodTable(classId, pMethodTable, pLen);
+  }
 }
 
 int main()

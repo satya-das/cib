@@ -38,7 +38,7 @@ target_include_directories(cib
 )
 
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
-set(RESFILES lib_cib.cpp lib_cib.h usr_cib.h)
+set(RESFILES lib_cib.cpp lib_cib.h usr_cib.h cibdef.h)
 
 foreach(RESFILE ${RESFILES})
 	add_custom_command(

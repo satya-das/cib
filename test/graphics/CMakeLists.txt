@@ -48,6 +48,7 @@ set(GRAPHICS_SOURCES
 	rect.cpp
 	composite.cpp
 	circ.cpp
+	graphics.cpp
 )
 add_library(graphics
 	SHARED

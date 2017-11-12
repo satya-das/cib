@@ -11,6 +11,7 @@ class ContextLogger : public Context
 {
 public:
   ContextLogger() {}
+  ~ContextLogger() {}
 
 public:
   void Move(float x, float y) override

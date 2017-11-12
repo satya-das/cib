@@ -9,7 +9,7 @@ namespace Graphics
 {
 class Context;
 /**
- * \brief Represents a rectangle.
+ * \brief Represents a circle.
  */
 class Circle : public Shape
 {

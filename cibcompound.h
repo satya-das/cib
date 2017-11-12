@@ -39,10 +39,8 @@ private:
   bool interfaceLike_{ false };
   bool facadeLike_{ false };
 
-  CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
+  mutable CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
   mutable TypeNameToCppObj typeNameToCibCppObj_;
-
-  void emitBridgeDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
 
 public:
   /// @return name of this class.
@@ -56,7 +54,7 @@ public:
     if (outer() && (outer()->isNamespaceLike()))
       return outer()->fullName() + "::" + name_;
     else
-      return name_;
+      return "::" + name_;
   }
   /// @return Unique name of this class
   std::string   uniqName() const
@@ -64,26 +62,6 @@ public:
     std::string uname = fullName();
     std::replace(uname.begin(), uname.end(), ':', '_');
     return uname;
-  }
-  /// @return name of handle class for this compound object.
-  std::string   handleName(const CibParams& cibParams) const
-  {
-    return cibParams.classHandlePrefix + name_;
-  }
-  /// @return full name of handle class for this compound object.
-  std::string   fullHandleName(const CibParams& cibParams) const
-  {
-    return "::" + fullName() + "::" + handleName(cibParams);
-  }
-  /// @return Name of variable for pointer of this compound object.
-  std::string objName() const
-  {
-    return "p" + name_ + "Obj";
-  }
-  /// @return Name of bridge class.
-  std::string bridgeName() const
-  {
-    return "CppToC::" + fullName();;
   }
   /// @return Name of function that casts to object of parent class
   std::string castToBaseName(const CibCppCompound* base, const CibParams& cibParams) const
@@ -93,36 +71,39 @@ public:
   /// @return CibId of function that casts to object of parent class
   std::string cibIdOfCastToBaseName(const CibCppCompound* base, const CibParams& cibParams) const
   {
-    return "::_cib_::" + cibParams.moduleName + "Lib" + wrappingNses() + "::" + name() + "::kCIBID_" + castToBaseName(base, cibParams);
+    return wrappingNses(cibParams) + "::" + name() + "::kCIBID_" + castToBaseName(base, cibParams);
   }
   /// @return string that represents a sequence of all wrapping namespaces
-  std::string wrappingNamespaceDeclarations() const
+  std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
   {
     if (outer() == NULL || outer()->isCppFile())
-      return "";
-    return outer()->wrappingNamespaceDeclarations() + "namespace " + outer()->name() + " {";
+      return "namespace " + cibParams.cibInternalNamespace + " {";
+    return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
   }
   ///
-  std::string wrappingNses() const
+  std::string wrappingNses(const CibParams& cibParams) const
   {
     if (outer() == NULL || outer()->isCppFile())
-      return "::";
-    return outer()->wrappingNses() + outer()->name();
+      return "::" + cibParams.cibInternalNamespace + "::" + cibParams.moduleName + "Lib";
+    return outer()->wrappingNses(cibParams) + outer()->name();
   }
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
   std::string closingBracesForWrappingNamespaces() const
   {
     if (outer() == NULL || outer()->isCppFile())
-      return "";
+      return "}";
     return outer()->closingBracesForWrappingNamespaces() + '}';
   }
   /// @return CibId of this compound object
   std::string cibId(const CibParams& cibParams) const
   {
-    return "::_cib_::" + cibParams.moduleName + "Lib" + wrappingNses() + "::kCIBID_" + name();
+    return wrappingNses(cibParams) + "::kCIBID_" + name();
   }
   ///@ return CppObj corresponding to name of a given type
   const CppObj* resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const;
+  /// Identifies mothods that need to be bridged
+  void identifyMethodsToBridge();
+  const CibFunctionHelperArray& getNeedsBridgingMethods() const { return needsBridging_; }
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const
   {
@@ -141,6 +122,7 @@ public:
   * @ return true if this compound object is facade-like.
   * \note Any class that has a public virtual function and somewhere there exists at-least one
   * function that returns pointer/reference of that class is a facade-like class.
+  * A facade class should also have derived class.
   */
   bool isFacadeLike() const
   {
@@ -150,13 +132,14 @@ public:
   {
     inline_ = true;
   }
-  void emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
+  void emitUserHeader(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
+  void emitImpl1Header(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
+  void emitImpl2Header(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
+  void emitImplSource(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
   void emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitUsrGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitMetaInterfaceFactoryDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitCodeToPopulateMetaInterfaceRepository(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitFromHanldeDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitMethodTableGetterDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent());
+  void emitMethodTableGetterDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent());
+  void emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
   // Internal: Ideally should have been private with class CppProgramEx as friend.
   void setInterfaceLike()
   {
@@ -166,4 +149,25 @@ public:
   {
     facadeLike_ = true;
   }
+
+  public:
+    void forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+
+  private:
+    static void emitDecl(const CppObj*, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent() );
+    void emitHelperDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+    void emitHelperDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+    void emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+    void emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+    std::string getImplPath(const CibParams& cibParams) const;
+    std::string implIncludeName(const CibParams& cibParams) const;
 };
+
+inline void CibCppCompound::forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const
+{
+  auto parentsItr = parents_.find(prot);
+  if (parentsItr == parents_.end())
+    return;
+  for (auto parent : parentsItr->second)
+    callable(parent);
+}

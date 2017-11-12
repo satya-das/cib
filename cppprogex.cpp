@@ -27,6 +27,8 @@ void CppProgramEx::buildCibCppObjTree()
     resolveInheritance(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     markInterfaceAndFacade(static_cast<CibCppCompound*>(fileDom));
+  for (auto fileDom : program_->getFileDOMs())
+    static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
 
 CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const

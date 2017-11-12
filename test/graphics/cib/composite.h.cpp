@@ -1,62 +1,66 @@
-#include "GraphicsLib_cibids.h"
+#include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
 #include "composite.h"
 
-namespace _cib_ { namespace GraphicsLib { namespace CtoCpp {
+namespace __zz_cib_ {
 	namespace Graphics {
 		namespace Composite {
-			::Graphics::Composite* __stdcall __new() {
+			::Graphics::Composite* __stdcall __zz_cib_new() {
 				return new ::Graphics::Composite();
 			}
 
-			void __stdcall Add(::Graphics::Composite* pCompositeObj, ::Graphics::Shape* shape) {
-				pCompositeObj->::Graphics::Composite::Add(shape);
+			void __stdcall Add(::Graphics::Composite* __zz_cib_obj, ::Graphics::Shape* shape) {
+				__zz_cib_obj->::Graphics::Composite::Add(shape);
 			}
 
-			size_t __stdcall NumShapes(::Graphics::Composite* pCompositeObj) {
-				return pCompositeObj->::Graphics::Composite::NumShapes();
+			size_t __stdcall NumShapes(::Graphics::Composite* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Composite::NumShapes();
 			}
 
-			::Graphics::Shape* __stdcall ShapeAt(::Graphics::Composite* pCompositeObj, size_t idxShape) {
-				return pCompositeObj->::Graphics::Composite::ShapeAt(idxShape);
+			::Graphics::Shape* __stdcall ShapeAt(::Graphics::Composite* __zz_cib_obj, size_t idxShape) {
+				return __zz_cib_obj->::Graphics::Composite::ShapeAt(idxShape);
 			}
 
-			float __stdcall Area(::Graphics::Composite* pCompositeObj) {
-				return pCompositeObj->::Graphics::Composite::Area();
+			float __stdcall Area(::Graphics::Composite* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Composite::Area();
 			}
 
-			float __stdcall Perimeter(::Graphics::Composite* pCompositeObj) {
-				return pCompositeObj->::Graphics::Composite::Perimeter();
+			float __stdcall Perimeter(::Graphics::Composite* __zz_cib_obj) {
+				return __zz_cib_obj->::Graphics::Composite::Perimeter();
 			}
 
-			void __stdcall Draw(::Graphics::Composite* pCompositeObj, ::Graphics::Context* ctx) {
-				pCompositeObj->::Graphics::Composite::Draw(ctx);
+			void __stdcall Draw(::Graphics::Composite* __zz_cib_obj, ::Graphics::Context* ctx) {
+				__zz_cib_obj->::Graphics::Composite::Draw(ctx);
 			}
 
 			::Graphics::Composite* __stdcall CreateCompositeOfRectAndCircle() {
 				return ::Graphics::Composite::CreateCompositeOfRectAndCircle();
 			}
 
-			::Graphics::Shape* __stdcall __cast_to_Graphics__Shape(::Graphics::Composite* pCompositeObj) {
-				return pCompositeObj;
+			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape(::Graphics::Composite* __zz_cib_obj) {
+				return __zz_cib_obj;
 			}
-
-			class MetaInterface : public ::_cib_::GraphicsLib::MetaInterface {
-			protected:
-				virtual void LoadMethods() {
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID___new, (void*) __new);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Add, (void*) Add);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_NumShapes, (void*) NumShapes);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_ShapeAt, (void*) ShapeAt);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Area, (void*) Area);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Perimeter, (void*) Perimeter);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_Draw, (void*) Draw);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID_CreateCompositeOfRectAndCircle, (void*) CreateCompositeOfRectAndCircle);
-					AddMethod(::_cib_::GraphicsLib::Graphics::Composite::kCIBID___cast_to_Graphics__Shape, (void*) __cast_to_Graphics__Shape);
-				}
-			};
-			::_cib_::GraphicsLib::MetaInterface* CreateMetaInterface() { return new MetaInterface(); }
 		}
+	}
+}
+namespace __zz_cib_ { namespace Graphics { namespace Composite {
+	using MethodEntry = void(*)();
+	using MethodTable = const MethodEntry*;
+	void GetMethodTable(MethodTable* pMethodTable, size_t* pLen)
+	{
+		static const MethodEntry methodTable[] = {
+			(MethodEntry) nullptr,
+			(MethodEntry) &__zz_cib_new,
+			(MethodEntry) &Add,
+			(MethodEntry) &NumShapes,
+			(MethodEntry) &ShapeAt,
+			(MethodEntry) &Area,
+			(MethodEntry) &Perimeter,
+			(MethodEntry) &Draw,
+			(MethodEntry) &CreateCompositeOfRectAndCircle
+		};
+		*pMethodTable = methodTable;
+		*pLen = 9;
 	}
 }}}
