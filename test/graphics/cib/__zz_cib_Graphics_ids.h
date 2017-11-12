@@ -26,13 +26,13 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Circle {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= Circle(floatfloat Ox, floatfloat Oy, floatfloat radius);
+				//#= Circle(float, float, float);
 				__zz_cib_new1 = 1,
 				//#= virtual float Area() const;
 				Area2 = 2,
 				//#= virtual float Perimeter() const;
 				Perimeter3 = 3,
-				//#= virtual void Draw(Context*Context* ctx) const;
+				//#= virtual void Draw(Context*) const;
 				Draw4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape5 = 5,
@@ -49,11 +49,11 @@ namespace __zz_cib_ {
 				__zz_cib_new1 = 1,
 				//#= ~ContextLogger()
 				__zz_cib_delete2 = 2,
-				//#= virtual void Move(floatfloat x, floatfloat y);
+				//#= virtual void Move(float, float);
 				Move3 = 3,
-				//#= virtual void Line(floatfloat x, floatfloat y);
+				//#= virtual void Line(float, float);
 				Line4 = 4,
-				//#= virtual void Curve(floatfloat x1, floatfloat y1, floatfloat x2, floatfloat y2, floatfloat x3, floatfloat y3);
+				//#= virtual void Curve(float, float, float, float, float, float);
 				Curve5 = 5,
 				//#= virtual void Close();
 				Close6 = 6,
@@ -81,17 +81,17 @@ namespace __zz_cib_ {
 			enum {
 				//#= Composite();
 				__zz_cib_new1 = 1,
-				//#= void Add(Shape*Shape* shape);
+				//#= void Add(Shape*);
 				Add2 = 2,
 				//#= size_t NumShapes() const;
 				NumShapes3 = 3,
-				//#= Shape* ShapeAt(size_tsize_t idxShape) const;
+				//#= Shape* ShapeAt(size_t) const;
 				ShapeAt4 = 4,
 				//#= virtual float Area() const;
 				Area5 = 5,
 				//#= virtual float Perimeter() const;
 				Perimeter6 = 6,
-				//#= virtual void Draw(Context*Context* ctx) const;
+				//#= virtual void Draw(Context*) const;
 				Draw7 = 7,
 				//#= static Composite* CreateCompositeOfRectAndCircle();
 				CreateCompositeOfRectAndCircle8 = 8,
@@ -117,13 +117,13 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Rectangle {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= Rectangle(floatfloat left, floatfloat top, floatfloat right, floatfloat bottom);
+				//#= Rectangle(float, float, float, float);
 				__zz_cib_new1 = 1,
 				//#= virtual float Area() const;
 				Area2 = 2,
 				//#= virtual float Perimeter() const;
 				Perimeter3 = 3,
-				//#= virtual void Draw(Context*Context* ctx) const;
+				//#= virtual void Draw(Context*) const;
 				Draw4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape5 = 5,
