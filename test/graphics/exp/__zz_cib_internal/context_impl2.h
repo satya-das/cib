@@ -6,8 +6,8 @@
 			friend class ::Graphics::Context;
 			using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
 
-			static void __zz_cib_delete1(__zz_cib_::HANDLE* __zz_cib_obj) {
-				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_delete1];
+			static void __zz_cib_delete_1(__zz_cib_::HANDLE* __zz_cib_obj) {
+				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_delete_1];
 				return proc(__zz_cib_obj);
 			}
 		private:
@@ -38,5 +38,5 @@ inline ::Graphics::Context::Context(__zz_cib_::HANDLE* h)
 {}
 
 inline ::Graphics::Context::~Context(){
-	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete1(__zz_cib_h_);
+	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete_1(__zz_cib_h_);
 }

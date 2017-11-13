@@ -6,7 +6,7 @@
 namespace __zz_cib_ {
 	namespace Graphics {
 		namespace Context {
-			void __stdcall __zz_cib_delete1(::Graphics::Context* __zz_cib_obj) {
+			void __stdcall __zz_cib_delete_1(::Graphics::Context* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
 
@@ -20,7 +20,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 	{
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) nullptr,
-			(MethodEntry) &__zz_cib_delete1
+			(MethodEntry) &__zz_cib_delete_1
 		};
 		*pMethodTable = methodTable;
 		*pLen = 2;

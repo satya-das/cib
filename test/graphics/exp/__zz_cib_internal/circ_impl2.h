@@ -10,24 +10,24 @@
 			using DrawProc = void (__stdcall *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* ctx);
 			using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);
 
-			static __zz_cib_::HANDLE* __zz_cib_new1(float Ox, float Oy, float radius) {
-				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_new1];
+			static __zz_cib_::HANDLE* __zz_cib_new_1(float Ox, float Oy, float radius) {
+				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_new_1];
 				return proc(Ox, Oy, radius);
 			}
-			static float Area2(__zz_cib_::HANDLE* __zz_cib_obj) {
-				auto proc = (AreaProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Area2];
+			static float Area_2(__zz_cib_::HANDLE* __zz_cib_obj) {
+				auto proc = (AreaProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Area_2];
 				return proc(__zz_cib_obj);
 			}
-			static float Perimeter3(__zz_cib_::HANDLE* __zz_cib_obj) {
-				auto proc = (PerimeterProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Perimeter3];
+			static float Perimeter_3(__zz_cib_::HANDLE* __zz_cib_obj) {
+				auto proc = (PerimeterProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Perimeter_3];
 				return proc(__zz_cib_obj);
 			}
-			static void Draw4(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
-				auto proc = (DrawProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Draw4];
+			static void Draw_4(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
+				auto proc = (DrawProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::Draw_4];
 				return proc(__zz_cib_obj, ctx);
 			}
-			static __zz_cib_::HANDLE* __zz_cib_cast_to___Graphics__Shape5(__zz_cib_::HANDLE* __zz_cib_obj) {
-				auto proc = (__zz_cib_cast_to___Graphics__ShapeProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape5];
+			static __zz_cib_::HANDLE* __zz_cib_cast_to___Graphics__Shape_5(__zz_cib_::HANDLE* __zz_cib_obj) {
+				auto proc = (__zz_cib_cast_to___Graphics__ShapeProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_5];
 				return proc(__zz_cib_obj);
 			}
 		private:
@@ -54,22 +54,22 @@
 }
 
 inline ::Graphics::Circle::Circle(__zz_cib_::HANDLE* h)
-	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape5(h))
+	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_5(h))
 	, __zz_cib_h_(h)
 {}
 
 inline ::Graphics::Circle::Circle(float Ox, float Oy, float radius)
-	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new1(Ox, Oy, radius))
+	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_1(Ox, Oy, radius))
 {}
 
 inline float ::Graphics::Circle::Area() const{
-	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area2(__zz_cib_h_);
+	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_2(__zz_cib_h_);
 }
 
 inline float ::Graphics::Circle::Perimeter() const{
-	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter3(__zz_cib_h_);
+	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_3(__zz_cib_h_);
 }
 
 inline void ::Graphics::Circle::Draw(Context* ctx) const{
-	__zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw4(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
+	__zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_4(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }

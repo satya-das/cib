@@ -90,7 +90,7 @@ public:
   }
 
   void addMethod(CibMethodSignature uniqName, std::string methodName) {
-    methodName += std::to_string(nextMethodId);
+    methodName += "_" + std::to_string(nextMethodId);
     methodIdToMethodMap.emplace(nextMethodId, std::make_pair(methodName, uniqName));
     methodIdTable.emplace(std::move(uniqName), std::make_pair(nextMethodId++, std::move(methodName)));
   }
