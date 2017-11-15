@@ -20,20 +20,20 @@ namespace __zz_cib_ {
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle:
 			__zz_cib_::Graphics::Circle::GetMethodTable(pMethodTable, pLen);
 			break;
-		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger:
-			__zz_cib_::Graphics::ContextLogger::GetMethodTable(pMethodTable, pLen);
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
+			__zz_cib_::Graphics::Composite::GetMethodTable(pMethodTable, pLen);
 			break;
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context:
 			__zz_cib_::Graphics::Context::GetMethodTable(pMethodTable, pLen);
 			break;
-		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
-			__zz_cib_::Graphics::Composite::GetMethodTable(pMethodTable, pLen);
-			break;
-		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:
-			__zz_cib_::Graphics::Shape::GetMethodTable(pMethodTable, pLen);
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger:
+			__zz_cib_::Graphics::ContextLogger::GetMethodTable(pMethodTable, pLen);
 			break;
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
 			__zz_cib_::Graphics::Rectangle::GetMethodTable(pMethodTable, pLen);
+			break;
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:
+			__zz_cib_::Graphics::Shape::GetMethodTable(pMethodTable, pLen);
 			break;
 		default:
 			*pMethodTable = nullptr;

@@ -32,7 +32,6 @@
 #include "cibparams.h"
 
 #include <cstdint>
-#include <unordered_map>
 #include <map>
 
 //////////////////////////////////////////////////////////////////////////
@@ -48,7 +47,7 @@ using CibMethodSignature = std::string;
  * CAPI Name of method. It is formed by appending method id to original name of method
  */
 using CibMethodCAPIName = std::string;
-using CibMethodIdTable = std::unordered_map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
+using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
 
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
@@ -109,7 +108,7 @@ public:
   CibMethodId forEachMethod(MethodVisitor methodVisitor) const;
 };
 
-using CibIdTable = std::unordered_map<std::string, CibIdData>;
+using CibIdTable = std::map<std::string, CibIdData>;
 
 /*!
  * Manages Ids of all exportable entities of a library.

@@ -7,16 +7,16 @@ namespace __zz_cib_ { namespace GraphicsLib {
 		enum {
 			//#= ::Graphics::Circle
 			__Graphics__Circle = 1,
-			//#= ::Graphics::ContextLogger
-			__Graphics__ContextLogger = 4,
-			//#= ::Graphics::Context
-			__Graphics__Context = 3,
 			//#= ::Graphics::Composite
 			__Graphics__Composite = 2,
-			//#= ::Graphics::Shape
-			__Graphics__Shape = 6,
+			//#= ::Graphics::Context
+			__Graphics__Context = 3,
+			//#= ::Graphics::ContextLogger
+			__Graphics__ContextLogger = 4,
 			//#= ::Graphics::Rectangle
 			__Graphics__Rectangle = 5,
+			//#= ::Graphics::Shape
+			__Graphics__Shape = 6,
 			__zz_cib_next_class_id = 7
 		};
 	}
@@ -37,40 +37,6 @@ namespace __zz_cib_ {
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape_5 = 5,
 				__zz_cib_next_method_id = 6
-			};
-		}
-	}}
-}
-namespace __zz_cib_ {
-	namespace Graphics { namespace ContextLogger {
-		namespace __zz_cib_methodid {
-			enum {
-				//#= ContextLogger();
-				__zz_cib_new_1 = 1,
-				//#= ~ContextLogger()
-				__zz_cib_delete_2 = 2,
-				//#= virtual void Move(float, float);
-				Move_3 = 3,
-				//#= virtual void Line(float, float);
-				Line_4 = 4,
-				//#= virtual void Curve(float, float, float, float, float, float);
-				Curve_5 = 5,
-				//#= virtual void Close();
-				Close_6 = 6,
-				//#= __zz_cib_cast_to___Graphics__Context
-				__zz_cib_cast_to___Graphics__Context_7 = 7,
-				__zz_cib_next_method_id = 8
-			};
-		}
-	}}
-}
-namespace __zz_cib_ {
-	namespace Graphics { namespace Context {
-		namespace __zz_cib_methodid {
-			enum {
-				//#= ~Context()
-				__zz_cib_delete_1 = 1,
-				__zz_cib_next_method_id = 2
 			};
 		}
 	}}
@@ -103,12 +69,35 @@ namespace __zz_cib_ {
 	}}
 }
 namespace __zz_cib_ {
-	namespace Graphics { namespace Shape {
+	namespace Graphics { namespace Context {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= ~Shape()
+				//#= ~Context()
 				__zz_cib_delete_1 = 1,
 				__zz_cib_next_method_id = 2
+			};
+		}
+	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace ContextLogger {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= ContextLogger();
+				__zz_cib_new_1 = 1,
+				//#= ~ContextLogger()
+				__zz_cib_delete_2 = 2,
+				//#= virtual void Move(float, float);
+				Move_3 = 3,
+				//#= virtual void Line(float, float);
+				Line_4 = 4,
+				//#= virtual void Curve(float, float, float, float, float, float);
+				Curve_5 = 5,
+				//#= virtual void Close();
+				Close_6 = 6,
+				//#= __zz_cib_cast_to___Graphics__Context
+				__zz_cib_cast_to___Graphics__Context_7 = 7,
+				__zz_cib_next_method_id = 8
 			};
 		}
 	}}
@@ -128,6 +117,17 @@ namespace __zz_cib_ {
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape_5 = 5,
 				__zz_cib_next_method_id = 6
+			};
+		}
+	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Shape {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= ~Shape()
+				__zz_cib_delete_1 = 1,
+				__zz_cib_next_method_id = 2
 			};
 		}
 	}}
