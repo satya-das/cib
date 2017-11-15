@@ -49,14 +49,6 @@ public:
   {
     return name_;
   }
-  /// @return full name of this class.
-  std::string   fullName() const
-  {
-    if (outer() && (outer()->isNamespaceLike()))
-      return outer()->fullName() + "::" + name_;
-    else
-      return "::" + name_;
-  }
   /// @return Unique name of this class
   std::string   uniqName() const
   {

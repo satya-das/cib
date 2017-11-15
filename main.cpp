@@ -80,7 +80,7 @@ auto parseCmdLine(int argc, char* argv[])
 std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams, CibIdMgr& cibIdMgr)
 {
   std::string cibIdFileName = cibParams.cibIdFilename();
-  //idMgr.loadIds((cibParams.binderPath / cibIdFileName).string());
+  cibIdMgr.loadIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
   cibIdMgr.assignIds(cppProgram, cibParams);
   cibIdMgr.saveIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
   cibIdMgr.saveIds((cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(), cibParams);
