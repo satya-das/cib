@@ -18,15 +18,15 @@ For example it can be used by an application program to export C++ SDK which can
 *In this document the binary component that exposes its classes will be called Library, a library can be an executable or a DLL. The component that uses those classes will be called client of that library.*
 
 ## CIB Features:		{#CIBFeatures}
-  - Client don't need to recompile just because library headers are modified unless the signature of API (methods and functions) used by client is changed.
+  - Clients don't need to recompile just because library headers are modified unless the signature of API (methods and functions) used by client is changed.
   - Clients of library will keep working, without recompiling, with new version of library.
   - Functions, methods (including virtual methods) can be reordered in library code and client will keep working without recompiling with new headers. **This feature of CIB makes it superior to any other solution we know.**
-  - Client can use library provided classes without linking with the library at compile time.
-  - Client will not need recompiling when there is minor change in class inheritance. For example if in one version of library class B was derived from A and in next version class B is derived by both A and C then such change will not enforce client to recompile and clients compiled with previous version of headers will keep working with new version of library. **This too is something that no ABI compatible standard will be able to support.**
+  - Clients can use library provided classes without linking with the library at compile time.
+  - Clients will not need recompiling when there is minor change in class inheritance. For example if in one version of library class B was derived from A and in next version class B is derived by both A and C then such change will not enforce client to recompile and clients compiled with previous version of headers will keep working with new version of library. **This too is something that no ABI compatible standard will be able to support.**
 
  **Some of these features are provided by COM. But CIB has other advantages over COM.**
 
-  - Client can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
+  - Clients can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
   - No need to write interface definition files (.idl/.odl files).
   - No need to maintain order of virtual functions across releases.
   - No need to maintain order of data members of structs.
@@ -42,7 +42,7 @@ For example it can be used by an application program to export C++ SDK which can
  - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will ofcourse be a small boiler plate code on both side but that's about it, the rest of the code will remain aloof about existence of CIB.
 
 ## Other Solutions	{#Other_Solutions}
-I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across dll boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals ort some is too specific to the project it was developed for.
+I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across dll boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals or some is too specific to the project it was developed for.
 
  - **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
  - **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
@@ -55,12 +55,14 @@ I have come across some solutions that try to solve the same problem but none of
 
 **CIB achieves all its functionalities by using few simple design rules:**
 
-1. Only PODs (Plain Old Data) are used as function parameters
-    for calls between CIB layers of two components.
-2. All function calls between two CIB layers uses **__stdcall** convention.
-3. Pointer of an object belonging to a binary component is never dereferenced by another
-    binary component and they are only treated as opaque objects.
-4. Virtual function table of one component is not directly accessed by another component.
+1. CIB produces glue code for both library and clients.
+2. Library side glue code converts C++ objects into C objects.
+3. Client side glue code converts C objects into C++ objects.
+4. Only PODs cross DLL boundary.
+5. All function calls between two CIB layers (i.e. library glue code and client glue code) use calling convention that is supported by all compilers, e.g. **__stdcall** convention for x86 architecture.
+6. Pointer of an object belonging to one binary component is never dereferenced by another and they are only treated as opaque objects.
+7. Virtual function table of one component is not directly accessed by another component.
+8. CIB generates table of functions called MethodTable that are independent of compiler and remain binary compatible because new functions are only added at the end and removal of function does not affect other functions.
 
 **Note that all these restriction are not imposed on library/client developers. The CIB layer, which is automatically generated, takes care of all these rules.**
 
@@ -70,14 +72,14 @@ I have come across some solutions that try to solve the same problem but none of
   - CIB parses all public C/C++ header files of library and creates two sets of files.
   - One set of files should be compiled with the library. We will call it library side glue code
   - The other set should be used by the client of the library. This is client side glue code.
-  - Library side glue code defines raw C APIs with calling convention \_\_stdcall for all functions including class methods, constructors, and destructors. Calling convention **\_\_stdcall** is honored by all compilers on all platforms.
+  - Library side glue code defines raw C APIs for all functions including class methods, constructors, and destructors.
   - Implementation of such C APIs are just to delegate the call to original function/method/constructor/destructor/etc.
   - All C APIs are assigned an integer value as its ID. This ID for an API will remain same across releases.
-  - For every class/struct/union/namespace a **MetaInterface** is defined which is nothing but a map between API Id and C API function pointer.
-  - Library side glue code exports a function called **GetMetaInterface**() which returns MetaInterface for given class ID. *Each class/struct/namespace too will have unique IDs, which will remain same across releases.*
-  - Library side glue code also exports a function called **GetMethod**() which returns the function pointer for given API ID and MetaInterface.
-  - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**.
-  - Implementation of all functions including class methods, constructors, and destructors for classes at client side are provided by means of invoking function pointer returned by GetMethod().
+  - For every class/struct/union/namespace a **MethodTable** is defined which is an array of function pointers.
+  - Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
+  - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern with pimpl pointing to object across DLL boundary and methods getting calling as C functions.
+  - Function ID is used as an index to fetch function pointer from **MethodTable**.
+  - Implementation of all functions including class methods, constructors, and destructors for classes at client side are provided by means of invoking function pointer.
 
 ### Example		{#Example}
 
@@ -102,18 +104,13 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Feature	| Description|	Status |  
 |------------|:---------------------------------|:---------|  
 | Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
-| Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected.|In Progress|
-| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle so that equality check using '==' for two pointers of proxy classes should work as expected. |In Progress|
 | Allow library to call client side function| When library side code invokes a virtual function using a pointer of base class which is actually pointing to object on client side then calls should land to function defined on client side. ||
 |Support shared_ptr and unique_ptr| Modern C++ programing expect these to be used more often||
 |Support operator overloading| It is common for C++ classes to have overloaded operators. ||
 | Support struct | Automatically add getter/setter for public data members. ||
 | Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. ||
 | STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
-| Minimize Rebuild | Avoid changing generated files timestamp if there is no change in content. ||
-| Preprocessing | Add support for selective proprocessing and #include expansion. ||
-| Support out-proc | So that two EXEs can be integrated like COM out-proc ||
-| Support RPC |
+| Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected.||
 
 
 ---
