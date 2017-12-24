@@ -103,11 +103,13 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 |------------|:---------------------------------|:---------|  
 | Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
 | Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected.|In Progress|
-| Allow library to call client side function| When library side code invokes a virtual function using a pointer of base class which is actually pointing to object on client side then calls should land to function defined on client side. |Plan has been chalked out|
-| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle so that equality check using '==' for two pointers of proxy classes should work as expected. |Plan has been chalked out|
-| Support struct | Automatically add getter/setter for public data members. |Needs to be implemented|
-| Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |Plan has been chalked out|
-| STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |Need to discover a good solution|
+| One proxy per handle | If an API returns an object pointer then a proxy object needs to be created. Make sure we create just one proxy per handle so that equality check using '==' for two pointers of proxy classes should work as expected. |In Progress|
+| Allow library to call client side function| When library side code invokes a virtual function using a pointer of base class which is actually pointing to object on client side then calls should land to function defined on client side. ||
+|Support shared_ptr and unique_ptr| Modern C++ programing expect these to be used more often||
+|Support operator overloading| It is common for C++ classes to have overloaded operators. ||
+| Support struct | Automatically add getter/setter for public data members. ||
+| Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. ||
+| STL classes | It is common for a C++ program to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
 | Minimize Rebuild | Avoid changing generated files timestamp if there is no change in content. ||
 | Preprocessing | Add support for selective proprocessing and #include expansion. ||
 | Support out-proc | So that two EXEs can be integrated like COM out-proc ||
@@ -135,7 +137,7 @@ For each public class of a library CIB produces another class with same name and
 ### Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 ### Facade Class
-A C++ class that has at-least one public virtual method other than destructor and there exists at-least one public function/method that returns a pointer or reference of this class.
+A C++ class that has public virtual method and there exist public function/method that returns a pointer/reference of this class.
 ### Interface Class
-A C++ class that has at-least one public virtual method other than destructor and there exists a way for library to call that method on an object of client's derived class.
-It's not straight forward to correctly detect an interface class so cib will identify all classes with at-least one virtual method as an interface.
+A C++ class that has public virtual method and there exists a way for library to call that method on an object of client's derived class.
+A simplest example can be that when a C++ class that has public virtual method and a pointer/reference of this class is used as parameter to a function.
