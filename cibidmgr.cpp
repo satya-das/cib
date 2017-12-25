@@ -50,10 +50,10 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath, const CibParams& cibParam
         classIdsLoaded = true;
       }
       else if (cppObj->owner_->name_ == "__zz_cib_methodid") {
-        auto extractClassName = [](const CppCompound* classObj)->std::string {
-          return classObj->fullName().substr(11); // skip "::__zz_cib_"
+        auto extractClassName = [](const CibCppCompound* classObj)->std::string {
+          return classObj->longName().substr(11); // skip "::__zz_cib_"
         };
-        auto className = extractClassName(cppObj->owner_->owner_);
+        auto className = extractClassName(static_cast<const CibCppCompound*>(cppObj->owner_->owner_));
         loadMethodIds(className, static_cast<const CppEnum*>(cppObj));
       }
     }
@@ -152,8 +152,8 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     return;
   }
-  auto itr = cibIdTable_.find(compound->fullName());
-  auto* cibIdData = itr == cibIdTable_.end() ? addClass(compound->fullName()) : &itr->second;
+  auto itr = cibIdTable_.find(compound->longName());
+  auto* cibIdData = itr == cibIdTable_.end() ? addClass(compound->longName()) : &itr->second;
   for (auto& func : compound->getNeedsBridgingMethods())
   {
     auto&& sig = func.signature();
@@ -238,9 +238,9 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
   ++indentation;
   for (const auto& cls : cibIdTable_)
   {
-    const auto& fullName = cls.first;
+    const auto& longName = cls.first;
     const auto& cibIdData = cls.second;
-    stm << indentation << "//#= " << fullName << "\n";
+    stm << indentation << "//#= " << longName << "\n";
     stm << indentation << cibIdData.getIdName() << " = " << cibIdData.getId() << ",\n";
   }
   stm << indentation << "__zz_cib_next_class_id = " << nextClassId_ << "\n";

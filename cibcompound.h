@@ -49,10 +49,14 @@ public:
   {
     return name_;
   }
+  std::string longName() const
+  {
+    return "::" + fullName();
+  }
   /// @return Unique name of this class
   std::string   uniqName() const
   {
-    std::string uname = fullName();
+    std::string uname = longName();
     std::replace(uname.begin(), uname.end(), ':', '_');
     return uname;
   }

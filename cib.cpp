@@ -23,7 +23,7 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
   // This will break when there will be some typedefed or enum type is used.
   CibCppCompound* resolvedType = (CibCppCompound*)(typeResolver ? typeResolver->resolveTypeName(typeObj->baseType_, cppProgram) : NULL);
   if (resolvedType != NULL)
-    stm << (emitHandle ? "__zz_cib_::HANDLE" : resolvedType->fullName());
+    stm << (emitHandle ? "__zz_cib_::HANDLE" : resolvedType->longName());
   else
     stm << typeObj->baseType_;
   for (unsigned short i = 0; i < typeObj->ptrLevel_; ++i)
@@ -71,7 +71,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream& stm, const CppProgramEx& c
     CibCppCompound* resolvedType = (CibCppCompound*)((getOwner() && emitHandle) ? getOwner()->resolveTypeName(param.varObj->baseType_, cppProgram) : NULL);
     if (resolvedType)
     {
-      stm << cibParams.cibInternalNamespace << resolvedType->fullName() << "::__zz_cib_Helper::__zz_cib_handle(";
+      stm << cibParams.cibInternalNamespace << resolvedType->longName() << "::__zz_cib_Helper::__zz_cib_handle(";
       stm << param.varObj->name_ << ")";
     }
     else
@@ -109,7 +109,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
 {
   stm << indentation;
   if (isConstructor())
-    stm << getOwner()->fullName() << "*";
+    stm << getOwner()->longName() << "*";
   else if (isDestructor())
     stm << "void";
   else
@@ -118,7 +118,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
   stm << capiName << '(';
   if (!isStatic() && (isMethod() || isDestructor()))
   {
-    stm << getOwner()->fullName() << "* __zz_cib_obj";
+    stm << getOwner()->longName() << "* __zz_cib_obj";
     if (hasParams())
       stm << ", ";
   }
@@ -127,7 +127,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
   stm << ++indentation;
   if (isConstructor())
   {
-    stm << "return new " << getOwner()->fullName();
+    stm << "return new " << getOwner()->longName();
     stm << '(';
     emitArgsForCall(stm, cppProgram, cibParams);
     stm << ");\n";
@@ -142,7 +142,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
       stm << "return ";
     if (!isStatic())
       stm << "__zz_cib_obj->";
-    stm << getOwner()->fullName() << "::";
+    stm << getOwner()->longName() << "::";
     stm << funcName();
     stm << '(';
     emitArgsForCall(stm, cppProgram, cibParams);
@@ -189,10 +189,10 @@ std::ostream& operator <<(std::ostream& stm, CppDocComment* cmnt)
 void emitInheritanceList(std::ostream& stm, const CibCppCompoundArray& inhList, CppObjProtLevel prot, char& sep)
 {
   if (inhList.empty()) return;
-  stm << ' ' << sep << ' ' << prot << ' ' << inhList.front()->fullName();
+  stm << ' ' << sep << ' ' << prot << ' ' << inhList.front()->longName();
   sep = ',';
   for (CibCppCompoundArray::const_iterator itr = inhList.begin()+1; itr != inhList.end(); ++itr)
-    stm << sep << prot << ' ' << (*itr)->fullName();
+    stm << sep << prot << ' ' << (*itr)->longName();
 }
 
 const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const CppProgramEx& cppProgram) const
@@ -349,7 +349,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
       // Everything below this is for glue code
       stm << '\n';
       stm << --indentation << "private:\n";
-      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << fullName() << ");\n";
+      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << longName() << ");\n";
     }
     stm     << --indentation << "};\n";
   }
@@ -430,7 +430,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     if (!wrappingNamespaceDeclarations(cibParams).empty())
       stm << ++indentation << wrappingNamespaceDeclarations(cibParams) << '\n';
     stm << ++indentation << "namespace " << name() << " { class __zz_cib_Helper {\n";
-    stm << ++indentation << "friend " << compoundType_ << ' ' << fullName() << ";\n";
+    stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
 
     for (auto func : needsBridging_)
     {
@@ -441,7 +441,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     });
 
     stm << '\n'; // Start in new line.
-    auto cibIdData = cibIdMgr.getCibIdData(fullName());
+    auto cibIdData = cibIdMgr.getCibIdData(longName());
     for (auto func : needsBridging_)
     {
       stm << indentation << "static ";
@@ -456,7 +456,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       func.emitArgsForDecl(stm, cppProgram, true, true);
       stm <<") {\n";
       stm << ++indentation << "auto proc = (" << func.procType(cibParams) << ") instance().mtbl[";
-      stm << "__zz_cib_" << fullName() << "::__zz_cib_methodid::";
+      stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature()) << "];\n";
       stm << indentation << "return proc(";
       if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
@@ -474,7 +474,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       auto capiName = cibIdData->getMethodCApiName(castProcName);
       stm << indentation << "static __zz_cib_::HANDLE* " << capiName << "(__zz_cib_::HANDLE* __zz_cib_obj) {\n";
       stm << ++indentation << "auto proc = (" << castProcName << "Proc) instance().mtbl[";
-      stm << "__zz_cib_" << fullName() << "::__zz_cib_methodid::";
+      stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << capiName << "];\n";
       stm << indentation << "return proc(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
@@ -486,12 +486,12 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << indentation << "__zz_cib_Helper() {\n";
       stm << ++indentation << "size_t mnum = 0;\n";
       stm << indentation << cibParams.moduleName << "Lib_GetMethodTable(";
-      auto classIdName = fullName();
+      auto classIdName = longName();
       std::transform(classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c)->char {
         return c == ':' ? '_' : c;
       });
       stm << cibParams.classIdOwnerSpace() << classIdName << ", &mtbl, &mnum);\n";
-      stm << indentation << "assert(mnum >= __zz_cib_" << fullName() << "::__zz_cib_methodid::__zz_cib_next_method_id);\n";
+      stm << indentation << "assert(mnum >= __zz_cib_" << longName() << "::__zz_cib_methodid::__zz_cib_next_method_id);\n";
       stm << --indentation << "}\n";
       stm << indentation << "static const __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper bridgeIns;\n";
@@ -500,10 +500,10 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     }
     stm << '\n';        // Start in new line.
     stm << --indentation << "public:\n";
-    stm << ++indentation << "static __zz_cib_::HANDLE* __zz_cib_handle(" << fullName() << "* __zz_cib_obj) {\n";
+    stm << ++indentation << "static __zz_cib_::HANDLE* __zz_cib_handle(" << longName() << "* __zz_cib_obj) {\n";
     stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
     stm << --indentation << "}\n";
-    stm << indentation << "static void __zz_cib_release_handle(" << fullName() << "* __zz_cib_obj) {\n";
+    stm << indentation << "static void __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
     stm << ++indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
     stm << --indentation << "}\n";
     stm << --indentation << "};\n";
@@ -529,7 +529,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
       static_cast<CibCppCompound*>(mem)->emitDefn(stm, cppProgram, cibParams, cibIdMgr, indentation);
   }
 
-  auto cibIdData = cibIdMgr.getCibIdData(fullName());
+  auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isClassLike())
   {
     // Emit the ctor to construct from HANDLE.
@@ -539,7 +539,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
     char sep = ':';
     forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << ' ' << pubParent->fullName() << "::" << pubParent->name() << "(__zz_cib_"<< fullName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
+      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_"<< longName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
       sep = ',';
     });
     stm << indentation << sep << " __zz_cib_h_(h)";
@@ -561,7 +561,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
     if (func.isConstructor())
     {
       stm << '\n';
-      stm << ++indentation << ": " << name() << "(__zz_cib_" << fullName() << "::__zz_cib_Helper::" << capiName << '(';
+      stm << ++indentation << ": " << name() << "(__zz_cib_" << longName() << "::__zz_cib_Helper::" << capiName << '(';
       func.emitArgsForCall(stm, cppProgram, cibParams);
       stm << "))\n";
       stm << --indentation << "{}\n";
@@ -581,11 +581,11 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
         retType = (CibCppCompound*)resolveTypeName(func.retType()->baseType_, cppProgram);
         if (retType)
         {
-          stm << retType->fullName() << "::" << cibParams.fromHandle << "(\n";
+          stm << retType->longName() << "::" << cibParams.fromHandle << "(\n";
           stm << ++indentation;
         }
       }
-      stm << "__zz_cib_" << fullName() << "::__zz_cib_Helper::" << capiName << "(";
+      stm << "__zz_cib_" << longName() << "::__zz_cib_Helper::" << capiName << "(";
       if (!func.isStatic())
       {
         stm << "__zz_cib_h_";
@@ -600,7 +600,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
       if (func.isDestructor())
       {
         forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
-          stm << indentation << "__zz_cib_" << baseCompound->fullName() << "::__zz_cib_Helper::__zz_cib_release_handle(this);\n";
+          stm << indentation << "__zz_cib_" << baseCompound->longName() << "::__zz_cib_Helper::__zz_cib_release_handle(this);\n";
         });
       }
       stm << --indentation << "}\n";
@@ -636,7 +636,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
         stm << --indentation << "}\n";
     }
   }
-  auto cibIdData = cibIdMgr.getCibIdData(fullName());
+  auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isNamespaceLike() && !needsBridging_.empty())
   {
     stm     << indentation++ << "namespace " << name() << " {\n";
@@ -652,7 +652,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
     {
       const CibCppCompound* pubParent = *parentItr;
       auto castApiName = castToBaseName(pubParent, cibParams);
-      stm << indentation << pubParent->fullName() << "* __stdcall " << cibIdData->getMethodCApiName(castApiName) << "(" << fullName() << "* __zz_cib_obj) {\n";
+      stm << indentation << pubParent->longName() << "* __stdcall " << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj;\n";
       stm << --indentation << "}\n";
     }
@@ -697,7 +697,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream& stm, const CppProgr
     stm << ++indentation << "static const MethodEntry methodTable[] = {\n";
     stm << ++indentation << "(MethodEntry) nullptr"; // This slot in method table is reserved for maybe some future use.
     CibMethodId nextMethodId = 1;
-    nextMethodId = cibIdMgr.forEachMethod(fullName(), [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
+    nextMethodId = cibIdMgr.forEachMethod(longName(), [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
       if (methodId == nextMethodId++) {
         stm << ",\n" << indentation << "(MethodEntry) &" << methodName;
       } else {
