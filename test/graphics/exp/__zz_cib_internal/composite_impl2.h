@@ -73,42 +73,42 @@
 	}}
 }
 
-inline ::Graphics::Composite::Composite(__zz_cib_::HANDLE* h)
+inline Graphics::Composite::Composite(__zz_cib_::HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_9(h))
 	, __zz_cib_h_(h)
 {}
 
-inline ::Graphics::Composite::Composite()
+inline Graphics::Composite::Composite()
 	: Composite(__zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_new_1())
 {}
 
-inline void ::Graphics::Composite::Add(Shape* shape){
+inline void Graphics::Composite::Add(Shape* shape){
 	__zz_cib_::Graphics::Composite::__zz_cib_Helper::Add_2(__zz_cib_h_, __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_handle(shape));
 }
 
-inline size_t ::Graphics::Composite::NumShapes() const{
+inline size_t Graphics::Composite::NumShapes() const{
 	return __zz_cib_::Graphics::Composite::__zz_cib_Helper::NumShapes_3(__zz_cib_h_);
 }
 
-inline ::Graphics::Shape* ::Graphics::Composite::ShapeAt(size_t idxShape) const{
+inline ::Graphics::Shape* Graphics::Composite::ShapeAt(size_t idxShape) const{
 	return ::Graphics::Shape::__zz_cib_from_handle(
 		__zz_cib_::Graphics::Composite::__zz_cib_Helper::ShapeAt_4(__zz_cib_h_, idxShape)
 	);
 }
 
-inline float ::Graphics::Composite::Area() const{
+inline float Graphics::Composite::Area() const{
 	return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Area_5(__zz_cib_h_);
 }
 
-inline float ::Graphics::Composite::Perimeter() const{
+inline float Graphics::Composite::Perimeter() const{
 	return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Perimeter_6(__zz_cib_h_);
 }
 
-inline void ::Graphics::Composite::Draw(Context* ctx) const{
+inline void Graphics::Composite::Draw(Context* ctx) const{
 	__zz_cib_::Graphics::Composite::__zz_cib_Helper::Draw_7(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }
 
-inline ::Graphics::Composite* ::Graphics::Composite::CreateCompositeOfRectAndCircle(){
+inline ::Graphics::Composite* Graphics::Composite::CreateCompositeOfRectAndCircle(){
 	return ::Graphics::Composite::__zz_cib_from_handle(
 		__zz_cib_::Graphics::Composite::__zz_cib_Helper::CreateCompositeOfRectAndCircle_8()
 	);

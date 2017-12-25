@@ -63,32 +63,32 @@
 	}}
 }
 
-inline ::Graphics::ContextLogger::ContextLogger(__zz_cib_::HANDLE* h)
+inline Graphics::ContextLogger::ContextLogger(__zz_cib_::HANDLE* h)
 	: ::Graphics::Context::Context(__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_7(h))
 	, __zz_cib_h_(h)
 {}
 
-inline ::Graphics::ContextLogger::ContextLogger()
+inline Graphics::ContextLogger::ContextLogger()
 	: ContextLogger(__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_new_1())
 {}
 
-inline ::Graphics::ContextLogger::~ContextLogger(){
+inline Graphics::ContextLogger::~ContextLogger(){
 	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_delete_2(__zz_cib_h_);
 	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(this);
 }
 
-inline void ::Graphics::ContextLogger::Move(float x, float y){
+inline void Graphics::ContextLogger::Move(float x, float y){
 	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::Move_3(__zz_cib_h_, x, y);
 }
 
-inline void ::Graphics::ContextLogger::Line(float x, float y){
+inline void Graphics::ContextLogger::Line(float x, float y){
 	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::Line_4(__zz_cib_h_, x, y);
 }
 
-inline void ::Graphics::ContextLogger::Curve(float x1, float y1, float x2, float y2, float x3, float y3){
+inline void Graphics::ContextLogger::Curve(float x1, float y1, float x2, float y2, float x3, float y3){
 	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::Curve_5(__zz_cib_h_, x1, y1, x2, y2, x3, y3);
 }
 
-inline void ::Graphics::ContextLogger::Close(){
+inline void Graphics::ContextLogger::Close(){
 	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::Close_6(__zz_cib_h_);
 }

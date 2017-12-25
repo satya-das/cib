@@ -33,10 +33,10 @@
 	}}
 }
 
-inline ::Graphics::Shape::Shape(__zz_cib_::HANDLE* h)
+inline Graphics::Shape::Shape(__zz_cib_::HANDLE* h)
 	: __zz_cib_h_(h)
 {}
 
-inline ::Graphics::Shape::~Shape(){
+inline Graphics::Shape::~Shape(){
 	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_1(__zz_cib_h_);
 }

@@ -53,23 +53,23 @@
 	}}
 }
 
-inline ::Graphics::Rectangle::Rectangle(__zz_cib_::HANDLE* h)
+inline Graphics::Rectangle::Rectangle(__zz_cib_::HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_5(h))
 	, __zz_cib_h_(h)
 {}
 
-inline ::Graphics::Rectangle::Rectangle(float left, float top, float right, float bottom)
+inline Graphics::Rectangle::Rectangle(float left, float top, float right, float bottom)
 	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_1(left, top, right, bottom))
 {}
 
-inline float ::Graphics::Rectangle::Area() const{
+inline float Graphics::Rectangle::Area() const{
 	return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Area_2(__zz_cib_h_);
 }
 
-inline float ::Graphics::Rectangle::Perimeter() const{
+inline float Graphics::Rectangle::Perimeter() const{
 	return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Perimeter_3(__zz_cib_h_);
 }
 
-inline void ::Graphics::Rectangle::Draw(Context* ctx) const{
+inline void Graphics::Rectangle::Draw(Context* ctx) const{
 	__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Draw_4(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }

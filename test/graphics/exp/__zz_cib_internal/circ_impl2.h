@@ -53,23 +53,23 @@
 	}}
 }
 
-inline ::Graphics::Circle::Circle(__zz_cib_::HANDLE* h)
+inline Graphics::Circle::Circle(__zz_cib_::HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_5(h))
 	, __zz_cib_h_(h)
 {}
 
-inline ::Graphics::Circle::Circle(float Ox, float Oy, float radius)
+inline Graphics::Circle::Circle(float Ox, float Oy, float radius)
 	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_1(Ox, Oy, radius))
 {}
 
-inline float ::Graphics::Circle::Area() const{
+inline float Graphics::Circle::Area() const{
 	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_2(__zz_cib_h_);
 }
 
-inline float ::Graphics::Circle::Perimeter() const{
+inline float Graphics::Circle::Perimeter() const{
 	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_3(__zz_cib_h_);
 }
 
-inline void ::Graphics::Circle::Draw(Context* ctx) const{
+inline void Graphics::Circle::Draw(Context* ctx) const{
 	__zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_4(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }

@@ -33,10 +33,10 @@
 	}}
 }
 
-inline ::Graphics::Context::Context(__zz_cib_::HANDLE* h)
+inline Graphics::Context::Context(__zz_cib_::HANDLE* h)
 	: __zz_cib_h_(h)
 {}
 
-inline ::Graphics::Context::~Context(){
+inline Graphics::Context::~Context(){
 	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete_1(__zz_cib_h_);
 }
