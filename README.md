@@ -1,23 +1,23 @@
-Component Interface Binder (CIB)	{#mainpage}
+Component Interface Binder (CIB)
 ================================
 
-# CIB		{#CIB}
+# CIB
 
 **In a nutshell CIB is the answer to the problem for which C is used for exporting APIs of an application/library even when the application/library itself uses C++ for most of its implementation.**
 
-## Abstract		{#Abstract}
+## Abstract
 *Because there is no way for C++ to be ABI compatible programmers use C for exporting APIs that can be called from across a DLL boundary.  
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers (and different versions of same compiler) and that does not change based on compiler switch, will make it possible, at-least in theory, to use C++ for exporting APIs.  
 But even if that becomes reality using C++ as public header will still be a difficulty in practice. A C++ class definition also contains private methods and data members which a programmer may not want its client to see. So, a C++ programmer will have to use a design pattern like [bridge](en.wikipedia.org/wiki/Bridge_pattern) or segregation of interface and implementation as used in COM.  
 CIB solves the incompatible ABI problem (and it does much more than that) and still allows programmers to use C++ for exporting APIs without enforcing use of any particular design pattern or new way of writing program. CIB does not use low level compiler tricks, it does not try to exploit how any compiler implements C++ language feature. Basically CIB uses plain basic C/C++ to provide all its functionality.*
 
-## Overview			{#Overview}
+## Overview
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component built using different compiler or different version of same compiler.
 For example it can be used by an application program to export C++ SDK which can be used by the plugins. And plugin writers don't need to use exactly same compiler that was used to build the application. Since ABI compatibility cannot be guaranteed by C++ compilers, we can use CIB to publish C++ DLL or C++ SDK of an application. This also means CIB makes client, in binary form, compatible with future version of library.
 
 *In this document the binary component that exposes its classes will be called Library, a library can be an executable or a DLL. The component that uses those classes will be called client of that library.*
 
-## CIB Features:		{#CIBFeatures}
+## CIB Features:
   - Clients don't need to recompile just because library headers are modified unless the signature of API (methods and functions) used by client is changed.
   - Clients of library will keep working, without recompiling, with new version of library.
   - Functions, methods (including virtual methods) can be reordered in library code and client will keep working without recompiling with new headers. **This feature of CIB makes it superior to any other solution we know.**
@@ -35,20 +35,20 @@ For example it can be used by an application program to export C++ SDK which can
 
  **CIB allows client of a library to use all exported classes as if those classes are part of the client code itself without exposing the internals of classes.**
 
-## CIB Goals		{#CIB_Goals}
+## CIB Goals
  - To become an easier and superior alternative of COM (used as in-proc or out-proc both) for C++ developers.
  - To become an easier and superior alternative of DCOM for C++ developers.
  - To work on all platforms without any gotcha.
  - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will ofcourse be a small boiler plate code on both side but that's about it, the rest of the code will remain aloof about existence of CIB.
 
-## Other Solutions	{#Other_Solutions}
+## Other Solutions
 I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across dll boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals or some is too specific to the project it was developed for.
 
  - **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
  - **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
  - **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
 
-## CIB Architecture		{#CIB_Architecture}
+## CIB Architecture
 **Or rather the architecture CIB produces for integration of library and it's client**
 
 ![Integration architecture produced by CIB](cib_design.png "Integration architecture produced by CIB")
@@ -66,7 +66,7 @@ I have come across some solutions that try to solve the same problem but none of
 
 **Note that all these restriction are not imposed on library/client developers. The CIB layer, which is automatically generated, takes care of all these rules.**
 
-## How CIB works		{#HowCIBworks}
+## How CIB works
  Following are the broad things that CIB does:
 
   - CIB parses all public C/C++ header files of library and creates two sets of files.
@@ -81,7 +81,7 @@ I have come across some solutions that try to solve the same problem but none of
   - Function ID is used as an index to fetch function pointer from **MethodTable**.
   - Implementation of all functions including class methods, constructors, and destructors for classes at client side are provided by means of invoking function pointer.
 
-### Example		{#Example}
+### Example
 
 For working example see projects **shape** and **draw** in test folders.
 
@@ -95,10 +95,10 @@ Files in **shape/exp** are meant for **draw** project to compile.
 
 Look at files in **shape/cib** and **shape/exp** folders to know how exactly **CIB** makes it possible to use C++ as an interface between two binary components even when C++ comes with inherent ABI incompatibility problem.
 
-## Building CIB	{#BuildingCIB}
+## Building CIB
 To build CIB you need to pull **common**, **cppparser**, and **cib** source code in such a way that you get folders with these names in same parent folder. Basically you need to run git clone in same folder for all these projects.
 
-## Feature Progress	{#FeatureProgress}
+## Feature Progress
 
 
 | Feature	| Description|	Status |  
@@ -115,8 +115,8 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 
 ---
 
-## Implementation Details 	{#ImplementationDetails}
-### Parsing Technique {#ParsingTechnique}
+## Implementation Details
+### Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -125,10 +125,10 @@ void ExampleFunction(wxInt32 i);
 
 cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
 
-### Creating proxy class from handle	{#CreatingProxyClassFromHandle}
+### Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
-## CIB Terminology {#CIBTerminology}
+## CIB Terminology
 ### Proxy Class
 For each public class of a library CIB produces another class with same name and methods but all calls to those methods are delegated to library side methods. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
 ### Handle
