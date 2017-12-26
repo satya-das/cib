@@ -4,9 +4,9 @@
 	namespace __zz_cib_ { namespace Graphics {
 		namespace Shape { class __zz_cib_Helper {
 			friend class ::Graphics::Shape;
-			using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
 
 			static void __zz_cib_delete_1(__zz_cib_::HANDLE* __zz_cib_obj) {
+				using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
 				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_1];
 				return proc(__zz_cib_obj);
 			}

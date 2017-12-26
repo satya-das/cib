@@ -4,39 +4,39 @@
 	namespace __zz_cib_ { namespace Graphics {
 		namespace ContextLogger { class __zz_cib_Helper {
 			friend class ::Graphics::ContextLogger;
-			using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) ();
-			using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
-			using MoveProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x, float y);
-			using LineProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x, float y);
-			using CurveProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x1, float y1, float x2, float y2, float x3, float y3);
-			using CloseProc = void (__stdcall *) (__zz_cib_::HANDLE*);
-			using __zz_cib_cast_to___Graphics__ContextProc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);
 
 			static __zz_cib_::HANDLE* __zz_cib_new_1() {
+				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) ();
 				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_new_1];
 				return proc();
 			}
 			static void __zz_cib_delete_2(__zz_cib_::HANDLE* __zz_cib_obj) {
+				using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
 				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_delete_2];
 				return proc(__zz_cib_obj);
 			}
 			static void Move_3(__zz_cib_::HANDLE* __zz_cib_obj, float x, float y) {
+				using MoveProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x, float y);
 				auto proc = (MoveProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::Move_3];
 				return proc(__zz_cib_obj, x, y);
 			}
 			static void Line_4(__zz_cib_::HANDLE* __zz_cib_obj, float x, float y) {
+				using LineProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x, float y);
 				auto proc = (LineProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::Line_4];
 				return proc(__zz_cib_obj, x, y);
 			}
 			static void Curve_5(__zz_cib_::HANDLE* __zz_cib_obj, float x1, float y1, float x2, float y2, float x3, float y3) {
+				using CurveProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x1, float y1, float x2, float y2, float x3, float y3);
 				auto proc = (CurveProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::Curve_5];
 				return proc(__zz_cib_obj, x1, y1, x2, y2, x3, y3);
 			}
 			static void Close_6(__zz_cib_::HANDLE* __zz_cib_obj) {
+				using CloseProc = void (__stdcall *) (__zz_cib_::HANDLE*);
 				auto proc = (CloseProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::Close_6];
 				return proc(__zz_cib_obj);
 			}
 			static __zz_cib_::HANDLE* __zz_cib_cast_to___Graphics__Context_7(__zz_cib_::HANDLE* __zz_cib_obj) {
+				using __zz_cib_cast_to___Graphics__ContextProc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);
 				auto proc = (__zz_cib_cast_to___Graphics__ContextProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Context_7];
 				return proc(__zz_cib_obj);
 			}

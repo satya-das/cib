@@ -432,14 +432,6 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     stm << ++indentation << "namespace " << name() << " { class __zz_cib_Helper {\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
 
-    for (auto func : needsBridging_)
-    {
-      func.emitProcType(stm, cppProgram, cibParams, indentation);
-    }
-    forEachParent(kPublic, [this, &cibParams, &stm, indentation](const CibCppCompound* pubParent) {
-      stm << indentation << "using " << castToBaseName(pubParent, cibParams) << "Proc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);\n";
-    });
-
     stm << '\n'; // Start in new line.
     auto cibIdData = cibIdMgr.getCibIdData(longName());
     for (auto func : needsBridging_)
@@ -455,7 +447,9 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       }
       func.emitArgsForDecl(stm, cppProgram, true, true);
       stm <<") {\n";
-      stm << ++indentation << "auto proc = (" << func.procType(cibParams) << ") instance().mtbl[";
+      ++indentation;
+      func.emitProcType(stm, cppProgram, cibParams, indentation);
+      stm << indentation << "auto proc = (" << func.procType(cibParams) << ") instance().mtbl[";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature()) << "];\n";
       stm << indentation << "return proc(";
@@ -473,7 +467,8 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       auto castProcName = castToBaseName(pubParent, cibParams);
       auto capiName = cibIdData->getMethodCApiName(castProcName);
       stm << indentation << "static __zz_cib_::HANDLE* " << capiName << "(__zz_cib_::HANDLE* __zz_cib_obj) {\n";
-      stm << ++indentation << "auto proc = (" << castProcName << "Proc) instance().mtbl[";
+      stm << ++indentation << "using " << castProcName << "Proc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);\n";
+      stm << indentation << "auto proc = (" << castProcName << "Proc) instance().mtbl[";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << capiName << "];\n";
       stm << indentation << "return proc(__zz_cib_obj);\n";
