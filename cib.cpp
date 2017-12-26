@@ -489,8 +489,8 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << indentation << "assert(mnum >= __zz_cib_" << longName() << "::__zz_cib_methodid::__zz_cib_next_method_id);\n";
       stm << --indentation << "}\n";
       stm << indentation << "static const __zz_cib_Helper& instance() {\n";
-      stm << ++indentation << "static __zz_cib_Helper bridgeIns;\n";
-      stm << indentation << "return bridgeIns;\n";
+      stm << ++indentation << "static __zz_cib_Helper helper;\n";
+      stm << indentation << "return helper;\n";
       stm << --indentation << "}\n";
     }
     stm << '\n';        // Start in new line.

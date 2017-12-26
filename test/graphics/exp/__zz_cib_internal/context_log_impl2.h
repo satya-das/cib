@@ -48,8 +48,8 @@
 				assert(mnum >= __zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_next_method_id);
 			}
 			static const __zz_cib_Helper& instance() {
-				static __zz_cib_Helper bridgeIns;
-				return bridgeIns;
+				static __zz_cib_Helper helper;
+				return helper;
 			}
 
 		public:
