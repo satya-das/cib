@@ -6,12 +6,12 @@ namespace __zz_cib_ {
 	using MethodTable = const MethodEntry*;
 }
 
-namespace __zz_cib_ { namespace Graphics { namespace Circle { void GetMethodTable(MethodTable*, size_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Composite { void GetMethodTable(MethodTable*, size_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Context { void GetMethodTable(MethodTable*, size_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { void GetMethodTable(MethodTable*, size_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Rectangle { void GetMethodTable(MethodTable*, size_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Shape { void GetMethodTable(MethodTable*, size_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Circle { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Composite { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Context { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Shape { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
 
 namespace __zz_cib_ {
 	void GraphicsLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, size_t* pLen)

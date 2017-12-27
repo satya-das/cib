@@ -479,7 +479,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << --indentation << "private:\n";
       stm << ++indentation << "__zz_cib_::MethodTable mtbl;\n";
       stm << indentation << "__zz_cib_Helper() {\n";
-      stm << ++indentation << "size_t mnum = 0;\n";
+      stm << ++indentation << "std::uint32_t mnum = 0;\n";
       stm << indentation << cibParams.moduleName << "Lib_GetMethodTable(";
       auto classIdName = longName();
       std::transform(classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c)->char {
@@ -669,7 +669,7 @@ void CibCppCompound::emitMethodTableGetterDecl(std::ostream& stm, const CibParam
   if (isNamespaceLike() && !needsBridging_.empty())
   {
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {";
-    stm << " void GetMethodTable(MethodTable*, size_t*); }";
+    stm << " void GetMethodTable(MethodTable*, std::uint32_t*); }";
     stm << closingBracesForWrappingNamespaces() << '\n';
   }
 }
@@ -687,7 +687,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream& stm, const CppProgr
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     stm << ++indentation << "using MethodEntry = void(*)();\n";
     stm << indentation << "using MethodTable = const MethodEntry*;\n";
-    stm << indentation << "void GetMethodTable(MethodTable* pMethodTable, size_t* pLen)\n";
+    stm << indentation << "void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)\n";
     stm << indentation << "{\n";
     stm << ++indentation << "static const MethodEntry methodTable[] = {\n";
     stm << ++indentation << "(MethodEntry) nullptr"; // This slot in method table is reserved for maybe some future use.

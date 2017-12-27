@@ -33,7 +33,7 @@
 		private:
 			__zz_cib_::MethodTable mtbl;
 			__zz_cib_Helper() {
-				size_t mnum = 0;
+				std::uint32_t mnum = 0;
 				GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle, &mtbl, &mnum);
 				assert(mnum >= __zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_next_method_id);
 			}
