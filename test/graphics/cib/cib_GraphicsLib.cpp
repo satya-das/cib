@@ -14,7 +14,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { void GetMethodT
 namespace __zz_cib_ { namespace Graphics { namespace Shape { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
 
 namespace __zz_cib_ {
-	void GraphicsLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, size_t* pLen)
+	void GraphicsLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)
 	{
 		switch(classId) {
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle:

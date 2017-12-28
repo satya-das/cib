@@ -113,7 +113,7 @@ void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, 
 
   stm << '\n';
   stm << indentation << "namespace __zz_cib_ {\n";
-  stm << ++indentation << "void " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, size_t* pLen)\n";
+  stm << ++indentation << "void " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -153,14 +153,6 @@ int main(int argc, char* argv[])
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
     std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
     cibLibIncStm << cibcode;
-  }
-  {
-    // Emit cib.h for client.
-    std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "usr_cib.h").native(), std::ios_base::in) >> &tmpbuf;
-    auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibUsrIncStm((cibParams.outputPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
-    cibUsrIncStm << cibcode;
   }
 
   std::ofstream cibdefStm(cibParams.cibdefFilePath().native(), std::ios_base::out);
