@@ -1,8 +1,6 @@
 #include "rect.h"
 #include "context_log.h"
 
-#include "cib_GraphicsLib.h"
-
 #include <iostream>
 #include <Windows.h>
 #include <cstdint>

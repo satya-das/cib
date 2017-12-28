@@ -12,5 +12,5 @@ namespace __zz_cib_ {
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 
-  void $MODULE$Lib_GetMethodTable(std::uint32_t classId, MethodTable* pMethodTable, size_t* pLen);
+  void $MODULE$Lib_GetMethodTable(std::uint32_t classId, MethodTable* pMethodTable, std::uint32_t* pLen);
 }
