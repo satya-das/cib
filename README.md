@@ -133,8 +133,10 @@ When a function returns pointer to base class then it is necessary to create ins
 For each public class of a library CIB produces another class with same name and methods but all calls to those methods are delegated to library side methods. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
 ### Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
+### Shared Class
+A C++ class that crosses DLL boundary: if there exists a public function that returns a pointer/reference of a C++ class or takes reference/pointer as parameter then such class is called a shared class.
 ### Facade Class
-A C++ class that has public virtual method and there exist public function/method that returns a pointer/reference of this class.
+A C++ class that has public virtual method and there exists public function/method that returns a pointer/reference of this class.
 ### Interface Class
 A C++ class that has public virtual method and there exists a way for library to call that method on an object of client's derived class.
 A simplest example can be that when a C++ class that has public virtual method and a pointer/reference of this class is used as parameter to a function.
