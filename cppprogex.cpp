@@ -26,7 +26,7 @@ void CppProgramEx::buildCibCppObjTree()
   for (auto fileDom : program_->getFileDOMs())
     resolveInheritance(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
-    markInterfaceAndFacade(static_cast<CibCppCompound*>(fileDom));
+    markClassType(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
@@ -122,13 +122,13 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
   }
 }
 
-void CppProgramEx::markInterfaceAndFacade(CibCppCompound* cppCompound)
+void CppProgramEx::markClassType(CibCppCompound* cppCompound)
 {
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
     {
-      markInterfaceAndFacade(static_cast<CibCppCompound*>(mem));
+      markClassType(static_cast<CibCppCompound*>(mem));
     }
     else if(mem->objType_ == CppObj::kFunction)
     {
