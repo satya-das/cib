@@ -1,4 +1,5 @@
 #include "rect.h"
+#include "composite.h"
 #include "context_log.h"
 
 #include <iostream>
@@ -37,4 +38,6 @@ int main()
   Graphics::Rectangle rect(0, 0, 100, 100);
   Graphics::ContextLogger ctx;
   rect.Draw(&ctx);
+  auto composite = Graphics::Composite::CreateCompositeOfRectAndCircle();
+  composite->Draw(&ctx);
 }
