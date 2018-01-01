@@ -15,6 +15,8 @@ namespace Graphics
 		virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3) = 0;
 		virtual void Close() = 0;
 		virtual ~Context() = 0;
+	protected:
+		Context();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Context, ::Graphics::Context);

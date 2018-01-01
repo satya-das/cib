@@ -148,7 +148,7 @@ public:
   CibMethodId forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const;
 
 private:
-  void assignIds(const CibCppCompound* compound, const CibParams& cibParams);
+  void assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy);
 
 private:
   void loadClassIds(const CppEnum* classIdEnum);

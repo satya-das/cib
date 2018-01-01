@@ -95,32 +95,37 @@ void ensureDirectoriesExist(const CibParams& cibParams)
   bfs::create_directories(cibParams.cibInternalDir().native());
 }
 
-void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
 {
-  stm << "#include <cstdint>\n\n";
-
   CppIndent indentation;
   stm << "namespace __zz_cib_ {\n";
   stm << ++indentation << "using MethodEntry = void(*)();\n";
   stm << indentation << "using MethodTable = const MethodEntry*;\n";
   stm << --indentation << "}\n\n";
-
+  std::vector<const CibCppCompound*> compounds;
   for (auto cppDom : fileDOMs)
   {
-    CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
-    cibCppCompound->emitMethodTableGetterDecl(stm, cibParams, indentation);
+    auto cibCppCompound = static_cast<const CibCppCompound*>(cppDom);
+    cibCppCompound->collectPublicCompounds(compounds);
   }
-
+  for (auto compound : compounds)
+  {
+    stm << indentation << compound->wrappingNamespaceDeclarations(cibParams);
+    stm << " namespace " << compound->name() << " { ";
+    stm << "void GetMethodTable(MethodTable*, std::uint32_t*); ";
+    stm << compound->closingBracesForWrappingNamespaces() << "}\n";
+  }
   stm << '\n';
   stm << indentation << "namespace __zz_cib_ {\n";
   stm << ++indentation << "void " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
-  for (const auto& cibIdItem : cibIdMgr.getCibIdTable())
+  for (auto compound : compounds)
   {
-    stm << indentation << "case " << classIdOwnerSpace << cibIdItem.second.getIdName() << ":\n";
-    stm << ++indentation << "__zz_cib_" << cibIdItem.first << "::GetMethodTable(pMethodTable, pLen);\n";
+    auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
+    stm << indentation << "case " << classIdOwnerSpace << cibIdData->getIdName() << ":\n";
+    stm << ++indentation << "__zz_cib_" << compound->longName() << "::GetMethodTable(pMethodTable, pLen);\n";
     stm << indentation << "break;\n";
     --indentation;
   }
@@ -130,6 +135,17 @@ void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, 
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
+}
+
+static void emitGlobalHelpers(std::ostream& stm, const CppCompoundArray& fileDOMs, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+{
+  stm << "#include <typeinfo>\n";
+  stm << "#include <typeindex>\n";
+  stm << "#include <cstdint>\n";
+  stm << "#include <unordered_map>\n\n";
+
+  stm << "std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;\n";
+  emitMethodTableGetter(stm, fileDOMs, cibParams, cibIdMgr);
 }
 
 int main(int argc, char* argv[])
@@ -172,16 +188,17 @@ int main(int argc, char* argv[])
     cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);
     bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.native().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
+    cibCppCompound->emitImplSource(cppProgram, cibParams, cibIdMgr);
     bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().native();
     std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
     bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
     cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams, cibIdMgr);
-    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr, false);
   }
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
-  emitMethodTableGetter(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
+  emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 
   return 0;
 }

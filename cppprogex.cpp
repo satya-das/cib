@@ -28,6 +28,8 @@ void CppProgramEx::buildCibCppObjTree()
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
+    markNeedsUnknownProxyDefinition(static_cast<CibCppCompound*>(fileDom));
+  for (auto fileDom : program_->getFileDOMs())
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
 
@@ -95,12 +97,17 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
     {
       if (param.cppObj->objType_ != CppObj::kVar)
         continue;
-      if (param.varObj->ptrLevel_ == 1 || param.varObj->refType_ == kByRef)
+      auto effectivePtrLevel = param.varObj->ptrLevel_;
+      if (param.varObj->refType_ == kByRef)
+        ++effectivePtrLevel;
+      if (effectivePtrLevel)
       {
         auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType_, func.getOwner()));
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
+          if (effectivePtrLevel == 2 && paramObj->hasPubliclyDerived())
+            paramObj->setFacadeLike();
         }
       }
     }
@@ -114,7 +121,7 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
     if (func.retType()->ptrLevel_ == 1 || func.retType()->refType_ == kByRef)
     {
       auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType_, func.getOwner()));
-      if (returnObj && returnObj->hasVirtualMethod())
+      if (returnObj && returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
       {
         returnObj->setFacadeLike();
       }
@@ -134,6 +141,26 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     {
       evaluateArgs(mem);
       evaluateReturnType(mem);
+    }
+  }
+}
+
+void CppProgramEx::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+{
+  for (auto mem : cppCompound->members_)
+  {
+    if (mem->objType_ == CppObj::kCompound)
+    {
+      auto compound = static_cast<CibCppCompound*>(mem);
+      markNeedsUnknownProxyDefinition(compound);
+      if (compound->isInterfaceLike())
+      {
+        compound->setNeedsUnknownProxyDefinition();
+        for (auto child : compound->children_[kPublic])
+        {
+          child->setNeedsUnknownProxyDefinition();
+        }
+      }
     }
   }
 }

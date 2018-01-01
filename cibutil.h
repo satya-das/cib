@@ -21,6 +21,14 @@ inline bool isMemberPublic(CppObjProtLevel protLevel, CppCompoundType ownerType)
 {
   return protLevel == kPublic || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPublic);
 }
+inline bool isMemberProtected(CppObjProtLevel protLevel, CppCompoundType ownerType)
+{
+  return protLevel == kProtected || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kProtected);
+}
+inline bool isMemberPrivate(CppObjProtLevel protLevel, CppCompoundType ownerType)
+{
+  return protLevel == kPrivate || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPrivate);
+}
 
 struct TypeResolver
 {

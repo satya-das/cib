@@ -4,11 +4,12 @@
 	namespace __zz_cib_ { namespace Graphics {
 		namespace Circle { class __zz_cib_Helper {
 			friend class ::Graphics::Circle;
+			static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();
 
-			static __zz_cib_::HANDLE* __zz_cib_new_1(float Ox, float Oy, float radius) {
-				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) (float Ox, float Oy, float radius);
+			static __zz_cib_::HANDLE* __zz_cib_new_1(::Graphics::Circle* __zz_cib_proxy, float Ox, float Oy, float radius) {
+				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) (::Graphics::Circle*, __zz_cib_::MethodTable, float Ox, float Oy, float radius);
 				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_new_1];
-				return proc(Ox, Oy, radius);
+				return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), Ox, Oy, radius);
 			}
 			static float Area_2(__zz_cib_::HANDLE* __zz_cib_obj) {
 				using AreaProc = float (__stdcall *) (__zz_cib_::HANDLE*);
@@ -46,6 +47,9 @@
 			static __zz_cib_::HANDLE* __zz_cib_handle(::Graphics::Circle* __zz_cib_obj) {
 				return __zz_cib_obj->__zz_cib_h_;
 			}
+			static ::Graphics::Circle* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
+				return new ::Graphics::Circle(h);
+			}
 			static void __zz_cib_release_handle(::Graphics::Circle* __zz_cib_obj) {
 				__zz_cib_obj->__zz_cib_h_ = nullptr;
 			}
@@ -59,17 +63,17 @@ inline Graphics::Circle::Circle(__zz_cib_::HANDLE* h)
 {}
 
 inline Graphics::Circle::Circle(float Ox, float Oy, float radius)
-	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_1(Ox, Oy, radius))
+	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_1(this, Ox, Oy, radius))
 {}
 
-inline float Graphics::Circle::Area() const{
+inline float Graphics::Circle::Area() const {
 	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_2(__zz_cib_h_);
 }
 
-inline float Graphics::Circle::Perimeter() const{
+inline float Graphics::Circle::Perimeter() const {
 	return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_3(__zz_cib_h_);
 }
 
-inline void Graphics::Circle::Draw(Context* ctx) const{
+inline void Graphics::Circle::Draw(::Graphics::Context* ctx) const {
 	__zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_4(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }

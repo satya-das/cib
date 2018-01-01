@@ -15,8 +15,10 @@ namespace Graphics
 	public:
 		virtual float Area() const = 0;
 		virtual float Perimeter() const = 0;
-		virtual void Draw(Context* ctx) const = 0;
+		virtual void Draw(::Graphics::Context* ctx) const = 0;
 		virtual ~Shape();
+	protected:
+		Shape();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Shape, ::Graphics::Shape);

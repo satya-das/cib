@@ -55,6 +55,7 @@ private:
   void resolveInheritance(CibCppCompound* cppCompound);
   void buildCibCppObjTree();
   void markClassType(CibCppCompound* cppCompound);
+  void markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound);
   /**
    * Evaluates argument function to detect attribute of classes used in args.
    */

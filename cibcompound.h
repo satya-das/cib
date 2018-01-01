@@ -5,8 +5,10 @@
 #include "cppdom.h"
 #include "cppindent.h"
 #include "cibfunction_helper.h"
+#include "cibutil.h"
 
 #include <map>
+#include <set>
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////////
@@ -39,6 +41,9 @@ private:
   bool inline_{ false };                           // true when all non-static methods are inline.
   bool interfaceLike_{ false };
   bool facadeLike_{ false };
+  bool hasCtor_{ false }; // true if there is a ctor, copy-ctor is not counted here.
+  bool hasCopyCtor_{ false };
+  bool needsUnknownProxyDefinition_{ false };
 
   mutable CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
   mutable TypeNameToCppObj typeNameToCibCppObj_;
@@ -52,6 +57,13 @@ public:
   std::string longName() const
   {
     return "::" + fullName();
+  }
+  bool hasPubliclyDerived() const
+  {
+    auto itr = children_.find(kPublic);
+    if (itr == children_.end())
+      return false;
+    return !itr->second.empty();
   }
   /// @return Unique name of this class
   std::string   uniqName() const
@@ -129,14 +141,21 @@ public:
   {
     inline_ = true;
   }
+  bool needsUnknownProxyDefinition() const {
+    return needsUnknownProxyDefinition_;
+  }
+  void setNeedsUnknownProxyDefinition() {
+    needsUnknownProxyDefinition_ = true;
+  }
   void emitUserHeader(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
   void emitImpl1Header(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
   void emitImpl2Header(const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
-  void emitImplSource(const CppProgramEx& cppProgram, const CibParams& cibParams) const;
+  void emitImplSource(const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent());
   void emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent());
-  void emitMethodTableGetterDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent());
-  void emitMethodTableGetterDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent());
-  void emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void collectPublicCompounds(std::vector<const CibCppCompound*>& compounds) const;
+  void emitMethodTableGetterDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, bool forProxy, CppIndent indentation = CppIndent()) const;
+
   // Internal: Ideally should have been private with class CppProgramEx as friend.
   void setInterfaceLike()
   {
@@ -149,13 +168,24 @@ public:
 
   public:
     void forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+    void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+    void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
 
+    static const CibCppCompound* getFileDomObj(const CppObj* obj);
   private:
     static void emitDecl(const CppObj*, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent() );
     void emitHelperDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
     void emitHelperDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
     void emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
     void emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
+    void emitImplSource(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
+    void emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+    void emitFromHandleDefn(std::ostream& stm, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
+    void emitFacadeDependecyHeaders(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, bool forProxy, CppIndent indentation /* = CppIndent */) const;
+    void collectTypeDependencies(const CppProgramEx& cppProgram, std::set<const CppObj*>& cppObjs) const;
+    void collectFacades(std::set<const CibCppCompound*>& facades) const;
+    static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs, const std::string& dependentPath);
+    std::set<std::string> collectHeaderDependencies(const CppProgramEx& cppProgram) const;
     std::string getImplPath(const CibParams& cibParams) const;
     std::string implIncludeName(const CibParams& cibParams) const;
 };
@@ -167,4 +197,22 @@ inline void CibCppCompound::forEachParent(CppObjProtLevel prot, std::function<vo
     return;
   for (auto parent : parentsItr->second)
     callable(parent);
+}
+
+inline void CibCppCompound::forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const
+{
+  auto childItr = children_.find(prot);
+  if (childItr == children_.end())
+    return;
+  for (auto child : childItr->second)
+    callable(child);
+}
+
+inline void CibCppCompound::forEachNested(std::function<void(const CibCppCompound*)> callable) const
+{
+  for (auto mem : members_)
+  {
+    if (mem->isNamespaceLike() && isMemberPublic(mem->prot_, compoundType_))
+      callable(static_cast<const CibCppCompound*>(mem));
+  }
 }

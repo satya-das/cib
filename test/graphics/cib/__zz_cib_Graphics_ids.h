@@ -7,17 +7,29 @@ namespace __zz_cib_ { namespace GraphicsLib {
 		enum {
 			//#= ::Graphics::Circle
 			__Graphics__Circle = 1,
+			//#= ::Graphics::Circle::__zz_cib_UnknownProxy
+			__Graphics__Circle____zz_cib_UnknownProxy = 2,
 			//#= ::Graphics::Composite
-			__Graphics__Composite = 2,
+			__Graphics__Composite = 3,
+			//#= ::Graphics::Composite::__zz_cib_UnknownProxy
+			__Graphics__Composite____zz_cib_UnknownProxy = 4,
 			//#= ::Graphics::Context
-			__Graphics__Context = 3,
+			__Graphics__Context = 5,
+			//#= ::Graphics::Context::__zz_cib_UnknownProxy
+			__Graphics__Context____zz_cib_UnknownProxy = 6,
 			//#= ::Graphics::ContextLogger
-			__Graphics__ContextLogger = 4,
+			__Graphics__ContextLogger = 7,
+			//#= ::Graphics::ContextLogger::__zz_cib_UnknownProxy
+			__Graphics__ContextLogger____zz_cib_UnknownProxy = 8,
 			//#= ::Graphics::Rectangle
-			__Graphics__Rectangle = 5,
+			__Graphics__Rectangle = 9,
+			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
+			__Graphics__Rectangle____zz_cib_UnknownProxy = 10,
 			//#= ::Graphics::Shape
-			__Graphics__Shape = 6,
-			__zz_cib_next_class_id = 7
+			__Graphics__Shape = 11,
+			//#= ::Graphics::Shape::__zz_cib_UnknownProxy
+			__Graphics__Shape____zz_cib_UnknownProxy = 12,
+			__zz_cib_next_class_id = 13
 		};
 	}
 }}
@@ -40,6 +52,21 @@ namespace __zz_cib_ {
 			};
 		}
 	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Circle { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual float Area() const;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const;
+				Draw_3 = 3,
+				__zz_cib_next_method_id = 4
+			};
+		}
+	}}}
 }
 namespace __zz_cib_ {
 	namespace Graphics { namespace Composite {
@@ -69,15 +96,53 @@ namespace __zz_cib_ {
 	}}
 }
 namespace __zz_cib_ {
+	namespace Graphics { namespace Composite { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual float Area() const;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const;
+				Draw_3 = 3,
+				__zz_cib_next_method_id = 4
+			};
+		}
+	}}}
+}
+namespace __zz_cib_ {
 	namespace Graphics { namespace Context {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= ~Context()
 				__zz_cib_delete_1 = 1,
-				__zz_cib_next_method_id = 2
+				//#= Context();
+				__zz_cib_new_2 = 2,
+				//#= __zz_cib_get_class_id
+				__zz_cib_get_class_id_3 = 3,
+				__zz_cib_next_method_id = 4
 			};
 		}
 	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Context { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual void Move(float, float) = 0;
+				Move_1 = 1,
+				//#= virtual void Line(float, float) = 0;
+				Line_2 = 2,
+				//#= virtual void Curve(float, float, float, float, float, float) = 0;
+				Curve_3 = 3,
+				//#= virtual void Close() = 0;
+				Close_4 = 4,
+				//#= ~Context()
+				__zz_cib_delete_5 = 5,
+				__zz_cib_next_method_id = 6
+			};
+		}
+	}}}
 }
 namespace __zz_cib_ {
 	namespace Graphics { namespace ContextLogger {
@@ -103,6 +168,23 @@ namespace __zz_cib_ {
 	}}
 }
 namespace __zz_cib_ {
+	namespace Graphics { namespace ContextLogger { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual void Move(float, float);
+				Move_1 = 1,
+				//#= virtual void Line(float, float);
+				Line_2 = 2,
+				//#= virtual void Curve(float, float, float, float, float, float);
+				Curve_3 = 3,
+				//#= virtual void Close();
+				Close_4 = 4,
+				__zz_cib_next_method_id = 5
+			};
+		}
+	}}}
+}
+namespace __zz_cib_ {
 	namespace Graphics { namespace Rectangle {
 		namespace __zz_cib_methodid {
 			enum {
@@ -122,13 +204,49 @@ namespace __zz_cib_ {
 	}}
 }
 namespace __zz_cib_ {
+	namespace Graphics { namespace Rectangle { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual float Area() const;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const;
+				Draw_3 = 3,
+				__zz_cib_next_method_id = 4
+			};
+		}
+	}}}
+}
+namespace __zz_cib_ {
 	namespace Graphics { namespace Shape {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= ~Shape()
 				__zz_cib_delete_1 = 1,
-				__zz_cib_next_method_id = 2
+				//#= Shape();
+				__zz_cib_new_2 = 2,
+				//#= __zz_cib_get_class_id
+				__zz_cib_get_class_id_3 = 3,
+				__zz_cib_next_method_id = 4
 			};
 		}
 	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Shape { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual float Area() const = 0;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const = 0;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const = 0;
+				Draw_3 = 3,
+				//#= ~Shape()
+				__zz_cib_delete_4 = 4,
+				__zz_cib_next_method_id = 5
+			};
+		}
+	}}}
 }
