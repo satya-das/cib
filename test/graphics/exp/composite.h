@@ -18,13 +18,14 @@ typedef std::vector<Graphics::Shape*> Shapes;
 	{
 	public:
 		Composite();
-		void Add(Shape* shape);
+		void Add(::Graphics::Shape* shape);
 		size_t NumShapes() const;
 		Shape* ShapeAt(size_t idxShape) const;
 		virtual float Area() const;
 		virtual float Perimeter() const;
-		virtual void Draw(Context* ctx) const;
+		virtual void Draw(::Graphics::Context* ctx) const;
 		static Composite* CreateCompositeOfRectAndCircle();
+		~Composite();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Composite, ::Graphics::Composite);

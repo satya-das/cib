@@ -18,7 +18,8 @@ namespace Graphics
 		Rectangle(float left, float top, float right, float bottom);
 		virtual float Area() const;
 		virtual float Perimeter() const;
-		virtual void Draw(Context* ctx) const;
+		virtual void Draw(::Graphics::Context* ctx) const;
+		~Rectangle();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Rectangle, ::Graphics::Rectangle);

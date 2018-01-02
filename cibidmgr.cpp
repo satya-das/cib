@@ -134,17 +134,18 @@ void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams
   const CppCompoundArray& fileDOMs = expProg.getProgram().getFileDOMs();
   for (auto fileCmpound : fileDOMs)
   {
-    assignIds(static_cast<const CibCppCompound*>(fileCmpound), cibParams);
+    assignIds(static_cast<const CibCppCompound*>(fileCmpound), cibParams, false);
+    assignIds(static_cast<const CibCppCompound*>(fileCmpound), cibParams, true);
   }
 }
 
-void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy)
 {
   for (auto mem : compound->members_)
   {
     if (isMemberPublic(mem->prot_, compound->compoundType_) && mem->isNamespaceLike())
     {
-      assignIds(static_cast<const CibCppCompound*>(mem), cibParams);
+      assignIds(static_cast<const CibCppCompound*>(mem), cibParams, forUnknownProxy);
     }
   }
 
@@ -152,22 +153,43 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     return;
   }
-  auto itr = cibIdTable_.find(compound->longName());
-  auto* cibIdData = itr == cibIdTable_.end() ? addClass(compound->longName()) : &itr->second;
+  if (forUnknownProxy && !compound->needsUnknownProxyDefinition())
+  {
+    return;
+  }
+  const auto& className = forUnknownProxy ? compound->longName() + "::__zz_cib_UnknownProxy" : compound->longName();
+  auto itr = cibIdTable_.find(className);
+  auto* cibIdData = itr == cibIdTable_.end() ? addClass(className) : &itr->second;
   for (auto& func : compound->getNeedsBridgingMethods())
   {
+    if (forUnknownProxy && !func.isVirtual())
+      continue;
+    if (!forUnknownProxy && func.isPureVirtual())
+      continue;
     auto&& sig = func.signature();
     if (!cibIdData->hasMethod(func.signature()))
     {
       cibIdData->addMethod(sig, func.procName(cibParams));
     }
   }
-
-  compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](auto parent) {
-    auto castMethodName = compound->castToBaseName(parent, cibParams);
-    if (!cibIdData->hasMethod(castMethodName))
-      cibIdData->addMethod(castMethodName, castMethodName);
-  });
+  if (!forUnknownProxy)
+  {
+    compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](auto parent) {
+      auto castMethodName = compound->castToBaseName(parent, cibParams);
+      if (!cibIdData->hasMethod(castMethodName))
+        cibIdData->addMethod(castMethodName, castMethodName);
+    });
+    if (compound->isFacadeLike() || compound->isInterfaceLike())
+    {
+      if (!cibIdData->hasMethod("__zz_cib_get_class_id"))
+        cibIdData->addMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");
+    }
+    if (compound->needsUnknownProxyDefinition())
+    {
+      if (!cibIdData->hasMethod("__zz_cib_release_proxy"))
+        cibIdData->addMethod("__zz_cib_release_proxy", "__zz_cib_release_proxy");
+    }
+  }
 }
 
 CibIdData* CibIdMgr::addClass(std::string className, CibClassId classId)

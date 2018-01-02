@@ -9,6 +9,7 @@
 #include <cstdint>
 
 namespace __zz_cib_ {
+  class PROXY;
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 
