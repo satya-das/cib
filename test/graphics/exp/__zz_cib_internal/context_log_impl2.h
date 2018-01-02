@@ -12,9 +12,11 @@
 				return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
 			}
 			static void __zz_cib_delete_2(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
-				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_delete_2];
-				return proc(__zz_cib_obj);
+				if (__zz_cib_obj) {
+					using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_delete_2];
+					return proc(__zz_cib_obj);
+				}
 			}
 			static void Move_3(__zz_cib_::HANDLE* __zz_cib_obj, float x, float y) {
 				using MoveProc = void (__stdcall *) (__zz_cib_::HANDLE*, float x, float y);
@@ -60,8 +62,18 @@
 			static ::Graphics::ContextLogger* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 				return new ::Graphics::ContextLogger(h);
 			}
-			static void __zz_cib_release_handle(::Graphics::ContextLogger* __zz_cib_obj) {
+			static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::ContextLogger* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
 				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+				return h;
+			}
+			static void __zz_cib_release_proxy(::Graphics::ContextLogger* __zz_cib_obj) {
+				if (__zz_cib_obj->__zz_cib_h_) {
+					using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_methodid::__zz_cib_release_proxy_8];
+					proc(__zz_cib_obj->__zz_cib_h_);
+				}
 			}
 		};
 	}}
@@ -77,8 +89,9 @@ inline Graphics::ContextLogger::ContextLogger()
 {}
 
 inline Graphics::ContextLogger::~ContextLogger() {
-	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_delete_2(__zz_cib_h_);
-	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(this);
+	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_release_proxy(this);
+	auto h = __zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_release_handle(this);
+	__zz_cib_::Graphics::ContextLogger::__zz_cib_Helper::__zz_cib_delete_2(h);
 }
 
 inline void Graphics::ContextLogger::Move(float x, float y) {

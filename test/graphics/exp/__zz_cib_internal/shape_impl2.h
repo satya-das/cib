@@ -7,9 +7,11 @@
 			static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();
 
 			static void __zz_cib_delete_1(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
-				auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_1];
-				return proc(__zz_cib_obj);
+				if (__zz_cib_obj) {
+					using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_1];
+					return proc(__zz_cib_obj);
+				}
 			}
 			static __zz_cib_::HANDLE* __zz_cib_new_2(::Graphics::Shape* __zz_cib_proxy) {
 				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) (::Graphics::Shape*, __zz_cib_::MethodTable);
@@ -38,8 +40,17 @@
 				return __zz_cib_obj->__zz_cib_h_;
 			}
 			static ::Graphics::Shape* __zz_cib_from_handle(__zz_cib_::HANDLE* h);
-			static void __zz_cib_release_handle(::Graphics::Shape* __zz_cib_obj) {
+			static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Shape* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
 				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				return h;
+			}
+			static void __zz_cib_release_proxy(::Graphics::Shape* __zz_cib_obj) {
+				if (__zz_cib_obj->__zz_cib_h_) {
+					using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_release_proxy_4];
+					proc(__zz_cib_obj->__zz_cib_h_);
+				}
 			}
 		};
 	}}
@@ -50,7 +61,9 @@ inline Graphics::Shape::Shape(__zz_cib_::HANDLE* h)
 {}
 
 inline Graphics::Shape::~Shape() {
-	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_1(__zz_cib_h_);
+	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_proxy(this);
+	auto h = __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(this);
+	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
 inline Graphics::Shape::Shape()

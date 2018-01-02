@@ -37,15 +37,18 @@ namespace __zz_cib_ {
 					return proc(__zz_cib_proxy, ctx);
 				}
 				~Shape() override {
-					using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::PROXY*);
-					auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
-					proc(__zz_cib_proxy);
+if (__zz_cib_proxy) {
+						using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::PROXY*);
+						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
+						proc(__zz_cib_proxy);
+					}
 				}
 				Shape(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl)
 					: ::Graphics::Shape::Shape()
 					, __zz_cib_proxy(proxy)
 					, __zz_cib_mtbl(mtbl)
 				{}
+				void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 			};
 		}}
 		namespace Shape {
@@ -63,7 +66,11 @@ namespace __zz_cib_ {
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle;
 					classIdRepoPopulated = true;
 				}
-				return __zz_cib_gClassIdRepo[std::type_index(typeid(__zz_cib_obj))];
+				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+			}
+			void __stdcall __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
+				auto unknownProxy = static_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
+				unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}
@@ -77,9 +84,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 			(MethodEntry) nullptr,
 			(MethodEntry) &__zz_cib_delete_1,
 			(MethodEntry) &__zz_cib_new_2,
-			(MethodEntry) &__zz_cib_get_class_id_3
+			(MethodEntry) &__zz_cib_get_class_id_3,
+			(MethodEntry) &__zz_cib_release_proxy_4
 		};
 		*pMethodTable = methodTable;
-		*pLen = 4;
+		*pLen = 5;
 	}
 }}}

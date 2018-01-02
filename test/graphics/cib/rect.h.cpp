@@ -31,6 +31,7 @@ namespace __zz_cib_ {
 					auto proc = (DrawProc) __zz_cib_mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3];
 					return proc(__zz_cib_proxy, ctx);
 				}
+				void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 			};
 		}}
 		namespace Rectangle {
@@ -46,8 +47,15 @@ namespace __zz_cib_ {
 			void __stdcall Draw_4(::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {
 				__zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 			}
+			void __stdcall __zz_cib_delete_7(::Graphics::Rectangle* __zz_cib_obj) {
+				delete __zz_cib_obj;
+			}
 			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape_5(::Graphics::Rectangle* __zz_cib_obj) {
 				return __zz_cib_obj;
+			}
+			void __stdcall __zz_cib_release_proxy_6(::Graphics::Rectangle* __zz_cib_obj) {
+				auto unknownProxy = static_cast<__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle*>(__zz_cib_obj);
+				unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}
@@ -63,9 +71,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 			(MethodEntry) &Area_2,
 			(MethodEntry) &Perimeter_3,
 			(MethodEntry) &Draw_4,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_5
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_5,
+			(MethodEntry) &__zz_cib_release_proxy_6,
+			(MethodEntry) &__zz_cib_delete_7
 		};
 		*pMethodTable = methodTable;
-		*pLen = 6;
+		*pLen = 8;
 	}
 }}}

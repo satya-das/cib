@@ -20,6 +20,7 @@ class Context;
 		virtual float Area() const;
 		virtual float Perimeter() const;
 		virtual void Draw(::Graphics::Context* ctx) const;
+		~Circle();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Circle, ::Graphics::Circle);

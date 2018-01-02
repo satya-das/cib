@@ -48,7 +48,11 @@ namespace __zz_cib_ {
 				Draw_4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape_5 = 5,
-				__zz_cib_next_method_id = 6
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_6 = 6,
+				//#= ~Circle()
+				__zz_cib_delete_7 = 7,
+				__zz_cib_next_method_id = 8
 			};
 		}
 	}}
@@ -90,7 +94,11 @@ namespace __zz_cib_ {
 				CreateCompositeOfRectAndCircle_8 = 8,
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape_9 = 9,
-				__zz_cib_next_method_id = 10
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_10 = 10,
+				//#= ~Composite()
+				__zz_cib_delete_11 = 11,
+				__zz_cib_next_method_id = 12
 			};
 		}
 	}}
@@ -120,7 +128,9 @@ namespace __zz_cib_ {
 				__zz_cib_new_2 = 2,
 				//#= __zz_cib_get_class_id
 				__zz_cib_get_class_id_3 = 3,
-				__zz_cib_next_method_id = 4
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_4 = 4,
+				__zz_cib_next_method_id = 5
 			};
 		}
 	}}
@@ -162,7 +172,9 @@ namespace __zz_cib_ {
 				Close_6 = 6,
 				//#= __zz_cib_cast_to___Graphics__Context
 				__zz_cib_cast_to___Graphics__Context_7 = 7,
-				__zz_cib_next_method_id = 8
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}}
@@ -198,7 +210,11 @@ namespace __zz_cib_ {
 				Draw_4 = 4,
 				//#= __zz_cib_cast_to___Graphics__Shape
 				__zz_cib_cast_to___Graphics__Shape_5 = 5,
-				__zz_cib_next_method_id = 6
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_6 = 6,
+				//#= ~Rectangle()
+				__zz_cib_delete_7 = 7,
+				__zz_cib_next_method_id = 8
 			};
 		}
 	}}
@@ -228,7 +244,9 @@ namespace __zz_cib_ {
 				__zz_cib_new_2 = 2,
 				//#= __zz_cib_get_class_id
 				__zz_cib_get_class_id_3 = 3,
-				__zz_cib_next_method_id = 4
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_4 = 4,
+				__zz_cib_next_method_id = 5
 			};
 		}
 	}}

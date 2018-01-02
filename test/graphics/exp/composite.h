@@ -25,6 +25,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		virtual float Perimeter() const;
 		virtual void Draw(::Graphics::Context* ctx) const;
 		static Composite* CreateCompositeOfRectAndCircle();
+		~Composite();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Composite, ::Graphics::Composite);

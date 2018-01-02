@@ -36,6 +36,7 @@ namespace __zz_cib_ {
 					auto proc = (CloseProc) __zz_cib_mtbl[__zz_cib_::Graphics::ContextLogger::__zz_cib_UnknownProxy::__zz_cib_methodid::Close_4];
 					return proc(__zz_cib_proxy);
 				}
+				void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 			};
 		}}
 		namespace ContextLogger {
@@ -60,6 +61,10 @@ namespace __zz_cib_ {
 			::Graphics::Context* __stdcall __zz_cib_cast_to___Graphics__Context_7(::Graphics::ContextLogger* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
+			void __stdcall __zz_cib_release_proxy_8(::Graphics::ContextLogger* __zz_cib_obj) {
+				auto unknownProxy = static_cast<__zz_cib_::Graphics::ContextLogger::__zz_cib_UnknownProxy::ContextLogger*>(__zz_cib_obj);
+				unknownProxy->__zz_cib_release_proxy();
+			}
 		}
 	}
 }
@@ -76,9 +81,10 @@ namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 			(MethodEntry) &Line_4,
 			(MethodEntry) &Curve_5,
 			(MethodEntry) &Close_6,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_7
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_7,
+			(MethodEntry) &__zz_cib_release_proxy_8
 		};
 		*pMethodTable = methodTable;
-		*pLen = 8;
+		*pLen = 9;
 	}
 }}}

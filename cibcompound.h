@@ -43,6 +43,7 @@ private:
   bool facadeLike_{ false };
   bool hasCtor_{ false }; // true if there is a ctor, copy-ctor is not counted here.
   bool hasCopyCtor_{ false };
+  bool hasDtor_{ false };
   bool needsUnknownProxyDefinition_{ false };
 
   mutable CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.

@@ -46,6 +46,13 @@
 				auto proc = (CreateCompositeOfRectAndCircleProc) instance().mtbl[__zz_cib_::Graphics::Composite::__zz_cib_methodid::CreateCompositeOfRectAndCircle_8];
 				return proc();
 			}
+			static void __zz_cib_delete_11(__zz_cib_::HANDLE* __zz_cib_obj) {
+				if (__zz_cib_obj) {
+					using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_delete_11];
+					return proc(__zz_cib_obj);
+				}
+			}
 			static __zz_cib_::HANDLE* __zz_cib_cast_to___Graphics__Shape_9(__zz_cib_::HANDLE* __zz_cib_obj) {
 				using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);
 				auto proc = (__zz_cib_cast_to___Graphics__ShapeProc) instance().mtbl[__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_9];
@@ -70,8 +77,18 @@
 			static ::Graphics::Composite* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 				return new ::Graphics::Composite(h);
 			}
-			static void __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
+			static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
 				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+				return h;
+			}
+			static void __zz_cib_release_proxy(::Graphics::Composite* __zz_cib_obj) {
+				if (__zz_cib_obj->__zz_cib_h_) {
+					using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_release_proxy_10];
+					proc(__zz_cib_obj->__zz_cib_h_);
+				}
 			}
 		};
 	}}
@@ -116,4 +133,10 @@ inline ::Graphics::Composite* Graphics::Composite::CreateCompositeOfRectAndCircl
 	return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(
 		__zz_cib_::Graphics::Composite::__zz_cib_Helper::CreateCompositeOfRectAndCircle_8()
 	);
+}
+
+inline Graphics::Composite::~Composite() {
+	__zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_release_proxy(this);
+	auto h = __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_release_handle(this);
+	__zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_delete_11(h);
 }
