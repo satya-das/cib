@@ -4,6 +4,7 @@
 #include "context.h"
 
 #include <vector>
+#include <cstdint>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -23,11 +24,11 @@ public:
   {
     shapes_.push_back(shape);
   }
-  size_t NumShapes() const
+  std::uint32_t NumShapes() const
   {
     return shapes_.size();
   }
-  Shape* ShapeAt(size_t idxShape) const
+  Shape* ShapeAt(std::uint32_t idxShape) const
   {
     return shapes_[idxShape];
   }
