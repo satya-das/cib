@@ -5,35 +5,48 @@
 namespace __zz_cib_ { namespace GraphicsLib {
 	namespace __zz_cib_classid {
 		enum {
+			//#= ::Graphics
+			__Graphics = 1,
 			//#= ::Graphics::Circle
-			__Graphics__Circle = 1,
+			__Graphics__Circle = 2,
 			//#= ::Graphics::Circle::__zz_cib_UnknownProxy
-			__Graphics__Circle____zz_cib_UnknownProxy = 2,
+			__Graphics__Circle____zz_cib_UnknownProxy = 3,
 			//#= ::Graphics::Composite
-			__Graphics__Composite = 3,
+			__Graphics__Composite = 4,
 			//#= ::Graphics::Composite::__zz_cib_UnknownProxy
-			__Graphics__Composite____zz_cib_UnknownProxy = 4,
+			__Graphics__Composite____zz_cib_UnknownProxy = 5,
 			//#= ::Graphics::Context
-			__Graphics__Context = 5,
+			__Graphics__Context = 6,
 			//#= ::Graphics::Context::__zz_cib_UnknownProxy
-			__Graphics__Context____zz_cib_UnknownProxy = 6,
+			__Graphics__Context____zz_cib_UnknownProxy = 7,
 			//#= ::Graphics::ContextLogger
-			__Graphics__ContextLogger = 7,
+			__Graphics__ContextLogger = 8,
 			//#= ::Graphics::ContextLogger::__zz_cib_UnknownProxy
-			__Graphics__ContextLogger____zz_cib_UnknownProxy = 8,
+			__Graphics__ContextLogger____zz_cib_UnknownProxy = 9,
 			//#= ::Graphics::Rectangle
-			__Graphics__Rectangle = 9,
+			__Graphics__Rectangle = 10,
 			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
-			__Graphics__Rectangle____zz_cib_UnknownProxy = 10,
+			__Graphics__Rectangle____zz_cib_UnknownProxy = 11,
 			//#= ::Graphics::Shape
-			__Graphics__Shape = 11,
+			__Graphics__Shape = 12,
 			//#= ::Graphics::Shape::__zz_cib_UnknownProxy
-			__Graphics__Shape____zz_cib_UnknownProxy = 12,
-			__zz_cib_next_class_id = 13
+			__Graphics__Shape____zz_cib_UnknownProxy = 13,
+			__zz_cib_next_class_id = 14
 		};
 	}
 }}
 
+namespace __zz_cib_ {
+	namespace Graphics {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= Graphics();
+				__zz_cib_new_1 = 1,
+				__zz_cib_next_method_id = 2
+			};
+		}
+	}
+}
 namespace __zz_cib_ {
 	namespace Graphics { namespace Circle {
 		namespace __zz_cib_methodid {

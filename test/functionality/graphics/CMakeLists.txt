@@ -2,7 +2,7 @@ project(graphics)
 
 cmake_minimum_required(VERSION 3.4)
 
-include("../../../common/cmake/conf.cmake")
+include("../../../../common/cmake/conf.cmake")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
