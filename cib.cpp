@@ -652,7 +652,8 @@ void CibCppCompound::identifyMethodsToBridge()
       compound->identifyMethodsToBridge();
     }
   }
-
+  if (!isClassLike())
+    return;
   if (!hasDtor_ && needsUnknownProxyDefinition())
   {
     auto defaultDtor = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
@@ -661,9 +662,10 @@ void CibCppCompound::identifyMethodsToBridge()
     CibFunctionHelper func(defaultDtor);
     needsBridging_.push_back(func);
   }
-  if (!hasCtor_ && needsUnknownProxyDefinition())
+  if (!hasCtor_)
   {
-    auto defaultCtor = CibFunctionHelper::CreateConstructor(kProtected, name(), nullptr, nullptr, 0);
+    auto ctorProtection = isAbstract() ? kProtected : kPublic;
+    auto defaultCtor = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
     defaultCtor->owner_ = this;
     addMember(defaultCtor);
     CibFunctionHelper func(defaultCtor);
@@ -811,16 +813,19 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     });
     stm << indentation << "return h;\n";
     stm << --indentation << "}\n";
-    stm << indentation << "static void __zz_cib_release_proxy(" << longName() << "* __zz_cib_obj) {\n";
-    ++indentation;
-    stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
-    ++indentation;
-    stm << indentation << "using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);\n";
-    stm << indentation << "auto proc = (__zz_cib_release_proxyProc) instance().mtbl[";
-    stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "];\n";
-    stm << indentation << "proc(__zz_cib_obj->__zz_cib_h_);\n";
-    stm << --indentation << "}\n";
-    stm << --indentation << "}\n";
+    if (needsUnknownProxyDefinition())
+    {
+      stm << indentation << "static void __zz_cib_release_proxy(" << longName() << "* __zz_cib_obj) {\n";
+      ++indentation;
+      stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
+      ++indentation;
+      stm << indentation << "using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);\n";
+      stm << indentation << "auto proc = (__zz_cib_release_proxyProc) instance().mtbl[";
+      stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "];\n";
+      stm << indentation << "proc(__zz_cib_obj->__zz_cib_h_);\n";
+      stm << --indentation << "}\n";
+      stm << --indentation << "}\n";
+    }
     stm << --indentation << "};\n";
 
     if (!wrappingNamespaceDeclarations(cibParams).empty())
