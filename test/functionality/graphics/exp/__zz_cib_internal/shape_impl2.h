@@ -21,9 +21,7 @@
 		private:
 			__zz_cib_::MethodTable mtbl;
 			__zz_cib_Helper() {
-				std::uint32_t mnum = 0;
-				GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape, &mtbl, &mnum);
-				assert(mnum >= __zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_next_method_id);
+				mtbl = GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape);
 			}
 			static const __zz_cib_Helper& instance() {
 				static __zz_cib_Helper helper;

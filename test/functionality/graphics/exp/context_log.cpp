@@ -18,26 +18,23 @@ namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	static void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	static MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &Move_1,
 			(MethodEntry) &Line_2,
 			(MethodEntry) &Curve_3,
 			(MethodEntry) &Close_4
 		};
-		*pMethodTable = methodTable;
-		*pLen = 5;
+		return methodTable;
 	}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 	__zz_cib_::MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
-		MethodTable mtbl;
-		std::uint32_t len;
-		GetMethodTable(&mtbl, &len);
-		return mtbl;
+		return GetMethodTable();
 	}
 }}}
 

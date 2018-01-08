@@ -28,9 +28,7 @@
 		private:
 			__zz_cib_::MethodTable mtbl;
 			__zz_cib_Helper() {
-				std::uint32_t mnum = 0;
-				PerfTestLib_GetMethodTable(__zz_cib_::PerfTestLib::__zz_cib_classid::__FuncCallClass, &mtbl, &mnum);
-				assert(mnum >= __zz_cib_::FuncCallClass::__zz_cib_methodid::__zz_cib_next_method_id);
+				mtbl = PerfTestLib_GetMethodTable(__zz_cib_::PerfTestLib::__zz_cib_classid::__FuncCallClass);
 			}
 			static const __zz_cib_Helper& instance() {
 				static __zz_cib_Helper helper;

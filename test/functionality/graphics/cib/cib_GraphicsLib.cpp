@@ -10,38 +10,31 @@ namespace __zz_cib_ {
 	using MethodTable = const MethodEntry*;
 }
 
-namespace __zz_cib_ { namespace Graphics { namespace Circle { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Composite { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Context { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Rectangle { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Shape { void GetMethodTable(MethodTable*, std::uint32_t*); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Circle { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Composite { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Context { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Shape { MethodTable GetMethodTable(); }}}
 
 namespace __zz_cib_ {
-	void GraphicsLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GraphicsLib_GetMethodTable(std::uint32_t classId)
 	{
 		switch(classId) {
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle:
-			__zz_cib_::Graphics::Circle::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::Circle::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
-			__zz_cib_::Graphics::Composite::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::Composite::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context:
-			__zz_cib_::Graphics::Context::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::Context::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger:
-			__zz_cib_::Graphics::ContextLogger::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::ContextLogger::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
-			__zz_cib_::Graphics::Rectangle::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::Rectangle::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:
-			__zz_cib_::Graphics::Shape::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::Graphics::Shape::GetMethodTable();
 		default:
-			*pMethodTable = nullptr;
-			*pLen = 0;
+			return nullptr;
 		}
 	}
 }

@@ -24,6 +24,13 @@ typedef boost::filesystem::path::value_type chartype;
 
 namespace bfs = boost::filesystem;
 
+static bfs::path getResDir(const char* progPath)
+{
+  auto progDir = bfs::path(progPath).parent_path();
+  bfs::path resDir = progDir / "cibres";
+  return resDir;
+}
+
 auto parseCmdLine(int argc, char* argv[])
 {
   namespace po = boost::program_options;
@@ -69,7 +76,7 @@ auto parseCmdLine(int argc, char* argv[])
     exit(-1);
   }
 
-  bfs::path resDir = bfs::system_complete(argv[0]).parent_path() / "cibres";
+  bfs::path resDir = getResDir(argv[0]);
   make_preferred_dir_format(inputPath);
   make_preferred_dir_format(outputPath);
   make_preferred_dir_format(binderPath);
@@ -90,9 +97,9 @@ std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibP
 
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
-  bfs::create_directories(cibParams.binderPath.native());
-  bfs::create_directories(cibParams.outputPath.native());
-  bfs::create_directories(cibParams.cibInternalDir().native());
+  bfs::create_directories(cibParams.binderPath.string());
+  bfs::create_directories(cibParams.outputPath.string());
+  bfs::create_directories(cibParams.cibInternalDir().string());
 }
 
 static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
@@ -112,12 +119,12 @@ static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fil
   {
     stm << indentation << compound->wrappingNamespaceDeclarations(cibParams);
     stm << " namespace " << compound->name() << " { ";
-    stm << "void GetMethodTable(MethodTable*, std::uint32_t*); ";
+    stm << "MethodTable GetMethodTable(); ";
     stm << compound->closingBracesForWrappingNamespaces() << "}\n";
   }
   stm << '\n';
   stm << indentation << "namespace __zz_cib_ {\n";
-  stm << ++indentation << "void " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)\n";
+  stm << ++indentation << "MethodTable " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -125,13 +132,11 @@ static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fil
   {
     auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
     stm << indentation << "case " << classIdOwnerSpace << cibIdData->getIdName() << ":\n";
-    stm << ++indentation << "__zz_cib_" << compound->longName() << "::GetMethodTable(pMethodTable, pLen);\n";
-    stm << indentation << "break;\n";
+    stm << ++indentation << "return __zz_cib_" << compound->longName() << "::GetMethodTable();\n";
     --indentation;
   }
   stm << indentation << "default:\n";
-  stm << ++indentation << "*pMethodTable = nullptr;\n";
-  stm << indentation << "*pLen = 0;\n";
+  stm << ++indentation << "return nullptr;\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
@@ -165,17 +170,17 @@ int main(int argc, char* argv[])
   {
     // Emit cib.h for library.
     std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "lib_cib.h").native(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "lib_cib.h").string(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str()+tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).native(), std::ios_base::out);
+    std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).string(), std::ios_base::out);
     cibLibIncStm << cibcode;
   }
 
-  std::ofstream cibdefStm(cibParams.cibdefFilePath().native(), std::ios_base::out);
+  std::ofstream cibdefStm(cibParams.cibdefFilePath().string(), std::ios_base::out);
   {
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "cibdef.h").native(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "cibdef.h").string(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     cibdefStm << cibcode;
   }
@@ -186,17 +191,17 @@ int main(int argc, char* argv[])
     cibCppCompound->emitUserHeader(cppProgram, cibParams);
     cibCppCompound->emitImpl1Header(cppProgram, cibParams);
     cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);
-    bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.native().length());
+    bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(cppProgram, cibParams, cibIdMgr);
-    bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().native();
-    std::ofstream bindSrcStm(bndSrcPath.native(), std::ios_base::out);
+    bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
+    std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
     cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams, cibIdMgr);
     cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr, false);
   }
 
-  std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).native(), std::ios_base::out);
+  std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(), std::ios_base::out);
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
   emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 

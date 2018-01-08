@@ -71,10 +71,11 @@ namespace __zz_cib_ {
 namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 8 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
 			(MethodEntry) &__zz_cib_delete_2,
 			(MethodEntry) &Move_3,
@@ -84,7 +85,6 @@ namespace __zz_cib_ { namespace Graphics { namespace ContextLogger {
 			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_7,
 			(MethodEntry) &__zz_cib_release_proxy_8
 		};
-		*pMethodTable = methodTable;
-		*pLen = 9;
+		return methodTable;
 	}
 }}}

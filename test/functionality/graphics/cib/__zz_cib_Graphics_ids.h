@@ -5,48 +5,35 @@
 namespace __zz_cib_ { namespace GraphicsLib {
 	namespace __zz_cib_classid {
 		enum {
-			//#= ::Graphics
-			__Graphics = 1,
 			//#= ::Graphics::Circle
-			__Graphics__Circle = 2,
+			__Graphics__Circle = 1,
 			//#= ::Graphics::Circle::__zz_cib_UnknownProxy
-			__Graphics__Circle____zz_cib_UnknownProxy = 3,
+			__Graphics__Circle____zz_cib_UnknownProxy = 2,
 			//#= ::Graphics::Composite
-			__Graphics__Composite = 4,
+			__Graphics__Composite = 3,
 			//#= ::Graphics::Composite::__zz_cib_UnknownProxy
-			__Graphics__Composite____zz_cib_UnknownProxy = 5,
+			__Graphics__Composite____zz_cib_UnknownProxy = 4,
 			//#= ::Graphics::Context
-			__Graphics__Context = 6,
+			__Graphics__Context = 5,
 			//#= ::Graphics::Context::__zz_cib_UnknownProxy
-			__Graphics__Context____zz_cib_UnknownProxy = 7,
+			__Graphics__Context____zz_cib_UnknownProxy = 6,
 			//#= ::Graphics::ContextLogger
-			__Graphics__ContextLogger = 8,
+			__Graphics__ContextLogger = 7,
 			//#= ::Graphics::ContextLogger::__zz_cib_UnknownProxy
-			__Graphics__ContextLogger____zz_cib_UnknownProxy = 9,
+			__Graphics__ContextLogger____zz_cib_UnknownProxy = 8,
 			//#= ::Graphics::Rectangle
-			__Graphics__Rectangle = 10,
+			__Graphics__Rectangle = 9,
 			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
-			__Graphics__Rectangle____zz_cib_UnknownProxy = 11,
+			__Graphics__Rectangle____zz_cib_UnknownProxy = 10,
 			//#= ::Graphics::Shape
-			__Graphics__Shape = 12,
+			__Graphics__Shape = 11,
 			//#= ::Graphics::Shape::__zz_cib_UnknownProxy
-			__Graphics__Shape____zz_cib_UnknownProxy = 13,
-			__zz_cib_next_class_id = 14
+			__Graphics__Shape____zz_cib_UnknownProxy = 12,
+			__zz_cib_next_class_id = 13
 		};
 	}
 }}
 
-namespace __zz_cib_ {
-	namespace Graphics {
-		namespace __zz_cib_methodid {
-			enum {
-				//#= Graphics();
-				__zz_cib_new_1 = 1,
-				__zz_cib_next_method_id = 2
-			};
-		}
-	}
-}
 namespace __zz_cib_ {
 	namespace Graphics { namespace Circle {
 		namespace __zz_cib_methodid {
@@ -59,12 +46,12 @@ namespace __zz_cib_ {
 				Perimeter_3 = 3,
 				//#= virtual void Draw(Context*) const;
 				Draw_4 = 4,
-				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape_5 = 5,
-				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_6 = 6,
 				//#= ~Circle()
-				__zz_cib_delete_7 = 7,
+				__zz_cib_delete_5 = 5,
+				//#= __zz_cib_cast_to___Graphics__Shape
+				__zz_cib_cast_to___Graphics__Shape_6 = 6,
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_7 = 7,
 				__zz_cib_next_method_id = 8
 			};
 		}
@@ -105,12 +92,12 @@ namespace __zz_cib_ {
 				Draw_7 = 7,
 				//#= static Composite* CreateCompositeOfRectAndCircle();
 				CreateCompositeOfRectAndCircle_8 = 8,
-				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape_9 = 9,
-				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_10 = 10,
 				//#= ~Composite()
-				__zz_cib_delete_11 = 11,
+				__zz_cib_delete_9 = 9,
+				//#= __zz_cib_cast_to___Graphics__Shape
+				__zz_cib_cast_to___Graphics__Shape_10 = 10,
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_11 = 11,
 				__zz_cib_next_method_id = 12
 			};
 		}
@@ -221,12 +208,12 @@ namespace __zz_cib_ {
 				Perimeter_3 = 3,
 				//#= virtual void Draw(Context*) const;
 				Draw_4 = 4,
-				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape_5 = 5,
-				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_6 = 6,
 				//#= ~Rectangle()
-				__zz_cib_delete_7 = 7,
+				__zz_cib_delete_5 = 5,
+				//#= __zz_cib_cast_to___Graphics__Shape
+				__zz_cib_cast_to___Graphics__Shape_6 = 6,
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_7 = 7,
 				__zz_cib_next_method_id = 8
 			};
 		}

@@ -7,11 +7,16 @@
 #pragma once
 
 #include <cstdint>
+#include <cstddef>
 
 namespace __zz_cib_ {
   class PROXY;
+  struct MethodTableHeader {
+    size_t size; //!< sizeof(MethodTableHeader)
+    size_t numMethods; //!< Number of methods in method table.
+  };
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 
-  void $MODULE$Lib_GetMethodTable(std::uint32_t classId, MethodTable* pMethodTable, std::uint32_t* pLen);
+  MethodTable $MODULE$Lib_GetMethodTable(std::uint32_t classId);
 }

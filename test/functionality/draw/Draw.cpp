@@ -9,7 +9,7 @@
 
 namespace {
   static HMODULE g_hGraphics = nullptr;
-  using __zz_cib_GraphicsLib_GetMethodTableProc = void(*)(std::uint32_t, __zz_cib_::MethodTable*, size_t*);
+  using __zz_cib_GraphicsLib_GetMethodTableProc = __zz_cib_::MethodTable(*)(std::uint32_t);
   static __zz_cib_GraphicsLib_GetMethodTableProc __zz_cib_GraphicsLib_GetMethodTable;
   void initGraphicsLib()
   {
@@ -27,9 +27,9 @@ namespace __zz_cib_ {
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 
-  void GraphicsLib_GetMethodTable(std::uint32_t classId, MethodTable* pMethodTable, size_t* pLen)
+  __zz_cib_::MethodTable GraphicsLib_GetMethodTable(std::uint32_t classId)
   {
-    __zz_cib_GraphicsLib_GetMethodTable(classId, pMethodTable, pLen);
+    return __zz_cib_GraphicsLib_GetMethodTable(classId);
   }
 }
 

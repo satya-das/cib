@@ -47,13 +47,13 @@ namespace __zz_cib_ {
 			void __stdcall Draw_4(::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
 				__zz_cib_obj->::Graphics::Circle::Draw(ctx);
 			}
-			void __stdcall __zz_cib_delete_7(::Graphics::Circle* __zz_cib_obj) {
+			void __stdcall __zz_cib_delete_5(::Graphics::Circle* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape_5(::Graphics::Circle* __zz_cib_obj) {
+			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Circle* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
-			void __stdcall __zz_cib_release_proxy_6(::Graphics::Circle* __zz_cib_obj) {
+			void __stdcall __zz_cib_release_proxy_7(::Graphics::Circle* __zz_cib_obj) {
 				auto unknownProxy = static_cast<__zz_cib_::Graphics::Circle::__zz_cib_UnknownProxy::Circle*>(__zz_cib_obj);
 				unknownProxy->__zz_cib_release_proxy();
 			}
@@ -63,19 +63,19 @@ namespace __zz_cib_ {
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
 			(MethodEntry) &Area_2,
 			(MethodEntry) &Perimeter_3,
 			(MethodEntry) &Draw_4,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_5,
-			(MethodEntry) &__zz_cib_release_proxy_6,
-			(MethodEntry) &__zz_cib_delete_7
+			(MethodEntry) &__zz_cib_delete_5,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_6,
+			(MethodEntry) &__zz_cib_release_proxy_7
 		};
-		*pMethodTable = methodTable;
-		*pLen = 8;
+		return methodTable;
 	}
 }}}

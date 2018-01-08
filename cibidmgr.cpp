@@ -62,9 +62,10 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath, const CibParams& cibParam
   return true;
 }
 
-auto parseIdEnum(const CppEnum* classIdEnum)
+using IdInfo = std::tuple<CibIdIdentifier, CibIdName, CibId>;
+
+std::pair<std::vector<IdInfo>, CibId> parseIdEnum(const CppEnum* classIdEnum)
 {
-  using IdInfo = std::tuple<CibIdIdentifier, CibIdName, CibId>;
   std::vector<IdInfo> idInfos;
   CibIdIdentifier identifier; // Can be class-name for __zz_cib_classid or method-signature for function.
   CibId nextIdValue = 0;
@@ -174,7 +175,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   }
   if (!forUnknownProxy)
   {
-    compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](auto parent) {
+    compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
       auto castMethodName = compound->castToBaseName(parent, cibParams);
       if (!cibIdData->hasMethod(castMethodName))
         cibIdData->addMethod(castMethodName, castMethodName);
@@ -217,7 +218,7 @@ static std::string expandNs(std::string::const_iterator beg, std::string::const_
     return std::string();
   if (*beg == ':')
     return expandNs(beg + 2, end);
-  auto itr = std::adjacent_find(beg, end, [](auto c1, auto c2)->bool {
+  auto itr = std::adjacent_find(beg, end, [](char c1, char c2)->bool {
     return c1 == c2 && c1 == ':';
   });
 
@@ -238,7 +239,7 @@ static std::string closingNs(std::string::const_iterator beg, std::string::const
     return std::string();
   if (*beg == ':')
     return closingNs(beg + 2, end);
-  auto itr = std::adjacent_find(beg, end, [](auto c1, auto c2)->bool {
+  auto itr = std::adjacent_find(beg, end, [](char c1, char c2)->bool {
     return c1 == c2 && c1 == ':';
   });
   std::string closingBraces = "}";

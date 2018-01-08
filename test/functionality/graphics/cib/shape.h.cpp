@@ -78,16 +78,16 @@ if (__zz_cib_proxy) {
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_delete_1,
 			(MethodEntry) &__zz_cib_new_2,
 			(MethodEntry) &__zz_cib_get_class_id_3,
 			(MethodEntry) &__zz_cib_release_proxy_4
 		};
-		*pMethodTable = methodTable;
-		*pLen = 5;
+		return methodTable;
 	}
 }}}

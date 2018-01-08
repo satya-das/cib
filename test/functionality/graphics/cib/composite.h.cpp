@@ -60,13 +60,13 @@ namespace __zz_cib_ {
 			::Graphics::Composite* __stdcall CreateCompositeOfRectAndCircle_8() {
 				return ::Graphics::Composite::CreateCompositeOfRectAndCircle();
 			}
-			void __stdcall __zz_cib_delete_11(::Graphics::Composite* __zz_cib_obj) {
+			void __stdcall __zz_cib_delete_9(::Graphics::Composite* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape_9(::Graphics::Composite* __zz_cib_obj) {
+			::Graphics::Shape* __stdcall __zz_cib_cast_to___Graphics__Shape_10(::Graphics::Composite* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
-			void __stdcall __zz_cib_release_proxy_10(::Graphics::Composite* __zz_cib_obj) {
+			void __stdcall __zz_cib_release_proxy_11(::Graphics::Composite* __zz_cib_obj) {
 				auto unknownProxy = static_cast<__zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::Composite*>(__zz_cib_obj);
 				unknownProxy->__zz_cib_release_proxy();
 			}
@@ -76,10 +76,11 @@ namespace __zz_cib_ {
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 11 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
 			(MethodEntry) &Add_2,
 			(MethodEntry) &NumShapes_3,
@@ -88,11 +89,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 			(MethodEntry) &Perimeter_6,
 			(MethodEntry) &Draw_7,
 			(MethodEntry) &CreateCompositeOfRectAndCircle_8,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_9,
-			(MethodEntry) &__zz_cib_release_proxy_10,
-			(MethodEntry) &__zz_cib_delete_11
+			(MethodEntry) &__zz_cib_delete_9,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_10,
+			(MethodEntry) &__zz_cib_release_proxy_11
 		};
-		*pMethodTable = methodTable;
-		*pLen = 12;
+		return methodTable;
 	}
 }}}

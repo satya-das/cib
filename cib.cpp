@@ -8,7 +8,6 @@
 #include "cppwriter.h"
 
 #include "boost-helper/bfs.h"
-#include <filesystem>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -301,19 +300,19 @@ void CibCppCompound::emitUserHeader(const CppProgramEx& cppProgram, const CibPar
   if (!isCppFile())
     return;
 
-  bfs::path usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.native().length());
-  std::ofstream stm(usrIncPath.native(), std::ios_base::out);
+  bfs::path usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
-  auto firstStatementItr = std::find_if(members_.begin(), members_.end(), [](auto mem)->bool {
+  auto firstStatementItr = std::find_if(members_.begin(), members_.end(), [](const CppObj* mem)->bool {
     return (mem->objType_ > kCppStatementObjectTypeStarts);
   });
-  auto lastPreProcessorRevItr = std::find_if(std::reverse_iterator<decltype(firstStatementItr)>(firstStatementItr), members_.rend(), [](auto mem)->bool {
+  auto lastPreProcessorRevItr = std::find_if(std::reverse_iterator<decltype(firstStatementItr)>(firstStatementItr), members_.rend(), [](const CppObj* mem)->bool {
     return (mem->isPreProcessorType());
   });
   auto memItr = members_.begin();
   if (lastPreProcessorRevItr != members_.rend())
   {
-    std::for_each(memItr, lastPreProcessorRevItr.base(), [&stm](auto mem) {
+    std::for_each(memItr, lastPreProcessorRevItr.base(), [&stm](const CppObj* mem) {
       gCppWriter.emit(mem, stm);
     });
     memItr = lastPreProcessorRevItr.base();
@@ -335,7 +334,7 @@ void CibCppCompound::emitImpl1Header(const CppProgramEx& cppProgram, const CibPa
     return;
 
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "_impl1.h");
-  std::ofstream stm(implPath.native(), std::ios_base::out);
+  std::ofstream stm(implPath.string(), std::ios_base::out);
 
   stm << "#include \"" << cibParams.cibInternalDirName << "/" << cibParams.cibdefFileName << "\"\n";
 
@@ -347,7 +346,7 @@ void CibCppCompound::emitImpl2Header(const CppProgramEx& cppProgram, const CibPa
   if (!isCppFile())
     return;
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "_impl2.h");
-  std::ofstream stm(implPath.native(), std::ios_base::out);
+  std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   stm << "#include <cassert>\n";
   emitHelperDefn(stm, cppProgram, cibParams, cibIdMgr);
@@ -385,10 +384,7 @@ void CibCppCompound::emitImplSource(std::ostream& stm, const CppProgramEx& cppPr
     ++indentation;
     stm << indentation << "__zz_cib_::MethodTable " << "__zz_cib_Helper::__zz_cib_get_proxy_method_table() {\n";
     ++indentation;
-    stm << indentation << "MethodTable mtbl;\n";
-    stm << indentation << "std::uint32_t len;\n";
-    stm << indentation << "GetMethodTable(&mtbl, &len);\n";
-    stm << indentation << "return mtbl;\n";
+    stm << indentation << "return GetMethodTable();\n";
     --indentation;
     stm << indentation << "}\n";
     --indentation;
@@ -401,9 +397,9 @@ void CibCppCompound::emitImplSource(const CppProgramEx& cppProgram, const CibPar
   if (!isCppFile())
     return;
   bfs::path headerPath = name_;
-  bfs::path usrSrcPath = cibParams.outputPath / name_.substr(cibParams.inputPath.native().length());
+  bfs::path usrSrcPath = cibParams.outputPath / name_.substr(cibParams.inputPath.string().length());
   usrSrcPath.replace_extension(".cpp");
-  std::ofstream stm(usrSrcPath.native(), std::ios_base::out);
+  std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
 
   emitFacadeDependecyHeaders(stm, cppProgram, cibParams, cibIdMgr, true, CppIndent());
   emitImplSource(stm, cppProgram, cibParams, cibIdMgr);
@@ -589,7 +585,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream& stm, const CibParams& cibP
   stm<< indentation << longName() << "* __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE* h) {\n";;
   ++indentation;
   stm << indentation << "switch(__zz_cib_get_class_id(h)) {\n";
-  forEachDerived(kPublic, [&](auto derived) {
+  forEachDerived(kPublic, [&](const CibCppCompound* derived) {
     auto cibIdData = cibIdMgr.getCibIdData(derived->longName());
     stm << indentation << "case __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
     ++indentation;
@@ -775,14 +771,12 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << --indentation << "private:\n";
       stm << ++indentation << "__zz_cib_::MethodTable mtbl;\n";
       stm << indentation << "__zz_cib_Helper() {\n";
-      stm << ++indentation << "std::uint32_t mnum = 0;\n";
-      stm << indentation << cibParams.moduleName << "Lib_GetMethodTable(";
+      stm << ++indentation << "mtbl = " << cibParams.moduleName << "Lib_GetMethodTable(";
       auto classIdName = longName();
       std::transform(classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c)->char {
         return c == ':' ? '_' : c;
       });
-      stm << cibParams.classIdOwnerSpace() << classIdName << ", &mtbl, &mnum);\n";
-      stm << indentation << "assert(mnum >= __zz_cib_" << longName() << "::__zz_cib_methodid::__zz_cib_next_method_id);\n";
+      stm << cibParams.classIdOwnerSpace() << classIdName << ");\n";
       stm << --indentation << "}\n";
       stm << indentation << "static const __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
@@ -977,7 +971,7 @@ void CibCppCompound::emitFacadeDependecyHeaders(std::ostream& stm, const CppProg
   for (auto facade : facades)
   {
     dependencies.insert(facade);
-    facade->forEachDerived(kPublic, [&dependencies](auto obj) {
+    facade->forEachDerived(kPublic, [&dependencies](const CibCppCompound* obj) {
       dependencies.insert(obj);
     });
   }
@@ -1105,12 +1099,13 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream& stm, const CppProgr
     stm << indentation;
     if (forProxy)
       stm << "static ";
-    stm << "void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)\n";
+    stm << "MethodTable GetMethodTable()\n";
     stm << indentation << "{\n";
-    stm << ++indentation << "static const MethodEntry methodTable[] = {\n";
-    stm << ++indentation << "(MethodEntry) nullptr"; // This slot in method table is reserved for maybe some future use.
-    CibMethodId nextMethodId = 1;
     const auto& className = forProxy ? longName() + "::__zz_cib_UnknownProxy" : longName();
+    stm << ++indentation << "static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), " << cibIdMgr.numMethods(className) << " };\n";
+    stm << indentation << "static const MethodEntry methodTable[] = {\n";
+    stm << ++indentation << "(MethodEntry) &tableHeader";
+    CibMethodId nextMethodId = 1;
     nextMethodId = cibIdMgr.forEachMethod(className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
       if (methodId == nextMethodId++) {
         stm << ",\n" << indentation << "(MethodEntry) &" << methodName;
@@ -1120,8 +1115,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream& stm, const CppProgr
     });
     stm << '\n';
     stm << --indentation << "};\n";
-    stm << indentation << "*pMethodTable = methodTable;\n";
-    stm << indentation << "*pLen = " << nextMethodId << ";\n";
+    stm << indentation << "return methodTable;\n";
     stm << --indentation << "}\n";
     stm << --indentation << '}' << closingBracesForWrappingNamespaces() << '\n';;
   }

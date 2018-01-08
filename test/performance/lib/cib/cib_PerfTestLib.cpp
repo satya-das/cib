@@ -10,18 +10,16 @@ namespace __zz_cib_ {
 	using MethodTable = const MethodEntry*;
 }
 
-namespace __zz_cib_ { namespace FuncCallClass { void GetMethodTable(MethodTable*, std::uint32_t*); }}
+namespace __zz_cib_ { namespace FuncCallClass { MethodTable GetMethodTable(); }}
 
 namespace __zz_cib_ {
-	void PerfTestLib_GetMethodTable(std::uint32_t classId, __zz_cib_::MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable PerfTestLib_GetMethodTable(std::uint32_t classId)
 	{
 		switch(classId) {
 		case __zz_cib_::PerfTestLib::__zz_cib_classid::__FuncCallClass:
-			__zz_cib_::FuncCallClass::GetMethodTable(pMethodTable, pLen);
-			break;
+			return __zz_cib_::FuncCallClass::GetMethodTable();
 		default:
-			*pMethodTable = nullptr;
-			*pLen = 0;
+			return nullptr;
 		}
 	}
 }

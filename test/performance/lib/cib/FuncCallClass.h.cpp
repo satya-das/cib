@@ -22,16 +22,16 @@ namespace __zz_cib_ {
 namespace __zz_cib_ { namespace FuncCallClass {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &SimplestFunc_1,
 			(MethodEntry) &SimplestMethod_2,
 			(MethodEntry) &FuncWith3Param_3,
 			(MethodEntry) &__zz_cib_new_4
 		};
-		*pMethodTable = methodTable;
-		*pLen = 5;
+		return methodTable;
 	}
 }}

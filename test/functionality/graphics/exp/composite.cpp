@@ -16,25 +16,22 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	using MethodEntry = void(*)();
 	using MethodTable = const MethodEntry*;
-	static void GetMethodTable(MethodTable* pMethodTable, std::uint32_t* pLen)
+	static MethodTable GetMethodTable()
 	{
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 3 };
 		static const MethodEntry methodTable[] = {
-			(MethodEntry) nullptr,
+			(MethodEntry) &tableHeader,
 			(MethodEntry) &Area_1,
 			(MethodEntry) &Perimeter_2,
 			(MethodEntry) &Draw_3
 		};
-		*pMethodTable = methodTable;
-		*pLen = 4;
+		return methodTable;
 	}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	__zz_cib_::MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
-		MethodTable mtbl;
-		std::uint32_t len;
-		GetMethodTable(&mtbl, &len);
-		return mtbl;
+		return GetMethodTable();
 	}
 }}}
 
