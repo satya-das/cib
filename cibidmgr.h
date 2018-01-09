@@ -114,6 +114,7 @@ public:
    * @return Id of next method if that gets added.
    */
   CibMethodId forEachMethod(MethodVisitor methodVisitor) const;
+  size_t numMethods() const;
 };
 
 using CibIdTable = std::map<std::string, CibIdData>;
@@ -146,6 +147,7 @@ public:
    * @return Id of next method if that gets added.
    */
   CibMethodId forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const;
+  size_t numMethods(const std::string& className) const;
 
 private:
   void assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy);
@@ -173,12 +175,25 @@ inline CibMethodId CibIdData::forEachMethod(MethodVisitor methodVisitor) const
   return nextMethodId;
 }
 
+inline size_t CibIdData::numMethods() const
+{
+  return methodIdToMethodMap.empty() ? 0 : methodIdToMethodMap.rbegin()->first;
+}
+
 inline CibMethodId CibIdMgr::forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const
 {
   auto itr = cibIdTable_.find(className);
   if (itr == cibIdTable_.end())
     return 0;
   return itr->second.forEachMethod(methodVisitor);
+}
+
+inline size_t CibIdMgr::numMethods(const std::string& className) const
+{
+  auto itr = cibIdTable_.find(className);
+  if (itr == cibIdTable_.end())
+    return 0;
+  return itr->second.numMethods();
 }
 
 #endif //__CIB_ID_MGR_H__

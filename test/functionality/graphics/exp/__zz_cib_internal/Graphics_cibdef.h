@@ -12,7 +12,7 @@ namespace __zz_cib_ {
   };
   using MethodTable = const MethodEntry*;
 
-  MethodTable $MODULE$Lib_GetMethodTable(std::uint32_t classId);
+  MethodTable GraphicsLib_GetMethodTable(std::uint32_t classId);
 }
 
 namespace __zz_cib_ {
