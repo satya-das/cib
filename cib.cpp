@@ -126,7 +126,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
     stm << "void";
   else
     emitType(stm, func_->retType_, getOwner(), cppProgram);
-  stm << " __stdcall ";
+  stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if (isConstructor() && getOwner()->needsUnknownProxyDefinition())
   {
@@ -237,7 +237,7 @@ void CibFunctionHelper::emitProcType(std::ostream& stm, const CppProgramEx& cppP
   stm << indentation;
   stm << "using " << procType(cibParams) << " = ";
   emitCAPIReturnType(stm, cppProgram);
-  stm << " (__stdcall *) (";
+  stm << " (__zz_cib_decl *) (";
   if (!isStatic() && (isDestructor() || isMethod()))
   {
     if (forUnknownProxy)
@@ -759,7 +759,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       auto castProcName = castToBaseName(pubParent, cibParams);
       auto capiName = cibIdData->getMethodCApiName(castProcName);
       stm << indentation << "static __zz_cib_::HANDLE* " << capiName << "(__zz_cib_::HANDLE* __zz_cib_obj) {\n";
-      stm << ++indentation << "using " << castProcName << "Proc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);\n";
+      stm << ++indentation << "using " << castProcName << "Proc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE* h);\n";
       stm << indentation << "auto proc = (" << castProcName << "Proc) instance().mtbl[";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << capiName << "];\n";
@@ -787,7 +787,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     if (isFacadeLike() || isInterfaceLike())
     {
       stm << indentation << "static std::uint32_t __zz_cib_get_class_id(__zz_cib_::HANDLE* __zz_cib_obj) {\n";
-      stm << ++indentation << "using __zz_cib_get_class_idProc = std::uint32_t (__stdcall *) (__zz_cib_::HANDLE*);\n";
+      stm << ++indentation << "using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_::HANDLE*);\n";
       stm << indentation << "auto proc = (__zz_cib_get_class_idProc) instance().mtbl[";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "];\n";
       stm << indentation << "return proc(__zz_cib_obj);\n";
@@ -813,7 +813,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       ++indentation;
       stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
       ++indentation;
-      stm << indentation << "using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);\n";
+      stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);\n";
       stm << indentation << "auto proc = (__zz_cib_release_proxyProc) instance().mtbl[";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "];\n";
       stm << indentation << "proc(__zz_cib_obj->__zz_cib_h_);\n";
@@ -1026,14 +1026,14 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
     {
       const CibCppCompound* pubParent = *parentItr;
       auto castApiName = castToBaseName(pubParent, cibParams);
-      stm << indentation << pubParent->longName() << "* __stdcall " << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
+      stm << indentation << pubParent->longName() << "* __zz_cib_decl " << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj;\n";
       stm << --indentation << "}\n";
     }
 
     if (isFacadeLike() || isInterfaceLike())
     {
-      stm << indentation << "std::uint32_t __stdcall " << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "(" << longName() << "* __zz_cib_obj) {\n";
+      stm << indentation << "std::uint32_t __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
       stm << indentation << "static bool classIdRepoPopulated = false;\n";
       stm << indentation << "if (!classIdRepoPopulated) {\n";
@@ -1051,7 +1051,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
     }
     if (needsUnknownProxyDefinition())
     {
-      stm << indentation << "void __stdcall " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "(" << longName() << "* __zz_cib_obj) {\n";
+      stm << indentation << "void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
       stm << indentation << "auto unknownProxy = static_cast<__zz_cib_" << longName() << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
       stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";

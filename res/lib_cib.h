@@ -9,6 +9,14 @@
 #include <cstdint>
 #include <cstddef>
 
+#ifndef __zz_cib_decl
+# ifdef __GNUC__
+#   define __zz_cib_decl __attribute__((stdcall))
+# elif defined(_WIN32)
+#   define __zz_cib_decl __stdcall
+# endif
+#endif
+
 namespace __zz_cib_ {
   class PROXY;
   struct MethodTableHeader {
@@ -20,3 +28,4 @@ namespace __zz_cib_ {
 
   MethodTable $MODULE$Lib_GetMethodTable(std::uint32_t classId);
 }
+

@@ -25,3 +25,6 @@ target_include_directories(draw
 	PRIVATE
 		../graphics/exp
 )
+
+target_link_libraries(draw ${CMAKE_DL_LIBS})
+

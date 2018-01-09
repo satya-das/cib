@@ -4,8 +4,18 @@
 #include "pdf_context.h"
 
 #include <iostream>
-#include <Windows.h>
 #include <cstdint>
+
+#ifdef _WIN32
+# include <Windows.h>
+# define LIBGRAPHICS "graphics.dll"
+#else
+# include <dlfcn.h>
+using HMODULE = void*;
+# define LoadLibraryA(path) dlopen(path, RTLD_NOW)
+# define GetProcAddress dlsym
+# define LIBGRAPHICS "libgraphics.so"
+#endif
 
 namespace {
   static HMODULE g_hGraphics = nullptr;
@@ -13,7 +23,7 @@ namespace {
   static __zz_cib_GraphicsLib_GetMethodTableProc __zz_cib_GraphicsLib_GetMethodTable;
   void initGraphicsLib()
   {
-    g_hGraphics = ::LoadLibraryA("graphics.dll");
+    g_hGraphics = LoadLibraryA(LIBGRAPHICS);
     if (g_hGraphics == nullptr)
     {
       std::cout << "ERROR: Null handle." << std::endl;
