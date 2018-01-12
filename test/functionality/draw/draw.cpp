@@ -14,7 +14,11 @@
 using HMODULE = void*;
 # define LoadLibraryA(path) dlopen(path, RTLD_NOW)
 # define GetProcAddress dlsym
-# define LIBGRAPHICS "libgraphics.so"
+# ifdef __CYGWIN__
+#   define LIBGRAPHICS "cyggraphics.dll"
+# else
+#   define LIBGRAPHICS "libgraphics.so"
+# endif
 #endif
 
 namespace {
