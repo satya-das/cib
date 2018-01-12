@@ -6,22 +6,22 @@
 			friend class ::FuncCallClass;
 
 			static void SimplestFunc_1() {
-				using SimplestFuncProc = void (__stdcall *) ();
+				using SimplestFuncProc = void (__zz_cib_decl *) ();
 				auto proc = (SimplestFuncProc) instance().mtbl[__zz_cib_::FuncCallClass::__zz_cib_methodid::SimplestFunc_1];
 				return proc();
 			}
 			static void SimplestMethod_2(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using SimplestMethodProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+				using SimplestMethodProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
 				auto proc = (SimplestMethodProc) instance().mtbl[__zz_cib_::FuncCallClass::__zz_cib_methodid::SimplestMethod_2];
 				return proc(__zz_cib_obj);
 			}
 			static double FuncWith3Param_3(__zz_cib_::HANDLE* __zz_cib_obj, int x, double b, float c) {
-				using FuncWith3ParamProc = double (__stdcall *) (__zz_cib_::HANDLE*, int x, double b, float c);
+				using FuncWith3ParamProc = double (__zz_cib_decl *) (__zz_cib_::HANDLE*, int x, double b, float c);
 				auto proc = (FuncWith3ParamProc) instance().mtbl[__zz_cib_::FuncCallClass::__zz_cib_methodid::FuncWith3Param_3];
 				return proc(__zz_cib_obj, x, b, c);
 			}
 			static __zz_cib_::HANDLE* __zz_cib_new_4() {
-				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) ();
+				using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) ();
 				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::FuncCallClass::__zz_cib_methodid::__zz_cib_new_4];
 				return proc();
 			}

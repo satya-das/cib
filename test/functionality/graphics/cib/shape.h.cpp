@@ -22,23 +22,23 @@ namespace __zz_cib_ {
 
 			public:
 				float Area() const override {
-					using AreaProc = float (__stdcall *) (__zz_cib_::PROXY*);
+					using AreaProc = float (__zz_cib_decl *) (__zz_cib_::PROXY*);
 					auto proc = (AreaProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Area_1];
 					return proc(__zz_cib_proxy);
 				}
 				float Perimeter() const override {
-					using PerimeterProc = float (__stdcall *) (__zz_cib_::PROXY*);
+					using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_::PROXY*);
 					auto proc = (PerimeterProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Perimeter_2];
 					return proc(__zz_cib_proxy);
 				}
 				void Draw(::Graphics::Context* ctx) const override {
-					using DrawProc = void (__stdcall *) (__zz_cib_::PROXY*, ::Graphics::Context* ctx);
+					using DrawProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, ::Graphics::Context* ctx);
 					auto proc = (DrawProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3];
 					return proc(__zz_cib_proxy, ctx);
 				}
 				~Shape() override {
 if (__zz_cib_proxy) {
-						using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::PROXY*);
+						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
 						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
 						proc(__zz_cib_proxy);
 					}
@@ -52,13 +52,13 @@ if (__zz_cib_proxy) {
 			};
 		}}
 		namespace Shape {
-			void __stdcall __zz_cib_delete_1(::Graphics::Shape* __zz_cib_obj) {
+			void __zz_cib_decl __zz_cib_delete_1(::Graphics::Shape* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Shape* __stdcall __zz_cib_new_2(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
+			::Graphics::Shape* __zz_cib_decl __zz_cib_new_2(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
 				return new __zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape(proxy, mtbl);
 			}
-			std::uint32_t __stdcall __zz_cib_get_class_id_3(::Graphics::Shape* __zz_cib_obj) {
+			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_3(::Graphics::Shape* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle;
@@ -68,7 +68,7 @@ if (__zz_cib_proxy) {
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
-			void __stdcall __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
+			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
 				auto unknownProxy = static_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
 				unknownProxy->__zz_cib_release_proxy();
 			}

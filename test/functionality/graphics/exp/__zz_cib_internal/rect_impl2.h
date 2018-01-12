@@ -7,34 +7,34 @@
 			static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();
 
 			static __zz_cib_::HANDLE* __zz_cib_new_1(::Graphics::Rectangle* __zz_cib_proxy, float left, float top, float right, float bottom) {
-				using __zz_cib_newProc = __zz_cib_::HANDLE* (__stdcall *) (::Graphics::Rectangle*, __zz_cib_::MethodTable, float left, float top, float right, float bottom);
+				using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, __zz_cib_::MethodTable, float left, float top, float right, float bottom);
 				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::__zz_cib_new_1];
 				return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), left, top, right, bottom);
 			}
 			static float Area_2(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using AreaProc = float (__stdcall *) (__zz_cib_::HANDLE*);
+				using AreaProc = float (__zz_cib_decl *) (__zz_cib_::HANDLE*);
 				auto proc = (AreaProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::Area_2];
 				return proc(__zz_cib_obj);
 			}
 			static float Perimeter_3(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using PerimeterProc = float (__stdcall *) (__zz_cib_::HANDLE*);
+				using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_::HANDLE*);
 				auto proc = (PerimeterProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::Perimeter_3];
 				return proc(__zz_cib_obj);
 			}
 			static void Draw_4(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
-				using DrawProc = void (__stdcall *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* ctx);
+				using DrawProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* ctx);
 				auto proc = (DrawProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::Draw_4];
 				return proc(__zz_cib_obj, ctx);
 			}
 			static void __zz_cib_delete_5(__zz_cib_::HANDLE* __zz_cib_obj) {
 				if (__zz_cib_obj) {
-					using __zz_cib_deleteProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
 					auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::__zz_cib_delete_5];
 					return proc(__zz_cib_obj);
 				}
 			}
 			static __zz_cib_::HANDLE* __zz_cib_cast_to___Graphics__Shape_6(__zz_cib_::HANDLE* __zz_cib_obj) {
-				using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_::HANDLE* (__stdcall *) (__zz_cib_::HANDLE* h);
+				using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE* h);
 				auto proc = (__zz_cib_cast_to___Graphics__ShapeProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_6];
 				return proc(__zz_cib_obj);
 			}
@@ -63,7 +63,7 @@
 			}
 			static void __zz_cib_release_proxy(::Graphics::Rectangle* __zz_cib_obj) {
 				if (__zz_cib_obj->__zz_cib_h_) {
-					using __zz_cib_release_proxyProc = void (__stdcall *) (__zz_cib_::HANDLE*);
+					using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
 					auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::__zz_cib_release_proxy_7];
 					proc(__zz_cib_obj->__zz_cib_h_);
 				}

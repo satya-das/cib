@@ -5,16 +5,16 @@
 
 namespace __zz_cib_ {
 	namespace FuncCallClass {
-		void __stdcall SimplestFunc_1() {
+		void __zz_cib_decl SimplestFunc_1() {
 			::FuncCallClass::SimplestFunc();
 		}
-		void __stdcall SimplestMethod_2(::FuncCallClass* __zz_cib_obj) {
+		void __zz_cib_decl SimplestMethod_2(::FuncCallClass* __zz_cib_obj) {
 			__zz_cib_obj->::FuncCallClass::SimplestMethod();
 		}
-		double __stdcall FuncWith3Param_3(::FuncCallClass* __zz_cib_obj, int x, double b, float c) {
+		double __zz_cib_decl FuncWith3Param_3(::FuncCallClass* __zz_cib_obj, int x, double b, float c) {
 			return __zz_cib_obj->::FuncCallClass::FuncWith3Param(x, b, c);
 		}
-		::FuncCallClass* __stdcall __zz_cib_new_4() {
+		::FuncCallClass* __zz_cib_decl __zz_cib_new_4() {
 			return new ::FuncCallClass();
 		}
 	}

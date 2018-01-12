@@ -9,19 +9,19 @@
 	return nullptr;
 }
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	void __stdcall Move_1(::Graphics::Context* __zz_cib_obj, float x, float y) {
+	void __zz_cib_decl Move_1(::Graphics::Context* __zz_cib_obj, float x, float y) {
 		__zz_cib_obj->Move(x, y);
 	}
-	void __stdcall Line_2(::Graphics::Context* __zz_cib_obj, float x, float y) {
+	void __zz_cib_decl Line_2(::Graphics::Context* __zz_cib_obj, float x, float y) {
 		__zz_cib_obj->Line(x, y);
 	}
-	void __stdcall Curve_3(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2, float x3, float y3) {
+	void __zz_cib_decl Curve_3(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2, float x3, float y3) {
 		__zz_cib_obj->Curve(x1, y1, x2, y2, x3, y3);
 	}
-	void __stdcall Close_4(::Graphics::Context* __zz_cib_obj) {
+	void __zz_cib_decl Close_4(::Graphics::Context* __zz_cib_obj) {
 		__zz_cib_obj->Close();
 	}
-	void __stdcall __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
+	void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 }}}
