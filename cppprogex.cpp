@@ -59,7 +59,7 @@ CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppTy
         return nullptr;
       typeNode = &itr->second;
     }
-    while (nameEndPos >= name.length());
+    while (nameEndPos > name.length());
   }
   return typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
 }
