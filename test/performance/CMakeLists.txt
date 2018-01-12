@@ -17,7 +17,6 @@ set(PERFTEST_LIB_FILES
 
 SET(_definitions PERFLIB)
 
-add_library(libperf STATIC ${PERFTEST_LIB_FILES})
 add_library(perf SHARED ${PERFTEST_LIB_FILES})
 set_target_properties(perf PROPERTIES COMPILE_DEFINITIONS ${_definitions})
 target_include_directories(perf PRIVATE lib/pub)
@@ -83,4 +82,5 @@ target_include_directories(cibperf
 add_executable(cibperftest ${PERTEST_FILES} cibperftest.cpp)
 set_target_properties(cibperftest PROPERTIES COMPILE_DEFINITIONS ${_cibperfdefinitions})
 target_include_directories(cibperftest PUBLIC lib/exp)
-target_link_libraries(cibperftest PUBLIC cibperf)
+target_link_libraries(cibperftest ${CMAKE_DL_LIBS})
+

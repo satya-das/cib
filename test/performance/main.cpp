@@ -3,13 +3,25 @@
 #ifdef CIBPERFTEST
 
 #include <iostream>
-#include <Windows.h>
 #include <cstdint>
+
+#ifdef _WIN32
+# include <Windows.h>
+# define LIBPERFTEST "cibperf.dll"
+#else
+# include <dlfcn.h>
+using HMODULE = void*;
+# define LoadLibraryA(path) dlopen(path, RTLD_NOW)
+# define GetProcAddress dlsym
+# define LIBPERFTEST "libcibperf.so"
+#endif
+
 
 namespace __zz_cib_ {
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 }
+
 
 namespace {
   static HMODULE g_hPerfTest = nullptr;
@@ -17,7 +29,7 @@ namespace {
   static __zz_cib_PerfTestLib_GetMethodTableProc __zz_cib_PerfTestLib_GetMethodTable;
   void initPerfTestLib()
   {
-    g_hPerfTest = ::LoadLibraryA("cibperf.dll");
+    g_hPerfTest = LoadLibraryA(LIBPERFTEST);
     if (g_hPerfTest == nullptr)
     {
       std::cout << "ERROR: Null handle." << std::endl;
@@ -36,6 +48,7 @@ namespace __zz_cib_ {
     return __zz_cib_PerfTestLib_GetMethodTable(classId);
   }
 }
+
 #endif
 
 int main()
