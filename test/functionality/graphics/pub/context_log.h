@@ -7,11 +7,11 @@ namespace Graphics
 /*!
  * Context for logging drawing calls rather than actually drawing anything.
  */
-class ContextLogger : public Context
+class LogContext : public Context
 {
 public:
-  ContextLogger() {}
-  ~ContextLogger() {}
+  LogContext() {}
+  ~LogContext() {}
 
 public:
   void Move(float x, float y) override

@@ -64,7 +64,7 @@ if (__zz_cib_proxy) {
 			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_3(::Graphics::Context* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::ContextLogger))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext;
 					classIdRepoPopulated = true;
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

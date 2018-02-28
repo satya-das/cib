@@ -13,7 +13,7 @@ namespace __zz_cib_ {
 namespace __zz_cib_ { namespace Graphics { namespace Circle { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Composite { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Context { MethodTable GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace ContextLogger { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace LogContext { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape { MethodTable GetMethodTable(); }}}
 
@@ -27,8 +27,8 @@ namespace __zz_cib_ {
 			return __zz_cib_::Graphics::Composite::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context:
 			return __zz_cib_::Graphics::Context::GetMethodTable();
-		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__ContextLogger:
-			return __zz_cib_::Graphics::ContextLogger::GetMethodTable();
+		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext:
+			return __zz_cib_::Graphics::LogContext::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
 			return __zz_cib_::Graphics::Rectangle::GetMethodTable();
 		case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:

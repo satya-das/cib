@@ -9,18 +9,18 @@ namespace Graphics
 /*!
  * Context for logging drawing calls rather than actually drawing anything.
  */
-	class ContextLogger : public ::Graphics::Context
+	class LogContext : public ::Graphics::Context
 	{
 	public:
-		ContextLogger();
-		~ContextLogger();
+		LogContext();
+		~LogContext();
 		virtual void Move(float x, float y);
 		virtual void Line(float x, float y);
 		virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3);
 		virtual void Close();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(ContextLogger, ::Graphics::ContextLogger);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, ::Graphics::LogContext);
 	};
 }
 

@@ -17,10 +17,10 @@ namespace __zz_cib_ { namespace GraphicsLib {
 			__Graphics__Context = 5,
 			//#= ::Graphics::Context::__zz_cib_UnknownProxy
 			__Graphics__Context____zz_cib_UnknownProxy = 6,
-			//#= ::Graphics::ContextLogger
-			__Graphics__ContextLogger = 7,
-			//#= ::Graphics::ContextLogger::__zz_cib_UnknownProxy
-			__Graphics__ContextLogger____zz_cib_UnknownProxy = 8,
+			//#= ::Graphics::LogContext
+			__Graphics__LogContext = 7,
+			//#= ::Graphics::LogContext::__zz_cib_UnknownProxy
+			__Graphics__LogContext____zz_cib_UnknownProxy = 8,
 			//#= ::Graphics::Rectangle
 			__Graphics__Rectangle = 9,
 			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
@@ -155,12 +155,12 @@ namespace __zz_cib_ {
 	}}}
 }
 namespace __zz_cib_ {
-	namespace Graphics { namespace ContextLogger {
+	namespace Graphics { namespace LogContext {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= ContextLogger();
+				//#= LogContext();
 				__zz_cib_new_1 = 1,
-				//#= ~ContextLogger()
+				//#= ~LogContext()
 				__zz_cib_delete_2 = 2,
 				//#= virtual void Move(float, float);
 				Move_3 = 3,
@@ -180,7 +180,7 @@ namespace __zz_cib_ {
 	}}
 }
 namespace __zz_cib_ {
-	namespace Graphics { namespace ContextLogger { namespace __zz_cib_UnknownProxy {
+	namespace Graphics { namespace LogContext { namespace __zz_cib_UnknownProxy {
 		namespace __zz_cib_methodid {
 			enum {
 				//#= virtual void Move(float, float);
