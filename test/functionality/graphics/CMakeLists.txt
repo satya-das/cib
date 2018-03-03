@@ -38,7 +38,7 @@ add_custom_command(
 	COMMAND echo Running cib...
 	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Graphics
 	COMMAND echo Generated files: ${CIB_OUTPUT}
-	DEPENDS ${GRAPHICS_PUB_FILES}
+	DEPENDS cib ${GRAPHICS_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

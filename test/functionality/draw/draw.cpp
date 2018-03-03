@@ -1,18 +1,41 @@
+#include "pdf_context.h"
+
+#include "context_log.h"
 #include "circ.h"
 #include "rect.h"
-#include "composite.h"
-#include "context_log.h"
-#include "pdf_context.h"
+
+#include <memory>
+#include <vector>
+
+using ShapePtr  = std::shared_ptr<Graphics::Shape>;
+using Shapes    = std::vector<ShapePtr>;
+
+Shapes CreateVectorOfShapes()
+{
+  Shapes shapes;
+  shapes.emplace_back(new Graphics::Circle(0.0, 0.0, 5));
+  shapes.emplace_back(new Graphics::Rectangle(0, 5, 5, 5));
+
+  return shapes;
+}
+
+void TestCallingLibraryFunctions()
+{
+  auto shapes = CreateVectorOfShapes();
+  Graphics::LogContext ctx;
+  for (auto shape : shapes)
+    shape->Draw(&ctx);
+}
+
+void TestLibraryCallingClientFunctions()
+{
+  auto shapes = CreateVectorOfShapes();
+  Graphics::PdfContext pdfContext;
+  for (auto shape : shapes)
+    shape->Draw(&pdfContext);
+}
 
 int main()
 {
-  Graphics::Rectangle rect(0, 0, 100, 100);
-  Graphics::LogContext ctx;
-  rect.Draw(&ctx);
-  auto composite = Graphics::Composite::CreateCompositeOfRectAndCircle();
-  composite->Draw(&ctx);
-  Graphics::PdfContext pdfContext;
-  composite->Draw(&pdfContext);
-  for (size_t i = 0; i < composite->NumShapes(); ++i)
-    composite->ShapeAt(i)->Draw(&pdfContext);
+  TestCallingLibraryFunctions();
 }
