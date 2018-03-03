@@ -8,7 +8,7 @@ namespace Graphics
 /**
  * \brief Abstract base class for all shapes
  */
-class Shape
+class GRAPHICSAPI Shape
 {
 public:
   /**

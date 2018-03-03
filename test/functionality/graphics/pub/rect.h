@@ -10,7 +10,7 @@ namespace Graphics
 /**
  * \brief Represents a rectangle.
  */
-class Rectangle : public Shape
+class GRAPHICSAPI Rectangle : public Shape
 {
   float left_, top_, right_, bottom_;
 

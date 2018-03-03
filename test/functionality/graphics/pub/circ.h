@@ -11,7 +11,7 @@ class Context;
 /**
  * \brief Represents a circle.
  */
-class Circle : public Shape
+class GRAPHICSAPI Circle : public Shape
 {
   float Ox_, Oy_, radius_;
 

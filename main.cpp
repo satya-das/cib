@@ -105,10 +105,6 @@ void ensureDirectoriesExist(const CibParams& cibParams)
 static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fileDOMs, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
 {
   CppIndent indentation;
-  stm << "namespace __zz_cib_ {\n";
-  stm << ++indentation << "using MethodEntry = void(*)();\n";
-  stm << indentation << "using MethodTable = const MethodEntry*;\n";
-  stm << --indentation << "}\n\n";
   std::vector<const CibCppCompound*> compounds;
   for (auto cppDom : fileDOMs)
   {
@@ -123,8 +119,8 @@ static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fil
     stm << compound->closingBracesForWrappingNamespaces() << "}\n";
   }
   stm << '\n';
-  stm << indentation << "namespace __zz_cib_ {\n";
-  stm << ++indentation << "MethodTable " << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId)\n";
+  stm << indentation << "extern \"C\" __zz_cib_export ";
+  stm << "__zz_cib_::MethodTable __zz_cib_" << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -137,7 +133,6 @@ static void emitMethodTableGetter(std::ostream& stm, const CppCompoundArray& fil
   }
   stm << indentation << "default:\n";
   stm << ++indentation << "return nullptr;\n";
-  stm << --indentation << "}\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
 }
@@ -202,6 +197,7 @@ int main(int argc, char* argv[])
   }
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(), std::ios_base::out);
+  cibLibSrcStm << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n\n";
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
   emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 

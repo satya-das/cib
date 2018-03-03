@@ -49,14 +49,31 @@ set(GRAPHICS_SOURCES
 	rect.cpp
 	composite.cpp
 	circ.cpp
-	graphics.cpp
 )
 add_library(graphics
 	SHARED
 		${GRAPHICS_SOURCES}
+		${GRAPHICS_PUB_FILES}
 		${CIB_OUTPUT}
 )
 target_include_directories(graphics
 	PRIVATE
+		pub
+)
+set_target_properties(graphics
+	PROPERTIES
+		COMPILE_DEFINITIONS GRAPHICSAPI=
+)
+add_library(graphics_wo_cib
+	SHARED
+		${GRAPHICS_SOURCES}
+		${GRAPHICS_PUB_FILES}
+)
+set_target_properties(graphics_wo_cib
+	PROPERTIES
+		COMPILE_DEFINITIONS GRAPHICSAPI=${DLLEXPORT}
+)
+target_include_directories(graphics_wo_cib
+	PUBLIC
 		pub
 )

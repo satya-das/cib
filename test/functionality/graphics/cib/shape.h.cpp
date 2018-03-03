@@ -37,7 +37,7 @@ namespace __zz_cib_ {
 					return proc(__zz_cib_proxy, ctx);
 				}
 				~Shape() override {
-if (__zz_cib_proxy) {
+					if (__zz_cib_proxy) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
 						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
 						proc(__zz_cib_proxy);

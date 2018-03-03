@@ -12,7 +12,7 @@ namespace Graphics
 
 typedef std::vector<Graphics::Shape*> Shapes;
 
-class Composite : public Shape
+class GRAPHICSAPI Composite : public Shape
 {
   Shapes shapes_;
 public:

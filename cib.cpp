@@ -191,7 +191,7 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream& stm, const CppProgram
     ++indentation;
     if (isDestructor())
     {
-      stm << "if (__zz_cib_proxy) {\n";
+      stm << indentation << "if (__zz_cib_proxy) {\n";
       ++indentation;
     }
     emitProcType(stm, cppProgram, cibParams, true, indentation);
@@ -771,7 +771,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << --indentation << "private:\n";
       stm << ++indentation << "__zz_cib_::MethodTable mtbl;\n";
       stm << indentation << "__zz_cib_Helper() {\n";
-      stm << ++indentation << "mtbl = " << cibParams.moduleName << "Lib_GetMethodTable(";
+      stm << ++indentation << "mtbl = __zz_cib_" << cibParams.moduleName << "Lib_GetMethodTable(";
       auto classIdName = longName();
       std::transform(classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c)->char {
         return c == ':' ? '_' : c;

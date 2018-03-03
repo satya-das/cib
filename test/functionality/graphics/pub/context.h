@@ -7,7 +7,7 @@ namespace Graphics
 /*!
  * Drawing context to draw graphics primitives.
  */
-class Context
+class GRAPHICSAPI Context
 {
 public:
   virtual void Move(float x, float y) = 0;

@@ -12,6 +12,21 @@
 # endif
 #endif
 
+#ifndef __zz_cib_import
+# if defined _WIN32 || defined __CYGWIN__
+#   ifdef __GNUC__
+#     define __zz_cib_import __attribute__ ((dllimport))
+#   else
+#     define __zz_cib_import __declspec(dllimport)
+#   endif
+# else
+#   if __GNUC__ >= 4
+#     define __zz_cib_import __attribute__ ((visibility ("default")))
+#   else
+#     define __zz_cib_import
+#   endif
+# endif
+#endif
 
 namespace __zz_cib_ {
   using MethodEntry = void(*)();
@@ -21,9 +36,9 @@ namespace __zz_cib_ {
     size_t numMethods; //!< Number of methods in method table.
   };
   using MethodTable = const MethodEntry*;
-
-  MethodTable $MODULE$Lib_GetMethodTable(std::uint32_t classId);
 }
+
+extern "C" __zz_cib_import __zz_cib_::MethodTable __zz_cib_$MODULE$Lib_GetMethodTable(std::uint32_t classId);
 
 namespace __zz_cib_ {
   class HANDLE;

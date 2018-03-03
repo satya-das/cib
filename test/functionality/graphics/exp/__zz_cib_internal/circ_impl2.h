@@ -41,7 +41,7 @@
 		private:
 			__zz_cib_::MethodTable mtbl;
 			__zz_cib_Helper() {
-				mtbl = GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle);
+				mtbl = __zz_cib_GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle);
 			}
 			static const __zz_cib_Helper& instance() {
 				static __zz_cib_Helper helper;
