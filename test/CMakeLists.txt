@@ -1,2 +1,2 @@
 add_subdirectory(functionality)
-add_subdirectory(performance)
+#add_subdirectory(performance)
