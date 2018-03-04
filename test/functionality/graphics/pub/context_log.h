@@ -14,21 +14,17 @@ public:
   ~LogContext() {}
 
 public:
-  void Move(float x, float y) override
+  void Line(float x1, float y1, float x2, float y2) override
   {
-    std::cout << "Move(" << x << ", " << y << ")" << std::endl;
+    std::cout << "Line(" << x1 << ", " << y1 << ", " << x2 << ", " << y2 << ")\n";
   }
-  void Line(float x, float y) override
+  void Rect(float l, float b, float r, float t) override
   {
-    std::cout << "Line(" << x << ", " << y << ")" << std::endl;
+    std::cout << "Rect(" << l << ", " << b << ", " << r << ", " << t << ")\n";
   }
-  void Curve(float x1, float y1, float x2, float y2, float x3, float y3) override
+  void Circle(float cx, float cy, float r) override
   {
-    std::cout << "Curve(" << x1 << ", " << y1 << x2 << ", " << y2 << x3 << ", " << y3 << ")" << std::endl;
-  }
-  void Close() override
-  {
-    std::cout << "Close()" << std::endl;
+    std::cout << "Circle(" << cx << ", " << cy << ", " << r << ")\n";
   }
 };
 }

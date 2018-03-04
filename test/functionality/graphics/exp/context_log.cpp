@@ -1,17 +1,14 @@
 #include "context_log.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	void __zz_cib_decl Move_1(::Graphics::LogContext* __zz_cib_obj, float x, float y) {
-		__zz_cib_obj->Move(x, y);
+	void __zz_cib_decl Line_1(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+		__zz_cib_obj->Line(x1, y1, x2, y2);
 	}
-	void __zz_cib_decl Line_2(::Graphics::LogContext* __zz_cib_obj, float x, float y) {
-		__zz_cib_obj->Line(x, y);
+	void __zz_cib_decl Rect_2(::Graphics::LogContext* __zz_cib_obj, float l, float b, float r, float t) {
+		__zz_cib_obj->Rect(l, b, r, t);
 	}
-	void __zz_cib_decl Curve_3(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2, float x3, float y3) {
-		__zz_cib_obj->Curve(x1, y1, x2, y2, x3, y3);
-	}
-	void __zz_cib_decl Close_4(::Graphics::LogContext* __zz_cib_obj) {
-		__zz_cib_obj->Close();
+	void __zz_cib_decl Circle_3(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
+		__zz_cib_obj->Circle(cx, cy, r);
 	}
 }}}
 
@@ -20,13 +17,12 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	using MethodTable = const MethodEntry*;
 	static MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 3 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
-			(MethodEntry) &Move_1,
-			(MethodEntry) &Line_2,
-			(MethodEntry) &Curve_3,
-			(MethodEntry) &Close_4
+			(MethodEntry) &Line_1,
+			(MethodEntry) &Rect_2,
+			(MethodEntry) &Circle_3
 		};
 		return methodTable;
 	}

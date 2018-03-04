@@ -19,9 +19,5 @@ float Graphics::Rectangle::Perimeter() const
 
 void Graphics::Rectangle::Draw(Context* ctx) const
 {
-  ctx->Move(left_, bottom_);
-  ctx->Line(right_, bottom_);
-  ctx->Line(right_, top_);
-  ctx->Line(left_, top_);
-  ctx->Close();
+  ctx->Rect(left_, top_, right_, bottom_);
 }

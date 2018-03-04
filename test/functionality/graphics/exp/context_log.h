@@ -14,10 +14,9 @@ namespace Graphics
 	public:
 		LogContext();
 		~LogContext();
-		virtual void Move(float x, float y);
-		virtual void Line(float x, float y);
-		virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3);
-		virtual void Close();
+		virtual void Line(float x1, float y1, float x2, float y2);
+		virtual void Rect(float l, float b, float r, float t);
+		virtual void Circle(float cx, float cy, float r);
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, ::Graphics::LogContext);

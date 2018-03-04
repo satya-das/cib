@@ -1,4 +1,4 @@
-#include "pdf_context.h"
+#include "svg_context.h"
 
 #include "context_log.h"
 #include "circ.h"
@@ -14,7 +14,7 @@ Shapes CreateVectorOfShapes()
 {
   Shapes shapes;
   shapes.emplace_back(new Graphics::Circle(0.0, 0.0, 5));
-  shapes.emplace_back(new Graphics::Rectangle(0, 5, 5, 5));
+  shapes.emplace_back(new Graphics::Rectangle(0, 5, 5, 0));
 
   return shapes;
 }
@@ -30,12 +30,13 @@ void TestCallingLibraryFunctions()
 void TestLibraryCallingClientFunctions()
 {
   auto shapes = CreateVectorOfShapes();
-  Graphics::PdfContext pdfContext;
+  SvgContext svgContext;
   for (auto shape : shapes)
-    shape->Draw(&pdfContext);
+    shape->Draw(&svgContext);
 }
 
 int main()
 {
   TestCallingLibraryFunctions();
+  TestLibraryCallingClientFunctions();
 }

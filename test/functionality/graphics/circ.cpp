@@ -16,5 +16,5 @@ float Graphics::Circle::Perimeter() const
 
 void Graphics::Circle::Draw(Context* ctx) const
 {
-  //TODO: Draw circle using bezier.
+  ctx->Circle(Ox_, Oy_, radius_);
 }

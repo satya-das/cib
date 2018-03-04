@@ -139,17 +139,15 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Context { namespace __zz_cib_UnknownProxy {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= virtual void Move(float, float) = 0;
-				Move_1 = 1,
-				//#= virtual void Line(float, float) = 0;
-				Line_2 = 2,
-				//#= virtual void Curve(float, float, float, float, float, float) = 0;
-				Curve_3 = 3,
-				//#= virtual void Close() = 0;
-				Close_4 = 4,
+				//#= virtual void Line(float, float, float, float) = 0;
+				Line_1 = 1,
+				//#= virtual void Rect(float, float, float, float) = 0;
+				Rect_2 = 2,
+				//#= virtual void Circle(float, float, float) = 0;
+				Circle_3 = 3,
 				//#= ~Context()
-				__zz_cib_delete_5 = 5,
-				__zz_cib_next_method_id = 6
+				__zz_cib_delete_4 = 4,
+				__zz_cib_next_method_id = 5
 			};
 		}
 	}}}
@@ -162,19 +160,17 @@ namespace __zz_cib_ {
 				__zz_cib_new_1 = 1,
 				//#= ~LogContext()
 				__zz_cib_delete_2 = 2,
-				//#= virtual void Move(float, float);
-				Move_3 = 3,
-				//#= virtual void Line(float, float);
-				Line_4 = 4,
-				//#= virtual void Curve(float, float, float, float, float, float);
-				Curve_5 = 5,
-				//#= virtual void Close();
-				Close_6 = 6,
+				//#= virtual void Line(float, float, float, float);
+				Line_3 = 3,
+				//#= virtual void Rect(float, float, float, float);
+				Rect_4 = 4,
+				//#= virtual void Circle(float, float, float);
+				Circle_5 = 5,
 				//#= __zz_cib_cast_to___Graphics__Context
-				__zz_cib_cast_to___Graphics__Context_7 = 7,
+				__zz_cib_cast_to___Graphics__Context_6 = 6,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_8 = 8,
-				__zz_cib_next_method_id = 9
+				__zz_cib_release_proxy_7 = 7,
+				__zz_cib_next_method_id = 8
 			};
 		}
 	}}
@@ -183,15 +179,13 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace LogContext { namespace __zz_cib_UnknownProxy {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= virtual void Move(float, float);
-				Move_1 = 1,
-				//#= virtual void Line(float, float);
-				Line_2 = 2,
-				//#= virtual void Curve(float, float, float, float, float, float);
-				Curve_3 = 3,
-				//#= virtual void Close();
-				Close_4 = 4,
-				__zz_cib_next_method_id = 5
+				//#= virtual void Line(float, float, float, float);
+				Line_1 = 1,
+				//#= virtual void Rect(float, float, float, float);
+				Rect_2 = 2,
+				//#= virtual void Circle(float, float, float);
+				Circle_3 = 3,
+				__zz_cib_next_method_id = 4
 			};
 		}
 	}}}

@@ -19,30 +19,25 @@ namespace __zz_cib_ {
 				__zz_cib_::MethodTable __zz_cib_mtbl;
 
 			public:
-				void Move(float x, float y) override {
-					using MoveProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x, float y);
-					auto proc = (MoveProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Move_1];
-					return proc(__zz_cib_proxy, x, y);
+				void Line(float x1, float y1, float x2, float y2) override {
+					using LineProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x1, float y1, float x2, float y2);
+					auto proc = (LineProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_1];
+					return proc(__zz_cib_proxy, x1, y1, x2, y2);
 				}
-				void Line(float x, float y) override {
-					using LineProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x, float y);
-					auto proc = (LineProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_2];
-					return proc(__zz_cib_proxy, x, y);
+				void Rect(float l, float b, float r, float t) override {
+					using RectProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float l, float b, float r, float t);
+					auto proc = (RectProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Rect_2];
+					return proc(__zz_cib_proxy, l, b, r, t);
 				}
-				void Curve(float x1, float y1, float x2, float y2, float x3, float y3) override {
-					using CurveProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x1, float y1, float x2, float y2, float x3, float y3);
-					auto proc = (CurveProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Curve_3];
-					return proc(__zz_cib_proxy, x1, y1, x2, y2, x3, y3);
-				}
-				void Close() override {
-					using CloseProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
-					auto proc = (CloseProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Close_4];
-					return proc(__zz_cib_proxy);
+				void Circle(float cx, float cy, float r) override {
+					using CircleProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float cx, float cy, float r);
+					auto proc = (CircleProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3];
+					return proc(__zz_cib_proxy, cx, cy, r);
 				}
 				~Context() override {
 					if (__zz_cib_proxy) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
-						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_5];
+						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
 						proc(__zz_cib_proxy);
 					}
 				}

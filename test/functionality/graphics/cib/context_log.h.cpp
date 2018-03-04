@@ -16,25 +16,20 @@ namespace __zz_cib_ {
 					, __zz_cib_proxy(proxy)
 					, __zz_cib_mtbl(mtbl)
 				{}
-				void Move(float x, float y) override {
-					using MoveProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x, float y);
-					auto proc = (MoveProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Move_1];
-					return proc(__zz_cib_proxy, x, y);
+				void Line(float x1, float y1, float x2, float y2) override {
+					using LineProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x1, float y1, float x2, float y2);
+					auto proc = (LineProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_1];
+					return proc(__zz_cib_proxy, x1, y1, x2, y2);
 				}
-				void Line(float x, float y) override {
-					using LineProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x, float y);
-					auto proc = (LineProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_2];
-					return proc(__zz_cib_proxy, x, y);
+				void Rect(float l, float b, float r, float t) override {
+					using RectProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float l, float b, float r, float t);
+					auto proc = (RectProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Rect_2];
+					return proc(__zz_cib_proxy, l, b, r, t);
 				}
-				void Curve(float x1, float y1, float x2, float y2, float x3, float y3) override {
-					using CurveProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float x1, float y1, float x2, float y2, float x3, float y3);
-					auto proc = (CurveProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Curve_3];
-					return proc(__zz_cib_proxy, x1, y1, x2, y2, x3, y3);
-				}
-				void Close() override {
-					using CloseProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
-					auto proc = (CloseProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Close_4];
-					return proc(__zz_cib_proxy);
+				void Circle(float cx, float cy, float r) override {
+					using CircleProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float cx, float cy, float r);
+					auto proc = (CircleProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3];
+					return proc(__zz_cib_proxy, cx, cy, r);
 				}
 				void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 			};
@@ -46,22 +41,19 @@ namespace __zz_cib_ {
 			void __zz_cib_decl __zz_cib_delete_2(::Graphics::LogContext* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			void __zz_cib_decl Move_3(::Graphics::LogContext* __zz_cib_obj, float x, float y) {
-				__zz_cib_obj->::Graphics::LogContext::Move(x, y);
+			void __zz_cib_decl Line_3(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+				__zz_cib_obj->::Graphics::LogContext::Line(x1, y1, x2, y2);
 			}
-			void __zz_cib_decl Line_4(::Graphics::LogContext* __zz_cib_obj, float x, float y) {
-				__zz_cib_obj->::Graphics::LogContext::Line(x, y);
+			void __zz_cib_decl Rect_4(::Graphics::LogContext* __zz_cib_obj, float l, float b, float r, float t) {
+				__zz_cib_obj->::Graphics::LogContext::Rect(l, b, r, t);
 			}
-			void __zz_cib_decl Curve_5(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2, float x3, float y3) {
-				__zz_cib_obj->::Graphics::LogContext::Curve(x1, y1, x2, y2, x3, y3);
+			void __zz_cib_decl Circle_5(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
+				__zz_cib_obj->::Graphics::LogContext::Circle(cx, cy, r);
 			}
-			void __zz_cib_decl Close_6(::Graphics::LogContext* __zz_cib_obj) {
-				__zz_cib_obj->::Graphics::LogContext::Close();
-			}
-			::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {
+			::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_6(::Graphics::LogContext* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
-			void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::LogContext* __zz_cib_obj) {
+			void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::LogContext* __zz_cib_obj) {
 				auto unknownProxy = static_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
 				unknownProxy->__zz_cib_release_proxy();
 			}
@@ -73,17 +65,16 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	using MethodTable = const MethodEntry*;
 	MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 8 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
 			(MethodEntry) &__zz_cib_delete_2,
-			(MethodEntry) &Move_3,
-			(MethodEntry) &Line_4,
-			(MethodEntry) &Curve_5,
-			(MethodEntry) &Close_6,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_7,
-			(MethodEntry) &__zz_cib_release_proxy_8
+			(MethodEntry) &Line_3,
+			(MethodEntry) &Rect_4,
+			(MethodEntry) &Circle_5,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_6,
+			(MethodEntry) &__zz_cib_release_proxy_7
 		};
 		return methodTable;
 	}

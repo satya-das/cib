@@ -11,6 +11,8 @@ set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
 
 set(DRAW_SOURCES
 	draw.cpp
+	svg_context.cpp
+	svg_context.h
 )
 
 file(GLOB GRAPHICS_EXP_SOURCES

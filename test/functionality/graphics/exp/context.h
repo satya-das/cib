@@ -12,10 +12,9 @@ namespace Graphics
 	class Context
 	{
 	public:
-		virtual void Move(float x, float y) = 0;
-		virtual void Line(float x, float y) = 0;
-		virtual void Curve(float x1, float y1, float x2, float y2, float x3, float y3) = 0;
-		virtual void Close() = 0;
+		virtual void Line(float x1, float y1, float x2, float y2) = 0;
+		virtual void Rect(float l, float b, float r, float t) = 0;
+		virtual void Circle(float cx, float cy, float r) = 0;
 		virtual ~Context();
 	protected:
 		Context();
