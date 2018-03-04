@@ -6,10 +6,10 @@
 			friend class ::Graphics::Rectangle;
 			static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();
 
-			static __zz_cib_::HANDLE* __zz_cib_new_1(::Graphics::Rectangle* __zz_cib_proxy, float left, float top, float right, float bottom) {
-				using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, __zz_cib_::MethodTable, float left, float top, float right, float bottom);
+			static __zz_cib_::HANDLE* __zz_cib_new_1(::Graphics::Rectangle* __zz_cib_proxy, float left, float bottom, float right, float top) {
+				using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, __zz_cib_::MethodTable, float left, float bottom, float right, float top);
 				auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Rectangle::__zz_cib_methodid::__zz_cib_new_1];
-				return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), left, top, right, bottom);
+				return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), left, bottom, right, top);
 			}
 			static float Area_2(__zz_cib_::HANDLE* __zz_cib_obj) {
 				using AreaProc = float (__zz_cib_decl *) (__zz_cib_::HANDLE*);
@@ -77,8 +77,8 @@ inline Graphics::Rectangle::Rectangle(__zz_cib_::HANDLE* h)
 	, __zz_cib_h_(h)
 {}
 
-inline Graphics::Rectangle::Rectangle(float left, float top, float right, float bottom)
-	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_1(this, left, top, right, bottom))
+inline Graphics::Rectangle::Rectangle(float left, float bottom, float right, float top)
+	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_1(this, left, bottom, right, top))
 {}
 
 inline float Graphics::Rectangle::Area() const {

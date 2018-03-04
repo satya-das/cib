@@ -11,8 +11,8 @@ namespace __zz_cib_ {
 				__zz_cib_::MethodTable __zz_cib_mtbl;
 
 			public:
-				Rectangle(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float left, float top, float right, float bottom)
-					: ::Graphics::Rectangle::Rectangle(left, top, right, bottom)
+				Rectangle(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float left, float bottom, float right, float top)
+					: ::Graphics::Rectangle::Rectangle(left, bottom, right, top)
 					, __zz_cib_proxy(proxy)
 					, __zz_cib_mtbl(mtbl)
 				{}
@@ -35,8 +35,8 @@ namespace __zz_cib_ {
 			};
 		}}
 		namespace Rectangle {
-			::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float left, float top, float right, float bottom) {
-				return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, left, top, right, bottom);
+			::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float left, float bottom, float right, float top) {
+				return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, left, bottom, right, top);
 			}
 			float __zz_cib_decl Area_2(::Graphics::Rectangle* __zz_cib_obj) {
 				return __zz_cib_obj->::Graphics::Rectangle::Area();

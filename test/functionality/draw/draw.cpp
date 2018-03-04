@@ -13,8 +13,8 @@ using Shapes    = std::vector<ShapePtr>;
 Shapes CreateVectorOfShapes()
 {
   Shapes shapes;
-  shapes.emplace_back(new Graphics::Circle(0.0, 0.0, 5));
-  shapes.emplace_back(new Graphics::Rectangle(0, 5, 5, 0));
+  shapes.emplace_back(new Graphics::Circle(50, 50, 25));
+  shapes.emplace_back(new Graphics::Rectangle(25, 25, 75, 75));
 
   return shapes;
 }

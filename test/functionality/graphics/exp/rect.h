@@ -15,7 +15,7 @@ namespace Graphics
 	class Rectangle : public ::Graphics::Shape
 	{
 	public:
-		Rectangle(float left, float top, float right, float bottom);
+		Rectangle(float left, float bottom, float right, float top);
 		virtual float Area() const;
 		virtual float Perimeter() const;
 		virtual void Draw(::Graphics::Context* ctx) const;

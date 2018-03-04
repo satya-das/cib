@@ -12,11 +12,11 @@ namespace Graphics
  */
 class GRAPHICSAPI Rectangle : public Shape
 {
-  float left_, top_, right_, bottom_;
+  float left_, bottom_, right_, top_;
 
 public:
-  Rectangle(float left, float top, float right, float bottom)
-    : left_(left), top_(top), right_(right), bottom_(bottom)
+  Rectangle(float left, float bottom, float right, float top)
+    : left_(left), bottom_(bottom), right_(right), top_(top)
   {
   }
   /**

@@ -7,7 +7,7 @@ SvgContext::SvgContext(const std::string& svgPath)
   : svgStm_(svgPath, std::ios_base::out)
   , svgPath_(svgPath)
 {
-  svgStm_ << "<svg version='1.1' baseProfile='full' width='300' height='200' xmlns = 'http://www.w3.org/2000/svg'>\n";                  
+  svgStm_ << "<svg version='1.1' baseProfile='full' width='100' height='100' xmlns = 'http://www.w3.org/2000/svg'>\n";                  
 }
 
 SvgContext::SvgContext()
@@ -19,7 +19,7 @@ SvgContext::~SvgContext()
 {
   svgStm_ << "</svg>\n";
   svgStm_.close();
-  std::cout << "Created SVG file '" << svgPath_ << "'.\n";
+  std::cout << "Created SVG file " << svgPath_ << "\n";
 }
 
 void SvgContext::Line(float x1, float y1, float x2, float y2)
@@ -29,10 +29,10 @@ void SvgContext::Line(float x1, float y1, float x2, float y2)
 
 void SvgContext::Rect(float l, float b, float r, float t)
 {
-  svgStm_ << "<rect x='" << l << "' y='" << b << "' width='" << r-l << "' height='" << b-t << "' />\n";
+  svgStm_ << "<rect x='" << l << "' y='" << b << "' width='" << r-l << "' height='" << t-b << "' stroke='black' fill='none' />\n";
 }
 
 void SvgContext::Circle(float cx, float cy, float r)
 {
-  svgStm_ << "<circle cx='" << cx << "' cy='" << cy << "' r='" << r << "' />\n";
+  svgStm_ << "<circle cx='" << cx << "' cy='" << cy << "' r='" << r << "' stroke='black' fill='none' />\n";
 }
