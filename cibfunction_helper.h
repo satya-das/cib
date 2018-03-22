@@ -94,6 +94,10 @@ public:
   {
     return isFunction() && func_->isMethod();
   }
+  bool hasDefinition() const
+  {
+    return func_->defn_ != nullptr;
+  }
 
   CibCppCompound* getOwner() const;
 

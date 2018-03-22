@@ -517,6 +517,11 @@ void CibCppCompound::emitDecl(const CppObj* obj, std::ostream& stm, const CppPro
 
 void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
+  if (inline_)
+  {
+    gCppWriter.emit(this, stm, indentation);
+    return;
+  }
   if (isNamespaceLike())
   {
     stm << indentation;

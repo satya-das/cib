@@ -131,18 +131,27 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
 
 void CppProgramEx::markClassType(CibCppCompound* cppCompound)
 {
+  auto isInline = true;
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
     {
       markClassType(static_cast<CibCppCompound*>(mem));
     }
-    else if(mem->objType_ == CppObj::kFunction)
+    else if(mem->isFunctionLike())
     {
-      evaluateArgs(mem);
-      evaluateReturnType(mem);
+      CibFunctionHelper func(mem);
+      if (!func.hasDefinition())
+        isInline = false;
+      if (func.isMethod())
+      {
+        evaluateArgs(mem);
+        evaluateReturnType(mem);
+      }
     }
   }
+  if (isInline)
+    cppCompound->setIsInline();
 }
 
 void CppProgramEx::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
