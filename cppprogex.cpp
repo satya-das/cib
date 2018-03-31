@@ -141,7 +141,7 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     else if(mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
-      if (!func.hasDefinition())
+      if (!func.hasDefinition() || func.isVirtual())
         isInline = false;
       if (func.isMethod())
       {

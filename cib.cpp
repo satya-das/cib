@@ -701,7 +701,8 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
     stm << '\n';        // Start in new line.
     if (!wrappingNamespaceDeclarations(cibParams).empty())
       stm << ++indentation << wrappingNamespaceDeclarations(cibParams) << '\n';
-    stm << ++indentation << "namespace " << name() << " { class __zz_cib_Helper {\n";
+    stm << ++indentation << "namespace " << name() << " {\n";
+    stm << ++indentation << "class __zz_cib_Helper {\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
     if (needsUnknownProxyDefinition())
       stm << indentation << "static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();\n";
@@ -849,7 +850,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
   }
 
   auto cibIdData = cibIdMgr.getCibIdData(longName());
-  if (isClassLike())
+  if (isClassLike() && !needsBridging_.empty())
   {
     // Emit the ctor to construct from HANDLE.
     stm     << '\n'; // Start in new line.
