@@ -46,7 +46,8 @@ private:
   bool hasDtor_{ false };
   bool needsUnknownProxyDefinition_{ false };
 
-  mutable CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
+  CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
+  std::set<const CppObj*> objNeedingBridge_; 
   mutable TypeNameToCppObj typeNameToCibCppObj_;
 
 public:
@@ -174,7 +175,7 @@ public:
 
     static const CibCppCompound* getFileDomObj(const CppObj* obj);
   private:
-    static void emitDecl(const CppObj*, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent() );
+    void emitDecl(const CppObj*, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
     void emitHelperDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
     void emitHelperDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
     void emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;

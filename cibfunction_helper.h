@@ -23,7 +23,7 @@ enum class CallType
 /*!
  * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and regular functions.
  * There is too much similiarity in constructor, destructor, and function but they are different too.
- * cppparser has three different classes for these and it makes sense. But for pupose of cib their similarity
+ * cppparser has three different classes for these and it makes sense. But for purpose of cib their similarity
  * is more important than their differences and so CibFunctionHelper provides a uniform interface and behaviour
  * to deal with them uniformly.
  * It is a wrapper class that provides access to underlying objects which are purposfully const.
@@ -50,6 +50,7 @@ public:
   CibFunctionHelper(const CibCppDestructor* dtor) : dtor_(dtor) {}
   CibFunctionHelper(const CibCppFunction* func) : func_(func) {}
 
+  operator const CppObj* () const { return cppObj_; }
   CppObjProtLevel protectionLevel() const
   {
     return cppObj_->prot_;

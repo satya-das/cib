@@ -500,10 +500,17 @@ std::string CibCppCompound::implIncludeName(const CibParams& cibParams) const
   return implIncludeName;
 }
 
-void CibCppCompound::emitDecl(const CppObj* obj, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */)
+void CibCppCompound::emitDecl(const CppObj* obj, std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
   if (obj->isFunctionLike())
+  {
+    if (objNeedingBridge_.count(obj))
+    {
+      CibFunctionHelper func = obj;
+      func.emitOrigDecl(stm, cppProgram, cibParams, indentation);
+    }
     return;
+  }
   if (obj->objType_ == CppObj::kCompound)
   {
     auto compound = static_cast<const CibCppCompound*>(obj);
@@ -546,20 +553,25 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
   }
   CppObjProtLevel lastProt = kUnknownProt;
 
+  std::set<const CppObj*> memDeclared;
   for (auto mem : members_)
   {
     if (!inline_ && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
       continue;
     if (isClassLike() && lastProt != mem->prot_)
     {
-      stm << --indentation << mem->prot_ << ":\n";
+      if (mem->prot_ != kUnknownProt)
+        stm << --indentation << mem->prot_ << ":\n";
       ++indentation;
       lastProt = mem->prot_;
     }
     emitDecl(mem, stm, cppProgram, cibParams, indentation);
+    memDeclared.insert(mem);
   }
   for (auto func : needsBridging_)
   {
+    if (memDeclared.count(func))
+      continue;
     if (func.protectionLevel() != lastProt)
     {
       stm << --indentation << func.protectionLevel() << ":\n";
@@ -640,11 +652,15 @@ void CibCppCompound::identifyMethodsToBridge()
       if (inline_) // If class is inline
       {
         if (func.isStatic() && !func.isInline()) // only non-inline static methods need bridging.
+        {
           needsBridging_.push_back(func);
+          objNeedingBridge_.insert(mem);
+        }
       }
       else if (!func.isPureVirtual() || needsUnknownProxyDefinition() || func.isDestructor())
       {
         needsBridging_.push_back(func);
+        objNeedingBridge_.insert(mem);
       }
     }
     else if (mem->isNamespaceLike())
@@ -662,6 +678,7 @@ void CibCppCompound::identifyMethodsToBridge()
     addMember(defaultDtor);
     CibFunctionHelper func(defaultDtor);
     needsBridging_.push_back(func);
+    objNeedingBridge_.insert(defaultDtor);
   }
   if (!hasCtor_)
   {
@@ -671,6 +688,7 @@ void CibCppCompound::identifyMethodsToBridge()
     addMember(defaultCtor);
     CibFunctionHelper func(defaultCtor);
     needsBridging_.push_back(func);
+    objNeedingBridge_.insert(defaultCtor);
   }
 
 }

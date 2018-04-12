@@ -1,9 +1,7 @@
 #pragma  once
-
 #include <cstddef>
 
 #include "__zz_cib_internal/context_impl1.h"
-
 namespace Graphics
 {
 /*!

@@ -1,12 +1,9 @@
 #pragma  once
-
 #include "shape.h"
 #include "context.h"
 
 #include "__zz_cib_internal/rect_impl1.h"
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
 namespace Graphics
 {
 /**
@@ -16,8 +13,17 @@ namespace Graphics
 	{
 	public:
 		Rectangle(float left, float bottom, float right, float top);
+  /**
+   * @return Area of this shape object.
+   */
 		virtual float Area() const;
+  /**
+   * @return Perimeter of this shape object.
+   */
 		virtual float Perimeter() const;
+  /**
+   * Draws this shape on a given device context.
+   */
 		virtual void Draw(::Graphics::Context* ctx) const;
 		~Rectangle();
 

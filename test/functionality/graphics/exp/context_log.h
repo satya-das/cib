@@ -1,9 +1,7 @@
 #include "context.h"
-
 #include <iostream>
 
 #include "__zz_cib_internal/context_log_impl1.h"
-
 namespace Graphics
 {
 /*!
