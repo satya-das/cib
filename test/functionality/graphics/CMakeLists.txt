@@ -48,32 +48,32 @@ set(GRAPHICS_SOURCES
 	composite.cpp
 	circ.cpp
 )
-add_library(graphics
+add_library(graphics_cibified
 	SHARED
 		${GRAPHICS_SOURCES}
 		${GRAPHICS_PUB_FILES}
 		${CIB_OUTPUT}
 )
-target_include_directories(graphics
+target_include_directories(graphics_cibified
 	PRIVATE
 		pub
 )
-set_target_properties(graphics
+set_target_properties(graphics_cibified
 	PROPERTIES
 		COMPILE_DEFINITIONS GRAPHICSAPI=
 )
-add_dependencies(graphics cib)
+add_dependencies(graphics_cibified cib)
 
-add_library(graphics_wo_cib
+add_library(graphics
 	SHARED
 		${GRAPHICS_SOURCES}
 		${GRAPHICS_PUB_FILES}
 )
-set_target_properties(graphics_wo_cib
+set_target_properties(graphics
 	PROPERTIES
 		COMPILE_DEFINITIONS GRAPHICSAPI=${DLLEXPORT}
 )
-target_include_directories(graphics_wo_cib
+target_include_directories(graphics
 	PUBLIC
 		pub
 )
