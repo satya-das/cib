@@ -8,12 +8,10 @@
 #include <vector>
 
 static void TestCallingLibraryFunctions();
-static void TestLibraryCallingClientFunctions();
 
 int main()
 {
   TestCallingLibraryFunctions();
-  TestLibraryCallingClientFunctions();
 
   return 0;
 }
