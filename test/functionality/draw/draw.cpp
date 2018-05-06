@@ -7,10 +7,21 @@
 #include <memory>
 #include <vector>
 
+static void TestCallingLibraryFunctions();
+static void TestLibraryCallingClientFunctions();
+
+int main()
+{
+  TestCallingLibraryFunctions();
+  TestLibraryCallingClientFunctions();
+
+  return 0;
+}
+
 using ShapePtr  = std::shared_ptr<Graphics::Shape>;
 using Shapes    = std::vector<ShapePtr>;
 
-Shapes CreateVectorOfShapes()
+static Shapes CreateVectorOfShapes()
 {
   Shapes shapes;
   shapes.emplace_back(new Graphics::Circle(50, 50, 25));
@@ -19,7 +30,7 @@ Shapes CreateVectorOfShapes()
   return shapes;
 }
 
-void TestCallingLibraryFunctions()
+static void TestCallingLibraryFunctions()
 {
   auto shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;
@@ -27,16 +38,10 @@ void TestCallingLibraryFunctions()
     shape->Draw(&ctx);
 }
 
-void TestLibraryCallingClientFunctions()
+static void TestLibraryCallingClientFunctions()
 {
   auto shapes = CreateVectorOfShapes();
   SvgContext svgContext;
   for (auto shape : shapes)
     shape->Draw(&svgContext);
-}
-
-int main()
-{
-  TestCallingLibraryFunctions();
-  TestLibraryCallingClientFunctions();
 }
