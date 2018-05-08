@@ -33,7 +33,12 @@ static void TestCallingLibraryFunctions()
   auto shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;
   for (auto shape : shapes)
+  {
     shape->Draw(&ctx);
+    std::cout << "Area = " << shape->Area() << ".\n";
+    std::cout << "Perimeter = " << shape->Perimeter() << ".\n";
+    std::cout << std::endl;
+  }
 }
 
 static void TestLibraryCallingClientFunctions()
