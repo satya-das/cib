@@ -8,6 +8,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
+set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 
 set(DRAW_SOURCES
 	draw.cpp
@@ -48,3 +49,7 @@ target_include_directories(draw
 	PRIVATE
 		../graphics/pub
 )
+if(MSVC)
+    set_target_properties(draw PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+    set_target_properties(draw_cibified PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+endif()
