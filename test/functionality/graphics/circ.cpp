@@ -18,3 +18,8 @@ void Graphics::Circle::Draw(Context* ctx) const
 {
   ctx->Circle(Ox_, Oy_, radius_);
 }
+
+Graphics::Shape* Graphics::Circle::CreateCircle(float Ox, float Oy, float radius)
+{
+  return new Circle(Ox, Oy, radius);
+}
