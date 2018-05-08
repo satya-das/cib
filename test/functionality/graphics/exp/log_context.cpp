@@ -1,4 +1,4 @@
-#include "context_log.h"
+#include "log_context.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	void __zz_cib_decl Line_1(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {

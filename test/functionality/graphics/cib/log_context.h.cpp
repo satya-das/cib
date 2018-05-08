@@ -1,7 +1,7 @@
 #include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
-#include "context_log.h"
+#include "log_context.h"
 
 namespace __zz_cib_ {
 	namespace Graphics {
@@ -54,8 +54,9 @@ namespace __zz_cib_ {
 				return __zz_cib_obj;
 			}
 			void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::LogContext* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}

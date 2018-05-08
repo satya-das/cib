@@ -69,8 +69,9 @@ namespace __zz_cib_ {
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
 			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}

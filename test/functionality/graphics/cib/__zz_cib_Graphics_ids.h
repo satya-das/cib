@@ -46,13 +46,15 @@ namespace __zz_cib_ {
 				Perimeter_3 = 3,
 				//#= virtual void Draw(Context*) const;
 				Draw_4 = 4,
+				//#= static Shape* CreateCircle(float, float, float);
+				CreateCircle_5 = 5,
 				//#= ~Circle()
-				__zz_cib_delete_5 = 5,
+				__zz_cib_delete_6 = 6,
 				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape_6 = 6,
+				__zz_cib_cast_to___Graphics__Shape_7 = 7,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_7 = 7,
-				__zz_cib_next_method_id = 8
+				__zz_cib_release_proxy_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}}

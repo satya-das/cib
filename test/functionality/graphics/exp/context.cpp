@@ -1,5 +1,5 @@
 #include "context.h"
-#include "context_log.h"
+#include "log_context.h"
 
 ::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {

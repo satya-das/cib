@@ -1,6 +1,6 @@
 #include "svg_context.h"
 
-#include "context_log.h"
+#include "log_context.h"
 #include "circ.h"
 #include "rect.h"
 

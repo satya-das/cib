@@ -2,7 +2,7 @@
 
 #include "cib_GraphicsLib.h"
 #include "context.h"
-#include "context_log.h"
+#include "log_context.h"
 
 #include <typeinfo>
 #include <typeindex>
@@ -65,8 +65,9 @@ namespace __zz_cib_ {
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
 			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Context* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}

@@ -1,4 +1,5 @@
 #include "circ.h"
+#include "shape.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
 	float __zz_cib_decl Area_1(::Graphics::Circle* __zz_cib_obj) {
