@@ -1077,8 +1077,11 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
     {
       stm << indentation << "void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
-      stm << indentation << "auto unknownProxy = static_cast<__zz_cib_" << longName() << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
+      stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName() << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
+      stm << indentation << "if (unknownProxy)\n";
+      ++indentation;
       stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
+      --indentation;
       --indentation;
       stm << indentation << "}\n";
     }
