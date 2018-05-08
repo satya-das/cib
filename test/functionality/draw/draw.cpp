@@ -28,11 +28,8 @@ static Shapes CreateVectorOfShapes()
   return shapes;
 }
 
-#include <iostream>
 static void TestCallingLibraryFunctions()
 {
-  char c;
-  std::cin >> c;
   auto shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;
   for (auto shape : shapes)
