@@ -107,7 +107,7 @@ void CibIdMgr::loadClassIds(const CppEnum* classIdEnum)
   const auto& enumItemInfos = classIdEnumData.first;
   auto nextClassId = classIdEnumData.second;
   for (const auto& item: enumItemInfos)
-    addClass(std::get<0>(item), std::get<1>(item));
+    addClass(std::get<0>(item), std::get<2>(item));
   if (nextClassId_ < nextClassId)
     nextClassId_ = nextClassId;
 }

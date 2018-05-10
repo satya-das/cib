@@ -15,6 +15,7 @@ set(GRAPHICS_PUB_FILE_NAMES
 	circ.h
 	composite.h
 	context.h
+	ellipse.h
 	log_context.h
 	rect.h
 	shape.h
@@ -44,11 +45,11 @@ add_custom_command(
 )
 
 set(GRAPHICS_SOURCES
-	shape.cpp
-	rect.cpp
-	composite.cpp
 	circ.cpp
+	composite.cpp
+	ellipse.cpp
 	log_context.cpp
+	rect.cpp
 )
 add_library(graphics_cibified
 	SHARED

@@ -170,7 +170,9 @@ public:
 
   public:
     void forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+    void forEachAncestor(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
     void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+    void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
     void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
 
     static const CibCppCompound* getFileDomObj(const CppObj* obj);
@@ -198,7 +200,21 @@ inline void CibCppCompound::forEachParent(CppObjProtLevel prot, std::function<vo
   if (parentsItr == parents_.end())
     return;
   for (auto parent : parentsItr->second)
+  {
     callable(parent);
+  }
+}
+
+inline void CibCppCompound::forEachAncestor(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const
+{
+  auto parentsItr = parents_.find(prot);
+  if (parentsItr == parents_.end())
+    return;
+  for (auto parent : parentsItr->second)
+  {
+    parent->forEachParent(prot, callable);
+    callable(parent);
+  }
 }
 
 inline void CibCppCompound::forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const
@@ -208,6 +224,18 @@ inline void CibCppCompound::forEachDerived(CppObjProtLevel prot, std::function<v
     return;
   for (auto child : childItr->second)
     callable(child);
+}
+
+inline void CibCppCompound::forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const
+{
+  auto childItr = children_.find(prot);
+  if (childItr == children_.end())
+    return;
+  for (auto child : childItr->second)
+  {
+    child->forEachDescendent(prot, callable);
+    callable(child);
+  }
 }
 
 inline void CibCppCompound::forEachNested(std::function<void(const CibCppCompound*)> callable) const

@@ -18,7 +18,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 	void __zz_cib_decl Circle_3(::Graphics::Context* __zz_cib_obj, float cx, float cy, float r) {
 		__zz_cib_obj->Circle(cx, cy, r);
 	}
-	void __zz_cib_decl __zz_cib_delete_4(::Graphics::Context* __zz_cib_obj) {
+	void __zz_cib_decl Ellipse_4(::Graphics::Context* __zz_cib_obj, float cx, float cy, float a, float b) {
+		__zz_cib_obj->Ellipse(cx, cy, a, b);
+	}
+	void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 }}}
@@ -28,13 +31,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 	using MethodTable = const MethodEntry*;
 	static MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 5 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
 			(MethodEntry) &Line_1,
 			(MethodEntry) &Rect_2,
 			(MethodEntry) &Circle_3,
-			(MethodEntry) &__zz_cib_delete_4
+			(MethodEntry) &Ellipse_4,
+			(MethodEntry) &__zz_cib_delete_5
 		};
 		return methodTable;
 	}
