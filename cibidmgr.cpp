@@ -175,7 +175,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   }
   if (!forUnknownProxy)
   {
-    compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
+    compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
       auto castMethodName = compound->castToBaseName(parent, cibParams);
       if (!cibIdData->hasMethod(castMethodName))
         cibIdData->addMethod(castMethodName, castMethodName);
