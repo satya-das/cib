@@ -3,6 +3,7 @@
 #include "cib_GraphicsLib.h"
 #include "circ.h"
 #include "composite.h"
+#include "ellipse.h"
 #include "rect.h"
 #include "shape.h"
 
@@ -63,14 +64,16 @@ namespace __zz_cib_ {
 				if (!classIdRepoPopulated) {
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle;
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Ellipse;
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle;
 					classIdRepoPopulated = true;
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
 			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}

@@ -8,13 +8,15 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
+set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 set(CMAKE_CURRENT_BINARY_DIR, ${CMAKE_OBJFILE_OUTPUT_DIRECTORY})
 
 set(GRAPHICS_PUB_FILE_NAMES
 	circ.h
 	composite.h
 	context.h
-	context_log.h
+	ellipse.h
+	log_context.h
 	rect.h
 	shape.h
 )
@@ -43,37 +45,42 @@ add_custom_command(
 )
 
 set(GRAPHICS_SOURCES
-	shape.cpp
-	rect.cpp
-	composite.cpp
 	circ.cpp
+	composite.cpp
+	ellipse.cpp
+	log_context.cpp
+	rect.cpp
 )
-add_library(graphics
+add_library(graphics_cibified
 	SHARED
 		${GRAPHICS_SOURCES}
 		${GRAPHICS_PUB_FILES}
 		${CIB_OUTPUT}
 )
-target_include_directories(graphics
+target_include_directories(graphics_cibified
 	PRIVATE
 		pub
 )
-set_target_properties(graphics
+set_target_properties(graphics_cibified
 	PROPERTIES
 		COMPILE_DEFINITIONS GRAPHICSAPI=
 )
-add_dependencies(graphics cib)
+add_dependencies(graphics_cibified cib)
 
-add_library(graphics_wo_cib
+add_library(graphics
 	SHARED
 		${GRAPHICS_SOURCES}
 		${GRAPHICS_PUB_FILES}
 )
-set_target_properties(graphics_wo_cib
+set_target_properties(graphics
 	PROPERTIES
 		COMPILE_DEFINITIONS GRAPHICSAPI=${DLLEXPORT}
 )
-target_include_directories(graphics_wo_cib
+target_include_directories(graphics
 	PUBLIC
 		pub
 )
+if(MSVC)
+    set_target_properties(graphics PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+    set_target_properties(graphics_cibified PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+endif()

@@ -10,7 +10,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-class CppObj;
+struct CppObj;
 
 struct CibCppCompound;
 struct CibCppFunction;
@@ -56,6 +56,8 @@ private:
   void buildCibCppObjTree();
   void markClassType(CibCppCompound* cppCompound);
   void markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound);
+  void setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound);
+
   /**
    * Evaluates argument function to detect attribute of classes used in args.
    */

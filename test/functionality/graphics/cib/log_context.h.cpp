@@ -1,7 +1,7 @@
 #include "__zz_cib_Graphics_ids.h"
 
 #include "cib_GraphicsLib.h"
-#include "context_log.h"
+#include "log_context.h"
 
 namespace __zz_cib_ {
 	namespace Graphics {
@@ -31,6 +31,11 @@ namespace __zz_cib_ {
 					auto proc = (CircleProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3];
 					return proc(__zz_cib_proxy, cx, cy, r);
 				}
+				void Ellipse(float cx, float cy, float a, float b) override {
+					using EllipseProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float cx, float cy, float a, float b);
+					auto proc = (EllipseProc) __zz_cib_mtbl[__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Ellipse_4];
+					return proc(__zz_cib_proxy, cx, cy, a, b);
+				}
 				void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 			};
 		}}
@@ -50,12 +55,16 @@ namespace __zz_cib_ {
 			void __zz_cib_decl Circle_5(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
 				__zz_cib_obj->::Graphics::LogContext::Circle(cx, cy, r);
 			}
-			::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_6(::Graphics::LogContext* __zz_cib_obj) {
+			void __zz_cib_decl Ellipse_6(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float a, float b) {
+				__zz_cib_obj->::Graphics::LogContext::Ellipse(cx, cy, a, b);
+			}
+			::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
-			void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::LogContext* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+			void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::LogContext* __zz_cib_obj) {
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}
@@ -65,7 +74,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	using MethodTable = const MethodEntry*;
 	MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 8 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
@@ -73,8 +82,9 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 			(MethodEntry) &Line_3,
 			(MethodEntry) &Rect_4,
 			(MethodEntry) &Circle_5,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_6,
-			(MethodEntry) &__zz_cib_release_proxy_7
+			(MethodEntry) &Ellipse_6,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Context_7,
+			(MethodEntry) &__zz_cib_release_proxy_8
 		};
 		return methodTable;
 	}

@@ -1,5 +1,6 @@
 #include "circ.h"
 #include "composite.h"
+#include "ellipse.h"
 #include "rect.h"
 #include "shape.h"
 
@@ -9,6 +10,8 @@
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
 		return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
+	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Ellipse:
+		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	}

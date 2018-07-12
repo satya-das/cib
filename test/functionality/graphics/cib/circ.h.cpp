@@ -2,6 +2,7 @@
 
 #include "cib_GraphicsLib.h"
 #include "circ.h"
+#include "shape.h"
 
 namespace __zz_cib_ {
 	namespace Graphics {
@@ -47,15 +48,19 @@ namespace __zz_cib_ {
 			void __zz_cib_decl Draw_4(::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
 				__zz_cib_obj->::Graphics::Circle::Draw(ctx);
 			}
-			void __zz_cib_decl __zz_cib_delete_5(::Graphics::Circle* __zz_cib_obj) {
+			::Graphics::Shape* __zz_cib_decl CreateCircle_5(float Ox, float Oy, float radius) {
+				return ::Graphics::Circle::CreateCircle(Ox, Oy, radius);
+			}
+			void __zz_cib_decl __zz_cib_delete_6(::Graphics::Circle* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Circle* __zz_cib_obj) {
+			::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Circle* __zz_cib_obj) {
 				return __zz_cib_obj;
 			}
-			void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Circle* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::Circle::__zz_cib_UnknownProxy::Circle*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+			void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Circle* __zz_cib_obj) {
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Circle::__zz_cib_UnknownProxy::Circle*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}
@@ -65,16 +70,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 	using MethodTable = const MethodEntry*;
 	MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 8 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
 			(MethodEntry) &__zz_cib_new_1,
 			(MethodEntry) &Area_2,
 			(MethodEntry) &Perimeter_3,
 			(MethodEntry) &Draw_4,
-			(MethodEntry) &__zz_cib_delete_5,
-			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_6,
-			(MethodEntry) &__zz_cib_release_proxy_7
+			(MethodEntry) &CreateCircle_5,
+			(MethodEntry) &__zz_cib_delete_6,
+			(MethodEntry) &__zz_cib_cast_to___Graphics__Shape_7,
+			(MethodEntry) &__zz_cib_release_proxy_8
 		};
 		return methodTable;
 	}

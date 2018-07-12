@@ -1,3 +1,5 @@
+#pragma once
+
 #include "context.h"
 
 #include <iostream>
@@ -25,6 +27,10 @@ public:
   void Circle(float cx, float cy, float r) override
   {
     std::cout << "Circle(" << cx << ", " << cy << ", " << r << ")\n";
+  }
+  void Ellipse(float cx, float cy, float a, float b) override
+  {
+    std::cout << "Ellipse(" << cx << ", " << cy << ", " << a << ", " << b << ")\n";
   }
 };
 }

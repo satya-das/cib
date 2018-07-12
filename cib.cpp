@@ -602,7 +602,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream& stm, const CibParams& cibP
   stm<< indentation << longName() << "* __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE* h) {\n";;
   ++indentation;
   stm << indentation << "switch(__zz_cib_get_class_id(h)) {\n";
-  forEachDerived(kPublic, [&](const CibCppCompound* derived) {
+  forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
     auto cibIdData = cibIdMgr.getCibIdData(derived->longName());
     stm << indentation << "case __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
     ++indentation;
@@ -779,7 +779,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       }
       stm << --indentation << "}\n";
     }
-    forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
+    forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
       auto castProcName = castToBaseName(pubParent, cibParams);
       auto capiName = cibIdData->getMethodCApiName(castProcName);
       stm << indentation << "static __zz_cib_::HANDLE* " << capiName << "(__zz_cib_::HANDLE* __zz_cib_obj) {\n";
@@ -995,7 +995,7 @@ void CibCppCompound::emitFacadeDependecyHeaders(std::ostream& stm, const CppProg
   for (auto facade : facades)
   {
     dependencies.insert(facade);
-    facade->forEachDerived(kPublic, [&dependencies](const CibCppCompound* obj) {
+    facade->forEachDescendent(kPublic, [&dependencies](const CibCppCompound* obj) {
       dependencies.insert(obj);
     });
   }
@@ -1045,15 +1045,12 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
       func.emitCAPIDefn(stm, cppProgram, cibParams, cibIdData->getMethodCApiName(func.signature()), false, indentation);
     }
 
-    CibCppCompoundArray& pubParents = parents_[kPublic];
-    for (CibCppCompoundArray::const_iterator parentItr = pubParents.begin(); parentItr != pubParents.end(); ++parentItr)
-    {
-      const CibCppCompound* pubParent = *parentItr;
+    forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
       auto castApiName = castToBaseName(pubParent, cibParams);
       stm << indentation << pubParent->longName() << "* __zz_cib_decl " << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj;\n";
       stm << --indentation << "}\n";
-    }
+    });
 
     if (isFacadeLike() || isInterfaceLike())
     {
@@ -1062,7 +1059,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
       stm << indentation << "static bool classIdRepoPopulated = false;\n";
       stm << indentation << "if (!classIdRepoPopulated) {\n";
       ++indentation;
-      forEachDerived(kPublic, [&](const CibCppCompound* compound) {
+      forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
         auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
         stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
         stm << " __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
@@ -1077,8 +1074,11 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
     {
       stm << indentation << "void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
-      stm << indentation << "auto unknownProxy = static_cast<__zz_cib_" << longName() << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
+      stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName() << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
+      stm << indentation << "if (unknownProxy)\n";
+      ++indentation;
       stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
+      --indentation;
       --indentation;
       stm << indentation << "}\n";
     }

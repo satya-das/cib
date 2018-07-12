@@ -2,7 +2,7 @@
 
 #include "cib_GraphicsLib.h"
 #include "context.h"
-#include "context_log.h"
+#include "log_context.h"
 
 #include <typeinfo>
 #include <typeindex>
@@ -34,10 +34,15 @@ namespace __zz_cib_ {
 					auto proc = (CircleProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3];
 					return proc(__zz_cib_proxy, cx, cy, r);
 				}
+				void Ellipse(float cx, float cy, float a, float b) override {
+					using EllipseProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, float cx, float cy, float a, float b);
+					auto proc = (EllipseProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Ellipse_4];
+					return proc(__zz_cib_proxy, cx, cy, a, b);
+				}
 				~Context() override {
 					if (__zz_cib_proxy) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
-						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
+						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_5];
 						proc(__zz_cib_proxy);
 					}
 				}
@@ -65,8 +70,9 @@ namespace __zz_cib_ {
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
 			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Context* __zz_cib_obj) {
-				auto unknownProxy = static_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
-				unknownProxy->__zz_cib_release_proxy();
+				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
+				if (unknownProxy)
+					unknownProxy->__zz_cib_release_proxy();
 			}
 		}
 	}

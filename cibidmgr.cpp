@@ -107,7 +107,7 @@ void CibIdMgr::loadClassIds(const CppEnum* classIdEnum)
   const auto& enumItemInfos = classIdEnumData.first;
   auto nextClassId = classIdEnumData.second;
   for (const auto& item: enumItemInfos)
-    addClass(std::get<0>(item), std::get<1>(item));
+    addClass(std::get<0>(item), std::get<2>(item));
   if (nextClassId_ < nextClassId)
     nextClassId_ = nextClassId;
 }
@@ -175,7 +175,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   }
   if (!forUnknownProxy)
   {
-    compound->forEachParent(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
+    compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
       auto castMethodName = compound->castToBaseName(parent, cibParams);
       if (!cibIdData->hasMethod(castMethodName))
         cibIdData->addMethod(castMethodName, castMethodName);

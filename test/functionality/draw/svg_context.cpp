@@ -36,3 +36,8 @@ void SvgContext::Circle(float cx, float cy, float r)
 {
   svgStm_ << "<circle cx='" << cx << "' cy='" << cy << "' r='" << r << "' stroke='black' fill='none' />\n";
 }
+
+void SvgContext::Ellipse(float cx, float cy, float a, float b)
+{
+  svgStm_ << "<ellipse cx='" << cx << "' cy='" << cy << "' rx='" << a << "' ry='" << b << "' stroke='black' fill='none' />\n";
+}

@@ -17,19 +17,23 @@ namespace __zz_cib_ { namespace GraphicsLib {
 			__Graphics__Context = 5,
 			//#= ::Graphics::Context::__zz_cib_UnknownProxy
 			__Graphics__Context____zz_cib_UnknownProxy = 6,
+			//#= ::Graphics::Ellipse
+			__Graphics__Ellipse = 7,
+			//#= ::Graphics::Ellipse::__zz_cib_UnknownProxy
+			__Graphics__Ellipse____zz_cib_UnknownProxy = 8,
 			//#= ::Graphics::LogContext
-			__Graphics__LogContext = 7,
+			__Graphics__LogContext = 9,
 			//#= ::Graphics::LogContext::__zz_cib_UnknownProxy
-			__Graphics__LogContext____zz_cib_UnknownProxy = 8,
+			__Graphics__LogContext____zz_cib_UnknownProxy = 10,
 			//#= ::Graphics::Rectangle
-			__Graphics__Rectangle = 9,
+			__Graphics__Rectangle = 11,
 			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
-			__Graphics__Rectangle____zz_cib_UnknownProxy = 10,
+			__Graphics__Rectangle____zz_cib_UnknownProxy = 12,
 			//#= ::Graphics::Shape
-			__Graphics__Shape = 11,
+			__Graphics__Shape = 13,
 			//#= ::Graphics::Shape::__zz_cib_UnknownProxy
-			__Graphics__Shape____zz_cib_UnknownProxy = 12,
-			__zz_cib_next_class_id = 13
+			__Graphics__Shape____zz_cib_UnknownProxy = 14,
+			__zz_cib_next_class_id = 15
 		};
 	}
 }}
@@ -46,13 +50,15 @@ namespace __zz_cib_ {
 				Perimeter_3 = 3,
 				//#= virtual void Draw(Context*) const;
 				Draw_4 = 4,
+				//#= static Shape* CreateCircle(float, float, float);
+				CreateCircle_5 = 5,
 				//#= ~Circle()
-				__zz_cib_delete_5 = 5,
+				__zz_cib_delete_6 = 6,
 				//#= __zz_cib_cast_to___Graphics__Shape
-				__zz_cib_cast_to___Graphics__Shape_6 = 6,
+				__zz_cib_cast_to___Graphics__Shape_7 = 7,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_7 = 7,
-				__zz_cib_next_method_id = 8
+				__zz_cib_release_proxy_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}}
@@ -145,9 +151,49 @@ namespace __zz_cib_ {
 				Rect_2 = 2,
 				//#= virtual void Circle(float, float, float) = 0;
 				Circle_3 = 3,
+				//#= virtual void Ellipse(float, float, float, float) = 0;
+				Ellipse_4 = 4,
 				//#= ~Context()
-				__zz_cib_delete_4 = 4,
-				__zz_cib_next_method_id = 5
+				__zz_cib_delete_5 = 5,
+				__zz_cib_next_method_id = 6
+			};
+		}
+	}}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Ellipse {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= Ellipse(float, float, float, float);
+				__zz_cib_new_1 = 1,
+				//#= virtual float Area() const;
+				Area_2 = 2,
+				//#= virtual float Perimeter() const;
+				Perimeter_3 = 3,
+				//#= virtual void Draw(Context*) const;
+				Draw_4 = 4,
+				//#= ~Ellipse()
+				__zz_cib_delete_5 = 5,
+				//#= __zz_cib_cast_to___Graphics__Shape
+				__zz_cib_cast_to___Graphics__Shape_6 = 6,
+				//#= __zz_cib_release_proxy
+				__zz_cib_release_proxy_7 = 7,
+				__zz_cib_next_method_id = 8
+			};
+		}
+	}}
+}
+namespace __zz_cib_ {
+	namespace Graphics { namespace Ellipse { namespace __zz_cib_UnknownProxy {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= virtual float Area() const;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const;
+				Draw_3 = 3,
+				__zz_cib_next_method_id = 4
 			};
 		}
 	}}}
@@ -166,11 +212,13 @@ namespace __zz_cib_ {
 				Rect_4 = 4,
 				//#= virtual void Circle(float, float, float);
 				Circle_5 = 5,
+				//#= virtual void Ellipse(float, float, float, float);
+				Ellipse_6 = 6,
 				//#= __zz_cib_cast_to___Graphics__Context
-				__zz_cib_cast_to___Graphics__Context_6 = 6,
+				__zz_cib_cast_to___Graphics__Context_7 = 7,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_7 = 7,
-				__zz_cib_next_method_id = 8
+				__zz_cib_release_proxy_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}}
@@ -185,7 +233,9 @@ namespace __zz_cib_ {
 				Rect_2 = 2,
 				//#= virtual void Circle(float, float, float);
 				Circle_3 = 3,
-				__zz_cib_next_method_id = 4
+				//#= virtual void Ellipse(float, float, float, float);
+				Ellipse_4 = 4,
+				__zz_cib_next_method_id = 5
 			};
 		}
 	}}}

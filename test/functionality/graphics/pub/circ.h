@@ -32,6 +32,8 @@ public:
    * Draws this shape on a given device context.
    */
   virtual void Draw(Context* ctx) const;
+
+  static Shape* CreateCircle(float Ox, float Oy, float radius);
 };
 
 }

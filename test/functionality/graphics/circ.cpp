@@ -2,7 +2,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-static const float PI = 3.1416;
+static const float PI = 3.1416f;
 
 float Graphics::Circle::Area() const
 {
@@ -17,4 +17,9 @@ float Graphics::Circle::Perimeter() const
 void Graphics::Circle::Draw(Context* ctx) const
 {
   ctx->Circle(Ox_, Oy_, radius_);
+}
+
+Graphics::Shape* Graphics::Circle::CreateCircle(float Ox, float Oy, float radius)
+{
+  return new Circle(Ox, Oy, radius);
 }

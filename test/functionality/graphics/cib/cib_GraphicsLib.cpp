@@ -10,6 +10,7 @@ std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 namespace __zz_cib_ { namespace Graphics { namespace Circle { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Composite { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Context { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Ellipse { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape { MethodTable GetMethodTable(); }}}
@@ -23,6 +24,8 @@ extern "C" __zz_cib_export __zz_cib_::MethodTable __zz_cib_GraphicsLib_GetMethod
 		return __zz_cib_::Graphics::Composite::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context:
 		return __zz_cib_::Graphics::Context::GetMethodTable();
+	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Ellipse:
+		return __zz_cib_::Graphics::Ellipse::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:

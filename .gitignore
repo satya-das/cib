@@ -221,3 +221,4 @@ pip-log.txt
 **/.vs/*
 CMakeSettings.json
 *.pdf
+!presentation.pdf

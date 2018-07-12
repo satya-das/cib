@@ -154,6 +154,15 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     cppCompound->setIsInline();
 }
 
+void CppProgramEx::setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+{
+  cppCompound->setNeedsUnknownProxyDefinition();
+  for (auto child : cppCompound->children_[kPublic])
+  {
+    setNeedsUnknownProxyDefinition(child);
+  }
+}
+
 void CppProgramEx::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
 {
   for (auto mem : cppCompound->members_)
@@ -164,11 +173,7 @@ void CppProgramEx::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
       markNeedsUnknownProxyDefinition(compound);
       if (compound->isInterfaceLike())
       {
-        compound->setNeedsUnknownProxyDefinition();
-        for (auto child : compound->children_[kPublic])
-        {
-          child->setNeedsUnknownProxyDefinition();
-        }
+        setNeedsUnknownProxyDefinition(compound);
       }
     }
   }
