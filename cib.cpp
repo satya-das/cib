@@ -195,9 +195,9 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream& stm, const CppProgram
       ++indentation;
     }
     emitProcType(stm, cppProgram, cibParams, true, indentation);
-    stm << indentation << "auto proc = (" << procType(cibParams) << ") __zz_cib_mtbl[";
+    stm << indentation << "auto proc = getProc<" << procType(cibParams) << ">(";
     stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_UnknownProxy::__zz_cib_methodid::";
-    stm << capiName << "];\n";
+    stm << capiName << ");\n";
     stm << indentation;
     if (!isDestructor())
       stm << "return ";
@@ -754,9 +754,9 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
         ++indentation;
       }
       func.emitProcType(stm, cppProgram, cibParams, false, indentation);
-      stm << indentation << "auto proc = (" << func.procType(cibParams) << ") instance().mtbl[";
+      stm << indentation << "auto proc = getProc<" << func.procType(cibParams) << ">(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
-      stm << cibIdData->getMethodCApiName(func.signature()) << "];\n";
+      stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
       stm << indentation << "return proc(";
       if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
@@ -805,6 +805,9 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << indentation << "static const __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
+      stm << --indentation << "}\n";
+      stm << indentation << "template<typename _ProcType> static _ProcType getProc(std::uint32_t procId) {\n";
+      stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, procId));\n";
       stm << --indentation << "}\n";
     }
     stm << '\n';        // Start in new line.
@@ -970,6 +973,9 @@ void CibCppCompound::emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx&
   ++indentation;
   stm << indentation << "__zz_cib_::PROXY* __zz_cib_proxy;\n";
   stm << indentation << "__zz_cib_::MethodTable __zz_cib_mtbl;\n\n";
+  stm << indentation << "template<typename _ProcType> _ProcType getProc(std::uint32_t procId) const {\n";
+  stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));\n";
+  stm << --indentation << "}\n";
   --indentation;
   stm << indentation << "public:\n";
   ++indentation;

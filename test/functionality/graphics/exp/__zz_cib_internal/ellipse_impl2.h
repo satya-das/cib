@@ -9,28 +9,28 @@
 
 				static __zz_cib_::HANDLE* __zz_cib_new_1(::Graphics::Ellipse* __zz_cib_proxy, float Ox, float Oy, float a, float b) {
 					using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, __zz_cib_::MethodTable, float Ox, float Oy, float a, float b);
-					auto proc = (__zz_cib_newProc) instance().mtbl[__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_1];
+					auto proc = getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_1);
 					return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), Ox, Oy, a, b);
 				}
 				static float Area_2(__zz_cib_::HANDLE* __zz_cib_obj) {
 					using AreaProc = float (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-					auto proc = (AreaProc) instance().mtbl[__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Area_2];
+					auto proc = getProc<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Area_2);
 					return proc(__zz_cib_obj);
 				}
 				static float Perimeter_3(__zz_cib_::HANDLE* __zz_cib_obj) {
 					using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-					auto proc = (PerimeterProc) instance().mtbl[__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Perimeter_3];
+					auto proc = getProc<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Perimeter_3);
 					return proc(__zz_cib_obj);
 				}
 				static void Draw_4(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
 					using DrawProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* ctx);
-					auto proc = (DrawProc) instance().mtbl[__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Draw_4];
+					auto proc = getProc<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Draw_4);
 					return proc(__zz_cib_obj, ctx);
 				}
 				static void __zz_cib_delete_5(__zz_cib_::HANDLE* __zz_cib_obj) {
 					if (__zz_cib_obj) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-						auto proc = (__zz_cib_deleteProc) instance().mtbl[__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_delete_5];
+						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_delete_5);
 						return proc(__zz_cib_obj);
 					}
 				}
@@ -47,6 +47,9 @@
 				static const __zz_cib_Helper& instance() {
 					static __zz_cib_Helper helper;
 					return helper;
+				}
+				template<typename _ProcType> static _ProcType getProc(std::uint32_t procId) {
+					return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, procId));
 				}
 
 			public:

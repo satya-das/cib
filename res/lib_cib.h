@@ -42,3 +42,15 @@ namespace __zz_cib_ {
   using MethodEntry = void(*)();
   using MethodTable = const MethodEntry*;
 }
+
+#include <functional>
+namespace __zz_cib_ {
+  inline MethodEntry __zz_cib_GetMethodEntry(MethodTable mtbl, std::uint32_t slot)
+  {
+    auto mtblHeader = reinterpret_cast<MethodTableHeader*>(mtbl[0]);
+    if ((slot > mtblHeader->numMethods) || (mtbl[slot] == nullptr))
+      throw std::bad_function_call();
+
+    return mtbl[slot];
+  }
+}

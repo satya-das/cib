@@ -21,26 +21,29 @@ namespace __zz_cib_ {
 				__zz_cib_::PROXY* __zz_cib_proxy;
 				__zz_cib_::MethodTable __zz_cib_mtbl;
 
+				template<typename _ProcType> _ProcType getProc(std::uint32_t procId) const {
+					return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
+				}
 			public:
 				float Area() const override {
 					using AreaProc = float (__zz_cib_decl *) (__zz_cib_::PROXY*);
-					auto proc = (AreaProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Area_1];
+					auto proc = getProc<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Area_1);
 					return proc(__zz_cib_proxy);
 				}
 				float Perimeter() const override {
 					using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_::PROXY*);
-					auto proc = (PerimeterProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Perimeter_2];
+					auto proc = getProc<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Perimeter_2);
 					return proc(__zz_cib_proxy);
 				}
 				void Draw(::Graphics::Context* ctx) const override {
 					using DrawProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*, ::Graphics::Context* ctx);
-					auto proc = (DrawProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3];
+					auto proc = getProc<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3);
 					return proc(__zz_cib_proxy, ctx);
 				}
 				~Shape() override {
 					if (__zz_cib_proxy) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::PROXY*);
-						auto proc = (__zz_cib_deleteProc) __zz_cib_mtbl[__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4];
+						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4);
 						proc(__zz_cib_proxy);
 					}
 				}
