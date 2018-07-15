@@ -13,7 +13,7 @@ CIB solves the incompatible ABI problem, makes component resilient against unimp
 
 ## Overview
 CIB is an automated way to generate code that allows one binary component to use classes and functions defined in another binary component that may be built using different compiler.
-For example it can be used by an application program to export C++ SDK which can be used to write plugins of the application. And plugin writers don't need to use exactly same compiler that was used to build the application. Since ABI compatibility cannot be guaranteed by C++ compilers, we can use CIB to publish C++ DLL or C++ SDK of an application. This also means CIB makes client, in binary form, compatible with future version of library. Also, library developer can chose to be forward compatible with it's client programs.
+For example it can be used by an application program to export C++ SDK which can be used to write plugins of the application. And plugin writers don't need to use exactly same compiler that was used to build the application. Since ABI compatibility cannot be guaranteed by C++ compilers, we can use CIB to publish C++ DLL or C++ SDK of an application.
 
 *In this document the binary component that exposes its classes will be called Library, a library can be an executable or a DLL. The component that uses SDK of the library will be called client of that library.*
 
@@ -37,10 +37,13 @@ For example it can be used by an application program to export C++ SDK which can
  **CIB allows client of a library to use all exported classes as if those classes are part of the client code itself without exposing the internals of classes.**
 
 ## CIB Goals
- - To become an easier and superior alternative of COM (used as in-proc or out-proc both) for C++ developers.
- - To become an easier and superior alternative of DCOM for C++ developers.
+ - To become an easier and superior alternative of COM in-proc used.
  - To work on all platforms without any gotcha.
  - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will ofcourse be a small boiler plate code on both side but that's about it, the rest of the code will remain aloof about existence of CIB.
+
+## CIB Stretch goals (may be future goals)
+ - To become an easier and superior alternative of out-proc COM.
+ - To become an easier and superior alternative of DCOM.
 
 ## Other Solutions
 I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across dll boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals or some is too specific to the project it was developed for.
@@ -80,7 +83,7 @@ I have come across some solutions that try to solve the same problem but none of
   - All C APIs are assigned an integer value as its ID. This ID for an API will remain same across releases.
   - For every class/struct/union/namespace a **MethodTable** is defined which is an array of function pointers.
   - Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
-  - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern with pimpl pointing to object across DLL boundary and methods getting calling as C functions.
+  - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern with pimpl pointing to object across DLL boundary.
   - Function ID is used as an index to fetch function pointer from **MethodTable**.
   - Implementation of all functions including class methods, constructors, and destructors for classes at client side are provided by means of invoking function pointer.
 
@@ -109,16 +112,17 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 |Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
 |Allow library to use interface implemented by client| When library invokes a virtual function using a pointer of base class which is actually pointing to an object on client side then calls should land to function defined on client side. |Done|
 |Forward compatibility of client. | Client program built using previous version of SDK works flawlessly with newer library even when virtual table is disrupted or some other unimportant changes are done in library. |Done|
-|Forward compatibility of library| Library should be forward compatible with client built with newer version of SDK. Of course client program will not be able to invoke functions available in newer SDK when run with older library. ||
+|Forward compatibility of library| Library should be forward compatible with client built with newer version of SDK. Of course client program will not be able to invoke functions available in newer SDK when run with older library and so client should be written with backward compatibility in mind. |Done|
+|Backward compatibility of client| When client, built with newer SDK, invokes a method (present only in new SDK) but library which is of older version and doesn't have implementation of that method then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. |Done|
+|Backward compatibility of library| When library invokes a method of interface implemented by client which is built with older SDK that didn't have new method then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. |Done|
 |Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. |Done|
-|Backward compatibility of client| When client, built with newer SDK, invokes a method (present only in new SDK) but library doesn't have implementation of that method then std::bad\_function\_call exception will be thrown.||
-|Backward compatibility of library| When library invokes a method of interface implemented by client which is built with older SDK that didn't have new method then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface.||
-Support for intrusive pointer| Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. ||
-|Support shared_ptr and unique_ptr| Modern C++ programing expects these to be used more often. ||
 |Support operator overloading| It is common for C++ classes to have overloaded operators. ||
+|STL classes | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
+|Exception support | Make exception object travel across DLL boundary in a compatible way. ||
+|Support for intrusive pointer| Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. ||
+|Support shared_ptr and unique_ptr| Modern C++ programing expects these to be used more often. ||
 |Support struct | Automatically add getter/setter for public data members. ||
 |Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. ||
-|STL classes | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
 
 
 ---
