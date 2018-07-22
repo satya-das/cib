@@ -41,13 +41,13 @@ namespace __zz_cib_ {
 			::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float Ox, float Oy, float a, float b) {
 				return new __zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
 			}
-			float __zz_cib_decl Area_2(::Graphics::Ellipse* __zz_cib_obj) {
+			float __zz_cib_decl Area_2(const ::Graphics::Ellipse* __zz_cib_obj) {
 				return __zz_cib_obj->::Graphics::Ellipse::Area();
 			}
-			float __zz_cib_decl Perimeter_3(::Graphics::Ellipse* __zz_cib_obj) {
+			float __zz_cib_decl Perimeter_3(const ::Graphics::Ellipse* __zz_cib_obj) {
 				return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
 			}
-			void __zz_cib_decl Draw_4(::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
+			void __zz_cib_decl Draw_4(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
 				__zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
 			}
 			void __zz_cib_decl __zz_cib_delete_5(::Graphics::Ellipse* __zz_cib_obj) {

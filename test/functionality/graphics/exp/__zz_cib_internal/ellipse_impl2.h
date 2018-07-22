@@ -53,11 +53,23 @@
 				}
 
 			public:
-				static __zz_cib_::HANDLE* __zz_cib_handle(::Graphics::Ellipse* __zz_cib_obj) {
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Ellipse* __zz_cib_obj) {
 					return __zz_cib_obj->__zz_cib_h_;
+				}
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Ellipse& __zz_cib_obj) {
+					return __zz_cib_obj.__zz_cib_h_;
 				}
 				static ::Graphics::Ellipse* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 					return new ::Graphics::Ellipse(h);
+				}
+				::Graphics::Ellipse& __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(&h);
+				}
+				::Graphics::Ellipse const * __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
+					return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));
+				}
+				::Graphics::Ellipse const & __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));
 				}
 				static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Ellipse* __zz_cib_obj) {
 					auto h = __zz_cib_obj->__zz_cib_h_;
@@ -80,6 +92,12 @@ inline Graphics::Ellipse::Ellipse(__zz_cib_::HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
 	, __zz_cib_h_(h)
 {}
+
+inline Graphics::Ellipse::Ellipse(Ellipse&& rhs)
+	: ::Graphics::Shape::Shape(std::move(rhs))
+	, __zz_cib_h_(rhs.__zz_cib_h_)
+{	rhs.__zz_cib_h_ = nullptr;
+}
 
 inline Graphics::Ellipse::Ellipse(float Ox, float Oy, float a, float b)
 	: Ellipse(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_new_1(this, Ox, Oy, a, b))

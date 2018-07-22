@@ -8,6 +8,7 @@
 #include "cppdom.h"
 
 #include <strstream>
+#include <map>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -54,4 +55,60 @@ std::string CibFunctionHelper::signature() const
 
   auto itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount() - 1);
   return itemUniqStr;
+}
+
+using OperNameMap = std::map<std::string, std::string>;
+static OperNameMap kOperNameMap = {
+  { "+",   "Plus"       },
+  { "-",   "Minus"      },
+  { "*",   "Mul"        },
+  { "/",   "Div"        },
+  { "%",   "Per"        },
+  { "^",   "Xor"        },
+  { "&",   "And"        },
+  { "|",   "Or"         },
+  { "~",   "Toggle"     },
+  { "!",   "Not"        },
+  { "=",   "Equal"      },
+  { "<",   "LT"         },
+  { ">",   "GT"         },
+  { "+=",  "PlusEq"     },
+  { "-=",  "MinusEq"    },
+  { "*=",  "MulEq"      },
+  { "/=",  "DivEq"      },
+  { "%=",  "PerEq"      },
+  { "^=",  "XorEq"      },
+  { "&=",  "AndEq"      },
+  { "|=",  "OrEq"       },
+  { "<<",  "LShift"     },
+  { ">>",  "RShift"     },
+  { "<<=", "LShiftEq"   },
+  { ">>=", "RShiftEq"   },
+  { "==",  "CmpEq"      },
+  { "<=",  "LE"         },
+  { ">=",  "GE"         },
+  { "<=>", "3WayCmp"    },
+  { "&&",  "LogAnd"     },
+  { "||",  "LogOr"      },
+  { "++",  "Inc"        },
+  { "--",  "Dec"        },
+  { ",",   "Comma"      },
+  { "->",  "Arrow"      },
+  { "->*", "ArrowStar"  },
+  { "()",  "App"        },
+  { "[]",  "Index"      }
+};
+
+std::string CibFunctionHelper::modifyIfOperator(const std::string& funcname)
+{
+  static const std::string kOper = "operator";
+  if (funcname.compare(0, kOper.length(), kOper) != 0)
+    return funcname;
+
+  auto name = funcname.c_str() + kOper.length();
+  //skip whitechars
+  while ((*name == ' ') || (*name == '\t'))
+    ++name;
+
+  return kOper + kOperNameMap[name];
 }

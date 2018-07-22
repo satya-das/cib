@@ -11,6 +11,8 @@ typedef std::vector<Graphics::Shape*> Shapes;
 	class Composite : public ::Graphics::Shape
 	{
 	public:
+		Composite(Composite&& rhs);
+	public:
 		Composite();
 		void Add(::Graphics::Shape* shape);
 		size_t NumShapes() const;

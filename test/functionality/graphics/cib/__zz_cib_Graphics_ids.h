@@ -26,14 +26,16 @@ namespace __zz_cib_ { namespace GraphicsLib {
 			//#= ::Graphics::LogContext::__zz_cib_UnknownProxy
 			__Graphics__LogContext____zz_cib_UnknownProxy = 10,
 			//#= ::Graphics::Rectangle
-			__Graphics__Rectangle = 11,
+			__Graphics__Rectangle = 12,
 			//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
-			__Graphics__Rectangle____zz_cib_UnknownProxy = 12,
+			__Graphics__Rectangle____zz_cib_UnknownProxy = 13,
 			//#= ::Graphics::Shape
-			__Graphics__Shape = 13,
+			__Graphics__Shape = 14,
 			//#= ::Graphics::Shape::__zz_cib_UnknownProxy
-			__Graphics__Shape____zz_cib_UnknownProxy = 14,
-			__zz_cib_next_class_id = 15
+			__Graphics__Shape____zz_cib_UnknownProxy = 15,
+			//#= ::Point
+			__Point = 11,
+			__zz_cib_next_class_id = 16
 		};
 	}
 }}
@@ -206,13 +208,13 @@ namespace __zz_cib_ {
 				__zz_cib_new_1 = 1,
 				//#= ~LogContext()
 				__zz_cib_delete_2 = 2,
-				//#= virtual void Line(float, float, float, float);
+				//#= virtual void Line(float, float, float, float) override;
 				Line_3 = 3,
-				//#= virtual void Rect(float, float, float, float);
+				//#= virtual void Rect(float, float, float, float) override;
 				Rect_4 = 4,
-				//#= virtual void Circle(float, float, float);
+				//#= virtual void Circle(float, float, float) override;
 				Circle_5 = 5,
-				//#= virtual void Ellipse(float, float, float, float);
+				//#= virtual void Ellipse(float, float, float, float) override;
 				Ellipse_6 = 6,
 				//#= __zz_cib_cast_to___Graphics__Context
 				__zz_cib_cast_to___Graphics__Context_7 = 7,
@@ -227,13 +229,13 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace LogContext { namespace __zz_cib_UnknownProxy {
 		namespace __zz_cib_methodid {
 			enum {
-				//#= virtual void Line(float, float, float, float);
+				//#= virtual void Line(float, float, float, float) override;
 				Line_1 = 1,
-				//#= virtual void Rect(float, float, float, float);
+				//#= virtual void Rect(float, float, float, float) override;
 				Rect_2 = 2,
-				//#= virtual void Circle(float, float, float);
+				//#= virtual void Circle(float, float, float) override;
 				Circle_3 = 3,
-				//#= virtual void Ellipse(float, float, float, float);
+				//#= virtual void Ellipse(float, float, float, float) override;
 				Ellipse_4 = 4,
 				__zz_cib_next_method_id = 5
 			};
@@ -311,4 +313,27 @@ namespace __zz_cib_ {
 			};
 		}
 	}}}
+}
+namespace __zz_cib_ {
+	namespace Point {
+		namespace __zz_cib_methodid {
+			enum {
+				//#= Point(float, float);
+				__zz_cib_new_1 = 1,
+				//#= float X() const;
+				X_2 = 2,
+				//#= void X(float);
+				X_3 = 3,
+				//#= float Y() const;
+				Y_4 = 4,
+				//#= void Y(float);
+				Y_5 = 5,
+				//#= Point operator +(const Point&) const;
+				operatorPlus_6 = 6,
+				//#= Point operator -(Point) const;
+				operatorMinus_7 = 7,
+				__zz_cib_next_method_id = 8
+			};
+		}
+	}
 }

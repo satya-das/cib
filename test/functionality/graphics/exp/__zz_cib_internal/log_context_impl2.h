@@ -58,11 +58,23 @@
 				}
 
 			public:
-				static __zz_cib_::HANDLE* __zz_cib_handle(::Graphics::LogContext* __zz_cib_obj) {
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::LogContext* __zz_cib_obj) {
 					return __zz_cib_obj->__zz_cib_h_;
+				}
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::LogContext& __zz_cib_obj) {
+					return __zz_cib_obj.__zz_cib_h_;
 				}
 				static ::Graphics::LogContext* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 					return new ::Graphics::LogContext(h);
+				}
+				::Graphics::LogContext& __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(&h);
+				}
+				::Graphics::LogContext const * __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
+					return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));
+				}
+				::Graphics::LogContext const & __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));
 				}
 				static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::LogContext* __zz_cib_obj) {
 					auto h = __zz_cib_obj->__zz_cib_h_;
@@ -85,6 +97,12 @@ inline Graphics::LogContext::LogContext(__zz_cib_::HANDLE* h)
 	: ::Graphics::Context::Context(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_7(h))
 	, __zz_cib_h_(h)
 {}
+
+inline Graphics::LogContext::LogContext(LogContext&& rhs)
+	: ::Graphics::Context::Context(std::move(rhs))
+	, __zz_cib_h_(rhs.__zz_cib_h_)
+{	rhs.__zz_cib_h_ = nullptr;
+}
 
 inline Graphics::LogContext::LogContext()
 	: LogContext(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_new_1(this))

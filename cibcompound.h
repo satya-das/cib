@@ -185,7 +185,10 @@ public:
     void emitImplSource(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
     void emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
     void emitFromHandleDefn(std::ostream& stm, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
-    void emitFacadeDependecyHeaders(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, bool forProxy, CppIndent indentation /* = CppIndent */) const;
+    void emitFacadeDependecyHeaders(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, bool forProxy, CppIndent indentation) const;
+    void emitHandleConstructorDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation  = CppIndent() ) const;
+    void emitMoveConstructorDecl(std::ostream& stm, CppIndent indentation = CppIndent()) const;
+    void emitMoveConstructorDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation = CppIndent()) const;
     void collectTypeDependencies(const CppProgramEx& cppProgram, std::set<const CppObj*>& cppObjs) const;
     void collectFacades(std::set<const CibCppCompound*>& facades) const;
     static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs, const std::string& dependentPath);

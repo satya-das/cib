@@ -53,11 +53,23 @@
 				}
 
 			public:
-				static __zz_cib_::HANDLE* __zz_cib_handle(::Graphics::Rectangle* __zz_cib_obj) {
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Rectangle* __zz_cib_obj) {
 					return __zz_cib_obj->__zz_cib_h_;
+				}
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Rectangle& __zz_cib_obj) {
+					return __zz_cib_obj.__zz_cib_h_;
 				}
 				static ::Graphics::Rectangle* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 					return new ::Graphics::Rectangle(h);
+				}
+				::Graphics::Rectangle& __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(&h);
+				}
+				::Graphics::Rectangle const * __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
+					return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));
+				}
+				::Graphics::Rectangle const & __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));
 				}
 				static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Rectangle* __zz_cib_obj) {
 					auto h = __zz_cib_obj->__zz_cib_h_;
@@ -80,6 +92,12 @@ inline Graphics::Rectangle::Rectangle(__zz_cib_::HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
 	, __zz_cib_h_(h)
 {}
+
+inline Graphics::Rectangle::Rectangle(Rectangle&& rhs)
+	: ::Graphics::Shape::Shape(std::move(rhs))
+	, __zz_cib_h_(rhs.__zz_cib_h_)
+{	rhs.__zz_cib_h_ = nullptr;
+}
 
 inline Graphics::Rectangle::Rectangle(float left, float bottom, float right, float top)
 	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_1(this, left, bottom, right, top))

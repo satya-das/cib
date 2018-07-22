@@ -10,6 +10,8 @@ namespace Graphics
 	class Shape
 	{
 	public:
+		Shape(Shape&& rhs);
+	public:
   /**
    * @return Area of this shape object.
    */

@@ -13,6 +13,8 @@ class Context;
 	class Ellipse : public ::Graphics::Shape
 	{
 	public:
+		Ellipse(Ellipse&& rhs);
+	public:
 		Ellipse(float Ox, float Oy, float a, float b);
   /**
   * @return Area of this shape object.

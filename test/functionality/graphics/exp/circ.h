@@ -13,6 +13,8 @@ class Context;
 	class Circle : public ::Graphics::Shape
 	{
 	public:
+		Circle(Circle&& rhs);
+	public:
 		Circle(float Ox, float Oy, float radius);
   /**
    * @return Area of this shape object.

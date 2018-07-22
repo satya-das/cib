@@ -19,6 +19,7 @@ set(GRAPHICS_PUB_FILE_NAMES
 	log_context.h
 	rect.h
 	shape.h
+	point.h
 )
 
 set(CIB_OUTPUT
@@ -50,6 +51,7 @@ set(GRAPHICS_SOURCES
 	ellipse.cpp
 	log_context.cpp
 	rect.cpp
+	point.cpp
 )
 add_library(graphics_cibified
 	SHARED

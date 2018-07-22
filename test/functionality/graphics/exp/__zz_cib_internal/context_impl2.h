@@ -38,10 +38,22 @@
 					return proc(__zz_cib_obj);
 				}
 			public:
-				static __zz_cib_::HANDLE* __zz_cib_handle(::Graphics::Context* __zz_cib_obj) {
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Context* __zz_cib_obj) {
 					return __zz_cib_obj->__zz_cib_h_;
 				}
+				static __zz_cib_::HANDLE* __zz_cib_handle(const ::Graphics::Context& __zz_cib_obj) {
+					return __zz_cib_obj.__zz_cib_h_;
+				}
 				static ::Graphics::Context* __zz_cib_from_handle(__zz_cib_::HANDLE* h);
+				::Graphics::Context& __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(&h);
+				}
+				::Graphics::Context const * __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
+					return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));
+				}
+				::Graphics::Context const & __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
+					return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));
+				}
 				static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Context* __zz_cib_obj) {
 					auto h = __zz_cib_obj->__zz_cib_h_;
 					__zz_cib_obj->__zz_cib_h_ = nullptr;
@@ -61,6 +73,11 @@
 inline Graphics::Context::Context(__zz_cib_::HANDLE* h)
 	: __zz_cib_h_(h)
 {}
+
+inline Graphics::Context::Context(Context&& rhs)
+	: __zz_cib_h_(rhs.__zz_cib_h_)
+{	rhs.__zz_cib_h_ = nullptr;
+}
 
 inline Graphics::Context::~Context() {
 	__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_proxy(this);

@@ -11,6 +11,8 @@ namespace Graphics
 	class LogContext : public ::Graphics::Context
 	{
 	public:
+		LogContext(LogContext&& rhs);
+	public:
 		LogContext();
 		~LogContext();
 		virtual void Line(float x1, float y1, float x2, float y2);

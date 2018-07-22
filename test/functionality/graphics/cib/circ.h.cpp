@@ -42,13 +42,13 @@ namespace __zz_cib_ {
 			::Graphics::Circle* __zz_cib_decl __zz_cib_new_1(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl, float Ox, float Oy, float radius) {
 				return new __zz_cib_::Graphics::Circle::__zz_cib_UnknownProxy::Circle(proxy, mtbl, Ox, Oy, radius);
 			}
-			float __zz_cib_decl Area_2(::Graphics::Circle* __zz_cib_obj) {
+			float __zz_cib_decl Area_2(const ::Graphics::Circle* __zz_cib_obj) {
 				return __zz_cib_obj->::Graphics::Circle::Area();
 			}
-			float __zz_cib_decl Perimeter_3(::Graphics::Circle* __zz_cib_obj) {
+			float __zz_cib_decl Perimeter_3(const ::Graphics::Circle* __zz_cib_obj) {
 				return __zz_cib_obj->::Graphics::Circle::Perimeter();
 			}
-			void __zz_cib_decl Draw_4(::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
+			void __zz_cib_decl Draw_4(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
 				__zz_cib_obj->::Graphics::Circle::Draw(ctx);
 			}
 			::Graphics::Shape* __zz_cib_decl CreateCircle_5(float Ox, float Oy, float radius) {
