@@ -116,7 +116,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 |Backward compatibility of client| When client, built with newer SDK, invokes a method (present only in new SDK) but library which is of older version and doesn't have implementation of that method then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. |Done|
 |Backward compatibility of library| When library invokes a method of interface implemented by client which is built with older SDK that didn't have new method then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. |Done|
 |Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. |Done|
-|Operator overloading| It is common for C++ classes to have overloaded operators. ||
+|Operator overloading| It is common for C++ classes to have overloaded operators. |Done|
 |Return existing proxy class| If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. ||
 |STL classes | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
 |Exception support | Make exception object travel across DLL boundary in a compatible way. ||
@@ -125,21 +125,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 |Support struct | Automatically add getter/setter for public data members. ||
 |Support struct in a better way | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. ||
 
-
 ---
-
-## Implementation Details
-### Parsing Technique
-We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
-
-`
-void ExampleFunction(wxInt32 i);
-`
-
-cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
-
-### Creating proxy class from handle
-When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
 ## CIB Terminology
 ### Proxy Class
@@ -153,3 +139,16 @@ A C++ class that has public virtual method and there exists public function/meth
 ### Interface Class
 A C++ class that has public virtual method and there exists a way for library to call that method on an object of client's derived class.
 A simplest example can be that when a C++ class that has public virtual method and a pointer/reference of this class is used as parameter to a function.
+
+## Implementation Details
+### Parsing Technique
+We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
+
+`
+void ExampleFunction(wxInt32 i);
+`
+
+cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
+
+### Creating proxy class from handle
+When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
