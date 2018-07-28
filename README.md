@@ -109,15 +109,18 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 
 | Feature	| Description|	Status |  
 |------------|:---------------------------------|:---------|  
-|Basic  	| CIB should work for a simple library that exports some classes with virtual functions| Done|
-|Allow library to use interface implemented by client| When library invokes a virtual function using a pointer of base class which is actually pointing to an object on client side then calls should land to function defined on client side. |Done|
-|Forward compatibility of client. | Client program built using previous version of SDK works flawlessly with newer library even when virtual table is disrupted or some other unimportant changes are done in library. |Done|
+|Basic  	| CIB should work for a simple library that exports some classes with virtual functions.| Done|
+|Function overloading| Same named functions of a class should be seamlessly exported. |Done|
+|Function overridding| Allow library to use interface implemented by client. |Done|
+|Forward compatibility of client| Client program built using previous version of SDK works flawlessly with newer library even when virtual table is disrupted or some other unimportant changes are done in library. |Done|
 |Forward compatibility of library| Library should be forward compatible with client built with newer version of SDK. Of course client program will not be able to invoke functions available in newer SDK when run with older library and so client should be written with backward compatibility in mind. |Done|
 |Backward compatibility of client| When client, built with newer SDK, invokes a method (present only in new SDK) but library which is of older version and doesn't have implementation of that method then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. |Done|
 |Backward compatibility of library| When library invokes a method of interface implemented by client which is built with older SDK that didn't have new method then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. |Done|
 |Create correct proxy class| A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. |Done|
 |Operator overloading| It is common for C++ classes to have overloaded operators. |Done|
 |Return existing proxy class| If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. ||
+|Rvalue reference parameter| RValue references need to cross DLL boundary.||
+|Enum and enum classes| Enums used as parameter or return type.||
 |STL classes | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. ||
 |Exception support | Make exception object travel across DLL boundary in a compatible way. ||
 |Support for intrusive pointer| Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. ||
