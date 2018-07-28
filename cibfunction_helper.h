@@ -18,8 +18,33 @@ enum class CallType
 {
   kAsIs,
   kFromHandle,
-  kToHandle
+  kToHandle,
+  kDerefIfByVal
 };
+
+enum EmitPurpose
+{
+  // Unusable const section begins
+  kPurposeBaseLine            = __LINE__,
+  kPurposeGlueCode            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeLibGlueCode         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  // Unusable const section ends
+  kSignature                  = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyMethodParam           = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyReturn                = (1 << (__LINE__ - kPurposeBaseLine)),
+  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)),
+  kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kProxyProcTypeReturn        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kCApiParam                  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kCApiReturn                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kProxyCApiParam             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kProxyCApiReturn            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kUnknownProxyProcTypeParam  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kUnknownProxyProcTypeReturn = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode
+};
+
 /*!
  * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and regular functions.
  * There is too much similiarity in constructor, destructor, and function but they are different too.
@@ -62,6 +87,10 @@ public:
   bool isCopyConstructor() const
   {
     return isConstructor() && ctor_->isCopyConstructor();
+  }
+  bool isMoveConstructor() const
+  {
+    return isConstructor() && ctor_->isMoveConstructor();
   }
   bool isDestructor() const
   {
@@ -138,7 +167,7 @@ public:
     else if (isDestructor())
       pname = cibParams.dtorCAPIPrefix;
     else
-      pname = funcName();
+      pname = modifyIfOperator(funcName());
 
     return pname;
   }
@@ -147,7 +176,7 @@ public:
   std::string signature() const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes = true, bool emitHandle = false) const;
+  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes, EmitPurpose purpose) const;
   void emitSignature(std::ostream& stm, const CppProgramEx& cppProgram) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CallType callType) const;
@@ -160,4 +189,7 @@ public:
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
   void emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool forUnknownProxy, CppIndent indentation = CppIndent()) const;
   void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, CppIndent indentation = CppIndent()) const;
+
+  private:
+    static std::string modifyIfOperator(const std::string& funcname);
 };

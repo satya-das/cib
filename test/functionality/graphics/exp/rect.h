@@ -12,6 +12,8 @@ namespace Graphics
 	class Rectangle : public ::Graphics::Shape
 	{
 	public:
+		Rectangle(Rectangle&& rhs);
+	public:
 		Rectangle(float left, float bottom, float right, float top);
   /**
    * @return Area of this shape object.

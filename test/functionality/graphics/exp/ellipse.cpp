@@ -1,13 +1,13 @@
 #include "ellipse.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
-	float __zz_cib_decl Area_1(::Graphics::Ellipse* __zz_cib_obj) {
+	float __zz_cib_decl Area_1(const ::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj->Area();
 	}
-	float __zz_cib_decl Perimeter_2(::Graphics::Ellipse* __zz_cib_obj) {
+	float __zz_cib_decl Perimeter_2(const ::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	void __zz_cib_decl Draw_3(::Graphics::Ellipse* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
+	void __zz_cib_decl Draw_3(const ::Graphics::Ellipse* __zz_cib_obj, __zz_cib_::HANDLE* ctx) {
 		__zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
 	}
 }}}

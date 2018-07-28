@@ -12,6 +12,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { MethodTable Get
 namespace __zz_cib_ { namespace Graphics { namespace Context { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { MethodTable GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Point { MethodTable GetMethodTable(); }}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { MethodTable GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape { MethodTable GetMethodTable(); }}}
 
@@ -28,6 +29,8 @@ extern "C" __zz_cib_export __zz_cib_::MethodTable __zz_cib_GraphicsLib_GetMethod
 		return __zz_cib_::Graphics::Ellipse::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::GetMethodTable();
+	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Point:
+		return __zz_cib_::Point::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::GetMethodTable();
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Shape:

@@ -13,32 +13,65 @@
 
 static CppWriter gCppWriter;
 
-inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, bool emitHandle = false)
+inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, EmitPurpose purpose)
 {
   if (typeObj == NULL) return;
-  if (typeObj->typeAttr_&kConst)
-    stm << "const ";
   // FIXME: We are assuming that all types will be of some sort of compound object.
   // This will break when there will be some typedefed or enum type is used.
   CibCppCompound* resolvedType = (CibCppCompound*)(typeResolver ? typeResolver->resolveTypeName(typeObj->baseType_, cppProgram) : NULL);
-  if (resolvedType != NULL)
-    stm << (emitHandle ? "__zz_cib_::HANDLE" : resolvedType->longName());
+
+  bool isConst = typeObj->typeAttr_&kConst;
+  bool emitHandle = resolvedType &&
+                    ((purpose  == kProxyProcTypeParam)  ||
+                     (purpose  == kProxyProcTypeReturn) ||
+                     (purpose  == kProxyCApiParam)      ||
+                     (purpose  == kProxyCApiReturn));
+  bool byValToPtr = resolvedType && (purpose & kPurposeGlueCode) && typeObj->isByValue();
+  if (byValToPtr && !emitHandle)
+    isConst = true;
+
+  if (isConst)
+    stm << "const ";
+  if (resolvedType != nullptr)
+  {
+    if (emitHandle)
+    {
+      stm << "__zz_cib_::HANDLE";
+    }
+    else
+    {
+      stm << resolvedType->longName();
+    }
+  }
   else
+  {
     stm << typeObj->baseType_;
+  }
   for (unsigned short i = 0; i < typeObj->ptrLevel_; ++i)
     stm << '*';
-  if (typeObj->typeAttr_&kByRef)
+  if (typeObj->refType_ == kByRef)
+  {
     stm << '&';
+  }
+  else if (typeObj->refType_ == kRValRef)
+  {
+    if (emitHandle)
+      stm << '&';
+    else
+      stm << '&&';
+  }
+  if (byValToPtr)
+    stm << '*';
 }
 
-inline void emitVar(std::ostream& stm, const CppVar* varObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, bool emitHandle = false)
+inline void emitVar(std::ostream& stm, const CppVar* varObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, EmitPurpose purpose)
 {
   if (varObj == NULL) return;
-  emitType(stm, varObj, typeResolver, cppProgram, emitHandle);
+  emitType(stm, varObj, typeResolver, cppProgram, purpose);
   stm << ' ' << varObj->name_;
 }
 
-void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes /*= false*/, bool emitHandle /*= false*/) const
+void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes, EmitPurpose purpose) const
 {
   //FIXME for function pointer type params, it currently handles only functions whose parameter is not function-pointer type.
 
@@ -46,11 +79,11 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, const CppProgramEx& c
     return;
   const CibCppCompound* typeResolver = resolveTypes ? getOwner() : NULL;
   auto params = getParams();
-  emitVar(stm, params->front().varObj, typeResolver, cppProgram, emitHandle);
+  emitVar(stm, params->front().varObj, typeResolver, cppProgram, purpose);
   for (CppParamList::const_iterator paramIter = params->begin(); (++paramIter) != params->end(); )
   {
     stm << ", ";
-    emitVar(stm, paramIter->varObj, typeResolver, cppProgram, emitHandle);
+    emitVar(stm, paramIter->varObj, typeResolver, cppProgram, purpose);
   }
 }
 
@@ -71,10 +104,23 @@ void CibFunctionHelper::emitArgsForCall(std::ostream& stm, const CppProgramEx& c
     if (resolvedType)
     {
       if (callType == CallType::kFromHandle)
+      {
         stm << cibParams.cibInternalNamespace << resolvedType->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
-      else
+        stm << param.varObj->name_ << ")";
+      }
+      else if (callType == CallType::kToHandle)
+      {
+        if (param.varObj->isByRef() || param.varObj->isByRValueRef())
+          stm << '*';
         stm << cibParams.cibInternalNamespace << resolvedType->longName() << "::__zz_cib_Helper::__zz_cib_handle(";
-      stm << param.varObj->name_ << ")";
+        stm << param.varObj->name_ << ")";
+      }
+      else if (callType == CallType::kDerefIfByVal)
+      {
+        if (param.varObj->isByValue())
+          stm << '*';
+        stm << param.varObj->name_;
+      }
     }
     else
     {
@@ -87,11 +133,11 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CppProgramEx& cpp
 {
   if (isFunction() && func_->retType_)
   {
-    emitType(stm, func_->retType_, NULL, cppProgram, false);
+    emitType(stm, func_->retType_, NULL, cppProgram, kSignature);
     stm << ' ';
   }
   stm << funcName() << '(';
-  emitArgsForDecl(stm, cppProgram);
+  emitArgsForDecl(stm, cppProgram, true, kSignature);
   stm << ')';
   if (isConst())
     stm << " const";
@@ -118,14 +164,14 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
     return;
   if (!forProxy && isPureVirtual() && !isDestructor())
     return;
-  auto callType = forProxy ? CallType::kFromHandle : CallType::kAsIs;
+  auto callType = forProxy ? CallType::kFromHandle : CallType::kDerefIfByVal;
   stm << indentation;
   if (isConstructor())
     stm << getOwner()->longName() << "*";
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), cppProgram);
+    emitType(stm, func_->retType_, getOwner(), cppProgram, forProxy ? kProxyReturn : kCApiReturn);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if (isConstructor() && getOwner()->needsUnknownProxyDefinition())
@@ -136,11 +182,13 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
   }
   else if (!isStatic() && (isMethod() || isDestructor()))
   {
+    if (isConst())
+      stm << "const ";
     stm << getOwner()->longName() << "* __zz_cib_obj";
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, cppProgram, true, forProxy);
+  emitArgsForDecl(stm, cppProgram, true, forProxy ? kProxyCApiParam : kCApiParam);
   stm << ") {\n";
   stm << ++indentation;
   if (isConstructor())
@@ -166,8 +214,21 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
   }
   else
   {
+    bool convertFromValue = false;
     if (func_->retType_ && !func_->retType_->isVoid())
+    {
       stm << "return ";
+      if (func_->retType_->isByValue())
+      {
+        auto resolvedType = getOwner()->resolveTypeName(func_->retType_->baseType_, cppProgram);
+        convertFromValue = ((resolvedType != nullptr) && (resolvedType->isClassLike()));
+        if (convertFromValue)
+        {
+          auto retTypeCompound = static_cast<const CppCompound*>(resolvedType);
+          stm << "new ::" << retTypeCompound->fullName() << '(';
+        }
+      }
+    }
     if (!isStatic())
       stm << "__zz_cib_obj->";
     if (!forProxy && !isPureVirtual())
@@ -175,6 +236,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
     stm << funcName();
     stm << '(';
     emitArgsForCall(stm, cppProgram, cibParams, callType);
+    if (convertFromValue)
+      stm << ')';
     stm << ");\n";
   }
   stm << --indentation << "}\n";
@@ -195,9 +258,9 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream& stm, const CppProgram
       ++indentation;
     }
     emitProcType(stm, cppProgram, cibParams, true, indentation);
-    stm << indentation << "auto proc = (" << procType(cibParams) << ") __zz_cib_mtbl[";
+    stm << indentation << "auto proc = getProc<" << procType(cibParams) << ">(";
     stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_UnknownProxy::__zz_cib_methodid::";
-    stm << capiName << "];\n";
+    stm << capiName << ");\n";
     stm << indentation;
     if (!isDestructor())
       stm << "return ";
@@ -219,7 +282,7 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream& stm, const CppProgram
     stm << indentation << funcName() << "(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl";
     if (hasParams())
       stm << ", ";
-    emitArgsForDecl(stm, cppProgram);
+    emitArgsForDecl(stm, cppProgram, true, kUnknownProxyMethodParam);
     stm << ")\n";
     ++indentation;
     stm << indentation << ": " << getOwner()->longName() << "::" << funcName() << '(';
@@ -253,7 +316,7 @@ void CibFunctionHelper::emitProcType(std::ostream& stm, const CppProgramEx& cppP
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, cppProgram, true, !forUnknownProxy);
+  emitArgsForDecl(stm, cppProgram, true, forUnknownProxy ? kUnknownProxyProcTypeParam : kProxyProcTypeParam);
   stm << ");\n";
 }
 
@@ -265,7 +328,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream& stm, const CppProgramEx
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), cppProgram, true);
+    emitType(stm, func_->retType_, getOwner(), cppProgram, kProxyProcTypeReturn);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -551,8 +614,11 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
     }
     stm << '\n' << indentation++ << "{\n";
   }
-  CppObjProtLevel lastProt = kUnknownProt;
 
+  if (isClassLike() && !inline_ && !needsBridging_.empty())
+    emitMoveConstructorDecl(stm, indentation);
+
+  CppObjProtLevel lastProt = kUnknownProt;
   std::set<const CppObj*> memDeclared;
   for (auto mem : members_)
   {
@@ -632,6 +698,18 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
     --indentation;
     stm << indentation << "}\n";
   }
+
+  // Emit __zz_cib_from_handle() definition for references.
+  stm << indentation << longName() << "& __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {\n";;
+  stm << ++indentation << "return *__zz_cib_from_handle(&h);\n";
+  stm << --indentation << "}\n";
+  // Emit methods for const handle ptr and ref.
+  stm << indentation << longName() << " const * __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {\n";;
+  stm << ++indentation << "return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));\n";
+  stm << --indentation << "}\n";
+  stm << indentation << longName() << " const & __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {\n";;
+  stm << ++indentation << "return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));\n";
+  stm << --indentation << "}\n";
 }
 
 void CibCppCompound::identifyMethodsToBridge()
@@ -647,6 +725,8 @@ void CibCppCompound::identifyMethodsToBridge()
         hasDtor_ = true;
       else if (func.isCopyConstructor())
         hasCopyCtor_ = true;
+      else if (func.isMoveConstructor())
+        continue;
       else if (func.isConstructor())
         hasCtor_ = true;
       if (inline_) // If class is inline
@@ -745,7 +825,7 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
         if (func.hasParams())
           stm << ", ";
       }
-      func.emitArgsForDecl(stm, cppProgram, true, true);
+      func.emitArgsForDecl(stm, cppProgram, true, kProxyProcTypeParam);
       stm <<") {\n";
       ++indentation;
       if (func.isDestructor())
@@ -754,9 +834,9 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
         ++indentation;
       }
       func.emitProcType(stm, cppProgram, cibParams, false, indentation);
-      stm << indentation << "auto proc = (" << func.procType(cibParams) << ") instance().mtbl[";
+      stm << indentation << "auto proc = getProc<" << func.procType(cibParams) << ">(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
-      stm << cibIdData->getMethodCApiName(func.signature()) << "];\n";
+      stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
       stm << indentation << "return proc(";
       if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
@@ -806,6 +886,9 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
       stm << --indentation << "}\n";
+      stm << indentation << "template<typename _ProcType> static _ProcType getProc(std::uint32_t procId) {\n";
+      stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, procId));\n";
+      stm << --indentation << "}\n";
     }
     stm << '\n';        // Start in new line.
     if (isFacadeLike() || isInterfaceLike())
@@ -818,8 +901,11 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
       stm << --indentation << "}\n";
     }
     stm << --indentation << "public:\n";
-    stm << ++indentation << "static __zz_cib_::HANDLE* __zz_cib_handle(" << longName() << "* __zz_cib_obj) {\n";
+    stm << ++indentation << "static __zz_cib_::HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
     stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
+    stm << --indentation << "}\n";
+    stm << indentation   << "static __zz_cib_::HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
+    stm << ++indentation << "return __zz_cib_obj.__zz_cib_h_;\n";
     stm << --indentation << "}\n";
     emitFromHandleDecl(stm, cibParams, indentation);
     stm << indentation << "static __zz_cib_::HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
@@ -858,6 +944,48 @@ void CibCppCompound::emitHelperDefn(std::ostream& stm, const CppProgramEx& cppPr
   }
 }
 
+void CibCppCompound::emitHandleConstructorDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation /* = CppIndent */) const
+{
+  auto cibIdData = cibIdMgr.getCibIdData(longName());
+
+  stm     << '\n'; // Start in new line.
+  stm     << indentation << "inline " << fullName() << "::" << name() << "(__zz_cib_::HANDLE* h)\n";
+  ++indentation;
+  char sep = ':';
+  forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
+    auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
+    stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_"<< longName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
+    sep = ',';
+  });
+  stm << indentation << sep << " __zz_cib_h_(h)";
+  stm << --indentation << "\n{}\n";
+}
+
+void CibCppCompound::emitMoveConstructorDecl(std::ostream& stm, CppIndent indentation /* = CppIndent */) const
+{
+  stm << --indentation << "public:\n";
+  stm << ++indentation << name() << '(' << name() << "&& rhs);\n";
+}
+
+void CibCppCompound::emitMoveConstructorDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation /* = CppIndent */) const
+{
+  auto cibIdData = cibIdMgr.getCibIdData(longName());
+
+  stm     << '\n'; // Start in new line.
+  stm     << indentation << "inline " << fullName() << "::" << name() << '(' << name() << "&& rhs)\n";
+  ++indentation;
+  char sep = ':';
+  forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
+    auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
+    stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(std::move(rhs))\n";
+    sep = ',';
+  });
+  stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
+  stm << --indentation << "\n{";
+  stm << ++indentation << "rhs.__zz_cib_h_ = nullptr;\n";
+  stm << --indentation << "}\n";
+}
+
 void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation /* = CppIndent */) const
 {
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
@@ -871,17 +999,8 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
   if (isClassLike() && !needsBridging_.empty())
   {
     // Emit the ctor to construct from HANDLE.
-    stm     << '\n'; // Start in new line.
-    stm     << indentation << "inline " << fullName() << "::" << name() << "(__zz_cib_::HANDLE* h)\n";
-    ++indentation;
-    char sep = ':';
-    forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
-      auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_"<< longName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
-      sep = ',';
-    });
-    stm << indentation << sep << " __zz_cib_h_(h)";
-    stm << --indentation << "\n{}\n";
+    emitHandleConstructorDefn(stm, cppProgram, cibParams, cibIdMgr, indentation);
+    emitMoveConstructorDefn(stm, cppProgram, cibParams, cibIdMgr, indentation);
   }
   for (auto func : needsBridging_)
   {
@@ -891,11 +1010,11 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
     stm     << indentation << "inline ";
     if (func.isFunction())
     {
-      emitType(stm, func.retType(), this, cppProgram);
+      emitType(stm, func.retType(), this, cppProgram, kProxyReturn);
       stm << ' ';
     }
     stm     << fullName() << "::" << func.funcName() << '(';
-    func.emitArgsForDecl(stm, cppProgram);
+    func.emitArgsForDecl(stm, cppProgram, true, kProxyMethodParam);
     stm     << ")";
     auto capiName = cibIdData->getMethodCApiName(func.signature());
     if (func.isConstructor())
@@ -934,7 +1053,14 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
         retType = (CibCppCompound*)resolveTypeName(func.retType()->baseType_, cppProgram);
         if (retType)
         {
-          stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::" << cibParams.fromHandle << "(\n";
+          if (func.retType()->isByValue())
+          {
+            stm << retType->longName() << "(\n";
+          }
+          else
+          {
+            stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
+          }
           stm << ++indentation;
         }
       }
@@ -970,6 +1096,9 @@ void CibCppCompound::emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx&
   ++indentation;
   stm << indentation << "__zz_cib_::PROXY* __zz_cib_proxy;\n";
   stm << indentation << "__zz_cib_::MethodTable __zz_cib_mtbl;\n\n";
+  stm << indentation << "template<typename _ProcType> _ProcType getProc(std::uint32_t procId) const {\n";
+  stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));\n";
+  stm << --indentation << "}\n";
   --indentation;
   stm << indentation << "public:\n";
   ++indentation;
