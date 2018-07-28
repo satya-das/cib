@@ -700,14 +700,14 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
   }
 
   // Emit __zz_cib_from_handle() definition for references.
-  stm << indentation << longName() << "& __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {\n";;
+  stm << indentation << longName() << "& __zz_cib_from_handle(__zz_cib_::HANDLE& h) {\n";;
   stm << ++indentation << "return *__zz_cib_from_handle(&h);\n";
   stm << --indentation << "}\n";
   // Emit methods for const handle ptr and ref.
-  stm << indentation << longName() << " const * __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {\n";;
+  stm << indentation << longName() << " const * __zz_cib_from_handle(const __zz_cib_::HANDLE* h) {\n";;
   stm << ++indentation << "return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));\n";
   stm << --indentation << "}\n";
-  stm << indentation << longName() << " const & __zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {\n";;
+  stm << indentation << longName() << " const & __zz_cib_from_handle(const __zz_cib_::HANDLE& h) {\n";;
   stm << ++indentation << "return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));\n";
   stm << --indentation << "}\n";
 }

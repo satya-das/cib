@@ -82,13 +82,13 @@
 				static ::Graphics::Composite* __zz_cib_from_handle(__zz_cib_::HANDLE* h) {
 					return new ::Graphics::Composite(h);
 				}
-				::Graphics::Composite& __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE& h) {
+				::Graphics::Composite& __zz_cib_from_handle(__zz_cib_::HANDLE& h) {
 					return *__zz_cib_from_handle(&h);
 				}
-				::Graphics::Composite const * __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
+				::Graphics::Composite const * __zz_cib_from_handle(const __zz_cib_::HANDLE* h) {
 					return __zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(h));
 				}
-				::Graphics::Composite const & __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
+				::Graphics::Composite const & __zz_cib_from_handle(const __zz_cib_::HANDLE& h) {
 					return *__zz_cib_from_handle(const_cast<__zz_cib_::HANDLE*>(&h));
 				}
 				static __zz_cib_::HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
