@@ -58,7 +58,7 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
     if (emitHandle)
       stm << '&';
     else
-      stm << '&&';
+      stm << "&&";
   }
   if (byValToPtr)
     stm << '*';
