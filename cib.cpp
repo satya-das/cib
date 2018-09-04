@@ -18,7 +18,7 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
   if (typeObj == NULL) return;
   // FIXME: We are assuming that all types will be of some sort of compound object.
   // This will break when there will be some typedefed or enum type is used.
-  CibCppCompound* resolvedType = (CibCppCompound*)(typeResolver ? typeResolver->resolveTypeName(typeObj->baseType_, cppProgram) : NULL);
+  CibCppCompound* resolvedType = (CibCppCompound*)(typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), cppProgram) : NULL);
 
   bool isConst = typeObj->typeAttr_&kConst;
   bool emitHandle = resolvedType &&
@@ -45,15 +45,15 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
   }
   else
   {
-    stm << typeObj->baseType_;
+    stm << typeObj->baseType();
   }
-  for (unsigned short i = 0; i < typeObj->ptrLevel_; ++i)
+  for (unsigned short i = 0; i < typeObj->ptrLevel(); ++i)
     stm << '*';
-  if (typeObj->refType_ == kByRef)
+  if (typeObj->refType() == kByRef)
   {
     stm << '&';
   }
-  else if (typeObj->refType_ == kRValRef)
+  else if (typeObj->refType() == kRValRef)
   {
     if (emitHandle)
       stm << '&';
@@ -67,8 +67,8 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
 inline void emitVar(std::ostream& stm, const CppVar* varObj, const CibCppCompound* typeResolver, const CppProgramEx& cppProgram, EmitPurpose purpose)
 {
   if (varObj == NULL) return;
-  emitType(stm, varObj, typeResolver, cppProgram, purpose);
-  stm << ' ' << varObj->name_;
+  emitType(stm, varObj->varType_, typeResolver, cppProgram, purpose);
+  stm << ' ' << varObj->name();
 }
 
 void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes, EmitPurpose purpose) const
@@ -100,31 +100,31 @@ void CibFunctionHelper::emitArgsForCall(std::ostream& stm, const CppProgramEx& c
     if (params->front() != param)
       stm << ", ";
     //FIXME for enum and other non compound types.
-    CibCppCompound* resolvedType = (CibCppCompound*)((getOwner() && (callType != CallType::kAsIs)) ? getOwner()->resolveTypeName(param.varObj->baseType_, cppProgram) : nullptr);
+    CibCppCompound* resolvedType = (CibCppCompound*)((getOwner() && (callType != CallType::kAsIs)) ? getOwner()->resolveTypeName(param.varObj->baseType(), cppProgram) : nullptr);
     if (resolvedType)
     {
       if (callType == CallType::kFromHandle)
       {
         stm << cibParams.cibInternalNamespace << resolvedType->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
-        stm << param.varObj->name_ << ")";
+        stm << param.varObj->name() << ")";
       }
       else if (callType == CallType::kToHandle)
       {
         if (param.varObj->isByRef() || param.varObj->isByRValueRef())
           stm << '*';
         stm << cibParams.cibInternalNamespace << resolvedType->longName() << "::__zz_cib_Helper::__zz_cib_handle(";
-        stm << param.varObj->name_ << ")";
+        stm << param.varObj->name() << ")";
       }
       else if (callType == CallType::kDerefIfByVal)
       {
         if (param.varObj->isByValue())
           stm << '*';
-        stm << param.varObj->name_;
+        stm << param.varObj->name();
       }
     }
     else
     {
-      stm << param.varObj->name_;
+      stm << param.varObj->name();
     }
   }
 }
@@ -220,7 +220,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
       stm << "return ";
       if (func_->retType_->isByValue())
       {
-        auto resolvedType = getOwner()->resolveTypeName(func_->retType_->baseType_, cppProgram);
+        auto resolvedType = getOwner()->resolveTypeName(func_->retType_->baseType(), cppProgram);
         convertFromValue = ((resolvedType != nullptr) && (resolvedType->isClassLike()));
         if (convertFromValue)
         {
@@ -504,13 +504,13 @@ void CibCppCompound::collectTypeDependencies(const CppProgramEx& cppProgram, std
       };
       CibFunctionHelper func(mem);
       if (func.retType() && !func.retType()->isVoid())
-        addDependency(func.retType()->baseType_);
+        addDependency(func.retType()->baseType());
       if (func.getParams())
       {
         for (auto param : *func.getParams())
         {
           if (param.cppObj->objType_ == kVarType)
-            addDependency(param.varObj->baseType_);
+            addDependency(param.varObj->baseType());
         }
       }
     }
@@ -1050,7 +1050,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
       if (func.isFunction() && func.retType() && !func.retType()->isVoid())
       {
         stm << "return ";
-        retType = (CibCppCompound*)resolveTypeName(func.retType()->baseType_, cppProgram);
+        retType = (CibCppCompound*)resolveTypeName(func.retType()->baseType(), cppProgram);
         if (retType)
         {
           if (func.retType()->isByValue())

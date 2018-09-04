@@ -63,8 +63,8 @@ target_include_directories(graphics_cibified
 	PRIVATE
 		pub
 )
-set_target_properties(graphics_cibified
-	PROPERTIES
+target_compile_definitions(graphics_cibified
+	PRIVATE
 		COMPILE_DEFINITIONS GRAPHICSAPI=
 )
 add_dependencies(graphics_cibified cib)
@@ -74,8 +74,8 @@ add_library(graphics
 		${GRAPHICS_SOURCES}
 		${GRAPHICS_PUB_FILES}
 )
-set_target_properties(graphics
-	PROPERTIES
+target_compile_definitions(graphics
+	PRIVATE
 		COMPILE_DEFINITIONS GRAPHICSAPI=${DLLEXPORT}
 )
 target_include_directories(graphics

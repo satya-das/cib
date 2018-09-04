@@ -96,13 +96,13 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
     for (auto param : *(func.getParams()))
     {
       if (param.cppObj->objType_ != CppObj::kVar)
-        continue;
-      auto effectivePtrLevel = param.varObj->ptrLevel_;
-      if (param.varObj->refType_ == kByRef)
+        continue; //TODO: FIXME param can be function pointer too.
+      auto effectivePtrLevel = param.varObj->ptrLevel();
+      if (param.varObj->refType() == kByRef)
         ++effectivePtrLevel;
       if (effectivePtrLevel)
       {
-        auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType_, func.getOwner()));
+        auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType(), func.getOwner()));
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
@@ -118,9 +118,9 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
   // Evaluate to detect if the return type is a facade-like class.
   if (func.retType())
   {
-    if (func.retType()->ptrLevel_ == 1 || func.retType()->refType_ == kByRef)
+    if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
     {
-      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType_, func.getOwner()));
+      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType(), func.getOwner()));
       if (returnObj && returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
       {
         returnObj->setFacadeLike();
