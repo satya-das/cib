@@ -143,7 +143,7 @@ For each public class of a library CIB produces another class with same name and
 ### Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 ### Shared Class
-A C++ class that crosses DLL boundary: if there exists a public function that returns a pointer/reference of a C++ class or takes reference/pointer as parameter then such class is called a shared class.
+A C++ class that crosses DLL boundary: if there exists a public function that returns a object/pointer/reference of a C++ class or takes object/reference/pointer as parameter then such class is called a shared class.
 ### Facade Class
 A C++ class that has public virtual method and there exists public function/method that returns a pointer/reference of this class.
 ### Interface Class
