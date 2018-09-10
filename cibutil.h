@@ -37,7 +37,7 @@ struct TypeResolver
     , cppProgram_(cppProgram)
   {}
   // FIXME: It should actually return CppObj, but for now lets assume it will always be a compound object.
-  CibCppCompound* operator()(const std::string& typeName) const;
+  const CibCppCompound* operator()(const std::string& typeName) const;
 
 private:
   const CibCppCompound* owner_;

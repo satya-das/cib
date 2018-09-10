@@ -182,7 +182,7 @@ int main(int argc, char* argv[])
   const CppCompoundArray& fileDOMs = cppProgram.getProgram().getFileDOMs();
   for (auto cppDom : fileDOMs)
   {
-    CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
+    auto* cibCppCompound = static_cast<const CibCppCompound*>(cppDom);
     cibCppCompound->emitUserHeader(cppProgram, cibParams);
     cibCppCompound->emitImpl1Header(cppProgram, cibParams);
     cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);

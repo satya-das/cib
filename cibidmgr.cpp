@@ -142,6 +142,8 @@ void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams
 
 void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy)
 {
+  if (compound->isInline())
+    return;
   for (auto mem : compound->members_)
   {
     if (isMemberPublic(mem->prot_, compound->compoundType_) && mem->isNamespaceLike())

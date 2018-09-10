@@ -128,7 +128,10 @@ public:
   {
     return func_->defn_ != nullptr;
   }
-
+  bool isTemplated() const
+  {
+    return func_->templSpec_ != nullptr;
+  }
   CibCppCompound* getOwner() const;
 
   bool hasParams() const

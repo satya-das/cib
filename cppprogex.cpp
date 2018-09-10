@@ -150,7 +150,8 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
       }
     }
   }
-  if (isInline && cppCompound->isClassLike())
+  isInline = isInline || (cppCompound->templSpec_ != nullptr);
+  if (isInline)
     cppCompound->setIsInline();
 }
 

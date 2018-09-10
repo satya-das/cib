@@ -18,7 +18,8 @@ inline void emitType(std::ostream& stm, const CppVarType* typeObj, const CibCppC
   if (typeObj == NULL) return;
   // FIXME: We are assuming that all types will be of some sort of compound object.
   // This will break when there will be some typedefed or enum type is used.
-  CibCppCompound* resolvedType = (CibCppCompound*)(typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), cppProgram) : NULL);
+  auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), cppProgram) : NULL);
+  auto* resolvedType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
   bool isConst = typeObj->typeAttr_&kConst;
   bool emitHandle = resolvedType &&
@@ -100,7 +101,8 @@ void CibFunctionHelper::emitArgsForCall(std::ostream& stm, const CppProgramEx& c
     if (params->front() != param)
       stm << ", ";
     //FIXME for enum and other non compound types.
-    CibCppCompound* resolvedType = (CibCppCompound*)((getOwner() && (callType != CallType::kAsIs)) ? getOwner()->resolveTypeName(param.varObj->baseType(), cppProgram) : nullptr);
+    auto* resolvedCppObj = getOwner()->resolveTypeName(param.varObj->baseType(), cppProgram);
+    auto* resolvedType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
     if (resolvedType)
     {
       if (callType == CallType::kFromHandle)
@@ -220,8 +222,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppP
       stm << "return ";
       if (func_->retType_->isByValue())
       {
-        auto resolvedType = getOwner()->resolveTypeName(func_->retType_->baseType(), cppProgram);
-        convertFromValue = ((resolvedType != nullptr) && (resolvedType->isClassLike()));
+        auto* resolvedCppObj = getOwner()->resolveTypeName(func_->retType_->baseType(), cppProgram);
+        auto* resolvedType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+        convertFromValue = (resolvedType != nullptr);
         if (convertFromValue)
         {
           auto retTypeCompound = static_cast<const CppCompound*>(resolvedType);
@@ -498,9 +501,10 @@ void CibCppCompound::collectTypeDependencies(const CppProgramEx& cppProgram, std
     else if (mem->isFunctionLike())
     {
       auto addDependency = [&](const std::string& typeName) {
-        auto typeObj = (CibCppCompound*)resolveTypeName(typeName, cppProgram);
-        if (typeObj)
-          cppObjs.insert(typeObj);
+        auto* resolvedCppObj = resolveTypeName(typeName, cppProgram);
+        auto* resolvedType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+        if (resolvedType)
+          cppObjs.insert(resolvedType);
       };
       CibFunctionHelper func(mem);
       if (func.retType() && !func.retType()->isVoid())
@@ -670,10 +674,13 @@ void CibCppCompound::emitFromHandleDefn(std::ostream& stm, const CibParams& cibP
   stm << indentation << "switch(__zz_cib_get_class_id(h)) {\n";
   forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
     auto cibIdData = cibIdMgr.getCibIdData(derived->longName());
-    stm << indentation << "case __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
-    ++indentation;
-    stm << indentation << "return __zz_cib_" << derived->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
-    --indentation;
+    if (cibIdData)
+    {
+      stm << indentation << "case __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
+      ++indentation;
+      stm << indentation << "return __zz_cib_" << derived->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
+      --indentation;
+    }
   });
   stm << indentation << "}\n";
   stm << indentation << "return nullptr;\n";
@@ -714,6 +721,9 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
 
 void CibCppCompound::identifyMethodsToBridge()
 {
+  // TODO: Need to take decision on how to deal with inline classes.
+  if (inline_)
+    return;
   for (auto mem : members_)
   {
     if (!inline_ && !isMemberPublic(mem->prot_, compoundType_))    // We will emit only public members unless class is inline.
@@ -721,6 +731,8 @@ void CibCppCompound::identifyMethodsToBridge()
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
+      if (func.isTemplated())
+        continue;
       if (func.isDestructor())
         hasDtor_ = true;
       else if (func.isCopyConstructor())
@@ -1050,7 +1062,8 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
       if (func.isFunction() && func.retType() && !func.retType()->isVoid())
       {
         stm << "return ";
-        retType = (CibCppCompound*)resolveTypeName(func.retType()->baseType(), cppProgram);
+        auto* resolvedCppObj = resolveTypeName(func.retType()->baseType(), cppProgram);
+        auto* retType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
         if (retType)
         {
           if (func.retType()->isByValue())
@@ -1085,7 +1098,7 @@ void CibCppCompound::emitDefn(std::ostream& stm, const CppProgramEx& cppProgram,
   }
 }
 
-void CibCppCompound::emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation)
+void CibCppCompound::emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation) const
 {
   if (!needsUnknownProxyDefinition())
     return;
@@ -1142,7 +1155,7 @@ void CibCppCompound::emitFacadeDependecyHeaders(std::ostream& stm, const CppProg
   }
 }
 
-void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation /* = CppIndent */)
+void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr, CppIndent indentation /* = CppIndent */) const
 {
   if (isCppFile())
   {
