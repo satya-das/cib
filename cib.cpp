@@ -591,7 +591,7 @@ void CibCppCompound::emitDecl(const CppObj* obj, std::ostream& stm, const CppPro
 
 void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
 {
-  if (inline_)
+  if (isInline())
   {
     gCppWriter.emit(this, stm, indentation);
     return;
@@ -610,7 +610,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
       };
       char sep = ':';
       emitInheritance(kPublic, sep);
-      if (inline_)
+      if (isInline())
       {
         emitInheritance(kProtected, sep);
         emitInheritance(kPrivate, sep);
@@ -619,14 +619,14 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
     stm << '\n' << indentation++ << "{\n";
   }
 
-  if (isClassLike() && !inline_ && !needsBridging_.empty())
+  if (isClassLike() && !isInline() && !needsBridging_.empty())
     emitMoveConstructorDecl(stm, indentation);
 
   CppObjProtLevel lastProt = kUnknownProt;
   std::set<const CppObj*> memDeclared;
   for (auto mem : members_)
   {
-    if (!inline_ && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
+    if (!isInline() && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
       continue;
     if (isClassLike() && lastProt != mem->prot_)
     {
@@ -652,7 +652,7 @@ void CibCppCompound::emitDecl(std::ostream& stm, const CppProgramEx& cppProgram,
 
   if (isClassLike())
   {
-    if (!inline_)
+    if (!isInline())
     {
       // Everything below this is for glue code
       stm << '\n';
@@ -722,26 +722,28 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
 void CibCppCompound::identifyMethodsToBridge()
 {
   // TODO: Need to take decision on how to deal with inline classes.
-  if (inline_)
+  if (isInline())
     return;
   for (auto mem : members_)
   {
-    if (!inline_ && !isMemberPublic(mem->prot_, compoundType_))    // We will emit only public members unless class is inline.
+    if (!isInline() && !isMemberPublic(mem->prot_, compoundType_))    // We will emit only public members unless class is inline.
       continue;
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
+      if (func.funcName().find(':') != std::string::npos)
+        continue; // Skip out of class definitions.
       if (func.isTemplated())
         continue;
       if (func.isDestructor())
-        hasDtor_ = true;
+        setHasDtor();
       else if (func.isCopyConstructor())
-        hasCopyCtor_ = true;
+        setHasCopyCtor();
       else if (func.isMoveConstructor())
         continue;
       else if (func.isConstructor())
-        hasCtor_ = true;
-      if (inline_) // If class is inline
+        setHasCtor();
+      if (isInline()) // If class is inline
       {
         if (func.isStatic() && !func.isInline()) // only non-inline static methods need bridging.
         {
@@ -763,7 +765,7 @@ void CibCppCompound::identifyMethodsToBridge()
   }
   if (!isClassLike())
     return;
-  if (!hasDtor_ && needsUnknownProxyDefinition())
+  if (!hasDtor() && needsUnknownProxyDefinition())
   {
     auto defaultDtor = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
     defaultDtor->owner_ = this;
@@ -772,7 +774,7 @@ void CibCppCompound::identifyMethodsToBridge()
     needsBridging_.push_back(func);
     objNeedingBridge_.insert(defaultDtor);
   }
-  if (!hasCtor_)
+  if (!hasCtor())
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
     auto defaultCtor = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);

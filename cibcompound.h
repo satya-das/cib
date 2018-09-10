@@ -25,6 +25,19 @@ typedef std::vector<CibCppCompound*>			              CibCppCompoundArray;
 typedef std::map<CppObjProtLevel, CibCppCompoundArray>	CibCppInheritInfo;
 typedef std::map<std::string, const CppObj*>		        TypeNameToCppObj;
 
+enum CibClassPropFlags
+{
+  // Unusable const section begins
+  kClassPropBaseLine = __LINE__,
+  // Unusable const section ends
+  kClassPropInline       = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropShared       = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface    = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropFacade       = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasCtor      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasDtor      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasCopyCtor  = (1 << (__LINE__ - kClassPropBaseLine)),
+};
 /**
 * Responsible for emitting code required for CIB functionality of C++ compound object.
 */
@@ -38,12 +51,7 @@ public:
   CibCppInheritInfo children_;            // List of all children which are derived from this compound object.
 
 private:
-  bool inline_{ false };                           // true when all non-static methods are inline.
-  bool interfaceLike_{ false };
-  bool facadeLike_{ false };
-  bool hasCtor_{ false }; // true if there is a ctor, copy-ctor is not counted here.
-  bool hasCopyCtor_{ false };
-  bool hasDtor_{ false };
+  std::uint32_t props_{ 0 };
   bool needsUnknownProxyDefinition_{ false };
 
   CibFunctionHelperArray needsBridging_;     // Array of all functions that require bridging for implementation at client side.
@@ -58,7 +66,7 @@ public:
   }
   std::string longName() const
   {
-    return "::" + fullName();
+    return isCppFile() ? "::" : "::" + fullName();
   }
   bool hasPubliclyDerived() const
   {
@@ -127,7 +135,7 @@ public:
   */
   bool isInterfaceLike() const
   {
-    return interfaceLike_;
+    return (props_ & kClassPropInterface);
   }
   /**
   * @ return true if this compound object is facade-like.
@@ -137,15 +145,39 @@ public:
   */
   bool isFacadeLike() const
   {
-    return facadeLike_;
+    return (props_ & kClassPropFacade);
   }
   void setIsInline()
   {
-    inline_ = true;
+    props_ |= kClassPropInterface;
   }
   bool isInline() const
   {
-    return inline_;
+    return (props_ & kClassPropInline);
+  }
+  void setHasCtor()
+  {
+    props_ |= kClassPropHasCtor;
+  }
+  void setHasDtor()
+  {
+    props_ |= kClassPropHasDtor;
+  }
+  void setHasCopyCtor()
+  {
+    props_ |= kClassPropHasCopyCtor;
+  }
+  bool hasCtor()
+  {
+   return props_ & kClassPropHasCtor;
+  }
+  bool hasDtor()
+  {
+    return props_ & kClassPropHasDtor;
+  }
+  bool hasCopyCtor()
+  {
+    return props_ & kClassPropHasCopyCtor;
   }
   bool needsUnknownProxyDefinition() const {
     return needsUnknownProxyDefinition_;
@@ -165,11 +197,11 @@ public:
   // Internal: Ideally should have been private with class CppProgramEx as friend.
   void setInterfaceLike()
   {
-    interfaceLike_ = true;
+    props_ |= kClassPropInterface;
   }
   void setFacadeLike()
   {
-    facadeLike_ = true;
+    props_ |= kClassPropFacade;
   }
 
   public:
