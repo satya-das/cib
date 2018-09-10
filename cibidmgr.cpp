@@ -182,7 +182,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
       if (!cibIdData->hasMethod(castMethodName))
         cibIdData->addMethod(castMethodName, castMethodName);
     });
-    if (compound->isFacadeLike() || compound->isInterfaceLike())
+    if (compound->isFacadeLike())
     {
       if (!cibIdData->hasMethod("__zz_cib_get_class_id"))
         cibIdData->addMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");

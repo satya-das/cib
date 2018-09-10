@@ -27,6 +27,10 @@ void CppProgramEx::buildCibCppObjTree()
     resolveInheritance(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
+  // detecting facades need detection of interfaces.
+  // so just call markClassType() again for all classes to correctly detect all facades.
+  for (auto fileDom : program_->getFileDOMs())
+    markClassType(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     markNeedsUnknownProxyDefinition(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
@@ -90,23 +94,27 @@ void CppProgramEx::resolveInheritance(CibCppCompound* cppCompound)
 
 void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
 {
-  // Evaluate the arguments to detect if any of them uses a class that is interface-like.
+  // Evaluate the arguments to detect properties of class.
   if (func.hasParams())
   {
-    for (auto param : *(func.getParams()))
+    for (auto& param : *(func.getParams()))
     {
       if (param.cppObj->objType_ != CppObj::kVar)
         continue; //TODO: FIXME param can be function pointer too.
+      auto* cppObj = getCppObjFromTypeName(param.varObj->baseType(), func.getOwner());
+      auto* paramObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+      if (!paramObj)
+        continue;
+      paramObj->setShared();
       auto effectivePtrLevel = param.varObj->ptrLevel();
       if (param.varObj->refType() == kByRef)
         ++effectivePtrLevel;
       if (effectivePtrLevel)
       {
-        auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType(), func.getOwner()));
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
-          if (effectivePtrLevel == 2 && paramObj->hasPubliclyDerived())
+          if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual())) && paramObj->hasPubliclyDerived())
             paramObj->setFacadeLike();
         }
       }
@@ -151,7 +159,7 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     }
   }
   isInline = isInline || (cppCompound->templSpec_ != nullptr);
-  if (isInline)
+  if (isInline && cppCompound->isClassLike())
     cppCompound->setIsInline();
 }
 

@@ -32,8 +32,8 @@ enum CibClassPropFlags
   // Unusable const section ends
   kClassPropInline       = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared       = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropInterface    = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropFacade       = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropFacade       = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropHasCtor      = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasDtor      = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasCopyCtor  = (1 << (__LINE__ - kClassPropBaseLine)),
@@ -128,6 +128,10 @@ public:
   {
     return static_cast<CibCppCompound*>(owner_);
   }
+  void setShared()
+  {
+    props_ |= kClassPropShared;
+  }
   /**
   * @ return true if this compound object is interface-like.
   * \note Any class that has a public virtual function and somewhere there exists at-least one
@@ -135,7 +139,7 @@ public:
   */
   bool isInterfaceLike() const
   {
-    return (props_ & kClassPropInterface);
+    return (props_ & kClassPropInterface) == kClassPropInterface;
   }
   /**
   * @ return true if this compound object is facade-like.
@@ -145,15 +149,19 @@ public:
   */
   bool isFacadeLike() const
   {
-    return (props_ & kClassPropFacade);
+    return (props_ & kClassPropFacade) == kClassPropFacade;
   }
   void setIsInline()
   {
-    props_ |= kClassPropInterface;
+    props_ |= kClassPropInline;
   }
   bool isInline() const
   {
     return (props_ & kClassPropInline);
+  }
+  bool isShared() const
+  {
+    return (props_ & kClassPropShared);
   }
   void setHasCtor()
   {
