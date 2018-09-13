@@ -9,7 +9,6 @@ struct CppCompound;
 
 struct CibParams;
 
-
 typedef std::vector<CppCompound*> CppCompoundArray;
 
 class Cib

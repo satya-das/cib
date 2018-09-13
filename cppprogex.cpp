@@ -16,8 +16,7 @@ CppProgramEx::CppProgramEx(const char* inputPath)
   buildCibCppObjTree();
 }
 
-CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name,
-                                            const CppCompound* begScope) const
+CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
 {
   return getCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
 }
@@ -34,8 +33,7 @@ void CppProgramEx::buildCibCppObjTree()
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
 
-CppObj* CppProgramEx::getCppObjFromTypeName(const std::string&     name,
-                                            const CppTypeTreeNode* typeNode) const
+CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
   typeNode = program_->findTypeNode(name, typeNode);
   return typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
@@ -80,8 +78,7 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
         ++effectivePtrLevel;
       if (effectivePtrLevel)
       {
-        auto paramObj = static_cast<CibCppCompound*>(
-          getCppObjFromTypeName(param.varObj->baseType(), func.getOwner()));
+        auto paramObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(param.varObj->baseType(), func.getOwner()));
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
@@ -99,8 +96,7 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
   {
     if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
     {
-      auto returnObj = static_cast<CibCppCompound*>(
-        getCppObjFromTypeName(func.retType()->baseType(), func.getOwner()));
+      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType(), func.getOwner()));
       if (returnObj && returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
       {
         returnObj->setFacadeLike();

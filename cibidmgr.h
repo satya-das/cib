@@ -24,12 +24,12 @@
 #ifndef __CIB_ID_MGR_H__
 #define __CIB_ID_MGR_H__
 
-#include "cppwriter.h"
 #include "cppindent.h"
+#include "cppwriter.h"
 
-#include "cppprogex.h"
 #include "cib.h"
 #include "cibparams.h"
+#include "cppprogex.h"
 
 #include <cstdint>
 #include <map>
@@ -51,7 +51,7 @@ using CibMethodSignature = CibIdIdentifier;
  * CAPI Name of method. It is formed by appending method id to original name of method
  */
 using CibMethodCAPIName = std::string;
-using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
+using CibMethodIdTable  = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
 
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
@@ -59,41 +59,49 @@ using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, Cib
 class CibIdData
 {
   using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
-  std::string             classIdName; ///< Name of item in enum
-  CibClassId              classId;
-  CibMethodIdTable        methodIdTable;
-  CibMethodIdToMethodMap  methodIdToMethodMap;
-  CibMethodId             nextMethodId{ 1 };
+  std::string            classIdName; ///< Name of item in enum
+  CibClassId             classId;
+  CibMethodIdTable       methodIdTable;
+  CibMethodIdToMethodMap methodIdToMethodMap;
+  CibMethodId            nextMethodId{1};
 
 public:
   CibIdData(std::string cIdName, CibClassId cId)
     : classIdName(std::move(cIdName))
     , classId(cId)
-  {}
+  {
+  }
 
-  const std::string& getIdName() const {
+  const std::string& getIdName() const
+  {
     return classIdName;
   }
 
-  CibClassId getId() const {
+  CibClassId getId() const
+  {
     return classId;
   }
 
-  CibMethodId getNextMethodId() const {
+  CibMethodId getNextMethodId() const
+  {
     return nextMethodId;
   }
 
-  bool hasMethod(const CibMethodSignature& uniqName) {
+  bool hasMethod(const CibMethodSignature& uniqName)
+  {
     return methodIdTable.count(uniqName) > 0;
   }
 
-  CibMethodCAPIName getMethodCApiName(const CibMethodSignature& uniqName) const {
+  CibMethodCAPIName getMethodCApiName(const CibMethodSignature& uniqName) const
+  {
     auto itr = methodIdTable.find(uniqName);
     return (itr == methodIdTable.end()) ? CibMethodCAPIName() : itr->second.second;
   }
 
-  void addMethod(CibMethodSignature signature, std::string methodName, CibMethodId methodId = 0) {
-    if (methodId == 0) {
+  void addMethod(CibMethodSignature signature, std::string methodName, CibMethodId methodId = 0)
+  {
+    if (methodId == 0)
+    {
       methodId = nextMethodId;
       methodName += "_" + std::to_string(methodId);
     }
@@ -102,7 +110,8 @@ public:
     ++nextMethodId;
   }
 
-  void setNextMethodId(CibMethodId methodId) {
+  void setNextMethodId(CibMethodId methodId)
+  {
     // assert(nextMethodId isn't already used);
     nextMethodId = methodId;
   }
@@ -114,7 +123,7 @@ public:
    * @return Id of next method if that gets added.
    */
   CibMethodId forEachMethod(MethodVisitor methodVisitor) const;
-  size_t numMethods() const;
+  size_t      numMethods() const;
 };
 
 using CibIdTable = std::map<std::string, CibIdData>;
@@ -130,13 +139,18 @@ class CibIdMgr
 public:
   /*!
    * Loads IDs from file emitted in previous run.
-   * @return true on success. Will return false if it is called more than once or it is called after assignIds().
+   * @return true on success. Will return false if it is called more than once or it is called after
+   * assignIds().
    */
-  bool loadIds(const std::string& idsFilePath, const CibParams& cibParams);
-  void assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
-  bool saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
-  const CibIdTable& getCibIdTable() const { return cibIdTable_; }
-  const CibIdData* getCibIdData(const std::string& className) const {
+  bool              loadIds(const std::string& idsFilePath, const CibParams& cibParams);
+  void              assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
+  bool              saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
+  const CibIdTable& getCibIdTable() const
+  {
+    return cibIdTable_;
+  }
+  const CibIdData* getCibIdData(const std::string& className) const
+  {
     auto itr = cibIdTable_.find(className);
     return itr == cibIdTable_.end() ? nullptr : &itr->second;
   }
@@ -147,20 +161,20 @@ public:
    * @return Id of next method if that gets added.
    */
   CibMethodId forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const;
-  size_t numMethods(const std::string& className) const;
+  size_t      numMethods(const std::string& className) const;
 
 private:
   void assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy);
 
 private:
-  void loadClassIds(const CppEnum* classIdEnum);
-  void loadMethodIds(std::string className, const CppEnum* methodIdEnum);
+  void       loadClassIds(const CppEnum* classIdEnum);
+  void       loadMethodIds(std::string className, const CppEnum* methodIdEnum);
   CibIdData* addClass(std::string className, CibClassId classId = 0);
   CibIdData* addClass(std::string className, const std::string& classId);
 
 private:
   CibIdTable cibIdTable_;
-  CibClassId nextClassId_{ 1 };
+  CibClassId nextClassId_{1};
 };
 
 inline CibIdData* CibIdMgr::addClass(std::string className, const std::string& classId)

@@ -88,17 +88,14 @@ auto parseCmdLine(int argc, char* argv[])
   return std::make_tuple(moduleName, inputPath, outputPath, binderPath, resDir);
 }
 
-std::string generateCibIds(const CppProgramEx& cppProgram,
-                           const CibParams&    cibParams,
-                           CibIdMgr&           cibIdMgr)
+std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams, CibIdMgr& cibIdMgr)
 {
   std::string cibIdFileName = cibParams.cibIdFilename();
   cibIdMgr.loadIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
   cibIdMgr.assignIds(cppProgram, cibParams);
   cibIdMgr.saveIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
-  cibIdMgr.saveIds(
-    (cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(),
-    cibParams);
+  cibIdMgr.saveIds((cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(),
+                   cibParams);
 
   return cibIdFileName;
 }
@@ -131,8 +128,7 @@ static void emitMethodTableGetter(std::ostream&           stm,
   }
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export ";
-  stm << "__zz_cib_::MethodTable __zz_cib_" << cibParams.moduleName
-      << "Lib_GetMethodTable(std::uint32_t classId)\n";
+  stm << "__zz_cib_::MethodTable __zz_cib_" << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -182,11 +178,9 @@ int main(int argc, char* argv[])
     // Emit cib.h for library.
     std::strstreambuf tmpbuf;
     std::ifstream((cibParams.resDir / "lib_cib.h").string(), std::ios_base::in) >> &tmpbuf;
-    auto cibcode =
-      replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibLibIncStm(
-      (cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).string(),
-      std::ios_base::out);
+    auto          cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).string(),
+                               std::ios_base::out);
     cibLibIncStm << cibcode;
   }
 
@@ -195,8 +189,7 @@ int main(int argc, char* argv[])
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
     std::ifstream((cibParams.resDir / "cibdef.h").string(), std::ios_base::in) >> &tmpbuf;
-    auto cibcode =
-      replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     cibdefStm << cibcode;
   }
   const CppCompoundArray& fileDOMs = cppProgram.getProgram().getFileDOMs();
@@ -206,8 +199,7 @@ int main(int argc, char* argv[])
     cibCppCompound->emitUserHeader(cppProgram, cibParams);
     cibCppCompound->emitImpl1Header(cppProgram, cibParams);
     cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);
-    bfs::path usrSrcPath =
-      cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
+    bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(cppProgram, cibParams, cibIdMgr);
     bfs::path     bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
@@ -217,9 +209,8 @@ int main(int argc, char* argv[])
     cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr, false);
   }
 
-  std::ofstream cibLibSrcStm(
-    (cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(),
-    std::ios_base::out);
+  std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(),
+                             std::ios_base::out);
   cibLibSrcStm << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n\n";
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
   emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
