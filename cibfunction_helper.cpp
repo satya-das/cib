@@ -1,7 +1,7 @@
 #include "cibfunction_helper.h"
 #include "cibcompound.h"
 #include "cibfunction.h"
-#include "cppprogex.h"
+#include "cibhelper.h"
 #include "cppwriter.h"
 
 #include "cibcompound.h"

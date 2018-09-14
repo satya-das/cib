@@ -1,7 +1,7 @@
 #include "cib.h"
 #include "cibcompound.h"
+#include "cibhelper.h"
 #include "cibidmgr.h"
-#include "cppprogex.h"
 #include "res_template.h"
 
 #include "cppdom.h"
@@ -88,11 +88,11 @@ auto parseCmdLine(int argc, char* argv[])
   return std::make_tuple(moduleName, inputPath, outputPath, binderPath, resDir);
 }
 
-std::string generateCibIds(const CppProgramEx& cppProgram, const CibParams& cibParams, CibIdMgr& cibIdMgr)
+std::string generateCibIds(const CibHelper& helper, const CibParams& cibParams, CibIdMgr& cibIdMgr)
 {
   std::string cibIdFileName = cibParams.cibIdFilename();
   cibIdMgr.loadIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
-  cibIdMgr.assignIds(cppProgram, cibParams);
+  cibIdMgr.assignIds(helper, cibParams);
   cibIdMgr.saveIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
   cibIdMgr.saveIds((cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(),
                    cibParams);
@@ -166,9 +166,9 @@ int main(int argc, char* argv[])
   ensureDirectoriesExist(cibParams);
 
   // First load all files as DOM.
-  CppProgramEx      cppProgram(cibParams.inputPath.string().c_str());
+  CibHelper         helper(cibParams.inputPath.string().c_str());
   CibIdMgr          cibIdMgr;
-  auto              cibIdFileName = generateCibIds(cppProgram, cibParams, cibIdMgr);
+  auto              cibIdFileName = generateCibIds(helper, cibParams, cibIdMgr);
   StringToStringMap substituteInfo;
   substituteInfo["MODULE"]    = cibParams.moduleName;
   substituteInfo["CIBEXPAPI"] = "__declspec(dllexport)";
@@ -192,21 +192,21 @@ int main(int argc, char* argv[])
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     cibdefStm << cibcode;
   }
-  const CppCompoundArray& fileDOMs = cppProgram.getProgram().getFileDOMs();
+  const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
   for (auto cppDom : fileDOMs)
   {
     CibCppCompound* cibCppCompound = static_cast<CibCppCompound*>(cppDom);
-    cibCppCompound->emitUserHeader(cppProgram, cibParams);
-    cibCppCompound->emitImpl1Header(cppProgram, cibParams);
-    cibCppCompound->emitImpl2Header(cppProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitUserHeader(helper, cibParams);
+    cibCppCompound->emitImpl1Header(helper, cibParams);
+    cibCppCompound->emitImpl2Header(helper, cibParams, cibIdMgr);
     bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
-    cibCppCompound->emitImplSource(cppProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
     bfs::path     bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-    cibCppCompound->emitLibGlueCode(bindSrcStm, cppProgram, cibParams, cibIdMgr);
-    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, cppProgram, cibParams, cibIdMgr, false);
+    cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
+    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
   }
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(),

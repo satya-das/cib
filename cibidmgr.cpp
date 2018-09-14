@@ -132,7 +132,7 @@ void CibIdMgr::loadMethodIds(std::string className, const CppEnum* methodIdEnum)
     methodIdTable.setNextMethodId(nextMethodId);
 }
 
-void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CibHelper& expProg, const CibParams& cibParams)
 {
   // First create Ids for global functions
   const CppCompoundArray& fileDOMs = expProg.getProgram().getFileDOMs();

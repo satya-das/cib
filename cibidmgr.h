@@ -28,8 +28,8 @@
 #include "cppwriter.h"
 
 #include "cib.h"
+#include "cibhelper.h"
 #include "cibparams.h"
-#include "cppprogex.h"
 
 #include <cstdint>
 #include <map>
@@ -143,7 +143,7 @@ public:
    * assignIds().
    */
   bool              loadIds(const std::string& idsFilePath, const CibParams& cibParams);
-  void              assignIds(const CppProgramEx& expProg, const CibParams& cibParams);
+  void              assignIds(const CibHelper& expProg, const CibParams& cibParams);
   bool              saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
   const CibIdTable& getCibIdTable() const
   {

@@ -5,7 +5,7 @@
 
 #include <string>
 
-class CppProgramEx;
+class CibHelper;
 struct CibCppCompound;
 struct CppVarType;
 
@@ -31,9 +31,9 @@ inline bool isMemberPrivate(CppObjProtLevel protLevel, CppCompoundType ownerType
 
 struct TypeResolver
 {
-  TypeResolver(const CibCppCompound* owner = nullptr, const CppProgramEx* cppProgram = nullptr)
+  TypeResolver(const CibCppCompound* owner = nullptr, const CibHelper* helper = nullptr)
     : owner_(owner)
-    , cppProgram_(cppProgram)
+    , cppProgram_(helper)
   {
   }
   // FIXME: It should actually return CppObj, but for now lets assume it will always be a compound
@@ -42,16 +42,16 @@ struct TypeResolver
 
 private:
   const CibCppCompound* owner_;
-  const CppProgramEx*   cppProgram_;
+  const CibHelper*      cppProgram_;
 };
 
 struct VarTypeResolver : TypeResolver
 {
   VarTypeResolver(const CibParams&      cibParams,
-                  const CibCppCompound* owner      = nullptr,
-                  const CppProgramEx*   cppProgram = nullptr,
-                  bool                  isHandle   = false)
-    : TypeResolver(owner, cppProgram)
+                  const CibCppCompound* owner    = nullptr,
+                  const CibHelper*      helper   = nullptr,
+                  bool                  isHandle = false)
+    : TypeResolver(owner, helper)
     , cibParams_(cibParams)
     , isHandle_(isHandle)
   {

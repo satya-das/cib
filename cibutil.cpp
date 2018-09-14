@@ -1,6 +1,6 @@
 #include "cibutil.h"
 #include "cibcompound.h"
-#include "cppprogex.h"
+#include "cibhelper.h"
 
 #include "cppdom.h"
 

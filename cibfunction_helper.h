@@ -12,7 +12,7 @@
 
 struct CibCppCompound;
 
-class CppProgramEx;
+class CibHelper;
 
 enum class CallType
 {
@@ -193,42 +193,39 @@ public:
   std::string signature() const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CppProgramEx& cppProgram) const;
+  void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper) const;
   /// Emits function arguments for function call.
-  void emitArgsForCall(std::ostream&       stm,
-                       const CppProgramEx& cppProgram,
-                       const CibParams&    cibParams,
-                       CallType            callType) const;
+  void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.
-  void emitOrigDecl(std::ostream&       stm,
-                    const CppProgramEx& cppProgram,
-                    const CibParams&    cibParams,
-                    CppIndent           indentation = CppIndent()) const;
+  void emitOrigDecl(std::ostream&    stm,
+                    const CibHelper& helper,
+                    const CibParams& cibParams,
+                    CppIndent        indentation = CppIndent()) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-  void emitCAPIDefn(std::ostream&       stm,
-                    const CppProgramEx& cppProgram,
-                    const CibParams&    cibParams,
-                    const std::string&  capiName,
-                    bool                forProxy,
-                    CppIndent           indentation = CppIndent()) const;
-  void emitCAPIDefnForProxy(std::ostream&       stm,
-                            const CppProgramEx& cppProgram,
-                            const CibParams&    cibParams,
-                            const std::string&  capiName,
-                            CppIndent           indentation = CppIndent()) const;
-  void emitUnknownProxyDefn(std::ostream&       stm,
-                            const CppProgramEx& cppProgram,
-                            const CibParams&    cibParams,
-                            const std::string&  capiName,
-                            CppIndent           indentation = CppIndent()) const;
+  void emitCAPIDefn(std::ostream&      stm,
+                    const CibHelper&   helper,
+                    const CibParams&   cibParams,
+                    const std::string& capiName,
+                    bool               forProxy,
+                    CppIndent          indentation = CppIndent()) const;
+  void emitCAPIDefnForProxy(std::ostream&      stm,
+                            const CibHelper&   helper,
+                            const CibParams&   cibParams,
+                            const std::string& capiName,
+                            CppIndent          indentation = CppIndent()) const;
+  void emitUnknownProxyDefn(std::ostream&      stm,
+                            const CibHelper&   helper,
+                            const CibParams&   cibParams,
+                            const std::string& capiName,
+                            CppIndent          indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
-  void emitProcType(std::ostream&       stm,
-                    const CppProgramEx& cppProgram,
-                    const CibParams&    cibParams,
-                    bool                forUnknownProxy,
-                    CppIndent           indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, CppIndent indentation = CppIndent()) const;
+  void emitProcType(std::ostream&    stm,
+                    const CibHelper& helper,
+                    const CibParams& cibParams,
+                    bool             forUnknownProxy,
+                    CppIndent        indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CibHelper& helper, CppIndent indentation = CppIndent()) const;
 
 private:
   static std::string modifyIfOperator(const std::string& funcname);
