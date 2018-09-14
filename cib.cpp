@@ -105,7 +105,6 @@ void CibFunctionHelper::emitArgsForCall(std::ostream& stm, const CppProgramEx& c
     auto* resolvedType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
     if (resolvedType)
     {
-      assert(!param.varObj->name().empty());
       switch (callType)
       {
       case CallType::kFromHandle:
@@ -727,6 +726,10 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
 
 void CibCppCompound::identifyMethodsToBridge()
 {
+  if (templSpec_)
+    return;
+  if (name().empty())
+    return;
   for (auto mem : members_)
   {
     if (!isInline() && !isMemberPublic(mem->prot_, compoundType_))    // We will emit only public members unless class is inline.
@@ -1207,8 +1210,11 @@ void CibCppCompound::emitLibGlueCode(std::ostream& stm, const CppProgramEx& cppP
       ++indentation;
       forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
         auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
-        stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
-        stm << " __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
+        if (cibIdData)
+        {
+          stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
+          stm << " __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
+        }
       });
       stm << indentation << "classIdRepoPopulated = true;\n";
       --indentation;

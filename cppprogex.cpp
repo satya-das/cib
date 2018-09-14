@@ -123,13 +123,16 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
 }
 void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
 {
-  // Evaluate to detect if the return type is a facade-like class.
   if (func.retType())
   {
     if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
     {
-      auto returnObj = static_cast<CibCppCompound*>(getCppObjFromTypeName(func.retType()->baseType(), func.getOwner()));
-      if (returnObj && returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
+      auto* cppObj = getCppObjFromTypeName(func.retType()->baseType(), func.getOwner());
+      auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+      if (!returnObj)
+        return;
+      returnObj->setShared();
+      if (returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
       {
         returnObj->setFacadeLike();
       }

@@ -130,7 +130,11 @@ public:
   }
   void setShared()
   {
+    if (isShared())
+      return;
     props_ |= kClassPropShared;
+    for (auto parent : parents_[kPublic])
+      parent->setShared();
   }
   /**
   * @ return true if this compound object is interface-like.

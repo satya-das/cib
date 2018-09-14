@@ -142,7 +142,11 @@ void CibIdMgr::assignIds(const CppProgramEx& expProg, const CibParams& cibParams
 
 void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy)
 {
-  if (compound->isInline())
+  //if (!compound->isShared())
+  //  return;
+  if (compound->templSpec_)
+    return;
+  if (compound->name().empty())
     return;
   for (auto mem : compound->members_)
   {
