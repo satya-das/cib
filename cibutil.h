@@ -1,22 +1,21 @@
 #pragma once
 
-#include "cpputil.h"
 #include "cppconst.h"
+#include "cpputil.h"
 
 #include <string>
 
-
-class CppProgramEx;
+class CibHelper;
 struct CibCppCompound;
 struct CppVarType;
 
 struct CibParams;
 
 /**
-* Finds if the member can be considered as public.
-* @param protLevel Known protection level
-* @param ownerType Owner type which owns the member.
-*/
+ * Finds if the member can be considered as public.
+ * @param protLevel Known protection level
+ * @param ownerType Owner type which owns the member.
+ */
 inline bool isMemberPublic(CppObjProtLevel protLevel, CppCompoundType ownerType)
 {
   return protLevel == kPublic || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPublic);
@@ -32,29 +31,35 @@ inline bool isMemberPrivate(CppObjProtLevel protLevel, CppCompoundType ownerType
 
 struct TypeResolver
 {
-  TypeResolver(const CibCppCompound* owner = nullptr, const CppProgramEx* cppProgram = nullptr)
+  TypeResolver(const CibCppCompound* owner = nullptr, const CibHelper* helper = nullptr)
     : owner_(owner)
-    , cppProgram_(cppProgram)
-  {}
-  // FIXME: It should actually return CppObj, but for now lets assume it will always be a compound object.
+    , cppProgram_(helper)
+  {
+  }
+  // FIXME: It should actually return CppObj, but for now lets assume it will always be a compound
+  // object.
   const CibCppCompound* operator()(const std::string& typeName) const;
 
 private:
   const CibCppCompound* owner_;
-  const CppProgramEx* cppProgram_;
+  const CibHelper*      cppProgram_;
 };
 
 struct VarTypeResolver : TypeResolver
 {
-  VarTypeResolver(const CibParams& cibParams, const CibCppCompound* owner = nullptr, const CppProgramEx* cppProgram = nullptr, bool isHandle = false)
-    : TypeResolver(owner, cppProgram)
+  VarTypeResolver(const CibParams&      cibParams,
+                  const CibCppCompound* owner    = nullptr,
+                  const CibHelper*      helper   = nullptr,
+                  bool                  isHandle = false)
+    : TypeResolver(owner, helper)
     , cibParams_(cibParams)
     , isHandle_(isHandle)
-  {}
+  {
+  }
 
   std::string operator()(const std::string& typeName) const;
 
 private:
   const CibParams& cibParams_;
-  bool isHandle_;
+  bool             isHandle_;
 };

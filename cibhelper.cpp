@@ -1,14 +1,14 @@
-#include "cibfunction.h"
+#include "cibhelper.h"
 #include "cibcompound.h"
+#include "cibfunction.h"
 #include "cibfunction_helper.h"
-#include "cibutil.h"
 #include "cibobjfactory.h"
-#include "cppprogex.h"
+#include "cibutil.h"
 #include "cppparser.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CppProgramEx::CppProgramEx(const char* inputPath)
+CibHelper::CibHelper(const char* inputPath)
   : cibCppObjTreeCreated_(false)
 {
   CibObjFactory objFactory;
@@ -16,12 +16,12 @@ CppProgramEx::CppProgramEx(const char* inputPath)
   buildCibCppObjTree();
 }
 
-CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
+CppObj* CibHelper::getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
 {
   return getCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
 }
 
-void CppProgramEx::buildCibCppObjTree()
+void CibHelper::buildCibCppObjTree()
 {
   for (auto fileDom : program_->getFileDOMs())
     resolveInheritance(static_cast<CibCppCompound*>(fileDom));
@@ -37,62 +37,37 @@ void CppProgramEx::buildCibCppObjTree()
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
 
-CppObj* CppProgramEx::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
+CppObj* CibHelper::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
 {
-  size_t nameBegPos = 0;
-  size_t nameEndPos = name.find("::", nameBegPos);
-  if (nameEndPos == std::string::npos)
-  {
-    typeNode = program_->findTypeNode(name, typeNode);
-  }
-  else
-  {
-    std::string nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-    typeNode = program_->findTypeNode(nameToLookFor, typeNode);
-    if (!typeNode)
-      return nullptr;
-    do
-    {
-      nameBegPos = nameEndPos + 2;
-      nameEndPos = name.find("::", nameBegPos);
-      if (nameEndPos == std::string::npos)
-        nameEndPos = name.length();
-      auto nameToLookFor = name.substr(nameBegPos, nameEndPos-nameBegPos);
-      auto itr = typeNode->children.find(nameToLookFor);
-      if (itr == typeNode->children.end())
-        return nullptr;
-      typeNode = &itr->second;
-    }
-    while (nameEndPos > name.length());
-  }
+  typeNode = program_->findTypeNode(name, typeNode);
   return typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
 }
 
-void CppProgramEx::resolveInheritance(CibCppCompound* cppCompound)
+void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
 {
   const CppTypeTreeNode& ownerTypeNode = *program_->typeTreeNodeFromCppObj(cppCompound->owner_);
   if (cppCompound->inheritList_)
   {
-    for (CppInheritanceList::const_iterator itrInh = cppCompound->inheritList_->begin(); itrInh != cppCompound->inheritList_->end(); ++itrInh)
+    for (const auto& inh : *(cppCompound->inheritList_))
     {
-      CibCppCompound* parentObj = (CibCppCompound*) getCppObjFromTypeName(itrInh->baseName, &ownerTypeNode);
-      // assert(parentObj != NULL); // we should actually give warning here.
+      auto parentObj = (CibCppCompound*) getCppObjFromTypeName(inh.baseName, &ownerTypeNode);
+      // assert(parentObj != NULL); // we should actually give warning
+      // here.
       if (parentObj == NULL)
         continue;
-      CppObjProtLevel inhType = resolveInheritanceType(itrInh->inhType, cppCompound->compoundType_);
+      CppObjProtLevel inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType_);
       cppCompound->parents_[inhType].push_back(parentObj);
       parentObj->children_[inhType].push_back(cppCompound);
     }
   }
-  for (CppObjArray::const_iterator itr = cppCompound->members_.begin(); itr != cppCompound->members_.end(); ++itr)
+  for (const auto mem : cppCompound->members_)
   {
-    CppObj* mem = *itr;
     if (mem->objType_ == CppObj::kCompound)
       resolveInheritance((CibCppCompound*) mem);
   }
 }
 
-void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
+void CibHelper::evaluateArgs(const CibFunctionHelper& func)
 {
   // Evaluate the arguments to detect properties of class.
   if (func.hasParams())
@@ -121,7 +96,7 @@ void CppProgramEx::evaluateArgs(const CibFunctionHelper& func)
     }
   }
 }
-void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
+void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
 {
   if (func.retType())
   {
@@ -140,7 +115,7 @@ void CppProgramEx::evaluateReturnType(const CibFunctionHelper& func)
   }
 }
 
-void CppProgramEx::markClassType(CibCppCompound* cppCompound)
+void CibHelper::markClassType(CibCppCompound* cppCompound)
 {
   auto isInline = true;
   for (auto mem : cppCompound->members_)
@@ -149,7 +124,7 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     {
       markClassType(static_cast<CibCppCompound*>(mem));
     }
-    else if(mem->isFunctionLike())
+    else if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
       if (!func.hasDefinition() || func.isVirtual())
@@ -166,7 +141,7 @@ void CppProgramEx::markClassType(CibCppCompound* cppCompound)
     cppCompound->setIsInline();
 }
 
-void CppProgramEx::setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
 {
   cppCompound->setNeedsUnknownProxyDefinition();
   for (auto child : cppCompound->children_[kPublic])
@@ -175,7 +150,7 @@ void CppProgramEx::setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
   }
 }
 
-void CppProgramEx::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
 {
   for (auto mem : cppCompound->members_)
   {

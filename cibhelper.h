@@ -21,37 +21,37 @@ typedef std::set<std::string> stringset;
 /**
  * \brief Represents an entire C++ program.
  *
- * For our purpose we may use only C++ header files but this class can be used to load and parse C++ source files as well.
+ * For our purpose we may use only C++ header files but this class can be used
+ * to load and parse C++ source files as well.
  */
-class CppProgramEx
+class CibHelper
 {
 public:
-  CppProgramEx();
-  CppProgramEx(const char* inputPath);
+  CibHelper();
+  CibHelper(const char* inputPath);
 
-  const CppProgram& getProgram() const { return *program_.get(); }
+  const CppProgram& getProgram() const
+  {
+    return *program_.get();
+  }
 
 public:
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
-   * @param name Name which may contain many scope resolution operators.
+   * @param name Name which may contain zero or more scope resolution operators.
    * @param typeNode CppTypeTreeNode object from where the search should begin.
    * @return CppObj corresponding to the name given.
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const;
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
-   * @param name Name which may contain many scope resolution operators.
+   * @param name Name which may contain zero or more scope resolution operators.
    * @param begScope Compound object from where the search should begin.
    * @return CppObj corresponding to the name given.
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const;
 
 private:
-  /**
-   * Creates CibCppCompound from CppCompound.
-   * \note It does not populate inheritance info.
-   */
   void resolveInheritance(CibCppCompound* cppCompound);
   void buildCibCppObjTree();
   void markClassType(CibCppCompound* cppCompound);
@@ -63,8 +63,9 @@ private:
    */
   void evaluateArgs(const CibFunctionHelper& func);
   /**
-  * Evaluates return type of function to detect attribute of class used in return type.
-  */
+   * Evaluates return type of function to detect attribute of class used in
+   * return type.
+   */
   void evaluateReturnType(const CibFunctionHelper& func);
 
 private:
@@ -75,7 +76,7 @@ private:
 
 //////////////////////////////////////////////////////////////////////////
 
-inline CppProgramEx::CppProgramEx()
+inline CibHelper::CibHelper()
   : cibCppObjTreeCreated_(false)
 {
 }

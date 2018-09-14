@@ -23,7 +23,11 @@ CppCompound* CibObjFactory::CreateCompound(CppCompoundType type) const
   return new CibCppCompound(type);
 }
 
-CppConstructor* CibObjFactory::CreateConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, unsigned int attr) const
+CppConstructor* CibObjFactory::CreateConstructor(CppObjProtLevel prot,
+                                                 std::string     name,
+                                                 CppParamList*   params,
+                                                 CppMemInitList* memInitList,
+                                                 unsigned int    attr) const
 {
   return CibFunctionHelper::CreateConstructor(prot, name, params, memInitList, attr);
 }
@@ -33,7 +37,11 @@ CppDestructor* CibObjFactory::CreateDestructor(CppObjProtLevel prot, std::string
   return CibFunctionHelper::CreateDestructor(prot, name, attr);
 }
 
-CppFunction* CibObjFactory::CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr) const
+CppFunction* CibObjFactory::CreateFunction(CppObjProtLevel prot,
+                                           std::string     name,
+                                           CppVarType*     retType,
+                                           CppParamList*   params,
+                                           unsigned int    attr) const
 {
   return CibFunctionHelper::CreateFunction(prot, std::move(name), retType, params, attr);
 }

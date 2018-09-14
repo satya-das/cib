@@ -35,47 +35,51 @@ public:
   const std::string dtorCAPIPrefix;
   const std::string castToBasePrefix;
   const std::string fromHandle;
-  const int         globalFuncCibClassId;    // All global functions of all headers belong to only one MetaInterface.
-
+  const int         globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
 
 public:
-  template<typename OptionTuple>
+  template <typename OptionTuple>
   CibParams(OptionTuple options)
-    : moduleName            (std::get<0>(options))
-    , inputPath             (std::get<1>(options))
-    , outputPath            (std::get<2>(options))
-    , binderPath            (std::get<3>(options))
-    , resDir                (std::get<4>(options))
-    , cibInternalDirName    (CIBPREFIX "internal")
-    , cibdefFileName        (moduleName + "_cibdef.h")
-    , cibInternalNamespace  (CIBPREFIX)
-    , handleGetterMethod    (CIBPREFIX "handle")
-    , copyCtorCAPIPrefix    (CIBPREFIX "copy")
-    , ctorCAPIPrefix        (CIBPREFIX "new")
-    , dtorCAPIPrefix        (CIBPREFIX "delete")
-    , castToBasePrefix      (CIBPREFIX "cast_to_")
-    , fromHandle            (CIBPREFIX "from_handle")
-    , globalFuncCibClassId  (1)
+    : moduleName(std::get<0>(options))
+    , inputPath(std::get<1>(options))
+    , outputPath(std::get<2>(options))
+    , binderPath(std::get<3>(options))
+    , resDir(std::get<4>(options))
+    , cibInternalDirName(CIBPREFIX "internal")
+    , cibdefFileName(moduleName + "_cibdef.h")
+    , cibInternalNamespace(CIBPREFIX)
+    , handleGetterMethod(CIBPREFIX "handle")
+    , copyCtorCAPIPrefix(CIBPREFIX "copy")
+    , ctorCAPIPrefix(CIBPREFIX "new")
+    , dtorCAPIPrefix(CIBPREFIX "delete")
+    , castToBasePrefix(CIBPREFIX "cast_to_")
+    , fromHandle(CIBPREFIX "from_handle")
+    , globalFuncCibClassId(1)
   {
   }
 
 public:
-  bfs::path cibdefFilePath() const {
+  bfs::path cibdefFilePath() const
+  {
     return outputPath / cibInternalDirName / cibdefFileName;
   }
-  bfs::path cibInternalDir() const {
+  bfs::path cibInternalDir() const
+  {
     return outputPath / cibInternalDirName;
   }
-  std::string cibIdFilename() const {
+  std::string cibIdFilename() const
+  {
     return "__zz_cib_" + moduleName + "_ids.h";
   }
-  std::string classIdOwnerSpace() const {
+  std::string classIdOwnerSpace() const
+  {
     return "__zz_cib_::" + moduleName + "Lib::__zz_cib_classid::";
   }
+
 private:
   CibParams(const CibParams&) = delete;
-  CibParams(CibParams&&) = delete;
-  const CibParams& operator = (const CibParams&) = delete;
+  CibParams(CibParams&&)      = delete;
+  const CibParams& operator=(const CibParams&) = delete;
 };
 
 #endif //__CIB_PARAMS_H__

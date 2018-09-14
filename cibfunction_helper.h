@@ -12,7 +12,7 @@
 
 struct CibCppCompound;
 
-class CppProgramEx;
+class CibHelper;
 
 enum class CallType
 {
@@ -25,10 +25,10 @@ enum class CallType
 enum EmitPurpose
 {
   // Unusable const section begins
-  kPurposeBaseLine            = __LINE__,
-  kPurposeGlueCode            = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeLibGlueCode         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeClientGlueCode      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeBaseLine       = __LINE__,
+  kPurposeGlueCode       = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeLibGlueCode    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   // Unusable const section ends
   kSignature                  = (1 << (__LINE__ - kPurposeBaseLine)),
   kProxyMethodParam           = (1 << (__LINE__ - kPurposeBaseLine)),
@@ -46,43 +46,60 @@ enum EmitPurpose
 };
 
 /*!
- * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and regular functions.
- * There is too much similiarity in constructor, destructor, and function but they are different too.
- * cppparser has three different classes for these and it makes sense. But for purpose of cib their similarity
- * is more important than their differences and so CibFunctionHelper provides a uniform interface and behaviour
- * to deal with them uniformly.
- * It is a wrapper class that provides access to underlying objects which are purposfully const.
+ * Helper class to deal with function-like C++ constructs, viz. constructors, destructors, and
+ * regular functions. There is too much similiarity in constructor, destructor, and function but
+ * they are different too. cppparser has three different classes for these and it makes sense. But
+ * for purpose of cib their similarity is more important than their differences and so
+ * CibFunctionHelper provides a uniform interface and behaviour to deal with them uniformly. It is a
+ * wrapper class that provides access to underlying objects which are purposfully const.
  */
 class CibFunctionHelper
 {
 private:
   union
   {
-    const CppObj*             cppObj_;
-    const CibCppConstructor*  ctor_;
-    const CibCppDestructor*   dtor_;
-    const CibCppFunction*     func_;
+    const CppObj*            cppObj_;
+    const CibCppConstructor* ctor_;
+    const CibCppDestructor*  dtor_;
+    const CibCppFunction*    func_;
   };
 
 public:
-  static CppConstructor* CreateConstructor(CppObjProtLevel prot, std::string name, CppParamList* params, CppMemInitList* memInitList, unsigned int attr);
-  static CppDestructor* CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
-  static CppFunction* CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
+  static CppConstructor* CreateConstructor(CppObjProtLevel prot,
+                                           std::string     name,
+                                           CppParamList*   params,
+                                           CppMemInitList* memInitList,
+                                           unsigned int    attr);
+  static CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
+  static CppFunction*
+  CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
 
 public:
   CibFunctionHelper(const CppObj* cppObj);
-  CibFunctionHelper(const CibCppConstructor* ctor) : ctor_(ctor) {}
-  CibFunctionHelper(const CibCppDestructor* dtor) : dtor_(dtor) {}
-  CibFunctionHelper(const CibCppFunction* func) : func_(func) {}
+  CibFunctionHelper(const CibCppConstructor* ctor)
+    : ctor_(ctor)
+  {
+  }
+  CibFunctionHelper(const CibCppDestructor* dtor)
+    : dtor_(dtor)
+  {
+  }
+  CibFunctionHelper(const CibCppFunction* func)
+    : func_(func)
+  {
+  }
 
-  operator const CppObj* () const { return cppObj_; }
+  operator const CppObj*() const
+  {
+    return cppObj_;
+  }
   CppObjProtLevel protectionLevel() const
   {
     return cppObj_->prot_;
   }
   bool isConstructor() const
   {
-    return cppObj_->objType_  == CppObj::kConstructor;
+    return cppObj_->objType_ == CppObj::kConstructor;
   }
   bool isCopyConstructor() const
   {
@@ -179,20 +196,40 @@ public:
   std::string signature() const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CppProgramEx& cppProgram, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CppProgramEx& cppProgram) const;
+  void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper) const;
   /// Emits function arguments for function call.
-  void emitArgsForCall(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CallType callType) const;
+  void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.
-  void emitOrigDecl(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitOrigDecl(std::ostream&    stm,
+                    const CibHelper& helper,
+                    const CibParams& cibParams,
+                    CppIndent        indentation = CppIndent()) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-  void emitCAPIDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const std::string& capiName, bool forProxy, CppIndent indentation = CppIndent()) const;
-  void emitCAPIDefnForProxy(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const std::string& capiName, CppIndent indentation = CppIndent()) const;
-  void emitUnknownProxyDefn(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, const std::string& capiName, CppIndent indentation = CppIndent()) const;
+  void emitCAPIDefn(std::ostream&      stm,
+                    const CibHelper&   helper,
+                    const CibParams&   cibParams,
+                    const std::string& capiName,
+                    bool               forProxy,
+                    CppIndent          indentation = CppIndent()) const;
+  void emitCAPIDefnForProxy(std::ostream&      stm,
+                            const CibHelper&   helper,
+                            const CibParams&   cibParams,
+                            const std::string& capiName,
+                            CppIndent          indentation = CppIndent()) const;
+  void emitUnknownProxyDefn(std::ostream&      stm,
+                            const CibHelper&   helper,
+                            const CibParams&   cibParams,
+                            const std::string& capiName,
+                            CppIndent          indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
-  void emitProcType(std::ostream& stm, const CppProgramEx& cppProgram, const CibParams& cibParams, bool forUnknownProxy, CppIndent indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream& stm, const CppProgramEx& cppProgram, CppIndent indentation = CppIndent()) const;
+  void emitProcType(std::ostream&    stm,
+                    const CibHelper& helper,
+                    const CibParams& cibParams,
+                    bool             forUnknownProxy,
+                    CppIndent        indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CibHelper& helper, CppIndent indentation = CppIndent()) const;
 
-  private:
-    static std::string modifyIfOperator(const std::string& funcname);
+private:
+  static std::string modifyIfOperator(const std::string& funcname);
 };

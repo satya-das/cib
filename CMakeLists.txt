@@ -18,7 +18,7 @@ add_subdirectory(${ROOT_DIR}/cppparser  ${CMAKE_OBJFILE_OUTPUT_DIRECTORY}/cpppar
 
 set(CIB_SOURCES
 	cib.cpp
-	cppprogex.cpp
+	cibhelper.cpp
 	cibidmgr.cpp
 	main.cpp
 	cibobjfactory.cpp
