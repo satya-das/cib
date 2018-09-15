@@ -153,7 +153,13 @@ public:
 
   bool hasParams() const
   {
-    return !isDestructor() && func_->params_ && !func_->params_->empty();
+    if (isDestructor() || (func_->params_ == nullptr) || func_->params_->empty())
+      return false;
+    // It may happen there is parameter but it is a 'void' one.
+    const auto& param = func_->params_->front();
+    if (param.cppObj->objType_ != CppObj::kVar)
+      return true;
+    return !(param.varObj->varType_->isVoid());
   }
   CppParamList* getParams() const
   {
