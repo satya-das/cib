@@ -52,9 +52,9 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
     {
       auto* cppObj    = getCppObjFromTypeName(inh.baseName, &ownerTypeNode);
       auto* parentObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
-      // assert(parentObj != NULL); // we should actually give warning
+      // assert(parentObj != nullptr); // we should actually give warning
       // here.
-      if (parentObj == NULL)
+      if (parentObj == nullptr)
         continue;
       CppObjProtLevel inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType_);
       cppCompound->parents_[inhType].push_back(parentObj);

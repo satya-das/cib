@@ -19,11 +19,11 @@ inline void emitType(std::ostream&         stm,
                      const CibHelper&      helper,
                      EmitPurpose           purpose)
 {
-  if (typeObj == NULL)
+  if (typeObj == nullptr)
     return;
   // FIXME: We are assuming that all types will be of some sort of compound object.
   // This will break when there will be some typedefed or enum type is used.
-  auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : NULL);
+  auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : nullptr);
   auto* resolvedType =
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
@@ -75,7 +75,7 @@ inline void emitVar(std::ostream&         stm,
                     const CibHelper&      helper,
                     EmitPurpose           purpose)
 {
-  if (varObj == NULL)
+  if (varObj == nullptr)
     return;
   emitType(stm, varObj->varType_, typeResolver, helper, purpose);
   stm << ' ' << varObj->name();
@@ -91,7 +91,7 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
 
   if (!hasParams())
     return;
-  const CibCppCompound* typeResolver = resolveTypes ? getOwner() : NULL;
+  const CibCppCompound* typeResolver = resolveTypes ? getOwner() : nullptr;
   auto                  params       = getParams();
   emitVar(stm, params->front().varObj, typeResolver, helper, purpose);
   for (CppParamList::const_iterator paramIter = params->begin(); (++paramIter) != params->end();)
@@ -157,7 +157,7 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
 {
   if (isFunction() && func_->retType_)
   {
-    emitType(stm, func_->retType_, NULL, helper, kSignature);
+    emitType(stm, func_->retType_, nullptr, helper, kSignature);
     stm << ' ';
   }
   stm << funcName() << '(';
@@ -1161,7 +1161,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
       }
 
       stm << indentation;
-      const CibCppCompound* retType = NULL;
+      const CibCppCompound* retType = nullptr;
       if (func.isFunction() && func.retType() && !func.retType()->isVoid())
       {
         stm << "return ";

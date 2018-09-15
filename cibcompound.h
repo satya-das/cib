@@ -96,21 +96,21 @@ public:
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
   {
-    if (outer() == NULL || outer()->isCppFile())
+    if (outer() == nullptr || outer()->isCppFile())
       return "namespace " + cibParams.cibInternalNamespace + " {";
     return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
   }
   ///
   std::string wrappingNses(const CibParams& cibParams) const
   {
-    if (outer() == NULL || outer()->isCppFile())
+    if (outer() == nullptr || outer()->isCppFile())
       return "::" + cibParams.cibInternalNamespace + "::" + cibParams.moduleName + "Lib";
     return outer()->wrappingNses(cibParams) + outer()->name();
   }
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
   std::string closingBracesForWrappingNamespaces() const
   {
-    if (outer() == NULL || outer()->isCppFile())
+    if (outer() == nullptr || outer()->isCppFile())
       return "}";
     return outer()->closingBracesForWrappingNamespaces() + '}';
   }
