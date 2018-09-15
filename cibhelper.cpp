@@ -50,7 +50,8 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritList_))
     {
-      auto parentObj = (CibCppCompound*) getCppObjFromTypeName(inh.baseName, &ownerTypeNode);
+      auto* cppObj    = getCppObjFromTypeName(inh.baseName, &ownerTypeNode);
+      auto* parentObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       // assert(parentObj != NULL); // we should actually give warning
       // here.
       if (parentObj == NULL)
@@ -75,8 +76,8 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
     for (auto& param : *(func.getParams()))
     {
       if (param.cppObj->objType_ != CppObj::kVar)
-        continue; //TODO: FIXME param can be function pointer too.
-      auto* cppObj = getCppObjFromTypeName(param.varObj->baseType(), func.getOwner());
+        continue; // TODO: FIXME param can be function pointer too.
+      auto* cppObj   = getCppObjFromTypeName(param.varObj->baseType(), func.getOwner());
       auto* paramObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       if (!paramObj)
         continue;
@@ -89,7 +90,8 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
-          if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual())) && paramObj->hasPubliclyDerived())
+          if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual()))
+              && paramObj->hasPubliclyDerived())
             paramObj->setFacadeLike();
         }
       }
@@ -102,7 +104,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
   {
     if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
     {
-      auto* cppObj = getCppObjFromTypeName(func.retType()->baseType(), func.getOwner());
+      auto* cppObj    = getCppObjFromTypeName(func.retType()->baseType(), func.getOwner());
       auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       if (!returnObj)
         return;
