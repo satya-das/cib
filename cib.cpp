@@ -848,7 +848,7 @@ void CibCppCompound::identifyMethodsToBridge()
     needsBridging_.push_back(func);
     objNeedingBridge_.insert(defaultDtor);
   }
-  if (!hasCtor())
+  if (!hasCtor() && (!isAbstract() || needsUnknownProxyDefinition()))
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
     auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
