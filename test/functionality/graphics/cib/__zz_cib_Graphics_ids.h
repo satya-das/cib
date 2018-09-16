@@ -130,15 +130,23 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Context {
 		namespace __zz_cib_methodid {
 			enum {
+				//#= virtual void Line(float, float, float, float) = 0;
+				Line_1 = 1,
+				//#= virtual void Rect(float, float, float, float) = 0;
+				Rect_2 = 2,
+				//#= virtual void Circle(float, float, float) = 0;
+				Circle_3 = 3,
+				//#= virtual void Ellipse(float, float, float, float) = 0;
+				Ellipse_4 = 4,
 				//#= ~Context()
-				__zz_cib_delete_1 = 1,
+				__zz_cib_delete_5 = 5,
 				//#= Context();
-				__zz_cib_new_2 = 2,
+				__zz_cib_new_6 = 6,
 				//#= __zz_cib_get_class_id
-				__zz_cib_get_class_id_3 = 3,
+				__zz_cib_get_class_id_7 = 7,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_4 = 4,
-				__zz_cib_next_method_id = 5
+				__zz_cib_release_proxy_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}}
@@ -284,15 +292,21 @@ namespace __zz_cib_ {
 	namespace Graphics { namespace Shape {
 		namespace __zz_cib_methodid {
 			enum {
+				//#= virtual float Area() const = 0;
+				Area_1 = 1,
+				//#= virtual float Perimeter() const = 0;
+				Perimeter_2 = 2,
+				//#= virtual void Draw(Context*) const = 0;
+				Draw_3 = 3,
 				//#= ~Shape()
-				__zz_cib_delete_1 = 1,
+				__zz_cib_delete_4 = 4,
 				//#= Shape();
-				__zz_cib_new_2 = 2,
+				__zz_cib_new_5 = 5,
 				//#= __zz_cib_get_class_id
-				__zz_cib_get_class_id_3 = 3,
+				__zz_cib_get_class_id_6 = 6,
 				//#= __zz_cib_release_proxy
-				__zz_cib_release_proxy_4 = 4,
-				__zz_cib_next_method_id = 5
+				__zz_cib_release_proxy_7 = 7,
+				__zz_cib_next_method_id = 8
 			};
 		}
 	}}
@@ -329,9 +343,9 @@ namespace __zz_cib_ {
 				//#= void Y(float);
 				Y_5 = 5,
 				//#= Point operator +(const Point&) const;
-				operatorPlus_6 = 6,
+				__zz_cib_OperatorPlus_6 = 6,
 				//#= Point operator -(Point) const;
-				operatorMinus_7 = 7,
+				__zz_cib_OperatorMinus_7 = 7,
 				__zz_cib_next_method_id = 8
 			};
 		}

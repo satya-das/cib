@@ -56,13 +56,22 @@ namespace __zz_cib_ {
 			};
 		}}
 		namespace Shape {
-			void __zz_cib_decl __zz_cib_delete_1(::Graphics::Shape* __zz_cib_obj) {
+			float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
+				return __zz_cib_obj->Area();
+			}
+			float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
+				return __zz_cib_obj->Perimeter();
+			}
+			void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, ::Graphics::Context* ctx) {
+				__zz_cib_obj->Draw(ctx);
+			}
+			void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Shape* __zz_cib_decl __zz_cib_new_2(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
+			::Graphics::Shape* __zz_cib_decl __zz_cib_new_5(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
 				return new __zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape(proxy, mtbl);
 			}
-			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_3(::Graphics::Shape* __zz_cib_obj) {
+			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Shape* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle;
@@ -73,7 +82,7 @@ namespace __zz_cib_ {
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
-			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Shape* __zz_cib_obj) {
+			void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Shape* __zz_cib_obj) {
 				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape*>(__zz_cib_obj);
 				if (unknownProxy)
 					unknownProxy->__zz_cib_release_proxy();
@@ -86,13 +95,16 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	using MethodTable = const MethodEntry*;
 	MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
-			(MethodEntry) &__zz_cib_delete_1,
-			(MethodEntry) &__zz_cib_new_2,
-			(MethodEntry) &__zz_cib_get_class_id_3,
-			(MethodEntry) &__zz_cib_release_proxy_4
+			(MethodEntry) &Area_1,
+			(MethodEntry) &Perimeter_2,
+			(MethodEntry) &Draw_3,
+			(MethodEntry) &__zz_cib_delete_4,
+			(MethodEntry) &__zz_cib_new_5,
+			(MethodEntry) &__zz_cib_get_class_id_6,
+			(MethodEntry) &__zz_cib_release_proxy_7
 		};
 		return methodTable;
 	}

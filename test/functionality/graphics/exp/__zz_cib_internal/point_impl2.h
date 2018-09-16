@@ -31,14 +31,14 @@
 					auto proc = getProc<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_5);
 					return proc(__zz_cib_obj, y);
 				}
-				static __zz_cib_::HANDLE* operatorPlus_6(__zz_cib_::HANDLE* __zz_cib_obj, const __zz_cib_::HANDLE& p) {
-					using operatorPlusProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE*, const __zz_cib_::HANDLE& p);
-					auto proc = getProc<operatorPlusProc>(__zz_cib_::Point::__zz_cib_methodid::operatorPlus_6);
+				static __zz_cib_::HANDLE* __zz_cib_OperatorPlus_6(__zz_cib_::HANDLE* __zz_cib_obj, const __zz_cib_::HANDLE& p) {
+					using __zz_cib_OperatorPlusProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE*, const __zz_cib_::HANDLE& p);
+					auto proc = getProc<__zz_cib_OperatorPlusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorPlus_6);
 					return proc(__zz_cib_obj, p);
 				}
-				static __zz_cib_::HANDLE* operatorMinus_7(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* p) {
-					using operatorMinusProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* p);
-					auto proc = getProc<operatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::operatorMinus_7);
+				static __zz_cib_::HANDLE* __zz_cib_OperatorMinus_7(__zz_cib_::HANDLE* __zz_cib_obj, __zz_cib_::HANDLE* p) {
+					using __zz_cib_OperatorMinusProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (__zz_cib_::HANDLE*, __zz_cib_::HANDLE* p);
+					auto proc = getProc<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_7);
 					return proc(__zz_cib_obj, p);
 				}
 			private:
@@ -113,12 +113,12 @@ inline void Point::Y(float y) {
 
 inline ::Point Point::operator +(const ::Point& p) const {
 	return ::Point(
-		__zz_cib_::Point::__zz_cib_Helper::operatorPlus_6(__zz_cib_h_, *__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
+		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_6(__zz_cib_h_, *__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }
 
 inline ::Point Point::operator -(::Point p) const {
 	return ::Point(
-		__zz_cib_::Point::__zz_cib_Helper::operatorMinus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
+		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }

@@ -28,7 +28,7 @@ class Context;
    * Draws this shape on a given device context.
    */
 		virtual void Draw(::Graphics::Context* ctx) const;
-		static Shape* CreateCircle(float Ox, float Oy, float radius);
+		static ::Graphics::Shape* CreateCircle(float Ox, float Oy, float radius);
 		~Circle();
 
 	private:

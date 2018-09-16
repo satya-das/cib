@@ -20,10 +20,10 @@ namespace __zz_cib_ {
 		void __zz_cib_decl Y_5(::Point* __zz_cib_obj, float y) {
 			__zz_cib_obj->::Point::Y(y);
 		}
-		const ::Point* __zz_cib_decl operatorPlus_6(const ::Point* __zz_cib_obj, const ::Point& p) {
+		const ::Point* __zz_cib_decl __zz_cib_OperatorPlus_6(const ::Point* __zz_cib_obj, const ::Point& p) {
 			return new ::Point(__zz_cib_obj->::Point::operator +(p));
 		}
-		const ::Point* __zz_cib_decl operatorMinus_7(const ::Point* __zz_cib_obj, const ::Point* p) {
+		const ::Point* __zz_cib_decl __zz_cib_OperatorMinus_7(const ::Point* __zz_cib_obj, const ::Point* p) {
 			return new ::Point(__zz_cib_obj->::Point::operator -(*p));
 		}
 	}
@@ -41,8 +41,8 @@ namespace __zz_cib_ { namespace Point {
 			(MethodEntry) &X_3,
 			(MethodEntry) &Y_4,
 			(MethodEntry) &Y_5,
-			(MethodEntry) &operatorPlus_6,
-			(MethodEntry) &operatorMinus_7
+			(MethodEntry) &__zz_cib_OperatorPlus_6,
+			(MethodEntry) &__zz_cib_OperatorMinus_7
 		};
 		return methodTable;
 	}

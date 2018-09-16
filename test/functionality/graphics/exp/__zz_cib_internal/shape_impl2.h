@@ -7,16 +7,16 @@
 				friend class ::Graphics::Shape;
 				static __zz_cib_::MethodTable __zz_cib_get_proxy_method_table();
 
-				static void __zz_cib_delete_1(__zz_cib_::HANDLE* __zz_cib_obj) {
+				static void __zz_cib_delete_4(__zz_cib_::HANDLE* __zz_cib_obj) {
 					if (__zz_cib_obj) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_1);
+						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_4);
 						return proc(__zz_cib_obj);
 					}
 				}
-				static __zz_cib_::HANDLE* __zz_cib_new_2(::Graphics::Shape* __zz_cib_proxy) {
+				static __zz_cib_::HANDLE* __zz_cib_new_5(::Graphics::Shape* __zz_cib_proxy) {
 					using __zz_cib_newProc = __zz_cib_::HANDLE* (__zz_cib_decl *) (::Graphics::Shape*, __zz_cib_::MethodTable);
-					auto proc = getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_new_2);
+					auto proc = getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_new_5);
 					return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
 				}
 			private:
@@ -34,7 +34,7 @@
 
 				static std::uint32_t __zz_cib_get_class_id(__zz_cib_::HANDLE* __zz_cib_obj) {
 					using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-					auto proc = (__zz_cib_get_class_idProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_get_class_id_3];
+					auto proc = (__zz_cib_get_class_idProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_get_class_id_6];
 					return proc(__zz_cib_obj);
 				}
 			public:
@@ -62,7 +62,7 @@
 				static void __zz_cib_release_proxy(::Graphics::Shape* __zz_cib_obj) {
 					if (__zz_cib_obj->__zz_cib_h_) {
 						using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_::HANDLE*);
-						auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_release_proxy_4];
+						auto proc = (__zz_cib_release_proxyProc) instance().mtbl[__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_release_proxy_7];
 						proc(__zz_cib_obj->__zz_cib_h_);
 					}
 				}
@@ -82,9 +82,9 @@ inline Graphics::Shape::Shape(Shape&& rhs)
 inline Graphics::Shape::~Shape() {
 	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_proxy(this);
 	auto h = __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(this);
-	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_1(h);
+	__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_4(h);
 }
 
 inline Graphics::Shape::Shape()
-	: Shape(__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_new_2(this))
+	: Shape(__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_new_5(this))
 {}

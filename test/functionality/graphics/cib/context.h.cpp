@@ -58,13 +58,25 @@ namespace __zz_cib_ {
 			};
 		}}
 		namespace Context {
-			void __zz_cib_decl __zz_cib_delete_1(::Graphics::Context* __zz_cib_obj) {
+			void __zz_cib_decl Line_1(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+				__zz_cib_obj->Line(x1, y1, x2, y2);
+			}
+			void __zz_cib_decl Rect_2(::Graphics::Context* __zz_cib_obj, float l, float b, float r, float t) {
+				__zz_cib_obj->Rect(l, b, r, t);
+			}
+			void __zz_cib_decl Circle_3(::Graphics::Context* __zz_cib_obj, float cx, float cy, float r) {
+				__zz_cib_obj->Circle(cx, cy, r);
+			}
+			void __zz_cib_decl Ellipse_4(::Graphics::Context* __zz_cib_obj, float cx, float cy, float a, float b) {
+				__zz_cib_obj->Ellipse(cx, cy, a, b);
+			}
+			void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
 				delete __zz_cib_obj;
 			}
-			::Graphics::Context* __zz_cib_decl __zz_cib_new_2(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
+			::Graphics::Context* __zz_cib_decl __zz_cib_new_6(__zz_cib_::PROXY* proxy, __zz_cib_::MethodTable mtbl) {
 				return new __zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context(proxy, mtbl);
 			}
-			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_3(::Graphics::Context* __zz_cib_obj) {
+			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_7(::Graphics::Context* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
 					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext;
@@ -72,7 +84,7 @@ namespace __zz_cib_ {
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 			}
-			void __zz_cib_decl __zz_cib_release_proxy_4(::Graphics::Context* __zz_cib_obj) {
+			void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Context* __zz_cib_obj) {
 				auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
 				if (unknownProxy)
 					unknownProxy->__zz_cib_release_proxy();
@@ -85,13 +97,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 	using MethodTable = const MethodEntry*;
 	MethodTable GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
+		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 8 };
 		static const MethodEntry methodTable[] = {
 			(MethodEntry) &tableHeader,
-			(MethodEntry) &__zz_cib_delete_1,
-			(MethodEntry) &__zz_cib_new_2,
-			(MethodEntry) &__zz_cib_get_class_id_3,
-			(MethodEntry) &__zz_cib_release_proxy_4
+			(MethodEntry) &Line_1,
+			(MethodEntry) &Rect_2,
+			(MethodEntry) &Circle_3,
+			(MethodEntry) &Ellipse_4,
+			(MethodEntry) &__zz_cib_delete_5,
+			(MethodEntry) &__zz_cib_new_6,
+			(MethodEntry) &__zz_cib_get_class_id_7,
+			(MethodEntry) &__zz_cib_release_proxy_8
 		};
 		return methodTable;
 	}

@@ -16,7 +16,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		Composite();
 		void Add(::Graphics::Shape* shape);
 		size_t NumShapes() const;
-		Shape* ShapeAt(size_t idxShape) const;
+		::Graphics::Shape* ShapeAt(size_t idxShape) const;
   /**
    * @return Area of this shape object.
    */
@@ -29,7 +29,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
    * Draws this shape on a given device context.
    */
 		virtual void Draw(::Graphics::Context* ctx) const;
-		static Composite* CreateCompositeOfRectAndCircle();
+		static ::Graphics::Composite* CreateCompositeOfRectAndCircle();
 		~Composite();
 
 	private:
