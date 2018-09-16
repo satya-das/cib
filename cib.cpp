@@ -216,8 +216,6 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     return;
   if (!forProxy)
   {
-    if (isPureVirtual() && !isDestructor())
-      return;
     if (isConstructorLike() && getOwner()->isAbstract() && !getOwner()->needsUnknownProxyDefinition())
       return;
   }
