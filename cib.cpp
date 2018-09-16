@@ -823,16 +823,9 @@ void CibCppCompound::identifyMethodsToBridge()
     return;
   for (auto mem : members_)
   {
-    if (!isInline()
-        && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
-      continue;
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
-      if (func.funcName().find(':') != std::string::npos)
-        continue; // Skip out of class definitions.
-      if (func.isTemplated())
-        continue;
       if (func.isDestructor())
         setHasDtor();
       else if (func.isCopyConstructor())
@@ -841,6 +834,13 @@ void CibCppCompound::identifyMethodsToBridge()
         continue;
       else if (func.isConstructor())
         setHasCtor();
+      if (func.funcName().find(':') != std::string::npos)
+        continue; // Skip out of class definitions.
+      if (func.isTemplated())
+        continue;
+      if (!isInline()
+          && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
+        continue;
       if (isInline()) // If class is inline
       {
         if (func.isStatic() && !func.isInline()) // only non-inline static methods need bridging.
@@ -861,6 +861,9 @@ void CibCppCompound::identifyMethodsToBridge()
     }
     else if (mem->isNamespaceLike())
     {
+      if (!isInline()
+          && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
+        continue;
       auto compound = static_cast<CibCppCompound*>(mem);
       compound->identifyMethodsToBridge();
     }
