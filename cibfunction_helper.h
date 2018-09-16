@@ -156,6 +156,13 @@ public:
   {
     return func_->templSpec_ != nullptr;
   }
+  bool hasVariadicParam() const
+  {
+    if (!isFunction() || !hasParams())
+      return false;
+    const auto* params = getParams();
+    return (params->back().varObj->baseType() == "...");
+  }
   CibCppCompound* getOwner() const;
 
   bool hasParams() const

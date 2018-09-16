@@ -855,6 +855,8 @@ void CibCppCompound::identifyMethodsToBridge()
           continue;
         if (func.isPureVirtual() && !needsUnknownProxyDefinition() && !func.isDestructor())
           continue;
+        if (func.hasVariadicParam())
+          continue;
         needsBridging_.push_back(func);
         objNeedingBridge_.insert(mem);
       }
