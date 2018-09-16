@@ -25,14 +25,17 @@ enum class CallType
 enum EmitPurpose
 {
   // Unusable const section begins
-  kPurposeBaseLine       = __LINE__,
-  kPurposeGlueCode       = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeLibGlueCode    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeClientGlueCode = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeBaseLine        = __LINE__,
+  kPurposeProxyMethodImpl = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeGlueCode        = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeLibGlueCode     = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   // Unusable const section ends
   kSignature                  = (1 << (__LINE__ - kPurposeBaseLine)),
   kProxyMethodParam           = (1 << (__LINE__ - kPurposeBaseLine)),
-  kProxyReturn                = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyMethodReturn          = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyMethodImplParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kProxyMethodParam | kPurposeProxyMethodImpl,
+  kProxyMethodImplReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kProxyMethodReturn | kPurposeProxyMethodImpl,
   kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
