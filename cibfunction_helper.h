@@ -225,11 +225,6 @@ public:
                     const std::string& capiName,
                     bool               forProxy,
                     CppIndent          indentation = CppIndent()) const;
-  void emitCAPIDefnForProxy(std::ostream&      stm,
-                            const CibHelper&   helper,
-                            const CibParams&   cibParams,
-                            const std::string& capiName,
-                            CppIndent          indentation = CppIndent()) const;
   void emitUnknownProxyDefn(std::ostream&      stm,
                             const CibHelper&   helper,
                             const CibParams&   cibParams,
