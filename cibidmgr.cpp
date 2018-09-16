@@ -145,7 +145,7 @@ void CibIdMgr::assignIds(const CibHelper& expProg, const CibParams& cibParams)
 
 void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy)
 {
-  //if (!compound->isShared())
+  // if (!compound->isShared())
   //  return;
   if (compound->templSpec_)
     return;
@@ -172,6 +172,8 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   auto*       cibIdData = itr == cibIdTable_.end() ? addClass(className) : &itr->second;
   for (auto& func : compound->getNeedsBridgingMethods())
   {
+    // if (forUnknownProxy && !func.isVirtual() && !func.isDestructor())
+    //  continue;
     if (forUnknownProxy && !func.isVirtual())
       continue;
     if (!forUnknownProxy && func.isPureVirtual())

@@ -31,7 +31,7 @@ static bfs::path getResDir(const char* progPath)
   return resDir;
 }
 
-auto parseCmdLine(int argc, char* argv[])
+CibParams parseCmdLine(int argc, char* argv[])
 {
   namespace po = boost::program_options;
   // Declare the supported options.
@@ -43,6 +43,7 @@ auto parseCmdLine(int argc, char* argv[])
     ("output-folder,o", po::value<std::string>()->required(), "Output folder for emitting files for client.")
     ("bind-folder,b", po::value<std::string>()->required(), "Folder where binding code will be emitted for library.")
     ("module,m", po::value<std::string>()->required(), "Name of module/library.")
+    ("cib-ids-file,c", po::value<std::string>()->default_value(""), "Previously created cib-ids-file.")
     ("macro,M", po::value<std::string>(), "List of comma separated known macro names.")
     ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.");
     ;
@@ -70,6 +71,7 @@ auto parseCmdLine(int argc, char* argv[])
   bfs::path   outputPath = vm["output-folder"].as<std::string>();
   bfs::path   binderPath = vm["bind-folder"].as<std::string>();
   std::string moduleName = vm["module"].as<std::string>();
+  bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
 
   bool recurse = true;
 
@@ -85,13 +87,14 @@ auto parseCmdLine(int argc, char* argv[])
   make_preferred_dir_format(outputPath);
   make_preferred_dir_format(binderPath);
 
-  return std::make_tuple(moduleName, inputPath, outputPath, binderPath, resDir);
+  return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile);
 }
 
 std::string generateCibIds(const CibHelper& helper, const CibParams& cibParams, CibIdMgr& cibIdMgr)
 {
   std::string cibIdFileName = cibParams.cibIdFilename();
-  cibIdMgr.loadIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
+  if (!cibParams.inputCibIdFile.empty() && bfs::exists(cibParams.inputCibIdFile))
+    cibIdMgr.loadIds(cibParams.inputCibIdFile.string(), cibParams);
   cibIdMgr.assignIds(helper, cibParams);
   cibIdMgr.saveIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
   cibIdMgr.saveIds((cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(),
@@ -162,7 +165,7 @@ static void emitGlobalHelpers(std::ostream&           stm,
 
 int main(int argc, char* argv[])
 {
-  CibParams cibParams(parseCmdLine(argc, argv));
+  const CibParams& cibParams(parseCmdLine(argc, argv));
   ensureDirectoriesExist(cibParams);
 
   // First load all files as DOM.

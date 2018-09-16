@@ -33,8 +33,8 @@ enum EmitPurpose
   kSignature                  = (1 << (__LINE__ - kPurposeBaseLine)),
   kProxyMethodParam           = (1 << (__LINE__ - kPurposeBaseLine)),
   kProxyReturn                = (1 << (__LINE__ - kPurposeBaseLine)),
-  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)),
-  kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)),
+  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kProxyProcTypeReturn        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kCApiParam                  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
@@ -108,6 +108,10 @@ public:
   bool isMoveConstructor() const
   {
     return isConstructor() && ctor_->isMoveConstructor();
+  }
+  bool isConstructorLike() const
+  {
+    return isConstructor() || isCopyConstructor() || isMoveConstructor();
   }
   bool isDestructor() const
   {
@@ -203,7 +207,7 @@ public:
 
   /// Emits function arguments for function definition/declaration.
   void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CibHelper& helper) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose = kSignature) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.
@@ -234,7 +238,10 @@ public:
                     const CibParams& cibParams,
                     bool             forUnknownProxy,
                     CppIndent        indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream& stm, const CibHelper& helper, CppIndent indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream&    stm,
+                          const CibHelper& helper,
+                          bool             forUnknownProxy,
+                          CppIndent        indentation = CppIndent()) const;
 
 private:
   static std::string modifyIfOperator(const std::string& funcname);

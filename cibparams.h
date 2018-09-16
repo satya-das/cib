@@ -21,30 +21,31 @@ namespace bfs = boost::filesystem;
 struct CibParams
 {
 public:
-  const std::string moduleName;
-  const bfs::path   inputPath;
-  const bfs::path   outputPath;
-  const bfs::path   binderPath;
-  const bfs::path   resDir;
-  const std::string cibInternalDirName;
-  const std::string cibdefFileName;
-  const std::string cibInternalNamespace;
-  const std::string handleGetterMethod;
-  const std::string copyCtorCAPIPrefix;
-  const std::string ctorCAPIPrefix;
-  const std::string dtorCAPIPrefix;
-  const std::string castToBasePrefix;
-  const std::string fromHandle;
-  const int         globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
+  std::string moduleName;
+  bfs::path   inputPath;
+  bfs::path   outputPath;
+  bfs::path   binderPath;
+  bfs::path   resDir;
+  bfs::path   inputCibIdFile;
+  std::string cibInternalDirName;
+  std::string cibdefFileName;
+  std::string cibInternalNamespace;
+  std::string handleGetterMethod;
+  std::string copyCtorCAPIPrefix;
+  std::string ctorCAPIPrefix;
+  std::string dtorCAPIPrefix;
+  std::string castToBasePrefix;
+  std::string fromHandle;
+  int         globalFuncCibClassId; // All global functions of all headers belong to only one MetaInterface.
 
 public:
-  template <typename OptionTuple>
-  CibParams(OptionTuple options)
-    : moduleName(std::get<0>(options))
-    , inputPath(std::get<1>(options))
-    , outputPath(std::get<2>(options))
-    , binderPath(std::get<3>(options))
-    , resDir(std::get<4>(options))
+  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c)
+    : moduleName(std::move(m))
+    , inputPath(std::move(i))
+    , outputPath(std::move(o))
+    , binderPath(std::move(b))
+    , resDir(std::move(r))
+    , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
     , cibdefFileName(moduleName + "_cibdef.h")
     , cibInternalNamespace(CIBPREFIX)
@@ -57,6 +58,7 @@ public:
     , globalFuncCibClassId(1)
   {
   }
+  CibParams(CibParams&&) = default;
 
 public:
   bfs::path cibdefFilePath() const
@@ -78,7 +80,6 @@ public:
 
 private:
   CibParams(const CibParams&) = delete;
-  CibParams(CibParams&&)      = delete;
   const CibParams& operator=(const CibParams&) = delete;
 };
 

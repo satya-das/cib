@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cppconst.h"
+#include "cppdom.h"
 #include "cpputil.h"
 
 #include <string>
@@ -63,3 +64,58 @@ private:
   const CibParams& cibParams_;
   bool             isHandle_;
 };
+
+inline std::string longName(const CppEnum* enumObj)
+{
+  std::string ret = "::" + enumObj->name_;
+  if (enumObj->owner_)
+  {
+    auto ownerFullName = enumObj->owner_->fullName();
+    if (!ownerFullName.empty())
+      ret = "::" + ownerFullName + ret;
+  }
+
+  return ret;
+}
+
+inline std::string longName(const CppTypedefName* typedefObj)
+{
+  std::string ret = "::" + typedefObj->var_->name();
+  if (typedefObj->owner_)
+  {
+    auto ownerFullName = typedefObj->owner_->fullName();
+    if (!ownerFullName.empty())
+      ret = "::" + ownerFullName + ret;
+  }
+
+  return ret;
+}
+
+inline std::string longName(const CppUsingDecl* usingDecl)
+{
+  std::string ret = "::" + usingDecl->name_;
+  if (usingDecl->owner_)
+  {
+    auto ownerFullName = usingDecl->owner_->fullName();
+    if (!ownerFullName.empty())
+      ret = "::" + ownerFullName + ret;
+  }
+
+  return ret;
+}
+
+inline std::string longName(const CppObj* typeObj)
+{
+  switch (typeObj->objType_)
+  {
+    case CppObj::kEnum:
+      return longName(static_cast<const CppEnum*>(typeObj));
+    case CppObj::kTypedefName:
+      return longName(static_cast<const CppTypedefName*>(typeObj));
+    case CppObj::kUsingDecl:
+      return longName(static_cast<const CppUsingDecl*>(typeObj));
+
+    default:
+      return "";
+  }
+}

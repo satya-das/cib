@@ -65,7 +65,8 @@ std::string CibFunctionHelper::signature() const
   return itemUniqStr;
 }
 
-using OperNameMap               = std::map<std::string, std::string>;
+using OperNameMap = std::map<std::string, std::string>;
+// clang-format off
 static OperNameMap kOperNameMap = {
   {"+", "Plus"},       {"-", "Minus"},   {"*", "Mul"},      {"/", "Div"},     {"%", "Per"},       {"^", "Xor"},
   {"&", "And"},        {"|", "Or"},      {"~", "Toggle"},   {"!", "Not"},     {"=", "Equal"},     {"<", "LT"},
@@ -73,7 +74,9 @@ static OperNameMap kOperNameMap = {
   {"^=", "XorEq"},     {"&=", "AndEq"},  {"|=", "OrEq"},    {"<<", "LShift"}, {">>", "RShift"},   {"<<=", "LShiftEq"},
   {">>=", "RShiftEq"}, {"==", "CmpEq"},  {"<=", "LE"},      {">=", "GE"},     {"<=>", "3WayCmp"}, {"&&", "LogAnd"},
   {"||", "LogOr"},     {"++", "Inc"},    {"--", "Dec"},     {",", "Comma"},   {"->", "Arrow"},    {"->*", "ArrowStar"},
-  {"()", "App"},       {"[]", "Index"}};
+  {"()", "App"},       {"[]", "Index"},  {"new", "New"},
+  {"delete", "Delete"}, {"new[]", "NewArray"}, {"delete[]", "DeleteArray"}};
+// clang-format on
 
 std::string CibFunctionHelper::modifyIfOperator(const std::string& funcname)
 {
@@ -86,5 +89,5 @@ std::string CibFunctionHelper::modifyIfOperator(const std::string& funcname)
   while ((*name == ' ') || (*name == '\t'))
     ++name;
 
-  return kOper + kOperNameMap[name];
+  return "__zz_cib_Operator" + kOperNameMap[name];
 }
