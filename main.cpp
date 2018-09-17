@@ -126,12 +126,13 @@ static void emitMethodTableGetter(std::ostream&           stm,
   {
     stm << indentation << compound->wrappingNamespaceDeclarations(cibParams);
     stm << " namespace " << compound->name() << " { ";
-    stm << "MethodTable GetMethodTable(); ";
+    stm << "__zz_cib_MethodTable __zz_cib_GetMethodTable(); ";
     stm << compound->closingBracesForWrappingNamespaces() << "}\n";
   }
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export ";
-  stm << "__zz_cib_::MethodTable __zz_cib_" << cibParams.moduleName << "Lib_GetMethodTable(std::uint32_t classId)\n";
+  stm << "__zz_cib_::__zz_cib_MethodTable __zz_cib_" << cibParams.moduleName
+      << "Lib_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -139,7 +140,7 @@ static void emitMethodTableGetter(std::ostream&           stm,
   {
     auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
     stm << indentation << "case " << classIdOwnerSpace << cibIdData->getIdName() << ":\n";
-    stm << ++indentation << "return __zz_cib_" << compound->longName() << "::GetMethodTable();\n";
+    stm << ++indentation << "return __zz_cib_" << compound->longName() << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   }
   stm << indentation << "default:\n";
