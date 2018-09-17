@@ -16,25 +16,25 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	using MethodEntry = void(*)();
-	using MethodTable = const MethodEntry*;
-	static MethodTable GetMethodTable()
+	using __zz_cib_MethodEntry = void(*)();
+	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 4 };
-		static const MethodEntry methodTable[] = {
-			(MethodEntry) &tableHeader,
-			(MethodEntry) &Line_1,
-			(MethodEntry) &Rect_2,
-			(MethodEntry) &Circle_3,
-			(MethodEntry) &Ellipse_4
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
+		static const __zz_cib_MethodEntry methodTable[] = {
+			(__zz_cib_MethodEntry) &tableHeader,
+			(__zz_cib_MethodEntry) &Line_1,
+			(__zz_cib_MethodEntry) &Rect_2,
+			(__zz_cib_MethodEntry) &Circle_3,
+			(__zz_cib_MethodEntry) &Ellipse_4
 		};
 		return methodTable;
 	}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	__zz_cib_::MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
-		return GetMethodTable();
+	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+		return __zz_cib_GetMethodTable();
 	}
 }}}
 

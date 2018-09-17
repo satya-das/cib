@@ -29,20 +29,20 @@ namespace __zz_cib_ {
 	}
 }
 namespace __zz_cib_ { namespace Point {
-	using MethodEntry = void(*)();
-	using MethodTable = const MethodEntry*;
-	MethodTable GetMethodTable()
+	using __zz_cib_MethodEntry = void(*)();
+	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
+	__zz_cib_MethodTable __zz_cib_GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 7 };
-		static const MethodEntry methodTable[] = {
-			(MethodEntry) &tableHeader,
-			(MethodEntry) &__zz_cib_new_1,
-			(MethodEntry) &X_2,
-			(MethodEntry) &X_3,
-			(MethodEntry) &Y_4,
-			(MethodEntry) &Y_5,
-			(MethodEntry) &__zz_cib_OperatorPlus_6,
-			(MethodEntry) &__zz_cib_OperatorMinus_7
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 7 };
+		static const __zz_cib_MethodEntry methodTable[] = {
+			(__zz_cib_MethodEntry) &tableHeader,
+			(__zz_cib_MethodEntry) &__zz_cib_new_1,
+			(__zz_cib_MethodEntry) &X_2,
+			(__zz_cib_MethodEntry) &X_3,
+			(__zz_cib_MethodEntry) &Y_4,
+			(__zz_cib_MethodEntry) &Y_5,
+			(__zz_cib_MethodEntry) &__zz_cib_OperatorPlus_6,
+			(__zz_cib_MethodEntry) &__zz_cib_OperatorMinus_7
 		};
 		return methodTable;
 	}

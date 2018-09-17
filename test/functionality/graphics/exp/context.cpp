@@ -1,7 +1,7 @@
 #include "context.h"
 #include "log_context.h"
 
-::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::HANDLE* h) {
+::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
 	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(h);
@@ -27,26 +27,26 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	using MethodEntry = void(*)();
-	using MethodTable = const MethodEntry*;
-	static MethodTable GetMethodTable()
+	using __zz_cib_MethodEntry = void(*)();
+	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
 	{
-		static const MethodTableHeader tableHeader = { sizeof(MethodTableHeader), 5 };
-		static const MethodEntry methodTable[] = {
-			(MethodEntry) &tableHeader,
-			(MethodEntry) &Line_1,
-			(MethodEntry) &Rect_2,
-			(MethodEntry) &Circle_3,
-			(MethodEntry) &Ellipse_4,
-			(MethodEntry) &__zz_cib_delete_5
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 5 };
+		static const __zz_cib_MethodEntry methodTable[] = {
+			(__zz_cib_MethodEntry) &tableHeader,
+			(__zz_cib_MethodEntry) &Line_1,
+			(__zz_cib_MethodEntry) &Rect_2,
+			(__zz_cib_MethodEntry) &Circle_3,
+			(__zz_cib_MethodEntry) &Ellipse_4,
+			(__zz_cib_MethodEntry) &__zz_cib_delete_5
 		};
 		return methodTable;
 	}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	__zz_cib_::MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
-		return GetMethodTable();
+	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+		return __zz_cib_GetMethodTable();
 	}
 }}}
 
