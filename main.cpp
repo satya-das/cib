@@ -19,7 +19,7 @@
 
 typedef boost::filesystem::path::value_type chartype;
 #ifndef _T
-#define _T(x) L##x
+#  define _T(x) L##x
 #endif //#ifndef _T
 
 namespace bfs = boost::filesystem;
@@ -201,8 +201,8 @@ int main(int argc, char* argv[])
   {
     auto* cibCppCompound = static_cast<const CibCppCompound*>(cppDom);
     cibCppCompound->emitUserHeader(helper, cibParams);
-    cibCppCompound->emitImpl1Header(helper, cibParams);
-    cibCppCompound->emitImpl2Header(helper, cibParams, cibIdMgr);
+    cibCppCompound->emitPredefHeader(helper, cibParams);
+    cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
     bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);

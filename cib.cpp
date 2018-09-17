@@ -452,20 +452,20 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
     stm << "\n";
   }
 
-  stm << "#include \"" << implIncludeName(cibParams) << "_impl1.h\"\n";
+  stm << "#include \"" << implIncludeName(cibParams) << "-predef.h\"\n";
   for (; memItr != members_.end(); ++memItr)
   {
     emitDecl(*memItr, stm, helper, cibParams);
   }
-  stm << "\n\n#include \"" << implIncludeName(cibParams) << "_impl2.h\"\n";
+  stm << "\n\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
 }
 
-void CibCppCompound::emitImpl1Header(const CibHelper& helper, const CibParams& cibParams) const
+void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
   if (!isCppFile())
     return;
 
-  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "_impl1.h");
+  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
 
   stm << "#include \"" << cibParams.cibInternalDirName << "/" << cibParams.cibdefFileName << "\"\n";
@@ -473,13 +473,11 @@ void CibCppCompound::emitImpl1Header(const CibHelper& helper, const CibParams& c
   emitHelperDecl(stm, helper, cibParams);
 }
 
-void CibCppCompound::emitImpl2Header(const CibHelper& helper,
-                                     const CibParams& cibParams,
-                                     const CibIdMgr&  cibIdMgr) const
+void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
   if (!isCppFile())
     return;
-  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "_impl2.h");
+  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   stm << "#include <cassert>\n";

@@ -51,8 +51,8 @@ public:
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
 
 private:
-  std::uint32_t props_ {0};
-  bool          needsUnknownProxyDefinition_ {false};
+  std::uint32_t props_{0};
+  bool          needsUnknownProxyDefinition_{false};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -204,8 +204,8 @@ public:
     needsUnknownProxyDefinition_ = true;
   }
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
-  void emitImpl1Header(const CibHelper& helper, const CibParams& cibParams) const;
-  void emitImpl2Header(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
+  void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitUnknownProxyDefn(std::ostream&    stm,
                             const CibHelper& helper,
