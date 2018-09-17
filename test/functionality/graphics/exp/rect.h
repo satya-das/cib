@@ -2,7 +2,7 @@
 #include "shape.h"
 #include "context.h"
 
-#include "__zz_cib_internal/rect_impl1.h"
+#include "__zz_cib_internal/rect-predef.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -35,4 +35,4 @@ namespace Graphics
 }
 
 
-#include "__zz_cib_internal/rect_impl2.h"
+#include "__zz_cib_internal/rect-impl.h"

@@ -3,7 +3,7 @@
 #include "context.h"
 #include <vector>
 
-#include "__zz_cib_internal/composite_impl1.h"
+#include "__zz_cib_internal/composite-predef.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -38,4 +38,4 @@ typedef std::vector<Graphics::Shape*> Shapes;
 }
 
 
-#include "__zz_cib_internal/composite_impl2.h"
+#include "__zz_cib_internal/composite-impl.h"

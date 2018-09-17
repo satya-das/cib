@@ -2,7 +2,7 @@
 #include "context.h"
 #include <iostream>
 
-#include "__zz_cib_internal/log_context_impl1.h"
+#include "__zz_cib_internal/log_context-predef.h"
 namespace Graphics
 {
 /*!
@@ -26,4 +26,4 @@ namespace Graphics
 }
 
 
-#include "__zz_cib_internal/log_context_impl2.h"
+#include "__zz_cib_internal/log_context-impl.h"

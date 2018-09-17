@@ -2,7 +2,7 @@
 #include "shape.h"
 #include "context.h"
 
-#include "__zz_cib_internal/ellipse_impl1.h"
+#include "__zz_cib_internal/ellipse-predef.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -36,4 +36,4 @@ class Context;
 }
 
 
-#include "__zz_cib_internal/ellipse_impl2.h"
+#include "__zz_cib_internal/ellipse-impl.h"

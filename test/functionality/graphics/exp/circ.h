@@ -2,7 +2,7 @@
 #include "shape.h"
 #include "context.h"
 
-#include "__zz_cib_internal/circ_impl1.h"
+#include "__zz_cib_internal/circ-predef.h"
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -37,4 +37,4 @@ class Context;
 }
 
 
-#include "__zz_cib_internal/circ_impl2.h"
+#include "__zz_cib_internal/circ-impl.h"

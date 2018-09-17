@@ -1,6 +1,6 @@
 #pragma  once
 
-#include "__zz_cib_internal/point_impl1.h"
+#include "__zz_cib_internal/point-predef.h"
 class Point
 {
 public:
@@ -19,4 +19,4 @@ private:
 };
 
 
-#include "__zz_cib_internal/point_impl2.h"
+#include "__zz_cib_internal/point-impl.h"

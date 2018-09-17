@@ -1,7 +1,7 @@
 #pragma  once
 #include "context.h"
 
-#include "__zz_cib_internal/shape_impl1.h"
+#include "__zz_cib_internal/shape-predef.h"
 namespace Graphics
 {
 /**
@@ -37,4 +37,4 @@ namespace Graphics
 }
 
 
-#include "__zz_cib_internal/shape_impl2.h"
+#include "__zz_cib_internal/shape-impl.h"

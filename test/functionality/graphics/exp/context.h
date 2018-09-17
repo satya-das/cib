@@ -1,7 +1,7 @@
 #pragma  once
 #include <cstddef>
 
-#include "__zz_cib_internal/context_impl1.h"
+#include "__zz_cib_internal/context-predef.h"
 namespace Graphics
 {
 /*!
@@ -26,4 +26,4 @@ namespace Graphics
 }
 
 
-#include "__zz_cib_internal/context_impl2.h"
+#include "__zz_cib_internal/context-impl.h"
