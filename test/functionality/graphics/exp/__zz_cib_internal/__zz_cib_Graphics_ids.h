@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace __zz_cib_ { namespace GraphicsLib {
+namespace __zz_cib_ { namespace Graphics {
 	namespace __zz_cib_classid {
 		enum {
 			//#= ::Graphics::Circle

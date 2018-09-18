@@ -1,6 +1,6 @@
 #include "__zz_cib_Graphics_ids.h"
 
-#include "cib_GraphicsLib.h"
+#include "__zz_cib_Graphics.h"
 #include "circ.h"
 #include "composite.h"
 #include "ellipse.h"
@@ -74,10 +74,10 @@ namespace __zz_cib_ {
 			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Shape* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle;
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite;
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Ellipse;
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] =  __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] =  __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] =  __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] =  __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle;
 					classIdRepoPopulated = true;
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

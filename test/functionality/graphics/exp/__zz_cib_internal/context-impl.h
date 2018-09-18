@@ -22,7 +22,7 @@
 			private:
 				__zz_cib_::__zz_cib_MethodTable mtbl;
 				__zz_cib_Helper() {
-					mtbl = __zz_cib_GraphicsLib_GetMethodTable(__zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Context);
+					mtbl = __zz_cib_Graphics_GetMethodTable(__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Context);
 				}
 				static const __zz_cib_Helper& instance() {
 					static __zz_cib_Helper helper;

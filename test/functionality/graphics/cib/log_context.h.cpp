@@ -1,6 +1,6 @@
 #include "__zz_cib_Graphics_ids.h"
 
-#include "cib_GraphicsLib.h"
+#include "__zz_cib_Graphics.h"
 #include "log_context.h"
 
 namespace __zz_cib_ {

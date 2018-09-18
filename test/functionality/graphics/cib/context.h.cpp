@@ -1,6 +1,6 @@
 #include "__zz_cib_Graphics_ids.h"
 
-#include "cib_GraphicsLib.h"
+#include "__zz_cib_Graphics.h"
 #include "context.h"
 #include "log_context.h"
 
@@ -79,7 +79,7 @@ namespace __zz_cib_ {
 			std::uint32_t __zz_cib_decl __zz_cib_get_class_id_7(::Graphics::Context* __zz_cib_obj) {
 				static bool classIdRepoPopulated = false;
 				if (!classIdRepoPopulated) {
-					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] =  __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__LogContext;
+					__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] =  __zz_cib_::Graphics::__zz_cib_classid::__Graphics__LogContext;
 					classIdRepoPopulated = true;
 				}
 				return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

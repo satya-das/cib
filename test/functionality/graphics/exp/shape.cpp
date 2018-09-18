@@ -6,13 +6,13 @@
 
 ::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Circle:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle:
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Composite:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite:
 		return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Ellipse:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse:
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::GraphicsLib::__zz_cib_classid::__Graphics__Rectangle:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	}
 	return nullptr;
