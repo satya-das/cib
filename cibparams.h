@@ -47,7 +47,7 @@ public:
     , resDir(std::move(r))
     , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
-    , cibdefFileName(moduleName + "_cibdef.h")
+    , cibdefFileName(CIBPREFIX + moduleName + "-cibdef.h")
     , cibInternalNamespace(CIBPREFIX)
     , handleGetterMethod(CIBPREFIX "handle")
     , copyCtorCAPIPrefix(CIBPREFIX "copy")
@@ -71,7 +71,7 @@ public:
   }
   std::string cibIdFilename() const
   {
-    return "__zz_cib_" + moduleName + "_ids.h";
+    return "__zz_cib_" + moduleName + "-ids.h";
   }
   std::string classIdOwnerSpace() const
   {
