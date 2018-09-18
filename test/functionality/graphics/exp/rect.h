@@ -3,6 +3,7 @@
 #include "context.h"
 
 #include "__zz_cib_internal/rect-predef.h"
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -33,6 +34,5 @@ namespace Graphics
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Rectangle, ::Graphics::Rectangle);
 	};
 }
-
 
 #include "__zz_cib_internal/rect-impl.h"

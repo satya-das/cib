@@ -2,6 +2,7 @@
 #include "context.h"
 
 #include "__zz_cib_internal/shape-predef.h"
+
 namespace Graphics
 {
 /**
@@ -35,6 +36,5 @@ namespace Graphics
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Shape, ::Graphics::Shape);
 	};
 }
-
 
 #include "__zz_cib_internal/shape-impl.h"

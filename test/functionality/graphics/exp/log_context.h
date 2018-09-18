@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "__zz_cib_internal/log_context-predef.h"
+
 namespace Graphics
 {
 /*!
@@ -24,6 +25,5 @@ namespace Graphics
 		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, ::Graphics::LogContext);
 	};
 }
-
 
 #include "__zz_cib_internal/log_context-impl.h"

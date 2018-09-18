@@ -3,6 +3,7 @@
 #include "context.h"
 
 #include "__zz_cib_internal/ellipse-predef.h"
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -34,6 +35,5 @@ class Context;
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Ellipse, ::Graphics::Ellipse);
 	};
 }
-
 
 #include "__zz_cib_internal/ellipse-impl.h"

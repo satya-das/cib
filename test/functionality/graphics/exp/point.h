@@ -1,6 +1,7 @@
 #pragma  once
 
 #include "__zz_cib_internal/point-predef.h"
+
 class Point
 {
 public:
@@ -17,6 +18,5 @@ public:
 private:
 	__ZZ_CIB_CLASS_INTERNAL_DEF(Point, ::Point);
 };
-
 
 #include "__zz_cib_internal/point-impl.h"

@@ -3,6 +3,7 @@
 #include "context.h"
 
 #include "__zz_cib_internal/circ-predef.h"
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
@@ -35,6 +36,5 @@ class Context;
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Circle, ::Graphics::Circle);
 	};
 }
-
 
 #include "__zz_cib_internal/circ-impl.h"
