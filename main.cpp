@@ -215,8 +215,8 @@ int main(int argc, char* argv[])
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".cpp")).string(),
                              std::ios_base::out);
-  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n\n";
-  cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
+  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n";
+  cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
   emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 
   return 0;
