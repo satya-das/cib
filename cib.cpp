@@ -452,12 +452,12 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
     stm << "\n";
   }
 
-  stm << "#include \"" << implIncludeName(cibParams) << "-predef.h\"\n";
+  stm << "#include \"" << implIncludeName(cibParams) << "-predef.h\"\n\n";
   for (; memItr != members_.end(); ++memItr)
   {
     emitDecl(*memItr, stm, helper, cibParams);
   }
-  stm << "\n\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
+  stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
 }
 
 void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
