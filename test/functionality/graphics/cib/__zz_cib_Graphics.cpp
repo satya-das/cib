@@ -1,5 +1,5 @@
 #include "__zz_cib_Graphics.h"
-#include "__zz_cib_Graphics_ids.h"
+#include "__zz_cib_Graphics-ids.h"
 
 #include <typeinfo>
 #include <typeindex>

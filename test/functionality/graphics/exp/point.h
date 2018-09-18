@@ -14,6 +14,7 @@ public:
 	void Y(float y);
 	::Point operator +(const ::Point& p) const;
 	::Point operator -(::Point p) const;
+	~Point();
 
 private:
 	__ZZ_CIB_CLASS_INTERNAL_DEF(Point, ::Point);

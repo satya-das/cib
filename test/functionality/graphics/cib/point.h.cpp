@@ -1,4 +1,4 @@
-#include "__zz_cib_Graphics_ids.h"
+#include "__zz_cib_Graphics-ids.h"
 
 #include "__zz_cib_Graphics.h"
 #include "point.h"
@@ -26,6 +26,9 @@ namespace __zz_cib_ {
 		const ::Point* __zz_cib_decl __zz_cib_OperatorMinus_7(const ::Point* __zz_cib_obj, const ::Point* p) {
 			return new ::Point(__zz_cib_obj->::Point::operator -(*p));
 		}
+		void __zz_cib_decl __zz_cib_delete_8(::Point* __zz_cib_obj) {
+			delete __zz_cib_obj;
+		}
 	}
 }
 namespace __zz_cib_ { namespace Point {
@@ -33,7 +36,7 @@ namespace __zz_cib_ { namespace Point {
 	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
 	__zz_cib_MethodTable __zz_cib_GetMethodTable()
 	{
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 7 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			(__zz_cib_MethodEntry) &tableHeader,
 			(__zz_cib_MethodEntry) &__zz_cib_new_1,
@@ -42,7 +45,8 @@ namespace __zz_cib_ { namespace Point {
 			(__zz_cib_MethodEntry) &Y_4,
 			(__zz_cib_MethodEntry) &Y_5,
 			(__zz_cib_MethodEntry) &__zz_cib_OperatorPlus_6,
-			(__zz_cib_MethodEntry) &__zz_cib_OperatorMinus_7
+			(__zz_cib_MethodEntry) &__zz_cib_OperatorMinus_7,
+			(__zz_cib_MethodEntry) &__zz_cib_delete_8
 		};
 		return methodTable;
 	}

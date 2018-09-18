@@ -346,7 +346,9 @@ namespace __zz_cib_ {
 				__zz_cib_OperatorPlus_6 = 6,
 				//#= Point operator -(Point) const;
 				__zz_cib_OperatorMinus_7 = 7,
-				__zz_cib_next_method_id = 8
+				//#= ~Point()
+				__zz_cib_delete_8 = 8,
+				__zz_cib_next_method_id = 9
 			};
 		}
 	}

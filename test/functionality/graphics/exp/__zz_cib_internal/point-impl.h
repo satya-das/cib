@@ -1,4 +1,4 @@
-#include "__zz_cib_Graphics_ids.h"
+#include "__zz_cib_Graphics-ids.h"
 #include <cassert>
 
 	namespace __zz_cib_ {
@@ -40,6 +40,13 @@
 					using __zz_cib_OperatorMinusProc = __zz_cib_::__zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*, __zz_cib_::__zz_cib_HANDLE* p);
 					auto proc = getProc<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_7);
 					return proc(__zz_cib_obj, p);
+				}
+				static void __zz_cib_delete_8(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj) {
+					if (__zz_cib_obj) {
+						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*);
+						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_8);
+						return proc(__zz_cib_obj);
+					}
 				}
 			private:
 				__zz_cib_::__zz_cib_MethodTable mtbl;
@@ -121,4 +128,9 @@ inline ::Point Point::operator -(::Point p) const {
 	return ::Point(
 		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
+}
+
+inline Point::~Point() {
+	auto h = __zz_cib_::Point::__zz_cib_Helper::__zz_cib_release_handle(this);
+	__zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_8(h);
 }
