@@ -22,7 +22,7 @@ namespace Graphics
 		virtual void Ellipse(float cx, float cy, float a, float b);
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, ::Graphics::LogContext);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, Graphics::LogContext);
 	};
 }
 

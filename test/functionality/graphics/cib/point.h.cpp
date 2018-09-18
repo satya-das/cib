@@ -38,15 +38,15 @@ namespace __zz_cib_ { namespace Point {
 	{
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
 		static const __zz_cib_MethodEntry methodTable[] = {
-			(__zz_cib_MethodEntry) &tableHeader,
-			(__zz_cib_MethodEntry) &__zz_cib_new_1,
-			(__zz_cib_MethodEntry) &X_2,
-			(__zz_cib_MethodEntry) &X_3,
-			(__zz_cib_MethodEntry) &Y_4,
-			(__zz_cib_MethodEntry) &Y_5,
-			(__zz_cib_MethodEntry) &__zz_cib_OperatorPlus_6,
-			(__zz_cib_MethodEntry) &__zz_cib_OperatorMinus_7,
-			(__zz_cib_MethodEntry) &__zz_cib_delete_8
+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&X_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&X_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Y_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Y_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_OperatorPlus_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_OperatorMinus_7),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_8)
 		};
 		return methodTable;
 	}

@@ -31,7 +31,7 @@ namespace Graphics
 		~Rectangle();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Rectangle, ::Graphics::Rectangle);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Rectangle, Graphics::Rectangle);
 	};
 }
 

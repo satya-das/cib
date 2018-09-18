@@ -32,7 +32,7 @@ class Context;
 		~Ellipse();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Ellipse, ::Graphics::Ellipse);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Ellipse, Graphics::Ellipse);
 	};
 }
 

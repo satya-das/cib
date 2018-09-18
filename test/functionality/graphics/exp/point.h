@@ -17,7 +17,7 @@ public:
 	~Point();
 
 private:
-	__ZZ_CIB_CLASS_INTERNAL_DEF(Point, ::Point);
+	__ZZ_CIB_CLASS_INTERNAL_DEF(Point, Point);
 };
 
 #include "__zz_cib_internal/point-impl.h"

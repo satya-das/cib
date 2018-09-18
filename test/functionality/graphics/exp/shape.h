@@ -33,7 +33,7 @@ namespace Graphics
 		Shape();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Shape, ::Graphics::Shape);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Shape, Graphics::Shape);
 	};
 }
 

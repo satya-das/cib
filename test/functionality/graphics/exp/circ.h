@@ -33,7 +33,7 @@ class Context;
 		~Circle();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Circle, ::Graphics::Circle);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Circle, Graphics::Circle);
 	};
 }
 

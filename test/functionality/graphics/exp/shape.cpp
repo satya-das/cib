@@ -39,11 +39,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	{
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
 		static const __zz_cib_MethodEntry methodTable[] = {
-			(__zz_cib_MethodEntry) &tableHeader,
-			(__zz_cib_MethodEntry) &Area_1,
-			(__zz_cib_MethodEntry) &Perimeter_2,
-			(__zz_cib_MethodEntry) &Draw_3,
-			(__zz_cib_MethodEntry) &__zz_cib_delete_4
+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Area_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_4)
 		};
 		return methodTable;
 	}

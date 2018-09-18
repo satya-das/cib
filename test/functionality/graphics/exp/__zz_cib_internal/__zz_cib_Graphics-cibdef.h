@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 
 #ifndef __zz_cib_decl
 #  ifdef __GNUC__
@@ -29,39 +30,33 @@
 
 namespace __zz_cib_ {
 using __zz_cib_MethodEntry = void (*)();
+using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
+
 //! Pointer of __zz_cib_MethodTableHeader is the first item in __zz_cib_MethodTable
 struct __zz_cib_MethodTableHeader
 {
   size_t size;       //!< sizeof(__zz_cib_MethodTableHeader)
   size_t numMethods; //!< Number of methods in method table.
 };
-using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
-} // namespace __zz_cib_
 
-extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_Graphics_GetMethodTable(std::uint32_t classId);
-
-namespace __zz_cib_ {
 class __zz_cib_HANDLE;
-}
 
-#define __ZZ_CIB_CLASS_HELPER_NAME(fullName) __zz_cib_ fullName::__zz_cib_Helper
-
-#define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                                                               \
-protected:                                                                                                             \
-  className(__zz_cib_::__zz_cib_HANDLE* h);                                                                            \
-                                                                                                                       \
-private:                                                                                                               \
-  friend class __ZZ_CIB_CLASS_HELPER_NAME(fullName);                                                                   \
-  __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
-
-#include <functional>
-namespace __zz_cib_ {
 inline __zz_cib_MethodEntry __zz_cib_GetMethodEntry(__zz_cib_MethodTable mtbl, std::uint32_t slot)
 {
-  auto mtblHeader = reinterpret_cast<__zz_cib_MethodTableHeader*>(mtbl[0]);
+  auto mtblHeader = reinterpret_cast<const __zz_cib_MethodTableHeader*>(mtbl[0]);
   if ((slot > mtblHeader->numMethods) || (mtbl[slot] == nullptr))
     throw std::bad_function_call();
 
   return mtbl[slot];
 }
 } // namespace __zz_cib_
+
+extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_Graphics_GetMethodTable(std::uint32_t classId);
+
+#define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                                                               \
+protected:                                                                                                             \
+  className(__zz_cib_::__zz_cib_HANDLE* h);                                                                            \
+                                                                                                                       \
+private:                                                                                                               \
+  friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
+  __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_

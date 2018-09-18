@@ -79,15 +79,15 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	{
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
 		static const __zz_cib_MethodEntry methodTable[] = {
-			(__zz_cib_MethodEntry) &tableHeader,
-			(__zz_cib_MethodEntry) &__zz_cib_new_1,
-			(__zz_cib_MethodEntry) &__zz_cib_delete_2,
-			(__zz_cib_MethodEntry) &Line_3,
-			(__zz_cib_MethodEntry) &Rect_4,
-			(__zz_cib_MethodEntry) &Circle_5,
-			(__zz_cib_MethodEntry) &Ellipse_6,
-			(__zz_cib_MethodEntry) &__zz_cib_cast_to___Graphics__Context_7,
-			(__zz_cib_MethodEntry) &__zz_cib_release_proxy_8
+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Line_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Rect_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Circle_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Ellipse_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Context_7),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_8)
 		};
 		return methodTable;
 	}

@@ -28,7 +28,8 @@
 					static __zz_cib_Helper helper;
 					return helper;
 				}
-				template<typename _ProcType> static _ProcType getProc(std::uint32_t procId) {
+				template<typename _ProcType>
+static _ProcType getProc(std::uint32_t procId) {
 					return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, procId));
 				}
 
@@ -76,7 +77,8 @@ inline Graphics::Shape::Shape(__zz_cib_::__zz_cib_HANDLE* h)
 
 inline Graphics::Shape::Shape(Shape&& rhs)
 	: __zz_cib_h_(rhs.__zz_cib_h_)
-{	rhs.__zz_cib_h_ = nullptr;
+{
+	rhs.__zz_cib_h_ = nullptr;
 }
 
 inline Graphics::Shape::~Shape() {

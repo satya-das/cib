@@ -22,11 +22,11 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	{
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
 		static const __zz_cib_MethodEntry methodTable[] = {
-			(__zz_cib_MethodEntry) &tableHeader,
-			(__zz_cib_MethodEntry) &Line_1,
-			(__zz_cib_MethodEntry) &Rect_2,
-			(__zz_cib_MethodEntry) &Circle_3,
-			(__zz_cib_MethodEntry) &Ellipse_4
+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Line_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Rect_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Circle_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Ellipse_4)
 		};
 		return methodTable;
 	}

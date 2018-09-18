@@ -97,14 +97,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	{
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 7 };
 		static const __zz_cib_MethodEntry methodTable[] = {
-			(__zz_cib_MethodEntry) &tableHeader,
-			(__zz_cib_MethodEntry) &Area_1,
-			(__zz_cib_MethodEntry) &Perimeter_2,
-			(__zz_cib_MethodEntry) &Draw_3,
-			(__zz_cib_MethodEntry) &__zz_cib_delete_4,
-			(__zz_cib_MethodEntry) &__zz_cib_new_5,
-			(__zz_cib_MethodEntry) &__zz_cib_get_class_id_6,
-			(__zz_cib_MethodEntry) &__zz_cib_release_proxy_7
+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Area_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_get_class_id_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_7)
 		};
 		return methodTable;
 	}

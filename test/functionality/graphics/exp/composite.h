@@ -34,7 +34,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		~Composite();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Composite, ::Graphics::Composite);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Composite, Graphics::Composite);
 	};
 }
 

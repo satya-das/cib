@@ -22,7 +22,7 @@ namespace Graphics
 		Context();
 
 	private:
-		__ZZ_CIB_CLASS_INTERNAL_DEF(Context, ::Graphics::Context);
+		__ZZ_CIB_CLASS_INTERNAL_DEF(Context, Graphics::Context);
 	};
 }
 
