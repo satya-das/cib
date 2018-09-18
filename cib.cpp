@@ -739,7 +739,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
       // Everything below this is for glue code
       stm << '\n';
       stm << --indentation << "private:\n";
-      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << longName() << ");\n";
+      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << fullName() << ");\n";
     }
     stm << --indentation << "};\n";
   }
@@ -1012,7 +1012,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
       stm << --indentation << "}\n";
-      stm << indentation << "template<typename _ProcType> static _ProcType getProc(std::uint32_t procId) {\n";
+      stm << indentation << "template<typename _ProcType>\n";
+      stm << "static _ProcType getProc(std::uint32_t procId) {\n";
       stm << ++indentation
           << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, "
              "procId));\n";
@@ -1127,7 +1128,7 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
     sep = ',';
   });
   stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
-  stm << --indentation << "\n{";
+  stm << --indentation << "\n{\n";
   stm << ++indentation << "rhs.__zz_cib_h_ = nullptr;\n";
   stm << --indentation << "}\n";
 }
@@ -1439,17 +1440,17 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
         << "static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), "
         << cibIdMgr.numMethods(className) << " };\n";
     stm << indentation << "static const __zz_cib_MethodEntry methodTable[] = {\n";
-    stm << ++indentation << "(__zz_cib_MethodEntry) &tableHeader";
+    stm << ++indentation << "reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader)";
     CibMethodId nextMethodId = 1;
     nextMethodId             = cibIdMgr.forEachMethod(
       className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
         if (methodId == nextMethodId++)
         {
-          stm << ",\n" << indentation << "(__zz_cib_MethodEntry) &" << methodName;
+          stm << ",\n" << indentation << "reinterpret_cast<__zz_cib_MethodEntry> (&" << methodName << ')';
         }
         else
         {
-          stm << ",\n" << indentation << "(__zz_cib_MethodEntry) nullptr";
+          stm << ",\n" << indentation << "reinterpret_cast<__zz_cib_MethodEntry> (nullptr)";
         }
       });
     stm << '\n';
