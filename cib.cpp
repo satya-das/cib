@@ -870,7 +870,7 @@ void CibCppCompound::identifyMethodsToBridge()
   }
   if (!isClassLike())
     return;
-  if (!hasDtor() && needsUnknownProxyDefinition())
+  if (!hasDtor() && (!isAbstract() || needsUnknownProxyDefinition()))
   {
     auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
     defaultDtor->owner_ = this;
@@ -1191,7 +1191,10 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
       ++indentation;
       if (func.isDestructor())
       {
-        stm << indentation << "__zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_release_proxy(this);\n";
+        if (needsUnknownProxyDefinition())
+        {
+          stm << indentation << "__zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_release_proxy(this);\n";
+        }
         stm << indentation << "auto h = __zz_cib_" << longName()
             << "::__zz_cib_Helper::__zz_cib_release_handle(this);\n";
       }
