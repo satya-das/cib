@@ -764,7 +764,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
     if (cibIdData)
     {
       stm << indentation << "case __zz_cib_::" << cibParams.moduleName
-          << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
+          << "::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
       ++indentation;
       stm << indentation << "return __zz_cib_" << derived->longName()
           << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
@@ -1002,7 +1002,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << --indentation << "private:\n";
       stm << ++indentation << "__zz_cib_::__zz_cib_MethodTable mtbl;\n";
       stm << indentation << "__zz_cib_Helper() {\n";
-      stm << ++indentation << "mtbl = __zz_cib_" << cibParams.moduleName << "Lib_GetMethodTable(";
+      stm << ++indentation << "mtbl = __zz_cib_" << cibParams.moduleName << "_GetMethodTable(";
       auto classIdName = longName();
       std::transform(
         classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c) -> char { return c == ':' ? '_' : c; });
@@ -1310,7 +1310,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
 {
   if (isCppFile())
   {
-    stm << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n";
     emitFacadeDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
     stm << indentation << "namespace __zz_cib_ {\n";
     ++indentation;
@@ -1359,7 +1359,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
         if (cibIdData)
         {
           stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
-          stm << " __zz_cib_::" << cibParams.moduleName << "Lib::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
+          stm << " __zz_cib_::" << cibParams.moduleName << "::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
         }
       });
       stm << indentation << "classIdRepoPopulated = true;\n";

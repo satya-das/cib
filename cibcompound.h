@@ -51,8 +51,8 @@ public:
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
 
 private:
-  std::uint32_t props_{0};
-  bool          needsUnknownProxyDefinition_{false};
+  std::uint32_t props_ {0};
+  bool          needsUnknownProxyDefinition_ {false};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -104,7 +104,7 @@ public:
   std::string wrappingNses(const CibParams& cibParams) const
   {
     if (outer() == nullptr || outer()->isCppFile())
-      return "::" + cibParams.cibInternalNamespace + "::" + cibParams.moduleName + "Lib";
+      return "::" + cibParams.cibInternalNamespace + "::" + cibParams.moduleName;
     return outer()->wrappingNses(cibParams) + outer()->name();
   }
   /// @return sequence of closing braces that closes all wrapping namespace definitions.

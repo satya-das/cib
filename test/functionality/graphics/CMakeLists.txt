@@ -24,8 +24,8 @@ set(GRAPHICS_PUB_FILE_NAMES
 
 set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics_ids.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/cib_GraphicsLib.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/cib_GraphicsLib.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.cpp
 )
 set(GRAPHICS_PUB_FILES "")
 foreach(PUBFILE ${GRAPHICS_PUB_FILE_NAMES})
@@ -37,7 +37,7 @@ foreach(CIBOUTFILE ${CIB_OUTPUT})
 	set_source_files_properties(${CIBOUTFILE} GENERATED)
 endforeach()
 add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/cib/cib_GraphicsLib.cpp
+	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.cpp
 	COMMAND echo Running cib...
 	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Graphics
 	COMMAND echo Generated files: ${CIB_OUTPUT}

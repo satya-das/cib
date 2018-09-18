@@ -75,7 +75,7 @@ public:
   }
   std::string classIdOwnerSpace() const
   {
-    return "__zz_cib_::" + moduleName + "Lib::__zz_cib_classid::";
+    return "__zz_cib_::" + moduleName + "::__zz_cib_classid::";
   }
 
 private:

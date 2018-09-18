@@ -132,7 +132,7 @@ static void emitMethodTableGetter(std::ostream&           stm,
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export ";
   stm << "__zz_cib_::__zz_cib_MethodTable __zz_cib_" << cibParams.moduleName
-      << "Lib_GetMethodTable(std::uint32_t classId)\n";
+      << "_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
@@ -183,7 +183,7 @@ int main(int argc, char* argv[])
     std::strstreambuf tmpbuf;
     std::ifstream((cibParams.resDir / "lib_cib.h").string(), std::ios_base::in) >> &tmpbuf;
     auto          cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibLibIncStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.h")).string(),
+    std::ofstream cibLibIncStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".h")).string(),
                                std::ios_base::out);
     cibLibIncStm << cibcode;
   }
@@ -213,9 +213,9 @@ int main(int argc, char* argv[])
     cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
   }
 
-  std::ofstream cibLibSrcStm((cibParams.binderPath / ("cib_" + cibParams.moduleName + "Lib.cpp")).string(),
+  std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".cpp")).string(),
                              std::ios_base::out);
-  cibLibSrcStm << "#include \"cib_" << cibParams.moduleName << "Lib.h\"\n\n";
+  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n\n";
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
   emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 

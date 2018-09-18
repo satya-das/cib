@@ -38,7 +38,7 @@ struct __zz_cib_MethodTableHeader
 using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
 } // namespace __zz_cib_
 
-extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_$MODULE$Lib_GetMethodTable(std::uint32_t classId);
+extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_$MODULE$_GetMethodTable(std::uint32_t classId);
 
 namespace __zz_cib_ {
 class __zz_cib_HANDLE;
