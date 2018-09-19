@@ -26,7 +26,9 @@ set(CIB_SOURCES
 	cibutil.cpp
 )
 
-add_executable(cib ${CIB_SOURCES})
+add_executable(cib
+	${CIB_SOURCES}
+)
 target_link_libraries(cib
 	PRIVATE
 		cppparser
@@ -38,12 +40,16 @@ target_include_directories(cib
 )
 
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
-set(RESFILES lib_cib.h cibdef.h)
+set(RESFILES
+	'__zz_cib_decl.h'    '__zz_cib_import.h'        '__zz_cib_$$Module$$-cibdef.h'  '__zz_cib_$$Module$$-helper.h'
+	'__zz_cib_export.h'  '__zz_cib_method_table.h'  '__zz_cib_$$Module$$.h'         '__zz_cib_pointer_helper.h'
+)
+
 
 foreach(RESFILE ${RESFILES})
 	add_custom_command(
 		TARGET cib
-		POST_BUILD
+		PRE_BUILD
 			COMMAND echo Copying ${RESFILE}
 			COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE} ${RESDIR}/${RESFILE}
 	)

@@ -29,6 +29,7 @@ public:
   bfs::path   inputCibIdFile;
   std::string cibInternalDirName;
   std::string cibdefFileName;
+  std::string helperFileName;
   std::string cibInternalNamespace;
   std::string handleGetterMethod;
   std::string copyCtorCAPIPrefix;
@@ -48,6 +49,7 @@ public:
     , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
     , cibdefFileName(CIBPREFIX + moduleName + "-cibdef.h")
+    , helperFileName(CIBPREFIX + moduleName + "-helper.h")
     , cibInternalNamespace(CIBPREFIX)
     , handleGetterMethod(CIBPREFIX "handle")
     , copyCtorCAPIPrefix(CIBPREFIX "copy")
@@ -64,6 +66,10 @@ public:
   bfs::path cibdefFilePath() const
   {
     return outputPath / cibInternalDirName / cibdefFileName;
+  }
+  bfs::path helperFilePath() const
+  {
+    return outputPath / cibInternalDirName / helperFileName;
   }
   bfs::path cibInternalDir() const
   {

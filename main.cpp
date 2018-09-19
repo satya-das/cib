@@ -164,6 +164,60 @@ static void emitGlobalHelpers(std::ostream&           stm,
   emitMethodTableGetter(stm, fileDOMs, cibParams, cibIdMgr);
 }
 
+static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
+{
+  {
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto          cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    std::ofstream cibLibIncStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".h")).string(),
+                               std::ios_base::out);
+    cibLibIncStm << cibcode;
+  }
+  {
+    bfs::copy_file(cibParams.resDir / "__zz_cib_decl.h",
+                   cibParams.binderPath / "__zz_cib_decl.h",
+                   bfs::copy_option::overwrite_if_exists);
+    bfs::copy_file(cibParams.resDir / "__zz_cib_export.h",
+                   cibParams.binderPath / "__zz_cib_export.h",
+                   bfs::copy_option::overwrite_if_exists);
+    bfs::copy_file(cibParams.resDir / "__zz_cib_method_table.h",
+                   cibParams.binderPath / "__zz_cib_method_table.h",
+                   bfs::copy_option::overwrite_if_exists);
+  }
+}
+
+static void emitUserBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
+{
+  {
+    std::ofstream cibdefStm(cibParams.cibdefFilePath().string(), std::ios_base::out);
+    // Emit boiler plate code for cib.cpp of library
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-cibdef.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    cibdefStm << cibcode;
+  }
+  {
+    std::ofstream helperStm(cibParams.helperFilePath().string(), std::ios_base::out);
+    // Emit boiler plate code for cib.cpp of library
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-helper.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto helperCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    helperStm << helperCode;
+  }
+  {
+    bfs::copy_file(cibParams.resDir / "__zz_cib_decl.h",
+                   cibParams.outputPath / "__zz_cib_decl.h",
+                   bfs::copy_option::overwrite_if_exists);
+    bfs::copy_file(cibParams.resDir / "__zz_cib_import.h",
+                   cibParams.outputPath / "__zz_cib_import.h",
+                   bfs::copy_option::overwrite_if_exists);
+    bfs::copy_file(cibParams.resDir / "__zz_cib_method_table.h",
+                   cibParams.outputPath / "__zz_cib_method_table.h",
+                   bfs::copy_option::overwrite_if_exists);
+  }
+}
+
 int main(int argc, char* argv[])
 {
   const CibParams& cibParams(parseCmdLine(argc, argv));
@@ -174,28 +228,11 @@ int main(int argc, char* argv[])
   CibIdMgr          cibIdMgr;
   auto              cibIdFileName = generateCibIds(helper, cibParams, cibIdMgr);
   StringToStringMap substituteInfo;
-  substituteInfo["MODULE"]    = cibParams.moduleName;
-  substituteInfo["CIBEXPAPI"] = "__declspec(dllexport)";
-  substituteInfo["CIBIDHDR"]  = cibIdFileName;
-  // Now emit declarations.
-  {
-    // Emit cib.h for library.
-    std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "lib_cib.h").string(), std::ios_base::in) >> &tmpbuf;
-    auto          cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
-    std::ofstream cibLibIncStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".h")).string(),
-                               std::ios_base::out);
-    cibLibIncStm << cibcode;
-  }
+  substituteInfo["Module"] = cibParams.moduleName;
 
-  std::ofstream cibdefStm(cibParams.cibdefFilePath().string(), std::ios_base::out);
-  {
-    // Emit boiler plate code for cib.cpp of library
-    std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "cibdef.h").string(), std::ios_base::in) >> &tmpbuf;
-    auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
-    cibdefStm << cibcode;
-  }
+  emitLibBoilerPlateCode(cibParams, substituteInfo);
+  emitUserBoilerPlateCode(cibParams, substituteInfo);
+
   const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
   for (auto cppDom : fileDOMs)
   {

@@ -480,6 +480,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
+  stm << "#include \"" << cibParams.helperFileName << "\"\n";
   stm << "#include <cassert>\n";
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   emitDefn(stm, helper, cibParams, cibIdMgr);
@@ -925,7 +926,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     if (!wrappingNamespaceDeclarations(cibParams).empty())
       stm << ++indentation << wrappingNamespaceDeclarations(cibParams) << '\n';
     stm << ++indentation << "namespace " << name() << " {\n";
-    stm << ++indentation << "class __zz_cib_Helper {\n";
+    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::" << cibParams.moduleName
+        << "::__zz_cib_Helper {\n";
+    stm << indentation << "private:\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
     if (needsUnknownProxyDefinition())
       stm << indentation << "static __zz_cib_::__zz_cib_MethodTable __zz_cib_get_proxy_method_table();\n";
@@ -959,7 +962,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         ++indentation;
       }
       func.emitProcType(stm, helper, cibParams, false, indentation);
-      stm << indentation << "auto proc = getProc<" << func.procType(cibParams) << ">(";
+      stm << indentation << "auto proc = instance().getProc<" << func.procType(cibParams) << ">(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
       stm << indentation << "return proc(";
@@ -991,32 +994,27 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
           << "(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj) {\n";
       stm << ++indentation << "using " << castProcName
           << "Proc = __zz_cib_::__zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE* h);\n";
-      stm << indentation << "auto proc = (" << castProcName << "Proc) instance().mtbl[";
+      stm << indentation << "auto proc = instance().getProc<" << castProcName << "Proc>(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
-      stm << capiName << "];\n";
+      stm << capiName << ");\n";
       stm << indentation << "return proc(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     });
     if (!needsBridging_.empty())
     {
-      stm << --indentation << "private:\n";
-      stm << ++indentation << "__zz_cib_::__zz_cib_MethodTable mtbl;\n";
-      stm << indentation << "__zz_cib_Helper() {\n";
-      stm << ++indentation << "mtbl = __zz_cib_" << cibParams.moduleName << "_GetMethodTable(";
+      stm << indentation << "__zz_cib_Helper()\n";
+      stm << ++indentation << ": __zz_cib_::" << cibParams.moduleName << "::__zz_cib_Helper(\n";
+      stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(\n";
+      stm << ++indentation;
       auto classIdName = longName();
       std::transform(
         classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c) -> char { return c == ':' ? '_' : c; });
-      stm << cibParams.classIdOwnerSpace() << classIdName << ");\n";
-      stm << --indentation << "}\n";
-      stm << indentation << "static const __zz_cib_Helper& instance() {\n";
+      stm << cibParams.classIdOwnerSpace() << classIdName << ")) {}\n";
+      --indentation;
+      --indentation;
+      stm << --indentation << "static const __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
-      stm << --indentation << "}\n";
-      stm << indentation << "template<typename _ProcType>\n";
-      stm << "static _ProcType getProc(std::uint32_t procId) {\n";
-      stm << ++indentation
-          << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, "
-             "procId));\n";
       stm << --indentation << "}\n";
     }
     stm << '\n'; // Start in new line.
@@ -1026,9 +1024,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << ++indentation
           << "using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) "
              "(__zz_cib_::__zz_cib_HANDLE*);\n";
-      stm << indentation << "auto proc = (__zz_cib_get_class_idProc) instance().mtbl[";
+      stm << indentation << "auto proc = instance().getProc<__zz_cib_get_class_idProc>(";
       stm << "__zz_cib_" << longName()
-          << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "];\n";
+          << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << ");\n";
       stm << indentation << "return proc(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     }
@@ -1061,9 +1059,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       ++indentation;
       stm << indentation
           << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*);\n";
-      stm << indentation << "auto proc = (__zz_cib_release_proxyProc) instance().mtbl[";
+      stm << indentation << "auto proc = instance().getProc<__zz_cib_release_proxyProc>(";
       stm << "__zz_cib_" << longName()
-          << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "];\n";
+          << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ");\n";
       stm << indentation << "proc(__zz_cib_obj->__zz_cib_h_);\n";
       stm << --indentation << "}\n";
       stm << --indentation << "}\n";
