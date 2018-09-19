@@ -1,65 +1,62 @@
 #include "__zz_cib_Graphics-ids.h"
+#include "__zz_cib_Graphics-helper.h"
 #include <cassert>
 
 	namespace __zz_cib_ {
 		namespace Point {
-			class __zz_cib_Helper {
+			class __zz_cib_Helper : public __zz_cib_::Graphics::__zz_cib_Helper {
+			private:
 				friend class ::Point;
 
 				static __zz_cib_::__zz_cib_HANDLE* __zz_cib_new_1(float x, float y) {
 					using __zz_cib_newProc = __zz_cib_::__zz_cib_HANDLE* (__zz_cib_decl *) (float x, float y);
-					auto proc = getProc<__zz_cib_newProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_new_1);
+					auto proc = instance().getProc<__zz_cib_newProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_new_1);
 					return proc(x, y);
 				}
 				static float X_2(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj) {
 					using XProc = float (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*);
-					auto proc = getProc<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_2);
+					auto proc = instance().getProc<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_2);
 					return proc(__zz_cib_obj);
 				}
 				static void X_3(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj, float x) {
 					using XProc = void (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*, float x);
-					auto proc = getProc<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_3);
+					auto proc = instance().getProc<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_3);
 					return proc(__zz_cib_obj, x);
 				}
 				static float Y_4(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj) {
 					using YProc = float (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*);
-					auto proc = getProc<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_4);
+					auto proc = instance().getProc<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_4);
 					return proc(__zz_cib_obj);
 				}
 				static void Y_5(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj, float y) {
 					using YProc = void (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*, float y);
-					auto proc = getProc<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_5);
+					auto proc = instance().getProc<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_5);
 					return proc(__zz_cib_obj, y);
 				}
 				static __zz_cib_::__zz_cib_HANDLE* __zz_cib_OperatorPlus_6(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj, const __zz_cib_::__zz_cib_HANDLE& p) {
 					using __zz_cib_OperatorPlusProc = __zz_cib_::__zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*, const __zz_cib_::__zz_cib_HANDLE& p);
-					auto proc = getProc<__zz_cib_OperatorPlusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorPlus_6);
+					auto proc = instance().getProc<__zz_cib_OperatorPlusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorPlus_6);
 					return proc(__zz_cib_obj, p);
 				}
 				static __zz_cib_::__zz_cib_HANDLE* __zz_cib_OperatorMinus_7(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_::__zz_cib_HANDLE* p) {
 					using __zz_cib_OperatorMinusProc = __zz_cib_::__zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*, __zz_cib_::__zz_cib_HANDLE* p);
-					auto proc = getProc<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_7);
+					auto proc = instance().getProc<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_7);
 					return proc(__zz_cib_obj, p);
 				}
 				static void __zz_cib_delete_8(__zz_cib_::__zz_cib_HANDLE* __zz_cib_obj) {
 					if (__zz_cib_obj) {
 						using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_::__zz_cib_HANDLE*);
-						auto proc = getProc<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_8);
+						auto proc = instance().getProc<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_8);
 						return proc(__zz_cib_obj);
 					}
 				}
-			private:
-				__zz_cib_::__zz_cib_MethodTable mtbl;
-				__zz_cib_Helper() {
-					mtbl = __zz_cib_Graphics_GetMethodTable(__zz_cib_::Graphics::__zz_cib_classid::__Point);
-				}
+				__zz_cib_Helper()
+					: __zz_cib_::Graphics::__zz_cib_Helper(
+						__zz_cib_Graphics_GetMethodTable(
+							__zz_cib_::Graphics::__zz_cib_classid::__Point)) {}
 				static const __zz_cib_Helper& instance() {
 					static __zz_cib_Helper helper;
 					return helper;
-				}
-				template<typename _ProcType>
-static _ProcType getProc(std::uint32_t procId) {
-					return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(instance().mtbl, procId));
 				}
 
 			public:
