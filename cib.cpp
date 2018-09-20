@@ -871,15 +871,6 @@ void CibCppCompound::identifyMethodsToBridge()
   }
   if (!isClassLike())
     return;
-  if (!hasDtor() && (!isAbstract() || needsUnknownProxyDefinition()))
-  {
-    auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
-    defaultDtor->owner_ = this;
-    addMember(defaultDtor);
-    CibFunctionHelper func(defaultDtor);
-    needsBridging_.push_back(func);
-    objNeedingBridge_.insert(defaultDtor);
-  }
   if (!hasCtor() && (!isAbstract() || needsUnknownProxyDefinition()))
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
@@ -889,6 +880,15 @@ void CibCppCompound::identifyMethodsToBridge()
     CibFunctionHelper func(defaultCtor);
     needsBridging_.push_back(func);
     objNeedingBridge_.insert(defaultCtor);
+  }
+  if (!hasDtor() && (!isAbstract() || needsUnknownProxyDefinition()))
+  {
+    auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
+    defaultDtor->owner_ = this;
+    addMember(defaultDtor);
+    CibFunctionHelper func(defaultDtor);
+    needsBridging_.push_back(func);
+    objNeedingBridge_.insert(defaultDtor);
   }
 }
 
