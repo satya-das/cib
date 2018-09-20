@@ -220,7 +220,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       return;
   }
   auto callType = forProxy ? CallType::kFromHandle : CallType::kDerefIfByVal;
-  stm << indentation;
+  stm << indentation << "static ";
   if (isConstructor())
     stm << getOwner()->longName() << "*";
   else if (isDestructor())
