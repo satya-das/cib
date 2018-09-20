@@ -8,7 +8,7 @@ namespace Graphics {
 class __zz_cib_Helper
 {
 protected:
-  __zz_cib_Helper(__zz_cib_::__zz_cib_MethodTable _mtbl)
+  __zz_cib_Helper(__zz_cib_MethodTable _mtbl)
     : mtbl(_mtbl)
   {
   }
@@ -20,7 +20,7 @@ protected:
   }
 
 private:
-  __zz_cib_::__zz_cib_MethodTable mtbl;
+  __zz_cib_MethodTable mtbl;
 };
 
 } // namespace Graphics
