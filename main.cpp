@@ -175,45 +175,61 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStr
     cibLibIncStm << cibcode;
   }
   {
-    bfs::copy_file(cibParams.resDir / "__zz_cib_decl.h",
-                   cibParams.binderPath / "__zz_cib_decl.h",
+    std::string   mtableFileName = "__zz_cib_" + cibParams.moduleName + "-mtable.h";
+    std::ofstream mtableStm((cibParams.binderPath / mtableFileName).string(), std::ios_base::out);
+    // Emit boiler plate code for cib.cpp of library
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-mtable.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto mtableCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    mtableStm << mtableCode;
+  }
+  {
+    std::string declFileName = "__zz_cib_" + cibParams.moduleName + "-decl.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-decl.h",
+                   cibParams.binderPath / declFileName,
                    bfs::copy_option::overwrite_if_exists);
-    bfs::copy_file(cibParams.resDir / "__zz_cib_export.h",
-                   cibParams.binderPath / "__zz_cib_export.h",
-                   bfs::copy_option::overwrite_if_exists);
-    bfs::copy_file(cibParams.resDir / "__zz_cib_method_table.h",
-                   cibParams.binderPath / "__zz_cib_method_table.h",
+    std::string exportFileName = "__zz_cib_" + cibParams.moduleName + "-export.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-export.h",
+                   cibParams.binderPath / exportFileName,
                    bfs::copy_option::overwrite_if_exists);
   }
 }
 
-static void emitUserBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
+static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
 {
   {
     std::ofstream cibdefStm(cibParams.cibdefFilePath().string(), std::ios_base::out);
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-cibdef.h").string(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-def.h").string(), std::ios_base::in) >> &tmpbuf;
     auto cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     cibdefStm << cibcode;
   }
   {
-    std::ofstream helperStm(cibParams.helperFilePath().string(), std::ios_base::out);
+    std::ofstream mtableStm(cibParams.helperFilePath().string(), std::ios_base::out);
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
     std::ifstream((cibParams.resDir / "__zz_cib_$Module$-helper.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto mtableCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    mtableStm << mtableCode;
+  }
+  {
+    std::string   mtableFileName = "__zz_cib_" + cibParams.moduleName + "-mtable.h";
+    std::ofstream helperStm((cibParams.outputPath / mtableFileName).string(), std::ios_base::out);
+    // Emit boiler plate code for cib.cpp of library
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-mtable.h").string(), std::ios_base::in) >> &tmpbuf;
     auto helperCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     helperStm << helperCode;
   }
   {
-    bfs::copy_file(cibParams.resDir / "__zz_cib_decl.h",
-                   cibParams.outputPath / "__zz_cib_decl.h",
+    std::string declFileName = "__zz_cib_" + cibParams.moduleName + "-decl.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-decl.h",
+                   cibParams.outputPath / declFileName,
                    bfs::copy_option::overwrite_if_exists);
-    bfs::copy_file(cibParams.resDir / "__zz_cib_import.h",
-                   cibParams.outputPath / "__zz_cib_import.h",
-                   bfs::copy_option::overwrite_if_exists);
-    bfs::copy_file(cibParams.resDir / "__zz_cib_method_table.h",
-                   cibParams.outputPath / "__zz_cib_method_table.h",
+    std::string importFileName = "__zz_cib_" + cibParams.moduleName + "-import.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-import.h",
+                   cibParams.outputPath / importFileName,
                    bfs::copy_option::overwrite_if_exists);
   }
 }
@@ -231,7 +247,7 @@ int main(int argc, char* argv[])
   substituteInfo["Module"] = cibParams.moduleName;
 
   emitLibBoilerPlateCode(cibParams, substituteInfo);
-  emitUserBoilerPlateCode(cibParams, substituteInfo);
+  emitClientBoilerPlateCode(cibParams, substituteInfo);
 
   const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
   for (auto cppDom : fileDOMs)
@@ -245,7 +261,7 @@ int main(int argc, char* argv[])
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
     bfs::path     bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
-    bindSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
+    bindSrcStm << "#include \"" << cibIdFileName << "\"\n";
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
     cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
   }

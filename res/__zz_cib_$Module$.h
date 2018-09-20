@@ -1,8 +1,8 @@
 #pragma once
 
-#include "__zz_cib_decl.h"
-#include "__zz_cib_export.h"
-#include "__zz_cib_method_table.h"
+#include "__zz_cib_$Module$-decl.h"
+#include "__zz_cib_$Module$-export.h"
+#include "__zz_cib_$Module$-mtable.h"
 
 namespace __zz_cib_ {
 

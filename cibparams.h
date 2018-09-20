@@ -48,7 +48,7 @@ public:
     , resDir(std::move(r))
     , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
-    , cibdefFileName(CIBPREFIX + moduleName + "-cibdef.h")
+    , cibdefFileName(CIBPREFIX + moduleName + "-def.h")
     , helperFileName(CIBPREFIX + moduleName + "-helper.h")
     , cibInternalNamespace(CIBPREFIX)
     , handleGetterMethod(CIBPREFIX "handle")
