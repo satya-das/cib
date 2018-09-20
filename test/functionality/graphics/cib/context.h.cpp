@@ -55,22 +55,22 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	void __zz_cib_decl Line_1(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+	static void __zz_cib_decl Line_1(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2) {
 		__zz_cib_obj->Line(x1, y1, x2, y2);
 	}
-	void __zz_cib_decl Rect_2(::Graphics::Context* __zz_cib_obj, float l, float b, float r, float t) {
+	static void __zz_cib_decl Rect_2(::Graphics::Context* __zz_cib_obj, float l, float b, float r, float t) {
 		__zz_cib_obj->Rect(l, b, r, t);
 	}
-	void __zz_cib_decl Circle_3(::Graphics::Context* __zz_cib_obj, float cx, float cy, float r) {
+	static void __zz_cib_decl Circle_3(::Graphics::Context* __zz_cib_obj, float cx, float cy, float r) {
 		__zz_cib_obj->Circle(cx, cy, r);
 	}
-	void __zz_cib_decl Ellipse_4(::Graphics::Context* __zz_cib_obj, float cx, float cy, float a, float b) {
+	static void __zz_cib_decl Ellipse_4(::Graphics::Context* __zz_cib_obj, float cx, float cy, float a, float b) {
 		__zz_cib_obj->Ellipse(cx, cy, a, b);
 	}
-	void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
-	::Graphics::Context* __zz_cib_decl __zz_cib_new_6(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
+	static ::Graphics::Context* __zz_cib_decl __zz_cib_new_6(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
 		return new __zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context(proxy, mtbl);
 	}
 	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_7(::Graphics::Context* __zz_cib_obj) {

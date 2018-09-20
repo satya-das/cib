@@ -40,22 +40,22 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
+	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
 		return new __zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext(proxy, mtbl);
 	}
-	void __zz_cib_decl __zz_cib_delete_2(::Graphics::LogContext* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_2(::Graphics::LogContext* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
-	void __zz_cib_decl Line_3(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+	static void __zz_cib_decl Line_3(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {
 		__zz_cib_obj->::Graphics::LogContext::Line(x1, y1, x2, y2);
 	}
-	void __zz_cib_decl Rect_4(::Graphics::LogContext* __zz_cib_obj, float l, float b, float r, float t) {
+	static void __zz_cib_decl Rect_4(::Graphics::LogContext* __zz_cib_obj, float l, float b, float r, float t) {
 		__zz_cib_obj->::Graphics::LogContext::Rect(l, b, r, t);
 	}
-	void __zz_cib_decl Circle_5(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
+	static void __zz_cib_decl Circle_5(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
 		__zz_cib_obj->::Graphics::LogContext::Circle(cx, cy, r);
 	}
-	void __zz_cib_decl Ellipse_6(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float a, float b) {
+	static void __zz_cib_decl Ellipse_6(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float a, float b) {
 		__zz_cib_obj->::Graphics::LogContext::Ellipse(cx, cy, a, b);
 	}
 	::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {

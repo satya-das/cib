@@ -18,16 +18,16 @@
 	return nullptr;
 }
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-	float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
+	static float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Area();
 	}
-	float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+	static void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 		__zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
 	}
-	void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 }}}

@@ -35,19 +35,19 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
-	::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float left, float bottom, float right, float top) {
+	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float left, float bottom, float right, float top) {
 		return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, left, bottom, right, top);
 	}
-	float __zz_cib_decl Area_2(const ::Graphics::Rectangle* __zz_cib_obj) {
+	static float __zz_cib_decl Area_2(const ::Graphics::Rectangle* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Rectangle::Area();
 	}
-	float __zz_cib_decl Perimeter_3(const ::Graphics::Rectangle* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_3(const ::Graphics::Rectangle* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Rectangle::Perimeter();
 	}
-	void __zz_cib_decl Draw_4(const ::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_4(const ::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 	}
-	void __zz_cib_decl __zz_cib_delete_5(::Graphics::Rectangle* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Rectangle* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Rectangle* __zz_cib_obj) {

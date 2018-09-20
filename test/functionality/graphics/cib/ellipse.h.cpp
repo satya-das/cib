@@ -35,19 +35,19 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
-	::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b) {
+	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b) {
 		return new __zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
 	}
-	float __zz_cib_decl Area_2(const ::Graphics::Ellipse* __zz_cib_obj) {
+	static float __zz_cib_decl Area_2(const ::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Ellipse::Area();
 	}
-	float __zz_cib_decl Perimeter_3(const ::Graphics::Ellipse* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_3(const ::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
 	}
-	void __zz_cib_decl Draw_4(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_4(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
 	}
-	void __zz_cib_decl __zz_cib_delete_5(::Graphics::Ellipse* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Ellipse* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Ellipse* __zz_cib_obj) {

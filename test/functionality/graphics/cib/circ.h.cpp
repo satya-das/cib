@@ -36,22 +36,22 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-	::Graphics::Circle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float radius) {
+	static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float radius) {
 		return new __zz_cib_::Graphics::Circle::__zz_cib_UnknownProxy::Circle(proxy, mtbl, Ox, Oy, radius);
 	}
-	float __zz_cib_decl Area_2(const ::Graphics::Circle* __zz_cib_obj) {
+	static float __zz_cib_decl Area_2(const ::Graphics::Circle* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Circle::Area();
 	}
-	float __zz_cib_decl Perimeter_3(const ::Graphics::Circle* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_3(const ::Graphics::Circle* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Circle::Perimeter();
 	}
-	void __zz_cib_decl Draw_4(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_4(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->::Graphics::Circle::Draw(ctx);
 	}
-	::Graphics::Shape* __zz_cib_decl CreateCircle_5(float Ox, float Oy, float radius) {
+	static ::Graphics::Shape* __zz_cib_decl CreateCircle_5(float Ox, float Oy, float radius) {
 		return ::Graphics::Circle::CreateCircle(Ox, Oy, radius);
 	}
-	void __zz_cib_decl __zz_cib_delete_6(::Graphics::Circle* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_6(::Graphics::Circle* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Circle* __zz_cib_obj) {

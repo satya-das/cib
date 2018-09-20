@@ -36,31 +36,31 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-	::Graphics::Composite* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
+	static ::Graphics::Composite* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
 		return new __zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::Composite(proxy, mtbl);
 	}
-	void __zz_cib_decl Add_2(::Graphics::Composite* __zz_cib_obj, ::Graphics::Shape* shape) {
+	static void __zz_cib_decl Add_2(::Graphics::Composite* __zz_cib_obj, ::Graphics::Shape* shape) {
 		__zz_cib_obj->::Graphics::Composite::Add(shape);
 	}
-	size_t __zz_cib_decl NumShapes_3(const ::Graphics::Composite* __zz_cib_obj) {
+	static size_t __zz_cib_decl NumShapes_3(const ::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Composite::NumShapes();
 	}
-	::Graphics::Shape* __zz_cib_decl ShapeAt_4(const ::Graphics::Composite* __zz_cib_obj, size_t idxShape) {
+	static ::Graphics::Shape* __zz_cib_decl ShapeAt_4(const ::Graphics::Composite* __zz_cib_obj, size_t idxShape) {
 		return __zz_cib_obj->::Graphics::Composite::ShapeAt(idxShape);
 	}
-	float __zz_cib_decl Area_5(const ::Graphics::Composite* __zz_cib_obj) {
+	static float __zz_cib_decl Area_5(const ::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Composite::Area();
 	}
-	float __zz_cib_decl Perimeter_6(const ::Graphics::Composite* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_6(const ::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Composite::Perimeter();
 	}
-	void __zz_cib_decl Draw_7(const ::Graphics::Composite* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_7(const ::Graphics::Composite* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->::Graphics::Composite::Draw(ctx);
 	}
-	::Graphics::Composite* __zz_cib_decl CreateCompositeOfRectAndCircle_8() {
+	static ::Graphics::Composite* __zz_cib_decl CreateCompositeOfRectAndCircle_8() {
 		return ::Graphics::Composite::CreateCompositeOfRectAndCircle();
 	}
-	void __zz_cib_decl __zz_cib_delete_9(::Graphics::Composite* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_9(::Graphics::Composite* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_10(::Graphics::Composite* __zz_cib_obj) {

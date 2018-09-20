@@ -53,19 +53,19 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-	float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
+	static float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Area();
 	}
-	float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->Draw(ctx);
 	}
-	void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
-	::Graphics::Shape* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
+	static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
 		return new __zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::Shape(proxy, mtbl);
 	}
 	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Shape* __zz_cib_obj) {
