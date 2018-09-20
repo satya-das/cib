@@ -481,7 +481,6 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   stm << "#include \"" << cibParams.helperFileName << "\"\n";
-  stm << "#include <cassert>\n";
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   emitDefn(stm, helper, cibParams, cibIdMgr);
 }
@@ -902,7 +901,9 @@ void CibCppCompound::emitHelperDecl(std::ostream&    stm,
     stm << '\n'; // Start in new line.
     if (!wrappingNamespaceDeclarations(cibParams).empty())
       stm << indentation << wrappingNamespaceDeclarations(cibParams);
-    stm << "namespace " << name() << " { class __zz_cib_Helper; }\n";
+    stm << " namespace " << name() << " {\n";
+    stm << ++indentation << "class __zz_cib_Helper;\n";
+    stm << --indentation << "}";
     if (!wrappingNamespaceDeclarations(cibParams).empty())
       stm << indentation << closingBracesForWrappingNamespaces() << '\n';
   }
@@ -923,9 +924,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   if (isNamespaceLike() && !needsBridging_.empty())
   {
     stm << '\n'; // Start in new line.
-    if (!wrappingNamespaceDeclarations(cibParams).empty())
-      stm << ++indentation << wrappingNamespaceDeclarations(cibParams) << '\n';
-    stm << ++indentation << "namespace " << name() << " {\n";
+    stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::" << cibParams.moduleName
         << "::__zz_cib_Helper {\n";
     stm << indentation << "private:\n";
@@ -1063,9 +1062,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     }
     stm << --indentation << "};\n";
 
-    if (!wrappingNamespaceDeclarations(cibParams).empty())
-      stm << --indentation << closingBracesForWrappingNamespaces() << '\n';
-    stm << --indentation << "}\n";
+    stm << --indentation << closingBracesForWrappingNamespaces() << "}\n";
   }
 
   for (auto mem : members_)
