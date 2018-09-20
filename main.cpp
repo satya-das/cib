@@ -149,21 +149,6 @@ static void emitMethodTableGetter(std::ostream&           stm,
   stm << --indentation << "}\n";
 }
 
-static void emitGlobalHelpers(std::ostream&           stm,
-                              const CppCompoundArray& fileDOMs,
-                              const CibParams&        cibParams,
-                              const CibIdMgr&         cibIdMgr)
-{
-  stm << "#include <typeinfo>\n";
-  stm << "#include <typeindex>\n";
-  stm << "#include <cstdint>\n";
-  stm << "#include <unordered_map>\n\n";
-
-  stm << "std::unordered_map<std::type_index, std::uint32_t> "
-         "__zz_cib_gClassIdRepo;\n";
-  emitMethodTableGetter(stm, fileDOMs, cibParams, cibIdMgr);
-}
-
 static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
 {
   {
@@ -191,6 +176,10 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStr
     std::string exportFileName = "__zz_cib_" + cibParams.moduleName + "-export.h";
     bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-export.h",
                    cibParams.binderPath / exportFileName,
+                   bfs::copy_option::overwrite_if_exists);
+    std::string classIdRepoFileName = "__zz_cib_" + cibParams.moduleName + "-classId-repo.cpp";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-classId-repo.cpp",
+                   cibParams.binderPath / classIdRepoFileName,
                    bfs::copy_option::overwrite_if_exists);
   }
 }
@@ -270,7 +259,7 @@ int main(int argc, char* argv[])
                              std::ios_base::out);
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n";
   cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-  emitGlobalHelpers(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
+  emitMethodTableGetter(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 
   return 0;
 }
