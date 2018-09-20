@@ -1,8 +1,8 @@
 #pragma once
 
+#include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-helper.h"
-#include "__zz_cib_decl.h"
-#include "__zz_cib_import.h"
+#include "__zz_cib_Graphics-import.h"
 
 namespace __zz_cib_ {
 

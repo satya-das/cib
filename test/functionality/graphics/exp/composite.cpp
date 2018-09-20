@@ -8,16 +8,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	float __zz_cib_decl Perimeter_2(const ::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	void __zz_cib_decl Draw_3(const ::Graphics::Composite* __zz_cib_obj, __zz_cib_::__zz_cib_HANDLE* ctx) {
+	void __zz_cib_decl Draw_3(const ::Graphics::Composite* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 		__zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
 	}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-	using __zz_cib_MethodEntry = void(*)();
-	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
-	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
-	{
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable() {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 3 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
@@ -30,7 +27,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+	__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 		return __zz_cib_GetMethodTable();
 	}
 }}}

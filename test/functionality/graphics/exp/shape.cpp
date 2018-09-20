@@ -4,15 +4,15 @@
 #include "rect.h"
 #include "shape.h"
 
-::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::__zz_cib_HANDLE* h) {
+::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle:
+	case __zz_cib_::__zz_cib_classid::__Graphics__Circle:
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite:
+	case __zz_cib_::__zz_cib_classid::__Graphics__Composite:
 		return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse:
+	case __zz_cib_::__zz_cib_classid::__Graphics__Ellipse:
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle:
+	case __zz_cib_::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	}
 	return nullptr;
@@ -24,7 +24,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_::__zz_cib_HANDLE* ctx) {
+	void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 		__zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
 	}
 	void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
@@ -33,10 +33,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-	using __zz_cib_MethodEntry = void(*)();
-	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
-	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
-	{
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable() {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
@@ -50,7 +47,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+	__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 		return __zz_cib_GetMethodTable();
 	}
 }}}

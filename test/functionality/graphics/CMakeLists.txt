@@ -23,9 +23,13 @@ set(GRAPHICS_PUB_FILE_NAMES
 )
 
 set(CIB_OUTPUT
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics_ids.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-decl.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-export.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-ids.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-mtable.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-classId-repo.cpp
 )
 set(GRAPHICS_PUB_FILES "")
 foreach(PUBFILE ${GRAPHICS_PUB_FILE_NAMES})

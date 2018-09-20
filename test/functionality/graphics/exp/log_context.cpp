@@ -16,10 +16,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	using __zz_cib_MethodEntry = void(*)();
-	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
-	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
-	{
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable() {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
@@ -33,7 +30,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+	__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 		return __zz_cib_GetMethodTable();
 	}
 }}}

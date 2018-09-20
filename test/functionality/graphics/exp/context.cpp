@@ -1,9 +1,9 @@
 #include "context.h"
 #include "log_context.h"
 
-::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_::__zz_cib_HANDLE* h) {
+::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__LogContext:
+	case __zz_cib_::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(h);
 	}
 	return nullptr;
@@ -27,10 +27,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	using __zz_cib_MethodEntry = void(*)();
-	using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
-	static __zz_cib_MethodTable __zz_cib_GetMethodTable()
-	{
+	static __zz_cib_MethodTable __zz_cib_GetMethodTable() {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 5 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
@@ -45,7 +42,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	__zz_cib_::__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
+	__zz_cib_MethodTable __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 		return __zz_cib_GetMethodTable();
 	}
 }}}
