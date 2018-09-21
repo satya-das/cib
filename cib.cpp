@@ -925,8 +925,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   {
     stm << '\n'; // Start in new line.
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
-    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::" << cibParams.moduleName
-        << "::__zz_cib_Helper {\n";
+    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {\n";
     stm << indentation << "private:\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
     if (needsUnknownProxyDefinition())
@@ -1001,7 +1000,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     if (!needsBridging_.empty())
     {
       stm << indentation << "__zz_cib_Helper()\n";
-      stm << ++indentation << ": __zz_cib_::" << cibParams.moduleName << "::__zz_cib_Helper(\n";
+      stm << ++indentation << ": __zz_cib_::__zz_cib_Helper(\n";
       stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(\n";
       stm << ++indentation;
       auto classIdName = longName();
