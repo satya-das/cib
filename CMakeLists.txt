@@ -43,6 +43,7 @@ set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
 set(RESFILES
 	'__zz_cib_$$Module$$-decl.h'  '__zz_cib_$$Module$$-export.h'  '__zz_cib_$$Module$$-helper.h'  '__zz_cib_$$Module$$-mtable.h'
 	'__zz_cib_$$Module$$-def.h'   '__zz_cib_$$Module$$.h'         '__zz_cib_$$Module$$-import.h'  '__zz_cib_$$Module$$-classId-repo.cpp'
+	'__zz_cib_$$Module$$-class-internal-def.h'
 )
 
 

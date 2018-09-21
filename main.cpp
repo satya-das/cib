@@ -212,13 +212,21 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
     helperStm << helperCode;
   }
   {
-    std::string declFileName = "__zz_cib_" + cibParams.moduleName + "-decl.h";
+    std::string filename = "__zz_cib_" + cibParams.moduleName + "-decl.h";
     bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-decl.h",
-                   cibParams.outputPath / declFileName,
+                   cibParams.outputPath / filename,
                    bfs::copy_option::overwrite_if_exists);
-    std::string importFileName = "__zz_cib_" + cibParams.moduleName + "-import.h";
+  }
+  {
+    std::string filename = "__zz_cib_" + cibParams.moduleName + "-import.h";
     bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-import.h",
-                   cibParams.outputPath / importFileName,
+                   cibParams.outputPath / filename,
+                   bfs::copy_option::overwrite_if_exists);
+  }
+  {
+    std::string filename = "__zz_cib_" + cibParams.moduleName + "-class-internal-def.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-class-internal-def.h",
+                   cibParams.outputPath / filename,
                    bfs::copy_option::overwrite_if_exists);
   }
 }
