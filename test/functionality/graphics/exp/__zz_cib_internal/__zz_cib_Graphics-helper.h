@@ -1,9 +1,8 @@
-#pragma once
-
 #include "__zz_cib_Graphics-mtable.h"
 
+#ifndef __zz_cib_Helper_defined
+
 namespace __zz_cib_ {
-namespace Graphics {
 
 class __zz_cib_Helper
 {
@@ -23,5 +22,7 @@ private:
   __zz_cib_MethodTable mtbl;
 };
 
-} // namespace Graphics
 } // namespace __zz_cib_
+
+#  define __zz_cib_Helper_defined
+#endif

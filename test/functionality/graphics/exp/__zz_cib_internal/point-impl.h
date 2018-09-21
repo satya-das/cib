@@ -2,7 +2,7 @@
 #include "__zz_cib_Graphics-helper.h"
 
 namespace __zz_cib_ { namespace Point {
-	class __zz_cib_Helper : public __zz_cib_::Graphics::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
 	private:
 		friend class ::Point;
 
@@ -49,7 +49,7 @@ namespace __zz_cib_ { namespace Point {
 			}
 		}
 		__zz_cib_Helper()
-			: __zz_cib_::Graphics::__zz_cib_Helper(
+			: __zz_cib_::__zz_cib_Helper(
 				__zz_cib_Graphics_GetMethodTable(
 					__zz_cib_::__zz_cib_classid::__Point)) {}
 		static const __zz_cib_Helper& instance() {

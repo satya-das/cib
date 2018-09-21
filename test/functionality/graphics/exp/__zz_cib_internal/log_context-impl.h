@@ -2,7 +2,7 @@
 #include "__zz_cib_Graphics-helper.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	class __zz_cib_Helper : public __zz_cib_::Graphics::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
 	private:
 		friend class ::Graphics::LogContext;
 		static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();
@@ -45,7 +45,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 			return proc(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
-			: __zz_cib_::Graphics::__zz_cib_Helper(
+			: __zz_cib_::__zz_cib_Helper(
 				__zz_cib_Graphics_GetMethodTable(
 					__zz_cib_::__zz_cib_classid::__Graphics__LogContext)) {}
 		static const __zz_cib_Helper& instance() {
