@@ -9,35 +9,35 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 
 		static __zz_cib_HANDLE* __zz_cib_new_1(::Graphics::Ellipse* __zz_cib_proxy, float Ox, float Oy, float a, float b) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, __zz_cib_MethodTable, float Ox, float Oy, float a, float b);
-			auto proc = instance().getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_1);
-			return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), Ox, Oy, a, b);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_1);
+			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), Ox, Oy, a, b);
 		}
 		static float Area_2(__zz_cib_HANDLE* __zz_cib_obj) {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Area_2);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Area_2);
+			return method(__zz_cib_obj);
 		}
 		static float Perimeter_3(__zz_cib_HANDLE* __zz_cib_obj) {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Perimeter_3);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Perimeter_3);
+			return method(__zz_cib_obj);
 		}
 		static void Draw_4(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto proc = instance().getProc<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Draw_4);
-			return proc(__zz_cib_obj, ctx);
+			auto method = instance().getMethod<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Draw_4);
+			return method(__zz_cib_obj, ctx);
 		}
 		static void __zz_cib_delete_5(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_delete_5);
-				return proc(__zz_cib_obj);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_delete_5);
+				return method(__zz_cib_obj);
 			}
 		}
 		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_6(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-			auto proc = instance().getProc<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_6);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_6);
+			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_Helper(
@@ -76,8 +76,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		static void __zz_cib_release_proxy(::Graphics::Ellipse* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_release_proxy_7);
-				proc(__zz_cib_obj->__zz_cib_h_);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_release_proxy_7);
+				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}
 	};

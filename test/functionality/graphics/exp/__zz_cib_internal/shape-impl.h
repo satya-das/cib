@@ -10,14 +10,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 		static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_4);
-				return proc(__zz_cib_obj);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_4);
+				return method(__zz_cib_obj);
 			}
 		}
 		static __zz_cib_HANDLE* __zz_cib_new_5(::Graphics::Shape* __zz_cib_proxy) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Shape*, __zz_cib_MethodTable);
-			auto proc = instance().getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_new_5);
-			return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_new_5);
+			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_Helper(
@@ -30,8 +30,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 
 		static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<__zz_cib_get_class_idProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_get_class_id_6);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<__zz_cib_get_class_idProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_get_class_id_6);
+			return method(__zz_cib_obj);
 		}
 	public:
 		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Shape* __zz_cib_obj) {
@@ -58,8 +58,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 		static void __zz_cib_release_proxy(::Graphics::Shape* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_release_proxy_7);
-				proc(__zz_cib_obj->__zz_cib_h_);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_release_proxy_7);
+				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}
 	};

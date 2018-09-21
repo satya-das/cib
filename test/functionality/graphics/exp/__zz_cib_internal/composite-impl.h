@@ -9,55 +9,55 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 
 		static __zz_cib_HANDLE* __zz_cib_new_1(::Graphics::Composite* __zz_cib_proxy) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Composite*, __zz_cib_MethodTable);
-			auto proc = instance().getProc<__zz_cib_newProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_new_1);
-			return proc(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_new_1);
+			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table());
 		}
 		static void Add_2(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* shape) {
 			using AddProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* shape);
-			auto proc = instance().getProc<AddProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Add_2);
-			return proc(__zz_cib_obj, shape);
+			auto method = instance().getMethod<AddProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Add_2);
+			return method(__zz_cib_obj, shape);
 		}
 		static size_t NumShapes_3(__zz_cib_HANDLE* __zz_cib_obj) {
 			using NumShapesProc = size_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<NumShapesProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::NumShapes_3);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<NumShapesProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::NumShapes_3);
+			return method(__zz_cib_obj);
 		}
 		static __zz_cib_HANDLE* ShapeAt_4(__zz_cib_HANDLE* __zz_cib_obj, size_t idxShape) {
 			using ShapeAtProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, size_t idxShape);
-			auto proc = instance().getProc<ShapeAtProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::ShapeAt_4);
-			return proc(__zz_cib_obj, idxShape);
+			auto method = instance().getMethod<ShapeAtProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::ShapeAt_4);
+			return method(__zz_cib_obj, idxShape);
 		}
 		static float Area_5(__zz_cib_HANDLE* __zz_cib_obj) {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<AreaProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Area_5);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<AreaProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Area_5);
+			return method(__zz_cib_obj);
 		}
 		static float Perimeter_6(__zz_cib_HANDLE* __zz_cib_obj) {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto proc = instance().getProc<PerimeterProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Perimeter_6);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<PerimeterProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Perimeter_6);
+			return method(__zz_cib_obj);
 		}
 		static void Draw_7(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto proc = instance().getProc<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Draw_7);
-			return proc(__zz_cib_obj, ctx);
+			auto method = instance().getMethod<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Draw_7);
+			return method(__zz_cib_obj, ctx);
 		}
 		static __zz_cib_HANDLE* CreateCompositeOfRectAndCircle_8() {
 			using CreateCompositeOfRectAndCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-			auto proc = instance().getProc<CreateCompositeOfRectAndCircleProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::CreateCompositeOfRectAndCircle_8);
-			return proc();
+			auto method = instance().getMethod<CreateCompositeOfRectAndCircleProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::CreateCompositeOfRectAndCircle_8);
+			return method();
 		}
 		static void __zz_cib_delete_9(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_deleteProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_delete_9);
-				return proc(__zz_cib_obj);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_delete_9);
+				return method(__zz_cib_obj);
 			}
 		}
 		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_10(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-			auto proc = instance().getProc<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_10);
-			return proc(__zz_cib_obj);
+			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_10);
+			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_Helper(
@@ -96,8 +96,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 		static void __zz_cib_release_proxy(::Graphics::Composite* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto proc = instance().getProc<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_release_proxy_11);
-				proc(__zz_cib_obj->__zz_cib_h_);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::__zz_cib_release_proxy_11);
+				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}
 	};
