@@ -321,13 +321,13 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream&      stm,
       ++indentation;
     }
     emitProcType(stm, helper, cibParams, true, indentation);
-    stm << indentation << "auto proc = getProc<" << procType(cibParams) << ">(";
+    stm << indentation << "auto method = getMethod<" << procType(cibParams) << ">(";
     stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_UnknownProxy::__zz_cib_methodid::";
     stm << capiName << ");\n";
     stm << indentation;
     if (!isDestructor())
       stm << "return ";
-    stm << "proc(";
+    stm << "method(";
     stm << "__zz_cib_proxy";
     if (hasParams())
       stm << ", ";
@@ -960,10 +960,10 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         ++indentation;
       }
       func.emitProcType(stm, helper, cibParams, false, indentation);
-      stm << indentation << "auto proc = instance().getProc<" << func.procType(cibParams) << ">(";
+      stm << indentation << "auto method = instance().getMethod<" << func.procType(cibParams) << ">(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
-      stm << indentation << "return proc(";
+      stm << indentation << "return method(";
       if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
         stm << "__zz_cib_obj";
@@ -991,10 +991,10 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "static __zz_cib_HANDLE* " << capiName << "(__zz_cib_HANDLE* __zz_cib_obj) {\n";
       stm << ++indentation << "using " << castProcName
           << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
-      stm << indentation << "auto proc = instance().getProc<" << castProcName << "Proc>(";
+      stm << indentation << "auto method = instance().getMethod<" << castProcName << "Proc>(";
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << capiName << ");\n";
-      stm << indentation << "return proc(__zz_cib_obj);\n";
+      stm << indentation << "return method(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     });
     if (!needsBridging_.empty())
@@ -1021,10 +1021,10 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << ++indentation
           << "using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) "
              "(__zz_cib_HANDLE*);\n";
-      stm << indentation << "auto proc = instance().getProc<__zz_cib_get_class_idProc>(";
+      stm << indentation << "auto method = instance().getMethod<__zz_cib_get_class_idProc>(";
       stm << "__zz_cib_" << longName()
           << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << ");\n";
-      stm << indentation << "return proc(__zz_cib_obj);\n";
+      stm << indentation << "return method(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     }
     stm << --indentation << "public:\n";
@@ -1052,10 +1052,10 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
       ++indentation;
       stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);\n";
-      stm << indentation << "auto proc = instance().getProc<__zz_cib_release_proxyProc>(";
+      stm << indentation << "auto method = instance().getMethod<__zz_cib_release_proxyProc>(";
       stm << "__zz_cib_" << longName()
           << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ");\n";
-      stm << indentation << "proc(__zz_cib_obj->__zz_cib_h_);\n";
+      stm << indentation << "method(__zz_cib_obj->__zz_cib_h_);\n";
       stm << --indentation << "}\n";
       stm << --indentation << "}\n";
     }
@@ -1246,7 +1246,7 @@ void CibCppCompound::emitUnknownProxyDefn(std::ostream&    stm,
   ++indentation;
   stm << indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
   stm << indentation << "__zz_cib_MethodTable __zz_cib_mtbl;\n\n";
-  stm << indentation << "template<typename _ProcType> _ProcType getProc(std::uint32_t procId) const {\n";
+  stm << indentation << "template<typename _ProcType> _ProcType getMethod(std::uint32_t procId) const {\n";
   stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));\n";
   stm << --indentation << "}\n";
   --indentation;
