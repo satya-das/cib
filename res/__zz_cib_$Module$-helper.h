@@ -4,6 +4,8 @@
 
 namespace __zz_cib_ {
 
+//! Base class for helper class of proxy classes.
+//! It only facilitates in dealing with method table.
 class __zz_cib_Helper
 {
 protected:
@@ -12,6 +14,9 @@ protected:
   {
   }
 
+  //! Utility method to get method from method table.
+  //! @param procId ID for which method has to be fetched.
+  //! @return Method of type specified as template parameter.
   template <typename _ProcType>
   _ProcType getProc(std::uint32_t procId) const
   {

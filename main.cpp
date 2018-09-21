@@ -204,7 +204,7 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
   }
   {
     std::string   mtableFileName = "__zz_cib_" + cibParams.moduleName + "-mtable.h";
-    std::ofstream helperStm((cibParams.outputPath / mtableFileName).string(), std::ios_base::out);
+    std::ofstream helperStm((cibParams.cibInternalDir() / mtableFileName).string(), std::ios_base::out);
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
     std::ifstream((cibParams.resDir / "__zz_cib_$Module$-mtable.h").string(), std::ios_base::in) >> &tmpbuf;
