@@ -289,7 +289,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 When we see `__zz_cib_decl` in generated code it is safe to ignore them for most cases. It is there only to ascertain that compilers of both library and client use same calling convention for all functions that are called from across component boundary. Ignoring them helps unclutter the complex looking code.
 
-**Type definiton of opaque pointers used by client**:
+**Type definiton of opaque pointers used by client and library**:
 
 ```c++
 namespace __zz_cib_ {
@@ -329,17 +329,19 @@ protected:
   }
 
   //! Utility method to get method from method table.
-  //! @param procId ID for which method has to be fetched.
+  //! @param methodId ID for which method has to be fetched.
   //! @return Method of type specified as template parameter.
-  template <typename _ProcType>
-  _ProcType getProc(std::uint32_t procId) const
+  template <typename _MethodType>
+  _MethodType getMethod(std::uint32_t methodId) const
   {
-    return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(mtbl, procId));
+    return reinterpret_cast<_MethodType>(__zz_cib_GetMethodEntry(mtbl, methodId));
   }
 
 private:
   __zz_cib_MethodTable mtbl;
 };
+
+} // namespace __zz_cib_
 ```
 
 `class __zz_cib_Helper` is used as base class of all helper classes. We will know about that in more detail but as of now we should just know that this class provides a helper method to fetch function pointer of supplied type from method table.
@@ -486,6 +488,15 @@ We see implementation of function `__zz_cib_Example_GetMethodTable`. *`Example` 
 
 Now we will visit code that will be part of SDK and will be used by clients.
 
+#### Import of library gateway function
+Let's begin to look at client side with the part that imports library gateway function.
+
+```c++
+extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_Graphics_GetMethodTable(std::uint32_t classId);
+```
+
+As you can see it is counter part of what library code defined which had used `__zz_cib_export` instead of `__zz_cib_import`. With this declaration client code gets access to `__zz_cib_Example_GetMethodTable` and we will shortly see use of this below.
+
 #### SDK Headers and Proxy Classes
 Now we will look into the headers that will be used by client developer. This is the only part of generated code that is meant to be seen by developers and so `cib` tries to keep this as close to original as possible. Below is the header for  `class A` that `cib` produced from the header library developer wished to publish.
 
@@ -538,12 +549,15 @@ We see a forward declaration of `class __zz_cib_Helper`. Helper class is the one
 **File: __zz_cib_internal/__zz_cib_Example-class-internal-def.h**:
 
 ```c++
-#define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                       \
-protected:                                                                     \
-  className(__zz_cib_::__zz_cib_HANDLE* h);                                    \
-                                                                               \
-private:                                                                       \
-  friend class __zz_cib_::fullName::__zz_cib_Helper;                           \
+//! @def __ZZ_CIB_CLASS_INTERNAL_DEF
+//! Macro that allows cib to add it's hook in proxy classes in a minimally
+//! invasive way.
+#define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                                                               \
+protected:                                                                                                             \
+  className(__zz_cib_::__zz_cib_HANDLE* h);                                                                            \
+                                                                                                                       \
+private:                                                                                                               \
+  friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
   __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
 ```
 
@@ -582,7 +596,7 @@ First two are easy, one constructs object from handle (i.e. opaque pointer) and 
 
 ```c++
 namespace __zz_cib_ { namespace Example { namespace A {
-	class __zz_cib_Helper : public __zz_cib_::Example::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
 	private:
 		friend class ::Example::A;
 
@@ -604,7 +618,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 			}
 		}
 		__zz_cib_Helper()
-			: __zz_cib_::Example::__zz_cib_Helper(
+			: __zz_cib_::__zz_cib_Helper(
 				__zz_cib_Example_GetMethodTable(
 					__zz_cib_::__zz_cib_classid::__Example__A)) {}
 		static const __zz_cib_Helper& instance() {
@@ -617,7 +631,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 ```
 
 We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_Helper`. We had already seen this base class earlier which defines a helper method to fetch methods.
-If we look at the definition of contructor we see that a call to `__zz_cib_Example_GetMethodTable` is made and returned value is passed to base class connstructor. The implementation of other methods are done by delegating calls to function whose pointer is fetched using `getProc<>()`. I hope now all the loose ends should have got tightend.
+If we look at the definition of contructor we see that a call to `__zz_cib_Example_GetMethodTable` is made and returned value is passed to base class connstructor. The implementation of other methods are done by delegating calls to function whose pointer is fetched using `getProc<>()`. I hope now all the loose ends should have got tightend and should have cleared the basics of `cib`'s functioning.
 
 This ends the explanation of our first example but we have covered quite a significant ground that is laid down by code generated by `cib`.
 
