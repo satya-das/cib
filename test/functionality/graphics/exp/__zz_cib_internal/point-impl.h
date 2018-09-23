@@ -41,10 +41,15 @@ namespace __zz_cib_ { namespace Point {
 			auto method = instance().getMethod<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_7);
 			return method(__zz_cib_obj, p);
 		}
-		static void __zz_cib_delete_8(__zz_cib_HANDLE* __zz_cib_obj) {
+		static __zz_cib_HANDLE* __zz_cib_new_8(const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_new_8);
+			return method(__zz_cib_param0);
+		}
+		static void __zz_cib_delete_9(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_8);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_9);
 				return method(__zz_cib_obj);
 			}
 		}
@@ -126,7 +131,11 @@ inline ::Point Point::operator -(::Point p) const {
 	);
 }
 
+inline Point::Point(const ::Point& __zz_cib_param0)
+	: Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_new_8(*__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
+
 inline Point::~Point() {
 	auto h = __zz_cib_::Point::__zz_cib_Helper::__zz_cib_release_handle(this);
-	__zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_8(h);
+	__zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_9(h);
 }

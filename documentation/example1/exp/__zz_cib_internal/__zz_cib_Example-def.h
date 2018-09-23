@@ -14,5 +14,4 @@ class __zz_cib_HANDLE;
 
 } // namespace __zz_cib_
 
-extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable
-                           __zz_cib_Example_GetMethodTable(std::uint32_t classId);
+extern "C" __zz_cib_import __zz_cib_::__zz_cib_MethodTable __zz_cib_Example_GetMethodTable(std::uint32_t classId);

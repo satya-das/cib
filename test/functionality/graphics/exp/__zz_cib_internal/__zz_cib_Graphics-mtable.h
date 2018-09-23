@@ -27,12 +27,10 @@ using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
 //! @return __zz_cib_MethodEntry value which is guarenteed to be non-null.
 //! @note Will throw std::bad_function_call() if method table doesn't contain
 //! method or the fetched method is null.
-inline __zz_cib_MethodEntry __zz_cib_GetMethodEntry(__zz_cib_MethodTable mtbl,
-                                                    std::uint32_t        slot)
+inline __zz_cib_MethodEntry __zz_cib_GetMethodEntry(__zz_cib_MethodTable mtbl, std::uint32_t slot)
 {
   assert(slot > 0);
-  auto mtblHeader =
-    reinterpret_cast<const __zz_cib_MethodTableHeader*>(mtbl[0]);
+  auto mtblHeader = reinterpret_cast<const __zz_cib_MethodTableHeader*>(mtbl[0]);
   if ((slot > mtblHeader->numMethods) || (mtbl[slot] == nullptr))
     throw std::bad_function_call();
 

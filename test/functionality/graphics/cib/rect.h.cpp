@@ -31,6 +31,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
+		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0)
+			: ::Graphics::Rectangle::Rectangle(__zz_cib_param0)
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
@@ -47,13 +52,16 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 	static void __zz_cib_decl Draw_4(const ::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 	}
-	static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Rectangle* __zz_cib_obj) {
+	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0) {
+		return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, __zz_cib_param0);
+	}
+	static void __zz_cib_decl __zz_cib_delete_6(::Graphics::Rectangle* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
-	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Rectangle* __zz_cib_obj) {
+	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Rectangle* __zz_cib_obj) {
 		return __zz_cib_obj;
 	}
-	void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Rectangle* __zz_cib_obj) {
+	void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Rectangle* __zz_cib_obj) {
 		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
@@ -62,16 +70,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 7 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Area_2),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_3),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_4),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_5),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_6),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_7)
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_7),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_8)
 		};
 		return methodTable;
 	}

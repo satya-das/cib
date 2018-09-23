@@ -16,9 +16,11 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 		SomeFunc_1 = 1,
 		//#= A();
 		__zz_cib_new_2 = 2,
+		//#= A(const A&);
+		__zz_cib_new_3 = 3,
 		//#= ~A()
-		__zz_cib_delete_3 = 3,
-		__zz_cib_next_method_id = 4
+		__zz_cib_delete_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}
 

@@ -36,6 +36,11 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 			auto method = getMethod<EllipseProc>(__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Ellipse_4);
 			return method(__zz_cib_proxy, cx, cy, a, b);
 		}
+		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0)
+			: ::Graphics::LogContext::LogContext(__zz_cib_param0)
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
@@ -58,10 +63,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	static void __zz_cib_decl Ellipse_6(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float a, float b) {
 		__zz_cib_obj->::Graphics::LogContext::Ellipse(cx, cy, a, b);
 	}
-	::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {
+	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_7(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0) {
+		return new __zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext(proxy, mtbl, __zz_cib_param0);
+	}
+	::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_8(::Graphics::LogContext* __zz_cib_obj) {
 		return __zz_cib_obj;
 	}
-	void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::LogContext* __zz_cib_obj) {
+	void __zz_cib_decl __zz_cib_release_proxy_9(::Graphics::LogContext* __zz_cib_obj) {
 		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
@@ -70,7 +78,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 9 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
@@ -79,8 +87,9 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 			reinterpret_cast<__zz_cib_MethodEntry> (&Rect_4),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Circle_5),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Ellipse_6),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Context_7),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_8)
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_7),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Context_8),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_9)
 		};
 		return methodTable;
 	}

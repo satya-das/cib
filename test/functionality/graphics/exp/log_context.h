@@ -20,6 +20,7 @@ namespace Graphics
 		virtual void Rect(float l, float b, float r, float t);
 		virtual void Circle(float cx, float cy, float r);
 		virtual void Ellipse(float cx, float cy, float a, float b);
+		LogContext(const ::Graphics::LogContext& __zz_cib_param0);
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, Graphics::LogContext);

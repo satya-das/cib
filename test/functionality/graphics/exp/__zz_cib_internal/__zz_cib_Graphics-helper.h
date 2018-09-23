@@ -15,13 +15,12 @@ protected:
   }
 
   //! Utility method to get method from method table.
-  //! @param procId ID for which method has to be fetched.
+  //! @param methodId ID for which method has to be fetched.
   //! @return Method of type specified as template parameter.
   template <typename _MethodType>
   _MethodType getMethod(std::uint32_t methodId) const
   {
-    return reinterpret_cast<_MethodType>(
-      __zz_cib_GetMethodEntry(mtbl, methodId));
+    return reinterpret_cast<_MethodType>(__zz_cib_GetMethodEntry(mtbl, methodId));
   }
 
 private:

@@ -39,9 +39,14 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 			auto method = instance().getMethod<EllipseProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::Ellipse_6);
 			return method(__zz_cib_obj, cx, cy, a, b);
 		}
-		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Context_7(__zz_cib_HANDLE* __zz_cib_obj) {
+		static __zz_cib_HANDLE* __zz_cib_new_7(::Graphics::LogContext* __zz_cib_proxy, const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::LogContext*, __zz_cib_MethodTable, const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::__zz_cib_new_7);
+			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), __zz_cib_param0);
+		}
+		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Context_8(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_cast_to___Graphics__ContextProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ContextProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Context_7);
+			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ContextProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Context_8);
 			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
@@ -81,7 +86,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 		static void __zz_cib_release_proxy(::Graphics::LogContext* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::__zz_cib_release_proxy_8);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::LogContext::__zz_cib_methodid::__zz_cib_release_proxy_9);
 				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}
@@ -89,7 +94,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 }}}
 
 inline Graphics::LogContext::LogContext(__zz_cib_::__zz_cib_HANDLE* h)
-	: ::Graphics::Context::Context(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_7(h))
+	: ::Graphics::Context::Context(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_8(h))
 	, __zz_cib_h_(h)
 {}
 
@@ -125,3 +130,7 @@ inline void Graphics::LogContext::Circle(float cx, float cy, float r) {
 inline void Graphics::LogContext::Ellipse(float cx, float cy, float a, float b) {
 	__zz_cib_::Graphics::LogContext::__zz_cib_Helper::Ellipse_6(__zz_cib_h_, cx, cy, a, b);
 }
+
+inline Graphics::LogContext::LogContext(const ::Graphics::LogContext& __zz_cib_param0)
+	: LogContext(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_new_7(this, *__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}

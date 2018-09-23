@@ -32,6 +32,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
+		Composite(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Composite& __zz_cib_param0)
+			: ::Graphics::Composite::Composite(__zz_cib_param0)
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
@@ -60,13 +65,16 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	static ::Graphics::Composite* __zz_cib_decl CreateCompositeOfRectAndCircle_8() {
 		return ::Graphics::Composite::CreateCompositeOfRectAndCircle();
 	}
-	static void __zz_cib_decl __zz_cib_delete_9(::Graphics::Composite* __zz_cib_obj) {
+	static ::Graphics::Composite* __zz_cib_decl __zz_cib_new_9(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Composite& __zz_cib_param0) {
+		return new __zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::Composite(proxy, mtbl, __zz_cib_param0);
+	}
+	static void __zz_cib_decl __zz_cib_delete_10(::Graphics::Composite* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
-	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_10(::Graphics::Composite* __zz_cib_obj) {
+	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_11(::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj;
 	}
-	void __zz_cib_decl __zz_cib_release_proxy_11(::Graphics::Composite* __zz_cib_obj) {
+	void __zz_cib_decl __zz_cib_release_proxy_12(::Graphics::Composite* __zz_cib_obj) {
 		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::Composite*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
@@ -75,7 +83,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 11 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 12 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
@@ -86,9 +94,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_6),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_7),
 			reinterpret_cast<__zz_cib_MethodEntry> (&CreateCompositeOfRectAndCircle_8),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_9),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_10),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_11)
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_9),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_10),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_11),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_12)
 		};
 		return methodTable;
 	}

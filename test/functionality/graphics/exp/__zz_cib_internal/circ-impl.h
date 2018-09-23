@@ -32,16 +32,21 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 			auto method = instance().getMethod<CreateCircleProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::CreateCircle_5);
 			return method(Ox, Oy, radius);
 		}
-		static void __zz_cib_delete_6(__zz_cib_HANDLE* __zz_cib_obj) {
+		static __zz_cib_HANDLE* __zz_cib_new_6(::Graphics::Circle* __zz_cib_proxy, const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, __zz_cib_MethodTable, const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_new_6);
+			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), __zz_cib_param0);
+		}
+		static void __zz_cib_delete_7(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_delete_6);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_delete_7);
 				return method(__zz_cib_obj);
 			}
 		}
-		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
+		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_8(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7);
+			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_8);
 			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
@@ -81,7 +86,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 		static void __zz_cib_release_proxy(::Graphics::Circle* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_release_proxy_8);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_release_proxy_9);
 				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}
@@ -89,7 +94,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 }}}
 
 inline Graphics::Circle::Circle(__zz_cib_::__zz_cib_HANDLE* h)
-	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_7(h))
+	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_8(h))
 	, __zz_cib_h_(h)
 {}
 
@@ -122,8 +127,12 @@ inline ::Graphics::Shape* Graphics::Circle::CreateCircle(float Ox, float Oy, flo
 	);
 }
 
+inline Graphics::Circle::Circle(const ::Graphics::Circle& __zz_cib_param0)
+	: Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_6(this, *__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
+
 inline Graphics::Circle::~Circle() {
 	__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_release_proxy(this);
 	auto h = __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_release_handle(this);
-	__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_delete_6(h);
+	__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_delete_7(h);
 }

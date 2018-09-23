@@ -31,6 +31,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
    */
 		virtual void Draw(::Graphics::Context* ctx) const;
 		static ::Graphics::Composite* CreateCompositeOfRectAndCircle();
+		Composite(const ::Graphics::Composite& __zz_cib_param0);
 		~Composite();
 
 	private:

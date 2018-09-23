@@ -24,14 +24,17 @@ namespace __zz_cib_ { namespace Point {
 	static const ::Point* __zz_cib_decl __zz_cib_OperatorMinus_7(const ::Point* __zz_cib_obj, const ::Point* p) {
 		return new ::Point(__zz_cib_obj->::Point::operator -(*p));
 	}
-	static void __zz_cib_decl __zz_cib_delete_8(::Point* __zz_cib_obj) {
+	static ::Point* __zz_cib_decl __zz_cib_new_8(const ::Point& __zz_cib_param0) {
+		return new ::Point(__zz_cib_param0);
+	}
+	static void __zz_cib_decl __zz_cib_delete_9(::Point* __zz_cib_obj) {
 		delete __zz_cib_obj;
 	}
 }}
 
 namespace __zz_cib_ { namespace Point {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 9 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
@@ -41,7 +44,8 @@ namespace __zz_cib_ { namespace Point {
 			reinterpret_cast<__zz_cib_MethodEntry> (&Y_5),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_OperatorPlus_6),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_OperatorMinus_7),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_8)
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_8),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_9)
 		};
 		return methodTable;
 	}

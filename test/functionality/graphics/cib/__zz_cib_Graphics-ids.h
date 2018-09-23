@@ -50,13 +50,15 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 		Draw_4 = 4,
 		//#= static Shape* CreateCircle(float, float, float);
 		CreateCircle_5 = 5,
+		//#= Circle(const Circle&);
+		__zz_cib_new_6 = 6,
 		//#= ~Circle()
-		__zz_cib_delete_6 = 6,
+		__zz_cib_delete_7 = 7,
 		//#= __zz_cib_cast_to___Graphics__Shape
-		__zz_cib_cast_to___Graphics__Shape_7 = 7,
+		__zz_cib_cast_to___Graphics__Shape_8 = 8,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_8 = 8,
-		__zz_cib_next_method_id = 9
+		__zz_cib_release_proxy_9 = 9,
+		__zz_cib_next_method_id = 10
 	};
 }}}}
 
@@ -90,13 +92,15 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		Draw_7 = 7,
 		//#= static Composite* CreateCompositeOfRectAndCircle();
 		CreateCompositeOfRectAndCircle_8 = 8,
+		//#= Composite(const Composite&);
+		__zz_cib_new_9 = 9,
 		//#= ~Composite()
-		__zz_cib_delete_9 = 9,
+		__zz_cib_delete_10 = 10,
 		//#= __zz_cib_cast_to___Graphics__Shape
-		__zz_cib_cast_to___Graphics__Shape_10 = 10,
+		__zz_cib_cast_to___Graphics__Shape_11 = 11,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_11 = 11,
-		__zz_cib_next_method_id = 12
+		__zz_cib_release_proxy_12 = 12,
+		__zz_cib_next_method_id = 13
 	};
 }}}}
 
@@ -160,13 +164,15 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 		Perimeter_3 = 3,
 		//#= virtual void Draw(Context*) const;
 		Draw_4 = 4,
+		//#= Ellipse(const Ellipse&);
+		__zz_cib_new_5 = 5,
 		//#= ~Ellipse()
-		__zz_cib_delete_5 = 5,
+		__zz_cib_delete_6 = 6,
 		//#= __zz_cib_cast_to___Graphics__Shape
-		__zz_cib_cast_to___Graphics__Shape_6 = 6,
+		__zz_cib_cast_to___Graphics__Shape_7 = 7,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_7 = 7,
-		__zz_cib_next_method_id = 8
+		__zz_cib_release_proxy_8 = 8,
+		__zz_cib_next_method_id = 9
 	};
 }}}}
 
@@ -196,11 +202,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 		Circle_5 = 5,
 		//#= virtual void Ellipse(float, float, float, float) override;
 		Ellipse_6 = 6,
+		//#= LogContext(const LogContext&);
+		__zz_cib_new_7 = 7,
 		//#= __zz_cib_cast_to___Graphics__Context
-		__zz_cib_cast_to___Graphics__Context_7 = 7,
+		__zz_cib_cast_to___Graphics__Context_8 = 8,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_8 = 8,
-		__zz_cib_next_method_id = 9
+		__zz_cib_release_proxy_9 = 9,
+		__zz_cib_next_method_id = 10
 	};
 }}}}
 
@@ -228,13 +236,15 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 		Perimeter_3 = 3,
 		//#= virtual void Draw(Context*) const;
 		Draw_4 = 4,
+		//#= Rectangle(const Rectangle&);
+		__zz_cib_new_5 = 5,
 		//#= ~Rectangle()
-		__zz_cib_delete_5 = 5,
+		__zz_cib_delete_6 = 6,
 		//#= __zz_cib_cast_to___Graphics__Shape
-		__zz_cib_cast_to___Graphics__Shape_6 = 6,
+		__zz_cib_cast_to___Graphics__Shape_7 = 7,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_7 = 7,
-		__zz_cib_next_method_id = 8
+		__zz_cib_release_proxy_8 = 8,
+		__zz_cib_next_method_id = 9
 	};
 }}}}
 
@@ -300,9 +310,11 @@ namespace __zz_cib_ { namespace Point { namespace __zz_cib_methodid {
 		__zz_cib_OperatorPlus_6 = 6,
 		//#= Point operator -(Point) const;
 		__zz_cib_OperatorMinus_7 = 7,
+		//#= Point(const Point&);
+		__zz_cib_new_8 = 8,
 		//#= ~Point()
-		__zz_cib_delete_8 = 8,
-		__zz_cib_next_method_id = 9
+		__zz_cib_delete_9 = 9,
+		__zz_cib_next_method_id = 10
 	};
 }}}
 

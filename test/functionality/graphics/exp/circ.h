@@ -30,6 +30,7 @@ class Context;
    */
 		virtual void Draw(::Graphics::Context* ctx) const;
 		static ::Graphics::Shape* CreateCircle(float Ox, float Oy, float radius);
+		Circle(const ::Graphics::Circle& __zz_cib_param0);
 		~Circle();
 
 	private:
