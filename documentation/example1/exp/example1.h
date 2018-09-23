@@ -11,7 +11,7 @@ namespace Example
 	public:
 		void SomeFunc();
 		A();
-		A(const ::Example::A& __zz_cib_param0);
+		A(const A& );
 		~A();
 
 	private:

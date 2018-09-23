@@ -28,8 +28,8 @@ class Context;
   /**
   * Draws this shape on a given device context.
   */
-		virtual void Draw(::Graphics::Context* ctx) const;
-		Ellipse(const ::Graphics::Ellipse& __zz_cib_param0);
+		virtual void Draw(Context* ctx) const;
+		Ellipse(const Ellipse& );
 		~Ellipse();
 
 	private:

@@ -27,8 +27,8 @@ namespace Graphics
   /**
    * Draws this shape on a given device context.
    */
-		virtual void Draw(::Graphics::Context* ctx) const;
-		Rectangle(const ::Graphics::Rectangle& __zz_cib_param0);
+		virtual void Draw(Context* ctx) const;
+		Rectangle(const Rectangle& );
 		~Rectangle();
 
 	private:

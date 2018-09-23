@@ -12,9 +12,9 @@ public:
 	void X(float x);
 	float Y() const;
 	void Y(float y);
-	::Point operator +(const ::Point& p) const;
-	::Point operator -(::Point p) const;
-	Point(const ::Point& __zz_cib_param0);
+	Point operator +(const Point& p) const;
+	Point operator -(Point p) const;
+	Point(const Point& );
 	~Point();
 
 private:

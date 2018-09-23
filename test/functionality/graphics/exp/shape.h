@@ -24,7 +24,7 @@ namespace Graphics
   /**
    * Draws this shape on a given device context.
    */
-		virtual void Draw(::Graphics::Context* ctx) const = 0;
+		virtual void Draw(Context* ctx) const = 0;
   /**
    * Virtual dtor
    */
