@@ -24,28 +24,18 @@ enum class CallType
 
 enum EmitPurpose
 {
-  kPurposeBaseLine            = __LINE__, //!< This is unusable const, don't use it.
-  kPurposeGlueCode            = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeLibGlueCode         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeClientGlueCode      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeProxyDecl           = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeProxyDefn           = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeSignature           = (1 << (__LINE__ - kPurposeBaseLine)),
-  kProxyMethodDeclParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDecl,
-  kProxyMethodDeclReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDecl,
-  kProxyMethodImplParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDefn,
-  kProxyMethodImplReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDefn,
-  kPurposeUnknownProxy        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
-  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeUnknownProxy,
-  kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeUnknownProxy,
-  kProxyProcTypeReturn        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kCApiParam                  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kCApiReturn                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kProxyCApiParam             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kProxyCApiReturn            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kUnknownProxyProcTypeParam  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kUnknownProxyProcTypeReturn = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode
+  kPurposeBaseLine             = __LINE__, //!< This is unusable const, don't use it.
+  kPurposeGlueCode             = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeLibGlueCode          = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeSignature            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDecl            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDefn            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyProcType        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
+  kPurposeUnknownProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
+  kPurposeCApi                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeProxyCApi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeUnknownProxyProcType = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
 };
 
 /*!
@@ -224,6 +214,7 @@ public:
   void emitOrigDecl(std::ostream&    stm,
                     const CibHelper& helper,
                     const CibParams& cibParams,
+                    EmitPurpose      purpose,
                     CppIndent        indentation = CppIndent()) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
   void emitCAPIDefn(std::ostream&      stm,

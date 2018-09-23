@@ -28,9 +28,7 @@ inline void emitType(std::ostream&         stm,
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
   bool isConst    = typeObj->typeAttr_ & kConst;
-  bool emitHandle = resolvedType
-                    && ((purpose == kProxyProcTypeParam) || (purpose == kProxyProcTypeReturn)
-                        || (purpose == kProxyCApiParam) || (purpose == kProxyCApiReturn));
+  bool emitHandle = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
   bool byValToPtr = resolvedType && (purpose & kPurposeGlueCode) && typeObj->isByValue();
   if (byValToPtr && !emitHandle)
     isConst = true;
@@ -43,15 +41,13 @@ inline void emitType(std::ostream&         stm,
     {
       stm << "__zz_cib_HANDLE";
     }
-    else if (purpose & kPurposeGlueCode)
+    else if (!(purpose & kPurposeProxyDecl))
     {
       stm << resolvedType->longName();
     }
     else
     {
-      // TODO: For proxy classes we should emit types as they apear.
-      // stm << typeObj->baseType();
-      stm << resolvedType->longName();
+      stm << typeObj->baseType();
     }
   }
   else
@@ -190,6 +186,7 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
 void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
                                      const CibHelper& helper,
                                      const CibParams& cibParams,
+                                     EmitPurpose      purpose,
                                      CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
@@ -199,7 +196,7 @@ void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
     stm << "virtual ";
   else if (isInline())
     stm << "inline ";
-  emitSignature(stm, helper);
+  emitSignature(stm, helper, purpose);
   if (isPureVirtual())
     stm << " = 0";
   stm << ";\n";
@@ -226,7 +223,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kProxyCApiReturn : kCApiReturn);
+    emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kPurposeProxyCApi : kPurposeCApi);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if (isConstructor() && getOwner()->needsUnknownProxyDefinition())
@@ -243,7 +240,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, helper, true, forProxy ? kProxyCApiParam : kCApiParam);
+  emitArgsForDecl(stm, helper, true, forProxy ? kPurposeProxyCApi : kPurposeCApi);
   stm << ") {\n";
   stm << ++indentation;
   if (isConstructor())
@@ -311,7 +308,7 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream&      stm,
   if (isVirtual())
   {
     stm << indentation;
-    emitSignature(stm, helper, kUnknownProxyProcTypeParam);
+    emitSignature(stm, helper, kPurposeUnknownProxy);
     stm << " override";
     stm << " {\n";
     ++indentation;
@@ -345,7 +342,7 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream&      stm,
     stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
     if (hasParams())
       stm << ", ";
-    emitArgsForDecl(stm, helper, true, kUnknownProxyMethodParam);
+    emitArgsForDecl(stm, helper, true, kPurposeUnknownProxy);
     stm << ")\n";
     ++indentation;
     stm << indentation << ": " << getOwner()->longName() << "::" << funcName() << '(';
@@ -383,7 +380,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, helper, true, forUnknownProxy ? kUnknownProxyProcTypeParam : kProxyProcTypeParam);
+  emitArgsForDecl(stm, helper, true, forUnknownProxy ? kPurposeUnknownProxyProcType : kPurposeProxyProcType);
   stm << ");\n";
 }
 
@@ -398,7 +395,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), helper, forUnknownProxy ? kUnknownProxyReturn : kProxyProcTypeReturn);
+    emitType(stm, func_->retType_, getOwner(), helper, forUnknownProxy ? kPurposeUnknownProxy : kPurposeProxyProcType);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -652,7 +649,7 @@ void CibCppCompound::emitDecl(const CppObj*    obj,
     if (objNeedingBridge_.count(obj))
     {
       CibFunctionHelper func = obj;
-      func.emitOrigDecl(stm, helper, cibParams, indentation);
+      func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
     }
     return;
   }
@@ -729,7 +726,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
       stm << --indentation << func.protectionLevel() << ":\n";
       ++indentation;
     }
-    func.emitOrigDecl(stm, helper, cibParams, indentation);
+    func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
   }
 
   if (isClassLike())
@@ -969,7 +966,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         if (func.hasParams())
           stm << ", ";
       }
-      func.emitArgsForDecl(stm, helper, true, kProxyProcTypeParam);
+      func.emitArgsForDecl(stm, helper, true, kPurposeProxyProcType);
       stm << ") {\n";
       ++indentation;
       if (func.isDestructor())
@@ -1168,11 +1165,11 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     stm << indentation << "inline ";
     if (func.isFunction())
     {
-      emitType(stm, func.retType(), this, helper, kProxyMethodImplReturn);
+      emitType(stm, func.retType(), this, helper, kPurposeProxyDefn);
       stm << ' ';
     }
     stm << fullName() << "::" << func.funcName() << '(';
-    func.emitArgsForDecl(stm, helper, true, kProxyMethodImplParam);
+    func.emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
     stm << ")";
     auto capiName = cibIdData->getMethodCApiName(func.signature());
     if (func.isConstructor())
