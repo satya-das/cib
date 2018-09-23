@@ -8,26 +8,26 @@
 namespace Graphics
 {
 class Context;
-/**
- * \brief Represents a circle.
- */
+	/**
+	 * \brief Represents a circle.
+	 */
 	class Circle : public ::Graphics::Shape
 	{
 	public:
 		Circle(Circle&& rhs);
 	public:
 		Circle(float Ox, float Oy, float radius);
-  /**
-   * @return Area of this shape object.
-   */
+		/**
+		 * @return Area of this shape object.
+		 */
 		virtual float Area() const;
-  /**
-   * @return Perimeter of this shape object.
-   */
+		/**
+		 * @return Perimeter of this shape object.
+		 */
 		virtual float Perimeter() const;
-  /**
-   * Draws this shape on a given device context.
-   */
+		/**
+		 * Draws this shape on a given device context.
+		 */
 		virtual void Draw(Context* ctx) const;
 		static Shape* CreateCircle(float Ox, float Oy, float radius);
 		Circle(const Circle& );

@@ -7,26 +7,26 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
-/**
- * \brief Represents a rectangle.
- */
+	/**
+	 * \brief Represents a rectangle.
+	 */
 	class Rectangle : public ::Graphics::Shape
 	{
 	public:
 		Rectangle(Rectangle&& rhs);
 	public:
 		Rectangle(float left, float bottom, float right, float top);
-  /**
-   * @return Area of this shape object.
-   */
+		/**
+		 * @return Area of this shape object.
+		 */
 		virtual float Area() const;
-  /**
-   * @return Perimeter of this shape object.
-   */
+		/**
+		 * @return Perimeter of this shape object.
+		 */
 		virtual float Perimeter() const;
-  /**
-   * Draws this shape on a given device context.
-   */
+		/**
+		 * Draws this shape on a given device context.
+		 */
 		virtual void Draw(Context* ctx) const;
 		Rectangle(const Rectangle& );
 		~Rectangle();

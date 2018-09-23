@@ -18,17 +18,17 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		void Add(Shape* shape);
 		size_t NumShapes() const;
 		Shape* ShapeAt(size_t idxShape) const;
-  /**
-   * @return Area of this shape object.
-   */
+		/**
+		 * @return Area of this shape object.
+		 */
 		virtual float Area() const;
-  /**
-   * @return Perimeter of this shape object.
-   */
+		/**
+		 * @return Perimeter of this shape object.
+		 */
 		virtual float Perimeter() const;
-  /**
-   * Draws this shape on a given device context.
-   */
+		/**
+		 * Draws this shape on a given device context.
+		 */
 		virtual void Draw(Context* ctx) const;
 		static Composite* CreateCompositeOfRectAndCircle();
 		Composite(const Composite& );

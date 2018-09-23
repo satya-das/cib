@@ -6,9 +6,9 @@
 
 namespace Graphics
 {
-/*!
- * Context for logging drawing calls rather than actually drawing anything.
- */
+	/*!
+	 * Context for logging drawing calls rather than actually drawing anything.
+	 */
 	class LogContext : public ::Graphics::Context
 	{
 	public:

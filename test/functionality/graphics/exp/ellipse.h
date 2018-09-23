@@ -8,26 +8,26 @@
 namespace Graphics
 {
 class Context;
-/**
-* \brief Represents a circle.
-*/
+	/**
+	* \brief Represents a circle.
+	*/
 	class Ellipse : public ::Graphics::Shape
 	{
 	public:
 		Ellipse(Ellipse&& rhs);
 	public:
 		Ellipse(float Ox, float Oy, float a, float b);
-  /**
-  * @return Area of this shape object.
-  */
+		/**
+		* @return Area of this shape object.
+		*/
 		virtual float Area() const;
-  /**
-  * @return Perimeter of this shape object.
-  */
+		/**
+		* @return Perimeter of this shape object.
+		*/
 		virtual float Perimeter() const;
-  /**
-  * Draws this shape on a given device context.
-  */
+		/**
+		* Draws this shape on a given device context.
+		*/
 		virtual void Draw(Context* ctx) const;
 		Ellipse(const Ellipse& );
 		~Ellipse();
