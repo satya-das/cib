@@ -292,12 +292,12 @@ private:
                           const CibParams& cibParams,
                           const CibIdMgr&  cibIdMgr,
                           CppIndent        indentation = CppIndent()) const;
-  void emitFacadeDependecyHeaders(std::ostream&    stm,
-                                  const CibHelper& helper,
-                                  const CibParams& cibParams,
-                                  const CibIdMgr&  cibIdMgr,
-                                  bool             forProxy,
-                                  CppIndent        indentation) const;
+  void emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
+                                              const CibHelper& helper,
+                                              const CibParams& cibParams,
+                                              const CibIdMgr&  cibIdMgr,
+                                              bool             forProxy,
+                                              CppIndent        indentation) const;
   void emitHandleConstructorDefn(std::ostream&    stm,
                                  const CibHelper& helper,
                                  const CibParams& cibParams,
@@ -314,6 +314,7 @@ private:
   static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs,
                                                          const std::string&             dependentPath);
   std::set<std::string>        collectHeaderDependencies(const CibHelper& helper) const;
+  bool                         hasClassThatNeedsGenericProxyDefn() const;
   std::string                  getImplPath(const CibParams& cibParams) const;
   std::string                  implIncludeName(const CibParams& cibParams) const;
 };

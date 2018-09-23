@@ -562,7 +562,7 @@ void CibCppCompound::emitImplSource(const CibHelper& helper, const CibParams& ci
   {
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
 
-    emitFacadeDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
+    emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
     emitImplSource(stm, helper, cibParams, cibIdMgr);
   }
   if (bfs::file_size(usrSrcPath) == 0)
@@ -583,6 +583,23 @@ void CibCppCompound::collectFacades(std::set<const CibCppCompound*>& facades) co
         facades.insert(compound);
     }
   }
+}
+
+bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
+{
+  for (auto mem : members_)
+  {
+    if (!isMemberPublic(mem->prot_, compoundType_))
+      continue;
+    if (mem->isNamespaceLike())
+    {
+      auto compound = static_cast<CibCppCompound*>(mem);
+      if (compound->needsGenericProxyDefinition() || compound->hasClassThatNeedsGenericProxyDefn())
+        return true;
+    }
+  }
+
+  return false;
 }
 
 void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
@@ -828,16 +845,13 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
 
   // Emit __zz_cib_from_handle() definition for references.
   stm << indentation << "static " << longName() << "& __zz_cib_from_handle(__zz_cib_HANDLE& h) {\n";
-  ;
   stm << ++indentation << "return *__zz_cib_from_handle(&h);\n";
   stm << --indentation << "}\n";
   // Emit methods for const handle ptr and ref.
   stm << indentation << "static " << longName() << " const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {\n";
-  ;
   stm << ++indentation << "return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));\n";
   stm << --indentation << "}\n";
   stm << indentation << "static " << longName() << " const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {\n";
-  ;
   stm << ++indentation << "return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));\n";
   stm << --indentation << "}\n";
 }
@@ -1345,18 +1359,17 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   stm << --indentation << closingBracesForWrappingNamespaces() << "}}\n";
 }
 
-void CibCppCompound::emitFacadeDependecyHeaders(std::ostream&    stm,
-                                                const CibHelper& helper,
-                                                const CibParams& cibParams,
-                                                const CibIdMgr&  cibIdMgr,
-                                                bool             forProxy,
-                                                CppIndent        indentation /* = CppIndent */) const
+void CibCppCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
+                                                            const CibHelper& helper,
+                                                            const CibParams& cibParams,
+                                                            const CibIdMgr&  cibIdMgr,
+                                                            bool             forProxy,
+                                                            CppIndent        indentation /* = CppIndent */) const
 {
   std::set<const CibCppCompound*> facades;
   collectFacades(facades);
-  // TODO: Don't emit header dependency when not needed.
-  // if (facades.empty() && forProxy && !needsGenericProxyDefinition())
-  //   return;
+  if (facades.empty() && forProxy && !hasClassThatNeedsGenericProxyDefn())
+    return;
   std::set<const CppObj*> dependencies;
   collectTypeDependencies(helper, dependencies);
   dependencies.insert(this);
@@ -1388,7 +1401,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
   if (isCppFile())
   {
     stm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n";
-    emitFacadeDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
+    emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
   }
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
   {
