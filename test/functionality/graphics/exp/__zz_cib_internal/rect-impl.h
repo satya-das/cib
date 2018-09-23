@@ -63,13 +63,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		static ::Graphics::Rectangle* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
 			return new ::Graphics::Rectangle(h);
 		}
-		::Graphics::Rectangle& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
+		static ::Graphics::Rectangle& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(&h);
 		}
-		::Graphics::Rectangle const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
+		static ::Graphics::Rectangle const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
 			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
 		}
-		::Graphics::Rectangle const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
+		static ::Graphics::Rectangle const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Rectangle* __zz_cib_obj) {

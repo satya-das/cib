@@ -47,13 +47,13 @@ namespace __zz_cib_ { namespace Example { namespace A {
 		static ::Example::A* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
 			return new ::Example::A(h);
 		}
-		::Example::A& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
+		static ::Example::A& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(&h);
 		}
-		::Example::A const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
+		static ::Example::A const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
 			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
 		}
-		::Example::A const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
+		static ::Example::A const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {

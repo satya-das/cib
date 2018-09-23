@@ -72,13 +72,13 @@ namespace __zz_cib_ { namespace Point {
 		static ::Point* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
 			return new ::Point(h);
 		}
-		::Point& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
+		static ::Point& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(&h);
 		}
-		::Point const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
+		static ::Point const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
 			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
 		}
-		::Point const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
+		static ::Point const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {

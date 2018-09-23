@@ -98,9 +98,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		__zz_cib_delete_10 = 10,
 		//#= __zz_cib_cast_to___Graphics__Shape
 		__zz_cib_cast_to___Graphics__Shape_11 = 11,
+		//#= __zz_cib_get_class_id
+		__zz_cib_get_class_id_12 = 12,
 		//#= __zz_cib_release_proxy
-		__zz_cib_release_proxy_12 = 12,
-		__zz_cib_next_method_id = 13
+		__zz_cib_release_proxy_13 = 13,
+		__zz_cib_next_method_id = 14
 	};
 }}}}
 

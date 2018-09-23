@@ -3,6 +3,13 @@
 #include "composite.h"
 #include "shape.h"
 
+#include <typeinfo>
+#include <typeindex>
+#include <cstdint>
+#include <unordered_map>
+
+extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
+
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_UnknownProxy {
 	class Composite : public ::Graphics::Composite {
 		__zz_cib_PROXY* __zz_cib_proxy;
@@ -74,7 +81,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_11(::Graphics::Composite* __zz_cib_obj) {
 		return __zz_cib_obj;
 	}
-	void __zz_cib_decl __zz_cib_release_proxy_12(::Graphics::Composite* __zz_cib_obj) {
+	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_12(::Graphics::Composite* __zz_cib_obj) {
+		static bool classIdRepoPopulated = false;
+		if (!classIdRepoPopulated) {
+			classIdRepoPopulated = true;
+		}
+		return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+	}
+	void __zz_cib_decl __zz_cib_release_proxy_13(::Graphics::Composite* __zz_cib_obj) {
 		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Composite::__zz_cib_UnknownProxy::Composite*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
@@ -83,7 +97,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
-		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 12 };
+		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 13 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
@@ -97,7 +111,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_9),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_10),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_11),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_12)
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_get_class_id_12),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_13)
 		};
 		return methodTable;
 	}

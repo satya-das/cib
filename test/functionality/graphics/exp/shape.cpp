@@ -4,6 +4,43 @@
 #include "rect.h"
 #include "shape.h"
 
+namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_Generic {
+	class Shape : public ::Graphics::Shape {
+		__zz_cib_HANDLE* __zz_cib_h_;
+
+		static __zz_cib_::__zz_cib_Helper& __zz_cib_get_helper() {
+			static __zz_cib_::__zz_cib_Helper helper(__zz_cib_Graphics_GetMethodTable(
+				__zz_cib_::__zz_cib_classid::__Graphics__Shape));
+			return helper;
+		}
+		Shape(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
+	public:
+		static ::Graphics::Shape* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
+			return new Shape(h);
+		}
+		float Area() const override {
+			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+			auto method = __zz_cib_get_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Area_1);
+			return method(__zz_cib_h_);
+		}
+		float Perimeter() const override {
+			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+			auto method = __zz_cib_get_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Perimeter_2);
+			return method(__zz_cib_h_);
+		}
+		void Draw(::Graphics::Context* ctx) const override {
+			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
+			auto method = __zz_cib_get_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Draw_3);
+			return method(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
+		}
+		~Shape() override {
+			if (!__zz_cib_h_) return;
+			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+			auto method = __zz_cib_get_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_4);
+			method(__zz_cib_h_);
+		}
+	};
+}}}}
 ::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
 	case __zz_cib_::__zz_cib_classid::__Graphics__Circle:
@@ -14,8 +51,9 @@
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
 	case __zz_cib_::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
+	default:
+		return ::__zz_cib_::Graphics::Shape::__zz_cib_Generic::Shape::__zz_cib_from_handle(h);
 	}
-	return nullptr;
 }
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	static float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {

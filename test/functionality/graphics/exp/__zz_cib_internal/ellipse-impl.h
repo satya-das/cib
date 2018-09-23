@@ -63,13 +63,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		static ::Graphics::Ellipse* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
 			return new ::Graphics::Ellipse(h);
 		}
-		::Graphics::Ellipse& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
+		static ::Graphics::Ellipse& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(&h);
 		}
-		::Graphics::Ellipse const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
+		static ::Graphics::Ellipse const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
 			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
 		}
-		::Graphics::Ellipse const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
+		static ::Graphics::Ellipse const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
 			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Ellipse* __zz_cib_obj) {

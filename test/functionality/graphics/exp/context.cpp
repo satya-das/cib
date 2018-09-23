@@ -1,12 +1,55 @@
 #include "context.h"
 #include "log_context.h"
 
+namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_Generic {
+	class Context : public ::Graphics::Context {
+		__zz_cib_HANDLE* __zz_cib_h_;
+
+		static __zz_cib_::__zz_cib_Helper& __zz_cib_get_helper() {
+			static __zz_cib_::__zz_cib_Helper helper(__zz_cib_Graphics_GetMethodTable(
+				__zz_cib_::__zz_cib_classid::__Graphics__Context));
+			return helper;
+		}
+		Context(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
+	public:
+		static ::Graphics::Context* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
+			return new Context(h);
+		}
+		void Line(float x1, float y1, float x2, float y2) override {
+			using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x1, float y1, float x2, float y2);
+			auto method = __zz_cib_get_helper().getMethod<LineProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::Line_1);
+			return method(__zz_cib_h_, x1, y1, x2, y2);
+		}
+		void Rect(float l, float b, float r, float t) override {
+			using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float l, float b, float r, float t);
+			auto method = __zz_cib_get_helper().getMethod<RectProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::Rect_2);
+			return method(__zz_cib_h_, l, b, r, t);
+		}
+		void Circle(float cx, float cy, float r) override {
+			using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float r);
+			auto method = __zz_cib_get_helper().getMethod<CircleProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::Circle_3);
+			return method(__zz_cib_h_, cx, cy, r);
+		}
+		void Ellipse(float cx, float cy, float a, float b) override {
+			using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float a, float b);
+			auto method = __zz_cib_get_helper().getMethod<EllipseProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::Ellipse_4);
+			return method(__zz_cib_h_, cx, cy, a, b);
+		}
+		~Context() override {
+			if (!__zz_cib_h_) return;
+			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+			auto method = __zz_cib_get_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_delete_5);
+			method(__zz_cib_h_);
+		}
+	};
+}}}}
 ::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
 	case __zz_cib_::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(h);
+	default:
+		return ::__zz_cib_::Graphics::Context::__zz_cib_Generic::Context::__zz_cib_from_handle(h);
 	}
-	return nullptr;
 }
 namespace __zz_cib_ { namespace Graphics { namespace Context {
 	static void __zz_cib_decl Line_1(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2) {

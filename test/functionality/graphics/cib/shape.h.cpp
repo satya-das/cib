@@ -38,11 +38,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 			return method(__zz_cib_proxy, ctx);
 		}
 		~Shape() override {
-			if (__zz_cib_proxy) {
-				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-				auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4);
-				method(__zz_cib_proxy);
-			}
+			if (!__zz_cib_proxy) return;
+			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
+			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_4);
+			method(__zz_cib_proxy);
 		}
 		Shape(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
 			: ::Graphics::Shape::Shape()

@@ -40,11 +40,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 			return method(__zz_cib_proxy, cx, cy, a, b);
 		}
 		~Context() override {
-			if (__zz_cib_proxy) {
-				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-				auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_5);
-				method(__zz_cib_proxy);
-			}
+			if (!__zz_cib_proxy) return;
+			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
+			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_5);
+			method(__zz_cib_proxy);
 		}
 		Context(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
 			: ::Graphics::Context::Context()

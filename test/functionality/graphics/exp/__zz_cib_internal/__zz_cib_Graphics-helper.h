@@ -8,7 +8,7 @@ namespace __zz_cib_ {
 //! It only facilitates in dealing with method table.
 class __zz_cib_Helper
 {
-protected:
+public:
   __zz_cib_Helper(__zz_cib_MethodTable _mtbl)
     : mtbl(_mtbl)
   {
