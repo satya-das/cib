@@ -90,8 +90,7 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
         if (paramObj && paramObj->hasVirtualMethod())
         {
           paramObj->setInterfaceLike();
-          if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual()))
-              && paramObj->hasPubliclyDerived())
+          if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual())))
             paramObj->setFacadeLike();
         }
       }
@@ -109,7 +108,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
       if (!returnObj)
         return;
       returnObj->setShared();
-      if (returnObj->hasVirtualMethod() && returnObj->hasPubliclyDerived())
+      if (returnObj->hasVirtualMethod())
       {
         returnObj->setFacadeLike();
       }

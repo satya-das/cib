@@ -33,6 +33,7 @@ enum EmitPurpose
   kPurposeProxyDefn            = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyProcType        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
   kPurposeUnknownProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
+  kPurposeGeneric              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
   kPurposeCApi                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeProxyCApi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeUnknownProxyProcType = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
@@ -228,6 +229,12 @@ public:
                             const CibParams&   cibParams,
                             const std::string& capiName,
                             CppIndent          indentation = CppIndent()) const;
+  void emitGenericDefn(std::ostream&      stm,
+                       const CibHelper&   helper,
+                       const CibParams&   cibParams,
+                       const std::string& capiName,
+                       EmitPurpose        purpose,
+                       CppIndent          indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
   void emitProcType(std::ostream&    stm,
                     const CibHelper& helper,

@@ -221,6 +221,11 @@ public:
                             const CibParams& cibParams,
                             const CibIdMgr&  cibIdMgr,
                             CppIndent        indentation = CppIndent()) const;
+  void emitGenericDefn(std::ostream&    stm,
+                       const CibHelper& helper,
+                       const CibParams& cibParams,
+                       const CibIdMgr&  cibIdMgr,
+                       CppIndent        indentation = CppIndent()) const;
   void emitLibGlueCode(std::ostream&    stm,
                        const CibHelper& helper,
                        const CibParams& cibParams,

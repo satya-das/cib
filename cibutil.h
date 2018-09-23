@@ -119,3 +119,12 @@ inline std::string longName(const CppObj* typeObj)
       return "";
   }
 }
+
+inline std::string classIdName(const std::string& className)
+{
+  auto classIdName = className;
+  std::transform(
+    classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c) -> char { return c == ':' ? '_' : c; });
+
+  return classIdName;
+}

@@ -202,14 +202,12 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
 
 CibIdData* CibIdMgr::addClass(std::string className, CibClassId classId)
 {
-  auto classIdName = className;
-  std::transform(
-    classIdName.begin(), classIdName.end(), classIdName.begin(), [](char c) -> char { return c == ':' ? '_' : c; });
+  auto clsIdName = classIdName(className);
   if (classId == 0)
     classId = nextClassId_++;
   else if (nextClassId_ < classId + 1)
     nextClassId_ = classId + 1;
-  auto res = cibIdTable_.emplace(std::make_pair(std::move(className), CibIdData(std::move(classIdName), classId)));
+  auto res = cibIdTable_.emplace(std::make_pair(std::move(className), CibIdData(std::move(clsIdName), classId)));
   if (!res.second)
     return nullptr;
   return &(res.first->second);
