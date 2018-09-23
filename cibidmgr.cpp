@@ -143,7 +143,7 @@ void CibIdMgr::assignIds(const CibHelper& expProg, const CibParams& cibParams)
   }
 }
 
-void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forUnknownProxy)
+void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forGenericProxy)
 {
   // if (!compound->isShared())
   //  return;
@@ -155,7 +155,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     if (isMemberPublic(mem->prot_, compound->compoundType_) && mem->isNamespaceLike())
     {
-      assignIds(static_cast<const CibCppCompound*>(mem), cibParams, forUnknownProxy);
+      assignIds(static_cast<const CibCppCompound*>(mem), cibParams, forGenericProxy);
     }
   }
 
@@ -163,16 +163,16 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     return;
   }
-  if (forUnknownProxy && !compound->needsUnknownProxyDefinition())
+  if (forGenericProxy && !compound->needsGenericProxyDefinition())
   {
     return;
   }
-  const auto& className = forUnknownProxy ? compound->longName() + "::__zz_cib_UnknownProxy" : compound->longName();
+  const auto& className = forGenericProxy ? compound->longName() + "::__zz_cib_GenericProxy" : compound->longName();
   auto        itr       = cibIdTable_.find(className);
   auto*       cibIdData = itr == cibIdTable_.end() ? addClass(className) : &itr->second;
   for (auto& func : compound->getNeedsBridgingMethods())
   {
-    if (forUnknownProxy && !func.isVirtual())
+    if (forGenericProxy && !func.isVirtual())
       continue;
     auto&& sig = func.signature();
     if (!cibIdData->hasMethod(func.signature()))
@@ -180,7 +180,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
       cibIdData->addMethod(sig, func.procName(cibParams));
     }
   }
-  if (!forUnknownProxy)
+  if (!forGenericProxy)
   {
     compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
       auto castMethodName = compound->castToBaseName(parent, cibParams);
@@ -192,7 +192,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
       if (!cibIdData->hasMethod("__zz_cib_get_class_id"))
         cibIdData->addMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");
     }
-    if (compound->needsUnknownProxyDefinition())
+    if (compound->needsGenericProxyDefinition())
     {
       if (!cibIdData->hasMethod("__zz_cib_release_proxy"))
         cibIdData->addMethod("__zz_cib_release_proxy", "__zz_cib_release_proxy");

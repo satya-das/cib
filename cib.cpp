@@ -213,7 +213,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     return;
   if (!forProxy)
   {
-    if (isConstructorLike() && getOwner()->isAbstract() && !getOwner()->needsUnknownProxyDefinition())
+    if (isConstructorLike() && getOwner()->isAbstract() && !getOwner()->needsGenericProxyDefinition())
       return;
   }
   auto callType = forProxy ? CallType::kFromHandle : CallType::kDerefIfByVal;
@@ -226,7 +226,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kPurposeProxyCApi : kPurposeCApi);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
-  if (isConstructor() && getOwner()->needsUnknownProxyDefinition())
+  if (isConstructor() && getOwner()->needsGenericProxyDefinition())
   {
     stm << "__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
     if (hasParams())
@@ -246,9 +246,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   if (isConstructor())
   {
     stm << "return new ";
-    if (getOwner()->needsUnknownProxyDefinition())
+    if (getOwner()->needsGenericProxyDefinition())
     {
-      stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_UnknownProxy::" << getOwner()->name()
+      stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_GenericProxy::" << getOwner()->name()
           << "(proxy, mtbl";
       if (hasParams())
         stm << ", ";
@@ -299,7 +299,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   stm << --indentation << "}\n";
 }
 
-void CibFunctionHelper::emitUnknownProxyDefn(std::ostream&      stm,
+void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
                                              const CibHelper&   helper,
                                              const CibParams&   cibParams,
                                              const std::string& capiName,
@@ -307,14 +307,14 @@ void CibFunctionHelper::emitUnknownProxyDefn(std::ostream&      stm,
 {
   if (isVirtual())
   {
-    emitGenericDefn(stm, helper, cibParams, capiName, kPurposeUnknownProxy, indentation);
+    emitGenericDefn(stm, helper, cibParams, capiName, kPurposeGenericProxy, indentation);
   }
   else if (isConstructor())
   {
     stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
     if (hasParams())
       stm << ", ";
-    emitArgsForDecl(stm, helper, true, kPurposeUnknownProxy);
+    emitArgsForDecl(stm, helper, true, kPurposeGenericProxy);
     stm << ")\n";
     ++indentation;
     stm << indentation << ": " << getOwner()->longName() << "::" << funcName() << '(';
@@ -338,11 +338,11 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     return;
 
   stm << indentation;
-  emitSignature(stm, helper, kPurposeUnknownProxy);
+  emitSignature(stm, helper, kPurposeGenericProxy);
   stm << " override";
   stm << " {\n";
   ++indentation;
-  bool genericProxy = (purpose == kPurposeUnknownProxy);
+  bool genericProxy = (purpose == kPurposeGenericProxy);
   if (isDestructor())
   {
     if (genericProxy)
@@ -355,7 +355,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   if (genericProxy)
   {
     stm << indentation << "auto method = getMethod<" << procType(cibParams) << ">(";
-    stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_UnknownProxy::__zz_cib_methodid::";
+    stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_GenericProxy::__zz_cib_methodid::";
   }
   else
   {
@@ -381,35 +381,35 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
 void CibFunctionHelper::emitProcType(std::ostream&    stm,
                                      const CibHelper& helper,
                                      const CibParams& cibParams,
-                                     bool             forUnknownProxy,
+                                     bool             forGenericProxy,
                                      CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
   stm << "using " << procType(cibParams) << " = ";
-  emitCAPIReturnType(stm, helper, forUnknownProxy);
+  emitCAPIReturnType(stm, helper, forGenericProxy);
   stm << " (__zz_cib_decl *) (";
   if (!isStatic() && (isDestructor() || isMethod()))
   {
-    if (forUnknownProxy)
+    if (forGenericProxy)
       stm << "__zz_cib_PROXY*";
     else
       stm << "__zz_cib_HANDLE*";
     if (hasParams())
       stm << ", ";
   }
-  else if (isConstructor() && !forUnknownProxy && getOwner()->needsUnknownProxyDefinition())
+  else if (isConstructor() && !forGenericProxy && getOwner()->needsGenericProxyDefinition())
   {
     stm << getOwner()->longName() << "*, __zz_cib_MethodTable";
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, helper, true, forUnknownProxy ? kPurposeUnknownProxyProcType : kPurposeProxyProcType);
+  emitArgsForDecl(stm, helper, true, forGenericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType);
   stm << ");\n";
 }
 
 void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
                                            const CibHelper& helper,
-                                           bool             forUnknownProxy,
+                                           bool             forGenericProxy,
                                            CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
@@ -418,7 +418,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), helper, forUnknownProxy ? kPurposeUnknownProxy : kPurposeProxyProcType);
+    emitType(stm, func_->retType_, getOwner(), helper, forGenericProxy ? kPurposeGenericProxy : kPurposeProxyProcType);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -511,7 +511,7 @@ void CibCppCompound::emitImplSource(std::ostream&    stm,
                                     const CibIdMgr&  cibIdMgr,
                                     CppIndent        indentation) const
 {
-  auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_UnknownProxy");
+  auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
   for (auto mem : members_)
   {
     if (mem->isNamespaceLike() && isMemberPublic(mem->prot_, compoundType_))
@@ -526,7 +526,7 @@ void CibCppCompound::emitImplSource(std::ostream&    stm,
     emitGenericDefn(stm, helper, cibParams, cibIdMgr, indentation);
     emitFromHandleDefn(stm, cibParams, cibIdMgr, indentation);
   }
-  if (needsUnknownProxyDefinition())
+  if (needsGenericProxyDefinition())
   {
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     ++indentation;
@@ -881,9 +881,9 @@ void CibCppCompound::identifyMethodsToBridge()
       }
       else
       {
-        if (func.isConstructorLike() && isAbstract() && !needsUnknownProxyDefinition())
+        if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
           continue;
-        if (func.isPureVirtual() && !needsUnknownProxyDefinition() && !func.isDestructor())
+        if (func.isPureVirtual() && !needsGenericProxyDefinition() && !func.isDestructor())
           continue;
         if (func.hasVariadicParam())
           continue;
@@ -902,7 +902,7 @@ void CibCppCompound::identifyMethodsToBridge()
   }
   if (!isClassLike())
     return;
-  if (!hasCtor() && (!isAbstract() || needsUnknownProxyDefinition()))
+  if (!hasCtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
     auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
@@ -927,7 +927,7 @@ void CibCppCompound::identifyMethodsToBridge()
     needsBridging_.push_back(func);
     objNeedingBridge_.insert(copyCtor);
   }
-  if (!hasDtor() && (!isAbstract() || needsUnknownProxyDefinition()))
+  if (!hasDtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
     auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
     defaultDtor->owner_ = this;
@@ -975,7 +975,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {\n";
     stm << indentation << "private:\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
-    if (needsUnknownProxyDefinition())
+    if (needsGenericProxyDefinition())
       stm << indentation << "static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();\n";
     stm << '\n'; // Start in new line.
     auto cibIdData = cibIdMgr.getCibIdData(longName());
@@ -992,7 +992,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         if (func.hasParams())
           stm << ", ";
       }
-      else if (needsUnknownProxyDefinition() && func.isConstructor())
+      else if (needsGenericProxyDefinition() && func.isConstructor())
       {
         stm << longName() << "* __zz_cib_proxy";
         if (func.hasParams())
@@ -1017,7 +1017,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         if (func.hasParams())
           stm << ", ";
       }
-      else if (needsUnknownProxyDefinition() && func.isConstructor())
+      else if (needsGenericProxyDefinition() && func.isConstructor())
       {
         stm << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
         if (func.hasParams())
@@ -1090,7 +1090,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     });
     stm << indentation << "return h;\n";
     stm << --indentation << "}\n";
-    if (needsUnknownProxyDefinition())
+    if (needsGenericProxyDefinition())
     {
       stm << indentation << "static void __zz_cib_release_proxy(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
@@ -1206,7 +1206,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     {
       stm << '\n';
       stm << ++indentation << ": " << name() << "(__zz_cib_" << longName() << "::__zz_cib_Helper::" << capiName << '(';
-      if (needsUnknownProxyDefinition())
+      if (needsGenericProxyDefinition())
       {
         stm << "this";
         if (func.hasParams())
@@ -1226,7 +1226,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
       ++indentation;
       if (func.isDestructor())
       {
-        if (needsUnknownProxyDefinition())
+        if (needsGenericProxyDefinition())
         {
           stm << indentation << "__zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_release_proxy(this);\n";
         }
@@ -1276,17 +1276,17 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
   }
 }
 
-void CibCppCompound::emitUnknownProxyDefn(std::ostream&    stm,
+void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
                                           const CibHelper& helper,
                                           const CibParams& cibParams,
                                           const CibIdMgr&  cibIdMgr,
                                           CppIndent        indentation) const
 {
-  if (!needsUnknownProxyDefinition())
+  if (!needsGenericProxyDefinition())
     return;
 
   stm << indentation++ << wrappingNamespaceDeclarations(cibParams) << " namespace " << name()
-      << " { namespace __zz_cib_UnknownProxy {\n";
+      << " { namespace __zz_cib_GenericProxy {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   ++indentation;
   stm << indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
@@ -1299,8 +1299,8 @@ void CibCppCompound::emitUnknownProxyDefn(std::ostream&    stm,
   ++indentation;
   for (auto func : needsBridging_)
   {
-    auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_UnknownProxy");
-    func.emitUnknownProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), indentation);
+    auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
+    func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), indentation);
   }
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";
   --indentation;
@@ -1355,7 +1355,7 @@ void CibCppCompound::emitFacadeDependecyHeaders(std::ostream&    stm,
   std::set<const CibCppCompound*> facades;
   collectFacades(facades);
   // TODO: Don't emit header dependency when not needed.
-  // if (facades.empty() && forProxy && !needsUnknownProxyDefinition())
+  // if (facades.empty() && forProxy && !needsGenericProxyDefinition())
   //   return;
   std::set<const CppObj*> dependencies;
   collectTypeDependencies(helper, dependencies);
@@ -1401,8 +1401,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
   auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isNamespaceLike() && !needsBridging_.empty())
   {
-    if (needsUnknownProxyDefinition())
-      emitUnknownProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
+    if (needsGenericProxyDefinition())
+      emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
     stm << indentation++ << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     for (auto func : needsBridging_)
     {
@@ -1440,13 +1440,13 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       stm << indentation << "return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];\n";
       stm << --indentation << "}\n";
     }
-    if (needsUnknownProxyDefinition())
+    if (needsGenericProxyDefinition())
     {
       stm << indentation << "void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "("
           << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
       stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName()
-          << "::__zz_cib_UnknownProxy::" << name() << "*>(__zz_cib_obj);\n";
+          << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
       stm << indentation << "if (unknownProxy)\n";
       ++indentation;
       stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
@@ -1496,7 +1496,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
     if (forProxy)
       stm << "static ";
     stm << "__zz_cib_MethodTable __zz_cib_GetMethodTable() {\n";
-    const auto& className = forProxy ? longName() + "::__zz_cib_UnknownProxy" : longName();
+    const auto& className = forProxy ? longName() + "::__zz_cib_GenericProxy" : longName();
     stm << ++indentation
         << "static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), "
         << cibIdMgr.numMethods(className) << " };\n";

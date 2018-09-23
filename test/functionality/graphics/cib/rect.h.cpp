@@ -2,7 +2,7 @@
 #include "__zz_cib_Graphics.h"
 #include "rect.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_UnknownProxy {
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_GenericProxy {
 	class Rectangle : public ::Graphics::Rectangle {
 		__zz_cib_PROXY* __zz_cib_proxy;
 		__zz_cib_MethodTable __zz_cib_mtbl;
@@ -18,17 +18,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::__zz_cib_methodid::Area_1);
+			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
 			return method(__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::__zz_cib_methodid::Perimeter_2);
+			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
 			return method(__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3);
+			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
 		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0)
@@ -41,7 +41,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float left, float bottom, float right, float top) {
-		return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, left, bottom, right, top);
+		return new __zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle(proxy, mtbl, left, bottom, right, top);
 	}
 	static float __zz_cib_decl Area_2(const ::Graphics::Rectangle* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Rectangle::Area();
@@ -53,7 +53,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		__zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 	}
 	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0) {
-		return new __zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle(proxy, mtbl, __zz_cib_param0);
+		return new __zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle(proxy, mtbl, __zz_cib_param0);
 	}
 	static void __zz_cib_decl __zz_cib_delete_6(::Graphics::Rectangle* __zz_cib_obj) {
 		delete __zz_cib_obj;
@@ -62,7 +62,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		return __zz_cib_obj;
 	}
 	void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Rectangle* __zz_cib_obj) {
-		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Rectangle::__zz_cib_UnknownProxy::Rectangle*>(__zz_cib_obj);
+		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
 	}

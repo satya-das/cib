@@ -32,7 +32,7 @@ void CibHelper::buildCibCppObjTree()
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
-    markNeedsUnknownProxyDefinition(static_cast<CibCppCompound*>(fileDom));
+    markNeedsGenericProxyDefinition(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
 }
@@ -142,26 +142,26 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
     cppCompound->setIsInline();
 }
 
-void CibHelper::setNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
 {
-  cppCompound->setNeedsUnknownProxyDefinition();
+  cppCompound->setNeedsGenericProxyDefinition();
   for (auto child : cppCompound->children_[kPublic])
   {
-    setNeedsUnknownProxyDefinition(child);
+    setNeedsGenericProxyDefinition(child);
   }
 }
 
-void CibHelper::markNeedsUnknownProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::markNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
 {
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
     {
       auto compound = static_cast<CibCppCompound*>(mem);
-      markNeedsUnknownProxyDefinition(compound);
+      markNeedsGenericProxyDefinition(compound);
       if (compound->isInterfaceLike())
       {
-        setNeedsUnknownProxyDefinition(compound);
+        setNeedsGenericProxyDefinition(compound);
       }
     }
   }

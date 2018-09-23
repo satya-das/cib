@@ -2,7 +2,7 @@
 #include "__zz_cib_Graphics.h"
 #include "log_context.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_UnknownProxy {
+namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_GenericProxy {
 	class LogContext : public ::Graphics::LogContext {
 		__zz_cib_PROXY* __zz_cib_proxy;
 		__zz_cib_MethodTable __zz_cib_mtbl;
@@ -18,22 +18,22 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 		{}
 		void Line(float x1, float y1, float x2, float y2) override {
 			using LineProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float x1, float y1, float x2, float y2);
-			auto method = getMethod<LineProc>(__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_1);
+			auto method = getMethod<LineProc>(__zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::__zz_cib_methodid::Line_1);
 			return method(__zz_cib_proxy, x1, y1, x2, y2);
 		}
 		void Rect(float l, float b, float r, float t) override {
 			using RectProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float l, float b, float r, float t);
-			auto method = getMethod<RectProc>(__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Rect_2);
+			auto method = getMethod<RectProc>(__zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::__zz_cib_methodid::Rect_2);
 			return method(__zz_cib_proxy, l, b, r, t);
 		}
 		void Circle(float cx, float cy, float r) override {
 			using CircleProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float cx, float cy, float r);
-			auto method = getMethod<CircleProc>(__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3);
+			auto method = getMethod<CircleProc>(__zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::__zz_cib_methodid::Circle_3);
 			return method(__zz_cib_proxy, cx, cy, r);
 		}
 		void Ellipse(float cx, float cy, float a, float b) override {
 			using EllipseProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float cx, float cy, float a, float b);
-			auto method = getMethod<EllipseProc>(__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::__zz_cib_methodid::Ellipse_4);
+			auto method = getMethod<EllipseProc>(__zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::__zz_cib_methodid::Ellipse_4);
 			return method(__zz_cib_proxy, cx, cy, a, b);
 		}
 		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0)
@@ -46,7 +46,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
-		return new __zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext(proxy, mtbl);
+		return new __zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::LogContext(proxy, mtbl);
 	}
 	static void __zz_cib_decl __zz_cib_delete_2(::Graphics::LogContext* __zz_cib_obj) {
 		delete __zz_cib_obj;
@@ -64,13 +64,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 		__zz_cib_obj->::Graphics::LogContext::Ellipse(cx, cy, a, b);
 	}
 	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_7(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0) {
-		return new __zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext(proxy, mtbl, __zz_cib_param0);
+		return new __zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::LogContext(proxy, mtbl, __zz_cib_param0);
 	}
 	::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_8(::Graphics::LogContext* __zz_cib_obj) {
 		return __zz_cib_obj;
 	}
 	void __zz_cib_decl __zz_cib_release_proxy_9(::Graphics::LogContext* __zz_cib_obj) {
-		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::LogContext::__zz_cib_UnknownProxy::LogContext*>(__zz_cib_obj);
+		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::LogContext*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
 	}

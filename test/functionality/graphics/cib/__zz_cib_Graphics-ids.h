@@ -6,32 +6,32 @@ namespace __zz_cib_ { namespace __zz_cib_classid {
 	enum {
 		//#= ::Graphics::Circle
 		__Graphics__Circle = 1,
-		//#= ::Graphics::Circle::__zz_cib_UnknownProxy
-		__Graphics__Circle____zz_cib_UnknownProxy = 2,
+		//#= ::Graphics::Circle::__zz_cib_GenericProxy
+		__Graphics__Circle____zz_cib_GenericProxy = 2,
 		//#= ::Graphics::Composite
 		__Graphics__Composite = 3,
-		//#= ::Graphics::Composite::__zz_cib_UnknownProxy
-		__Graphics__Composite____zz_cib_UnknownProxy = 4,
+		//#= ::Graphics::Composite::__zz_cib_GenericProxy
+		__Graphics__Composite____zz_cib_GenericProxy = 4,
 		//#= ::Graphics::Context
 		__Graphics__Context = 5,
-		//#= ::Graphics::Context::__zz_cib_UnknownProxy
-		__Graphics__Context____zz_cib_UnknownProxy = 6,
+		//#= ::Graphics::Context::__zz_cib_GenericProxy
+		__Graphics__Context____zz_cib_GenericProxy = 6,
 		//#= ::Graphics::Ellipse
 		__Graphics__Ellipse = 7,
-		//#= ::Graphics::Ellipse::__zz_cib_UnknownProxy
-		__Graphics__Ellipse____zz_cib_UnknownProxy = 8,
+		//#= ::Graphics::Ellipse::__zz_cib_GenericProxy
+		__Graphics__Ellipse____zz_cib_GenericProxy = 8,
 		//#= ::Graphics::LogContext
 		__Graphics__LogContext = 9,
-		//#= ::Graphics::LogContext::__zz_cib_UnknownProxy
-		__Graphics__LogContext____zz_cib_UnknownProxy = 10,
+		//#= ::Graphics::LogContext::__zz_cib_GenericProxy
+		__Graphics__LogContext____zz_cib_GenericProxy = 10,
 		//#= ::Graphics::Rectangle
 		__Graphics__Rectangle = 12,
-		//#= ::Graphics::Rectangle::__zz_cib_UnknownProxy
-		__Graphics__Rectangle____zz_cib_UnknownProxy = 13,
+		//#= ::Graphics::Rectangle::__zz_cib_GenericProxy
+		__Graphics__Rectangle____zz_cib_GenericProxy = 13,
 		//#= ::Graphics::Shape
 		__Graphics__Shape = 14,
-		//#= ::Graphics::Shape::__zz_cib_UnknownProxy
-		__Graphics__Shape____zz_cib_UnknownProxy = 15,
+		//#= ::Graphics::Shape::__zz_cib_GenericProxy
+		__Graphics__Shape____zz_cib_GenericProxy = 15,
 		//#= ::Point
 		__Point = 11,
 		__zz_cib_next_class_id = 16
@@ -62,7 +62,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual float Area() const;
 		Area_1 = 1,
@@ -106,7 +106,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual float Area() const;
 		Area_1 = 1,
@@ -140,7 +140,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual void Line(float, float, float, float) = 0;
 		Line_1 = 1,
@@ -178,7 +178,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual float Area() const;
 		Area_1 = 1,
@@ -214,7 +214,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual void Line(float, float, float, float) override;
 		Line_1 = 1,
@@ -250,7 +250,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual float Area() const;
 		Area_1 = 1,
@@ -282,7 +282,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 	};
 }}}}
 
-namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_UnknownProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
 	enum {
 		//#= virtual float Area() const = 0;
 		Area_1 = 1,

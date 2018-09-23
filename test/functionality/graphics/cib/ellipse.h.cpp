@@ -2,7 +2,7 @@
 #include "__zz_cib_Graphics.h"
 #include "ellipse.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_UnknownProxy {
+namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_GenericProxy {
 	class Ellipse : public ::Graphics::Ellipse {
 		__zz_cib_PROXY* __zz_cib_proxy;
 		__zz_cib_MethodTable __zz_cib_mtbl;
@@ -18,17 +18,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::__zz_cib_methodid::Area_1);
+			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
 			return method(__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::__zz_cib_methodid::Perimeter_2);
+			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
 			return method(__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::__zz_cib_methodid::Draw_3);
+			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
 		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
@@ -41,7 +41,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b) {
-		return new __zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
+		return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
 	}
 	static float __zz_cib_decl Area_2(const ::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj->::Graphics::Ellipse::Area();
@@ -53,7 +53,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		__zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
 	}
 	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0) {
-		return new __zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::Ellipse(proxy, mtbl, __zz_cib_param0);
+		return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, __zz_cib_param0);
 	}
 	static void __zz_cib_decl __zz_cib_delete_6(::Graphics::Ellipse* __zz_cib_obj) {
 		delete __zz_cib_obj;
@@ -62,7 +62,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		return __zz_cib_obj;
 	}
 	void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Ellipse* __zz_cib_obj) {
-		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Ellipse::__zz_cib_UnknownProxy::Ellipse*>(__zz_cib_obj);
+		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
 	}

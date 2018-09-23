@@ -10,7 +10,7 @@
 
 extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
-namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_UnknownProxy {
+namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_GenericProxy {
 	class Context : public ::Graphics::Context {
 		__zz_cib_PROXY* __zz_cib_proxy;
 		__zz_cib_MethodTable __zz_cib_mtbl;
@@ -21,28 +21,28 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 	public:
 		void Line(float x1, float y1, float x2, float y2) override {
 			using LineProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float x1, float y1, float x2, float y2);
-			auto method = getMethod<LineProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Line_1);
+			auto method = getMethod<LineProc>(__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::__zz_cib_methodid::Line_1);
 			return method(__zz_cib_proxy, x1, y1, x2, y2);
 		}
 		void Rect(float l, float b, float r, float t) override {
 			using RectProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float l, float b, float r, float t);
-			auto method = getMethod<RectProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Rect_2);
+			auto method = getMethod<RectProc>(__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::__zz_cib_methodid::Rect_2);
 			return method(__zz_cib_proxy, l, b, r, t);
 		}
 		void Circle(float cx, float cy, float r) override {
 			using CircleProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float cx, float cy, float r);
-			auto method = getMethod<CircleProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Circle_3);
+			auto method = getMethod<CircleProc>(__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::__zz_cib_methodid::Circle_3);
 			return method(__zz_cib_proxy, cx, cy, r);
 		}
 		void Ellipse(float cx, float cy, float a, float b) override {
 			using EllipseProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, float cx, float cy, float a, float b);
-			auto method = getMethod<EllipseProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::Ellipse_4);
+			auto method = getMethod<EllipseProc>(__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::__zz_cib_methodid::Ellipse_4);
 			return method(__zz_cib_proxy, cx, cy, a, b);
 		}
 		~Context() override {
 			if (!__zz_cib_proxy) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::__zz_cib_methodid::__zz_cib_delete_5);
+			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_5);
 			method(__zz_cib_proxy);
 		}
 		Context(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
@@ -70,7 +70,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 		delete __zz_cib_obj;
 	}
 	static ::Graphics::Context* __zz_cib_decl __zz_cib_new_6(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
-		return new __zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context(proxy, mtbl);
+		return new __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context(proxy, mtbl);
 	}
 	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_7(::Graphics::Context* __zz_cib_obj) {
 		static bool classIdRepoPopulated = false;
@@ -81,7 +81,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 		return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 	}
 	void __zz_cib_decl __zz_cib_release_proxy_8(::Graphics::Context* __zz_cib_obj) {
-		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_UnknownProxy::Context*>(__zz_cib_obj);
+		auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context*>(__zz_cib_obj);
 		if (unknownProxy)
 			unknownProxy->__zz_cib_release_proxy();
 	}

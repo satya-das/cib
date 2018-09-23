@@ -32,11 +32,11 @@ enum EmitPurpose
   kPurposeProxyDecl            = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyDefn            = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyProcType        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
-  kPurposeUnknownProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
+  kPurposeGenericProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
   kPurposeGeneric              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
   kPurposeCApi                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeProxyCApi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeUnknownProxyProcType = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeGenericProxyProcType = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
 };
 
 /*!
@@ -224,7 +224,7 @@ public:
                     const std::string& capiName,
                     bool               forProxy,
                     CppIndent          indentation = CppIndent()) const;
-  void emitUnknownProxyDefn(std::ostream&      stm,
+  void emitGenericProxyDefn(std::ostream&      stm,
                             const CibHelper&   helper,
                             const CibParams&   cibParams,
                             const std::string& capiName,
@@ -239,11 +239,11 @@ public:
   void emitProcType(std::ostream&    stm,
                     const CibHelper& helper,
                     const CibParams& cibParams,
-                    bool             forUnknownProxy,
+                    bool             forGenericProxy,
                     CppIndent        indentation = CppIndent()) const;
   void emitCAPIReturnType(std::ostream&    stm,
                           const CibHelper& helper,
-                          bool             forUnknownProxy,
+                          bool             forGenericProxy,
                           CppIndent        indentation = CppIndent()) const;
 
 private:

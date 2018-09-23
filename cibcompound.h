@@ -53,7 +53,7 @@ public:
 
 private:
   std::uint32_t props_{0};
-  bool          needsUnknownProxyDefinition_{false};
+  bool          needsGenericProxyDefinition_{false};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -204,19 +204,19 @@ public:
   {
     return props_ & kClassPropHasMoveCtor;
   }
-  bool needsUnknownProxyDefinition() const
+  bool needsGenericProxyDefinition() const
   {
-    return needsUnknownProxyDefinition_;
+    return needsGenericProxyDefinition_;
   }
-  void setNeedsUnknownProxyDefinition()
+  void setNeedsGenericProxyDefinition()
   {
-    needsUnknownProxyDefinition_ = true;
+    needsGenericProxyDefinition_ = true;
   }
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
-  void emitUnknownProxyDefn(std::ostream&    stm,
+  void emitGenericProxyDefn(std::ostream&    stm,
                             const CibHelper& helper,
                             const CibParams& cibParams,
                             const CibIdMgr&  cibIdMgr,
