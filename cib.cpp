@@ -423,12 +423,6 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-std::ostream& operator<<(std::ostream& stm, CppDocComment* cmnt)
-{
-  stm << cmnt->doc_;
-  return stm;
-}
-
 void emitInheritanceList(std::ostream& stm, const CibCppCompoundArray& inhList, CppObjProtLevel prot, char& sep)
 {
   if (inhList.empty())
@@ -685,6 +679,23 @@ std::string CibCppCompound::implIncludeName(const CibParams& cibParams) const
   return implIncludeName;
 }
 
+static void emitDocComment(std::ostream& stm, const CppDocComment* docComment, CppIndent indentation)
+{
+  const auto& comment  = docComment->doc_;
+  auto        startPos = comment.find('/');
+  for (auto prevPos = startPos; prevPos < comment.size();)
+  {
+    auto newLinePos = comment.find('\n', prevPos);
+    if ((newLinePos == comment.npos) || ((newLinePos + startPos) > comment.size()))
+      newLinePos = comment.size();
+
+    stm << indentation;
+    stm.write(comment.c_str() + prevPos, newLinePos - prevPos);
+    stm << '\n';
+    prevPos = newLinePos + startPos + 1;
+  }
+}
+
 void CibCppCompound::emitDecl(const CppObj*    obj,
                               std::ostream&    stm,
                               const CibHelper& helper,
@@ -698,12 +709,15 @@ void CibCppCompound::emitDecl(const CppObj*    obj,
       CibFunctionHelper func = obj;
       func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
     }
-    return;
   }
-  if (obj->objType_ == CppObj::kCompound)
+  else if (obj->objType_ == CppObj::kCompound)
   {
     auto compound = static_cast<const CibCppCompound*>(obj);
     compound->emitDecl(stm, helper, cibParams, indentation);
+  }
+  else if (obj->objType_ == CppObj::kDocComment)
+  {
+    emitDocComment(stm, static_cast<const CppDocComment*>(obj), indentation);
   }
   else
   {
