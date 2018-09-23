@@ -24,21 +24,21 @@ enum class CallType
 
 enum EmitPurpose
 {
-  // Unusable const section begins
-  kPurposeBaseLine        = __LINE__,
-  kPurposeProxyMethodImpl = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeGlueCode        = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeLibGlueCode     = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeClientGlueCode  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  // Unusable const section ends
-  kSignature                  = (1 << (__LINE__ - kPurposeBaseLine)),
-  kProxyMethodParam           = (1 << (__LINE__ - kPurposeBaseLine)),
-  kProxyMethodReturn          = (1 << (__LINE__ - kPurposeBaseLine)),
-  kProxyMethodImplParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kProxyMethodParam | kPurposeProxyMethodImpl,
-  kProxyMethodImplReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kProxyMethodReturn | kPurposeProxyMethodImpl,
-  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeBaseLine            = __LINE__, //!< This is unusable const, don't use it.
+  kPurposeGlueCode            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeLibGlueCode         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeProxyDecl           = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDefn           = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeSignature           = (1 << (__LINE__ - kPurposeBaseLine)),
+  kProxyMethodDeclParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDecl,
+  kProxyMethodDeclReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDecl,
+  kProxyMethodImplParam       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDefn,
+  kProxyMethodImplReturn      = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDefn,
+  kPurposeUnknownProxy        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
+  kUnknownProxyMethodParam    = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeUnknownProxy,
   kUnknownProxyReturn         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kProxyProcTypeParam         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeUnknownProxy,
   kProxyProcTypeReturn        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kCApiParam                  = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kCApiReturn                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
@@ -217,7 +217,7 @@ public:
 
   /// Emits function arguments for function definition/declaration.
   void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose = kSignature) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose = kPurposeSignature) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.

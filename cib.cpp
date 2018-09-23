@@ -113,7 +113,7 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
     stm << sep;
     emitType(stm, param.varObj->varType_, typeResolver, helper, purpose);
     stm << ' ';
-    emitParamName(stm, param.varObj, i, (purpose & (kPurposeGlueCode | kPurposeProxyMethodImpl)));
+    emitParamName(stm, param.varObj, i, !(purpose & kPurposeProxyDecl));
     sep = ", ";
   }
 }
@@ -226,7 +226,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kProxyMethodReturn : kCApiReturn);
+    emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kProxyCApiReturn : kCApiReturn);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if (isConstructor() && getOwner()->needsUnknownProxyDefinition())
@@ -1168,7 +1168,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     stm << indentation << "inline ";
     if (func.isFunction())
     {
-      emitType(stm, func.retType(), this, helper, kProxyMethodReturn);
+      emitType(stm, func.retType(), this, helper, kProxyMethodImplReturn);
       stm << ' ';
     }
     stm << fullName() << "::" << func.funcName() << '(';
