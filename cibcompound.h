@@ -37,6 +37,7 @@ enum CibClassPropFlags
   kClassPropHasCtor     = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasDtor     = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasMoveCtor = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
@@ -51,8 +52,8 @@ public:
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
 
 private:
-  std::uint32_t props_ {0};
-  bool          needsUnknownProxyDefinition_ {false};
+  std::uint32_t props_{0};
+  bool          needsUnknownProxyDefinition_{false};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -183,17 +184,25 @@ public:
   {
     props_ |= kClassPropHasCopyCtor;
   }
-  bool hasCtor()
+  void setHasMoveCtor()
+  {
+    props_ |= kClassPropHasMoveCtor;
+  }
+  bool hasCtor() const
   {
     return props_ & kClassPropHasCtor;
   }
-  bool hasDtor()
+  bool hasDtor() const
   {
     return props_ & kClassPropHasDtor;
   }
-  bool hasCopyCtor()
+  bool hasCopyCtor() const
   {
     return props_ & kClassPropHasCopyCtor;
+  }
+  bool hasMoveCtor() const
+  {
+    return props_ & kClassPropHasMoveCtor;
   }
   bool needsUnknownProxyDefinition() const
   {

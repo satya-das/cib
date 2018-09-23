@@ -829,7 +829,10 @@ void CibCppCompound::identifyMethodsToBridge()
       else if (func.isCopyConstructor())
         setHasCopyCtor();
       else if (func.isMoveConstructor())
+      {
+        setHasMoveCtor();
         continue;
+      }
       else if (func.isConstructor())
         setHasCtor();
       if (func.funcName().find(':') != std::string::npos)
@@ -879,6 +882,21 @@ void CibCppCompound::identifyMethodsToBridge()
     CibFunctionHelper func(defaultCtor);
     needsBridging_.push_back(func);
     objNeedingBridge_.insert(defaultCtor);
+  }
+  if (!hasCopyCtor() && !hasMoveCtor() && !isAbstract())
+  {
+    auto ctorProtection = kPublic;
+    auto paramType      = new CppVarType(name(), CppTypeModifier{kByRef});
+    paramType->typeAttr_ |= kConst;
+    auto param     = new CppVar(paramType, CppVarDecl{std::string()});
+    auto paramList = new CppParamList;
+    paramList->push_back({param});
+    auto copyCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), paramList, nullptr, 0);
+    copyCtor->owner_ = this;
+    addMember(copyCtor);
+    CibFunctionHelper func(copyCtor);
+    needsBridging_.push_back(func);
+    objNeedingBridge_.insert(copyCtor);
   }
   if (!hasDtor() && (!isAbstract() || needsUnknownProxyDefinition()))
   {
