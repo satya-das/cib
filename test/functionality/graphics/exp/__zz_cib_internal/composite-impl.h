@@ -1,8 +1,10 @@
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-helper.h"
+#include "__zz_cib_Graphics-handle-helper.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper
+		, public __zz_cib_::__zz_cib_HandleHelper<::Graphics::Composite, __zz_cib_Helper> {
 	private:
 		friend class ::Graphics::Composite;
 		static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();
@@ -85,16 +87,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Composite& __zz_cib_obj) {
 			return __zz_cib_obj.__zz_cib_h_;
 		}
-		static ::Graphics::Composite* __zz_cib_from_handle(__zz_cib_HANDLE* h);
-		static ::Graphics::Composite& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(&h);
-		}
-		static ::Graphics::Composite const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
-			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
-		}
-		static ::Graphics::Composite const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
-		}
+		static ::Graphics::Composite* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
 			auto h = __zz_cib_obj->__zz_cib_h_;
 			__zz_cib_obj->__zz_cib_h_ = nullptr;

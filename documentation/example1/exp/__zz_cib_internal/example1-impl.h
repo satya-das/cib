@@ -1,8 +1,10 @@
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-helper.h"
+#include "__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper
+		, public __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
 	private:
 		friend class ::Example::A;
 
@@ -44,17 +46,8 @@ namespace __zz_cib_ { namespace Example { namespace A {
 		static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
 			return __zz_cib_obj.__zz_cib_h_;
 		}
-		static ::Example::A* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
+		static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 			return new ::Example::A(h);
-		}
-		static ::Example::A& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(&h);
-		}
-		static ::Example::A const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
-			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
-		}
-		static ::Example::A const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
 			auto h = __zz_cib_obj->__zz_cib_h_;

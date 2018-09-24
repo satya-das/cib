@@ -32,7 +32,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		}
 	};
 }}}}
-::Graphics::Composite* __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
+::Graphics::Composite* __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
 	default:
 		return ::__zz_cib_::Graphics::Composite::__zz_cib_Generic::Composite::__zz_cib_from_handle(h);

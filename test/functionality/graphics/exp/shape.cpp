@@ -41,7 +41,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 		}
 	};
 }}}}
-::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {
+::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
 	case __zz_cib_::__zz_cib_classid::__Graphics__Circle:
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);

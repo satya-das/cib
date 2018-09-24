@@ -1,8 +1,10 @@
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-helper.h"
+#include "__zz_cib_Graphics-handle-helper.h"
 
 namespace __zz_cib_ { namespace Point {
-	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper
+		, public __zz_cib_::__zz_cib_HandleHelper<::Point, __zz_cib_Helper> {
 	private:
 		friend class ::Point;
 
@@ -69,17 +71,8 @@ namespace __zz_cib_ { namespace Point {
 		static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
 			return __zz_cib_obj.__zz_cib_h_;
 		}
-		static ::Point* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
+		static ::Point* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 			return new ::Point(h);
-		}
-		static ::Point& __zz_cib_from_handle(__zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(&h);
-		}
-		static ::Point const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {
-			return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
-		}
-		static ::Point const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {
-			return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
 		}
 		static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
 			auto h = __zz_cib_obj->__zz_cib_h_;
