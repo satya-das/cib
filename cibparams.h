@@ -29,7 +29,7 @@ public:
   bfs::path   inputCibIdFile;
   std::string cibInternalDirName;
   std::string cibdefFileName;
-  std::string helperFileName;
+  std::string mtableHelperFileName;
   std::string handleHelperFileName;
   std::string cibInternalNamespace;
   std::string handleGetterMethod;
@@ -50,7 +50,7 @@ public:
     , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
     , cibdefFileName(CIBPREFIX + moduleName + "-def.h")
-    , helperFileName(CIBPREFIX + moduleName + "-helper.h")
+    , mtableHelperFileName(CIBPREFIX + moduleName + "-mtable-helper.h")
     , handleHelperFileName(CIBPREFIX + moduleName + "-handle-helper.h")
     , cibInternalNamespace(CIBPREFIX)
     , handleGetterMethod(CIBPREFIX "handle")
@@ -69,9 +69,9 @@ public:
   {
     return outputPath / cibInternalDirName / cibdefFileName;
   }
-  bfs::path helperFilePath() const
+  bfs::path mtableHelperFilePath() const
   {
-    return outputPath / cibInternalDirName / helperFileName;
+    return outputPath / cibInternalDirName / mtableHelperFileName;
   }
   bfs::path cibInternalDir() const
   {

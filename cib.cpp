@@ -359,7 +359,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   }
   else
   {
-    stm << indentation << "auto method = __zz_cib_get_helper().getMethod<" << procType(cibParams) << ">(";
+    stm << indentation << "auto method = __zz_cib_get_mtable_helper().getMethod<" << procType(cibParams) << ">(";
     stm << "__zz_cib_" << getOwner()->longName() << "::__zz_cib_methodid::";
   }
   stm << capiName << ");\n";
@@ -494,7 +494,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
-  stm << "#include \"" << cibParams.helperFileName << "\"\n";
+  stm << "#include \"" << cibParams.mtableHelperFileName << "\"\n";
   stm << "#include \"" << cibParams.handleHelperFileName << "\"\n";
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   emitDefn(stm, helper, cibParams, cibIdMgr);
@@ -988,7 +988,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   {
     stm << '\n'; // Start in new line.
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
-    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper\n";
+    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper\n";
     stm << ++indentation << ", public __zz_cib_::__zz_cib_HandleHelper<" << longName() << ", __zz_cib_Helper> {\n";
     stm << --indentation << "private:\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
@@ -1064,7 +1064,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
     if (!needsBridging_.empty())
     {
       stm << indentation << "__zz_cib_Helper()\n";
-      stm << ++indentation << ": __zz_cib_::__zz_cib_Helper(\n";
+      stm << ++indentation << ": __zz_cib_::__zz_cib_MethodTableHelper(\n";
       stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(\n";
       stm << ++indentation;
       auto clsIdName = classIdName(longName());
@@ -1338,12 +1338,12 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
       << " { namespace __zz_cib_Generic {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_HANDLE* __zz_cib_h_;\n\n";
-  stm << indentation << "static __zz_cib_::__zz_cib_Helper& __zz_cib_get_helper() {\n";
-  stm << ++indentation << "static __zz_cib_::__zz_cib_Helper helper(__zz_cib_" << cibParams.moduleName
+  stm << indentation << "static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
+  stm << ++indentation << "static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(\n";
   auto clsIdName = classIdName(longName());
   stm << ++indentation << cibParams.classIdOwnerSpace() << clsIdName << "));\n";
-  stm << --indentation << "return helper;\n";
+  stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
   stm << indentation << name() << "(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}\n";
   stm << --indentation << "public:\n";

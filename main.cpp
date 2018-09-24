@@ -195,10 +195,10 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
     cibdefStm << cibcode;
   }
   {
-    std::ofstream mtableStm(cibParams.helperFilePath().string(), std::ios_base::out);
+    std::ofstream mtableStm(cibParams.mtableHelperFilePath().string(), std::ios_base::out);
     // Emit boiler plate code for cib.cpp of library
     std::strstreambuf tmpbuf;
-    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-helper.h").string(), std::ios_base::in) >> &tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-mtable-helper.h").string(), std::ios_base::in) >> &tmpbuf;
     auto mtableCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
     mtableStm << mtableCode;
   }
