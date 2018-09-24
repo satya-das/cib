@@ -1,6 +1,6 @@
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example.h"
-#include "example1.h"
+#include "example.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 	static ::Example::A* __zz_cib_decl __zz_cib_new_1() {

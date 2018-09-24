@@ -17,7 +17,7 @@ set(LIBNAME ${PROJECT}_lib)
 set(CLIENTNAME ${PROJECT}_client)
 
 set(PUB_FILE_NAMES
-	${PROJECT}.h
+	example.h
 )
 set(CIB_OUTPUT
 	${PROJECT_ROOT}/cib/__zz_cib_Example.h
@@ -47,7 +47,7 @@ add_custom_command(
 )
 
 set(LIB_SOURCES
-    lib.cpp
+    ${PROJECT_ROOT}/src/example-lib.cpp
 )
 add_library(${LIBNAME}
 	SHARED
@@ -62,7 +62,7 @@ target_include_directories(${LIBNAME}
 add_dependencies(${LIBNAME} cib)
 
 set(CLIENT_SOURCES
-    client.cpp
+    ${PROJECT_ROOT}/src/example-client.cpp
 )
 file(GLOB EXP_SOURCES
 	${PROJECT_ROOT}/exp/*.cpp

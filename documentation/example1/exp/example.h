@@ -1,6 +1,6 @@
 #pragma  once
 
-#include "__zz_cib_internal/example1-predef.h"
+#include "__zz_cib_internal/example-predef.h"
 
 //! Contains example definitions to explain cib's functioning
 namespace Example
@@ -24,4 +24,4 @@ namespace Example
 	};
 }
 
-#include "__zz_cib_internal/example1-impl.h"
+#include "__zz_cib_internal/example-impl.h"

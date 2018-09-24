@@ -1,3 +1,3 @@
-#include "example1.h"
+#include "example.h"
 
 void Example::A::SomeFunc() {}
