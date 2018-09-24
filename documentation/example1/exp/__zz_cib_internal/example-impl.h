@@ -39,23 +39,26 @@ namespace __zz_cib_ { namespace Example { namespace A {
 			return helper;
 		}
 
-	public:
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
-			return __zz_cib_obj->__zz_cib_h_;
-		}
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
-			return __zz_cib_obj.__zz_cib_h_;
-		}
-		static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-			return new ::Example::A(h);
-		}
-		static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
-			auto h = __zz_cib_obj->__zz_cib_h_;
-			__zz_cib_obj->__zz_cib_h_ = nullptr;
-			return h;
-		}
-	};
-}}}
+		public:
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
+				return __zz_cib_obj->__zz_cib_h_;
+			}
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
+				return __zz_cib_obj.__zz_cib_h_;
+			}
+			static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+				return ::Example::A(h);
+			}
+			static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+				return new ::Example::A(h);
+			}
+			static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
+				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				return h;
+			}
+		};
+	}}}
 
 inline Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
 	: __zz_cib_h_(h)

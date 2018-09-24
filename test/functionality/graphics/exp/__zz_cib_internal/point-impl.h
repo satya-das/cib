@@ -64,23 +64,26 @@ namespace __zz_cib_ { namespace Point {
 			return helper;
 		}
 
-	public:
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Point* __zz_cib_obj) {
-			return __zz_cib_obj->__zz_cib_h_;
-		}
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
-			return __zz_cib_obj.__zz_cib_h_;
-		}
-		static ::Point* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-			return new ::Point(h);
-		}
-		static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
-			auto h = __zz_cib_obj->__zz_cib_h_;
-			__zz_cib_obj->__zz_cib_h_ = nullptr;
-			return h;
-		}
-	};
-}}
+		public:
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Point* __zz_cib_obj) {
+				return __zz_cib_obj->__zz_cib_h_;
+			}
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
+				return __zz_cib_obj.__zz_cib_h_;
+			}
+			static ::Point __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+				return ::Point(h);
+			}
+			static ::Point* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+				return new ::Point(h);
+			}
+			static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
+				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				return h;
+			}
+		};
+	}}
 
 inline Point::Point(__zz_cib_::__zz_cib_HANDLE* h)
 	: __zz_cib_h_(h)
@@ -122,13 +125,13 @@ inline void Point::Y(float y) {
 }
 
 inline ::Point Point::operator +(const ::Point& p) const {
-	return ::Point(
+	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
 		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_8(__zz_cib_h_, *__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }
 
 inline ::Point Point::operator -(::Point p) const {
-	return ::Point(
+	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
 		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_9(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }

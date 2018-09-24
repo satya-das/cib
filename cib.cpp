@@ -285,7 +285,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
         }
       }
     }
-    if (!isStatic())
+    if (getOwner()->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
     if (!forProxy && !isPureVirtual())
       stm << getOwner()->longName() << "::";
@@ -988,10 +988,23 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   {
     stm << '\n'; // Start in new line.
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
-    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper\n";
-    stm << ++indentation << ", public __zz_cib_::__zz_cib_HandleHelper<" << longName() << ", __zz_cib_Helper> {\n";
-    stm << --indentation << "private:\n";
-    stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
+    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper";
+    if (isClassLike())
+    {
+      stm << '\n'
+          << ++indentation << ", public __zz_cib_::__zz_cib_HandleHelper<" << longName() << ", __zz_cib_Helper>";
+      --indentation;
+    }
+    stm << " {\n";
+    if (isClassLike())
+    {
+      stm << indentation << "private:\n";
+      stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
+    }
+    else
+    {
+      stm << indentation++ << "public:\n";
+    }
     if (needsGenericProxyDefinition())
       stm << indentation << "static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();\n";
     stm << '\n'; // Start in new line.
@@ -1003,7 +1016,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "static ";
       func.emitCAPIReturnType(stm, helper, false);
       stm << ' ' << cibIdData->getMethodCApiName(func.signature()) << "(";
-      if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
+      if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
         stm << "__zz_cib_HANDLE* __zz_cib_obj";
         if (func.hasParams())
@@ -1028,7 +1041,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << "__zz_cib_" << longName() << "::__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
       stm << indentation << "return method(";
-      if (!func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
+      if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
         stm << "__zz_cib_obj";
         if (func.hasParams())
@@ -1089,37 +1102,46 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "return method(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     }
-    stm << --indentation << "public:\n";
-    stm << ++indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
-    stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
-    stm << --indentation << "}\n";
-    stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
-    stm << ++indentation << "return __zz_cib_obj.__zz_cib_h_;\n";
-    stm << --indentation << "}\n";
-    emitFromHandleDecl(stm, cibParams, indentation);
-    stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
-    ++indentation;
-    stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
-    stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
-    forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
-      stm << indentation << "__zz_cib_" << baseCompound->longName()
-          << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
-    });
-    stm << indentation << "return h;\n";
-    stm << --indentation << "}\n";
-    if (needsGenericProxyDefinition())
+    if (isClassLike())
     {
-      stm << indentation << "static void __zz_cib_release_proxy(" << longName() << "* __zz_cib_obj) {\n";
-      ++indentation;
-      stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
-      ++indentation;
-      stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);\n";
-      stm << indentation << "auto method = instance().getMethod<__zz_cib_release_proxyProc>(";
-      stm << "__zz_cib_" << longName()
-          << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ");\n";
-      stm << indentation << "method(__zz_cib_obj->__zz_cib_h_);\n";
+      stm << indentation << "public:\n";
+      stm << ++indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
+      stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
       stm << --indentation << "}\n";
+      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
+      stm << ++indentation << "return __zz_cib_obj.__zz_cib_h_;\n";
       stm << --indentation << "}\n";
+      if (!isAbstract())
+      {
+        stm << indentation << "static " << longName() << " __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {\n";
+        stm << ++indentation << "return " << longName() << "(h);\n";
+        stm << --indentation << "}\n";
+      }
+      emitFromHandleDecl(stm, cibParams, indentation);
+      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
+      ++indentation;
+      stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
+      stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
+      forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
+        stm << indentation << "__zz_cib_" << baseCompound->longName()
+            << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
+      });
+      stm << indentation << "return h;\n";
+      stm << --indentation << "}\n";
+      if (needsGenericProxyDefinition())
+      {
+        stm << indentation << "static void __zz_cib_release_proxy(" << longName() << "* __zz_cib_obj) {\n";
+        ++indentation;
+        stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
+        ++indentation;
+        stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);\n";
+        stm << indentation << "auto method = instance().getMethod<__zz_cib_release_proxyProc>(";
+        stm << "__zz_cib_" << longName()
+            << "::__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ");\n";
+        stm << indentation << "method(__zz_cib_obj->__zz_cib_h_);\n";
+        stm << --indentation << "}\n";
+        stm << --indentation << "}\n";
+      }
     }
     stm << --indentation << "};\n";
 
@@ -1263,7 +1285,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
         {
           if (func.retType()->isByValue())
           {
-            stm << retType->longName() << "(\n";
+            stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
           }
           else
           {
@@ -1277,7 +1299,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
       {
         stm << "h";
       }
-      else if (!func.isStatic())
+      else if (isClassLike() && !func.isStatic())
       {
         stm << "__zz_cib_h_";
         if (func.hasParams())

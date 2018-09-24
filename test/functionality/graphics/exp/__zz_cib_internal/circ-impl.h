@@ -60,31 +60,34 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 			return helper;
 		}
 
-	public:
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle* __zz_cib_obj) {
-			return __zz_cib_obj->__zz_cib_h_;
-		}
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle& __zz_cib_obj) {
-			return __zz_cib_obj.__zz_cib_h_;
-		}
-		static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-			return new ::Graphics::Circle(h);
-		}
-		static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Circle* __zz_cib_obj) {
-			auto h = __zz_cib_obj->__zz_cib_h_;
-			__zz_cib_obj->__zz_cib_h_ = nullptr;
-			__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
-			return h;
-		}
-		static void __zz_cib_release_proxy(::Graphics::Circle* __zz_cib_obj) {
-			if (__zz_cib_obj->__zz_cib_h_) {
-				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_release_proxy_9);
-				method(__zz_cib_obj->__zz_cib_h_);
+		public:
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle* __zz_cib_obj) {
+				return __zz_cib_obj->__zz_cib_h_;
 			}
-		}
-	};
-}}}
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle& __zz_cib_obj) {
+				return __zz_cib_obj.__zz_cib_h_;
+			}
+			static ::Graphics::Circle __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+				return ::Graphics::Circle(h);
+			}
+			static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+				return new ::Graphics::Circle(h);
+			}
+			static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Circle* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
+				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+				return h;
+			}
+			static void __zz_cib_release_proxy(::Graphics::Circle* __zz_cib_obj) {
+				if (__zz_cib_obj->__zz_cib_h_) {
+					using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+					auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Circle::__zz_cib_methodid::__zz_cib_release_proxy_9);
+					method(__zz_cib_obj->__zz_cib_h_);
+				}
+			}
+		};
+	}}}
 
 inline Graphics::Circle::Circle(__zz_cib_::__zz_cib_HANDLE* h)
 	: ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_8(h))

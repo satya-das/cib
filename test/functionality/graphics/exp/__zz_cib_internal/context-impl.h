@@ -35,28 +35,28 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 			auto method = instance().getMethod<__zz_cib_get_class_idProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_get_class_id_7);
 			return method(__zz_cib_obj);
 		}
-	public:
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Context* __zz_cib_obj) {
-			return __zz_cib_obj->__zz_cib_h_;
-		}
-		static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Context& __zz_cib_obj) {
-			return __zz_cib_obj.__zz_cib_h_;
-		}
-		static ::Graphics::Context* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
-		static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Context* __zz_cib_obj) {
-			auto h = __zz_cib_obj->__zz_cib_h_;
-			__zz_cib_obj->__zz_cib_h_ = nullptr;
-			return h;
-		}
-		static void __zz_cib_release_proxy(::Graphics::Context* __zz_cib_obj) {
-			if (__zz_cib_obj->__zz_cib_h_) {
-				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_release_proxy_8);
-				method(__zz_cib_obj->__zz_cib_h_);
+		public:
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Context* __zz_cib_obj) {
+				return __zz_cib_obj->__zz_cib_h_;
 			}
-		}
-	};
-}}}
+			static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Context& __zz_cib_obj) {
+				return __zz_cib_obj.__zz_cib_h_;
+			}
+			static ::Graphics::Context* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
+			static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Context* __zz_cib_obj) {
+				auto h = __zz_cib_obj->__zz_cib_h_;
+				__zz_cib_obj->__zz_cib_h_ = nullptr;
+				return h;
+			}
+			static void __zz_cib_release_proxy(::Graphics::Context* __zz_cib_obj) {
+				if (__zz_cib_obj->__zz_cib_h_) {
+					using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+					auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Context::__zz_cib_methodid::__zz_cib_release_proxy_8);
+					method(__zz_cib_obj->__zz_cib_h_);
+				}
+			}
+		};
+	}}}
 
 inline Graphics::Context::Context(__zz_cib_::__zz_cib_HANDLE* h)
 	: __zz_cib_h_(h)
