@@ -4,8 +4,7 @@
 
 namespace __zz_cib_ {
 
-//! Base class for helper class of proxy classes.
-//! It only facilitates in dealing with method table.
+//! Helps in dealing with method table.
 class __zz_cib_MethodTableHelper
 {
 public:
