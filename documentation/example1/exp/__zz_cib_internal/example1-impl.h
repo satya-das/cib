@@ -1,9 +1,9 @@
 #include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-helper.h"
+#include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
 		, public __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
 	private:
 		friend class ::Example::A;
@@ -31,7 +31,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
-			: __zz_cib_::__zz_cib_Helper(
+			: __zz_cib_::__zz_cib_MethodTableHelper(
 				__zz_cib_Example_GetMethodTable(
 					__zz_cib_::__zz_cib_classid::__Example__A)) {}
 		static const __zz_cib_Helper& instance() {

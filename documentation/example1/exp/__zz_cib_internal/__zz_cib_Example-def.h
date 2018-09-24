@@ -2,8 +2,8 @@
 
 #include "__zz_cib_Example-class-internal-def.h"
 #include "__zz_cib_Example-decl.h"
-#include "__zz_cib_Example-helper.h"
 #include "__zz_cib_Example-import.h"
+#include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
 

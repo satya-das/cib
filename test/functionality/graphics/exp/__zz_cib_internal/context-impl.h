@@ -1,9 +1,9 @@
 #include "__zz_cib_Graphics-ids.h"
-#include "__zz_cib_Graphics-helper.h"
+#include "__zz_cib_Graphics-mtable-helper.h"
 #include "__zz_cib_Graphics-handle-helper.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-	class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper
+	class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
 		, public __zz_cib_::__zz_cib_HandleHelper<::Graphics::Context, __zz_cib_Helper> {
 	private:
 		friend class ::Graphics::Context;
@@ -22,7 +22,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 			}
 		}
 		__zz_cib_Helper()
-			: __zz_cib_::__zz_cib_Helper(
+			: __zz_cib_::__zz_cib_MethodTableHelper(
 				__zz_cib_Graphics_GetMethodTable(
 					__zz_cib_::__zz_cib_classid::__Graphics__Context)) {}
 		static const __zz_cib_Helper& instance() {

@@ -5,10 +5,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 	class Composite : public ::Graphics::Composite {
 		__zz_cib_HANDLE* __zz_cib_h_;
 
-		static __zz_cib_::__zz_cib_Helper& __zz_cib_get_helper() {
-			static __zz_cib_::__zz_cib_Helper helper(__zz_cib_Graphics_GetMethodTable(
+		static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
+			static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
 				__zz_cib_::__zz_cib_classid::__Graphics__Composite));
-			return helper;
+			return mtableHelper;
 		}
 		Composite(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
 	public:
@@ -17,17 +17,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Area_7);
+			auto method = __zz_cib_get_mtable_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Area_7);
 			return method(__zz_cib_h_);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Perimeter_8);
+			auto method = __zz_cib_get_mtable_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Perimeter_8);
 			return method(__zz_cib_h_);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto method = __zz_cib_get_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Draw_9);
+			auto method = __zz_cib_get_mtable_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_methodid::Draw_9);
 			return method(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 		}
 	};

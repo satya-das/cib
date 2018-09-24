@@ -2,8 +2,8 @@
 
 #include "__zz_cib_Graphics-class-internal-def.h"
 #include "__zz_cib_Graphics-decl.h"
-#include "__zz_cib_Graphics-helper.h"
 #include "__zz_cib_Graphics-import.h"
+#include "__zz_cib_Graphics-mtable-helper.h"
 
 namespace __zz_cib_ {
 
