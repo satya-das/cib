@@ -15,6 +15,8 @@ namespace Graphics
 	public:
 		Rectangle(Rectangle&& rhs);
 	public:
+		Rectangle(const Rectangle& );
+		~Rectangle();
 		Rectangle(float left, float bottom, float right, float top);
 		/**
 		 * @return Area of this shape object.
@@ -28,8 +30,6 @@ namespace Graphics
 		 * Draws this shape on a given device context.
 		 */
 		virtual void Draw(Context* ctx) const;
-		Rectangle(const Rectangle& );
-		~Rectangle();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Rectangle, Graphics::Rectangle);

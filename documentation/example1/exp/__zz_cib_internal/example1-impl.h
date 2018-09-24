@@ -8,27 +8,27 @@ namespace __zz_cib_ { namespace Example { namespace A {
 	private:
 		friend class ::Example::A;
 
-		static void SomeFunc_1(__zz_cib_HANDLE* __zz_cib_obj) {
-			using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<SomeFuncProc>(__zz_cib_::Example::A::__zz_cib_methodid::SomeFunc_1);
-			return method(__zz_cib_obj);
-		}
-		static __zz_cib_HANDLE* __zz_cib_new_2() {
+		static __zz_cib_HANDLE* __zz_cib_new_1() {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_2);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_1);
 			return method();
 		}
-		static __zz_cib_HANDLE* __zz_cib_new_3(const __zz_cib_HANDLE& __zz_cib_param0) {
+		static __zz_cib_HANDLE* __zz_cib_new_2(const __zz_cib_HANDLE& __zz_cib_param0) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_3);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_2);
 			return method(__zz_cib_param0);
 		}
-		static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
+		static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_delete_4);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_delete_3);
 				return method(__zz_cib_obj);
 			}
+		}
+		static void SomeFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
+			using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+			auto method = instance().getMethod<SomeFuncProc>(__zz_cib_::Example::A::__zz_cib_methodid::SomeFunc_4);
+			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_Helper(
@@ -67,19 +67,19 @@ inline Example::A::A(A&& rhs)
 	rhs.__zz_cib_h_ = nullptr;
 }
 
-inline void Example::A::SomeFunc() {
-	__zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_1(__zz_cib_h_);
-}
-
 inline Example::A::A()
-	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_2())
+	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_1())
 {}
 
 inline Example::A::A(const ::Example::A& __zz_cib_param0)
-	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_3(*__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_2(*__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::A::~A() {
 	auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-	__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_4(h);
+	__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_3(h);
+}
+
+inline void Example::A::SomeFunc() {
+	__zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_4(__zz_cib_h_);
 }

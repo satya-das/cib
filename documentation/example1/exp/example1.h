@@ -12,12 +12,12 @@ namespace Example
 	public:
 		A(A&& rhs);
 	public:
-		//! Doesn't do anything meaningful
-		//! @note It is just for explaining how cib works.
-		void SomeFunc();
 		A();
 		A(const A& );
 		~A();
+		//! Doesn't do anything meaningful
+		//! @note It is just for explaining how cib works.
+		void SomeFunc();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);

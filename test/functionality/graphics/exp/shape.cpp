@@ -20,23 +20,23 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 		}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Area_1);
+			auto method = __zz_cib_get_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Area_2);
 			return method(__zz_cib_h_);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Perimeter_2);
+			auto method = __zz_cib_get_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Perimeter_3);
 			return method(__zz_cib_h_);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto method = __zz_cib_get_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Draw_3);
+			auto method = __zz_cib_get_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Draw_4);
 			return method(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 		}
 		~Shape() override {
 			if (!__zz_cib_h_) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_4);
+			auto method = __zz_cib_get_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_5);
 			method(__zz_cib_h_);
 		}
 	};

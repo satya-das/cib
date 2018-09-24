@@ -22,6 +22,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
+		Shape(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
+			: ::Graphics::Shape::Shape()
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
 			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
@@ -43,29 +48,24 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_4);
 			method(__zz_cib_proxy);
 		}
-		Shape(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
-			: ::Graphics::Shape::Shape()
-			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
-		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-	static float __zz_cib_decl Area_1(const ::Graphics::Shape* __zz_cib_obj) {
+	static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
+		return new __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape(proxy, mtbl);
+	}
+	static float __zz_cib_decl Area_2(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Area();
 	}
-	static float __zz_cib_decl Perimeter_2(const ::Graphics::Shape* __zz_cib_obj) {
+	static float __zz_cib_decl Perimeter_3(const ::Graphics::Shape* __zz_cib_obj) {
 		return __zz_cib_obj->Perimeter();
 	}
-	static void __zz_cib_decl Draw_3(const ::Graphics::Shape* __zz_cib_obj, ::Graphics::Context* ctx) {
+	static void __zz_cib_decl Draw_4(const ::Graphics::Shape* __zz_cib_obj, ::Graphics::Context* ctx) {
 		__zz_cib_obj->Draw(ctx);
 	}
-	static void __zz_cib_decl __zz_cib_delete_4(::Graphics::Shape* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Shape* __zz_cib_obj) {
 		delete __zz_cib_obj;
-	}
-	static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
-		return new __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape(proxy, mtbl);
 	}
 	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Shape* __zz_cib_obj) {
 		static bool classIdRepoPopulated = false;
@@ -90,11 +90,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 7 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Area_1),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_2),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_3),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_4),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Area_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_5),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_get_class_id_6),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_7)
 		};

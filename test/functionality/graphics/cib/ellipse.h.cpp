@@ -11,6 +11,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
+		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
+			: ::Graphics::Ellipse::Ellipse(__zz_cib_param0)
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b)
 			: ::Graphics::Ellipse::Ellipse(Ox, Oy, a, b)
 			, __zz_cib_proxy(proxy)
@@ -31,32 +36,27 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
-		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
-			: ::Graphics::Ellipse::Ellipse(__zz_cib_param0)
-			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
-		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
-	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b) {
-		return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
-	}
-	static float __zz_cib_decl Area_2(const ::Graphics::Ellipse* __zz_cib_obj) {
-		return __zz_cib_obj->::Graphics::Ellipse::Area();
-	}
-	static float __zz_cib_decl Perimeter_3(const ::Graphics::Ellipse* __zz_cib_obj) {
-		return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
-	}
-	static void __zz_cib_decl Draw_4(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
-		__zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
-	}
-	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_5(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0) {
+	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0) {
 		return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, __zz_cib_param0);
 	}
-	static void __zz_cib_decl __zz_cib_delete_6(::Graphics::Ellipse* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_2(::Graphics::Ellipse* __zz_cib_obj) {
 		delete __zz_cib_obj;
+	}
+	static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_3(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b) {
+		return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
+	}
+	static float __zz_cib_decl Area_4(const ::Graphics::Ellipse* __zz_cib_obj) {
+		return __zz_cib_obj->::Graphics::Ellipse::Area();
+	}
+	static float __zz_cib_decl Perimeter_5(const ::Graphics::Ellipse* __zz_cib_obj) {
+		return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
+	}
+	static void __zz_cib_decl Draw_6(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {
+		__zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Ellipse* __zz_cib_obj) {
 		return __zz_cib_obj;
@@ -74,11 +74,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Area_2),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_3),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_4),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_5),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Area_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_6),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_7),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_8)
 		};

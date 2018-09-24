@@ -16,6 +16,8 @@ class Context;
 	public:
 		Circle(Circle&& rhs);
 	public:
+		Circle(const Circle& );
+		~Circle();
 		Circle(float Ox, float Oy, float radius);
 		/**
 		 * @return Area of this shape object.
@@ -30,8 +32,6 @@ class Context;
 		 */
 		virtual void Draw(Context* ctx) const;
 		static Shape* CreateCircle(float Ox, float Oy, float radius);
-		Circle(const Circle& );
-		~Circle();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Circle, Graphics::Circle);

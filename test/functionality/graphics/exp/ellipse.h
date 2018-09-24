@@ -16,6 +16,8 @@ class Context;
 	public:
 		Ellipse(Ellipse&& rhs);
 	public:
+		Ellipse(const Ellipse& );
+		~Ellipse();
 		Ellipse(float Ox, float Oy, float a, float b);
 		/**
 		* @return Area of this shape object.
@@ -29,8 +31,6 @@ class Context;
 		* Draws this shape on a given device context.
 		*/
 		virtual void Draw(Context* ctx) const;
-		Ellipse(const Ellipse& );
-		~Ellipse();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Ellipse, Graphics::Ellipse);

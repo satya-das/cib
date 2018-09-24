@@ -7,6 +7,8 @@ class Point
 public:
 	Point(Point&& rhs);
 public:
+	Point(const Point& );
+	~Point();
 	Point(float x, float y);
 	float X() const;
 	void X(float x);
@@ -14,8 +16,6 @@ public:
 	void Y(float y);
 	Point operator +(const Point& p) const;
 	Point operator -(Point p) const;
-	Point(const Point& );
-	~Point();
 
 private:
 	__ZZ_CIB_CLASS_INTERNAL_DEF(Point, Point);

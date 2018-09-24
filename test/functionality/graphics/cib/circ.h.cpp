@@ -12,6 +12,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
+		Circle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Circle& __zz_cib_param0)
+			: ::Graphics::Circle::Circle(__zz_cib_param0)
+			, __zz_cib_proxy(proxy)
+			, __zz_cib_mtbl(mtbl)
+		{}
 		Circle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float radius)
 			: ::Graphics::Circle::Circle(Ox, Oy, radius)
 			, __zz_cib_proxy(proxy)
@@ -32,35 +37,30 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
-		Circle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Circle& __zz_cib_param0)
-			: ::Graphics::Circle::Circle(__zz_cib_param0)
-			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
-		{}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-	static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float radius) {
-		return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, Ox, Oy, radius);
-	}
-	static float __zz_cib_decl Area_2(const ::Graphics::Circle* __zz_cib_obj) {
-		return __zz_cib_obj->::Graphics::Circle::Area();
-	}
-	static float __zz_cib_decl Perimeter_3(const ::Graphics::Circle* __zz_cib_obj) {
-		return __zz_cib_obj->::Graphics::Circle::Perimeter();
-	}
-	static void __zz_cib_decl Draw_4(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
-		__zz_cib_obj->::Graphics::Circle::Draw(ctx);
-	}
-	static ::Graphics::Shape* __zz_cib_decl CreateCircle_5(float Ox, float Oy, float radius) {
-		return ::Graphics::Circle::CreateCircle(Ox, Oy, radius);
-	}
-	static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_6(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Circle& __zz_cib_param0) {
+	static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Circle& __zz_cib_param0) {
 		return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, __zz_cib_param0);
 	}
-	static void __zz_cib_decl __zz_cib_delete_7(::Graphics::Circle* __zz_cib_obj) {
+	static void __zz_cib_decl __zz_cib_delete_2(::Graphics::Circle* __zz_cib_obj) {
 		delete __zz_cib_obj;
+	}
+	static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_3(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float radius) {
+		return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, Ox, Oy, radius);
+	}
+	static float __zz_cib_decl Area_4(const ::Graphics::Circle* __zz_cib_obj) {
+		return __zz_cib_obj->::Graphics::Circle::Area();
+	}
+	static float __zz_cib_decl Perimeter_5(const ::Graphics::Circle* __zz_cib_obj) {
+		return __zz_cib_obj->::Graphics::Circle::Perimeter();
+	}
+	static void __zz_cib_decl Draw_6(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
+		__zz_cib_obj->::Graphics::Circle::Draw(ctx);
+	}
+	static ::Graphics::Shape* __zz_cib_decl CreateCircle_7(float Ox, float Oy, float radius) {
+		return ::Graphics::Circle::CreateCircle(Ox, Oy, radius);
 	}
 	::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_8(::Graphics::Circle* __zz_cib_obj) {
 		return __zz_cib_obj;
@@ -78,12 +78,12 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Area_2),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_3),
-			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_4),
-			reinterpret_cast<__zz_cib_MethodEntry> (&CreateCircle_5),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_6),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_7),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_3),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Area_4),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Perimeter_5),
+			reinterpret_cast<__zz_cib_MethodEntry> (&Draw_6),
+			reinterpret_cast<__zz_cib_MethodEntry> (&CreateCircle_7),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Graphics__Shape_8),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_release_proxy_9)
 		};

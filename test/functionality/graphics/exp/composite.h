@@ -14,6 +14,8 @@ typedef std::vector<Graphics::Shape*> Shapes;
 	public:
 		Composite(Composite&& rhs);
 	public:
+		Composite(const Composite& );
+		~Composite();
 		Composite();
 		void Add(Shape* shape);
 		size_t NumShapes() const;
@@ -31,8 +33,6 @@ typedef std::vector<Graphics::Shape*> Shapes;
 		 */
 		virtual void Draw(Context* ctx) const;
 		static Composite* CreateCompositeOfRectAndCircle();
-		Composite(const Composite& );
-		~Composite();
 
 	private:
 		__ZZ_CIB_CLASS_INTERNAL_DEF(Composite, Graphics::Composite);

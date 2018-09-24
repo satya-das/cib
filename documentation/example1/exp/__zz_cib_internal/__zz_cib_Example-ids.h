@@ -12,14 +12,14 @@ namespace __zz_cib_ { namespace __zz_cib_classid {
 
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
 	enum {
-		//#= void SomeFunc();
-		SomeFunc_1 = 1,
 		//#= A();
-		__zz_cib_new_2 = 2,
+		__zz_cib_new_1 = 1,
 		//#= A(const A&);
-		__zz_cib_new_3 = 3,
+		__zz_cib_new_2 = 2,
 		//#= ~A()
-		__zz_cib_delete_4 = 4,
+		__zz_cib_delete_3 = 3,
+		//#= void SomeFunc();
+		SomeFunc_4 = 4,
 		__zz_cib_next_method_id = 5
 	};
 }}}}
