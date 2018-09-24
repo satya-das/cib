@@ -495,6 +495,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   stm << "#include \"" << cibParams.helperFileName << "\"\n";
+  stm << "#include \"" << cibParams.handleHelperFileName << "\"\n";
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   emitDefn(stm, helper, cibParams, cibIdMgr);
 }
@@ -813,8 +814,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
                                         CppIndent        indentation) const
 {
   stm << indentation << longName() << "* __zz_cib_" << longName()
-      << "::__zz_cib_Helper::__zz_cib_from_handle(__zz_cib_HANDLE* h) {\n";
-  ;
+      << "::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {\n";
   ++indentation;
   stm << indentation << "switch(__zz_cib_get_class_id(h)) {\n";
   forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
@@ -841,7 +841,7 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
 {
   if (!isFacadeLike() && isAbstract())
     return;
-  stm << indentation << "static " << longName() << "* " << cibParams.fromHandle << "(__zz_cib_HANDLE* h)";
+  stm << indentation << "static " << longName() << "* __zz_cib_create_proxy(__zz_cib_HANDLE* h)";
   if (isFacadeLike())
   {
     // For Facade classes definition of fromHandle() will be more elaborative.
@@ -856,18 +856,6 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
     --indentation;
     stm << indentation << "}\n";
   }
-
-  // Emit __zz_cib_from_handle() definition for references.
-  stm << indentation << "static " << longName() << "& __zz_cib_from_handle(__zz_cib_HANDLE& h) {\n";
-  stm << ++indentation << "return *__zz_cib_from_handle(&h);\n";
-  stm << --indentation << "}\n";
-  // Emit methods for const handle ptr and ref.
-  stm << indentation << "static " << longName() << " const * __zz_cib_from_handle(const __zz_cib_HANDLE* h) {\n";
-  stm << ++indentation << "return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));\n";
-  stm << --indentation << "}\n";
-  stm << indentation << "static " << longName() << " const & __zz_cib_from_handle(const __zz_cib_HANDLE& h) {\n";
-  stm << ++indentation << "return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));\n";
-  stm << --indentation << "}\n";
 }
 
 void CibCppCompound::identifyMethodsToBridge()
@@ -1000,8 +988,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   {
     stm << '\n'; // Start in new line.
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
-    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper {\n";
-    stm << indentation << "private:\n";
+    stm << ++indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_Helper\n";
+    stm << ++indentation << ", public __zz_cib_::__zz_cib_HandleHelper<" << longName() << ", __zz_cib_Helper> {\n";
+    stm << --indentation << "private:\n";
     stm << ++indentation << "friend " << compoundType_ << ' ' << longName() << ";\n";
     if (needsGenericProxyDefinition())
       stm << indentation << "static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();\n";

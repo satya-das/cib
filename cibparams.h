@@ -30,6 +30,7 @@ public:
   std::string cibInternalDirName;
   std::string cibdefFileName;
   std::string helperFileName;
+  std::string handleHelperFileName;
   std::string cibInternalNamespace;
   std::string handleGetterMethod;
   std::string copyCtorCAPIPrefix;
@@ -50,6 +51,7 @@ public:
     , cibInternalDirName(CIBPREFIX "internal")
     , cibdefFileName(CIBPREFIX + moduleName + "-def.h")
     , helperFileName(CIBPREFIX + moduleName + "-helper.h")
+    , handleHelperFileName(CIBPREFIX + moduleName + "-handle-helper.h")
     , cibInternalNamespace(CIBPREFIX)
     , handleGetterMethod(CIBPREFIX "handle")
     , copyCtorCAPIPrefix(CIBPREFIX "copy")

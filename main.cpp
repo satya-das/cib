@@ -229,6 +229,12 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
                    cibParams.cibInternalDir() / filename,
                    bfs::copy_option::overwrite_if_exists);
   }
+  {
+    std::string filename = "__zz_cib_" + cibParams.moduleName + "-handle-helper.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-handle-helper.h",
+                   cibParams.cibInternalDir() / filename,
+                   bfs::copy_option::overwrite_if_exists);
+  }
 }
 
 int main(int argc, char* argv[])
