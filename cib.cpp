@@ -918,15 +918,14 @@ void CibCppCompound::identifyMethodsToBridge()
   }
   if (!isClassLike())
     return;
-  if (!hasCtor() && (!isAbstract() || needsGenericProxyDefinition()))
+  if (!hasDtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
-    auto ctorProtection = isAbstract() ? kProtected : kPublic;
-    auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
-    defaultCtor->owner_ = this;
-    addMember(defaultCtor);
-    CibFunctionHelper func(defaultCtor);
-    needsBridging_.push_back(func);
-    objNeedingBridge_.insert(defaultCtor);
+    auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
+    defaultDtor->owner_ = this;
+    members_.insert(members_.begin(), defaultDtor);
+    CibFunctionHelper func(defaultDtor);
+    needsBridging_.insert(needsBridging_.begin(), func);
+    objNeedingBridge_.insert(defaultDtor);
   }
   if (!hasCopyCtor() && !hasMoveCtor() && !isAbstract())
   {
@@ -938,19 +937,20 @@ void CibCppCompound::identifyMethodsToBridge()
     paramList->push_back({param});
     auto copyCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), paramList, nullptr, 0);
     copyCtor->owner_ = this;
-    addMember(copyCtor);
+    members_.insert(members_.begin(), copyCtor);
     CibFunctionHelper func(copyCtor);
-    needsBridging_.push_back(func);
+    needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(copyCtor);
   }
-  if (!hasDtor() && (!isAbstract() || needsGenericProxyDefinition()))
+  if (!hasCtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
-    auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
-    defaultDtor->owner_ = this;
-    addMember(defaultDtor);
-    CibFunctionHelper func(defaultDtor);
-    needsBridging_.push_back(func);
-    objNeedingBridge_.insert(defaultDtor);
+    auto ctorProtection = isAbstract() ? kProtected : kPublic;
+    auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
+    defaultCtor->owner_ = this;
+    members_.insert(members_.begin(), defaultCtor);
+    CibFunctionHelper func(defaultCtor);
+    needsBridging_.insert(needsBridging_.begin(), func);
+    objNeedingBridge_.insert(defaultCtor);
   }
 }
 
