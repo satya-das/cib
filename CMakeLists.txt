@@ -41,9 +41,18 @@ target_include_directories(cib
 
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
 set(RESFILES
-	'__zz_cib_$$Module$$-decl.h'  '__zz_cib_$$Module$$-export.h'  '__zz_cib_$$Module$$-mtable-helper.h'  '__zz_cib_$$Module$$-mtable.h'
-	'__zz_cib_$$Module$$-def.h'   '__zz_cib_$$Module$$.h'         '__zz_cib_$$Module$$-import.h'  '__zz_cib_$$Module$$-classId-repo.cpp'
-	'__zz_cib_$$Module$$-class-internal-def.h' '__zz_cib_$$Module$$-handle-helper.h'  '__zz_cib_$$Module$$-handle.h'
+	__zz_cib_Module.h
+	__zz_cib_Module-classId-repo.cpp
+	__zz_cib_Module-class-internal-def.h
+	__zz_cib_Module-decl.h
+	__zz_cib_Module-def.h
+	__zz_cib_Module-export.h
+	__zz_cib_Module-handle.h
+	__zz_cib_Module-handle-helper.h
+	__zz_cib_Module-import.h
+	__zz_cib_Module-mtable.h
+	__zz_cib_Module-mtable-helper.h
+	__zz_cib_pointer_helper.h
 )
 
 
