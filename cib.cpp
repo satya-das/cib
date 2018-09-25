@@ -821,8 +821,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
     auto cibIdData = cibIdMgr.getCibIdData(derived->longName());
     if (cibIdData)
     {
-      stm << indentation << "case __zz_cib_"
-          << "::__zz_cib_classid::" << cibIdData->getIdName() << ":\n";
+      stm << indentation << "case " << cibParams.classIdOwnerSpace() << cibIdData->getIdName() << ":\n";
       ++indentation;
       stm << indentation << "return __zz_cib_" << derived->longName()
           << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
@@ -1453,8 +1452,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
         if (cibIdData)
         {
           stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
-          stm << " __zz_cib_"
-              << "::__zz_cib_classid::" << cibIdData->getIdName() << ";\n";
+          stm << cibParams.classIdOwnerSpace() << cibIdData->getIdName() << ";\n";
         }
       });
       stm << indentation << "classIdRepoPopulated = true;\n";

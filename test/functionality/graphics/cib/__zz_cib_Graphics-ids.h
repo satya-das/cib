@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_classid {
+namespace __zz_cib_ { namespace Graphics { namespace __zz_cib_classid {
 	enum {
 		//#= ::Graphics::Circle
 		__Graphics__Circle = 1,
@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace __zz_cib_classid {
 		__Point = 11,
 		__zz_cib_next_class_id = 16
 	};
-}}
+}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_methodid {
 	enum {
