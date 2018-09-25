@@ -212,6 +212,15 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
     helperStm << helperCode;
   }
   {
+    std::string   mtableFileName = "__zz_cib_" + cibParams.moduleName + "-handle-helper.h";
+    std::ofstream helperStm((cibParams.cibInternalDir() / mtableFileName).string(), std::ios_base::out);
+    // Emit boiler plate code for cib.cpp of library
+    std::strstreambuf tmpbuf;
+    std::ifstream((cibParams.resDir / "__zz_cib_$Module$-handle-helper.h").string(), std::ios_base::in) >> &tmpbuf;
+    auto helperCode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    helperStm << helperCode;
+  }
+  {
     std::string filename = "__zz_cib_" + cibParams.moduleName + "-decl.h";
     bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-decl.h",
                    cibParams.cibInternalDir() / filename,
@@ -230,8 +239,8 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
                    bfs::copy_option::overwrite_if_exists);
   }
   {
-    std::string filename = "__zz_cib_" + cibParams.moduleName + "-handle-helper.h";
-    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-handle-helper.h",
+    std::string filename = "__zz_cib_" + cibParams.moduleName + "-handle.h";
+    bfs::copy_file(cibParams.resDir / "__zz_cib_$Module$-handle.h",
                    cibParams.cibInternalDir() / filename,
                    bfs::copy_option::overwrite_if_exists);
   }
