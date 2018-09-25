@@ -7,6 +7,7 @@ namespace __zz_cib_ { namespace Point {
 		, public __zz_cib_::__zz_cib_HandleHelper<::Point, __zz_cib_Helper> {
 	private:
 		friend class ::Point;
+		friend class __zz_cib_::__zz_cib_HandleHelper<::Point, __zz_cib_Helper>;
 
 		static __zz_cib_HANDLE* __zz_cib_new_1(const __zz_cib_HANDLE& __zz_cib_param0) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
@@ -64,26 +65,17 @@ namespace __zz_cib_ { namespace Point {
 			return helper;
 		}
 
-		public:
-			static __zz_cib_HANDLE* __zz_cib_handle(const ::Point* __zz_cib_obj) {
-				return __zz_cib_obj->__zz_cib_h_;
-			}
-			static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
-				return __zz_cib_obj.__zz_cib_h_;
-			}
-			static ::Point __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-				return ::Point(h);
-			}
-			static ::Point* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-				return new ::Point(h);
-			}
-			static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
-				auto h = __zz_cib_obj->__zz_cib_h_;
-				__zz_cib_obj->__zz_cib_h_ = nullptr;
-				return h;
-			}
-		};
-	}}
+		static ::Point* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+			return new ::Point(h);
+		}
+	public:
+		static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
+			auto h = __zz_cib_obj->__zz_cib_h_;
+			__zz_cib_obj->__zz_cib_h_ = nullptr;
+			return h;
+		}
+	};
+}}
 
 inline Point::Point(__zz_cib_::__zz_cib_HANDLE* h)
 	: __zz_cib_h_(h)
@@ -125,13 +117,13 @@ inline void Point::Y(float y) {
 }
 
 inline ::Point Point::operator +(const ::Point& p) const {
-	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
+	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle<>(
 		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_8(__zz_cib_h_, *__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }
 
 inline ::Point Point::operator -(::Point p) const {
-	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
+	return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle<>(
 		__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_9(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
 	);
 }
