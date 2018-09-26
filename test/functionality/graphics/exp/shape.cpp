@@ -10,7 +10,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 
 		static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
 			static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
-				__zz_cib_::__zz_cib_classid::__Graphics__Shape));
+				__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Shape));
 			return mtableHelper;
 		}
 		Shape(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
@@ -43,13 +43,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 }}}}
 ::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::__zz_cib_classid::__Graphics__Circle:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle:
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::__zz_cib_classid::__Graphics__Composite:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite:
 		return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::__zz_cib_classid::__Graphics__Ellipse:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse:
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::__zz_cib_classid::__Graphics__Rectangle:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	default:
 		return ::__zz_cib_::Graphics::Shape::__zz_cib_Generic::Shape::__zz_cib_from_handle(h);

@@ -7,7 +7,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 
 		static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
 			static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
-				__zz_cib_::__zz_cib_classid::__Graphics__Composite));
+				__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite));
 			return mtableHelper;
 		}
 		Composite(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}

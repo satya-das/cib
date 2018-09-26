@@ -7,7 +7,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 
 		static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
 			static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
-				__zz_cib_::__zz_cib_classid::__Graphics__Context));
+				__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Context));
 			return mtableHelper;
 		}
 		Context(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
@@ -45,7 +45,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 }}}}
 ::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::__zz_cib_classid::__Graphics__LogContext:
+	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__LogContext:
 		return __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_from_handle(h);
 	default:
 		return ::__zz_cib_::Graphics::Context::__zz_cib_Generic::Context::__zz_cib_from_handle(h);

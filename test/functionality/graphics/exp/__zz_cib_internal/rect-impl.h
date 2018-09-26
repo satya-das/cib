@@ -50,7 +50,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_MethodTableHelper(
 				__zz_cib_Graphics_GetMethodTable(
-					__zz_cib_::__zz_cib_classid::__Graphics__Rectangle)) {}
+					__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle)) {}
 		static const __zz_cib_Helper& instance() {
 			static __zz_cib_Helper helper;
 			return helper;
