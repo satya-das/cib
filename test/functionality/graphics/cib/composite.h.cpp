@@ -31,17 +31,17 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Composite::__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
+			auto method = getMethod<AreaProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
 			return method(__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Composite::__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
+			auto method = getMethod<PerimeterProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
 			return method(__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Composite::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
+			auto method = getMethod<DrawProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }

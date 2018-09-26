@@ -2,13 +2,13 @@
 
 #pragma once
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_classid {
-	enum {
-		//#= ::Example::A
-		__Example__A = 1,
-		__zz_cib_next_class_id = 2
-	};
+namespace __zz_cib_ { namespace Example { namespace A {
+	 enum { __zz_cib_classid = 1 };
 }}}
+
+namespace __zz_cib_ { namespace Example {
+	 enum { __zz_cib_next_class_id = 2 };
+}}
 
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
 	enum {

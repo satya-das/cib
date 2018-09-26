@@ -11,55 +11,55 @@ namespace __zz_cib_ { namespace Point {
 
 		static __zz_cib_HANDLE* __zz_cib_new_1(const __zz_cib_HANDLE& __zz_cib_param0) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_new_1);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
 			return method(__zz_cib_param0);
 		}
 		static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_delete_2);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_2);
 				return method(__zz_cib_obj);
 			}
 		}
 		static __zz_cib_HANDLE* __zz_cib_new_3(float x, float y) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (float x, float y);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_new_3);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_3);
 			return method(x, y);
 		}
 		static float X_4(__zz_cib_HANDLE* __zz_cib_obj) {
 			using XProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_4);
+			auto method = instance().getMethod<XProc>(__zz_cib_methodid::X_4);
 			return method(__zz_cib_obj);
 		}
 		static void X_5(__zz_cib_HANDLE* __zz_cib_obj, float x) {
 			using XProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x);
-			auto method = instance().getMethod<XProc>(__zz_cib_::Point::__zz_cib_methodid::X_5);
+			auto method = instance().getMethod<XProc>(__zz_cib_methodid::X_5);
 			return method(__zz_cib_obj, x);
 		}
 		static float Y_6(__zz_cib_HANDLE* __zz_cib_obj) {
 			using YProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_6);
+			auto method = instance().getMethod<YProc>(__zz_cib_methodid::Y_6);
 			return method(__zz_cib_obj);
 		}
 		static void Y_7(__zz_cib_HANDLE* __zz_cib_obj, float y) {
 			using YProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float y);
-			auto method = instance().getMethod<YProc>(__zz_cib_::Point::__zz_cib_methodid::Y_7);
+			auto method = instance().getMethod<YProc>(__zz_cib_methodid::Y_7);
 			return method(__zz_cib_obj, y);
 		}
 		static __zz_cib_HANDLE* __zz_cib_OperatorPlus_8(__zz_cib_HANDLE* __zz_cib_obj, const __zz_cib_HANDLE& p) {
 			using __zz_cib_OperatorPlusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, const __zz_cib_HANDLE& p);
-			auto method = instance().getMethod<__zz_cib_OperatorPlusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorPlus_8);
+			auto method = instance().getMethod<__zz_cib_OperatorPlusProc>(__zz_cib_methodid::__zz_cib_OperatorPlus_8);
 			return method(__zz_cib_obj, p);
 		}
 		static __zz_cib_HANDLE* __zz_cib_OperatorMinus_9(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* p) {
 			using __zz_cib_OperatorMinusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* p);
-			auto method = instance().getMethod<__zz_cib_OperatorMinusProc>(__zz_cib_::Point::__zz_cib_methodid::__zz_cib_OperatorMinus_9);
+			auto method = instance().getMethod<__zz_cib_OperatorMinusProc>(__zz_cib_methodid::__zz_cib_OperatorMinus_9);
 			return method(__zz_cib_obj, p);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_MethodTableHelper(
-				__zz_cib_Graphics_GetMethodTable(
-					__zz_cib_::Graphics::__zz_cib_classid::__Point)) {}
+				__zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+				{}
 		static const __zz_cib_Helper& instance() {
 			static __zz_cib_Helper helper;
 			return helper;

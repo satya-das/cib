@@ -10,7 +10,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 
 		static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
 			static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
-				__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Shape));
+				__zz_cib_classid));
 			return mtableHelper;
 		}
 		Shape(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
@@ -20,36 +20,36 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 		}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Area_2);
+			auto method = __zz_cib_get_mtable_helper().getMethod<AreaProc>(__zz_cib_methodid::Area_2);
 			return method(__zz_cib_h_);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Perimeter_3);
+			auto method = __zz_cib_get_mtable_helper().getMethod<PerimeterProc>(__zz_cib_methodid::Perimeter_3);
 			return method(__zz_cib_h_);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto method = __zz_cib_get_mtable_helper().getMethod<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::Draw_4);
+			auto method = __zz_cib_get_mtable_helper().getMethod<DrawProc>(__zz_cib_methodid::Draw_4);
 			return method(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 		}
 		~Shape() override {
 			if (!__zz_cib_h_) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_methodid::__zz_cib_delete_5);
+			auto method = __zz_cib_get_mtable_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_5);
 			method(__zz_cib_h_);
 		}
 	};
 }}}}
 ::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 	switch(__zz_cib_get_class_id(h)) {
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle:
+	case __zz_cib_::Graphics::Circle::__zz_cib_classid:
 		return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite:
+	case __zz_cib_::Graphics::Composite::__zz_cib_classid:
 		return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse:
+	case __zz_cib_::Graphics::Ellipse::__zz_cib_classid:
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_from_handle(h);
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle:
+	case __zz_cib_::Graphics::Rectangle::__zz_cib_classid:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_from_handle(h);
 	default:
 		return ::__zz_cib_::Graphics::Shape::__zz_cib_Generic::Shape::__zz_cib_from_handle(h);

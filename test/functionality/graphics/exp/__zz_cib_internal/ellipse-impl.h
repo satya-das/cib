@@ -12,45 +12,45 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 
 		static __zz_cib_HANDLE* __zz_cib_new_1(::Graphics::Ellipse* __zz_cib_proxy, const __zz_cib_HANDLE& __zz_cib_param0) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, __zz_cib_MethodTable, const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_1);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
 			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), __zz_cib_param0);
 		}
 		static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_delete_2);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_2);
 				return method(__zz_cib_obj);
 			}
 		}
 		static __zz_cib_HANDLE* __zz_cib_new_3(::Graphics::Ellipse* __zz_cib_proxy, float Ox, float Oy, float a, float b) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, __zz_cib_MethodTable, float Ox, float Oy, float a, float b);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_new_3);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_3);
 			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), Ox, Oy, a, b);
 		}
 		static float Area_4(__zz_cib_HANDLE* __zz_cib_obj) {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<AreaProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Area_4);
+			auto method = instance().getMethod<AreaProc>(__zz_cib_methodid::Area_4);
 			return method(__zz_cib_obj);
 		}
 		static float Perimeter_5(__zz_cib_HANDLE* __zz_cib_obj) {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<PerimeterProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Perimeter_5);
+			auto method = instance().getMethod<PerimeterProc>(__zz_cib_methodid::Perimeter_5);
 			return method(__zz_cib_obj);
 		}
 		static void Draw_6(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto method = instance().getMethod<DrawProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::Draw_6);
+			auto method = instance().getMethod<DrawProc>(__zz_cib_methodid::Draw_6);
 			return method(__zz_cib_obj, ctx);
 		}
 		static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
 			using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7);
+			auto method = instance().getMethod<__zz_cib_cast_to___Graphics__ShapeProc>(__zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7);
 			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_MethodTableHelper(
-				__zz_cib_Graphics_GetMethodTable(
-					__zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse)) {}
+				__zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+				{}
 		static const __zz_cib_Helper& instance() {
 			static __zz_cib_Helper helper;
 			return helper;
@@ -69,7 +69,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 		static void __zz_cib_release_proxy(::Graphics::Ellipse* __zz_cib_obj) {
 			if (__zz_cib_obj->__zz_cib_h_) {
 				using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_::Graphics::Ellipse::__zz_cib_methodid::__zz_cib_release_proxy_8);
+				auto method = instance().getMethod<__zz_cib_release_proxyProc>(__zz_cib_methodid::__zz_cib_release_proxy_8);
 				method(__zz_cib_obj->__zz_cib_h_);
 			}
 		}

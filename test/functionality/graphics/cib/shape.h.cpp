@@ -29,23 +29,23 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
+			auto method = getMethod<AreaProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Area_1);
 			return method(__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
+			auto method = getMethod<PerimeterProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_2);
 			return method(__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
+			auto method = getMethod<DrawProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Draw_3);
 			return method(__zz_cib_proxy, ctx);
 		}
 		~Shape() override {
 			if (!__zz_cib_proxy) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_4);
+			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_4);
 			method(__zz_cib_proxy);
 		}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -70,10 +70,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 	std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Shape* __zz_cib_obj) {
 		static bool classIdRepoPopulated = false;
 		if (!classIdRepoPopulated) {
-			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] = __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle;
-			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] = __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite;
-			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] = __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse;
-			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] = __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle;
+			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] = __zz_cib_::Graphics::Circle::__zz_cib_classid;
+			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] = __zz_cib_::Graphics::Composite::__zz_cib_classid;
+			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] = __zz_cib_::Graphics::Ellipse::__zz_cib_classid;
+			__zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] = __zz_cib_::Graphics::Rectangle::__zz_cib_classid;
 			classIdRepoPopulated = true;
 		}
 		return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

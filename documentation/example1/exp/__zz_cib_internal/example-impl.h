@@ -11,30 +11,30 @@ namespace __zz_cib_ { namespace Example { namespace A {
 
 		static __zz_cib_HANDLE* __zz_cib_new_1() {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_1);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
 			return method();
 		}
 		static __zz_cib_HANDLE* __zz_cib_new_2(const __zz_cib_HANDLE& __zz_cib_param0) {
 			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_new_2);
+			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_2);
 			return method(__zz_cib_param0);
 		}
 		static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
 			if (__zz_cib_obj) {
 				using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_::Example::A::__zz_cib_methodid::__zz_cib_delete_3);
+				auto method = instance().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_3);
 				return method(__zz_cib_obj);
 			}
 		}
 		static void SomeFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
 			using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = instance().getMethod<SomeFuncProc>(__zz_cib_::Example::A::__zz_cib_methodid::SomeFunc_4);
+			auto method = instance().getMethod<SomeFuncProc>(__zz_cib_methodid::SomeFunc_4);
 			return method(__zz_cib_obj);
 		}
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_MethodTableHelper(
-				__zz_cib_Example_GetMethodTable(
-					__zz_cib_::Example::__zz_cib_classid::__Example__A)) {}
+				__zz_cib_Example_GetMethodTable(__zz_cib_classid))
+				{}
 		static const __zz_cib_Helper& instance() {
 			static __zz_cib_Helper helper;
 			return helper;

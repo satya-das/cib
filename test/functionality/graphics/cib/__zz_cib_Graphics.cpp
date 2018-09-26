@@ -13,21 +13,21 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { __zz_cib_MethodTabl
 extern "C" __zz_cib_export __zz_cib_::__zz_cib_MethodTable __zz_cib_Graphics_GetMethodTable(std::uint32_t classId)
 {
 	switch(classId) {
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Circle:
+	case __zz_cib_::Graphics::Circle::__zz_cib_classid:
 		return __zz_cib_::Graphics::Circle::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Composite:
+	case __zz_cib_::Graphics::Composite::__zz_cib_classid:
 		return __zz_cib_::Graphics::Composite::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Context:
+	case __zz_cib_::Graphics::Context::__zz_cib_classid:
 		return __zz_cib_::Graphics::Context::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Ellipse:
+	case __zz_cib_::Graphics::Ellipse::__zz_cib_classid:
 		return __zz_cib_::Graphics::Ellipse::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__LogContext:
+	case __zz_cib_::Graphics::LogContext::__zz_cib_classid:
 		return __zz_cib_::Graphics::LogContext::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Point:
+	case __zz_cib_::Point::__zz_cib_classid:
 		return __zz_cib_::Point::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Rectangle:
+	case __zz_cib_::Graphics::Rectangle::__zz_cib_classid:
 		return __zz_cib_::Graphics::Rectangle::__zz_cib_GetMethodTable();
-	case __zz_cib_::Graphics::__zz_cib_classid::__Graphics__Shape:
+	case __zz_cib_::Graphics::Shape::__zz_cib_classid:
 		return __zz_cib_::Graphics::Shape::__zz_cib_GetMethodTable();
 	default:
 		return nullptr;
