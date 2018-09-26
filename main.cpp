@@ -135,12 +135,11 @@ static void emitMethodTableGetter(std::ostream&           stm,
       << "_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
-  auto classIdOwnerSpace = cibParams.classIdOwnerSpace();
   for (auto compound : compounds)
   {
-    auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
-    stm << indentation << "case " << classIdOwnerSpace << cibIdData->getIdName() << ":\n";
-    stm << ++indentation << "return __zz_cib_" << compound->longName() << "::__zz_cib_GetMethodTable();\n";
+    auto cibIdData = cibIdMgr.getCibIdData(compound->fullName());
+    stm << indentation << "case __zz_cib_::" << compound->fullName() << "::__zz_cib_classid:\n";
+    stm << ++indentation << "return __zz_cib_::" << compound->fullName() << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   }
   stm << indentation << "default:\n";

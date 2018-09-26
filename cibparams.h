@@ -81,10 +81,6 @@ public:
   {
     return "__zz_cib_" + moduleName + "-ids.h";
   }
-  std::string classIdOwnerSpace() const
-  {
-    return "__zz_cib_::" + moduleName + "::__zz_cib_classid::";
-  }
 
 private:
   CibParams(const CibParams&) = delete;
