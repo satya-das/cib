@@ -36,28 +36,48 @@
 
 //////////////////////////////////////////////////////////////////////////
 
+static CibId parseIdExpression(const CppExpr* enumItemVal)
+{
+  if (enumItemVal->expr1_.type == CppExprAtom::kAtom && enumItemVal->expr1_.atom != nullptr)
+    return atoi(enumItemVal->expr1_.atom->c_str());
+  return 0;
+}
+
 bool CibIdMgr::loadIds(const std::string& idsFilePath, const CibParams& cibParams)
 {
   CppParser cppparser;
   auto      idCmp = cppparser.parseFile(idsFilePath.c_str());
   if (idCmp == nullptr)
     return false;
-  bool classIdsLoaded = false; // sad that we cannot define vars in lambda capture.
-  idCmp->traverse([this, &classIdsLoaded](const CppObj* cppObj) -> bool {
+  idCmp->traverse([this](const CppObj* cppObj) -> bool {
     if (cppObj->objType_ == CppObj::kEnum)
     {
-      if (!classIdsLoaded && cppObj->owner_->name_ == "__zz_cib_classid")
+      auto* enumObj = static_cast<const CppEnum*>(cppObj);
+      if (!enumObj->itemList_)
+        return false;
+      static const std::string kClassIdName     = "__zz_cib_classid";
+      static const std::string kMethodIdName    = "__zz_cib_methodid";
+      static const std::string kNextClsIdName   = "__zz_cib_next_class_id";
+      auto                     extractClassName = [](const CppCompound* classObj) -> std::string {
+        return classObj->fullName().substr(11); // skip "::__zz_cib_"
+      };
+      if (cppObj->owner_->name_ == kMethodIdName)
       {
-        loadClassIds(static_cast<const CppEnum*>(cppObj));
-        classIdsLoaded = true;
-      }
-      else if (cppObj->owner_->name_ == "__zz_cib_methodid")
-      {
-        auto extractClassName = [](const CibCppCompound* classObj) -> std::string {
-          return classObj->longName().substr(11); // skip "::__zz_cib_"
-        };
-        auto className = extractClassName(static_cast<const CibCppCompound*>(cppObj->owner_->owner_));
+        auto className = extractClassName(cppObj->owner_->owner_);
         loadMethodIds(className, static_cast<const CppEnum*>(cppObj));
+      }
+      else if (enumObj->itemList_->front()->name_ == kClassIdName)
+      {
+        auto clsName = extractClassName(enumObj->owner_);
+        auto clsId   = parseIdExpression(enumObj->itemList_->front()->val_);
+        if (clsId != 0)
+          addClass(clsName, clsId);
+      }
+      else if (enumObj->itemList_->front()->name_ == kNextClsIdName)
+      {
+        auto nextClsId = parseIdExpression(enumObj->itemList_->front()->val_);
+        if (nextClassId_ < nextClsId)
+          nextClassId_ = nextClsId;
       }
     }
     return false;
@@ -202,12 +222,11 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
 
 CibIdData* CibIdMgr::addClass(std::string className, CibClassId classId)
 {
-  auto clsIdName = classIdName(className);
   if (classId == 0)
     classId = nextClassId_++;
   else if (nextClassId_ < classId + 1)
     nextClassId_ = classId + 1;
-  auto res = cibIdTable_.emplace(std::make_pair(std::move(className), CibIdData(std::move(clsIdName), classId)));
+  auto res = cibIdTable_.emplace(std::make_pair(std::move(className), CibIdData(classId)));
   if (!res.second)
     return nullptr;
   return &(res.first->second);

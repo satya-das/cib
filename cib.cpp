@@ -1342,7 +1342,6 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   stm << indentation << "static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
   stm << ++indentation << "static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(\n";
-  auto clsIdName = classIdName(fullName());
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";

@@ -59,22 +59,15 @@ using CibMethodIdTable  = std::map<CibMethodSignature, std::pair<CibMethodId, Ci
 class CibIdData
 {
   using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
-  std::string            classIdName; ///< Name of item in enum
   CibClassId             classId;
   CibMethodIdTable       methodIdTable;
   CibMethodIdToMethodMap methodIdToMethodMap;
   CibMethodId            nextMethodId{1};
 
 public:
-  CibIdData(std::string cIdName, CibClassId cId)
-    : classIdName(std::move(cIdName))
-    , classId(cId)
+  CibIdData(CibClassId cId)
+    : classId(cId)
   {
-  }
-
-  const std::string& getIdName() const
-  {
-    return classIdName;
   }
 
   CibClassId getId() const
