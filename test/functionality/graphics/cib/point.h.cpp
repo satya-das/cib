@@ -1,8 +1,9 @@
-#include "__zz_cib_Graphics-proxy.h"
-#include "__zz_cib_Graphics-mtable.h"
+#include "point.h"
+
 #include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-ids.h"
-#include "point.h"
+#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Point {
 	static ::Point* __zz_cib_decl __zz_cib_new_1(const ::Point& __zz_cib_param0) {

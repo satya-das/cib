@@ -1,8 +1,9 @@
-#include "__zz_cib_Graphics-proxy.h"
-#include "__zz_cib_Graphics-mtable.h"
+#include "rect.h"
+
 #include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-ids.h"
-#include "rect.h"
+#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_GenericProxy {
 	class Rectangle : public ::Graphics::Rectangle {

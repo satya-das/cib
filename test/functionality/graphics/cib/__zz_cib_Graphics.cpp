@@ -1,8 +1,8 @@
 #include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-export.h"
 #include "__zz_cib_Graphics-ids.h"
-
 #include "__zz_cib_Graphics-mtable.h"
+
 namespace __zz_cib_ { namespace Graphics { namespace Circle { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Composite { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Graphics { namespace Context { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}

@@ -1,9 +1,10 @@
-#include "__zz_cib_Graphics-proxy.h"
-#include "__zz_cib_Graphics-mtable.h"
-#include "__zz_cib_Graphics-decl.h"
-#include "__zz_cib_Graphics-ids.h"
 #include "circ.h"
 #include "shape.h"
+
+#include "__zz_cib_Graphics-decl.h"
+#include "__zz_cib_Graphics-ids.h"
+#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_GenericProxy {
 	class Circle : public ::Graphics::Circle {

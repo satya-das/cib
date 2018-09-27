@@ -1,7 +1,3 @@
-#include "__zz_cib_Graphics-proxy.h"
-#include "__zz_cib_Graphics-mtable.h"
-#include "__zz_cib_Graphics-decl.h"
-#include "__zz_cib_Graphics-ids.h"
 #include "circ.h"
 #include "composite.h"
 #include "ellipse.h"
@@ -14,6 +10,11 @@
 #include <unordered_map>
 
 extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
+
+#include "__zz_cib_Graphics-decl.h"
+#include "__zz_cib_Graphics-ids.h"
+#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy {
 	class Shape : public ::Graphics::Shape {
