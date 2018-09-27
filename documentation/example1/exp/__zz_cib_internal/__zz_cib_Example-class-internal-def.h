@@ -1,3 +1,5 @@
+#include "__zz_cib_Example-handle-helper.h"
+
 #ifdef __ZZ_CIB_CLASS_INTERNAL_DEF
 #  undef __ZZ_CIB_CLASS_INTERNAL_DEF
 #endif
@@ -7,6 +9,7 @@
 //! invasive way.
 #define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                                                               \
 protected:                                                                                                             \
+  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   className(__zz_cib_::__zz_cib_HANDLE* h);                                                                            \
                                                                                                                        \
 private:                                                                                                               \

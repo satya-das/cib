@@ -1,9 +1,5 @@
 #pragma once
 
-#include "__zz_cib_Example-decl.h"
-#include "__zz_cib_Example-export.h"
-#include "__zz_cib_Example-mtable.h"
-
 namespace __zz_cib_ {
 
 //! Objects of classes defined by client travels to library as proxies.

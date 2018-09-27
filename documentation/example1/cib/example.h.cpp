@@ -1,5 +1,7 @@
+#include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-mtable.h"
+#include "__zz_cib_Example-decl.h"
 #include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example.h"
 #include "example.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {

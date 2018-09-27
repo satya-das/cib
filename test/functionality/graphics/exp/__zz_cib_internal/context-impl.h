@@ -1,6 +1,7 @@
+#include "__zz_cib_Graphics-def.h"
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-mtable-helper.h"
-#include "__zz_cib_Graphics-handle-helper.h"
+#include "__zz_cib_Graphics-decl.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
 	class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
@@ -25,7 +26,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 		__zz_cib_Helper()
 			: __zz_cib_::__zz_cib_MethodTableHelper(
 				__zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-				{}
+		{}
 		static const __zz_cib_Helper& instance() {
 			static __zz_cib_Helper helper;
 			return helper;
