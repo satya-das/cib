@@ -505,7 +505,8 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
 
-  stm << "#include \"" << cibParams.cibInternalDirName << "/" << cibParams.cibdefFileName << "\"\n";
+  stm << "#include \"" << cibParams.cibInternalDirName << "/__zz_cib_" << cibParams.moduleName
+      << "-class-internal-def.h\"\n";
 
   emitHelperDecl(stm, helper, cibParams);
 }
@@ -516,9 +517,10 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
     return;
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   stm << "#include \"" << cibParams.mtableHelperFileName << "\"\n";
-  stm << "#include \"" << cibParams.handleHelperFileName << "\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   emitDefn(stm, helper, cibParams, cibIdMgr);
 }
@@ -1098,9 +1100,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "__zz_cib_Helper()\n";
       stm << ++indentation << ": __zz_cib_::__zz_cib_MethodTableHelper(\n";
       stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(__zz_cib_classid))\n";
-      stm << indentation << "{}\n";
       --indentation;
-      stm << --indentation << "static const __zz_cib_Helper& instance() {\n";
+      stm << --indentation << "{}\n";
+      stm << indentation << "static const __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
       stm << --indentation << "}\n";
@@ -1426,7 +1428,10 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
 {
   if (isCppFile())
   {
-    stm << "#include \"__zz_cib_" << cibParams.moduleName << ".h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
   }
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
