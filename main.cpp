@@ -253,8 +253,8 @@ int main(int argc, char* argv[])
                              std::ios_base::out);
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";
-  cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n\n";
-  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n";
+  cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
+  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n\n";
   emitMethodTableGetter(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 
   return 0;

@@ -1428,11 +1428,12 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
 {
   if (isCppFile())
   {
-    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
-    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n";
+    emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
-    emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
+    stm << '\n';
   }
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
   {
