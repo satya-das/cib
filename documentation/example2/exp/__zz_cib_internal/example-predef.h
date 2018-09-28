@@ -3,3 +3,7 @@
 namespace __zz_cib_ { namespace Example { namespace A {
 	class __zz_cib_Helper;
 }}}
+
+namespace __zz_cib_ { namespace Example { namespace B {
+	class __zz_cib_Helper;
+}}}

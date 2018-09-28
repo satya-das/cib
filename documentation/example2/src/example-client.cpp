@@ -2,7 +2,7 @@
 
 int main()
 {
-  Example::A a;
-  a.SomeFunc();
-  auto b = a;
+  Example::A* pA = new Example::B();
+  pA->VirtFunc();
 }
+

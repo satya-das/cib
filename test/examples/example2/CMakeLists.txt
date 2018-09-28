@@ -32,7 +32,7 @@ set(PUB_FILES "")
 foreach(PUBFILE ${PUB_FILE_NAMES})
 	list(APPEND CIB_OUTPUT ${PROJECT_ROOT}/cib/${PUBFILE})
 	list(APPEND CIB_OUTPUT ${PROJECT_ROOT}/cib/${PUBFILE}.cpp)
-	list(APPEND GRAPHICS_PUB_FILES ${PROJECT_ROOT}/pub/${PUBFILE})
+	list(APPEND PUB_FILES ${PROJECT_ROOT}/pub/${PUBFILE})
 endforeach()
 foreach(CIBOUTFILE ${CIB_OUTPUT})
 	set_source_files_properties(${CIBOUTFILE} GENERATED)
@@ -40,7 +40,7 @@ endforeach()
 add_custom_command(
 	OUTPUT ${PROJECT_ROOT}/cib/__zz_cib_Example.cpp
 	COMMAND echo Running cib...
-	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Example
+	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Example -c ../example1/cib/__zz_cib_Example-ids.h
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib ${PUB_FILES}
 	WORKING_DIRECTORY ${PROJECT_ROOT}
@@ -59,7 +59,7 @@ target_include_directories(${LIBNAME}
 	PRIVATE
 		${PROJECT_ROOT}/pub
 )
-add_dependencies(${LIBNAME} cib)
+add_dependencies(${LIBNAME} cib example1_lib)
 
 set(CLIENT_SOURCES
     ${PROJECT_ROOT}/src/example-client.cpp
