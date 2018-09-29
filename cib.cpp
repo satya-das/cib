@@ -132,8 +132,11 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
     const auto& param = params->at(i);
     stm << sep;
     emitType(stm, param.varObj->varType_, typeResolver, helper, purpose);
-    stm << ' ';
-    emitParamName(stm, param.varObj, i, !(purpose & kPurposeProxyDecl));
+    if (purpose != kPurposeSignature)
+    {
+      stm << ' ';
+      emitParamName(stm, param.varObj, i, !(purpose & kPurposeProxyDecl));
+    }
     sep = ", ";
   }
 }
@@ -231,6 +234,40 @@ void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
   stm << ";\n";
 }
 
+void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
+                                     const CibHelper&   helper,
+                                     const CibParams&   cibParams,
+                                     const std::string& capiName,
+                                     EmitPurpose        purpose) const
+{
+  if (isConstructor())
+    stm << getOwner()->longName() << "*";
+  else if (isDestructor())
+    stm << "void";
+  else
+    emitType(stm, func_->retType_, getOwner(), helper, purpose);
+  stm << " __zz_cib_decl ";
+  stm << capiName << '(';
+  if ((purpose != kPurposeSignature) && isConstructor() && getOwner()->needsGenericProxyDefinition())
+  {
+    stm << "__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
+    if (hasParams())
+      stm << ", ";
+  }
+  else if (!isStatic() && (isMethod() || isDestructor()))
+  {
+    if (isConst())
+      stm << "const ";
+    stm << getOwner()->longName() << "*";
+    if (purpose != kPurposeSignature)
+      stm << " __zz_cib_obj";
+    if (hasParams())
+      stm << ", ";
+  }
+  emitArgsForDecl(stm, helper, true, purpose);
+  stm << ')';
+}
+
 void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
                                      const CibHelper&   helper,
                                      const CibParams&   cibParams,
@@ -247,30 +284,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   }
   auto callType = forProxy ? CallType::kFromHandle : CallType::kDerefIfByVal;
   stm << indentation << "static ";
-  if (isConstructor())
-    stm << getOwner()->longName() << "*";
-  else if (isDestructor())
-    stm << "void";
-  else
-    emitType(stm, func_->retType_, getOwner(), helper, forProxy ? kPurposeProxyCApi : kPurposeCApi);
-  stm << " __zz_cib_decl ";
-  stm << capiName << '(';
-  if (isConstructor() && getOwner()->needsGenericProxyDefinition())
-  {
-    stm << "__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
-    if (hasParams())
-      stm << ", ";
-  }
-  else if (!isStatic() && (isMethod() || isDestructor()))
-  {
-    if (isConst())
-      stm << "const ";
-    stm << getOwner()->longName() << "* __zz_cib_obj";
-    if (hasParams())
-      stm << ", ";
-  }
-  emitArgsForDecl(stm, helper, true, forProxy ? kPurposeProxyCApi : kPurposeCApi);
-  stm << ") {\n";
+  emitCAPIDecl(stm, helper, cibParams, capiName, forProxy ? kPurposeProxyCApi : kPurposeCApi);
+  stm << " {\n";
   stm << ++indentation;
   if (isConstructor())
   {

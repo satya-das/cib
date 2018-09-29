@@ -232,7 +232,7 @@ public:
 
   /// Emits function arguments for function definition/declaration.
   void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose = kPurposeSignature) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.
@@ -241,6 +241,11 @@ public:
                     const CibParams& cibParams,
                     EmitPurpose      purpose,
                     CppIndent        indentation = CppIndent()) const;
+  void emitCAPIDecl(std::ostream&      stm,
+                    const CibHelper&   helper,
+                    const CibParams&   cibParams,
+                    const std::string& capiName,
+                    EmitPurpose        purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
   void emitCAPIDefn(std::ostream&      stm,
                     const CibHelper&   helper,
