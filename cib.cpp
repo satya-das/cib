@@ -587,7 +587,7 @@ void CibCppCompound::emitImplSource(std::ostream&    stm,
     for (auto func : needsBridging_)
     {
       if (func.isVirtual())
-        func.emitCAPIDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), true, indentation);
+        func.emitCAPIDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
     }
     --indentation;
     stm << indentation << '}' << closingBracesForWrappingNamespaces() << "\n\n";
@@ -1070,7 +1070,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         continue;
       stm << indentation << "static ";
       func.emitCAPIReturnType(stm, helper, false);
-      stm << ' ' << cibIdData->getMethodCApiName(func.signature()) << "(";
+      stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
       if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
         stm << "__zz_cib_HANDLE* __zz_cib_obj";
@@ -1094,7 +1094,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       func.emitProcType(stm, helper, cibParams, false, indentation);
       stm << indentation << "auto method = instance().getMethod<" << func.procType(cibParams) << ">(";
       stm << "__zz_cib_methodid::";
-      stm << cibIdData->getMethodCApiName(func.signature()) << ");\n";
+      stm << cibIdData->getMethodCApiName(func.signature(helper)) << ");\n";
       stm << indentation << "return method(";
       if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
       {
@@ -1278,7 +1278,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     stm << fullName() << "::" << func.funcName() << '(';
     func.emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
     stm << ")";
-    auto capiName = cibIdData->getMethodCApiName(func.signature());
+    auto capiName = cibIdData->getMethodCApiName(func.signature(helper));
     if (func.isConstructor())
     {
       stm << '\n';
@@ -1377,7 +1377,7 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
   for (auto func : needsBridging_)
   {
     auto cibIdData = cibIdMgr.getCibIdData(fullName() + "::__zz_cib_GenericProxy");
-    func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), indentation);
+    func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   }
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";
   --indentation;
@@ -1414,7 +1414,7 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   {
     auto cibIdData = cibIdMgr.getCibIdData(fullName());
     func.emitGenericDefn(
-      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), kPurposeGeneric, indentation);
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
   }
   --indentation;
   stm << indentation << "};\n";
@@ -1485,7 +1485,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     stm << indentation++ << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     for (auto func : needsBridging_)
     {
-      func.emitCAPIDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature()), false, indentation);
+      func.emitCAPIDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
     }
 
     forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {

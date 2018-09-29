@@ -68,24 +68,12 @@ CibCppCompound* CibFunctionHelper::getOwner() const
   return static_cast<CibCppCompound*>(func_->owner_);
 }
 
-std::string CibFunctionHelper::signature() const
+std::string CibFunctionHelper::signature(const CibHelper& helper) const
 {
   std::ostrstream tmpbuf;
-  CppWriter       cppWriter;
-  switch (cppObj_->objType_)
-  {
-    case CppObj::kConstructor:
-      cppWriter.emitConstructor(ctor_, tmpbuf, true);
-      break;
-    case CppObj::kFunction:
-      cppWriter.emitFunction(func_, tmpbuf, true);
-      break;
-    case CppObj::kDestructor:
-      tmpbuf << dtor_->name_ << "();";
-  }
-
-  auto itemUniqStr = std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount() - 1);
-  return itemUniqStr;
+  emitSignature(tmpbuf, helper, kPurposeSignature);
+  tmpbuf << ';';
+  return std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
 }
 
 using OperNameMap = std::map<std::string, std::string>;

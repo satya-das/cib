@@ -228,7 +228,7 @@ public:
   }
 
   /// @return signature of this method.
-  std::string signature() const;
+  std::string signature(const CibHelper& helper) const;
 
   /// Emits function arguments for function definition/declaration.
   void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;

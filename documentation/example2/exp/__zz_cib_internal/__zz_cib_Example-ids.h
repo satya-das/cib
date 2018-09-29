@@ -18,13 +18,13 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 	enum {
 		//#= A();
 		__zz_cib_new_1 = 1,
-		//#= A(const A&);
+		//#= A(const ::Example::A&);
 		__zz_cib_new_2 = 2,
-		//#= ~A()
+		//#= ~A();
 		__zz_cib_delete_3 = 3,
 		//#= void SomeFunc();
 		SomeFunc_4 = 4,
-		//#= virtual void VirtFunc();
+		//#= void VirtFunc();
 		VirtFunc_5 = 5,
 		__zz_cib_next_method_id = 6
 	};
@@ -34,11 +34,11 @@ namespace __zz_cib_ { namespace Example { namespace B { namespace __zz_cib_metho
 	enum {
 		//#= B();
 		__zz_cib_new_1 = 1,
-		//#= B(const B&);
+		//#= B(const ::Example::B&);
 		__zz_cib_new_2 = 2,
-		//#= ~B()
+		//#= ~B();
 		__zz_cib_delete_3 = 3,
-		//#= virtual void VirtFunc() override;
+		//#= void VirtFunc();
 		VirtFunc_4 = 4,
 		//#= __zz_cib_cast_to___Example__A
 		__zz_cib_cast_to___Example__A_5 = 5,

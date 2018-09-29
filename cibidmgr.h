@@ -48,10 +48,22 @@ using CibIdName       = std::string;
  */
 using CibMethodSignature = CibIdIdentifier;
 /*!
+ * SIgnature of CAPI that defines the ABI created by CIB.
+ */
+using CibMethodAbiSignature = CibIdIdentifier;
+
+/*!
  * CAPI Name of method. It is formed by appending method id to original name of method
  */
 using CibMethodCAPIName = std::string;
 using CibMethodIdTable  = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
+
+struct CibMethodInfo
+{
+  CibMethodCAPIName     capiName;   //!< Name of C API function.
+  CibMethodSignature    methodSig;  //!< Exact signature that is used to declare the method
+  CibMethodAbiSignature abiSig;     //!< Signature cib uses for cross component method table.
+};
 
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
@@ -136,7 +148,7 @@ public:
    * assignIds().
    */
   bool              loadIds(const std::string& idsFilePath, const CibParams& cibParams);
-  void              assignIds(const CibHelper& expProg, const CibParams& cibParams);
+  void              assignIds(const CibHelper& helper, const CibParams& cibParams);
   bool              saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
   const CibIdTable& getCibIdTable() const
   {
@@ -157,7 +169,7 @@ public:
   size_t      numMethods(const std::string& className) const;
 
 private:
-  void assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forGenericProxy);
+  void assignIds(const CibCppCompound* compound, const CibHelper& helper, const CibParams& cibParams, bool forGenericProxy);
 
 private:
   void       loadClassIds(const CppEnum* classIdEnum);

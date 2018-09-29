@@ -14,9 +14,9 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 	enum {
 		//#= A();
 		__zz_cib_new_1 = 1,
-		//#= A(const A&);
+		//#= A(const ::Example::A&);
 		__zz_cib_new_2 = 2,
-		//#= ~A()
+		//#= ~A();
 		__zz_cib_delete_3 = 3,
 		//#= void SomeFunc();
 		SomeFunc_4 = 4,

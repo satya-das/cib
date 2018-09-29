@@ -152,18 +152,18 @@ void CibIdMgr::loadMethodIds(std::string className, const CppEnum* methodIdEnum)
     methodIdTable.setNextMethodId(nextMethodId);
 }
 
-void CibIdMgr::assignIds(const CibHelper& expProg, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CibHelper& helper, const CibParams& cibParams)
 {
   // First create Ids for global functions
-  const CppCompoundArray& fileDOMs = expProg.getProgram().getFileDOMs();
+  const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
   for (auto fileCmpound : fileDOMs)
   {
-    assignIds(static_cast<const CibCppCompound*>(fileCmpound), cibParams, false);
-    assignIds(static_cast<const CibCppCompound*>(fileCmpound), cibParams, true);
+    assignIds(static_cast<const CibCppCompound*>(fileCmpound), helper, cibParams, false);
+    assignIds(static_cast<const CibCppCompound*>(fileCmpound), helper, cibParams, true);
   }
 }
 
-void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibParams, bool forGenericProxy)
+void CibIdMgr::assignIds(const CibCppCompound* compound, const CibHelper& helper, const CibParams& cibParams, bool forGenericProxy)
 {
   // if (!compound->isShared())
   //  return;
@@ -175,7 +175,7 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     if (isMemberPublic(mem->prot_, compound->compoundType_) && mem->isNamespaceLike())
     {
-      assignIds(static_cast<const CibCppCompound*>(mem), cibParams, forGenericProxy);
+      assignIds(static_cast<const CibCppCompound*>(mem), helper, cibParams, forGenericProxy);
     }
   }
 
@@ -194,8 +194,8 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibParams& cibPar
   {
     if (forGenericProxy && !func.isVirtual())
       continue;
-    auto&& sig = func.signature();
-    if (!cibIdData->hasMethod(func.signature()))
+    auto&& sig = func.signature(helper);
+    if (!cibIdData->hasMethod(func.signature(helper)))
     {
       cibIdData->addMethod(sig, func.procName(cibParams));
     }
