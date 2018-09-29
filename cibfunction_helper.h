@@ -42,7 +42,8 @@ enum class CallType
   kAsIs,
   kFromHandle,
   kToHandle,
-  kDerefIfByVal
+  kDerefIfByVal,
+  kRefIfByVal
 };
 
 enum EmitPurpose
