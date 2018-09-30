@@ -57,7 +57,7 @@ void CibHelper::buildCibCppObjTree()
   for (auto fileDom : program_->getFileDOMs())
     markNeedsGenericProxyDefinition(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
-    static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge();
+    static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
 }
 
 CppObj* CibHelper::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const

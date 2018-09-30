@@ -55,6 +55,7 @@ enum CibClassPropFlags
   // Unusable const section ends
   kClassPropInline      = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropAbstract    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropInterface   = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade      = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropHasCtor     = (1 << (__LINE__ - kClassPropBaseLine)),
@@ -80,6 +81,7 @@ private:
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
+  CibFunctionHelperArray allVirtuals_; // All virtual methods including that of parent classes.
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
 
@@ -138,15 +140,10 @@ public:
       return "}";
     return outer()->closingBracesForWrappingNamespaces() + '}';
   }
-  /// @return CibId of this compound object
-  std::string cibId(const CibParams& cibParams) const
-  {
-    return wrappingNses(cibParams) + "::kCIBID_" + name();
-  }
   ///@ return CppObj corresponding to name of a given type
   const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
   /// Identifies mothods that need to be bridged
-  void                          identifyMethodsToBridge();
+  void                          identifyMethodsToBridge(const CibHelper& helper);
   const CibFunctionHelperArray& getNeedsBridgingMethods() const
   {
     return needsBridging_;
@@ -194,6 +191,14 @@ public:
   bool isShared() const
   {
     return (props_ & kClassPropShared);
+  }
+  bool isAbstract() const
+  {
+    return (props_ & kClassPropAbstract);
+  }
+  void setAbstract()
+  {
+    props_ |= kClassPropAbstract;
   }
   void setHasCtor()
   {
@@ -336,6 +341,9 @@ private:
   void collectFacades(std::set<const CibCppCompound*>& facades) const;
   static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs,
                                                          const std::string&             dependentPath);
+  //! @return true if there is any unresolved pure virtual function.
+  //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
+  bool collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
   std::set<std::string>        collectHeaderDependencies(const CibHelper& helper) const;
   bool                         hasClassThatNeedsGenericProxyDefn() const;
   std::string                  getImplPath(const CibParams& cibParams) const;
@@ -362,7 +370,7 @@ inline void CibCppCompound::forEachAncestor(CppObjProtLevel                     
     return;
   for (auto parent : parentsItr->second)
   {
-    parent->forEachParent(prot, callable);
+    parent->forEachAncestor(prot, callable);
     callable(parent);
   }
 }

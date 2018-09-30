@@ -32,6 +32,8 @@
 
 #include "boost-helper/bfs.h"
 
+#include <unordered_set>
+
 //////////////////////////////////////////////////////////////////////////
 
 static CppWriter gCppWriter;
@@ -916,12 +918,49 @@ void CibCppCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibP
   }
 }
 
-void CibCppCompound::identifyMethodsToBridge()
+bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const
+{
+  std::unordered_set<std::string> allVirtSigs;
+  std::unordered_set<std::string> unresolvedPureVirtSigs;
+
+  auto processClass = [&](const auto* ancestor) {
+    for (auto mem : ancestor->members_)
+    {
+      if (!mem->isFunctionLike())
+        continue;
+      CibFunctionHelper func(mem);
+      auto sig = func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper);
+      if (func.isPureVirtual())
+      {
+        if (!func.isDestructor() || (ancestor == this))
+        {
+          // A class is abstract even when it's dtor is pure virtual.
+          // But the pure virtual dtor of parent class doesn't affect abstractness of a class.
+          unresolvedPureVirtSigs.insert(sig);
+          allVirtuals.push_back(func);
+        }
+      }
+      else if (!unresolvedPureVirtSigs.erase(sig) && func.isVirtual() && !func.isDestructor() && !allVirtSigs.count(sig))
+      {
+        allVirtSigs.insert(sig);
+        allVirtuals.push_back(func);
+      }
+    }
+  };
+  forEachAncestor(kPublic, processClass);
+  processClass(this);
+
+  return !unresolvedPureVirtSigs.empty();
+}
+
+void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
   if (templSpec_)
     return;
   if (name().empty())
     return;
+  if (isClassLike() && collectAllVirtuals(helper, allVirtuals_))
+    setAbstract();
   for (auto mem : members_)
   {
     if (mem->isFunctionLike())
@@ -971,7 +1010,7 @@ void CibCppCompound::identifyMethodsToBridge()
           && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
         continue;
       auto compound = static_cast<CibCppCompound*>(mem);
-      compound->identifyMethodsToBridge();
+      compound->identifyMethodsToBridge(helper);
     }
   }
   if (!isClassLike())
