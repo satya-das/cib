@@ -98,7 +98,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 		Perimeter_2 = 2,
 		//#= void Draw(::Graphics::Context*) const;
 		Draw_3 = 3,
-		__zz_cib_next_method_id = 4
+		//#= ~Circle();
+		__zz_cib_delete_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}}
 
@@ -142,7 +144,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 		Perimeter_2 = 2,
 		//#= void Draw(::Graphics::Context*) const;
 		Draw_3 = 3,
-		__zz_cib_next_method_id = 4
+		//#= ~Composite();
+		__zz_cib_delete_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}}
 
@@ -214,7 +218,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 		Perimeter_2 = 2,
 		//#= void Draw(::Graphics::Context*) const;
 		Draw_3 = 3,
-		__zz_cib_next_method_id = 4
+		//#= ~Ellipse();
+		__zz_cib_delete_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}}
 
@@ -252,7 +258,9 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 		Circle_3 = 3,
 		//#= void Ellipse(float, float, float, float);
 		Ellipse_4 = 4,
-		__zz_cib_next_method_id = 5
+		//#= ~LogContext();
+		__zz_cib_delete_5 = 5,
+		__zz_cib_next_method_id = 6
 	};
 }}}}}
 
@@ -286,7 +294,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 		Perimeter_2 = 2,
 		//#= void Draw(::Graphics::Context*) const;
 		Draw_3 = 3,
-		__zz_cib_next_method_id = 4
+		//#= ~Rectangle();
+		__zz_cib_delete_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}}
 

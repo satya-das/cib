@@ -14,13 +14,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
-		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0)
-			: ::Graphics::LogContext::LogContext(__zz_cib_param0)
+		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
+			: ::Graphics::LogContext::LogContext()
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}
-		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
-			: ::Graphics::LogContext::LogContext()
+		LogContext(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0)
+			: ::Graphics::LogContext::LogContext(__zz_cib_param0)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}

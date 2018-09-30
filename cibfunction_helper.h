@@ -244,12 +244,14 @@ public:
   void emitCAPIDecl(std::ostream&      stm,
                     const CibHelper&   helper,
                     const CibParams&   cibParams,
+                    const CibCppCompound* callingOwner,
                     const std::string& capiName,
                     EmitPurpose        purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
   void emitCAPIDefn(std::ostream&      stm,
                     const CibHelper&   helper,
                     const CibParams&   cibParams,
+                    const CibCppCompound* callingOwner,
                     const std::string& capiName,
                     bool               forProxy,
                     CppIndent          indentation = CppIndent()) const;

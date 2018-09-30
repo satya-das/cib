@@ -22,13 +22,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
-		Composite(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Composite& __zz_cib_param0)
-			: ::Graphics::Composite::Composite(__zz_cib_param0)
+		Composite(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
+			: ::Graphics::Composite::Composite()
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}
-		Composite(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl)
-			: ::Graphics::Composite::Composite()
+		Composite(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Composite& __zz_cib_param0)
+			: ::Graphics::Composite::Composite(__zz_cib_param0)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}

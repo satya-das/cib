@@ -14,13 +14,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
-		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
-			: ::Graphics::Ellipse::Ellipse(__zz_cib_param0)
+		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b)
+			: ::Graphics::Ellipse::Ellipse(Ox, Oy, a, b)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}
-		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float Ox, float Oy, float a, float b)
-			: ::Graphics::Ellipse::Ellipse(Ox, Oy, a, b)
+		Ellipse(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
+			: ::Graphics::Ellipse::Ellipse(__zz_cib_param0)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}

@@ -179,27 +179,27 @@ void CibIdMgr::assignIds(const CibCppCompound* compound, const CibHelper& helper
     }
   }
 
-  if (compound->getNeedsBridgingMethods().empty())
+  if (!forGenericProxy && compound->getNeedsBridgingMethods().empty())
   {
     return;
   }
-  if (forGenericProxy && !compound->needsGenericProxyDefinition())
+  if (forGenericProxy && (!compound->needsGenericProxyDefinition() || compound->getAllVirtualMethods().empty()))
   {
     return;
   }
   const auto& className = forGenericProxy ? compound->fullName() + "::__zz_cib_GenericProxy" : compound->fullName();
   auto        itr       = cibIdTable_.find(className);
   auto*       cibIdData = itr == cibIdTable_.end() ? addClass(className) : &itr->second;
-  for (auto& func : compound->getNeedsBridgingMethods())
-  {
-    if (forGenericProxy && !func.isVirtual())
-      continue;
+  const auto& methods = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
+  auto addMethod = [&](const CibFunctionHelper& func) {
     auto&& sig = func.signature(helper);
     if (!cibIdData->hasMethod(func.signature(helper)))
-    {
       cibIdData->addMethod(sig, func.procName(cibParams));
-    }
-  }
+  };
+  for (auto& func : methods)
+    addMethod(func);
+  if (forGenericProxy)
+    addMethod(compound->getDtor());
   if (!forGenericProxy)
   {
     compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {

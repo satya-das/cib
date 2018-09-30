@@ -14,13 +14,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 			return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));
 		}
 	public:
-		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0)
-			: ::Graphics::Rectangle::Rectangle(__zz_cib_param0)
+		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float left, float bottom, float right, float top)
+			: ::Graphics::Rectangle::Rectangle(left, bottom, right, top)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}
-		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, float left, float bottom, float right, float top)
-			: ::Graphics::Rectangle::Rectangle(left, bottom, right, top)
+		Rectangle(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0)
+			: ::Graphics::Rectangle::Rectangle(__zz_cib_param0)
 			, __zz_cib_proxy(proxy)
 			, __zz_cib_mtbl(mtbl)
 		{}

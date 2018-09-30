@@ -78,6 +78,8 @@ public:
 private:
   std::uint32_t props_{0};
   bool          needsGenericProxyDefinition_{false};
+  std::vector<const CppConstructor*> ctors_;
+  const CppDestructor* dtor_{nullptr};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -147,6 +149,10 @@ public:
   const CibFunctionHelperArray& getNeedsBridgingMethods() const
   {
     return needsBridging_;
+  }
+  const CibFunctionHelperArray& getAllVirtualMethods() const
+  {
+    return allVirtuals_;
   }
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const
@@ -285,6 +291,7 @@ public:
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
+  CibFunctionHelper getDtor() const { return dtor_; }
 
 private:
   void emitDecl(const CppObj*,
