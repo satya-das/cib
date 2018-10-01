@@ -15,9 +15,9 @@ namespace __zz_cib_ { namespace Example { namespace A {
 			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
 			return method();
 		}
-		static __zz_cib_HANDLE* __zz_cib_new_2(const __zz_cib_HANDLE& __zz_cib_param0) {
-			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_2);
+		static __zz_cib_HANDLE* __zz_cib_copy_2(const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_copyProc>(__zz_cib_methodid::__zz_cib_copy_2);
 			return method(__zz_cib_param0);
 		}
 		static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -70,9 +70,9 @@ namespace __zz_cib_ { namespace Example { namespace B {
 			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
 			return method();
 		}
-		static __zz_cib_HANDLE* __zz_cib_new_2(const __zz_cib_HANDLE& __zz_cib_param0) {
-			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_2);
+		static __zz_cib_HANDLE* __zz_cib_copy_2(const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_copyProc>(__zz_cib_methodid::__zz_cib_copy_2);
 			return method(__zz_cib_param0);
 		}
 		static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -129,7 +129,7 @@ inline Example::A::A()
 {}
 
 inline Example::A::A(const ::Example::A& __zz_cib_param0)
-	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_2(*__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+	: A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_2(*__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::A::~A() {
@@ -162,7 +162,7 @@ inline Example::B::B()
 {}
 
 inline Example::B::B(const ::Example::B& __zz_cib_param0)
-	: B(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_new_2(*__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+	: B(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_copy_2(*__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::B::~B() {

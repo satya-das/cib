@@ -19,7 +19,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 		//#= A();
 		__zz_cib_new_1 = 1,
 		//#= A(const ::Example::A&);
-		__zz_cib_new_2 = 2,
+		__zz_cib_copy_2 = 2,
 		//#= ~A();
 		__zz_cib_delete_3 = 3,
 		//#= void SomeFunc();
@@ -35,7 +35,7 @@ namespace __zz_cib_ { namespace Example { namespace B { namespace __zz_cib_metho
 		//#= B();
 		__zz_cib_new_1 = 1,
 		//#= B(const ::Example::B&);
-		__zz_cib_new_2 = 2,
+		__zz_cib_copy_2 = 2,
 		//#= ~B();
 		__zz_cib_delete_3 = 3,
 		//#= void VirtFunc();

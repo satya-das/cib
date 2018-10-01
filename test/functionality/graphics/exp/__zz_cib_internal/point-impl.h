@@ -10,9 +10,9 @@ namespace __zz_cib_ { namespace Point {
 		friend class ::Point;
 		friend class __zz_cib_::__zz_cib_HandleHelper<::Point, __zz_cib_Helper>;
 
-		static __zz_cib_HANDLE* __zz_cib_new_1(const __zz_cib_HANDLE& __zz_cib_param0) {
-			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
+		static __zz_cib_HANDLE* __zz_cib_copy_1(const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_copyProc>(__zz_cib_methodid::__zz_cib_copy_1);
 			return method(__zz_cib_param0);
 		}
 		static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -89,7 +89,7 @@ inline Point::Point(Point&& rhs)
 }
 
 inline Point::Point(const ::Point& __zz_cib_param0)
-	: Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_new_1(*__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+	: Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_copy_1(*__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Point::~Point() {

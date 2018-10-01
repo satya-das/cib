@@ -69,7 +69,7 @@ namespace __zz_cib_ { namespace Graphics {
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_methodid {
 	enum {
 		//#= Circle(const ::Graphics::Circle&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= ~Circle();
 		__zz_cib_delete_2 = 2,
 		//#= Circle(float, float, float);
@@ -107,7 +107,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_methodid {
 	enum {
 		//#= Composite(const ::Graphics::Composite&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= ~Composite();
 		__zz_cib_delete_2 = 2,
 		//#= Composite();
@@ -191,7 +191,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_methodid {
 	enum {
 		//#= Ellipse(const ::Graphics::Ellipse&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= ~Ellipse();
 		__zz_cib_delete_2 = 2,
 		//#= Ellipse(float, float, float, float);
@@ -227,7 +227,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_methodid {
 	enum {
 		//#= LogContext(const ::Graphics::LogContext&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= LogContext();
 		__zz_cib_new_2 = 2,
 		//#= ~LogContext();
@@ -267,7 +267,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_methodid {
 	enum {
 		//#= Rectangle(const ::Graphics::Rectangle&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= ~Rectangle();
 		__zz_cib_delete_2 = 2,
 		//#= Rectangle(float, float, float, float);
@@ -337,7 +337,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 namespace __zz_cib_ { namespace Point { namespace __zz_cib_methodid {
 	enum {
 		//#= Point(const ::Point&);
-		__zz_cib_new_1 = 1,
+		__zz_cib_copy_1 = 1,
 		//#= ~Point();
 		__zz_cib_delete_2 = 2,
 		//#= Point(float, float);

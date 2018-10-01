@@ -9,7 +9,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 	static ::Example::A* __zz_cib_decl __zz_cib_new_1() {
 		return new ::Example::A();
 	}
-	static ::Example::A* __zz_cib_decl __zz_cib_new_2(const ::Example::A& __zz_cib_param0) {
+	static ::Example::A* __zz_cib_decl __zz_cib_copy_2(const ::Example::A& __zz_cib_param0) {
 		return new ::Example::A(__zz_cib_param0);
 	}
 	static void __zz_cib_decl __zz_cib_delete_3(::Example::A* __zz_cib_obj) {
@@ -26,7 +26,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_2),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_copy_2),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_3),
 			reinterpret_cast<__zz_cib_MethodEntry> (&SomeFunc_4)
 		};

@@ -48,7 +48,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0) {
+	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_copy_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::LogContext& __zz_cib_param0) {
 		return new __zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::LogContext(proxy, mtbl, __zz_cib_param0);
 	}
 	static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl) {
@@ -84,7 +84,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 9 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_copy_1),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_2),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_3),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Line_4),

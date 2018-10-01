@@ -11,9 +11,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Rectangle, __zz_cib_Helper>;
 		static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();
 
-		static __zz_cib_HANDLE* __zz_cib_new_1(::Graphics::Rectangle* __zz_cib_proxy, const __zz_cib_HANDLE& __zz_cib_param0) {
-			using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, __zz_cib_MethodTable, const __zz_cib_HANDLE& __zz_cib_param0);
-			auto method = instance().getMethod<__zz_cib_newProc>(__zz_cib_methodid::__zz_cib_new_1);
+		static __zz_cib_HANDLE* __zz_cib_copy_1(::Graphics::Rectangle* __zz_cib_proxy, const __zz_cib_HANDLE& __zz_cib_param0) {
+			using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, __zz_cib_MethodTable, const __zz_cib_HANDLE& __zz_cib_param0);
+			auto method = instance().getMethod<__zz_cib_copyProc>(__zz_cib_methodid::__zz_cib_copy_1);
 			return method(__zz_cib_proxy, __zz_cib_get_proxy_method_table(), __zz_cib_param0);
 		}
 		static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -90,7 +90,7 @@ inline Graphics::Rectangle::Rectangle(Rectangle&& rhs)
 }
 
 inline Graphics::Rectangle::Rectangle(const ::Graphics::Rectangle& __zz_cib_param0)
-	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_1(this, *__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+	: Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_copy_1(this, *__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Graphics::Rectangle::~Rectangle() {

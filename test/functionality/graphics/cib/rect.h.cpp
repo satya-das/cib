@@ -43,7 +43,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
-	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0) {
+	static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_copy_1(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl, const ::Graphics::Rectangle& __zz_cib_param0) {
 		return new __zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle(proxy, mtbl, __zz_cib_param0);
 	}
 	static void __zz_cib_decl __zz_cib_delete_2(::Graphics::Rectangle* __zz_cib_obj) {
@@ -76,7 +76,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 8 };
 		static const __zz_cib_MethodEntry methodTable[] = {
 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_copy_1),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_2),
 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_3),
 			reinterpret_cast<__zz_cib_MethodEntry> (&Area_4),
