@@ -58,10 +58,6 @@ enum CibClassPropFlags
   kClassPropAbstract    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropInterface   = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade      = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropHasCtor     = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropHasDtor     = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropHasCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropHasMoveCtor = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
@@ -78,8 +74,6 @@ public:
 private:
   std::uint32_t props_{0};
   bool          needsGenericProxyDefinition_{false};
-  std::vector<const CppConstructor*> ctors_;
-  const CppDestructor* dtor_{nullptr};
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
@@ -206,37 +200,30 @@ public:
   {
     props_ |= kClassPropAbstract;
   }
-  void setHasCtor()
-  {
-    props_ |= kClassPropHasCtor;
-  }
-  void setHasDtor()
-  {
-    props_ |= kClassPropHasDtor;
-  }
-  void setHasCopyCtor()
-  {
-    props_ |= kClassPropHasCopyCtor;
-  }
-  void setHasMoveCtor()
-  {
-    props_ |= kClassPropHasMoveCtor;
-  }
+  //! @return true if it has at least one constructor other than copy/move.
   bool hasCtor() const
   {
-    return props_ & kClassPropHasCtor;
+    if (ctors().empty())
+      return false;
+    if (!copyCtor() && !moveCtor())
+      return true;
+    if (ctors().size() > 2)
+      return true;
+    if (copyCtor() && moveCtor())
+      return false;
+    return ctors().size() > 1;
   }
   bool hasDtor() const
   {
-    return props_ & kClassPropHasDtor;
+    return dtor() != nullptr;
   }
   bool hasCopyCtor() const
   {
-    return props_ & kClassPropHasCopyCtor;
+    return copyCtor() != nullptr;
   }
   bool hasMoveCtor() const
   {
-    return props_ & kClassPropHasMoveCtor;
+    return moveCtor() != nullptr;
   }
   bool needsGenericProxyDefinition() const
   {
@@ -245,6 +232,16 @@ public:
   void setNeedsGenericProxyDefinition()
   {
     needsGenericProxyDefinition_ = true;
+  }
+  bool isCopyCtorCallable() const
+  {
+    if (copyCtor() && (copyCtor()->isDeleted() || copyCtor()->isPrivate()))
+      return false;
+    if (!forEachAncestor([](const auto* ancestor) {
+      return ancestor->isCopyCtorCallable();
+    }))
+      return false;
+    return true;
   }
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
@@ -286,12 +283,13 @@ public:
 public:
   void forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachAncestor(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+  bool forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const;
   void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
-  CibFunctionHelper getDtor() const { return dtor_; }
+  CibFunctionHelper getDtor() const { return dtor(); }
 
 private:
   void emitDecl(const CppObj*,
@@ -375,11 +373,24 @@ inline void CibCppCompound::forEachAncestor(CppObjProtLevel                     
   auto parentsItr = parents_.find(prot);
   if (parentsItr == parents_.end())
     return;
-  for (auto parent : parentsItr->second)
+  for (const auto& parent : parentsItr->second)
   {
     parent->forEachAncestor(prot, callable);
     callable(parent);
   }
+}
+
+inline bool CibCppCompound::forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const
+{
+  for (const auto& parentsItr : parents_)
+  {
+    for (const auto& parent : parentsItr.second)
+    {
+      if (!parent->forEachAncestor(callable) || !callable(parent))
+        return false;
+    }
+  }
+  return true;
 }
 
 inline void CibCppCompound::forEachDerived(CppObjProtLevel                            prot,

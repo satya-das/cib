@@ -236,12 +236,12 @@ void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
   stm << ";\n";
 }
 
-void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
-                                     const CibHelper&   helper,
-                                     const CibParams&   cibParams,
+void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
+                                     const CibHelper&      helper,
+                                     const CibParams&      cibParams,
                                      const CibCppCompound* callingOwner,
-                                     const std::string& capiName,
-                                     EmitPurpose        purpose) const
+                                     const std::string&    capiName,
+                                     EmitPurpose           purpose) const
 {
   if (isConstructor())
     stm << callingOwner->longName() << "*";
@@ -271,13 +271,13 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
   stm << ')';
 }
 
-void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
-                                     const CibHelper&   helper,
-                                     const CibParams&   cibParams,
+void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
+                                     const CibHelper&      helper,
+                                     const CibParams&      cibParams,
                                      const CibCppCompound* callingOwner,
-                                     const std::string& capiName,
-                                     bool               forProxy,
-                                     CppIndent          indentation /* = CppIndent */) const
+                                     const std::string&    capiName,
+                                     bool                  forProxy,
+                                     CppIndent             indentation /* = CppIndent */) const
 {
   if (forProxy && !isVirtual() && !isDestructor())
     return;
@@ -357,7 +357,7 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
   {
     emitGenericDefn(stm, helper, cibParams, capiName, kPurposeGenericProxy, indentation);
   }
-  else if (isConstructor())
+  else if (isConstructor() && (!isCopyConstructor() || getOwner()->isCopyCtorCallable()))
   {
     stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
     if (hasParams())
@@ -589,9 +589,11 @@ void CibCppCompound::emitImplSource(std::ostream&    stm,
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     ++indentation;
     for (auto func : allVirtuals_)
-      func.emitCAPIDefn(stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
-    CibFunctionHelper func = dtor_;
-      func.emitCAPIDefn(stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
+      func.emitCAPIDefn(
+        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
+    CibFunctionHelper func = dtor();
+    func.emitCAPIDefn(
+      stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
     --indentation;
     stm << indentation << '}' << closingBracesForWrappingNamespaces() << "\n\n";
     emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, true, indentation);
@@ -930,7 +932,7 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
       if (!mem->isFunctionLike())
         continue;
       CibFunctionHelper func(mem);
-      auto sig = func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper);
+      auto              sig = func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper);
       if (func.isPureVirtual())
       {
         if (!func.isDestructor() || (ancestor == this))
@@ -938,13 +940,16 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
           // A class is abstract even when it's dtor is pure virtual.
           // But the pure virtual dtor of parent class doesn't affect abstractness of a class.
           unresolvedPureVirtSigs.insert(sig);
+          allVirtSigs.insert(sig);
           allVirtuals.push_back(func);
         }
       }
-      else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor() && !allVirtSigs.count(sig))
+      else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
+               && !allVirtSigs.count(sig))
       {
         allVirtSigs.insert(sig);
-        allVirtuals.push_back(func);
+        if (!func.hasAttr(kOverride))
+          allVirtuals.push_back(func);
       }
     }
   };
@@ -967,29 +972,17 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
-      if (func.isDestructor())
-      {
-        setHasDtor();
-        dtor_ = static_cast<const CppDestructor*>(mem);
-      }
-      else if (func.isCopyConstructor())
-      {
-        setHasCopyCtor();
-        ctors_.push_back(static_cast<const CppConstructor*>(mem));
-      }
-      else if (func.isMoveConstructor())
-      {
-        setHasMoveCtor();
+      if (func.isMoveConstructor())
         continue;
-      }
-      else if (func.isConstructor())
-      {
-        setHasCtor();
-        ctors_.push_back(static_cast<const CppConstructor*>(mem));
-      }
+      if (func.isCopyConstructor() && !isCopyCtorCallable())
+        continue;
       if (func.funcName().find(':') != std::string::npos)
-        continue; // Skip out of class definitions.
+        continue; // Skip out of out-of-class function definitions.
       if (func.isTemplated())
+        continue;
+      if (func.isDeleted())
+        continue;
+      if (func.hasAttr(kFriend))
         continue;
       if (!isInline()
           && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
@@ -1027,15 +1020,13 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
     return;
   if (!hasDtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
-    auto defaultDtor    = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
-    defaultDtor->owner_ = this;
-    members_.insert(members_.begin(), defaultDtor);
+    auto defaultDtor = CibFunctionHelper::CreateDestructor(kPublic, "~" + name(), 0);
+    addMemberAtFront(defaultDtor);
     CibFunctionHelper func(defaultDtor);
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(defaultDtor);
-    dtor_ = defaultDtor;
   }
-  if (!hasCopyCtor() && !hasMoveCtor() && !isAbstract())
+  if (!hasCopyCtor() && !hasMoveCtor() && !isAbstract() && isCopyCtorCallable())
   {
     auto ctorProtection = kPublic;
     auto paramType      = new CppVarType(name(), CppTypeModifier{kByRef});
@@ -1043,24 +1034,20 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
     auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamList;
     paramList->push_back({param});
-    auto copyCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), paramList, nullptr, 0);
-    copyCtor->owner_ = this;
-    members_.insert(members_.begin(), copyCtor);
+    auto copyCtor = CibFunctionHelper::CreateConstructor(ctorProtection, name(), paramList, nullptr, 0);
+    addMemberAtFront(copyCtor);
     CibFunctionHelper func(copyCtor);
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(copyCtor);
-    ctors_.push_back(copyCtor);
   }
   if (!hasCtor() && (!isAbstract() || needsGenericProxyDefinition()))
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
     auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, name(), nullptr, nullptr, 0);
-    defaultCtor->owner_ = this;
-    members_.insert(members_.begin(), defaultCtor);
+    addMemberAtFront(defaultCtor);
     CibFunctionHelper func(defaultCtor);
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(defaultCtor);
-    ctors_.push_back(defaultCtor);
   }
 }
 
@@ -1123,7 +1110,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "static ";
       func.emitCAPIReturnType(stm, helper, false);
       stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
-      if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
+      if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
       {
         stm << "__zz_cib_HANDLE* __zz_cib_obj";
         if (func.hasParams())
@@ -1148,7 +1135,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << "__zz_cib_methodid::";
       stm << cibIdData->getMethodCApiName(func.signature(helper)) << ");\n";
       stm << indentation << "return method(";
-      if (isClassLike() && !func.isStatic() && (!func.isConstructor() || func.isCopyConstructor()))
+      if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
       {
         stm << "__zz_cib_obj";
         if (func.hasParams())
@@ -1427,14 +1414,16 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation << "public:\n";
   ++indentation;
   auto cibIdData = cibIdMgr.getCibIdData(fullName() + "::__zz_cib_GenericProxy");
-  for (auto ctor : ctors_)
+  for (auto ctor : ctors())
   {
     CibFunctionHelper func = ctor;
-    func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+    func.emitGenericProxyDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   }
   for (auto func : allVirtuals_)
-    func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
-  CibFunctionHelper func = dtor_;
+    func.emitGenericProxyDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+  CibFunctionHelper func = dtor();
   func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";
   --indentation;
@@ -1471,7 +1460,7 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   for (auto func : allVirtuals_)
     func.emitGenericDefn(
       stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
-  CibFunctionHelper func = dtor_;
+  CibFunctionHelper func = dtor();
   func.emitGenericDefn(
     stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
   --indentation;
@@ -1543,7 +1532,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     stm << indentation++ << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     for (auto func : needsBridging_)
     {
-      func.emitCAPIDefn(stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
+      func.emitCAPIDefn(
+        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
     }
 
     forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {

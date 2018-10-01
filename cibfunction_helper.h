@@ -155,9 +155,17 @@ public:
   {
     return (func_->attr_ & kFinal) == kFinal;
   }
+  bool hasAttr(CppIdentifierAttrib attr) const
+  {
+    return (func_->attr_ & attr) == attr;
+  }
   bool isOveriddable() const
   {
     return isVirtual() && !isFinal();
+  }
+  bool isDeleted() const
+  {
+    return func_->isDeleted();
   }
   bool isConst() const
   {
