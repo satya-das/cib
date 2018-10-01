@@ -139,6 +139,15 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
       stm << ' ';
       emitParamName(stm, param.varObj, i, !(purpose & kPurposeProxyDecl));
     }
+    if (!param.varObj->varDecl_.arraySizes_.empty())
+    {
+      // FIXME: Emit error if the parameter type is not of basic types
+      for (const auto& idx : param.varObj->varDecl_.arraySizes_)
+      {
+        // FIXME use index values.
+        stm << "[]";
+      }
+    }
     sep = ", ";
   }
 }
