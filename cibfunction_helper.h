@@ -151,6 +151,14 @@ public:
   {
     return (func_->attr_ & kPureVirtual) == kPureVirtual;
   }
+  bool isFinal() const
+  {
+    return (func_->attr_ & kFinal) == kFinal;
+  }
+  bool isOveriddable() const
+  {
+    return isVirtual() && !isFinal();
+  }
   bool isConst() const
   {
     return (func_->attr_ & kConst) == kConst;
@@ -241,20 +249,20 @@ public:
                     const CibParams& cibParams,
                     EmitPurpose      purpose,
                     CppIndent        indentation = CppIndent()) const;
-  void emitCAPIDecl(std::ostream&      stm,
-                    const CibHelper&   helper,
-                    const CibParams&   cibParams,
+  void emitCAPIDecl(std::ostream&         stm,
+                    const CibHelper&      helper,
+                    const CibParams&      cibParams,
                     const CibCppCompound* callingOwner,
-                    const std::string& capiName,
-                    EmitPurpose        purpose) const;
+                    const std::string&    capiName,
+                    EmitPurpose           purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-  void emitCAPIDefn(std::ostream&      stm,
-                    const CibHelper&   helper,
-                    const CibParams&   cibParams,
+  void emitCAPIDefn(std::ostream&         stm,
+                    const CibHelper&      helper,
+                    const CibParams&      cibParams,
                     const CibCppCompound* callingOwner,
-                    const std::string& capiName,
-                    bool               forProxy,
-                    CppIndent          indentation = CppIndent()) const;
+                    const std::string&    capiName,
+                    bool                  forProxy,
+                    CppIndent             indentation = CppIndent()) const;
   void emitGenericProxyDefn(std::ostream&      stm,
                             const CibHelper&   helper,
                             const CibParams&   cibParams,

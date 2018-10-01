@@ -941,7 +941,7 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
           allVirtuals.push_back(func);
         }
       }
-      else if (!unresolvedPureVirtSigs.erase(sig) && func.isVirtual() && !func.isDestructor() && !allVirtSigs.count(sig))
+      else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor() && !allVirtSigs.count(sig))
       {
         allVirtSigs.insert(sig);
         allVirtuals.push_back(func);
