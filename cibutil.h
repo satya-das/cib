@@ -127,6 +127,19 @@ inline std::string longName(const CppUsingDecl* usingDecl)
   return ret;
 }
 
+inline std::string longName(const CppFunctionPtr* fptr)
+{
+  std::string ret = "::" + fptr->name_;
+  if (fptr->owner_)
+  {
+    auto ownerFullName = fptr->owner_->fullName();
+    if (!ownerFullName.empty())
+      ret = "::" + ownerFullName + ret;
+  }
+
+  return ret;
+}
+
 inline std::string longName(const CppObj* typeObj)
 {
   switch (typeObj->objType_)
@@ -137,6 +150,8 @@ inline std::string longName(const CppObj* typeObj)
       return longName(static_cast<const CppTypedefName*>(typeObj));
     case CppObj::kUsingDecl:
       return longName(static_cast<const CppUsingDecl*>(typeObj));
+    case CppObj::kFunctionPtr:
+      return longName(static_cast<const CppFunctionPtr*>(typeObj));
 
     default:
       return "";

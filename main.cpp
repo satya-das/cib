@@ -244,6 +244,7 @@ int main(int argc, char* argv[])
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
     bfs::path     bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
+    bfs::create_directories(bndSrcPath.parent_path());
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
     cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);

@@ -519,6 +519,7 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
     return;
 
   bfs::path     usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  bfs::create_directories(usrIncPath.parent_path());
   std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
   auto firstStatementItr      = std::find_if(members_.begin(), members_.end(), [](const CppObj* mem) -> bool {
@@ -550,6 +551,7 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
     return;
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
+  bfs::create_directories(implPath.parent_path());
   std::ofstream stm(implPath.string(), std::ios_base::out);
 
   stm << "#include \"" << cibParams.cibInternalDirName << "/__zz_cib_" << cibParams.moduleName
@@ -726,12 +728,12 @@ std::set<std::string> CibCppCompound::collectHeaderDependencies(const std::set<c
                                                                 const std::string&             dependentPath)
 {
   std::set<std::string> headers;
-  std::string           parentPath = bfs::path(dependentPath).parent_path().string();
+  //std::string           parentPath = bfs::path(dependentPath).parent_path().string();
 
   for (auto obj : cppObjs)
   {
     auto fileDom = getFileDomObj(obj);
-    headers.emplace(fileDom->name().substr(parentPath.length() + 1));
+    headers.emplace(fileDom->name().substr(dependentPath.length()));
   }
   return headers;
 }
@@ -949,8 +951,8 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
           // A class is abstract even when it's dtor is pure virtual.
           // But the pure virtual dtor of parent class doesn't affect abstractness of a class.
           unresolvedPureVirtSigs.insert(sig);
-          allVirtSigs.insert(sig);
-          allVirtuals.push_back(func);
+          if (allVirtSigs.insert(sig).second)
+            allVirtuals.push_back(func);
         }
       }
       else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
@@ -1496,7 +1498,7 @@ void CibCppCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm
     dependencies.insert(facade);
     facade->forEachDescendent(kPublic, [&dependencies](const CibCppCompound* obj) { dependencies.insert(obj); });
   }
-  for (const auto& header : collectHeaderDependencies(dependencies, getFileDomObj(this)->name()))
+  for (const auto& header : collectHeaderDependencies(dependencies, cibParams.inputPath.string()))
     stm << indentation << "#include \"" << header << "\"\n";
   stm << '\n'; // Start in new line.
   if (!facades.empty() && !forProxy)
