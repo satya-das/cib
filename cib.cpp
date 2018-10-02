@@ -509,6 +509,13 @@ const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
   const CppObj* resolvedType     = helper.getCppObjFromTypeName(typeName, this);
+  if (resolvedType == nullptr)
+  {
+    forEachParent(kPublic, [&](const CibCppCompound* parent) {
+      resolvedType = parent->resolveTypeName(typeName, helper);
+      return resolvedType == nullptr;
+    });
+  }
   typeNameToCibCppObj_[typeName] = resolvedType;
   return resolvedType;
 }

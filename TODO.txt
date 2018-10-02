@@ -1,0 +1,2 @@
+Improve type resolution by first trying to resolve with parent classes before owning namespace/classes.
+	May need to move inheritance info to cppparser.
