@@ -1,2 +1,7 @@
 Improve type resolution by first trying to resolve with parent classes before owning namespace/classes.
 	May need to move inheritance info to cppparser.
+
+Bugs:
+    Private overrides are bridgable. Currently they are ignored. Example: make AddRef, and Release private in IntrusiveObjTest.
+    struct without protection level causes problem. Example: remove public in PtrTest.
+
