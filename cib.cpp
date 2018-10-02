@@ -1214,6 +1214,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
         stm << indentation << "__zz_cib_" << baseCompound->longName()
             << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
+        return true;
       });
       stm << indentation << "return h;\n";
       stm << --indentation << "}\n";
@@ -1260,6 +1261,7 @@ void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
     stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_" << longName()
         << "::__zz_cib_Helper::" << capiName << "(h))\n";
     sep = ',';
+    return true;
   });
   stm << indentation << sep << " __zz_cib_h_(h)";
   stm << --indentation << "\n{}\n";
@@ -1287,6 +1289,7 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
     auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
     stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(std::move(rhs))\n";
     sep = ',';
+    return true;
   });
   stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
   stm << --indentation << "\n{\n";

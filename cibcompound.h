@@ -281,7 +281,7 @@ public:
   }
 
 public:
-  void forEachParent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+  bool forEachParent(CppObjProtLevel prot, std::function<bool(const CibCppCompound*)> callable) const;
   void forEachAncestor(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   bool forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const;
   void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
@@ -355,16 +355,19 @@ private:
   std::string                  implIncludeName(const CibParams& cibParams) const;
 };
 
-inline void CibCppCompound::forEachParent(CppObjProtLevel                            prot,
-                                          std::function<void(const CibCppCompound*)> callable) const
+inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
+                                          std::function<bool(const CibCppCompound*)> callable) const
 {
   auto parentsItr = parents_.find(prot);
   if (parentsItr == parents_.end())
-    return;
+    return true;
   for (auto parent : parentsItr->second)
   {
-    callable(parent);
+    if (!callable(parent))
+      return false;
   }
+
+  return true;
 }
 
 inline void CibCppCompound::forEachAncestor(CppObjProtLevel                            prot,
