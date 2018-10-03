@@ -145,17 +145,19 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 ---
 
 ## CIB Terminology
+### Inline Class
+A class that has all methods inline. *For example a template class is surely an inline class*.
+### Shared Class
+A C++ class that crosses component boundary: *if there exists a public function that returns an object/pointer/reference of a C++ class or takes an object/reference/pointer as parameter then such class is called a shared class*.
+### Facade Class
+A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*.
+### Interface Class
+A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
+*A simplest example can be that when a C++ class that has public virtual method and there is a function that accepts pointer/reference of that class as parameter*.
 ### Proxy Class
 For each public class of a library CIB produces another class with same name and methods but with small changes so that `cib` can do it's job that it promises to do. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
 ### Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
-### Shared Class
-A C++ class that crosses component boundary: if there exists a public function that returns an object/pointer/reference of a C++ class or takes object/reference/pointer as parameter then such class is called a shared class.
-### Facade Class
-A C++ class that has public virtual method and there exists public function/method that returns a pointer/reference of this class.
-### Interface Class
-A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
-A simplest example can be that when a C++ class that has public virtual method and there is a function that accepts pointer/reference of that class as parameter.
 
 ## Running CIB
 CIB is expected to be run with public headers that a library wants to publish.
