@@ -100,6 +100,7 @@ All in all `cib` avoids sharing of compiler generated stuffs across component bo
 - Change in order of virtual functions of a class.
 - Change in inheritance that doesn't violate previous is-a relationship. For example if a class starts deriving from one more base class without removing previous base class then client will remain binary compatible because the is-a relation client is aware of hasn't changed. Similarly if a class changes it's base class to another derived class of it's previous base class then also client will remain binary compatible because of same reason that previous is-a relation is still intact.
 - Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
+- Change in parameter type from by-value to by-const-ref or vice verse. Client shouldn't bother if the passed parameter is passed by value or by const-ref (ignoring performance concern of course).
 
 
 ### Example
