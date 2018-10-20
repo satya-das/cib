@@ -39,6 +39,7 @@
 using CibId       = std::uint32_t;
 using CibClassId  = CibId;
 using CibMethodId = CibId;
+enum : CibMethodId { kInvalidMethodId = (CibMethodId) -1 };
 
 using CibIdIdentifier = std::string;
 using CibIdName       = std::string;
@@ -74,7 +75,7 @@ class CibIdData
   CibClassId             classId;
   CibMethodIdTable       methodIdTable;
   CibMethodIdToMethodMap methodIdToMethodMap;
-  CibMethodId            nextMethodId{1};
+  CibMethodId            nextMethodId{0};
 
 public:
   CibIdData(CibClassId cId)
@@ -103,9 +104,9 @@ public:
     return (itr == methodIdTable.end()) ? CibMethodCAPIName() : itr->second.second;
   }
 
-  void addMethod(CibMethodSignature signature, std::string methodName, CibMethodId methodId = 0)
+  void addMethod(CibMethodSignature signature, std::string methodName, CibMethodId methodId = kInvalidMethodId)
   {
-    if (methodId == 0)
+    if (methodId == kInvalidMethodId)
     {
       methodId = nextMethodId;
       methodName += "_" + std::to_string(methodId);

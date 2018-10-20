@@ -149,12 +149,12 @@ static void emitMethodTableGetter(std::ostream&           stm,
   {
     stm << indentation << compound->wrappingNamespaceDeclarations(cibParams);
     stm << " namespace " << compound->name() << " { ";
-    stm << "__zz_cib_MethodTable __zz_cib_GetMethodTable(); ";
+    stm << "const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); ";
     stm << compound->closingBracesForWrappingNamespaces() << "}\n";
   }
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export ";
-  stm << "__zz_cib_::__zz_cib_MethodTable __zz_cib_decl __zz_cib_" << cibParams.moduleName
+  stm << "const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";

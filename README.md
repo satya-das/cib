@@ -191,20 +191,20 @@ struct __zz_cib_MethodTableHeader
 };
 
 //! Generic type for function pointer.
-using __zz_cib_MethodEntry = void (*)();
+using __zz_cib_MTableEntry = void (*)();
 
-//! Method table which is array of __zz_cib_MethodEntry.
+//! Method table which is array of __zz_cib_MTableEntry.
 //! @note The very first element in the table must be a
 //! pointer to __zz_cib_MethodTableHeader.
-using __zz_cib_MethodTable = const __zz_cib_MethodEntry*;
+using __zz_cib_MethodTable = const __zz_cib_MTableEntry*;
 
 //! Fetches method from a method table
 //! @param mtbl Method table from which to fetch the method.
 //! @param slot Index at which to fetch method from.
-//! @return __zz_cib_MethodEntry value which is guarenteed to be non-null.
+//! @return __zz_cib_MTableEntry value which is guarenteed to be non-null.
 //! @note Will throw std::bad_function_call() if method table doesn't contain
 //! method or the fetched method is null.
-inline __zz_cib_MethodEntry __zz_cib_GetMethodEntry(__zz_cib_MethodTable mtbl,
+inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(__zz_cib_MethodTable mtbl,
                                                     std::uint32_t        slot)
 {
   assert(slot > 0);
@@ -336,7 +336,7 @@ public:
   template <typename _MethodType>
   _MethodType getMethod(std::uint32_t methodId) const
   {
-    return reinterpret_cast<_MethodType>(__zz_cib_GetMethodEntry(mtbl, methodId));
+    return reinterpret_cast<_MethodType>(__zz_cib_GetMTableEntry(mtbl, methodId));
   }
 
 private:
@@ -463,12 +463,12 @@ namespace __zz_cib_ { namespace Example { namespace A {
 namespace __zz_cib_ { namespace Example { namespace A {
 	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
 		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
-		static const __zz_cib_MethodEntry methodTable[] = {
-			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_2),
-			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_3),
-			reinterpret_cast<__zz_cib_MethodEntry> (&SomeFunc_4)
+		static const __zz_cib_MTableEntry methodTable[] = {
+			reinterpret_cast<__zz_cib_MTableEntry> (&tableHeader),
+			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_1),
+			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_2),
+			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3),
+			reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_4)
 		};
 		return methodTable;
 	}
@@ -891,14 +891,14 @@ Please note that none of the IDs that were used by previous version are changed,
  	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
 -		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 4 };
 +		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 5 };
- 		static const __zz_cib_MethodEntry methodTable[] = {
- 			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
- 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
- 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_2),
- 			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_3),
--			reinterpret_cast<__zz_cib_MethodEntry> (&SomeFunc_4)
-+			reinterpret_cast<__zz_cib_MethodEntry> (&SomeFunc_4),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&VirtFunc_5)
+ 		static const __zz_cib_MTableEntry methodTable[] = {
+ 			reinterpret_cast<__zz_cib_MTableEntry> (&tableHeader),
+ 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_1),
+ 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_2),
+ 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3),
+-			reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_4)
++			reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_4),
++			reinterpret_cast<__zz_cib_MTableEntry> (&VirtFunc_5)
  		};
  		return methodTable;
  	}
@@ -906,13 +906,13 @@ Please note that none of the IDs that were used by previous version are changed,
 +namespace __zz_cib_ { namespace Example { namespace B {
 +	__zz_cib_MethodTable __zz_cib_GetMethodTable() {
 +		static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), 5 };
-+		static const __zz_cib_MethodEntry methodTable[] = {
-+			reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_1),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_new_2),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_delete_3),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&VirtFunc_4),
-+			reinterpret_cast<__zz_cib_MethodEntry> (&__zz_cib_cast_to___Example__A_5)
++		static const __zz_cib_MTableEntry methodTable[] = {
++			reinterpret_cast<__zz_cib_MTableEntry> (&tableHeader),
++			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_1),
++			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_2),
++			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3),
++			reinterpret_cast<__zz_cib_MTableEntry> (&VirtFunc_4),
++			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_cast_to___Example__A_5)
 +		};
 +		return methodTable;
 +	}

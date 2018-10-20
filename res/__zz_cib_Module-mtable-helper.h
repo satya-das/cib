@@ -8,7 +8,7 @@ namespace __zz_cib_ {
 class __zz_cib_MethodTableHelper
 {
 public:
-  __zz_cib_MethodTableHelper(__zz_cib_MethodTable _mtbl)
+  __zz_cib_MethodTableHelper(const __zz_cib_MethodTable* _mtbl)
     : mtbl(_mtbl)
   {
   }
@@ -19,11 +19,11 @@ public:
   template <typename _MethodType>
   _MethodType getMethod(std::uint32_t methodId) const
   {
-    return reinterpret_cast<_MethodType>(__zz_cib_GetMethodEntry(mtbl, methodId));
+    return reinterpret_cast<_MethodType>(__zz_cib_GetMTableEntry(mtbl, methodId));
   }
 
 private:
-  __zz_cib_MethodTable mtbl;
+  const __zz_cib_MethodTable* mtbl;
 };
 
 } // namespace __zz_cib_

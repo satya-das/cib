@@ -262,7 +262,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
   stm << capiName << '(';
   if ((purpose != kPurposeSignature) && isConstructor() && callingOwner->needsGenericProxyDefinition())
   {
-    stm << "__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
+    stm << "__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl";
     if (hasParams())
       stm << ", ";
   }
@@ -368,7 +368,7 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
   }
   else if (isConstructor() && (!isCopyConstructor() || getOwner()->isCopyCtorCallable()))
   {
-    stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, __zz_cib_MethodTable mtbl";
+    stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl";
     if (hasParams())
       stm << ", ";
     emitArgsForDecl(stm, helper, true, kPurposeGenericProxy);
@@ -468,7 +468,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   }
   else if (isConstructor() && !forGenericProxy && getOwner()->needsGenericProxyDefinition())
   {
-    stm << getOwner()->longName() << "*, __zz_cib_MethodTable";
+    stm << getOwner()->longName() << "*, const __zz_cib_MethodTable*";
     if (hasParams())
       stm << ", ";
   }
@@ -618,7 +618,7 @@ void CibCppCompound::emitImplSource(std::ostream&    stm,
     stm << '\n';
     stm << indentation << wrappingNamespaceDeclarations(cibParams) << " namespace " << name() << " {\n";
     ++indentation;
-    stm << indentation << "__zz_cib_MethodTable "
+    stm << indentation << "const __zz_cib_MethodTable* "
         << "__zz_cib_Helper::__zz_cib_get_proxy_method_table() {\n";
     ++indentation;
     stm << indentation << "return __zz_cib_GetMethodTable();\n";
@@ -1118,7 +1118,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "friend class " << handleHelperParentName << ";\n";
     }
     if (needsGenericProxyDefinition())
-      stm << indentation << "static __zz_cib_MethodTable __zz_cib_get_proxy_method_table();\n";
+      stm << indentation << "static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();\n";
     stm << '\n'; // Start in new line.
     auto cibIdData = cibIdMgr.getCibIdData(fullName());
     for (auto func : needsBridging_)
@@ -1427,9 +1427,9 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   ++indentation;
   stm << indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
-  stm << indentation << "__zz_cib_MethodTable __zz_cib_mtbl;\n\n";
+  stm << indentation << "const __zz_cib_MethodTable* __zz_cib_mtbl;\n\n";
   stm << indentation << "template<typename _ProcType> _ProcType getMethod(std::uint32_t procId) const {\n";
-  stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMethodEntry(__zz_cib_mtbl, procId));\n";
+  stm << ++indentation << "return reinterpret_cast<_ProcType>(__zz_cib_GetMTableEntry(__zz_cib_mtbl, procId));\n";
   stm << --indentation << "}\n";
   --indentation;
   stm << indentation << "public:\n";
@@ -1642,28 +1642,29 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
     stm << ++indentation;
     if (forProxy)
       stm << "static ";
-    stm << "__zz_cib_MethodTable __zz_cib_GetMethodTable() {\n";
+    stm << "const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {\n";
     const auto& className = forProxy ? fullName() + "::__zz_cib_GenericProxy" : fullName();
-    stm << ++indentation
-        << "static const __zz_cib_MethodTableHeader tableHeader = { sizeof(__zz_cib_MethodTableHeader), "
-        << cibIdMgr.numMethods(className) << " };\n";
-    stm << indentation << "static const __zz_cib_MethodEntry methodTable[] = {\n";
-    stm << ++indentation << "reinterpret_cast<__zz_cib_MethodEntry> (&tableHeader)";
-    CibMethodId nextMethodId = 1;
+    stm << ++indentation << "static const __zz_cib_MTableEntry methodArray[] = {\n";
+    ++indentation;
+    CibMethodId nextMethodId = 0;
+    const char* sep = "";
     nextMethodId             = cibIdMgr.forEachMethod(
       className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
         if (methodId == nextMethodId++)
         {
-          stm << ",\n" << indentation << "reinterpret_cast<__zz_cib_MethodEntry> (&" << methodName << ')';
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&" << methodName << ')';
         }
         else
         {
-          stm << ",\n" << indentation << "reinterpret_cast<__zz_cib_MethodEntry> (nullptr)";
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
         }
+        sep = ",\n";
       });
     stm << '\n';
     stm << --indentation << "};\n";
-    stm << indentation << "return methodTable;\n";
+    stm << indentation << "static const __zz_cib_MethodTable methodTable = { "
+        << "methodArray, " << cibIdMgr.numMethods(className) << " };\n";
+    stm << indentation << "return &methodTable;\n";
     stm << --indentation << "}\n";
     stm << --indentation << '}' << closingBracesForWrappingNamespaces() << '\n';
   }

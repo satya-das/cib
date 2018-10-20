@@ -3,16 +3,16 @@
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-mtable.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace Circle { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Composite { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Context { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Ellipse { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace LogContext { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Point { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}
-namespace __zz_cib_ { namespace Graphics { namespace Rectangle { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
-namespace __zz_cib_ { namespace Graphics { namespace Shape { __zz_cib_MethodTable __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Circle { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Composite { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Context { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Ellipse { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace LogContext { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Point { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}
+namespace __zz_cib_ { namespace Graphics { namespace Rectangle { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Graphics { namespace Shape { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 
-extern "C" __zz_cib_export __zz_cib_::__zz_cib_MethodTable __zz_cib_decl __zz_cib_Graphics_GetMethodTable(std::uint32_t classId)
+extern "C" __zz_cib_export const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Graphics_GetMethodTable(std::uint32_t classId)
 {
 	switch(classId) {
 	case __zz_cib_::Graphics::Circle::__zz_cib_classid:
