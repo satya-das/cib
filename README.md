@@ -140,7 +140,8 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support for intrusive pointer     | Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object.                                                                                                                                                                                            |
 | Support shared_ptr and unique_ptr | Modern C++ programing expects these to be used more often.                                                                                                                                                                                                                                                                                           |
 | Support struct                    | Automatically add getter/setter for public data members.                                                                                                                                                                                                                                                                                             |
-| Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined.                                                                                          |
+| Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
+| Support exporting protected methods ||
 
 ---
 
