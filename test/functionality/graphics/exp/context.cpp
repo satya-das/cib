@@ -17,29 +17,38 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 		}
 		void Line(float x1, float y1, float x2, float y2) override {
 			using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x1, float y1, float x2, float y2);
-			auto method = __zz_cib_get_mtable_helper().getMethod<LineProc>(__zz_cib_methodid::Line_1);
-			return method(__zz_cib_h_, x1, y1, x2, y2);
+			return __zz_cib_get_mtable_helper().invoke<LineProc>(
+				__zz_cib_methodid::Line_1,
+				__zz_cib_h_,
+				x1, y1, x2, y2);
 		}
 		void Rect(float l, float b, float r, float t) override {
 			using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float l, float b, float r, float t);
-			auto method = __zz_cib_get_mtable_helper().getMethod<RectProc>(__zz_cib_methodid::Rect_2);
-			return method(__zz_cib_h_, l, b, r, t);
+			return __zz_cib_get_mtable_helper().invoke<RectProc>(
+				__zz_cib_methodid::Rect_2,
+				__zz_cib_h_,
+				l, b, r, t);
 		}
 		void Circle(float cx, float cy, float r) override {
 			using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float r);
-			auto method = __zz_cib_get_mtable_helper().getMethod<CircleProc>(__zz_cib_methodid::Circle_3);
-			return method(__zz_cib_h_, cx, cy, r);
+			return __zz_cib_get_mtable_helper().invoke<CircleProc>(
+				__zz_cib_methodid::Circle_3,
+				__zz_cib_h_,
+				cx, cy, r);
 		}
 		void Ellipse(float cx, float cy, float a, float b) override {
 			using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float a, float b);
-			auto method = __zz_cib_get_mtable_helper().getMethod<EllipseProc>(__zz_cib_methodid::Ellipse_4);
-			return method(__zz_cib_h_, cx, cy, a, b);
+			return __zz_cib_get_mtable_helper().invoke<EllipseProc>(
+				__zz_cib_methodid::Ellipse_4,
+				__zz_cib_h_,
+				cx, cy, a, b);
 		}
 		~Context() override {
 			if (!__zz_cib_h_) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_5);
-			method(__zz_cib_h_);
+			__zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc>(
+				__zz_cib_methodid::__zz_cib_delete_5,
+				__zz_cib_h_);
 		}
 	};
 }}}}
@@ -78,7 +87,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context {
 			reinterpret_cast<__zz_cib_MTableEntry> (&Ellipse_3),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_4)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
 		return &methodTable;
 	}
 }}}

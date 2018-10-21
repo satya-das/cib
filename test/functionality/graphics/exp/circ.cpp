@@ -24,7 +24,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 			reinterpret_cast<__zz_cib_MTableEntry> (&Draw_2),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
 		return &methodTable;
 	}
 }}}

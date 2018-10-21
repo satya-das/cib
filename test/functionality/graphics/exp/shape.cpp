@@ -20,24 +20,29 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 		}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<AreaProc>(__zz_cib_methodid::Area_1);
-			return method(__zz_cib_h_);
+			return __zz_cib_get_mtable_helper().invoke<AreaProc>(
+				__zz_cib_methodid::Area_1,
+				__zz_cib_h_);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<PerimeterProc>(__zz_cib_methodid::Perimeter_2);
-			return method(__zz_cib_h_);
+			return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
+				__zz_cib_methodid::Perimeter_2,
+				__zz_cib_h_);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-			auto method = __zz_cib_get_mtable_helper().getMethod<DrawProc>(__zz_cib_methodid::Draw_3);
-			return method(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
+			return __zz_cib_get_mtable_helper().invoke<DrawProc>(
+				__zz_cib_methodid::Draw_3,
+				__zz_cib_h_,
+				__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 		}
 		~Shape() override {
 			if (!__zz_cib_h_) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-			auto method = __zz_cib_get_mtable_helper().getMethod<__zz_cib_deleteProc>(__zz_cib_methodid::__zz_cib_delete_4);
-			method(__zz_cib_h_);
+			__zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc>(
+				__zz_cib_methodid::__zz_cib_delete_4,
+				__zz_cib_h_);
 		}
 	};
 }}}}
@@ -78,7 +83,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 			reinterpret_cast<__zz_cib_MTableEntry> (&Draw_2),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
 		return &methodTable;
 	}
 }}}

@@ -1,51 +1,54 @@
 #include "circ.h"
 #include "shape.h"
 
-#include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-ids.h"
-#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-mtable-helper.h"
 #include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_GenericProxy {
 	class Circle : public ::Graphics::Circle {
 		__zz_cib_PROXY* __zz_cib_proxy;
-		const __zz_cib_MethodTable* __zz_cib_mtbl;
+		const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
-		template<typename _ProcType> _ProcType getMethod(std::uint32_t procId) const {
-			return reinterpret_cast<_ProcType>(__zz_cib_GetMTableEntry(__zz_cib_mtbl, procId));
+		const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+			return __zz_cib_mtbl_helper;
 		}
 	public:
 		Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float Ox, float Oy, float radius)
 			: ::Graphics::Circle::Circle(Ox, Oy, radius)
 			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
+			, __zz_cib_mtbl_helper(mtbl)
 		{}
 		Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Circle& __zz_cib_param0)
 			: ::Graphics::Circle::Circle(__zz_cib_param0)
 			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
+			, __zz_cib_mtbl_helper(mtbl)
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Area_0);
-			return method(__zz_cib_proxy);
+			return __zz_cib_get_mtable_helper().invoke<AreaProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
+				__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1);
-			return method(__zz_cib_proxy);
+			return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
+				__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Draw_2);
-			return method(__zz_cib_proxy, ctx);
+			return __zz_cib_get_mtable_helper().invoke<DrawProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Draw_2,
+				__zz_cib_proxy,
+				ctx);
 		}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-	static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Circle& __zz_cib_param0) {
-		return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, __zz_cib_param0);
+	static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Circle* __zz_cib_param0) {
+		return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, *__zz_cib_param0);
 	}
 	static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Circle* __zz_cib_obj) {
 		delete __zz_cib_obj;
@@ -88,7 +91,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_cast_to___Graphics__Shape_7),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_release_proxy_8)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 9 };
 		return &methodTable;
 	}
 }}}

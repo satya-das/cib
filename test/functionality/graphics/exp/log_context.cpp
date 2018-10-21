@@ -27,7 +27,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 			reinterpret_cast<__zz_cib_MTableEntry> (&Ellipse_3),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_4)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
 		return &methodTable;
 	}
 }}}

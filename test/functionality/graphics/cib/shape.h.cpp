@@ -11,45 +11,49 @@
 
 extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
-#include "__zz_cib_Graphics-decl.h"
 #include "__zz_cib_Graphics-ids.h"
-#include "__zz_cib_Graphics-mtable.h"
+#include "__zz_cib_Graphics-mtable-helper.h"
 #include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy {
 	class Shape : public ::Graphics::Shape {
 		__zz_cib_PROXY* __zz_cib_proxy;
-		const __zz_cib_MethodTable* __zz_cib_mtbl;
+		const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
-		template<typename _ProcType> _ProcType getMethod(std::uint32_t procId) const {
-			return reinterpret_cast<_ProcType>(__zz_cib_GetMTableEntry(__zz_cib_mtbl, procId));
+		const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+			return __zz_cib_mtbl_helper;
 		}
 	public:
 		Shape(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
 			: ::Graphics::Shape::Shape()
 			, __zz_cib_proxy(proxy)
-			, __zz_cib_mtbl(mtbl)
+			, __zz_cib_mtbl_helper(mtbl)
 		{}
 		float Area() const override {
 			using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<AreaProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Area_0);
-			return method(__zz_cib_proxy);
+			return __zz_cib_get_mtable_helper().invoke<AreaProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
+				__zz_cib_proxy);
 		}
 		float Perimeter() const override {
 			using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<PerimeterProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1);
-			return method(__zz_cib_proxy);
+			return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
+				__zz_cib_proxy);
 		}
 		void Draw(::Graphics::Context* ctx) const override {
 			using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-			auto method = getMethod<DrawProc>(__zz_cib_GenericProxy::__zz_cib_methodid::Draw_2);
-			return method(__zz_cib_proxy, ctx);
+			return __zz_cib_get_mtable_helper().invoke<DrawProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::Draw_2,
+				__zz_cib_proxy,
+				ctx);
 		}
 		~Shape() override {
 			if (!__zz_cib_proxy) return;
 			using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-			auto method = getMethod<__zz_cib_deleteProc>(__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_3);
-			method(__zz_cib_proxy);
+			__zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc>(
+				__zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_3,
+				__zz_cib_proxy);
 		}
 		void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 	};
@@ -99,7 +103,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_get_class_id_5),
 			reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_release_proxy_6)
 		};
-		static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
+		static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
 		return &methodTable;
 	}
 }}}

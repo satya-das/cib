@@ -197,7 +197,7 @@ inline CibMethodId CibIdData::forEachMethod(MethodVisitor methodVisitor) const
 
 inline size_t CibIdData::numMethods() const
 {
-  return methodIdToMethodMap.empty() ? 0 : methodIdToMethodMap.rbegin()->first;
+  return methodIdToMethodMap.empty() ? 0 : 1 + methodIdToMethodMap.rbegin()->first;
 }
 
 inline CibMethodId CibIdMgr::forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const
