@@ -17,32 +17,32 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
 	enum {
 		//#= A();
-		__zz_cib_new_1 = 1,
+		__zz_cib_new_0 = 0,
 		//#= A(const ::Example::A&);
-		__zz_cib_copy_2 = 2,
+		__zz_cib_copy_1 = 1,
 		//#= ~A();
-		__zz_cib_delete_3 = 3,
+		__zz_cib_delete_2 = 2,
 		//#= void SomeFunc();
-		SomeFunc_4 = 4,
+		SomeFunc_3 = 3,
 		//#= void VirtFunc();
-		VirtFunc_5 = 5,
-		__zz_cib_next_method_id = 6
+		VirtFunc_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}
 
 namespace __zz_cib_ { namespace Example { namespace B { namespace __zz_cib_methodid {
 	enum {
 		//#= B();
-		__zz_cib_new_1 = 1,
+		__zz_cib_new_0 = 0,
 		//#= B(const ::Example::B&);
-		__zz_cib_copy_2 = 2,
+		__zz_cib_copy_1 = 1,
 		//#= ~B();
-		__zz_cib_delete_3 = 3,
+		__zz_cib_delete_2 = 2,
 		//#= void VirtFunc();
-		VirtFunc_4 = 4,
+		VirtFunc_3 = 3,
 		//#= __zz_cib_cast_to___Example__A
-		__zz_cib_cast_to___Example__A_5 = 5,
-		__zz_cib_next_method_id = 6
+		__zz_cib_cast_to___Example__A_4 = 4,
+		__zz_cib_next_method_id = 5
 	};
 }}}}
 
