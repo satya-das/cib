@@ -36,7 +36,7 @@ private:
   }
 
 private:
-  const __zz_cib_MethodTable* mtbl;
+  const __zz_cib_MethodTable* const mtbl;
 };
 
 } // namespace __zz_cib_
