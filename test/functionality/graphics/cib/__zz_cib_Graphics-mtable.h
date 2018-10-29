@@ -8,13 +8,13 @@
 namespace __zz_cib_ {
 
 //! Generic type for function pointer.
-using __zz_cib_MTableEntry = int (__zz_cib_decl *)();
+using __zz_cib_MTableEntry = int(__zz_cib_decl*)();
+using __zz_cib_MethodArray = const __zz_cib_MTableEntry*;
 
-extern "C"
-struct __zz_cib_MethodTable
+extern "C" struct __zz_cib_MethodTable
 {
-  const __zz_cib_MTableEntry* methods;
-  const std::uint32_t         numMethods; //!< Number of methods in method table.
+  const __zz_cib_MethodArray methods;
+  const std::uint32_t        numMethods; //!< Number of methods in method table.
 };
 
 //! Fetches method from a method table
