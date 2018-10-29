@@ -180,9 +180,7 @@ For better understanding of what CIB does we will consider examples to see what 
 To begin with we will consider following example:
 
 [**File: example.h**]:
-```c++
-!INCLUDE "examples/example1/pub/example.h"
-```
+!INCLUDECODE "examples/example1/pub/example.h" (c++)
 
 Assuming CWD is `examples/example1/` we can run `cib` as shown below:
 
@@ -201,33 +199,25 @@ Let's first look at some of the fundamental types and definitions `cib` uses in 
 `cib`'s basic functioning is that it doesn't let compiler generated stuff cross component boundary. Compiler generates many things and among them are mangled function name and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. So, let's look at what this method table is exactly:
 
 **Method table and helper function**:
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example-mtable.h"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-mtable.h" (c++)
 
 Above we have definition of method table and helper function to fetch method from method-table. So, basically method table is an array of function pointers. This is the table that crosses component boundary instead of mangled function name or virtual table. We will see how but as of now it is enough to know what exactly is method table.
 
 **Macro for export function attribute**:
 
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example-export.h"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-export.h" (c++)
 
 We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other funtions cross component boundary only as function pointer. Since an exported funtion needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
 
 **Macro for import function attribute**:
 
-```c++
-!INCLUDE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-import.h"
-```
+!INCLUDECODE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-import.h" (c++)
 
 Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in generated code for client. That will tell us that the function for which it is used is the only function that will be imported with it's *name*. All other functions of library will be used by client only as function pointer.
 
 **Macro to define calling convention**:
 
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example-decl.h"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-decl.h" (c++)
 
 When we see `__zz_cib_decl` in generated code it is safe to ignore them for most cases. It is there only to ascertain that compilers of both library and client use same calling convention for all functions that are called from across component boundary. Ignoring them helps unclutter the complex looking code.
 
@@ -257,9 +247,7 @@ As I have mentioned earlier that `cib` doesn't let compiler generated stuff to c
 
 **MethodTableHelper class**
 
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example-mtable-helper.h"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-mtable-helper.h" (c++)
 
 `class __zz_cib_Helper` is used as base class of all helper classes. We will know about that in more detail but as of now we should just know that this class provides a helper method to fetch function pointer of supplied type from method table.
 
@@ -270,9 +258,7 @@ First of all unique IDs will be assigned to all entities (e.g. classes and metho
 
 **File: __zz_cib_Example-ids.h**:
 
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example-ids.h"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-ids.h" (c++)
 
 Every entity is given a unique integer ID. These integer values remain same irrespective of changes in the public headers. `cib` reads these generated IDs in subsequennt runs and keeps the value unchanged while generating the IDs again in next run. *For allowing cib to keep the value unchanged `-c` or `--cib-ids-file` option should be used to pass the file-name of previously generated id-file to `cib`*.
 There are few points to note about this id file:
@@ -296,9 +282,7 @@ There are few points to note about this id file:
 
 **File: example.h.cpp**:
 
-```c++
-!INCLUDE "examples/example1/cib/example.h.cpp"
-```
+!INCLUDECODE "examples/example1/cib/example.h.cpp" (c++)
 
 As mentioned earlier `cib` uses namespace in plenty to isolate it's generated code from main code and also to avoid any possible name clashes.
 There are mainly 2 parts in this file. In the first part we see plain C-style static functions that are implemented by just delegating to C++ methods. For example function `SomeFunc_4` is implemented by calling `::Example::A::SomeFunc()`. Similarly there are functions for constructors and destructor too and they call `new` and `delete`.
@@ -309,9 +293,7 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 **File: __zz_cib_Example.cpp**:
 
-```c++
-!INCLUDE "examples/example1/cib/__zz_cib_Example.cpp"
-```
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example.cpp" (c++)
 
 We see implementation of function `__zz_cib_Example_GetMethodTable`. *`Example` in name is because it is the name of module supplied as value of `-m` command line parameter*. This function is like gateway for client to access all functionality of the library. This function returns the method table for a given class-id. In previous section we had already seen implementation of `__zz_cib_GetMethodTable` for classes which is called from here. Since our trivial example had just one class there is just one `case` statement, had there been more classes there would have been more case statements. In later examples we will see those cases as well.
 
@@ -322,9 +304,7 @@ Let's begin to look at client side with the part that imports library gateway fu
 
 **File: __zz_cib_Example-def.h**:
 
-```c++
-!INCLUDE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-def.h"
-```
+!INCLUDECODE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-def.h" (c++)
 
 As you can see it is counter part of what library code defined which had used `__zz_cib_export` instead of `__zz_cib_import`. With this declaration client code gets access to `__zz_cib_Example_GetMethodTable` and we will shortly see use of this below.
 
@@ -333,9 +313,7 @@ Now we will look into the headers that will be used by client developer. This is
 
 **File: example.h**:
 
-```c++
-!INCLUDE "examples/example1/exp/example.h"
-```
+!INCLUDECODE "examples/example1/exp/example.h" (c++)
 
 You can notice certain differences between this class and the original class in folder pub/. Below is the diff between original and cib generated header:
 
@@ -380,25 +358,19 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 
 **File: __zz_cib_internal/example-predef.h**:
 
-```c++
-!INCLUDE "examples/example1/exp/__zz_cib_internal/example-predef.h"
-```
+!INCLUDECODE "examples/example1/exp/__zz_cib_internal/example-predef.h" (c++)
 
 We see a #include and a forward declaration of `class __zz_cib_Helper`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header clean as much as possible. We will look into that in next part. Let's see what is the definition of that macro `__ZZ_CIB_CLASS_INTERNAL_DEF` that is present inside the class.
 
 **File: __zz_cib_internal/__zz_cib_Example-class-internal-def.h**:
 
-```c++
-!INCLUDE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
-```
+!INCLUDECODE "examples/example1/exp/__zz_cib_internal/__zz_cib_Example-class-internal-def.h" (c++)
 
 Macro `__ZZ_CIB_CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. We will now move to see how the methods of this proxy class are defined.
 
 **Implementation detail of proxy class**:
 
-```c++
-!INCLUDE "examples/example1/exp/__zz_cib_internal/example-impl.h"
-```
+!INCLUDECODE "examples/example1/exp/__zz_cib_internal/example-impl.h" (c++)
 
 This file contains primarily two things. Definition of `class __zz_cib_Helper` and implementation of methods of proxy class.
 
@@ -415,9 +387,7 @@ Implementation of next three are mostly about delegating to methods of `__zz_cib
 
 **File: example-client.cpp**:
 
-```c++
-!INCLUDE "examples/example1/src/example-client.cpp"
-```
+!INCLUDECODE "examples/example1/src/example-client.cpp" (c++)
 
 Below is the call sequence diagram for this sample:
 ![Call sequence for sample-1](documentation/example1/SAMPLE-1.svg "Call sequence for sample-1")
@@ -431,9 +401,7 @@ This ends the explanation of our first example I hope the basics of how `cib` wo
 
 In this example we will see what `cib` does with virtual functions and how runtime polymorphism works across component boundary. The code for this example is the next version of previous example and so we will also know how `cib` ensures forward compatibility at binary level. Consider the following example:
 
-```c++
-!INCLUDE "examples/example2/pub/example.h"
-```
+!INCLUDECODE "examples/example2/pub/example.h" (c++)
 
 This example defines 2 classes, `class A` is from previous example and has a new method that is a virtual function. I have intentionally added it before existing method to make a point about how `cib` guarantees forward compatibility of client. We will see that in detail later. `class B` is the new class that is added in this example that inherits from `class A` and overrides the virtual method. We will see how runtime polymorphism works across the component boundary.
 
@@ -749,9 +717,7 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 
 Here too we mostly see things as expected. There was a new method in `class A` and so there are lines corresponding to that. `class B` was a new addition and for that we see similar code. One important thing to note here is that `cib` didn't differentiate between virtual and non-virtual methods. It treated them alike. virtual methods do receive special treatment from `cib` but this example doesn't meet that creteria. In other examples when we will discuss `interface` and `facade` kind of classes we will see how `cib` generates special code for virtual methods. But for this example we will now see how runtime polymorphism is done across component boundary. Let's have a look at the client code of this example:
 
-```c++
-!INCLUDE "examples/example2/src/example-client.cpp"
-```
+!INCLUDECODE "examples/example2/src/example-client.cpp" (c++)
 
 It's a trivial example but involves a polymorphic call. When this code is executed the expectation is that `B::VirtFunc()` should be called. As it can be seen that `B::VirtFunc()` will be called at the client side itself because proxy class B overrides the VirtFunc() method. The instructions generated by compiler of client code will make the call to `B::VirtFunc()` on client side. It is just that the implementation of `B::VirtFunc()` will delegate the call to library side `B::VirtFunc()` function throgh method table. As far as `cib` is concerened it has placed mechanism to call across component boundary for both virtual and non-virtual methods in exactly the same way. It is the instruction generated by compiler of client that will decide which method to call on the client side itself. This is the way `cib` makes it possible for virtual function call to cross component boundary without sharing the compiler generated vtable of components. The vtables of components are used only by respective components themselves. For calling methods across component method table is used instead. Now we will move on to our next example and see what `cib` does with facade like classes.
 

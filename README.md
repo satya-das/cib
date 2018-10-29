@@ -24,55 +24,7 @@ Component Interface Binder (CIB)
 1.13\.  [Running CIB](#runningcib)  
 1.14\.  [Disection of CIB generated code](#disectionofcibgeneratedcode)  
 1.14.1\.  [Example-1: A Simple Class](#example-1:asimpleclass)  
-2\.  [pragma once](#pragmaonce)  
-3\.  [ifdef __zz_cib_export](#ifdef__zz_cib_export)  
-4\.  [undef __zz_cib_export](#undef__zz_cib_export)  
-5\.  [endif](#endif)  
-6\.  [if defined _WIN32 || defined __CYGWIN__](#ifdefined_win32||defined__cygwin__)  
-7\.  [ifdef __GNUC__](#ifdef__gnuc__)  
-8\.  [define __zz_cib_export __attribute__((dllexport))](#define__zz_cib_export__attribute__dllexport)  
-9\.  [else](#else)  
-10\.  [define __zz_cib_export __declspec(dllexport)](#define__zz_cib_export__declspecdllexport)  
-11\.  [endif](#endif-1)  
-12\.  [else](#else-1)  
-13\.  [if __GNUC__ >= 4](#if__gnuc__>=4)  
-14\.  [define __zz_cib_export __attribute__((visibility("default")))](#define__zz_cib_export__attribute__visibility"default")  
-15\.  [else](#else-2)  
-16\.  [define __zz_cib_export](#define__zz_cib_export)  
-17\.  [endif](#endif-2)  
-18\.  [endif](#endif-3)  
-19\.  [ifdef __zz_cib_decl](#ifdef__zz_cib_decl)  
-20\.  [undef __zz_cib_decl](#undef__zz_cib_decl)  
-21\.  [endif](#endif-4)  
-22\.  [ifdef __GNUC__](#ifdef__gnuc__-1)  
-23\.  [define __zz_cib_decl __attribute__((stdcall))](#define__zz_cib_decl__attribute__stdcall)  
-24\.  [elif defined(_WIN32)](#elifdefined_win32)  
-25\.  [define __zz_cib_decl __stdcall](#define__zz_cib_decl__stdcall)  
-26\.  [endif](#endif-5)  
-27\.  [include "__zz_cib_Example-mtable.h"](#include"__zz_cib_example-mtable.h")  
-28\.  [ifndef __zz_cib_MethodTableHelper_defined](#ifndef__zz_cib_methodtablehelper_defined)  
-29\.  [include <functional>](#include<functional>)  
-30\.  [define __zz_cib_MethodTableHelper_defined](#define__zz_cib_methodtablehelper_defined)  
-31\.  [endif](#endif-6)  
-31.0.0.1\.  [Library Glue Code](#librarygluecode)  
-32\.  [include "example.h"](#include"example.h")  
-33\.  [include "__zz_cib_Example-ids.h"](#include"__zz_cib_example-ids.h")  
-34\.  [include "__zz_cib_Example-mtable-helper.h"](#include"__zz_cib_example-mtable-helper.h")  
-35\.  [include "__zz_cib_Example-proxy.h"](#include"__zz_cib_example-proxy.h")  
-35.0.0.1\.  [Import of library gateway function](#importoflibrarygatewayfunction)  
-36\.  [pragma once](#pragmaonce-1)  
-37\.  [include "__zz_cib_Example-decl.h"](#include"__zz_cib_example-decl.h")  
-38\.  [include "__zz_cib_Example-import.h"](#include"__zz_cib_example-import.h")  
-39\.  [include "__zz_cib_Example-mtable.h"](#include"__zz_cib_example-mtable.h"-1)  
-40\.  [include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"](#include"__zz_cib_internal/__zz_cib_example-class-internal-def.h")  
-41\.  [include "__zz_cib_Example-def.h"](#include"__zz_cib_example-def.h")  
-42\.  [include "__zz_cib_Example-ids.h"](#include"__zz_cib_example-ids.h"-1)  
-43\.  [include "__zz_cib_Example-mtable-helper.h"](#include"__zz_cib_example-mtable-helper.h"-1)  
-43.0.1\.  [Example-2: Virtual function and runtime polymorphism:](#example-2:virtualfunctionandruntimepolymorphism:)  
-44\.  [pragma once](#pragmaonce-2)  
-44.1\.  [Implementation Details](#implementationdetails)  
-44.1.1\.  [Parsing Technique](#parsingtechnique)  
-44.1.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
+1.14.2\.  [Method Table](#methodtable)  
 
 <a name="cib"></a>
 
@@ -298,9 +250,7 @@ To begin with we will consider following example:
 
 [**File: example.h**]:
 ```c++
-<a name="pragmaonce"></a>
-
-#2\. pragma once
+#pragma once
 
 //! Contains example definitions to explain cib's functioning
 namespace Example
@@ -315,6 +265,7 @@ namespace Example
         void SomeFunc();
     };
 }
+
 ```
 
 Assuming CWD is `examples/example1/` we can run `cib` as shown below:
@@ -329,7 +280,9 @@ Undoudtedly in this example we have a vividly simple class, but we do see lots o
 
 Let's first look at some of the fundamental types and definitions `cib` uses in generated code.
 
-### Method Table
+<a name="methodtable"></a>
+
+### 1.14.2\. Method Table
 
 `cib`'s basic functioning is that it doesn't let compiler generated stuff cross component boundary. Compiler generates many things and among them are mangled function name and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. So, let's look at what this method table is exactly:
 
@@ -371,6 +324,7 @@ inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(const __zz_cib_MethodTable* 
 
 #  define __zz_cib_MethodTable_defined
 #endif
+
 ```
 
 Above we have definition of method table and helper function to fetch method from method-table. So, basically method table is an array of function pointers. This is the table that crosses component boundary instead of mangled function name or virtual table. We will see how but as of now it is enough to know what exactly is method table.
@@ -380,55 +334,24 @@ Above we have definition of method table and helper function to fetch method fro
 ```c++
 //! @def __zz_cib_export
 //! Function attribute that makes symbol externally visible
-<a name="ifdef__zz_cib_export"></a>
+#ifdef __zz_cib_export
+#  undef __zz_cib_export
+#endif
 
-#3\. ifdef __zz_cib_export
-<a name="undef__zz_cib_export"></a>
+#if defined _WIN32 || defined __CYGWIN__
+#  ifdef __GNUC__
+#    define __zz_cib_export __attribute__((dllexport))
+#  else
+#    define __zz_cib_export __declspec(dllexport)
+#  endif
+#else
+#  if __GNUC__ >= 4
+#    define __zz_cib_export __attribute__((visibility("default")))
+#  else
+#    define __zz_cib_export
+#  endif
+#endif
 
-#  4\. undef __zz_cib_export
-<a name="endif"></a>
-
-#5\. endif
-
-<a name="ifdefined_win32||defined__cygwin__"></a>
-
-#6\. if defined _WIN32 || defined __CYGWIN__
-<a name="ifdef__gnuc__"></a>
-
-#  7\. ifdef __GNUC__
-<a name="define__zz_cib_export__attribute__dllexport"></a>
-
-#    8\. define __zz_cib_export __attribute__((dllexport))
-<a name="else"></a>
-
-#  9\. else
-<a name="define__zz_cib_export__declspecdllexport"></a>
-
-#    10\. define __zz_cib_export __declspec(dllexport)
-<a name="endif-1"></a>
-
-#  11\. endif
-<a name="else-1"></a>
-
-#12\. else
-<a name="if__gnuc__>=4"></a>
-
-#  13\. if __GNUC__ >= 4
-<a name="define__zz_cib_export__attribute__visibility"default""></a>
-
-#    14\. define __zz_cib_export __attribute__((visibility("default")))
-<a name="else-2"></a>
-
-#  15\. else
-<a name="define__zz_cib_export"></a>
-
-#    16\. define __zz_cib_export
-<a name="endif-2"></a>
-
-#  17\. endif
-<a name="endif-3"></a>
-
-#18\. endif
 ```
 
 We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other funtions cross component boundary only as function pointer. Since an exported funtion needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
@@ -455,6 +378,7 @@ We will see `__zz_cib_export` used exactly once in generated code and that too i
 #    define __zz_cib_import
 #  endif
 #endif
+
 ```
 
 Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in generated code for client. That will tell us that the function for which it is used is the only function that will be imported with it's *name*. All other functions of library will be used by client only as function pointer.
@@ -465,31 +389,16 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 //! @def __zz_cib_decl
 //! Calling convention to be used for functions
 //! called from across component boundary
-<a name="ifdef__zz_cib_decl"></a>
+#ifdef __zz_cib_decl
+#  undef __zz_cib_decl
+#endif
 
-#19\. ifdef __zz_cib_decl
-<a name="undef__zz_cib_decl"></a>
+#ifdef __GNUC__
+#  define __zz_cib_decl __attribute__((stdcall))
+#elif defined(_WIN32)
+#  define __zz_cib_decl __stdcall
+#endif
 
-#  20\. undef __zz_cib_decl
-<a name="endif-4"></a>
-
-#21\. endif
-
-<a name="ifdef__gnuc__-1"></a>
-
-#22\. ifdef __GNUC__
-<a name="define__zz_cib_decl__attribute__stdcall"></a>
-
-#  23\. define __zz_cib_decl __attribute__((stdcall))
-<a name="elifdefined_win32"></a>
-
-#24\. elif defined(_WIN32)
-<a name="define__zz_cib_decl__stdcall"></a>
-
-#  25\. define __zz_cib_decl __stdcall
-<a name="endif-5"></a>
-
-#26\. endif
 ```
 
 When we see `__zz_cib_decl` in generated code it is safe to ignore them for most cases. It is there only to ascertain that compilers of both library and client use same calling convention for all functions that are called from across component boundary. Ignoring them helps unclutter the complex looking code.
@@ -521,16 +430,10 @@ As I have mentioned earlier that `cib` doesn't let compiler generated stuff to c
 **MethodTableHelper class**
 
 ```c++
-<a name="include"__zz_cib_example-mtable.h""></a>
+#include "__zz_cib_Example-mtable.h"
 
-#27\. include "__zz_cib_Example-mtable.h"
-
-<a name="ifndef__zz_cib_methodtablehelper_defined"></a>
-
-#28\. ifndef __zz_cib_MethodTableHelper_defined
-<a name="include<functional>"></a>
-
-#  29\. include <functional>
+#ifndef __zz_cib_MethodTableHelper_defined
+#  include <functional>
 
 namespace __zz_cib_ {
 
@@ -570,12 +473,9 @@ private:
 
 } // namespace __zz_cib_
 
-<a name="define__zz_cib_methodtablehelper_defined"></a>
+#  define __zz_cib_MethodTableHelper_defined
+#endif
 
-#  30\. define __zz_cib_MethodTableHelper_defined
-<a name="endif-6"></a>
-
-#31\. endif
 ```
 
 `class __zz_cib_Helper` is used as base class of all helper classes. We will know about that in more detail but as of now we should just know that this class provides a helper method to fetch function pointer of supplied type from method table.
@@ -614,6 +514,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 	};
 }}}}
 
+
 ```
 
 Every entity is given a unique integer ID. These integer values remain same irrespective of changes in the public headers. `cib` reads these generated IDs in subsequennt runs and keeps the value unchanged while generating the IDs again in next run. *For allowing cib to keep the value unchanged `-c` or `--cib-ids-file` option should be used to pass the file-name of previously generated id-file to `cib`*.
@@ -633,27 +534,17 @@ There are few points to note about this id file:
 6. ID name for constructor starts with `__zz_cib_new` and for destructor it is `__zz_cib_delete`. These are the names`cib` gives.
 7. There are some more symbols like `__zz_cib_next_class_id` and `__zz_cib_next_method_id`. They are for `cib` to know what IDs to use for next entity.
 
-<a name="librarygluecode"></a>
-
-#### 31.0.0.1\. Library Glue Code
+#### Library Glue Code
 `cib` will generate library glue code and library is expected to compile these source code while building itself. The aim here for `cib` is to generate compiler independent and forward compatible glue code. So, for the `class A` of example-1 following will be the generated library glue code:
 
 **File: example.h.cpp**:
 
 ```c++
-<a name="include"example.h""></a>
+#include "example.h"
 
-#32\. include "example.h"
-
-<a name="include"__zz_cib_example-ids.h""></a>
-
-#33\. include "__zz_cib_Example-ids.h"
-<a name="include"__zz_cib_example-mtable-helper.h""></a>
-
-#34\. include "__zz_cib_Example-mtable-helper.h"
-<a name="include"__zz_cib_example-proxy.h""></a>
-
-#35\. include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-ids.h"
+#include "__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 	static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
@@ -682,6 +573,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 		return &methodTable;
 	}
 }}}
+
 ```
 
 As mentioned earlier `cib` uses namespace in plenty to isolate it's generated code from main code and also to avoid any possible name clashes.
@@ -710,36 +602,28 @@ extern "C" __zz_cib_export const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl 
 		return nullptr;
 	}
 }
+
 ```
 
 We see implementation of function `__zz_cib_Example_GetMethodTable`. *`Example` in name is because it is the name of module supplied as value of `-m` command line parameter*. This function is like gateway for client to access all functionality of the library. This function returns the method table for a given class-id. In previous section we had already seen implementation of `__zz_cib_GetMethodTable` for classes which is called from here. Since our trivial example had just one class there is just one `case` statement, had there been more classes there would have been more case statements. In later examples we will see those cases as well.
 
 Now we will visit code that will be part of SDK and will be used by clients.
 
-<a name="importoflibrarygatewayfunction"></a>
-
-#### 35.0.0.1\. Import of library gateway function
+#### Import of library gateway function
 Let's begin to look at client side with the part that imports library gateway function.
 
 **File: __zz_cib_Example-def.h**:
 
 ```c++
-<a name="pragmaonce-1"></a>
+#pragma once
 
-#36\. pragma once
-
-<a name="include"__zz_cib_example-decl.h""></a>
-
-#37\. include "__zz_cib_Example-decl.h"
-<a name="include"__zz_cib_example-import.h""></a>
-
-#38\. include "__zz_cib_Example-import.h"
-<a name="include"__zz_cib_example-mtable.h"-1"></a>
-
-#39\. include "__zz_cib_Example-mtable.h"
+#include "__zz_cib_Example-decl.h"
+#include "__zz_cib_Example-import.h"
+#include "__zz_cib_Example-mtable.h"
 
 extern "C" __zz_cib_import const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl
                                                            __zz_cib_Example_GetMethodTable(std::uint32_t classId);
+
 ```
 
 As you can see it is counter part of what library code defined which had used `__zz_cib_export` instead of `__zz_cib_import`. With this declaration client code gets access to `__zz_cib_Example_GetMethodTable` and we will shortly see use of this below.
@@ -777,6 +661,7 @@ namespace Example
 }
 
 #include "__zz_cib_internal/example-impl.h"
+
 ```
 
 You can notice certain differences between this class and the original class in folder pub/. Below is the diff between original and cib generated header:
@@ -823,13 +708,12 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 **File: __zz_cib_internal/example-predef.h**:
 
 ```c++
-<a name="include"__zz_cib_internal/__zz_cib_example-class-internal-def.h""></a>
-
-#40\. include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
+#include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 	class __zz_cib_Helper;
 }}}
+
 ```
 
 We see a #include and a forward declaration of `class __zz_cib_Helper`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header clean as much as possible. We will look into that in next part. Let's see what is the definition of that macro `__ZZ_CIB_CLASS_INTERNAL_DEF` that is present inside the class.
@@ -855,6 +739,7 @@ private:                                                                        
   friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
   friend __zz_cib_::__zz_cib_HandleHelper<fullName, __zz_cib_::fullName::__zz_cib_Helper>;                             \
   __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
+
 ```
 
 Macro `__ZZ_CIB_CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. We will now move to see how the methods of this proxy class are defined.
@@ -862,15 +747,9 @@ Macro `__ZZ_CIB_CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz
 **Implementation detail of proxy class**:
 
 ```c++
-<a name="include"__zz_cib_example-def.h""></a>
-
-#41\. include "__zz_cib_Example-def.h"
-<a name="include"__zz_cib_example-ids.h"-1"></a>
-
-#42\. include "__zz_cib_Example-ids.h"
-<a name="include"__zz_cib_example-mtable-helper.h"-1"></a>
-
-#43\. include "__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_Example-def.h"
+#include "__zz_cib_Example-ids.h"
+#include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 	class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
@@ -951,6 +830,7 @@ inline Example::A::~A() {
 inline void Example::A::SomeFunc() {
 	__zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
 }
+
 ```
 
 This file contains primarily two things. Definition of `class __zz_cib_Helper` and implementation of methods of proxy class.
@@ -977,6 +857,7 @@ int main()
   a.SomeFunc();
 }
 
+
 ```
 
 Below is the call sequence diagram for this sample:
@@ -987,16 +868,12 @@ This sequence diagram doesn't mention destrutor because I didn't want to make it
 
 This ends the explanation of our first example I hope the basics of how `cib` works should now be clear. We will now move on to next example to see what happens to classes with virtual methods.
 
-<a name="example-2:virtualfunctionandruntimepolymorphism:"></a>
-
-### 43.0.1\. Example-2: Virtual function and runtime polymorphism:
+### Example-2: Virtual function and runtime polymorphism:
 
 In this example we will see what `cib` does with virtual functions and how runtime polymorphism works across component boundary. The code for this example is the next version of previous example and so we will also know how `cib` ensures forward compatibility at binary level. Consider the following example:
 
 ```c++
-<a name="pragmaonce-2"></a>
-
-#44\. pragma once
+#pragma once
 
 //! Contains example definitions to explain cib's functioning
 //! @attention
@@ -1022,6 +899,7 @@ namespace Example
         void VirtFunc() override;
     };
 }
+
 
 ```
 
@@ -1348,17 +1226,14 @@ int main()
   pA->VirtFunc();
 }
 
+
 ```
 
 It's a trivial example but involves a polymorphic call. When this code is executed the expectation is that `B::VirtFunc()` should be called. As it can be seen that `B::VirtFunc()` will be called at the client side itself because proxy class B overrides the VirtFunc() method. The instructions generated by compiler of client code will make the call to `B::VirtFunc()` on client side. It is just that the implementation of `B::VirtFunc()` will delegate the call to library side `B::VirtFunc()` function throgh method table. As far as `cib` is concerened it has placed mechanism to call across component boundary for both virtual and non-virtual methods in exactly the same way. It is the instruction generated by compiler of client that will decide which method to call on the client side itself. This is the way `cib` makes it possible for virtual function call to cross component boundary without sharing the compiler generated vtable of components. The vtables of components are used only by respective components themselves. For calling methods across component method table is used instead. Now we will move on to our next example and see what `cib` does with facade like classes.
 
 
-<a name="implementationdetails"></a>
-
-## 44.1\. Implementation Details
-<a name="parsingtechnique"></a>
-
-### 44.1.1\. Parsing Technique
+## Implementation Details
+### Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -1367,7 +1242,5 @@ void ExampleFunction(wxInt32 i);
 
 cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
 
-<a name="creatingproxyclassfromhandle"></a>
-
-### 44.1.2\. Creating proxy class from handle
+### Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
