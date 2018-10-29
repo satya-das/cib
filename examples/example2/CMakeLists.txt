@@ -4,7 +4,7 @@ project(${PROJECT})
 
 cmake_minimum_required(VERSION 3.4)
 
-include("../../../../common/cmake/conf.cmake")
+include("../../../common/cmake/conf.cmake")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
@@ -12,7 +12,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
 set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 
-set(PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/../../../documentation/${PROJECT})
+set(PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 set(LIBNAME ${PROJECT}_lib)
 set(CLIENTNAME ${PROJECT}_client)
 

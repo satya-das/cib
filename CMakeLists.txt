@@ -65,4 +65,6 @@ foreach(RESFILE ${RESFILES})
 	)
 endforeach()
 
+add_subdirectory(examples)
 add_subdirectory(test)
+
