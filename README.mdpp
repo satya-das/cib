@@ -382,8 +382,8 @@ Let's see what happens when following code is executed by client program:
 
 **Implementation of proxy class methods**:
 
-First one is the constructor that constructs from opaque handle. This constructor is meant to be called from only `cib` generated code. The next is a move constructor that `cib` always geneartes. Since the proxy class holds handle of original class it makes sense for this optiization of always defining move constructor. There is one exception to that, if move constriuctor is deleted on original class definition then it is deleted in proxy class too.
-Implementation of next three are mostly about delegating to methods of `__zz_cib_Helper`. Implementation of constructors are slightly different. They endup calling the very first constructor by passing returned value of method calls of `__zz_cib_Helper`. Now we will look at definition of `__zz_cib_Helper` which actually contains most of the implementation.
+First one is the constructor that constructs from opaque handle. This constructor is meant to be called from only `cib` generated code. The next is a move constructor that `cib` always geneartes. Since the proxy class holds handle of original class it makes sense for this optiization of always defining move constructor. There is one exception to that, if move constriuctor is deleted in original class definition then it is deleted in proxy class too.
+Implementation of next three are mostly about delegating to methods of `__zz_cib_Helper`. Implementation of constructors are slightly different. They endup calling the very first constructor by passing returned value of method calls of `__zz_cib_Helper`.
 
 **File: example-client.cpp**:
 

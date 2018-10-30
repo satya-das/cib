@@ -26,19 +26,6 @@ set(CIB_SOURCES
 	cibutil.cpp
 )
 
-add_executable(cib
-	${CIB_SOURCES}
-)
-target_link_libraries(cib
-	PRIVATE
-		cppparser
-		boost_filesystem
-)
-target_include_directories(cib
-	PRIVATE
-		${ROOT_DIR}/common
-)
-
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
 set(RESFILES
 	__zz_cib_Module-classId-repo.cpp
@@ -55,16 +42,50 @@ set(RESFILES
 	__zz_cib_pointer_helper.h
 )
 
+list(APPEND RESPATHS)
 
 foreach(RESFILE ${RESFILES})
 	add_custom_command(
-		TARGET cib
-		PRE_BUILD
-			COMMAND echo Copying ${RESFILE}
-			COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE} ${RESDIR}/${RESFILE}
+		OUTPUT ${RESDIR}/${RESFILE}
+		COMMAND echo Copying ${RESFILE}
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE} ${RESDIR}/${RESFILE}
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE}
 	)
-endforeach()
+	list(APPEND RESPATHS ${RESDIR}/${RESFILE})
+	endforeach()
+add_custom_target(CibResources DEPENDS ${RESPATHS})
+
+add_executable(cib
+	${CIB_SOURCES}
+)
+target_link_libraries(cib
+	PRIVATE
+		cppparser
+		boost_filesystem
+)
+target_include_directories(cib
+	PRIVATE
+		${ROOT_DIR}/common
+)
+add_dependencies(cib CibResources)
 
 add_subdirectory(examples)
 add_subdirectory(test)
 
+find_program(
+	MARKDOWN_PP_EXISTS
+	"markdown-pp"
+	PATHS ENV PATH
+)
+# if(${MARKDOWN_PP_EXISTS} NE "")
+	add_custom_command(
+		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+		COMMAND ${MARKDOWN_PP_EXISTS} ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	)
+	add_custom_target(
+		ReadMe ALL
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
+	add_dependencies(ReadMe example1_client example2_client)
+# endif()
