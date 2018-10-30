@@ -19,15 +19,14 @@ extern "C" struct __zz_cib_MethodTable
 
 //! Fetches method from a method table
 //! @param mtbl Method table from which to fetch the method.
-//! @param slot Index at which to fetch method from.
+//! @param methodId Method-ID which is index in the array to fetch method from.
 //! @return __zz_cib_MTableEntry value which can be null.
 //! @warning returned value can be a nullptr.
-inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(const __zz_cib_MethodTable* mtbl, std::uint32_t slot)
+inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(const __zz_cib_MethodTable* mtbl, std::uint32_t methodId)
 {
-  if (slot >= mtbl->numMethods)
-    return nullptr;
-
-  return mtbl->methods[slot];
+  if (methodId < mtbl->numMethods)
+    return mtbl->methods[methodId];
+  return nullptr;
 }
 
 } // namespace __zz_cib_
