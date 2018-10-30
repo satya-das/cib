@@ -52,11 +52,10 @@ inline void emitType(std::ostream&         stm,
   auto* resolvedType =
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
-  bool isConst    = typeObj->typeAttr_ & kConst;
-  bool emitHandle = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
-  bool convertToPtr =
-    resolvedType && (purpose & kPurposeGlueCode) && (purpose != kPurposeGenericProxy);
-  bool byValToPtr = convertToPtr && typeObj->isByValue();
+  bool isConst      = typeObj->typeAttr_ & kConst;
+  bool emitHandle   = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
+  bool convertToPtr = resolvedType && (purpose & kPurposeGlueCode) && (purpose != kPurposeGenericProxy);
+  bool byValToPtr   = convertToPtr && typeObj->isByValue();
   if (byValToPtr && !emitHandle)
     isConst = true;
 
@@ -512,7 +511,7 @@ const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const
   auto itr = typeNameToCibCppObj_.find(typeName);
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
-  const CppObj* resolvedType     = helper.getCppObjFromTypeName(typeName, this);
+  const CppObj* resolvedType = helper.getCppObjFromTypeName(typeName, this);
   if (resolvedType == nullptr)
   {
     forEachParent(kPublic, [&](const CibCppCompound* parent) {
@@ -529,7 +528,7 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
   if (!isCppFile())
     return;
 
-  bfs::path     usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  bfs::path usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
   bfs::create_directories(usrIncPath.parent_path());
   std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
@@ -561,7 +560,7 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   if (!isCppFile())
     return;
 
-  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
+  auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
   bfs::create_directories(implPath.parent_path());
   std::ofstream stm(implPath.string(), std::ios_base::out);
 
@@ -738,7 +737,7 @@ std::set<std::string> CibCppCompound::collectHeaderDependencies(const std::set<c
                                                                 const std::string&             dependentPath)
 {
   std::set<std::string> headers;
-  //std::string           parentPath = bfs::path(dependentPath).parent_path().string();
+  // std::string           parentPath = bfs::path(dependentPath).parent_path().string();
 
   for (auto obj : cppObjs)
   {
@@ -1239,7 +1238,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         ++indentation;
         stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);\n";
         stm << indentation << "return instance().invoke<__zz_cib_release_proxyProc>(\n";
-        stm << ++indentation << "__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ",\n";
+        stm << ++indentation << "__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy")
+            << ",\n";
         stm << indentation << "__zz_cib_obj->__zz_cib_h_);\n";
         --indentation;
         stm << --indentation << "}\n";
@@ -1653,7 +1653,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
     stm << ++indentation << "static const __zz_cib_MTableEntry methodArray[] = {\n";
     ++indentation;
     CibMethodId nextMethodId = 0;
-    const char* sep = "";
+    const char* sep          = "";
     nextMethodId             = cibIdMgr.forEachMethod(
       className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
         if (methodId == nextMethodId++)
