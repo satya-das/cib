@@ -1,0 +1,3 @@
+set(CIBCMD ${BINDIR}/cib -i pub -o exp -b cib -m Example -c ../example1/cib/__zz_cib_Example-ids.h)
+set(DEPENDS cib ${example}GlueCode example1_lib)
+
