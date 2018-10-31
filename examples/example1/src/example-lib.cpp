@@ -1,3 +1,9 @@
 #include "example.h"
 
-void Example::A::SomeFunc() {}
+#include <iostream>
+
+void Example::A::SomeFunc()
+{
+    std::cout << "Example::A::SomeFunc()" << std::endl;
+}
+

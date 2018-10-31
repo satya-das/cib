@@ -9,7 +9,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
 set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 
-set(EXAMPLES example1 example2)
+add_custom_target(DiffsForReadMe ALL)
+set(EXAMPLE_HEADERS "")
 foreach(example ${EXAMPLES})
     set(example_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/${example})
     set(LIBNAME ${example}_lib)
@@ -33,10 +34,12 @@ foreach(example ${EXAMPLES})
 	    list(APPEND LIB_GLUE_SRCS ${example_ROOT}/cib/${PUBFILE}.cpp)
 	    list(APPEND PUB_FILES ${example_ROOT}/pub/${PUBFILE})
     endforeach()
+    list(APPEND EXAMPLE_HEADERS ${PUB_FILES})
     foreach(CIBOUTFILE ${LIB_GLUE_SRCS})
 	    set_source_files_properties(${CIBOUTFILE} GENERATED)
     endforeach()
 
+    ## Vars that can be changed by CMakeVars.txt file in respective example
     set(CIBCMD ${BINDIR}/cib -i pub -o exp -b cib -m Example)
     set(DEPENDS cib ${example}GlueCode)
     include("${example}/CMakeVars.txt")
@@ -69,9 +72,6 @@ foreach(example ${EXAMPLES})
     set(CLIENT_SOURCES
         ${example_ROOT}/src/example-client.cpp
     )
-    file(GLOB EXP_SOURCES
-	    ${example_ROOT}/exp/*.cpp
-    )
     add_executable(${CLIENTNAME}
 	    ${CLIENT_SOURCES}
 	    ${EXP_SOURCES}
@@ -87,5 +87,10 @@ foreach(example ${EXAMPLES})
     if(MSVC)
         set_target_properties(${CLIENTNAME} PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
     endif()
+
+    include("${example}/DocCommands.cmake")
+    add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
 endforeach()
+
+set(EXAMPLE_HEADERS ${EXAMPLE_HEADERS} PARENT_SCOPE)
 

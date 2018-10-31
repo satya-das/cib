@@ -69,7 +69,9 @@ target_include_directories(cib
 )
 add_dependencies(cib CibResources)
 
+set(EXAMPLES example1 example2)
 add_subdirectory(examples)
+
 add_subdirectory(test)
 
 find_program(
@@ -77,15 +79,16 @@ find_program(
 	"markdown-pp"
 	PATHS ENV PATH
 )
-# if(${MARKDOWN_PP_EXISTS} NE "")
+
+if(${MARKDOWN_PP_EXISTS} MATCHES ".+")
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
 		COMMAND ${MARKDOWN_PP_EXISTS} ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp ${RESPATHS} ${EXAMPLE_HEADERS}
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 	add_custom_target(
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
-	add_dependencies(ReadMe example1_client example2_client)
-# endif()
+	add_dependencies(ReadMe example1_client example2_client DiffsForReadMe)
+endif()
