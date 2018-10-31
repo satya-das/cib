@@ -259,6 +259,7 @@ For better understanding of what CIB does we will consider examples to see what 
 To begin with we will consider following example:
 
 [**File: pub/example.h**]:
+
 ```c++
 #pragma once
 
@@ -307,7 +308,9 @@ We are going to see `cib` generate code that will contain lots of symbols that w
 `cib`'s basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function name and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
 
 **Method table and helper function**:
+
 [**File: cib/__zz_cib_Example-mtable.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable.h**]:
+
 ```c++
 #ifndef __zz_cib_MethodTable_defined
 
@@ -350,6 +353,7 @@ inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(const __zz_cib_MethodTable* 
 Above we have definition of method table and helper function to fetch method from method-table. So, basically method table is an array of function pointers. This is the table that crosses component boundary instead of mangled function name or virtual table. We will see how but as of now it is enough to know what exactly is method table.
 
 **Macro for export function attribute**:
+
 [**File: cib/__zz_cib_Example-export.h**]:
 
 ```c++
@@ -378,6 +382,7 @@ Above we have definition of method table and helper function to fetch method fro
 We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported funtion needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
 
 **Macro for import function attribute**:
+
 [**File: exp/__zz_cib_Example-import.h**]:
 
 ```c++
@@ -406,6 +411,7 @@ We will see `__zz_cib_export` used exactly once in generated code and that too i
 Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in generated code for client. That will tell us that the function for which it is used is the only function that will be imported with it's *name*. All other functions of library will be used by client only as function pointer.
 
 **Macro to define calling convention**:
+
 [**File: cib/__zz_cib_Example-decl.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-decl.h**]:
 
 ```c++
@@ -427,6 +433,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 `__zz_cib_decl` is needed to ensure both library and client uses same calling convention for calling functions across the component boundary. `stdcall` is chosen by default because that is what most compilers support. It can be changed to something different if library vendor wants to use other appropriate calling convention.
 
 **Type definiton of opaque pointers used by client**:
+
 [**File: exp/__zz_cib_internal/__zz_cib_Example-handle.h**]:
 
 ```c++
@@ -444,6 +451,7 @@ class __zz_cib_HANDLE;
 ```
 
 **Type definiton of opaque pointers used by library**:
+
 [**File: cib/__zz_cib_Example-proxy.h**]:
 
 ```c++
@@ -463,7 +471,8 @@ class __zz_cib_PROXY;
 As I have mentioned earlier that `cib` doesn't let compiler generated "problematic" stuff to cross component boundary. Among those stuff is object layout too. `cib` uses opaque pointer for objects belonging to other component and completely avoids accessing compiler generated object layout of another component. For this purpose `cib` defines `__zz_cib_HANDLE` and `__zz_cib_PROXY` to represent library side and client side objects to vice versa in opaque manner.
 
 **MethodTableHelper class**
-[**File: cib/__zz_cib_Example-mtable-helper.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h**]:
+
+[**File: cib/__zz_cib_Example-mtable-helper.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h**]:  
 
 ```c++
 #include "__zz_cib_Example-mtable.h"
