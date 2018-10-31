@@ -1,5 +1,5 @@
---- pub/example.h	2018-10-31 19:24:17.498283846 +0100
-+++ exp/example.h	2018-10-31 19:24:19.078314220 +0100
+--- pub/example.h	2018-10-31 21:21:01.114321381 +0100
++++ exp/example.h	2018-10-31 21:21:23.418748469 +0100
 @@ -1,27 +1,45 @@
  #pragma once
  
@@ -12,40 +12,40 @@
  //! compatible with client of previous example.
  namespace Example
  {
-     //! Example to see what cib does for classes with virtual methods.
-     class A
-     {
-     public:
-+		A(A&& rhs);
-+	public:
-+		A();
-+		A(const A& );
-+		~A();
-         //! This is to know what cib does with virtual functions.
-         virtual void VirtFunc();
-         //! Doesn't do anything meaningful
-         //! @note It is just for explaining how cib works.
-         void SomeFunc();
--    };
-     
--    class B : public A
-+	private:
-+		__ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
-+	};
-+	class B : public ::Example::A
-     {
-     public:
--        void VirtFunc() override;
-+		B(B&& rhs);
-+	public:
-+		B();
-+		B(const B& );
-+		~B();
-+		virtual void VirtFunc();
+   //! Example to see what cib does for classes with virtual methods.
+   class A
+   {
+   public:
++    A(A&& rhs);
++  public:
++    A();
++    A(const A& );
++    ~A();
+     //! This is to know what cib does with virtual functions.
+     virtual void VirtFunc();
+     //! Doesn't do anything meaningful
+     //! @note It is just for explaining how cib works.
+     void SomeFunc();
+-  };
+   
+-  class B : public A
++  private:
++    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
++  };
++  class B : public ::Example::A
+   {
+   public:
+-    void VirtFunc() override;
++    B(B&& rhs);
++  public:
++    B();
++    B(const B& );
++    ~B();
++    virtual void VirtFunc();
 +
-+	private:
-+		__ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);
-     };
++  private:
++    __ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);
+   };
  }
  
 +#include "__zz_cib_internal/example-impl.h"

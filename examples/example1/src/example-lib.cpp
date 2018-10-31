@@ -4,6 +4,6 @@
 
 void Example::A::SomeFunc()
 {
-    std::cout << "Example::A::SomeFunc()" << std::endl;
+  std::cout << "Example::A::SomeFunc()" << std::endl;
 }
 
