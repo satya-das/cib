@@ -105,9 +105,9 @@ I have come across some solutions that try to solve the same problem but none of
 - Any change in internal data member of a class.
 - Change in order of virtual functions of a class.
 - Change in inheritance that doesn't violate previous is-a relationship. For example:
-    # if a class starts deriving from one more base class without removing previous base class.
-    # if a class changes it's base class to another derived class of it's previous base class.
-    # inheritance type is changes to/from `virtual` inheritance.
+    - if a class starts deriving from one more base class without removing previous base class.
+    - if a class changes it's base class to another derived class of it's previous base class.
+    - inheritance type is changes to/from `virtual` inheritance.
 - Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
 - Change in parameter type from by-value to by-const-ref or vice verse. Client shouldn't bother if the passed parameter is passed by value or by const-ref (ignoring performance concern of course).
 
@@ -1017,7 +1017,7 @@ Please note that none of the IDs that were used by previous version are changed,
 
 ```diff
 --- ../example1/cib/example.h.cpp	2018-10-31 18:44:31.803959024 +0100
-+++ cib/example.h.cpp	2018-10-31 19:16:01.820592858 +0100
++++ cib/example.h.cpp	2018-10-31 19:24:19.082314296 +0100
 @@ -14,20 +14,55 @@
  	static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
  		delete __zz_cib_obj;
