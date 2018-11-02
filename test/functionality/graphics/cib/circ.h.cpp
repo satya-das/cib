@@ -14,7 +14,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
       return __zz_cib_mtbl_helper;
     }
   public:
-    Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float Ox, float Oy, float radius)
+    Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double Ox, double Oy, double radius)
       : ::Graphics::Circle::Circle(Ox, Oy, radius)
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
@@ -24,14 +24,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
     {}
-    float Area() const override {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Area() const override {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<AreaProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
         __zz_cib_proxy);
     }
-    float Perimeter() const override {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Perimeter() const override {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
         __zz_cib_proxy);
@@ -53,19 +53,19 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
   static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Circle* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float Ox, float Oy, float radius) {
+  static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double Ox, double Oy, double radius) {
     return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, Ox, Oy, radius);
   }
-  static float __zz_cib_decl Area_3(const ::Graphics::Circle* __zz_cib_obj) {
+  static double __zz_cib_decl Area_3(const ::Graphics::Circle* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Circle::Area();
   }
-  static float __zz_cib_decl Perimeter_4(const ::Graphics::Circle* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_4(const ::Graphics::Circle* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Circle::Perimeter();
   }
   static void __zz_cib_decl Draw_5(const ::Graphics::Circle* __zz_cib_obj, ::Graphics::Context* ctx) {
     __zz_cib_obj->::Graphics::Circle::Draw(ctx);
   }
-  static ::Graphics::Shape* __zz_cib_decl CreateCircle_6(float Ox, float Oy, float radius) {
+  static ::Graphics::Shape* __zz_cib_decl CreateCircle_6(double Ox, double Oy, double radius) {
     return ::Graphics::Circle::CreateCircle(Ox, Oy, radius);
   }
   ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Circle* __zz_cib_obj) {

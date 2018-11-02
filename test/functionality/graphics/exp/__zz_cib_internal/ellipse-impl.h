@@ -25,21 +25,21 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
           __zz_cib_obj);
       }
     }
-    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Ellipse* __zz_cib_proxy, float Ox, float Oy, float a, float b) {
-      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, const __zz_cib_MethodTable*, float Ox, float Oy, float a, float b);
+    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Ellipse* __zz_cib_proxy, double Ox, double Oy, double a, double b) {
+      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Ellipse*, const __zz_cib_MethodTable*, double Ox, double Oy, double a, double b);
       return instance().invoke<__zz_cib_newProc>(
         __zz_cib_methodid::__zz_cib_new_2,
         __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
         Ox, Oy, a, b);
     }
-    static float Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<AreaProc>(
         __zz_cib_methodid::Area_3,
         __zz_cib_obj);
     }
-    static float Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<PerimeterProc>(
         __zz_cib_methodid::Perimeter_4,
         __zz_cib_obj);
@@ -109,15 +109,15 @@ inline Graphics::Ellipse::~Ellipse() {
   __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
-inline Graphics::Ellipse::Ellipse(float Ox, float Oy, float a, float b)
+inline Graphics::Ellipse::Ellipse(double Ox, double Oy, double a, double b)
   : Ellipse(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_new_2(this, Ox, Oy, a, b))
 {}
 
-inline float Graphics::Ellipse::Area() const {
+inline double Graphics::Ellipse::Area() const {
   return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Area_3(__zz_cib_h_);
 }
 
-inline float Graphics::Ellipse::Perimeter() const {
+inline double Graphics::Ellipse::Perimeter() const {
   return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
 }
 

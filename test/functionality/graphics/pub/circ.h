@@ -7,33 +7,31 @@
 
 namespace Graphics
 {
-class Context;
 /**
  * \brief Represents a circle.
  */
 class GRAPHICSAPI Circle : public Shape
 {
-  float Ox_, Oy_, radius_;
+  double Ox_, Oy_, radius_;
 
 public:
-  Circle(float Ox, float Oy, float radius)
+  Circle(double Ox, double Oy, double radius)
     : Ox_(Ox), Oy_(Oy), radius_(radius)
-  {
-  }
-  /**
-   * @return Area of this shape object.
-   */
-  virtual float Area() const;
-  /**
-   * @return Perimeter of this shape object.
-   */
-  virtual float Perimeter() const;
-  /**
-   * Draws this shape on a given device context.
-   */
-  virtual void Draw(Context* ctx) const;
+  {}
 
-  static Shape* CreateCircle(float Ox, float Oy, float radius);
+  double Area() const override {
+    return 3.1416 * radius_ * radius_;
+  }
+  double Perimeter() const override {
+    return 2 * 3.1416 * radius_;
+  }
+  void Draw(Context* ctx) const override {
+    ctx->Circle(Ox_, Oy_, radius_);
+  }
+
+  static Shape* CreateCircle(double Ox, double Oy, double radius) {
+    return new Circle(Ox, Oy, radius);
+  }
 };
 
 }

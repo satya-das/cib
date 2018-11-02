@@ -31,29 +31,29 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
           __zz_cib_obj);
       }
     }
-    static void Line_3(__zz_cib_HANDLE* __zz_cib_obj, float x1, float y1, float x2, float y2) {
-      using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x1, float y1, float x2, float y2);
+    static void Line_3(__zz_cib_HANDLE* __zz_cib_obj, double x1, double y1, double x2, double y2) {
+      using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double x1, double y1, double x2, double y2);
       return instance().invoke<LineProc>(
         __zz_cib_methodid::Line_3,
         __zz_cib_obj,
         x1, y1, x2, y2);
     }
-    static void Rect_4(__zz_cib_HANDLE* __zz_cib_obj, float l, float b, float r, float t) {
-      using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float l, float b, float r, float t);
+    static void Rect_4(__zz_cib_HANDLE* __zz_cib_obj, double l, double b, double r, double t) {
+      using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double l, double b, double r, double t);
       return instance().invoke<RectProc>(
         __zz_cib_methodid::Rect_4,
         __zz_cib_obj,
         l, b, r, t);
     }
-    static void Circle_5(__zz_cib_HANDLE* __zz_cib_obj, float cx, float cy, float r) {
-      using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float r);
+    static void Circle_5(__zz_cib_HANDLE* __zz_cib_obj, double cx, double cy, double r) {
+      using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double r);
       return instance().invoke<CircleProc>(
         __zz_cib_methodid::Circle_5,
         __zz_cib_obj,
         cx, cy, r);
     }
-    static void Ellipse_6(__zz_cib_HANDLE* __zz_cib_obj, float cx, float cy, float a, float b) {
-      using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float a, float b);
+    static void Ellipse_6(__zz_cib_HANDLE* __zz_cib_obj, double cx, double cy, double a, double b) {
+      using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double a, double b);
       return instance().invoke<EllipseProc>(
         __zz_cib_methodid::Ellipse_6,
         __zz_cib_obj,
@@ -121,18 +121,18 @@ inline Graphics::LogContext::~LogContext() {
   __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_delete_2(h);
 }
 
-inline void Graphics::LogContext::Line(float x1, float y1, float x2, float y2) {
+inline void Graphics::LogContext::Line(double x1, double y1, double x2, double y2) {
   __zz_cib_::Graphics::LogContext::__zz_cib_Helper::Line_3(__zz_cib_h_, x1, y1, x2, y2);
 }
 
-inline void Graphics::LogContext::Rect(float l, float b, float r, float t) {
+inline void Graphics::LogContext::Rect(double l, double b, double r, double t) {
   __zz_cib_::Graphics::LogContext::__zz_cib_Helper::Rect_4(__zz_cib_h_, l, b, r, t);
 }
 
-inline void Graphics::LogContext::Circle(float cx, float cy, float r) {
+inline void Graphics::LogContext::Circle(double cx, double cy, double r) {
   __zz_cib_::Graphics::LogContext::__zz_cib_Helper::Circle_5(__zz_cib_h_, cx, cy, r);
 }
 
-inline void Graphics::LogContext::Ellipse(float cx, float cy, float a, float b) {
+inline void Graphics::LogContext::Ellipse(double cx, double cy, double a, double b) {
   __zz_cib_::Graphics::LogContext::__zz_cib_Helper::Ellipse_6(__zz_cib_h_, cx, cy, a, b);
 }

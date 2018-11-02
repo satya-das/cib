@@ -34,11 +34,11 @@ public:
   /**
    * @return Area of this shape object.
    */
-  virtual float Area() const;
+  virtual double Area() const;
   /**
    * @return Perimeter of this shape object.
    */
-  virtual float Perimeter() const;
+  virtual double Perimeter() const;
   /**
    * Draws this shape on a given device context.
    */

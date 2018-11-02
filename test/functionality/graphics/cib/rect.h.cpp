@@ -13,7 +13,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
       return __zz_cib_mtbl_helper;
     }
   public:
-    Rectangle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float left, float bottom, float right, float top)
+    Rectangle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double left, double bottom, double right, double top)
       : ::Graphics::Rectangle::Rectangle(left, bottom, right, top)
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
@@ -23,14 +23,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
     {}
-    float Area() const override {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Area() const override {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<AreaProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
         __zz_cib_proxy);
     }
-    float Perimeter() const override {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Perimeter() const override {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
         __zz_cib_proxy);
@@ -52,13 +52,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
   static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Rectangle* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float left, float bottom, float right, float top) {
+  static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double left, double bottom, double right, double top) {
     return new __zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle(proxy, mtbl, left, bottom, right, top);
   }
-  static float __zz_cib_decl Area_3(const ::Graphics::Rectangle* __zz_cib_obj) {
+  static double __zz_cib_decl Area_3(const ::Graphics::Rectangle* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Rectangle::Area();
   }
-  static float __zz_cib_decl Perimeter_4(const ::Graphics::Rectangle* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_4(const ::Graphics::Rectangle* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Rectangle::Perimeter();
   }
   static void __zz_cib_decl Draw_5(const ::Graphics::Rectangle* __zz_cib_obj, ::Graphics::Context* ctx) {

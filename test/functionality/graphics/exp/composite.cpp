@@ -15,14 +15,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
     static ::Graphics::Composite* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
       return new Composite(h);
     }
-    float Area() const override {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    double Area() const override {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return __zz_cib_get_mtable_helper().invoke<AreaProc>(
         __zz_cib_methodid::Area_6,
         __zz_cib_h_);
     }
-    float Perimeter() const override {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    double Perimeter() const override {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
         __zz_cib_methodid::Perimeter_7,
         __zz_cib_h_);
@@ -43,10 +43,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
   }
 }
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-  static float __zz_cib_decl Area_0(const ::Graphics::Composite* __zz_cib_obj) {
+  static double __zz_cib_decl Area_0(const ::Graphics::Composite* __zz_cib_obj) {
     return __zz_cib_obj->Area();
   }
-  static float __zz_cib_decl Perimeter_1(const ::Graphics::Composite* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_1(const ::Graphics::Composite* __zz_cib_obj) {
     return __zz_cib_obj->Perimeter();
   }
   static void __zz_cib_decl Draw_2(const ::Graphics::Composite* __zz_cib_obj, __zz_cib_HANDLE* ctx) {

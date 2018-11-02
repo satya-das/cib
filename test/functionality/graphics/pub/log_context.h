@@ -16,19 +16,19 @@ public:
   ~LogContext() {}
 
 public:
-  void Line(float x1, float y1, float x2, float y2) override
+  void Line(double x1, double y1, double x2, double y2) override
   {
     std::cout << "Line(" << x1 << ", " << y1 << ", " << x2 << ", " << y2 << ")\n";
   }
-  void Rect(float l, float b, float r, float t) override
+  void Rect(double l, double b, double r, double t) override
   {
     std::cout << "Rect(" << l << ", " << b << ", " << r << ", " << t << ")\n";
   }
-  void Circle(float cx, float cy, float r) override
+  void Circle(double cx, double cy, double r) override
   {
     std::cout << "Circle(" << cx << ", " << cy << ", " << r << ")\n";
   }
-  void Ellipse(float cx, float cy, float a, float b) override
+  void Ellipse(double cx, double cy, double a, double b) override
   {
     std::cout << "Ellipse(" << cx << ", " << cy << ", " << a << ", " << b << ")\n";
   }

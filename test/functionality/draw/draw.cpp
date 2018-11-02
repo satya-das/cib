@@ -8,12 +8,14 @@
 #include <memory>
 #include <vector>
 
-static void TestCallingLibraryFunctions();
+static void TestClientCallingLibraryFunctions();
 static void TestLibraryCallingClientFunctions();
 
-int main()
+int main(int argc, char* argv[])
 {
-  TestCallingLibraryFunctions();
+  if (argc == 1 || !strcmp(argv[1], "--test-1"))
+    TestClientCallingLibraryFunctions();
+  if (argc == 1 || !strcmp(argv[1], "--test-2"))
   TestLibraryCallingClientFunctions();
 
   return 0;
@@ -32,7 +34,7 @@ static Shapes CreateVectorOfShapes()
   return shapes;
 }
 
-static void TestCallingLibraryFunctions()
+static void TestClientCallingLibraryFunctions()
 {
   auto shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;

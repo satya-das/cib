@@ -1,16 +1,16 @@
 #include "log_context.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-  static void __zz_cib_decl Line_0(::Graphics::LogContext* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+  static void __zz_cib_decl Line_0(::Graphics::LogContext* __zz_cib_obj, double x1, double y1, double x2, double y2) {
     __zz_cib_obj->Line(x1, y1, x2, y2);
   }
-  static void __zz_cib_decl Rect_1(::Graphics::LogContext* __zz_cib_obj, float l, float b, float r, float t) {
+  static void __zz_cib_decl Rect_1(::Graphics::LogContext* __zz_cib_obj, double l, double b, double r, double t) {
     __zz_cib_obj->Rect(l, b, r, t);
   }
-  static void __zz_cib_decl Circle_2(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float r) {
+  static void __zz_cib_decl Circle_2(::Graphics::LogContext* __zz_cib_obj, double cx, double cy, double r) {
     __zz_cib_obj->Circle(cx, cy, r);
   }
-  static void __zz_cib_decl Ellipse_3(::Graphics::LogContext* __zz_cib_obj, float cx, float cy, float a, float b) {
+  static void __zz_cib_decl Ellipse_3(::Graphics::LogContext* __zz_cib_obj, double cx, double cy, double a, double b) {
     __zz_cib_obj->Ellipse(cx, cy, a, b);
   }
   static void __zz_cib_decl __zz_cib_delete_4(::Graphics::LogContext* __zz_cib_obj) {

@@ -2,17 +2,17 @@
 #include "circ.h"
 #include "rect.h"
 
-float Graphics::Composite::Area() const
+double Graphics::Composite::Area() const
 {
-  float A = 0;
+  double A = 0;
   for (std::vector<Shape*>::const_iterator itr = shapes_.begin(); itr != shapes_.end(); ++itr)
     A += (*itr)->Area();
   return A;
 }
 
-float Graphics::Composite::Perimeter() const
+double Graphics::Composite::Perimeter() const
 {
-  float P = 0;
+  double P = 0;
   for (std::vector<Shape*>::const_iterator itr = shapes_.begin(); itr != shapes_.end(); ++itr)
     P += (*itr)->Perimeter();
   return P;

@@ -31,14 +31,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
     {}
-    float Area() const override {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Area() const override {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<AreaProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
         __zz_cib_proxy);
     }
-    float Perimeter() const override {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Perimeter() const override {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
         __zz_cib_proxy);
@@ -72,10 +72,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
   static ::Graphics::Shape* __zz_cib_decl ShapeAt_5(const ::Graphics::Composite* __zz_cib_obj, size_t idxShape) {
     return __zz_cib_obj->::Graphics::Composite::ShapeAt(idxShape);
   }
-  static float __zz_cib_decl Area_6(const ::Graphics::Composite* __zz_cib_obj) {
+  static double __zz_cib_decl Area_6(const ::Graphics::Composite* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Composite::Area();
   }
-  static float __zz_cib_decl Perimeter_7(const ::Graphics::Composite* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_7(const ::Graphics::Composite* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Composite::Perimeter();
   }
   static void __zz_cib_decl Draw_8(const ::Graphics::Composite* __zz_cib_obj, ::Graphics::Context* ctx) {

@@ -22,22 +22,22 @@ SvgContext::~SvgContext()
   std::cout << "Created SVG file " << svgPath_ << "\n";
 }
 
-void SvgContext::Line(float x1, float y1, float x2, float y2)
+void SvgContext::Line(double x1, double y1, double x2, double y2)
 {
   svgStm_ << "<line x1='" << x1 << "' y1='" << y1 << "' x2='" << x2 << "' y2='" << y2 << "' />\n";
 }
 
-void SvgContext::Rect(float l, float b, float r, float t)
+void SvgContext::Rect(double l, double b, double r, double t)
 {
-  svgStm_ << "<rect x='" << l << "' y='" << b << "' width='" << r-l << "' height='" << t-b << "' stroke='black' fill='none' />\n";
+  svgStm_ << "<rect x='" << l << "' y='" << b << "' width='" << r-l << "' height='" << t-b << "' stroke='red' fill='none' />\n";
 }
 
-void SvgContext::Circle(float cx, float cy, float r)
+void SvgContext::Circle(double cx, double cy, double r)
 {
-  svgStm_ << "<circle cx='" << cx << "' cy='" << cy << "' r='" << r << "' stroke='black' fill='none' />\n";
+  svgStm_ << "<circle cx='" << cx << "' cy='" << cy << "' r='" << r << "' stroke='blue' fill='none' />\n";
 }
 
-void SvgContext::Ellipse(float cx, float cy, float a, float b)
+void SvgContext::Ellipse(double cx, double cy, double a, double b)
 {
-  svgStm_ << "<ellipse cx='" << cx << "' cy='" << cy << "' rx='" << a << "' ry='" << b << "' stroke='black' fill='none' />\n";
+  svgStm_ << "<ellipse cx='" << cx << "' cy='" << cy << "' rx='" << a << "' ry='" << b << "' stroke='green' fill='none' />\n";
 }

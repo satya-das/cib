@@ -88,8 +88,10 @@ foreach(example ${EXAMPLES})
         set_target_properties(${CLIENTNAME} PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
     endif()
 
-    include("${example}/DocCommands.cmake")
-    add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
+	if(NOT MSVC)
+		include("${example}/DocCommands.cmake")
+		add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
+	endif()
 endforeach()
 
 set(EXAMPLE_HEADERS ${EXAMPLE_HEADERS} PARENT_SCOPE)

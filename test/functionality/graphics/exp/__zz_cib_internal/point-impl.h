@@ -23,33 +23,33 @@ namespace __zz_cib_ { namespace Point {
           __zz_cib_obj);
       }
     }
-    static __zz_cib_HANDLE* __zz_cib_new_2(float x, float y) {
-      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (float x, float y);
+    static __zz_cib_HANDLE* __zz_cib_new_2(double x, double y) {
+      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double x, double y);
       return instance().invoke<__zz_cib_newProc>(
         __zz_cib_methodid::__zz_cib_new_2,
         x, y);
     }
-    static float X_3(__zz_cib_HANDLE* __zz_cib_obj) {
-      using XProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double X_3(__zz_cib_HANDLE* __zz_cib_obj) {
+      using XProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<XProc>(
         __zz_cib_methodid::X_3,
         __zz_cib_obj);
     }
-    static void X_4(__zz_cib_HANDLE* __zz_cib_obj, float x) {
-      using XProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x);
+    static void X_4(__zz_cib_HANDLE* __zz_cib_obj, double x) {
+      using XProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double x);
       return instance().invoke<XProc>(
         __zz_cib_methodid::X_4,
         __zz_cib_obj,
         x);
     }
-    static float Y_5(__zz_cib_HANDLE* __zz_cib_obj) {
-      using YProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Y_5(__zz_cib_HANDLE* __zz_cib_obj) {
+      using YProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<YProc>(
         __zz_cib_methodid::Y_5,
         __zz_cib_obj);
     }
-    static void Y_6(__zz_cib_HANDLE* __zz_cib_obj, float y) {
-      using YProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float y);
+    static void Y_6(__zz_cib_HANDLE* __zz_cib_obj, double y) {
+      using YProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double y);
       return instance().invoke<YProc>(
         __zz_cib_methodid::Y_6,
         __zz_cib_obj,
@@ -109,23 +109,23 @@ inline Point::~Point() {
   __zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
-inline Point::Point(float x, float y)
+inline Point::Point(double x, double y)
   : Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_new_2(x, y))
 {}
 
-inline float Point::X() const {
+inline double Point::X() const {
   return __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
 }
 
-inline void Point::X(float x) {
+inline void Point::X(double x) {
   __zz_cib_::Point::__zz_cib_Helper::X_4(__zz_cib_h_, x);
 }
 
-inline float Point::Y() const {
+inline double Point::Y() const {
   return __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
 }
 
-inline void Point::Y(float y) {
+inline void Point::Y(double y) {
   __zz_cib_::Point::__zz_cib_Helper::Y_6(__zz_cib_h_, y);
 }
 

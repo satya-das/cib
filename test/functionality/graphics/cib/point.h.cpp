@@ -11,19 +11,19 @@ namespace __zz_cib_ { namespace Point {
   static void __zz_cib_decl __zz_cib_delete_1(::Point* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static ::Point* __zz_cib_decl __zz_cib_new_2(float x, float y) {
+  static ::Point* __zz_cib_decl __zz_cib_new_2(double x, double y) {
     return new ::Point(x, y);
   }
-  static float __zz_cib_decl X_3(const ::Point* __zz_cib_obj) {
+  static double __zz_cib_decl X_3(const ::Point* __zz_cib_obj) {
     return __zz_cib_obj->::Point::X();
   }
-  static void __zz_cib_decl X_4(::Point* __zz_cib_obj, float x) {
+  static void __zz_cib_decl X_4(::Point* __zz_cib_obj, double x) {
     __zz_cib_obj->::Point::X(x);
   }
-  static float __zz_cib_decl Y_5(const ::Point* __zz_cib_obj) {
+  static double __zz_cib_decl Y_5(const ::Point* __zz_cib_obj) {
     return __zz_cib_obj->::Point::Y();
   }
-  static void __zz_cib_decl Y_6(::Point* __zz_cib_obj, float y) {
+  static void __zz_cib_decl Y_6(::Point* __zz_cib_obj, double y) {
     __zz_cib_obj->::Point::Y(y);
   }
   static const ::Point* __zz_cib_decl __zz_cib_OperatorPlus_7(const ::Point* __zz_cib_obj, const ::Point* p) {

@@ -3,22 +3,22 @@
 class Point
 {
 public:
-  Point(float x, float y)
+  Point(double x, double y)
     : x_(x)
     , y_(y)
   {
   }
 
-  float X() const {
+  double X() const {
     return x_;
   }
-  void X(float x) {
+  void X(double x) {
     x_ = x;
   }
-  float Y() const {
+  double Y() const {
     return y_;
   }
-  void Y(float y) {
+  void Y(double y) {
     y_ = y;
   }
 
@@ -26,5 +26,5 @@ public:
   Point operator - (Point p) const;
 
 private:
-  float x_, y_;
+  double x_, y_;
 };

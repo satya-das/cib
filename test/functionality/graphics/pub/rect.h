@@ -12,24 +12,25 @@ namespace Graphics
  */
 class GRAPHICSAPI Rectangle : public Shape
 {
-  float left_, bottom_, right_, top_;
+  double left_, bottom_, right_, top_;
 
 public:
-  Rectangle(float left, float bottom, float right, float top)
+  Rectangle(double left, double bottom, double right, double top)
     : left_(left), bottom_(bottom), right_(right), top_(top)
-  {
+  {}
+
+  double Area() const override {
+    return width() * height();
   }
-  /**
-   * @return Area of this shape object.
-   */
-  virtual float Area() const;
-  /**
-   * @return Perimeter of this shape object.
-   */
-  virtual float Perimeter() const;
-  /**
-   * Draws this shape on a given device context.
-   */
-  virtual void Draw(Context* ctx) const;
+  double Perimeter() const override {
+    return 2 * (width() + height());
+  }
+  void Draw(Context* ctx) const override {
+    ctx->Rect(left_, bottom_, right_, top_);
+  }
+
+private:
+  double width() const { return right_- left_; }
+  double height() const { return top_ - bottom_; }
 };
 }

@@ -17,10 +17,10 @@ namespace Graphics
     LogContext(const LogContext& );
     LogContext();
     ~LogContext();
-    virtual void Line(float x1, float y1, float x2, float y2);
-    virtual void Rect(float l, float b, float r, float t);
-    virtual void Circle(float cx, float cy, float r);
-    virtual void Ellipse(float cx, float cy, float a, float b);
+    virtual void Line(double x1, double y1, double x2, double y2);
+    virtual void Rect(double l, double b, double r, double t);
+    virtual void Circle(double cx, double cy, double r);
+    virtual void Ellipse(double cx, double cy, double a, double b);
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(LogContext, Graphics::LogContext);

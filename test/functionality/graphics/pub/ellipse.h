@@ -2,6 +2,7 @@
 
 #include "shape.h"
 #include "context.h"
+#include <cmath>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -13,25 +14,24 @@ class Context;
 */
 class GRAPHICSAPI Ellipse : public Shape
 {
-  float a_, b_, Ox_, Oy_;
+  double a_, b_, Ox_, Oy_;
 
 public:
-  Ellipse(float Ox, float Oy, float a, float b)
+  Ellipse(double Ox, double Oy, double a, double b)
     : Ox_(Ox), Oy_(Oy), a_(a), b_(b)
-  {
+  {}
+
+  double Area() const override {
+    return 3.1416 * a_ * b_;
   }
-  /**
-  * @return Area of this shape object.
-  */
-  virtual float Area() const;
-  /**
-  * @return Perimeter of this shape object.
-  */
-  virtual float Perimeter() const;
-  /**
-  * Draws this shape on a given device context.
-  */
-  virtual void Draw(Context* ctx) const;
+  double Perimeter() const override {
+    auto h = std::pow((a_ - b_) / (a_ + b_), 2);
+    // Use Ramanujan's approximation.
+    return 3.1416 * (a_ + b_) * (1 + (3 * h) / (10 + std::sqrt(4 - 3 * h)));
+  }
+  void Draw(Context* ctx) const override {
+    ctx->Ellipse(Ox_, Oy_, a_, b_);
+  }
 };
 
 }

@@ -13,7 +13,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
       return __zz_cib_mtbl_helper;
     }
   public:
-    Ellipse(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float Ox, float Oy, float a, float b)
+    Ellipse(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double Ox, double Oy, double a, double b)
       : ::Graphics::Ellipse::Ellipse(Ox, Oy, a, b)
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
@@ -23,14 +23,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
       , __zz_cib_proxy(proxy)
       , __zz_cib_mtbl_helper(mtbl)
     {}
-    float Area() const override {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Area() const override {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<AreaProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
         __zz_cib_proxy);
     }
-    float Perimeter() const override {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_PROXY*);
+    double Perimeter() const override {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
       return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
         __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
         __zz_cib_proxy);
@@ -52,13 +52,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
   static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Ellipse* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, float Ox, float Oy, float a, float b) {
+  static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, double Ox, double Oy, double a, double b) {
     return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, Ox, Oy, a, b);
   }
-  static float __zz_cib_decl Area_3(const ::Graphics::Ellipse* __zz_cib_obj) {
+  static double __zz_cib_decl Area_3(const ::Graphics::Ellipse* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Ellipse::Area();
   }
-  static float __zz_cib_decl Perimeter_4(const ::Graphics::Ellipse* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_4(const ::Graphics::Ellipse* __zz_cib_obj) {
     return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
   }
   static void __zz_cib_decl Draw_5(const ::Graphics::Ellipse* __zz_cib_obj, ::Graphics::Context* ctx) {

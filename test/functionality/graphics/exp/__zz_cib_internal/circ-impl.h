@@ -25,21 +25,21 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
           __zz_cib_obj);
       }
     }
-    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Circle* __zz_cib_proxy, float Ox, float Oy, float radius) {
-      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, float Ox, float Oy, float radius);
+    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Circle* __zz_cib_proxy, double Ox, double Oy, double radius) {
+      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, double Ox, double Oy, double radius);
       return instance().invoke<__zz_cib_newProc>(
         __zz_cib_methodid::__zz_cib_new_2,
         __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
         Ox, Oy, radius);
     }
-    static float Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<AreaProc>(
         __zz_cib_methodid::Area_3,
         __zz_cib_obj);
     }
-    static float Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<PerimeterProc>(
         __zz_cib_methodid::Perimeter_4,
         __zz_cib_obj);
@@ -51,8 +51,8 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
         __zz_cib_obj,
         ctx);
     }
-    static __zz_cib_HANDLE* CreateCircle_6(float Ox, float Oy, float radius) {
-      using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (float Ox, float Oy, float radius);
+    static __zz_cib_HANDLE* CreateCircle_6(double Ox, double Oy, double radius) {
+      using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
       return instance().invoke<CreateCircleProc>(
         __zz_cib_methodid::CreateCircle_6,
         Ox, Oy, radius);
@@ -115,15 +115,15 @@ inline Graphics::Circle::~Circle() {
   __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
-inline Graphics::Circle::Circle(float Ox, float Oy, float radius)
+inline Graphics::Circle::Circle(double Ox, double Oy, double radius)
   : Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_2(this, Ox, Oy, radius))
 {}
 
-inline float Graphics::Circle::Area() const {
+inline double Graphics::Circle::Area() const {
   return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_3(__zz_cib_h_);
 }
 
-inline float Graphics::Circle::Perimeter() const {
+inline double Graphics::Circle::Perimeter() const {
   return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
 }
 
@@ -131,7 +131,7 @@ inline void Graphics::Circle::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
 }
 
-inline ::Graphics::Shape* Graphics::Circle::CreateCircle(float Ox, float Oy, float radius) {
+inline ::Graphics::Shape* Graphics::Circle::CreateCircle(double Ox, double Oy, double radius) {
   return __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(
     __zz_cib_::Graphics::Circle::__zz_cib_Helper::CreateCircle_6(Ox, Oy, radius)
   );

@@ -51,14 +51,14 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
         __zz_cib_obj,
         idxShape);
     }
-    static float Area_6(__zz_cib_HANDLE* __zz_cib_obj) {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Area_6(__zz_cib_HANDLE* __zz_cib_obj) {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<AreaProc>(
         __zz_cib_methodid::Area_6,
         __zz_cib_obj);
     }
-    static float Perimeter_7(__zz_cib_HANDLE* __zz_cib_obj) {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Perimeter_7(__zz_cib_HANDLE* __zz_cib_obj) {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<PerimeterProc>(
         __zz_cib_methodid::Perimeter_7,
         __zz_cib_obj);
@@ -155,11 +155,11 @@ inline ::Graphics::Shape* Graphics::Composite::ShapeAt(size_t idxShape) const {
   );
 }
 
-inline float Graphics::Composite::Area() const {
+inline double Graphics::Composite::Area() const {
   return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Area_6(__zz_cib_h_);
 }
 
-inline float Graphics::Composite::Perimeter() const {
+inline double Graphics::Composite::Perimeter() const {
   return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Perimeter_7(__zz_cib_h_);
 }
 

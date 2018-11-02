@@ -9,11 +9,11 @@ public:
 public:
   Point(const Point& );
   ~Point();
-  Point(float x, float y);
-  float X() const;
-  void X(float x);
-  float Y() const;
-  void Y(float y);
+  Point(double x, double y);
+  double X() const;
+  void X(double x);
+  double Y() const;
+  void Y(double y);
   Point operator +(const Point& p) const;
   Point operator -(Point p) const;
 

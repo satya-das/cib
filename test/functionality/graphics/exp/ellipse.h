@@ -1,6 +1,7 @@
 #pragma  once
 #include "shape.h"
 #include "context.h"
+#include <cmath>
 
 #include "__zz_cib_internal/ellipse-predef.h"
 
@@ -18,18 +19,9 @@ class Context;
   public:
     Ellipse(const Ellipse& );
     ~Ellipse();
-    Ellipse(float Ox, float Oy, float a, float b);
-    /**
-    * @return Area of this shape object.
-    */
-    virtual float Area() const;
-    /**
-    * @return Perimeter of this shape object.
-    */
-    virtual float Perimeter() const;
-    /**
-    * Draws this shape on a given device context.
-    */
+    Ellipse(double Ox, double Oy, double a, double b);
+    virtual double Area() const;
+    virtual double Perimeter() const;
     virtual void Draw(Context* ctx) const;
 
   private:

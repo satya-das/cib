@@ -15,29 +15,29 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
     static ::Graphics::Context* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
       return new Context(h);
     }
-    void Line(float x1, float y1, float x2, float y2) override {
-      using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float x1, float y1, float x2, float y2);
+    void Line(double x1, double y1, double x2, double y2) override {
+      using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double x1, double y1, double x2, double y2);
       return __zz_cib_get_mtable_helper().invoke<LineProc>(
         __zz_cib_methodid::Line_1,
         __zz_cib_h_,
         x1, y1, x2, y2);
     }
-    void Rect(float l, float b, float r, float t) override {
-      using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float l, float b, float r, float t);
+    void Rect(double l, double b, double r, double t) override {
+      using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double l, double b, double r, double t);
       return __zz_cib_get_mtable_helper().invoke<RectProc>(
         __zz_cib_methodid::Rect_2,
         __zz_cib_h_,
         l, b, r, t);
     }
-    void Circle(float cx, float cy, float r) override {
-      using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float r);
+    void Circle(double cx, double cy, double r) override {
+      using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double r);
       return __zz_cib_get_mtable_helper().invoke<CircleProc>(
         __zz_cib_methodid::Circle_3,
         __zz_cib_h_,
         cx, cy, r);
     }
-    void Ellipse(float cx, float cy, float a, float b) override {
-      using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, float cx, float cy, float a, float b);
+    void Ellipse(double cx, double cy, double a, double b) override {
+      using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double a, double b);
       return __zz_cib_get_mtable_helper().invoke<EllipseProc>(
         __zz_cib_methodid::Ellipse_4,
         __zz_cib_h_,
@@ -61,16 +61,16 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
   }
 }
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-  static void __zz_cib_decl Line_0(::Graphics::Context* __zz_cib_obj, float x1, float y1, float x2, float y2) {
+  static void __zz_cib_decl Line_0(::Graphics::Context* __zz_cib_obj, double x1, double y1, double x2, double y2) {
     __zz_cib_obj->Line(x1, y1, x2, y2);
   }
-  static void __zz_cib_decl Rect_1(::Graphics::Context* __zz_cib_obj, float l, float b, float r, float t) {
+  static void __zz_cib_decl Rect_1(::Graphics::Context* __zz_cib_obj, double l, double b, double r, double t) {
     __zz_cib_obj->Rect(l, b, r, t);
   }
-  static void __zz_cib_decl Circle_2(::Graphics::Context* __zz_cib_obj, float cx, float cy, float r) {
+  static void __zz_cib_decl Circle_2(::Graphics::Context* __zz_cib_obj, double cx, double cy, double r) {
     __zz_cib_obj->Circle(cx, cy, r);
   }
-  static void __zz_cib_decl Ellipse_3(::Graphics::Context* __zz_cib_obj, float cx, float cy, float a, float b) {
+  static void __zz_cib_decl Ellipse_3(::Graphics::Context* __zz_cib_obj, double cx, double cy, double a, double b) {
     __zz_cib_obj->Ellipse(cx, cy, a, b);
   }
   static void __zz_cib_decl __zz_cib_delete_4(::Graphics::Context* __zz_cib_obj) {

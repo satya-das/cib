@@ -17,18 +17,9 @@ namespace Graphics
   public:
     Rectangle(const Rectangle& );
     ~Rectangle();
-    Rectangle(float left, float bottom, float right, float top);
-    /**
-     * @return Area of this shape object.
-     */
-    virtual float Area() const;
-    /**
-     * @return Perimeter of this shape object.
-     */
-    virtual float Perimeter() const;
-    /**
-     * Draws this shape on a given device context.
-     */
+    Rectangle(double left, double bottom, double right, double top);
+    virtual double Area() const;
+    virtual double Perimeter() const;
     virtual void Draw(Context* ctx) const;
 
   private:

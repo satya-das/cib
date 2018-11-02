@@ -16,10 +16,10 @@ public:
   ~SvgContext();
 
 public:
-  void Line(float x1, float y1, float x2, float y2) override;
-  void Rect(float l, float b, float r, float t) override;
-  void Circle(float cx, float cy, float r) override;
-  void Ellipse(float cx, float cy, float a, float b) override;
+  void Line(double x1, double y1, double x2, double y2) override;
+  void Rect(double l, double b, double r, double t) override;
+  void Circle(double cx, double cy, double r) override;
+  void Ellipse(double cx, double cy, double a, double b) override;
 
 private:
   std::ofstream svgStm_;

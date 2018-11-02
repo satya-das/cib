@@ -72,15 +72,15 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
     __zz_cib_copy_0 = 0,
     //#= ~Circle();
     __zz_cib_delete_1 = 1,
-    //#= Circle(float, float, float);
+    //#= Circle(double, double, double);
     __zz_cib_new_2 = 2,
-    //#= float Area() const;
+    //#= double Area() const;
     Area_3 = 3,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_4 = 4,
     //#= void Draw(::Graphics::Context*) const;
     Draw_5 = 5,
-    //#= ::Graphics::Shape* CreateCircle(float, float, float);
+    //#= ::Graphics::Shape* CreateCircle(double, double, double);
     CreateCircle_6 = 6,
     //#= __zz_cib_cast_to___Graphics__Shape
     __zz_cib_cast_to___Graphics__Shape_7 = 7,
@@ -92,9 +92,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= float Area() const;
+    //#= double Area() const;
     Area_0 = 0,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_1 = 1,
     //#= void Draw(::Graphics::Context*) const;
     Draw_2 = 2,
@@ -118,9 +118,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
     NumShapes_4 = 4,
     //#= ::Graphics::Shape* ShapeAt(size_t) const;
     ShapeAt_5 = 5,
-    //#= float Area() const;
+    //#= double Area() const;
     Area_6 = 6,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_7 = 7,
     //#= void Draw(::Graphics::Context*) const;
     Draw_8 = 8,
@@ -138,9 +138,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= float Area() const;
+    //#= double Area() const;
     Area_0 = 0,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_1 = 1,
     //#= void Draw(::Graphics::Context*) const;
     Draw_2 = 2,
@@ -154,13 +154,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
   enum {
     //#= Context();
     __zz_cib_new_0 = 0,
-    //#= void Line(float, float, float, float);
+    //#= void Line(double, double, double, double);
     Line_1 = 1,
-    //#= void Rect(float, float, float, float);
+    //#= void Rect(double, double, double, double);
     Rect_2 = 2,
-    //#= void Circle(float, float, float);
+    //#= void Circle(double, double, double);
     Circle_3 = 3,
-    //#= void Ellipse(float, float, float, float);
+    //#= void Ellipse(double, double, double, double);
     Ellipse_4 = 4,
     //#= ~Context();
     __zz_cib_delete_5 = 5,
@@ -174,13 +174,13 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 
 namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= void Line(float, float, float, float);
+    //#= void Line(double, double, double, double);
     Line_0 = 0,
-    //#= void Rect(float, float, float, float);
+    //#= void Rect(double, double, double, double);
     Rect_1 = 1,
-    //#= void Circle(float, float, float);
+    //#= void Circle(double, double, double);
     Circle_2 = 2,
-    //#= void Ellipse(float, float, float, float);
+    //#= void Ellipse(double, double, double, double);
     Ellipse_3 = 3,
     //#= ~Context();
     __zz_cib_delete_4 = 4,
@@ -194,11 +194,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
     __zz_cib_copy_0 = 0,
     //#= ~Ellipse();
     __zz_cib_delete_1 = 1,
-    //#= Ellipse(float, float, float, float);
+    //#= Ellipse(double, double, double, double);
     __zz_cib_new_2 = 2,
-    //#= float Area() const;
+    //#= double Area() const;
     Area_3 = 3,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_4 = 4,
     //#= void Draw(::Graphics::Context*) const;
     Draw_5 = 5,
@@ -212,9 +212,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= float Area() const;
+    //#= double Area() const;
     Area_0 = 0,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_1 = 1,
     //#= void Draw(::Graphics::Context*) const;
     Draw_2 = 2,
@@ -232,13 +232,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
     __zz_cib_new_1 = 1,
     //#= ~LogContext();
     __zz_cib_delete_2 = 2,
-    //#= void Line(float, float, float, float);
+    //#= void Line(double, double, double, double);
     Line_3 = 3,
-    //#= void Rect(float, float, float, float);
+    //#= void Rect(double, double, double, double);
     Rect_4 = 4,
-    //#= void Circle(float, float, float);
+    //#= void Circle(double, double, double);
     Circle_5 = 5,
-    //#= void Ellipse(float, float, float, float);
+    //#= void Ellipse(double, double, double, double);
     Ellipse_6 = 6,
     //#= __zz_cib_cast_to___Graphics__Context
     __zz_cib_cast_to___Graphics__Context_7 = 7,
@@ -250,13 +250,13 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= void Line(float, float, float, float);
+    //#= void Line(double, double, double, double);
     Line_0 = 0,
-    //#= void Rect(float, float, float, float);
+    //#= void Rect(double, double, double, double);
     Rect_1 = 1,
-    //#= void Circle(float, float, float);
+    //#= void Circle(double, double, double);
     Circle_2 = 2,
-    //#= void Ellipse(float, float, float, float);
+    //#= void Ellipse(double, double, double, double);
     Ellipse_3 = 3,
     //#= ~LogContext();
     __zz_cib_delete_4 = 4,
@@ -270,11 +270,11 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
     __zz_cib_copy_0 = 0,
     //#= ~Rectangle();
     __zz_cib_delete_1 = 1,
-    //#= Rectangle(float, float, float, float);
+    //#= Rectangle(double, double, double, double);
     __zz_cib_new_2 = 2,
-    //#= float Area() const;
+    //#= double Area() const;
     Area_3 = 3,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_4 = 4,
     //#= void Draw(::Graphics::Context*) const;
     Draw_5 = 5,
@@ -288,9 +288,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= float Area() const;
+    //#= double Area() const;
     Area_0 = 0,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_1 = 1,
     //#= void Draw(::Graphics::Context*) const;
     Draw_2 = 2,
@@ -304,9 +304,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
   enum {
     //#= Shape();
     __zz_cib_new_0 = 0,
-    //#= float Area() const;
+    //#= double Area() const;
     Area_1 = 1,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_2 = 2,
     //#= void Draw(::Graphics::Context*) const;
     Draw_3 = 3,
@@ -322,9 +322,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= float Area() const;
+    //#= double Area() const;
     Area_0 = 0,
-    //#= float Perimeter() const;
+    //#= double Perimeter() const;
     Perimeter_1 = 1,
     //#= void Draw(::Graphics::Context*) const;
     Draw_2 = 2,
@@ -340,15 +340,15 @@ namespace __zz_cib_ { namespace Point { namespace __zz_cib_methodid {
     __zz_cib_copy_0 = 0,
     //#= ~Point();
     __zz_cib_delete_1 = 1,
-    //#= Point(float, float);
+    //#= Point(double, double);
     __zz_cib_new_2 = 2,
-    //#= float X() const;
+    //#= double X() const;
     X_3 = 3,
-    //#= void X(float);
+    //#= void X(double);
     X_4 = 4,
-    //#= float Y() const;
+    //#= double Y() const;
     Y_5 = 5,
-    //#= void Y(float);
+    //#= void Y(double);
     Y_6 = 6,
     //#= ::Point operator +(const ::Point&) const;
     __zz_cib_OperatorPlus_7 = 7,

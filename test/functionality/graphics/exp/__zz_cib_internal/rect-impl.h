@@ -25,21 +25,21 @@ namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
           __zz_cib_obj);
       }
     }
-    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Rectangle* __zz_cib_proxy, float left, float bottom, float right, float top) {
-      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, const __zz_cib_MethodTable*, float left, float bottom, float right, float top);
+    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Rectangle* __zz_cib_proxy, double left, double bottom, double right, double top) {
+      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, const __zz_cib_MethodTable*, double left, double bottom, double right, double top);
       return instance().invoke<__zz_cib_newProc>(
         __zz_cib_methodid::__zz_cib_new_2,
         __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
         left, bottom, right, top);
     }
-    static float Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
-      using AreaProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
+      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<AreaProc>(
         __zz_cib_methodid::Area_3,
         __zz_cib_obj);
     }
-    static float Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
-      using PerimeterProc = float (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
+      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<PerimeterProc>(
         __zz_cib_methodid::Perimeter_4,
         __zz_cib_obj);
@@ -109,15 +109,15 @@ inline Graphics::Rectangle::~Rectangle() {
   __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
-inline Graphics::Rectangle::Rectangle(float left, float bottom, float right, float top)
+inline Graphics::Rectangle::Rectangle(double left, double bottom, double right, double top)
   : Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_2(this, left, bottom, right, top))
 {}
 
-inline float Graphics::Rectangle::Area() const {
+inline double Graphics::Rectangle::Area() const {
   return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Area_3(__zz_cib_h_);
 }
 
-inline float Graphics::Rectangle::Perimeter() const {
+inline double Graphics::Rectangle::Perimeter() const {
   return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
 }
 
