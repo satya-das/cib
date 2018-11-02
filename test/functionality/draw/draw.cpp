@@ -1,12 +1,13 @@
 #include "svg_context.h"
 
-#include "log_context.h"
 #include "circ.h"
 #include "ellipse.h"
+#include "log_context.h"
 #include "rect.h"
 
 #include <memory>
 #include <vector>
+#include <string.h>
 
 static void TestClientCallingLibraryFunctions();
 static void TestLibraryCallingClientFunctions();
@@ -16,13 +17,13 @@ int main(int argc, char* argv[])
   if (argc == 1 || !strcmp(argv[1], "--test-1"))
     TestClientCallingLibraryFunctions();
   if (argc == 1 || !strcmp(argv[1], "--test-2"))
-  TestLibraryCallingClientFunctions();
+    TestLibraryCallingClientFunctions();
 
   return 0;
 }
 
-using ShapePtr  = std::shared_ptr<Graphics::Shape>;
-using Shapes    = std::vector<ShapePtr>;
+using ShapePtr = std::shared_ptr<Graphics::Shape>;
+using Shapes   = std::vector<ShapePtr>;
 
 static Shapes CreateVectorOfShapes()
 {
@@ -36,7 +37,7 @@ static Shapes CreateVectorOfShapes()
 
 static void TestClientCallingLibraryFunctions()
 {
-  auto shapes = CreateVectorOfShapes();
+  auto                 shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;
   for (auto shape : shapes)
   {
@@ -49,7 +50,7 @@ static void TestClientCallingLibraryFunctions()
 
 static void TestLibraryCallingClientFunctions()
 {
-  auto shapes = CreateVectorOfShapes();
+  auto       shapes = CreateVectorOfShapes();
   SvgContext svgContext;
   for (auto shape : shapes)
   {
