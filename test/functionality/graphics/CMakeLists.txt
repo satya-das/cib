@@ -41,9 +41,9 @@ foreach(CIBOUTFILE ${CIB_OUTPUT})
 	set_source_files_properties(${CIBOUTFILE} GENERATED)
 endforeach()
 add_custom_command(
-	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.cpp
+	OUTPUT ${CIB_OUTPUT}
 	COMMAND echo Running cib...
-	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Graphics
+	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Graphics -c ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-ids.h
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib ${GRAPHICS_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
