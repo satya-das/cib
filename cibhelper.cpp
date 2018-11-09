@@ -39,9 +39,58 @@ CibHelper::CibHelper(const char* inputPath)
   buildCibCppObjTree();
 }
 
-CppObj* CibHelper::getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
+static bool isWhite(char c)
 {
-  return getCppObjFromTypeName(name, program_->typeTreeNodeFromCppObj(begScope));
+  return (c == ' ') || (c == '\t') || (c == '\n');
+}
+
+static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e) 
+{
+  assert((s[b] == '<') && (b < e));
+  auto jumpToArgStart = [&]() {
+    while ((++b < e) && isWhite(s[b]))
+      ;
+    return b;
+  };
+  auto extractArg = [&s](size_t b, size_t e) {
+    while(isWhite(s[--e]))
+      ;
+    ++e;
+    return s.substr(b, e-b);
+  };
+  TemplateArgs ret;
+  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
+  {
+    if (s[b] == '<')
+    {
+      ++nestedTemplateArg;
+    }
+    else if (s[b] == '>')
+    {
+      if (nestedTemplateArg)
+      {
+        --nestedTemplateArg;
+      }
+      else
+      {
+        ret.push_back(extractArg(argStart, b));
+        return ret;
+      }
+    }
+    else if ((nestedTemplateArg == 0) && s[b] == ',')
+    {
+      ret.push_back(extractArg(argStart, b));
+      argStart = jumpToArgStart();
+    }
+  }
+
+  assert(false && "We should never ever be here.");
+  return ret;
+}
+
+CppObj* CibHelper::resolveTypename(const std::string& name, const CppCompound* begScope, bool updateTemplateInsances) const
+{
+  return resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope), updateTemplateInsances);
 }
 
 void CibHelper::buildCibCppObjTree()
@@ -60,10 +109,30 @@ void CibHelper::buildCibCppObjTree()
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
 }
 
-CppObj* CibHelper::getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
+CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode, bool updateTemplateInsances) const
 {
-  typeNode = program_->findTypeNode(name, typeNode);
-  return typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
+  auto templateArgStart = name.find('<');
+  if (templateArgStart == name.npos)
+  {
+    typeNode = program_->findTypeNode(name, typeNode);
+  }
+  else
+  {
+    auto classNameEnd = templateArgStart;
+    while(isWhite(name[--classNameEnd]))
+      ;
+    ++classNameEnd;
+    typeNode = program_->findTypeNode(name.substr(0, classNameEnd), typeNode);
+  }
+  auto cppObj = typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
+  if (cppObj && cppObj->isClassLike() && updateTemplateInsances && (templateArgStart != name.npos))
+  {
+    auto templateArgs = CollectTemplateArgs(name, templateArgStart, name.length());
+    auto* compound = static_cast<CibCppCompound*>(cppObj);
+    compound->addTemplateInstance(std::move(templateArgs));
+  }
+
+  return cppObj;
 }
 
 void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
@@ -73,7 +142,7 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritList_))
     {
-      auto* cppObj    = getCppObjFromTypeName(inh.baseName, &ownerTypeNode);
+      auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode, true);
       auto* parentObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
       // here.
@@ -100,7 +169,7 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
     {
       if (param.cppObj->objType_ != CppObj::kVar)
         continue; // TODO: FIXME param can be function pointer too.
-      auto* cppObj   = getCppObjFromTypeName(param.varObj->baseType(), func.getOwner());
+      auto* cppObj   = resolveTypename(param.varObj->baseType(), func.getOwner(), true);
       auto* paramObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       if (!paramObj)
         continue;
@@ -126,7 +195,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
   {
     if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
     {
-      auto* cppObj    = getCppObjFromTypeName(func.retType()->baseType(), func.getOwner());
+      auto* cppObj    = resolveTypename(func.retType()->baseType(), func.getOwner(), true);
       auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       if (!returnObj)
         return;

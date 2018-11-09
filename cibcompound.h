@@ -48,6 +48,10 @@ typedef std::vector<CibCppCompound*>                   CibCppCompoundArray;
 typedef std::map<CppObjProtLevel, CibCppCompoundArray> CibCppInheritInfo;
 typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
+using StringVector = std::vector<std::string>;
+using TemplateArgs = StringVector;
+using TemplateInstances = std::map<TemplateArgs, const CibCppCompound*>;
+
 enum CibClassPropFlags
 {
   // Unusable const section begins
@@ -80,6 +84,7 @@ private:
   CibFunctionHelperArray allVirtuals_; // All virtual methods including that of parent classes.
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
+  TemplateInstances      templateInstances_; ///< Meaningful for template classes only.
 
 public:
   /// @return name of this class.
@@ -147,6 +152,12 @@ public:
   const CibFunctionHelperArray& getAllVirtualMethods() const
   {
     return allVirtuals_;
+  }
+  const CibCppCompound* addTemplateInstance(TemplateArgs templateArgs)
+  {
+    // Only template class can have template-instances.
+    assert(templSpec_);
+    templateInstances_.insert(std::move(templateArgs));
   }
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const

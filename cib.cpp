@@ -981,7 +981,9 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
 
 void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
-  if (templSpec_)
+  // A class that is inline and not shared don't need any bridging.
+  // An inline class that is shared should be treated same as non-inline class.
+  if (isInline() && !isShared())
     return;
   if (name().empty())
     return;
@@ -989,6 +991,8 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
     setAbstract();
   for (auto mem : members_)
   {
+    if (!mem->isPublic())
+      continue;
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
@@ -997,41 +1001,24 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
       if (func.isCopyConstructor() && !isCopyCtorCallable())
         continue;
       if (func.funcName().find(':') != std::string::npos)
-        continue; // Skip out of out-of-class function definitions.
+        continue; // Skip out-of-class function definitions.
       if (func.isTemplated())
         continue;
       if (func.isDeleted())
         continue;
       if (func.hasAttr(kFriend))
         continue;
-      if (!isInline()
-          && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
+      if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
         continue;
-      if (isInline()) // If class is inline
-      {
-        if (func.isStatic() && !func.isInline()) // only non-inline static methods need bridging.
-        {
-          needsBridging_.push_back(func);
-          objNeedingBridge_.insert(mem);
-        }
-      }
-      else
-      {
-        if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
-          continue;
-        if (func.isPureVirtual() && !needsGenericProxyDefinition() && !func.isDestructor())
-          continue;
-        if (func.hasVariadicParam())
-          continue;
-        needsBridging_.push_back(func);
-        objNeedingBridge_.insert(mem);
-      }
+      if (func.isPureVirtual() && !needsGenericProxyDefinition() && !func.isDestructor())
+        continue;
+      if (func.hasVariadicParam())
+        continue;
+      needsBridging_.push_back(func);
+      objNeedingBridge_.insert(mem);
     }
     else if (mem->isNamespaceLike())
     {
-      if (!isInline()
-          && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
-        continue;
       auto compound = static_cast<CibCppCompound*>(mem);
       compound->identifyMethodsToBridge(helper);
     }
