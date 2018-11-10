@@ -357,6 +357,98 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
   stm << --indentation << "}\n";
 }
 
+void CibFunctionHelper::emitDefn(std::ostream&         stm,
+                                 const CibHelper&      helper,
+                                 const CibParams&      cibParams,
+                                 const CibCppCompound* callingOwner,
+                                 const CibIdData*      cibIdData,
+                                 CppIndent             indentation) const
+{
+  stm << indentation << "inline ";
+  if (isFunction())
+  {
+    emitType(stm, returnType(), callingOwner, helper, kPurposeProxyDefn);
+    stm << ' ';
+  }
+  stm << callingOwner->fullName() << "::" << funcName() << '(';
+  emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
+  stm << ")";
+  auto capiName = cibIdData->getMethodCApiName(signature(helper));
+  if (isConstructor())
+  {
+    stm << '\n';
+    stm << ++indentation << ": " << callingOwner->name() << "(__zz_cib_" << callingOwner->longName()
+        << "::__zz_cib_Helper::" << capiName << '(';
+    if (callingOwner->needsGenericProxyDefinition())
+    {
+      stm << "this";
+      if (hasParams())
+        stm << ", ";
+    }
+    emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
+    stm << "))\n";
+    stm << --indentation << "{}\n";
+  }
+  else
+  {
+    if (isConst())
+    {
+      stm << " const";
+    }
+    stm << " {\n";
+    ++indentation;
+    if (isDestructor())
+    {
+      if (callingOwner->needsGenericProxyDefinition())
+      {
+        stm << indentation << "__zz_cib_" << callingOwner->longName()
+            << "::__zz_cib_Helper::__zz_cib_release_proxy(this);\n";
+      }
+      stm << indentation << "auto h = __zz_cib_" << callingOwner->longName()
+          << "::__zz_cib_Helper::__zz_cib_release_handle(this);\n";
+    }
+
+    stm << indentation;
+    const CibCppCompound* retType = nullptr;
+    if (isFunction() && returnType() && !returnType()->isVoid())
+    {
+      stm << "return ";
+      auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
+      retType =
+        resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+      if (retType)
+      {
+        if (returnType()->isByValue())
+        {
+          stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle<>(\n";
+        }
+        else
+        {
+          stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
+        }
+        stm << ++indentation;
+      }
+    }
+    stm << "__zz_cib_" << callingOwner->longName() << "::__zz_cib_Helper::" << capiName << "(";
+    if (isDestructor())
+    {
+      stm << "h";
+    }
+    else if (callingOwner->isClassLike() && !isStatic())
+    {
+      stm << "__zz_cib_h_";
+      if (hasParams())
+        stm << ", ";
+    }
+    emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
+    stm << ')';
+    if (retType)
+      stm << '\n' << --indentation << ")";
+    stm << ";\n";
+    stm << --indentation << "}\n";
+  }
+}
+
 void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
                                              const CibHelper&   helper,
                                              const CibParams&   cibParams,
@@ -413,9 +505,9 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   if (!isDestructor())
     stm << "return ";
   bool byValueObj = [&]() {
-    if (genericProxy && retType() && retType()->isByValue())
+    if (genericProxy && returnType() && returnType()->isByValue())
     {
-      auto* resolvedCppObj = (getOwner() ? getOwner()->resolveTypeName(retType()->baseType(), helper) : nullptr);
+      auto* resolvedCppObj = (getOwner() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
       return (resolvedCppObj && resolvedCppObj->isClassLike());
     }
     return false;
@@ -574,6 +666,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
 {
   if (!isCppFile())
     return;
+
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
@@ -703,8 +796,8 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
           cppObjs.insert(resolvedType);
       };
       CibFunctionHelper func(mem);
-      if (func.retType() && !func.retType()->isVoid())
-        addDependency(func.retType()->baseType());
+      if (func.returnType() && !func.returnType()->isVoid())
+        addDependency(func.returnType()->baseType());
       if (func.hasParams())
       {
         for (auto param : *func.getParams())
@@ -1088,6 +1181,9 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
                                     const CibIdMgr&  cibIdMgr,
                                     CppIndent        indentation /* = CppIndent */) const
 {
+  if (templSpec_ && templateInstances_.empty())
+    return;
+
   if (isNamespaceLike() && !needsBridging_.empty())
   {
     stm << '\n'; // Start in new line.
@@ -1304,6 +1400,9 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
                               const CibIdMgr&  cibIdMgr,
                               CppIndent        indentation /* = CppIndent */) const
 {
+  if (templSpec_ && templateInstances_.empty())
+    return;
+
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
   {
     CppObj* mem = *memItr;
@@ -1323,87 +1422,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     if (func.isPureVirtual() && !func.isDestructor())
       continue;
     stm << '\n'; // Start in new line.
-    stm << indentation << "inline ";
-    if (func.isFunction())
-    {
-      emitType(stm, func.retType(), this, helper, kPurposeProxyDefn);
-      stm << ' ';
-    }
-    stm << fullName() << "::" << func.funcName() << '(';
-    func.emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
-    stm << ")";
-    auto capiName = cibIdData->getMethodCApiName(func.signature(helper));
-    if (func.isConstructor())
-    {
-      stm << '\n';
-      stm << ++indentation << ": " << name() << "(__zz_cib_" << longName() << "::__zz_cib_Helper::" << capiName << '(';
-      if (needsGenericProxyDefinition())
-      {
-        stm << "this";
-        if (func.hasParams())
-          stm << ", ";
-      }
-      func.emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
-      stm << "))\n";
-      stm << --indentation << "{}\n";
-    }
-    else
-    {
-      if (func.isConst())
-      {
-        stm << " const";
-      }
-      stm << " {\n";
-      ++indentation;
-      if (func.isDestructor())
-      {
-        if (needsGenericProxyDefinition())
-        {
-          stm << indentation << "__zz_cib_" << longName() << "::__zz_cib_Helper::__zz_cib_release_proxy(this);\n";
-        }
-        stm << indentation << "auto h = __zz_cib_" << longName()
-            << "::__zz_cib_Helper::__zz_cib_release_handle(this);\n";
-      }
-
-      stm << indentation;
-      const CibCppCompound* retType = nullptr;
-      if (func.isFunction() && func.retType() && !func.retType()->isVoid())
-      {
-        stm << "return ";
-        auto* resolvedCppObj = resolveTypeName(func.retType()->baseType(), helper);
-        retType = resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj)
-                                                                  : nullptr;
-        if (retType)
-        {
-          if (func.retType()->isByValue())
-          {
-            stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle<>(\n";
-          }
-          else
-          {
-            stm << "__zz_cib_" << retType->longName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
-          }
-          stm << ++indentation;
-        }
-      }
-      stm << "__zz_cib_" << longName() << "::__zz_cib_Helper::" << capiName << "(";
-      if (func.isDestructor())
-      {
-        stm << "h";
-      }
-      else if (isClassLike() && !func.isStatic())
-      {
-        stm << "__zz_cib_h_";
-        if (func.hasParams())
-          stm << ", ";
-      }
-      func.emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
-      stm << ')';
-      if (retType)
-        stm << '\n' << --indentation << ")";
-      stm << ";\n";
-      stm << --indentation << "}\n";
-    }
+    func.emitDefn(stm, helper, cibParams, this, cibIdData, indentation);
   }
 }
 
@@ -1530,6 +1549,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
     stm << '\n';
   }
+  if (templSpec_ && templateInstances_.empty())
+    return;
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
   {
     CppObj* mem = *memItr;

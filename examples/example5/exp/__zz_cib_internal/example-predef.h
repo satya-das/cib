@@ -1,0 +1,9 @@
+#include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
+
+namespace __zz_cib_ { namespace Example { namespace Template {
+  class __zz_cib_Helper;
+}}}
+
+namespace __zz_cib_ { namespace Example { namespace A {
+  class __zz_cib_Helper;
+}}}

@@ -44,7 +44,7 @@ static bool isWhite(char c)
   return (c == ' ') || (c == '\t') || (c == '\n');
 }
 
-static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e) 
+static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e)
 {
   assert((s[b] == '<') && (b < e));
   auto jumpToArgStart = [&]() {
@@ -53,10 +53,10 @@ static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e
     return b;
   };
   auto extractArg = [&s](size_t b, size_t e) {
-    while(isWhite(s[--e]))
+    while (isWhite(s[--e]))
       ;
     ++e;
-    return s.substr(b, e-b);
+    return s.substr(b, e - b);
   };
   TemplateArgs ret;
   for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
@@ -88,7 +88,9 @@ static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e
   return ret;
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name, const CppCompound* begScope, bool updateTemplateInsances) const
+CppObj* CibHelper::resolveTypename(const std::string& name,
+                                   const CppCompound* begScope,
+                                   bool               updateTemplateInsances) const
 {
   return resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope), updateTemplateInsances);
 }
@@ -109,7 +111,9 @@ void CibHelper::buildCibCppObjTree()
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode, bool updateTemplateInsances) const
+CppObj* CibHelper::resolveTypename(const std::string&     name,
+                                   const CppTypeTreeNode* typeNode,
+                                   bool                   updateTemplateInsances) const
 {
   auto templateArgStart = name.find('<');
   if (templateArgStart == name.npos)
@@ -119,7 +123,7 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
   else
   {
     auto classNameEnd = templateArgStart;
-    while(isWhite(name[--classNameEnd]))
+    while (isWhite(name[--classNameEnd]))
       ;
     ++classNameEnd;
     typeNode = program_->findTypeNode(name.substr(0, classNameEnd), typeNode);
@@ -127,9 +131,9 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
   auto cppObj = typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
   if (cppObj && cppObj->isClassLike() && updateTemplateInsances && (templateArgStart != name.npos))
   {
-    auto templateArgs = CollectTemplateArgs(name, templateArgStart, name.length());
-    auto* compound = static_cast<CibCppCompound*>(cppObj);
-    compound->addTemplateInstance(std::move(templateArgs));
+    // auto  templateArgs = CollectTemplateArgs(name, templateArgStart, name.length());
+    // auto* compound     = static_cast<CibCppCompound*>(cppObj);
+    // compound->addTemplateInstance(std::move(templateArgs));
   }
 
   return cppObj;
@@ -191,11 +195,11 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
 }
 void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
 {
-  if (func.retType())
+  if (func.returnType())
   {
-    if (func.retType()->ptrLevel() == 1 || func.retType()->refType() == kByRef)
+    if (func.returnType()->ptrLevel() == 1 || func.returnType()->refType() == kByRef)
     {
-      auto* cppObj    = resolveTypename(func.retType()->baseType(), func.getOwner(), true);
+      auto* cppObj    = resolveTypename(func.returnType()->baseType(), func.getOwner(), true);
       auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       if (!returnObj)
         return;

@@ -79,13 +79,13 @@ std::string CibFunctionHelper::signature(const CibHelper& helper) const
 using OperNameMap = std::map<std::string, std::string>;
 // clang-format off
 static OperNameMap kOperNameMap = {
-  {"+", "Plus"},       {"-", "Minus"},   {"*", "Mul"},      {"/", "Div"},     {"%", "Per"},       {"^", "Xor"},
-  {"&", "And"},        {"|", "Or"},      {"~", "Toggle"},   {"!", "Not"},     {"=", "Equal"},     {"<", "LT"},
-  {">", "GT"},         {"+=", "PlusEq"}, {"-=", "MinusEq"}, {"*=", "MulEq"},  {"/=", "DivEq"},    {"%=", "PerEq"},
-  {"^=", "XorEq"},     {"&=", "AndEq"},  {"|=", "OrEq"},    {"<<", "LShift"}, {">>", "RShift"},   {"<<=", "LShiftEq"},
-  {">>=", "RShiftEq"}, {"==", "CmpEq"},  {"<=", "LE"},      {">=", "GE"},     {"<=>", "3WayCmp"}, {"&&", "LogAnd"},
-  {"||", "LogOr"},     {"++", "Inc"},    {"--", "Dec"},     {",", "Comma"},   {"->", "Arrow"},    {"->*", "ArrowStar"},
-  {"()", "App"},       {"[]", "Index"},  {"new", "New"},
+  {"+", "Plus"},        {"-", "Minus"},        {"*", "Mul"},      {"/", "Div"},     {"%", "Per"},       {"^", "Xor"},
+  {"&", "And"},         {"|", "Or"},           {"~", "Toggle"},   {"!", "Not"},     {"=", "Equal"},     {"<", "LT"},
+  {">", "GT"},          {"+=", "PlusEq"},      {"-=", "MinusEq"}, {"*=", "MulEq"},  {"/=", "DivEq"},    {"%=", "PerEq"},
+  {"^=", "XorEq"},      {"&=", "AndEq"},       {"|=", "OrEq"},    {"<<", "LShift"}, {">>", "RShift"},   {"<<=", "LShiftEq"},
+  {">>=", "RShiftEq"},  {"==", "CmpEq"},       {"<=", "LE"},      {">=", "GE"},     {"<=>", "3WayCmp"}, {"&&", "LogAnd"},
+  {"||", "LogOr"},      {"++", "Inc"},         {"--", "Dec"},     {",", "Comma"},   {"->", "Arrow"},    {"->*", "ArrowStar"},
+  {"()", "App"},        {"[]", "Index"},       {"new", "New"},
   {"delete", "Delete"}, {"new[]", "NewArray"}, {"delete[]", "DeleteArray"}};
 // clang-format on
 

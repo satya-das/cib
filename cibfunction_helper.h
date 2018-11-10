@@ -36,6 +36,7 @@
 struct CibCppCompound;
 
 class CibHelper;
+class CibIdData;
 
 enum class CallType
 {
@@ -210,7 +211,7 @@ public:
   {
     return isDestructor() ? nullptr : func_->params_;
   }
-  CppVarType* retType() const
+  CppVarType* returnType() const
   {
     return isFunction() ? func_->retType_ : nullptr;
   }
@@ -271,6 +272,12 @@ public:
                     const std::string&    capiName,
                     bool                  forProxy,
                     CppIndent             indentation = CppIndent()) const;
+  void emitDefn(std::ostream&         stm,
+                const CibHelper&      helper,
+                const CibParams&      cibParams,
+                const CibCppCompound* callingOwner,
+                const CibIdData*      cibIdData,
+                CppIndent             indentation = CppIndent()) const;
   void emitGenericProxyDefn(std::ostream&      stm,
                             const CibHelper&   helper,
                             const CibParams&   cibParams,

@@ -48,8 +48,8 @@ typedef std::vector<CibCppCompound*>                   CibCppCompoundArray;
 typedef std::map<CppObjProtLevel, CibCppCompoundArray> CibCppInheritInfo;
 typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
-using StringVector = std::vector<std::string>;
-using TemplateArgs = StringVector;
+using StringVector      = std::vector<std::string>;
+using TemplateArgs      = StringVector;
 using TemplateInstances = std::map<TemplateArgs, const CibCppCompound*>;
 
 enum CibClassPropFlags
@@ -57,11 +57,11 @@ enum CibClassPropFlags
   // Unusable const section begins
   kClassPropBaseLine = __LINE__,
   // Unusable const section ends
-  kClassPropInline      = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropShared      = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropAbstract    = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropInterface   = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropFacade      = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropInline    = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropShared    = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropAbstract  = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
 };
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
@@ -81,10 +81,10 @@ private:
 
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
-  CibFunctionHelperArray allVirtuals_; // All virtual methods including that of parent classes.
+  CibFunctionHelperArray   allVirtuals_; // All virtual methods including that of parent classes.
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
-  TemplateInstances      templateInstances_; ///< Meaningful for template classes only.
+  TemplateInstances        templateInstances_; ///< Meaningful for template classes only.
 
 public:
   /// @return name of this class.
@@ -153,12 +153,12 @@ public:
   {
     return allVirtuals_;
   }
-  const CibCppCompound* addTemplateInstance(TemplateArgs templateArgs)
-  {
-    // Only template class can have template-instances.
-    assert(templSpec_);
-    templateInstances_.insert(std::move(templateArgs));
-  }
+  // const CibCppCompound* addTemplateInstance(TemplateArgs templateArgs)
+  // {
+  //   // Only template class can have template-instances.
+  //   assert(templSpec_);
+  //   templateInstances_.insert(std::move(templateArgs));
+  // }
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const
   {
@@ -248,9 +248,7 @@ public:
   {
     if (copyCtor() && (copyCtor()->isDeleted() || copyCtor()->isPrivate()))
       return false;
-    if (!forEachAncestor([](const auto* ancestor) {
-      return ancestor->isCopyCtorCallable();
-    }))
+    if (!forEachAncestor([](const auto* ancestor) { return ancestor->isCopyCtorCallable(); }))
       return false;
     return true;
   }
@@ -300,7 +298,10 @@ public:
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
-  CibFunctionHelper getDtor() const { return dtor(); }
+  CibFunctionHelper            getDtor() const
+  {
+    return dtor();
+  }
 
 private:
   void emitDecl(const CppObj*,
@@ -359,11 +360,11 @@ private:
                                                          const std::string&             dependentPath);
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
-  bool collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
-  std::set<std::string>        collectHeaderDependencies(const CibHelper& helper) const;
-  bool                         hasClassThatNeedsGenericProxyDefn() const;
-  std::string                  getImplPath(const CibParams& cibParams) const;
-  std::string                  implIncludeName(const CibParams& cibParams) const;
+  bool                  collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
+  std::set<std::string> collectHeaderDependencies(const CibHelper& helper) const;
+  bool                  hasClassThatNeedsGenericProxyDefn() const;
+  std::string           getImplPath(const CibParams& cibParams) const;
+  std::string           implIncludeName(const CibParams& cibParams) const;
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
