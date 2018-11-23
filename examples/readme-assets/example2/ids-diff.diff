@@ -1,20 +1,21 @@
---- ../example1/cib/__zz_cib_Example-ids.h	2018-10-31 21:21:23.418748469 +0100
-+++ cib/__zz_cib_Example-ids.h	2018-10-31 21:21:23.418748469 +0100
-@@ -6,8 +6,12 @@
-    enum { __zz_cib_classid = 1 };
+--- ../example1/cib/__zz_cib_Example-ids.h	2018-11-24 02:58:09.270897799 +0100
++++ cib/__zz_cib_Example-ids.h	2018-11-24 02:57:43.078504566 +0100
+@@ -7,8 +7,13 @@
+   enum { __zz_cib_classid = 1 };
  }}}
  
 +namespace __zz_cib_ { namespace Example { namespace B {
-+   enum { __zz_cib_classid = 2 };
++  //#= FullClassName: ::Example::B
++  enum { __zz_cib_classid = 2 };
 +}}}
 +
  namespace __zz_cib_ { namespace Example {
--   enum { __zz_cib_next_class_id = 2 };
-+   enum { __zz_cib_next_class_id = 3 };
+-  enum { __zz_cib_next_class_id = 2 };
++  enum { __zz_cib_next_class_id = 3 };
  }}
  
  namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
-@@ -20,7 +24,25 @@
+@@ -21,7 +26,25 @@
      __zz_cib_delete_2 = 2,
      //#= void SomeFunc();
      SomeFunc_3 = 3,

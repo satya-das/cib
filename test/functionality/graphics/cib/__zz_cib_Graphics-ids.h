@@ -3,67 +3,82 @@
 #pragma once
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-   enum { __zz_cib_classid = 1 };
+  //#= FullClassName: ::Graphics::Circle
+  enum { __zz_cib_classid = 1 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 2 };
+  //#= FullClassName: ::Graphics::Circle::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 2 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
-   enum { __zz_cib_classid = 3 };
+  //#= FullClassName: ::Graphics::Composite
+  enum { __zz_cib_classid = 3 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 4 };
+  //#= FullClassName: ::Graphics::Composite::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 4 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-   enum { __zz_cib_classid = 5 };
+  //#= FullClassName: ::Graphics::Context
+  enum { __zz_cib_classid = 5 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 6 };
+  //#= FullClassName: ::Graphics::Context::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 6 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
-   enum { __zz_cib_classid = 7 };
+  //#= FullClassName: ::Graphics::Ellipse
+  enum { __zz_cib_classid = 7 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 8 };
+  //#= FullClassName: ::Graphics::Ellipse::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 8 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-   enum { __zz_cib_classid = 9 };
+  //#= FullClassName: ::Graphics::LogContext
+  enum { __zz_cib_classid = 9 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 10 };
+  //#= FullClassName: ::Graphics::LogContext::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 10 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
-   enum { __zz_cib_classid = 12 };
+  //#= FullClassName: ::Graphics::Rectangle
+  enum { __zz_cib_classid = 12 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 13 };
+  //#= FullClassName: ::Graphics::Rectangle::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 13 };
 }}}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-   enum { __zz_cib_classid = 14 };
+  //#= FullClassName: ::Graphics::Shape
+  enum { __zz_cib_classid = 14 };
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy {
-   enum { __zz_cib_classid = 15 };
+  //#= FullClassName: ::Graphics::Shape::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 15 };
 }}}}
 
 namespace __zz_cib_ { namespace Point {
-   enum { __zz_cib_classid = 11 };
+  //#= FullClassName: ::Point
+  enum { __zz_cib_classid = 11 };
 }}
 
 namespace __zz_cib_ { namespace Graphics {
-   enum { __zz_cib_next_class_id = 16 };
+  enum { __zz_cib_next_class_id = 16 };
 }}
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_methodid {

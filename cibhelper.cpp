@@ -25,14 +25,16 @@
 #include "cibcompound.h"
 #include "cibfunction.h"
 #include "cibfunction_helper.h"
+#include "cibidmgr.h"
 #include "cibobjfactory.h"
 #include "cibutil.h"
 #include "cppparser.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CibHelper::CibHelper(const char* inputPath)
+CibHelper::CibHelper(const char* inputPath, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
+  , cibIdMgr_(cibIdMgr)
 {
   CibObjFactory objFactory;
   program_.reset(CppParser(&objFactory).loadProgram(inputPath));
@@ -88,6 +90,11 @@ static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e
   return ret;
 }
 
+void CibHelper::onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const
+{
+  program_->addCompound(compound, parent);
+}
+
 CppObj* CibHelper::resolveTypename(const std::string& name,
                                    const CppCompound* begScope,
                                    bool               updateTemplateInsances) const
@@ -112,28 +119,34 @@ void CibHelper::buildCibCppObjTree()
 }
 
 CppObj* CibHelper::resolveTypename(const std::string&     name,
-                                   const CppTypeTreeNode* typeNode,
+                                   const CppTypeTreeNode* startNode,
                                    bool                   updateTemplateInsances) const
 {
   auto templateArgStart = name.find('<');
-  if (templateArgStart == name.npos)
+  auto typeNode         = [&]() {
+    if (templateArgStart == name.npos)
+    {
+      return program_->findTypeNode(name, startNode);
+    }
+    else
+    {
+      auto classNameEnd = templateArgStart;
+      while (isWhite(name[--classNameEnd]))
+        ;
+      ++classNameEnd;
+      return program_->findTypeNode(name.substr(0, classNameEnd), startNode);
+    }
+  }();
+
+  // TODO: Fix const_cast.
+  auto* cppObj =
+    typeNode && !typeNode->cppObjSet.empty() ? const_cast<CppObj*>(*(typeNode->cppObjSet.begin())) : nullptr;
+  if (cppObj && cppObj->isClassLike() && (templateArgStart != name.npos))
   {
-    typeNode = program_->findTypeNode(name, typeNode);
-  }
-  else
-  {
-    auto classNameEnd = templateArgStart;
-    while (isWhite(name[--classNameEnd]))
-      ;
-    ++classNameEnd;
-    typeNode = program_->findTypeNode(name.substr(0, classNameEnd), typeNode);
-  }
-  auto cppObj = typeNode && !typeNode->cppObjSet.empty() ? *(typeNode->cppObjSet.begin()) : nullptr;
-  if (cppObj && cppObj->isClassLike() && updateTemplateInsances && (templateArgStart != name.npos))
-  {
-    // auto  templateArgs = CollectTemplateArgs(name, templateArgStart, name.length());
-    // auto* compound     = static_cast<CibCppCompound*>(cppObj);
-    // compound->addTemplateInstance(std::move(templateArgs));
+    auto  templateArgs       = CollectTemplateArgs(name, templateArgStart, name.length());
+    auto* compound           = static_cast<CibCppCompound*>(cppObj);
+    auto* instantiationScope = static_cast<const CibCppCompound*>(*(startNode->cppObjSet.begin()));
+    return compound->getTemplateInstantiation(templateArgs, instantiationScope, *this);
   }
 
   return cppObj;

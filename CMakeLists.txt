@@ -24,6 +24,7 @@ set(CIB_SOURCES
 	cibobjfactory.cpp
 	cibfunction_helper.cpp
 	cibutil.cpp
+	cibcompound.cpp
 )
 
 set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)

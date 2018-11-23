@@ -26,20 +26,6 @@ public:
   {
     return _Helper::__zz_cib_create_proxy(h);
   }
-  static __zz_cib_HANDLE* __zz_cib_handle(const _ProxyClass* __zz_cib_obj)
-  {
-    return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_handle(const _ProxyClass& __zz_cib_obj)
-  {
-    return __zz_cib_obj.__zz_cib_h_;
-  }
-  //! __zz_cib_obj_from_handle() should not be used for abstract class
-  template <typename _ObjType = _ProxyClass>
-  static _ObjType __zz_cib_obj_from_handle(__zz_cib_HANDLE* h)
-  {
-    return _ObjType(h);
-  }
 };
 
 } // namespace __zz_cib_

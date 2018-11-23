@@ -9,8 +9,6 @@ namespace Example
   class Template  
 {
   public:
-    Template(const Template&);
-    ~Template();
     Template(_T x)
       : x_(x)
     {
@@ -27,9 +25,9 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A();
     A(const A& );
     ~A();
+    A();
     void Set(const Template<int>& x);
     const Template<int>& Get() const;
 

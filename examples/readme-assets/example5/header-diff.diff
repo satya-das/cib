@@ -1,6 +1,6 @@
---- pub/example.h	2018-11-10 08:27:40.824335554 +0100
-+++ exp/example.h	2018-11-10 20:38:26.666438230 +0100
-@@ -1,36 +1,41 @@
+--- pub/example.h	2018-11-22 09:24:25.971780510 +0100
++++ exp/example.h	2018-11-24 02:37:52.224596659 +0100
+@@ -1,40 +1,39 @@
  #pragma once
  
 -//! Contains example definitions to explain cib's functioning
@@ -14,8 +14,6 @@
  class Template
  {
  public:
-+    Template(const Template&);
-+    ~Template();
    Template(_T x)
      : x_(x)
    {
@@ -32,11 +30,15 @@
  class A
  {
  public:
+-  A()
+-    : x_(5)
+-  {
+-  }
 +    A(A&& rhs);
 +  public:
-+    A();
 +    A(const A& );
 +    ~A();
++    A();
    void                 Set(const Template<int>& x);
 -  const Template<int>& Get() const
 -  {

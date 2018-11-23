@@ -27,6 +27,8 @@
 
 #include "cppdom.h"
 
+#include <cctype>
+
 const CibCppCompound* TypeResolver::operator()(const std::string& typeName) const
 {
   if (!owner_ || !cppProgram_)
@@ -41,4 +43,20 @@ std::string VarTypeResolver::operator()(const std::string& typeName) const
   if (!resolvedType)
     return typeName;
   return isHandle_ ? "__zz_cib::HANDLE" : "::" + resolvedType->fullName();
+}
+
+// static auto extractIdentifierName(std::string::iterator b, std::string::iterator e)
+// {
+//   while ((b != e) && std::isspace(*b))
+//     ++b;
+// }
+
+CppVarType* parseType(const std::string& s)
+{
+  // auto constType = s.compare(0, 6, "const ") == 0;
+  // auto b         = constType ? s.begin() + 6 : s.begin();
+  // auto id = extractIdentifierName(b, s.end());
+
+  // TODO implement completely
+  return new CppVarType(s);
 }

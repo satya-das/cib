@@ -21,7 +21,6 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "cib.h"
 #include "cibcompound.h"
 #include "cibhelper.h"
 #include "cibidmgr.h"
@@ -113,19 +112,6 @@ CibParams parseCmdLine(int argc, char* argv[])
   return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile);
 }
 
-std::string generateCibIds(const CibHelper& helper, const CibParams& cibParams, CibIdMgr& cibIdMgr)
-{
-  std::string cibIdFileName = cibParams.cibIdFilename();
-  if (!cibParams.inputCibIdFile.empty() && bfs::exists(cibParams.inputCibIdFile))
-    cibIdMgr.loadIds(cibParams.inputCibIdFile.string(), cibParams);
-  cibIdMgr.assignIds(helper, cibParams);
-  cibIdMgr.saveIds((cibParams.binderPath / cibIdFileName).string(), cibParams);
-  cibIdMgr.saveIds((cibParams.outputPath / bfs::path(cibParams.cibInternalDirName) / cibIdFileName).string(),
-                   cibParams);
-
-  return cibIdFileName;
-}
-
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
   bfs::create_directories(cibParams.binderPath.string());
@@ -133,10 +119,10 @@ void ensureDirectoriesExist(const CibParams& cibParams)
   bfs::create_directories(cibParams.cibInternalDir().string());
 }
 
-static void emitMethodTableGetter(std::ostream&           stm,
-                                  const CppCompoundArray& fileDOMs,
-                                  const CibParams&        cibParams,
-                                  const CibIdMgr&         cibIdMgr)
+static void emitLibraryGatewayFunction(std::ostream&           stm,
+                                       const CppCompoundArray& fileDOMs,
+                                       const CibParams&        cibParams,
+                                       const CibIdMgr&         cibIdMgr)
 {
   std::vector<const CibCppCompound*> compounds;
   for (auto cppDom : fileDOMs)
@@ -147,22 +133,22 @@ static void emitMethodTableGetter(std::ostream&           stm,
   CppIndent indentation;
   for (auto compound : compounds)
   {
-    stm << indentation << compound->wrappingNamespaceDeclarations(cibParams);
-    stm << " namespace " << compound->name() << " { ";
+    stm << indentation << compound->wrappingNsNamespaceDeclarations(cibParams);
+    stm << " namespace " << compound->nsName() << " { ";
     stm << "const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); ";
-    stm << compound->closingBracesForWrappingNamespaces() << "}\n";
+    stm << compound->closingBracesForWrappingNsNamespaces() << "}\n";
   }
   stm << '\n';
-  stm << indentation << "extern \"C\" __zz_cib_export ";
-  stm << "const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_" << cibParams.moduleName
+  stm << indentation << "extern \"C\" __zz_cib_export\n"
+      << "const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   for (auto compound : compounds)
   {
-    auto cibIdData = cibIdMgr.getCibIdData(compound->fullName());
-    stm << indentation << "case __zz_cib_::" << compound->fullName() << "::__zz_cib_classid:\n";
-    stm << ++indentation << "return __zz_cib_::" << compound->fullName() << "::__zz_cib_GetMethodTable();\n";
+    auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
+    stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
+    stm << ++indentation << "return __zz_cib_::" << compound->fullNsName() << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   }
   stm << indentation << "default:\n";
@@ -224,10 +210,9 @@ int main(int argc, char* argv[])
   const CibParams& cibParams(parseCmdLine(argc, argv));
   ensureDirectoriesExist(cibParams);
 
-  // First load all files as DOM.
-  CibHelper         helper(cibParams.inputPath.string().c_str());
-  CibIdMgr          cibIdMgr;
-  auto              cibIdFileName = generateCibIds(helper, cibParams, cibIdMgr);
+  CibIdMgr  cibIdMgr(cibParams);
+  CibHelper helper(cibParams.inputPath.string().c_str(), cibIdMgr);
+  cibIdMgr.assignIds(helper, cibParams);
   StringToStringMap substituteInfo;
   substituteInfo["Module"] = cibParams.moduleName;
 
@@ -244,7 +229,7 @@ int main(int argc, char* argv[])
     bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
-    bfs::path     bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
+    bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
     bfs::create_directories(bndSrcPath.parent_path());
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
@@ -255,9 +240,9 @@ int main(int argc, char* argv[])
                              std::ios_base::out);
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";
-  cibLibSrcStm << "#include \"" << cibIdFileName << "\"\n";
+  cibLibSrcStm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n\n";
-  emitMethodTableGetter(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
+  emitLibraryGatewayFunction(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
 
   return 0;
 }

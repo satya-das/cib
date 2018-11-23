@@ -35,24 +35,6 @@ struct CppVarType;
 
 struct CibParams;
 
-/**
- * Finds if the member can be considered as public.
- * @param protLevel Known protection level
- * @param ownerType Owner type which owns the member.
- */
-inline bool isMemberPublic(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return protLevel == kPublic || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPublic);
-}
-inline bool isMemberProtected(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return protLevel == kProtected || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kProtected);
-}
-inline bool isMemberPrivate(CppObjProtLevel protLevel, CppCompoundType ownerType)
-{
-  return protLevel == kPrivate || (protLevel == kUnknownProt && defaultMemberProtLevel(ownerType) == kPrivate);
-}
-
 struct TypeResolver
 {
   TypeResolver(const CibCppCompound* owner = nullptr, const CibHelper* helper = nullptr)
@@ -157,3 +139,9 @@ inline std::string longName(const CppObj* typeObj)
       return "";
   }
 }
+
+/*!
+ * Parses type declaration.
+ * It is intended to parse types that can be used as template arguments.
+ */
+CppVarType* parseType(const std::string& s);

@@ -196,6 +196,10 @@ public:
     return (params->back().varObj->baseType() == "...");
   }
   CibCppCompound* getOwner() const;
+  std::uint32_t   getAttr() const
+  {
+    return func_->attr_;
+  }
 
   bool hasParams() const
   {
@@ -223,21 +227,21 @@ public:
   }
 
   /// ProcType that is used by client side glue code to define function pointer variable.
-  std::string procType(const CibParams& cibParams) const
+  std::string procType() const
   {
-    return procName(cibParams) + "Proc";
+    return procName() + "Proc";
   }
 
   /// ProcName that is used to name the variable that holds the function pointer.
-  std::string procName(const CibParams& cibParams) const
+  std::string procName() const
   {
     std::string pname;
     if (isCopyConstructor())
-      pname = cibParams.copyCtorCAPIPrefix;
+      pname = "__zz_cib_copy";
     else if (isConstructor())
-      pname = cibParams.ctorCAPIPrefix;
+      pname = "__zz_cib_new";
     else if (isDestructor())
-      pname = cibParams.dtorCAPIPrefix;
+      pname = "__zz_cib_delete";
     else
       pname = modifyIfOperator(funcName());
 

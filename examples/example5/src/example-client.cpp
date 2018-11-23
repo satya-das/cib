@@ -2,7 +2,7 @@
 
 int main()
 {
-  Example::A a;
-  a.SomeFunc();
+  Example::Template<int> x(5);
+  Example::A             a;
+  a.Set(x);
 }
-

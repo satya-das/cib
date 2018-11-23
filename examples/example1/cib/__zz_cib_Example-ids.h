@@ -3,11 +3,12 @@
 #pragma once
 
 namespace __zz_cib_ { namespace Example { namespace A {
-   enum { __zz_cib_classid = 1 };
+  //#= FullClassName: ::Example::A
+  enum { __zz_cib_classid = 1 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-   enum { __zz_cib_next_class_id = 2 };
+  enum { __zz_cib_next_class_id = 2 };
 }}
 
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {

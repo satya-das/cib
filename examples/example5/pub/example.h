@@ -23,6 +23,10 @@ private:
 class A
 {
 public:
+  A()
+    : x_(5)
+  {
+  }
   void                 Set(const Template<int>& x);
   const Template<int>& Get() const
   {

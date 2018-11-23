@@ -21,8 +21,7 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __CPPPROGEX_H__
-#define __CPPPROGEX_H__
+#pragma once
 
 #include "cppprog.h"
 
@@ -38,20 +37,17 @@ struct CppObj;
 struct CibCppCompound;
 struct CibCppFunction;
 class CibFunctionHelper;
+class CibIdMgr;
 
 typedef std::set<std::string> stringset;
 
 /**
- * \brief Represents an entire C++ program.
- *
- * For our purpose we may use only C++ header files but this class can be used
- * to load and parse C++ source files as well.
+ * \brief Provides information about C++ program and related things needed by CIB.
  */
 class CibHelper
 {
 public:
-  CibHelper();
-  CibHelper(const char* inputPath);
+  CibHelper(const char* inputPath, CibIdMgr& cibIdMgr);
 
   const CppProgram& getProgram() const
   {
@@ -67,7 +63,7 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
   {
-    return resolveTypename(name, typeNode, false);
+    return resolveTypename(name, typeNode, true);
   }
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
@@ -77,8 +73,10 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
   {
-    return resolveTypename(name, begScope, false);
+    return resolveTypename(name, begScope, true);
   }
+
+  void onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const;
 
 private:
   void resolveInheritance(CibCppCompound* cppCompound);
@@ -104,13 +102,7 @@ private:
   bool cibCppObjTreeCreated_;
 
   std::unique_ptr<CppProgram> program_;
+  CibIdMgr&                   cibIdMgr_;
 };
 
 //////////////////////////////////////////////////////////////////////////
-
-inline CibHelper::CibHelper()
-  : cibCppObjTreeCreated_(false)
-{
-}
-
-#endif //__CPPPROGEX_H__

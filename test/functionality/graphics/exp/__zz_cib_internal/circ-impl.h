@@ -1,96 +1,106 @@
 #include "__zz_cib_Graphics-def.h"
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-mtable-helper.h"
+#include "__zz_cib_Graphics-handle-helper.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-  class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
-    , public __zz_cib_::__zz_cib_HandleHelper<::Graphics::Circle, __zz_cib_Helper> {
-  private:
-    friend class ::Graphics::Circle;
-    friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Circle, __zz_cib_Helper>;
-    static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
+class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+  , public __zz_cib_::__zz_cib_HandleHelper<::Graphics::Circle, __zz_cib_Helper> {
+private:
+  friend class ::Graphics::Circle;
+  friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Circle, __zz_cib_Helper>;
+  static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
 
-    static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::Circle* __zz_cib_proxy, const __zz_cib_HANDLE* __zz_cib_param0) {
-      using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, const __zz_cib_HANDLE* __zz_cib_param0);
-      return instance().invoke<__zz_cib_copyProc>(
-        __zz_cib_methodid::__zz_cib_copy_0,
-        __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
-        __zz_cib_param0);
-    }
-    static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
-      if (__zz_cib_obj) {
-        using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-        return instance().invoke<__zz_cib_deleteProc>(
-          __zz_cib_methodid::__zz_cib_delete_1,
-          __zz_cib_obj);
-      }
-    }
-    static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Circle* __zz_cib_proxy, double Ox, double Oy, double radius) {
-      using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, double Ox, double Oy, double radius);
-      return instance().invoke<__zz_cib_newProc>(
-        __zz_cib_methodid::__zz_cib_new_2,
-        __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
-        Ox, Oy, radius);
-    }
-    static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
-      using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<AreaProc>(
-        __zz_cib_methodid::Area_3,
+  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::Circle* __zz_cib_proxy, const __zz_cib_HANDLE* __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, const __zz_cib_HANDLE* __zz_cib_param0);
+    return instance().invoke<__zz_cib_copyProc>(
+      __zz_cib_methodid::__zz_cib_copy_0,
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
+      __zz_cib_param0);
+  }
+  static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
+    if (__zz_cib_obj) {
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_deleteProc>(
+        __zz_cib_methodid::__zz_cib_delete_1,
         __zz_cib_obj);
     }
-    static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
-      using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<PerimeterProc>(
-        __zz_cib_methodid::Perimeter_4,
-        __zz_cib_obj);
-    }
-    static void Draw_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
-      using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-      return instance().invoke<DrawProc>(
-        __zz_cib_methodid::Draw_5,
-        __zz_cib_obj,
-        ctx);
-    }
-    static __zz_cib_HANDLE* CreateCircle_6(double Ox, double Oy, double radius) {
-      using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
-      return instance().invoke<CreateCircleProc>(
-        __zz_cib_methodid::CreateCircle_6,
-        Ox, Oy, radius);
-    }
-    static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
-      using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-      return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc>(
-        __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7,
-        __zz_cib_obj);
-    }
-    __zz_cib_Helper()
-      : __zz_cib_::__zz_cib_MethodTableHelper(
-        __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-    {}
-    static const __zz_cib_Helper& instance() {
-      static __zz_cib_Helper helper;
-      return helper;
-    }
+  }
+  static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Circle* __zz_cib_proxy, double Ox, double Oy, double radius) {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, double Ox, double Oy, double radius);
+    return instance().invoke<__zz_cib_newProc>(
+      __zz_cib_methodid::__zz_cib_new_2,
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
+      Ox, Oy, radius);
+  }
+  static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<AreaProc>(
+      __zz_cib_methodid::Area_3,
+      __zz_cib_obj);
+  }
+  static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
+    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<PerimeterProc>(
+      __zz_cib_methodid::Perimeter_4,
+      __zz_cib_obj);
+  }
+  static void Draw_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+    using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
+    return instance().invoke<DrawProc>(
+      __zz_cib_methodid::Draw_5,
+      __zz_cib_obj,
+      ctx);
+  }
+  static __zz_cib_HANDLE* CreateCircle_6(double Ox, double Oy, double radius) {
+    using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
+    return instance().invoke<CreateCircleProc>(
+      __zz_cib_methodid::CreateCircle_6,
+      Ox, Oy, radius);
+  }
+  static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc>(
+      __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7,
+      __zz_cib_obj);
+  }
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+  {}
+  static const __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
 
-    static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-      return new ::Graphics::Circle(h);
+  static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+    return new ::Graphics::Circle(h);
+  }
+public:
+  static ::Graphics::Circle __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::Graphics::Circle(h);
+  }
+static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Circle& __zz_cib_obj) {
+    return __zz_cib_obj.__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Circle* __zz_cib_obj) {
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+    return h;
+  }
+  static void __zz_cib_release_proxy(::Graphics::Circle* __zz_cib_obj) {
+    if (__zz_cib_obj->__zz_cib_h_) {
+      using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_release_proxyProc>(
+        __zz_cib_methodid::__zz_cib_release_proxy_8,
+        __zz_cib_obj->__zz_cib_h_);
     }
-  public:
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Circle* __zz_cib_obj) {
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
-      return h;
-    }
-    static void __zz_cib_release_proxy(::Graphics::Circle* __zz_cib_obj) {
-      if (__zz_cib_obj->__zz_cib_h_) {
-        using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-        return instance().invoke<__zz_cib_release_proxyProc>(
-          __zz_cib_methodid::__zz_cib_release_proxy_8,
-          __zz_cib_obj->__zz_cib_h_);
-      }
-    }
-  };
+  }
+};
 }}}
 
 inline Graphics::Circle::Circle(__zz_cib_::__zz_cib_HANDLE* h)
@@ -106,7 +116,7 @@ inline Graphics::Circle::Circle(Circle&& rhs)
 }
 
 inline Graphics::Circle::Circle(const ::Graphics::Circle& __zz_cib_param0)
-  : Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_copy_0(this, __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Graphics::Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_copy_0(this, __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Graphics::Circle::~Circle() {
@@ -116,7 +126,7 @@ inline Graphics::Circle::~Circle() {
 }
 
 inline Graphics::Circle::Circle(double Ox, double Oy, double radius)
-  : Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_2(this, Ox, Oy, radius))
+  : Graphics::Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_new_2(this, Ox, Oy, radius))
 {}
 
 inline double Graphics::Circle::Area() const {

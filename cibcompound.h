@@ -50,7 +50,7 @@ typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
 using StringVector      = std::vector<std::string>;
 using TemplateArgs      = StringVector;
-using TemplateInstances = std::map<TemplateArgs, const CibCppCompound*>;
+using TemplateInstances = std::map<TemplateArgs, CibCppCompound*>;
 
 enum CibClassPropFlags
 {
@@ -84,7 +84,9 @@ private:
   CibFunctionHelperArray   allVirtuals_; // All virtual methods including that of parent classes.
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
-  TemplateInstances        templateInstances_; ///< Meaningful for template classes only.
+  TemplateInstances        templateInstances_;      ///< Meaningful for template classes only.
+  CibCppCompound*          templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  std::string              nsName_;
 
 public:
   /// @return name of this class.
@@ -92,9 +94,46 @@ public:
   {
     return name_;
   }
+  const std::string& nsName() const
+  {
+    return !nsName_.empty() ? nsName_ : name_;
+  }
+  void setNsName(std::string nsName)
+  {
+    nsName_ = std::move(nsName);
+  }
+  const std::string& ctorName() const
+  {
+    return isTemplateInstance() ? templateClass()->name() : name();
+  }
   std::string longName() const
   {
     return isCppFile() ? "::" : "::" + fullName();
+  }
+  std::string fullNsName() const
+  {
+    if (!isNamespaceLike())
+      return "";
+    if (outer() && outer()->isNamespaceLike())
+      return outer()->fullNsName() + "::" + nsName();
+    else
+      return nsName();
+  }
+  std::string longNsName() const
+  {
+    return isCppFile() ? "::" : "::" + fullNsName();
+  }
+  bool isTemplated() const
+  {
+    return templSpec_ != nullptr;
+  }
+  bool isTemplateInstance() const
+  {
+    return (templateClass_ != nullptr);
+  }
+  CibCppCompound* templateClass() const
+  {
+    return templateClass_;
   }
   bool hasPubliclyDerived() const
   {
@@ -115,31 +154,41 @@ public:
   {
     return cibParams.castToBasePrefix + base->uniqName();
   }
-  /// @return CibId of function that casts to object of parent class
-  std::string cibIdOfCastToBaseName(const CibCppCompound* base, const CibParams& cibParams) const
+  /// @return string that represents a sequence of all wrapping Ns namespaces
+  std::string wrappingNsNamespaceDeclarations(const CibParams& cibParams) const
   {
-    return wrappingNses(cibParams) + "::" + name() + "::kCIBID_" + castToBaseName(base, cibParams);
+    if (outer() == nullptr || outer()->isCppFile())
+      return "namespace __zz_cib_ {";
+    return outer()->wrappingNsNamespaceDeclarations(cibParams) + " namespace " + outer()->nsName() + " {";
+  }
+
+  /// @return sequence of closing braces that closes all wrapping Ns namespace definitions.
+  std::string closingBracesForWrappingNsNamespaces() const
+  {
+    if (outer() == nullptr || outer()->isCppFile())
+      return "}";
+    return outer()->closingBracesForWrappingNsNamespaces() + '}';
   }
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
   {
     if (outer() == nullptr || outer()->isCppFile())
-      return "namespace " + cibParams.cibInternalNamespace + " {";
-    return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
+      return "";
+    if (outer()->isNamespace())
+      return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
+    else
+      return "namespace " + outer()->name() + " {";
   }
-  ///
-  std::string wrappingNses(const CibParams& cibParams) const
-  {
-    if (outer() == nullptr || outer()->isCppFile())
-      return "::" + cibParams.cibInternalNamespace + "::" + cibParams.moduleName;
-    return outer()->wrappingNses(cibParams) + outer()->name();
-  }
+
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
   std::string closingBracesForWrappingNamespaces() const
   {
     if (outer() == nullptr || outer()->isCppFile())
+      return "";
+    if (outer()->isNamespace())
+      return outer()->closingBracesForWrappingNamespaces() + '}';
+    else
       return "}";
-    return outer()->closingBracesForWrappingNamespaces() + '}';
   }
   ///@ return CppObj corresponding to name of a given type
   const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
@@ -153,12 +202,23 @@ public:
   {
     return allVirtuals_;
   }
-  // const CibCppCompound* addTemplateInstance(TemplateArgs templateArgs)
-  // {
-  //   // Only template class can have template-instances.
-  //   assert(templSpec_);
-  //   templateInstances_.insert(std::move(templateArgs));
-  // }
+  void addTemplateInstance(TemplateArgs templateArgs, CibCppCompound* templateInstance = nullptr)
+  {
+    // Only template class can have template-instances.
+    assert(templSpec_);
+    templateInstances_.insert(std::make_pair(std::move(templateArgs), templateInstance));
+  }
+  CibCppCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
+  {
+    // Only template class can have template-instances.
+    assert(templSpec_);
+    auto itr = templateInstances_.find(templateArgs);
+    return (itr == templateInstances_.end()) ? nullptr : itr->second;
+  }
+  CibCppCompound* getTemplateInstantiation(const TemplateArgs&   templateArgs,
+                                           const CibCppCompound* instantiationScope,
+                                           const CibHelper&      helper);
+
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCppCompound* outer() const
   {
@@ -296,6 +356,8 @@ public:
   void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
+  bool forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const;
+  void forEachTemplateInstance(std::function<void(const TemplateArgs&, CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
   CibFunctionHelper            getDtor() const
@@ -438,4 +500,22 @@ inline void CibCppCompound::forEachNested(std::function<void(const CibCppCompoun
     if (mem->isNamespaceLike() && isMemberPublic(mem->prot_, compoundType_))
       callable(static_cast<const CibCppCompound*>(mem));
   }
+}
+
+inline bool CibCppCompound::forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const
+{
+  for (auto mem : members_)
+  {
+    if ((effectiveProtectionLevel(mem->prot_, compoundType_) == prot) && callable(mem))
+      return true;
+  }
+
+  return false;
+}
+
+inline void CibCppCompound::forEachTemplateInstance(
+  std::function<void(const TemplateArgs&, CibCppCompound*)> callable) const
+{
+  for (auto& ins : templateInstances_)
+    callable(ins.first, ins.second);
 }
