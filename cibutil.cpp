@@ -60,3 +60,28 @@ CppVarType* parseType(const std::string& s)
   // TODO implement completely
   return new CppVarType(s);
 }
+
+std::string longName(const CibCppCompound* compound)
+{
+  return compound->longName();
+}
+
+std::string longName(const CppObj* typeObj)
+{
+  switch (typeObj->objType_)
+  {
+    case CppObj::kEnum:
+      return longName(static_cast<const CppEnum*>(typeObj));
+    case CppObj::kTypedefName:
+      return longName(static_cast<const CppTypedefName*>(typeObj));
+    case CppObj::kUsingDecl:
+      return longName(static_cast<const CppUsingDecl*>(typeObj));
+    case CppObj::kFunctionPtr:
+      return longName(static_cast<const CppFunctionPtr*>(typeObj));
+    case CppObj::kCompound:
+      return longName(static_cast<const CibCppCompound*>(typeObj));
+
+    default:
+      return "";
+  }
+}

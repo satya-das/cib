@@ -122,23 +122,9 @@ inline std::string longName(const CppFunctionPtr* fptr)
   return ret;
 }
 
-inline std::string longName(const CppObj* typeObj)
-{
-  switch (typeObj->objType_)
-  {
-    case CppObj::kEnum:
-      return longName(static_cast<const CppEnum*>(typeObj));
-    case CppObj::kTypedefName:
-      return longName(static_cast<const CppTypedefName*>(typeObj));
-    case CppObj::kUsingDecl:
-      return longName(static_cast<const CppUsingDecl*>(typeObj));
-    case CppObj::kFunctionPtr:
-      return longName(static_cast<const CppFunctionPtr*>(typeObj));
+std::string longName(const CibCppCompound* compound);
 
-    default:
-      return "";
-  }
-}
+std::string longName(const CppObj* typeObj);
 
 /*!
  * Parses type declaration.

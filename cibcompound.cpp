@@ -50,6 +50,7 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
           var->baseType_ = longName(resolvedVar);
         }
         substituteVar = var;
+        ++argItr;
       }
       else
       {
@@ -61,7 +62,6 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
       assert(false && "TODO: provide implementation");
     }
 
-    ++argItr;
   }
 
   return templArgSubstitution;

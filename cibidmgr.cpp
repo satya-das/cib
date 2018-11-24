@@ -313,7 +313,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end()) << '\n';
     stm << ++indentation << "//#= FullClassName: " << className << '\n';
     stm << indentation << "enum { __zz_cib_classid = " << cibIdData.getId() << " };\n";
-    stm << --indentation << closingNs(className.begin(), className.end()) << "}\n\n";
+    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}\n\n";
   }
   stm << indentation << "namespace __zz_cib_ { namespace " << cibParams.moduleName << " {\n";
   stm << ++indentation << "enum { __zz_cib_next_class_id = " << nextClassId_ << " };\n";

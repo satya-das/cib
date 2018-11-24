@@ -145,7 +145,7 @@ public:
   /// @return Unique name of this class
   std::string uniqName() const
   {
-    std::string uname = longName();
+    std::string uname = longNsName();
     std::replace(uname.begin(), uname.end(), ':', '_');
     return uname;
   }

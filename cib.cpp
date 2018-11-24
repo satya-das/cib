@@ -786,6 +786,12 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
     {
       auto compound = static_cast<const CibCppCompound*>(mem);
       compound->collectTypeDependencies(helper, cppObjs);
+      if (compound->isTemplated())
+      {
+        compound->forEachTemplateInstance([&](const TemplateArgs&, CibCppCompound* tmplInstance) {
+          tmplInstance->collectTypeDependencies(helper, cppObjs);
+        });
+      }
     }
     else if (mem->isFunctionLike())
     {
@@ -804,7 +810,7 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
       {
         for (auto param : *func.getParams())
         {
-          if (param.cppObj->objType_ == kVarType)
+          if ((param.cppObj->objType_ == kVarType) || (param.cppObj->objType_ == kVar))
             addDependency(param.varObj->baseType());
         }
       }

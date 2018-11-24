@@ -63,7 +63,7 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
   {
-    return resolveTypename(name, typeNode, true);
+    return resolveTypename(name, typeNode);
   }
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
@@ -73,10 +73,13 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
   {
-    return resolveTypename(name, begScope, true);
+    return resolveTypename(name, begScope);
   }
 
   void onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const;
+
+  CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
+  CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
 
 private:
   void resolveInheritance(CibCppCompound* cppCompound);
@@ -95,8 +98,8 @@ private:
    */
   void evaluateReturnType(const CibFunctionHelper& func);
 
-  CppObj* resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode, bool updateTemplateInsances) const;
-  CppObj* resolveTypename(const std::string& name, const CppCompound* begScope, bool updateTemplateInsances) const;
+  CppObj* resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode) const;
+  CppObj* resolveTypename(const std::string& name, const CppCompound* begScope) const;
 
 private:
   bool cibCppObjTreeCreated_;
