@@ -1,4 +1,5 @@
 #include "circ.h"
+#include "context.h"
 #include "shape.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {

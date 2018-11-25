@@ -131,3 +131,13 @@ std::string longName(const CppObj* typeObj);
  * It is intended to parse types that can be used as template arguments.
  */
 CppVarType* parseType(const std::string& s);
+
+//! https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGNzdGRpbz4KI2luY2x1ZGUgPHZlY3Rvcj4KCnRlbXBsYXRlPHR5cGVuYW1lIFQ+CnZvaWQgZihjb25zdCBUKikgLy8xLCAwYjAxCnsKfQoKaW50IG1haW4oKQp7CiAgZjxjb25zdCBpbnQqPigwKTsgLy8xLCAwYjAxCiAgLy8gdm9pZCBmPGNvbnN0IGludCAqPihjb25zdCBpbnQgKmNvbnN0ICopCiAgLy8gMiwgMGIxMQogIGY8Y29uc3QgaW50Kio+KDApOyAvLzIsIDBiMDEKICAvLyB2b2lkIGY8Y29uc3QgaW50ICoqPihjb25zdCBpbnQgKipjb25zdCAqKQogIC8vIDMsIDBiMTAxCn0K&rev=1.0
+inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier, const CppTypeModifier& templateArg)
+{
+  return CppTypeModifier{
+    (templateArg.refType_ > paramModifier.refType_) ? templateArg.refType_ : paramModifier.refType_,
+    static_cast<uint8_t>(paramModifier.ptrLevel_ + templateArg.ptrLevel_),
+    static_cast<uint8_t>(paramModifier.constBits_ | (templateArg.constBits_ << templateArg.ptrLevel_))
+  };
+}

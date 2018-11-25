@@ -1,4 +1,5 @@
 #include "circ.h"
+#include "context.h"
 #include "shape.h"
 
 #include "__zz_cib_Graphics-ids.h"

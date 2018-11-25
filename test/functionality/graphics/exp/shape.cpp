@@ -1,5 +1,6 @@
 #include "circ.h"
 #include "composite.h"
+#include "context.h"
 #include "ellipse.h"
 #include "rect.h"
 #include "shape.h"

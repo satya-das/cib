@@ -1,3 +1,4 @@
+#include "context.h"
 #include "rect.h"
 
 #include "__zz_cib_Graphics-ids.h"

@@ -1,4 +1,5 @@
 #include "composite.h"
+#include "context.h"
 #include "shape.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_Generic {

@@ -1,3 +1,4 @@
+#include "context.h"
 #include "ellipse.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
