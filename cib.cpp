@@ -37,7 +37,7 @@
 
 static CppWriter gCppWriter;
 
-inline void emitType(std::ostream&         stm,
+static void emitType(std::ostream&         stm,
                      const CppVarType*     typeObj,
                      const CibCppCompound* typeResolver,
                      const CibHelper&      helper,
@@ -51,7 +51,7 @@ inline void emitType(std::ostream&         stm,
   auto* resolvedType =
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
-  bool isConst      = typeObj->typeAttr_ & kConst;
+  bool isConst      = typeObj->isConst();
   bool emitHandle   = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
   bool convertToPtr = (purpose & kPurposeGlueCode) && (purpose != kPurposeGenericProxy);
   bool byValToPtr   = resolvedType && convertToPtr && typeObj->isByValue();
@@ -1153,7 +1153,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   {
     auto ctorProtection = kPublic;
     auto paramType      = new CppVarType(name(), CppTypeModifier{kByRef});
-    paramType->typeAttr_ |= kConst;
+    paramType->typeModifier_.constBits_ |= 1;
     auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamList;
     paramList->push_back({param});

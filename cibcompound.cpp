@@ -61,7 +61,6 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
     {
       assert(false && "TODO: provide implementation");
     }
-
   }
 
   return templArgSubstitution;
@@ -69,22 +68,96 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
 
 static std::string stringify(const CppVarType* varType)
 {
-  // TODO: provide complete implementation
-  return varType->baseType();
+  std::string ret = varType->baseType();
+  for (auto ptrLevel = varType->typeModifier_.ptrLevel_; ptrLevel--;)
+  {
+    if (varType->typeModifier_.constBits_ & (1 << ptrLevel))
+      ret += " const ";
+    ret += '*';
+  }
+  if (varType->typeModifier_.constBits_ & (1 << varType->typeModifier_.ptrLevel_))
+    ret += " const";
+  if (varType->refType() == kByRef)
+    ret += "&";
+  else if (varType->refType() == kRValRef)
+    ret += "&&";
+  return ret;
+}
+
+std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
+                                          size_t                     b,
+                                          size_t                     e,
+                                          const TemplateArgValueMap& argValues)
+{
+  assert((s[b] == '<') && (b < e));
+  auto jumpToArgStart = [&]() {
+    while ((++b < e) && isspace(s[b]))
+      ;
+    return b;
+  };
+  auto extractArg = [&s](size_t b, size_t e) {
+    while (isspace(s[--e]))
+      ;
+    ++e;
+    return s.substr(b, e - b);
+  };
+  auto replacedParam = [&](const std::string& param) {
+    auto itr = argValues.find(param);
+    if (itr == argValues.end())
+      return param;
+    else
+      return stringify(itr->second);
+  };
+  std::string ret = "<";
+  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
+  {
+    if (s[b] == '<')
+    {
+      ret += s[b];
+      ++nestedTemplateArg;
+    }
+    else if (s[b] == '>')
+    {
+      auto param = extractArg(argStart, b);
+      ret += replacedParam(param);
+      ret += s[b];
+      if (nestedTemplateArg)
+        --nestedTemplateArg;
+      else
+        return ret;
+    }
+    else if ((nestedTemplateArg == 0) && s[b] == ',')
+    {
+      auto param = extractArg(argStart, b);
+      ret += replacedParam(param);
+      ret += ", ";
+      argStart = jumpToArgStart();
+    }
+  }
+
+  assert(false && "We should never ever be here.");
+  return ret;
 }
 
 static CppVarType* instantiateVarType(const CppVarType* varType, const TemplateArgValueMap& argValues)
 {
-  auto itr = argValues.find(varType->baseType());
+  auto baseType = varType->baseType();
+  auto itr      = argValues.find(baseType);
   if (itr == argValues.end())
   {
-    return new CppVarType(*varType);
+    auto templStart = baseType.find('<');
+    if (templStart != baseType.npos)
+      baseType = baseType.substr(0, templStart)
+                 + ReplaceTemplateParamsWithArgs(baseType, templStart, baseType.length(), argValues);
+    return new CppVarType(baseType, varType->typeModifier_);
+  }
+  else
+  {
+    baseType = itr->second->baseType();
   }
 
-  auto typeModifier = varType->typeModifier_;
-  typeModifier.ptrLevel_ += itr->second->typeModifier_.ptrLevel_;
-  auto ret       = new CppVarType(itr->second->baseType(), typeModifier);
-  ret->typeAttr_ = itr->second->typeAttr_ | varType->typeAttr_;
+  auto typeModifier = resolveTypeModifier(varType->typeModifier_, itr->second->typeModifier_);
+  auto ret          = new CppVarType(baseType, typeModifier);
   return ret;
 }
 

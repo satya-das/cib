@@ -97,6 +97,7 @@ void CibHelper::onNewCompound(const CibCppCompound* compound, const CibCppCompou
 
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
 {
+  normalizeConst(varType);
   auto* cppObj = resolveTypename(varType->baseType(), typeNode);
   if (cppObj == nullptr)
     return nullptr;
@@ -113,8 +114,7 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
   return cppObj;
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name,
-                                   const CppCompound* begScope) const
+CppObj* CibHelper::resolveTypename(const std::string& name, const CppCompound* begScope) const
 {
   return resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope));
 }
@@ -140,8 +140,7 @@ void CibHelper::buildCibCppObjTree()
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
 }
 
-CppObj* CibHelper::resolveTypename(const std::string&     name,
-                                   const CppTypeTreeNode* startNode) const
+CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
 {
   auto templateArgStart = name.find('<');
   auto typeNode         = [&]() {
