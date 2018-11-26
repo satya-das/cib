@@ -92,4 +92,6 @@ if(${MARKDOWN_PP} NOT MATCHES "MARKDOWN_PP-NOTFOUND")
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 	add_dependencies(ReadMe example1_client example2_client DiffsForReadMe)
+else()
+  message("Markdown-pp NOT FOUND")
 endif()
