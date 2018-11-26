@@ -6,16 +6,24 @@
 namespace Example
 {
   template <typename _T>
-  class Template  
+  class Number  
 {
   public:
-    Template(_T x)
+    Number(_T x)
       : x_(x)
     {
     }
-    _T GetX() const
+    _T GetValue() const
     {
       return x_;
+    }
+    void SetValue(_T x)
+    {
+      x_ = x;
+    }
+    void Add(Number<_T> num)
+    {
+      x_ += num.x_;
     }
   private:
     _T x_;
@@ -28,8 +36,8 @@ namespace Example
     A(const A& );
     ~A();
     A();
-    void Set(const Template<int>& x);
-    const Template<int>& Get() const;
+    void Set(const Number<int>& x);
+    Number<int> Get() const;
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);

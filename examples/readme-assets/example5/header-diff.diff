@@ -1,6 +1,6 @@
---- pub/example.h	2018-11-22 09:24:25.971780510 +0100
-+++ exp/example.h	2018-11-24 02:37:52.224596659 +0100
-@@ -1,40 +1,39 @@
+--- pub/example.h	2018-11-26 09:47:20.272564577 +0100
++++ exp/example.h	2018-11-26 18:30:10.843781962 +0100
+@@ -1,48 +1,47 @@
  #pragma once
  
 -//! Contains example definitions to explain cib's functioning
@@ -11,16 +11,24 @@
 +namespace Example
 +{
  template <typename _T>
- class Template
+ class Number
  {
  public:
-   Template(_T x)
+   Number(_T x)
      : x_(x)
    {
    }
-   _T GetX() const
+   _T GetValue() const
    {
      return x_;
+   }
+   void SetValue(_T x)
+   {
+     x_ = x;
+   }
+   void Add(Number<_T> num)
+   {
+     x_ += num.x_;
    }
 -
  private:
@@ -39,15 +47,15 @@
 +    A(const A& );
 +    ~A();
 +    A();
-   void                 Set(const Template<int>& x);
--  const Template<int>& Get() const
+   void        Set(const Number<int>& x);
+-  Number<int> Get() const
 -  {
 -    return x_;
 -  }
-+    const Template<int>& Get() const;
++    Number<int> Get() const;
  
  private:
--  Template<int> x_;
+-  Number<int> x_;
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
  };
 +}

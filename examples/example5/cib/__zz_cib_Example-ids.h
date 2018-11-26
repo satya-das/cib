@@ -8,7 +8,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
-  //#= FullClassName: ::Example::Template<int>
+  //#= FullClassName: ::Example::Number<int>
   enum { __zz_cib_classid = 1 };
 }}}
 
@@ -24,9 +24,9 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     __zz_cib_delete_1 = 1,
     //#= A();
     __zz_cib_new_2 = 2,
-    //#= void Set(const ::Example::Template<int>&);
+    //#= void Set(const ::Example::Number<int>&);
     Set_3 = 3,
-    //#= const ::Example::Template<int>& Get() const;
+    //#= ::Example::Number<int> Get() const;
     Get_4 = 4,
     __zz_cib_next_method_id = 5
   };
@@ -34,15 +34,19 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { namespace __zz_cib_methodid {
   enum {
-    //#= Template(const ::Example::Template<int>&);
+    //#= Number(const ::Example::Number<int>&);
     __zz_cib_new_0 = 0,
-    //#= ~Template();
+    //#= ~Number();
     __zz_cib_delete_1 = 1,
-    //#= Template(int);
+    //#= Number(int);
     __zz_cib_new_2 = 2,
-    //#= int GetX() const;
-    GetX_3 = 3,
-    __zz_cib_next_method_id = 4
+    //#= int GetValue() const;
+    GetValue_3 = 3,
+    //#= void SetValue(int);
+    SetValue_4 = 4,
+    //#= void Add(::Example::Number<int>);
+    Add_5 = 5,
+    __zz_cib_next_method_id = 6
   };
 }}}}
 

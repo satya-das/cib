@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void Example::A::Set(const Template<int>& x)
+void Example::A::Set(const Number<int>& x)
 {
   x_ = x;
 }
