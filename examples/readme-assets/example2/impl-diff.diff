@@ -1,5 +1,5 @@
---- ../example1/exp/__zz_cib_internal/example-impl.h	2018-11-26 18:30:10.843781962 +0100
-+++ exp/__zz_cib_internal/example-impl.h	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/exp/__zz_cib_internal/example-impl.h
++++ exp/__zz_cib_internal/example-impl.h
 @@ -29,6 +29,12 @@
          __zz_cib_obj);
      }

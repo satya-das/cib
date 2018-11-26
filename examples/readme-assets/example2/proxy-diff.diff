@@ -1,5 +1,5 @@
---- ../example1/exp/example.h	2018-11-26 18:30:10.843781962 +0100
-+++ exp/example.h	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/exp/example.h
++++ exp/example.h
 @@ -1,27 +1,45 @@
  #pragma  once
  

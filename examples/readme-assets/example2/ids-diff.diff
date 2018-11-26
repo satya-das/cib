@@ -1,5 +1,5 @@
---- ../example1/cib/__zz_cib_Example-ids.h	2018-11-26 18:30:10.843781962 +0100
-+++ cib/__zz_cib_Example-ids.h	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/cib/__zz_cib_Example-ids.h
++++ cib/__zz_cib_Example-ids.h
 @@ -7,8 +7,13 @@
    enum { __zz_cib_classid = 1 };
  }}}
