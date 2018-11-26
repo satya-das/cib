@@ -175,38 +175,35 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     auto* resolvedCppObj = getOwner()->resolveTypeName(param.varObj->baseType(), helper);
     auto* resolvedType =
       resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
-    if (resolvedType)
+    switch (callType)
     {
-      switch (callType)
-      {
-        case CallType::kFromHandle:
+      case CallType::kFromHandle:
+        if (resolvedType)
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
-          emitParamName(stm, param.varObj, i);
+        emitParamName(stm, param.varObj, i);
+        if (resolvedType)
           stm << ")";
-          break;
-        case CallType::kToHandle:
+        break;
+      case CallType::kToHandle:
+        if (resolvedType)
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
-          emitParamName(stm, param.varObj, i);
+        emitParamName(stm, param.varObj, i);
+        if (resolvedType)
           stm << ")";
-          break;
-        case CallType::kDerefIfByVal:
-          if (param.varObj->isByValue() || param.varObj->isByRef())
-            stm << '*';
-          emitParamName(stm, param.varObj, i);
-          break;
-        case CallType::kRefIfByVal:
-          if (param.varObj->isByValue())
-            stm << '&';
-          emitParamName(stm, param.varObj, i);
-          break;
-        case CallType::kAsIs:
-          emitParamName(stm, param.varObj, i);
-          break;
-      }
-    }
-    else
-    {
-      emitParamName(stm, param.varObj, i);
+        break;
+      case CallType::kDerefIfByVal:
+        if ((resolvedType && param.varObj->isByValue()) || param.varObj->isByRef())
+          stm << '*';
+        emitParamName(stm, param.varObj, i);
+        break;
+      case CallType::kRefIfByVal:
+        if (resolvedType && param.varObj->isByValue())
+          stm << '&';
+        emitParamName(stm, param.varObj, i);
+        break;
+      case CallType::kAsIs:
+        emitParamName(stm, param.varObj, i);
+        break;
     }
   }
 }
