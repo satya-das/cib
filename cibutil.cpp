@@ -26,6 +26,7 @@
 #include "cibhelper.h"
 
 #include "cppdom.h"
+#include "cppparser.h"
 
 #include <cctype>
 
@@ -45,20 +46,31 @@ std::string VarTypeResolver::operator()(const std::string& typeName) const
   return isHandle_ ? "__zz_cib::HANDLE" : "::" + resolvedType->fullName();
 }
 
-// static auto extractIdentifierName(std::string::iterator b, std::string::iterator e)
-// {
-//   while ((b != e) && std::isspace(*b))
-//     ++b;
-// }
-
-CppVarType* parseType(const std::string& s)
+CppVarType* parseType(std::string s)
 {
-  // auto constType = s.compare(0, 6, "const ") == 0;
-  // auto b         = constType ? s.begin() + 6 : s.begin();
-  // auto id = extractIdentifierName(b, s.end());
-
-  // TODO implement completely
-  return new CppVarType(s);
+  CppVarType*  ret      = nullptr;
+  CppCompound* compound = nullptr;
+  do
+  {
+    CppParser parser;
+    s += " DummyVar;";
+    s += '\0';
+    s += '\0';
+    compound = parser.parseStream(&s[0], s.size());
+    if (compound == nullptr)
+      break;
+    if (compound->members_.empty())
+      break;
+    if (compound->members_.front()->objType_ != CppObj::kVar)
+      break;
+    auto* var = static_cast<CppVar*>(compound->members_.front());
+    compound->members_.erase(compound->members_.begin());
+    ret           = var->varType_;
+    var->varType_ = nullptr;
+    delete var;
+  } while (false);
+  delete compound;
+  return ret;
 }
 
 std::string longName(const CibCppCompound* compound)
