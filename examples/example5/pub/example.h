@@ -19,7 +19,7 @@ public:
   {
     x_ = x;
   }
-  void Add(Number<_T> num)
+  void Add(const Number<_T>& num)
   {
     x_ += num.x_;
   }

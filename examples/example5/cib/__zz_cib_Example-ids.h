@@ -44,7 +44,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { namespace 
     GetValue_3 = 3,
     //#= void SetValue(int);
     SetValue_4 = 4,
-    //#= void Add(::Example::Number<int>);
+    //#= void Add(const ::Example::Number<int>&);
     Add_5 = 5,
     __zz_cib_next_method_id = 6
   };

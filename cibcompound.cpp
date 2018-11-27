@@ -139,8 +139,9 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
   return ret;
 }
 
-static CppVarType* instantiateVarType(const CppVarType* varType, const TemplateArgValueMap& argValues)
+static CppVarType* instantiateVarType(CppVarType* varType, const TemplateArgValueMap& argValues)
 {
+  normalizeConst(varType);
   auto baseType = varType->baseType();
   auto itr      = argValues.find(baseType);
   if (itr == argValues.end())
@@ -161,7 +162,7 @@ static CppVarType* instantiateVarType(const CppVarType* varType, const TemplateA
   return ret;
 }
 
-static CppParamList* instantiateParams(const CppParamList* params, const TemplateArgValueMap& argValues)
+static CppParamList* instantiateParams(CppParamList* params, const TemplateArgValueMap& argValues)
 {
   if (!params)
     return nullptr;

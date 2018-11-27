@@ -138,7 +138,7 @@ inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier,
   return CppTypeModifier{
     (templateArg.refType_ > paramModifier.refType_) ? templateArg.refType_ : paramModifier.refType_,
     static_cast<uint8_t>(paramModifier.ptrLevel_ + templateArg.ptrLevel_),
-    static_cast<uint8_t>(paramModifier.constBits_ | (templateArg.constBits_ << templateArg.ptrLevel_))};
+    static_cast<uint8_t>(templateArg.constBits_ | (paramModifier.constBits_ << templateArg.ptrLevel_))};
 }
 
 inline void normalizeConst(CppVarType* varType)

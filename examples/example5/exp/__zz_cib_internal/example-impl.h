@@ -87,7 +87,7 @@ public:
   Number(int x);
   int GetValue() const;
   void SetValue(int x);
-  void Add(Number<int> num);
+  void Add(const Number<int>& num);
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Number, Example::__zz_cib_Class1);
@@ -134,8 +134,8 @@ private:
       __zz_cib_obj,
       x);
   }
-  static void Add_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* num) {
-    using AddProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* num);
+  static void Add_5(__zz_cib_HANDLE* __zz_cib_obj, const __zz_cib_HANDLE* num) {
+    using AddProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, const __zz_cib_HANDLE* num);
     return instance().invoke<AddProc>(
       __zz_cib_methodid::Add_5,
       __zz_cib_obj,
@@ -202,7 +202,7 @@ inline void Example::Number<int>::SetValue(int x) {
   __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::SetValue_4(__zz_cib_h_, x);
 }
 
-inline void Example::Number<int>::Add(::Example::Number<int> num) {
+inline void Example::Number<int>::Add(const ::Example::Number<int>& num) {
   __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::Add_5(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_handle(num));
 }
 

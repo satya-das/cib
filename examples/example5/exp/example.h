@@ -21,7 +21,7 @@ namespace Example
     {
       x_ = x;
     }
-    void Add(Number<_T> num)
+    void Add(Number<_T> const& num)
     {
       x_ += num.x_;
     }
