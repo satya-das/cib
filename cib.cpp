@@ -528,8 +528,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     }
     return false;
   }();
-  if (byValueObj)
-    stm << "*(";
+  if (byValueObj || (genericProxy && returnType() && returnType()->isByRef()))
+    stm << "*";
   stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ">(\n";
   stm << ++indentation;
   if (genericProxy)
@@ -551,8 +551,6 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     stm << indentation;
     emitArgsForCall(stm, helper, cibParams, genericProxy ? CallType::kRefIfByVal : CallType::kToHandle);
   }
-  if (byValueObj)
-    stm << ')';
   stm << ");\n";
   --indentation;
   stm << --indentation << "}\n";
