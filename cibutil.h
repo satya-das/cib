@@ -143,7 +143,7 @@ inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier,
 
 inline void normalizeConst(CppVarType* varType)
 {
-  if (varType->typeAttr_ & kConst)
+  if ((varType->typeAttr_ & kConst) && varType->ptrLevel())
   {
     varType->typeModifier_.constBits_ |= 1;
     varType->typeAttr_ ^= kConst;

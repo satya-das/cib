@@ -28,6 +28,8 @@
 
 using TemplateArgValueMap = std::map<std::string, const CppVarType*>;
 
+static CppVarType* instantiateVarType(CppVarType* varType, const TemplateArgValueMap& argValues);
+
 static TemplateArgValueMap resolveArguments(const TemplateArgs&          templateArgs,
                                             const CppTemplateParamListP& templSpec,
                                             const CibCppCompound*        instantiationScope,
@@ -40,7 +42,7 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
   {
     if (!templParam->paramType_)
     {
-      auto& substituteVar = templArgSubstitution[templParam->paramName_];
+      const CppVarType* substituteVar = nullptr;
       if (argItr != templateArgs.end())
       {
         auto* var         = parseType(*argItr);
@@ -54,8 +56,10 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
       }
       else
       {
-        substituteVar = static_cast<const CppVarType*>(templParam->defaultParam_.get());
+        substituteVar = instantiateVarType(static_cast<CppVarType*>(templParam->defaultParam_.get()), templArgSubstitution);
       }
+
+      templArgSubstitution[templParam->paramName_] = substituteVar;
     }
     else
     {
@@ -109,24 +113,27 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
       return stringify(itr->second);
   };
   std::string ret = "<";
-  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
+  for (size_t argStart = jumpToArgStart(); ++b <= e;)
   {
-    if (s[b] == '<')
+    if (b == e)
     {
-      ret += s[b];
-      ++nestedTemplateArg;
+      for (auto i = argStart; i <= b; ++i)
+        ret += s[i];
+    }
+    else if (s[b] == '<')
+    {
+      for (auto i = argStart; i <= b; ++i)
+        ret += s[i];
+      argStart = jumpToArgStart();
     }
     else if (s[b] == '>')
     {
       auto param = extractArg(argStart, b);
       ret += replacedParam(param);
       ret += s[b];
-      if (nestedTemplateArg)
-        --nestedTemplateArg;
-      else
-        return ret;
+      argStart = jumpToArgStart();
     }
-    else if ((nestedTemplateArg == 0) && s[b] == ',')
+    else if (s[b] == ',')
     {
       auto param = extractArg(argStart, b);
       ret += replacedParam(param);
@@ -135,7 +142,6 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
     }
   }
 
-  assert(false && "We should never ever be here.");
   return ret;
 }
 

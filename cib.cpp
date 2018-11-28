@@ -58,7 +58,7 @@ static void emitType(std::ostream&         stm,
   if (byValToPtr && !emitHandle)
     isConst = true;
 
-  if (isConst)
+  if (isConst && !typeObj->ptrLevel())
     stm << "const ";
   if (resolvedType != nullptr)
   {
@@ -87,7 +87,11 @@ static void emitType(std::ostream&         stm,
     }
   }
   for (unsigned short i = 0; i < typeObj->ptrLevel(); ++i)
+  {
+    if (typeObj->typeModifier_.constBits_ & (1 << i))
+      stm << " const ";
     stm << '*';
+  }
   if (typeObj->refType() == kByRef)
   {
     if (convertToPtr)
