@@ -192,9 +192,20 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ")";
         break;
       case CallType::kDerefIfByVal:
-        if ((resolvedType && param.varObj->isByValue()) || param.varObj->isByRef())
+        if (resolvedType && param.varObj->isByValue())
+        {
           stm << '*';
+        }
+        else
+        {
+          if (param.varObj->isByRef())
+            stm << '*';
+          else if (param.varObj->isByRValueRef())
+            stm << "std::move(*";
+        }
         emitParamName(stm, param.varObj, i);
+        if (param.varObj->isByRValueRef())
+          stm << ')';
         break;
       case CallType::kRefIfByVal:
         if (resolvedType && param.varObj->isByValue())
