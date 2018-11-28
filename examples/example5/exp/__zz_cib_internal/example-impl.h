@@ -101,10 +101,10 @@ private:
   friend class ::Example::Number<int>;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Example::Number<int>, __zz_cib_Helper>;
 
-  static __zz_cib_HANDLE* __zz_cib_new_0(const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
-    return instance().invoke<__zz_cib_newProc>(
-      __zz_cib_methodid::__zz_cib_new_0,
+  static __zz_cib_HANDLE* __zz_cib_copy_0(const __zz_cib_HANDLE* __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
+    return instance().invoke<__zz_cib_copyProc>(
+      __zz_cib_methodid::__zz_cib_copy_0,
       __zz_cib_param0);
   }
   static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -182,7 +182,7 @@ inline Example::Number<int>::Number(Number<int>&& rhs)
 }
 
 inline Example::Number<int>::Number(const ::Example::Number<int>& __zz_cib_param0)
-  : Example::Number<int>(__zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_new_0(__zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Example::Number<int>(__zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::Number<int>::~Number() {

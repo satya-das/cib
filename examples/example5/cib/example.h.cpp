@@ -5,7 +5,7 @@
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
-static ::Example::Number<int>* __zz_cib_decl __zz_cib_new_0(const ::Example::Number<int>* __zz_cib_param0) {
+static ::Example::Number<int>* __zz_cib_decl __zz_cib_copy_0(const ::Example::Number<int>* __zz_cib_param0) {
   return new ::Example::Number<int>(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Example::Number<int>* __zz_cib_obj) {
@@ -46,7 +46,7 @@ static const ::Example::Number<int>* __zz_cib_decl Get_4(const ::Example::A* __z
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_copy_0),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&GetValue_3),

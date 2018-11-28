@@ -35,7 +35,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { namespace __zz_cib_methodid {
   enum {
     //#= Number(const ::Example::Number<int>&);
-    __zz_cib_new_0 = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~Number();
     __zz_cib_delete_1 = 1,
     //#= Number(int);
