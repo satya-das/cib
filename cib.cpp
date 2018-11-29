@@ -1507,8 +1507,11 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
   for (auto ctor : ctors())
   {
     CibFunctionHelper func = ctor;
-    func.emitGenericProxyDefn(
-      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+    if (!isMemberPrivate(ctor->prot_, compoundType_))
+    {
+      func.emitGenericProxyDefn(
+        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+    }
   }
   for (auto func : allVirtuals_)
     func.emitGenericProxyDefn(
