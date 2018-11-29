@@ -103,12 +103,18 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
     return nullptr;
   if (cppObj->objType_ == CppObj::kTypedefName)
   {
+    // TODO: We need to resolve typedefs fully only if it resolves to conpound object uniquely.
+    // For cases when typedef uses non-compound types we need to know ptr and ref only.
     auto* typedefObj = static_cast<CppTypedefName*>(cppObj);
-    varType->typeModifier_.ptrLevel_ += typedefObj->var_->ptrLevel();
-    if (typedefObj->var_->refType() != kNoRef)
-      varType->typeModifier_.refType_ = typedefObj->var_->refType();
-    varType->baseType_ = typedefObj->var_->baseType();
-    return resolveVarType(varType, typeNode);
+    auto* finalResolvedObj = resolveTypename(typedefObj->var_->baseType(), typeNode);
+    if (finalResolvedObj && finalResolvedObj->isClassLike())
+    {
+      varType->typeModifier_.ptrLevel_ += typedefObj->var_->ptrLevel();
+      if (typedefObj->var_->refType() != kNoRef)
+        varType->typeModifier_.refType_ = typedefObj->var_->refType();
+      varType->baseType_ = typedefObj->var_->baseType();
+        return finalResolvedObj;
+    }
   }
 
   return cppObj;

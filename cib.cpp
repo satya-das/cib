@@ -212,7 +212,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ')';
         break;
       case CallType::kRefIfByVal:
-        if (resolvedType && param.varObj->isByValue())
+        if ((resolvedType && param.varObj->isByValue()) || param.varObj->isByRef())
           stm << '&';
         emitParamName(stm, param.varObj, i);
         break;
