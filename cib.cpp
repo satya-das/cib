@@ -806,11 +806,8 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
     {
       auto addDependency = [&](const std::string& typeName) {
         auto* resolvedCppObj = resolveTypeName(typeName, helper);
-        auto* resolvedType   = resolvedCppObj && resolvedCppObj->isClassLike()
-                               ? static_cast<const CibCppCompound*>(resolvedCppObj)
-                               : nullptr;
-        if (resolvedType)
-          cppObjs.insert(resolvedType);
+        if (resolvedCppObj)
+          cppObjs.insert(resolvedCppObj);
       };
       CibFunctionHelper func(mem);
       if (func.returnType() && !func.returnType()->isVoid())
