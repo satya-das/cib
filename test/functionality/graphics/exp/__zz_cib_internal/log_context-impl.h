@@ -11,8 +11,8 @@ private:
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::LogContext, __zz_cib_Helper>;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
 
-  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::LogContext* __zz_cib_proxy, const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::LogContext*, const __zz_cib_MethodTable*, const __zz_cib_HANDLE* __zz_cib_param0);
+  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::LogContext* __zz_cib_proxy, __zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::LogContext*, const __zz_cib_MethodTable*, __zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc>(
       __zz_cib_methodid::__zz_cib_copy_0,
       __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
@@ -117,7 +117,7 @@ inline Graphics::LogContext::LogContext(LogContext&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-inline Graphics::LogContext::LogContext(const ::Graphics::LogContext& __zz_cib_param0)
+inline Graphics::LogContext::LogContext(::Graphics::LogContext const & __zz_cib_param0)
   : Graphics::LogContext(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_copy_0(this, __zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 

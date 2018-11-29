@@ -15,7 +15,7 @@ namespace Graphics
   public:
     Rectangle(Rectangle&& rhs);
   public:
-    Rectangle(const Rectangle& );
+    Rectangle(Rectangle const & );
     ~Rectangle();
     Rectangle(double left, double bottom, double right, double top);
     virtual double Area() const;

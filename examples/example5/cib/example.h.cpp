@@ -5,7 +5,7 @@
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
-static ::Example::Number<int>* __zz_cib_decl __zz_cib_copy_0(const ::Example::Number<int>* __zz_cib_param0) {
+static ::Example::Number<int>* __zz_cib_decl __zz_cib_copy_0(::Example::Number<int> const * __zz_cib_param0) {
   return new ::Example::Number<int>(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Example::Number<int>* __zz_cib_obj) {
@@ -20,13 +20,13 @@ static int __zz_cib_decl GetValue_3(const ::Example::Number<int>* __zz_cib_obj) 
 static void __zz_cib_decl SetValue_4(::Example::Number<int>* __zz_cib_obj, int x) {
   __zz_cib_obj->::Example::Number<int>::SetValue(x);
 }
-static void __zz_cib_decl Add_5(::Example::Number<int>* __zz_cib_obj, const ::Example::Number<int>* num) {
+static void __zz_cib_decl Add_5(::Example::Number<int>* __zz_cib_obj, ::Example::Number<int> const * num) {
   __zz_cib_obj->::Example::Number<int>::Add(*num);
 }
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {
-static ::Example::A* __zz_cib_decl __zz_cib_copy_0(const ::Example::A* __zz_cib_param0) {
+static ::Example::A* __zz_cib_decl __zz_cib_copy_0(::Example::A const * __zz_cib_param0) {
   return new ::Example::A(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Example::A* __zz_cib_obj) {
@@ -35,10 +35,10 @@ static void __zz_cib_decl __zz_cib_delete_1(::Example::A* __zz_cib_obj) {
 static ::Example::A* __zz_cib_decl __zz_cib_new_2() {
   return new ::Example::A();
 }
-static void __zz_cib_decl Set_3(::Example::A* __zz_cib_obj, const ::Example::Number<int>* x) {
+static void __zz_cib_decl Set_3(::Example::A* __zz_cib_obj, ::Example::Number<int> const * x) {
   __zz_cib_obj->::Example::A::Set(*x);
 }
-static const ::Example::Number<int>* __zz_cib_decl Get_4(const ::Example::A* __zz_cib_obj) {
+static ::Example::Number<int>* __zz_cib_decl Get_4(const ::Example::A* __zz_cib_obj) {
   return new ::Example::Number<int>(__zz_cib_obj->::Example::A::Get());
 }
 }}}

@@ -83,7 +83,7 @@ namespace __zz_cib_ { namespace Graphics {
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib_methodid {
   enum {
-    //#= Circle(const ::Graphics::Circle&);
+    //#= Circle(::Graphics::Circle const &);
     __zz_cib_copy_0 = 0,
     //#= ~Circle();
     __zz_cib_delete_1 = 1,
@@ -121,7 +121,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle { namespace __zz_cib
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite { namespace __zz_cib_methodid {
   enum {
-    //#= Composite(const ::Graphics::Composite&);
+    //#= Composite(::Graphics::Composite const &);
     __zz_cib_copy_0 = 0,
     //#= ~Composite();
     __zz_cib_delete_1 = 1,
@@ -205,7 +205,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_ci
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_cib_methodid {
   enum {
-    //#= Ellipse(const ::Graphics::Ellipse&);
+    //#= Ellipse(::Graphics::Ellipse const &);
     __zz_cib_copy_0 = 0,
     //#= ~Ellipse();
     __zz_cib_delete_1 = 1,
@@ -241,7 +241,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Ellipse { namespace __zz_ci
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz_cib_methodid {
   enum {
-    //#= LogContext(const ::Graphics::LogContext&);
+    //#= LogContext(::Graphics::LogContext const &);
     __zz_cib_copy_0 = 0,
     //#= LogContext();
     __zz_cib_new_1 = 1,
@@ -281,7 +281,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext { namespace __zz
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle { namespace __zz_cib_methodid {
   enum {
-    //#= Rectangle(const ::Graphics::Rectangle&);
+    //#= Rectangle(::Graphics::Rectangle const &);
     __zz_cib_copy_0 = 0,
     //#= ~Rectangle();
     __zz_cib_delete_1 = 1,
@@ -351,7 +351,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 
 namespace __zz_cib_ { namespace Point { namespace __zz_cib_methodid {
   enum {
-    //#= Point(const ::Point&);
+    //#= Point(::Point const &);
     __zz_cib_copy_0 = 0,
     //#= ~Point();
     __zz_cib_delete_1 = 1,
@@ -365,7 +365,7 @@ namespace __zz_cib_ { namespace Point { namespace __zz_cib_methodid {
     Y_5 = 5,
     //#= void Y(double);
     Y_6 = 6,
-    //#= ::Point operator +(const ::Point&) const;
+    //#= ::Point operator +(::Point const &) const;
     __zz_cib_OperatorPlus_7 = 7,
     //#= ::Point operator -(::Point) const;
     __zz_cib_OperatorMinus_8 = 8,

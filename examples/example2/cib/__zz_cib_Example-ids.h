@@ -20,7 +20,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
   enum {
     //#= A();
     __zz_cib_new_0 = 0,
-    //#= A(const ::Example::A&);
+    //#= A(::Example::A const &);
     __zz_cib_copy_1 = 1,
     //#= ~A();
     __zz_cib_delete_2 = 2,
@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace Example { namespace B { namespace __zz_cib_metho
   enum {
     //#= B();
     __zz_cib_new_0 = 0,
-    //#= B(const ::Example::B&);
+    //#= B(::Example::B const &);
     __zz_cib_copy_1 = 1,
     //#= ~B();
     __zz_cib_delete_2 = 2,

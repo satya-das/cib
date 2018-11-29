@@ -15,8 +15,8 @@ private:
     return instance().invoke<__zz_cib_newProc>(
       __zz_cib_methodid::__zz_cib_new_0);
   }
-  static __zz_cib_HANDLE* __zz_cib_copy_1(const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
+  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc>(
       __zz_cib_methodid::__zz_cib_copy_1,
       __zz_cib_param0);
@@ -79,7 +79,7 @@ inline Example::A::A()
   : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_0())
 {}
 
-inline Example::A::A(const ::Example::A& __zz_cib_param0)
+inline Example::A::A(::Example::A const & __zz_cib_param0)
   : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 

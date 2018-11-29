@@ -15,7 +15,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
   enum {
     //#= A();
     __zz_cib_new_0 = 0,
-    //#= A(const ::Example::A&);
+    //#= A(::Example::A const &);
     __zz_cib_copy_1 = 1,
     //#= ~A();
     __zz_cib_delete_2 = 2,

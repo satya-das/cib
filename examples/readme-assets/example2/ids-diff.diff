@@ -30,7 +30,7 @@
 +  enum {
 +    //#= B();
 +    __zz_cib_new_0 = 0,
-+    //#= B(const ::Example::B&);
++    //#= B(::Example::B const &);
 +    __zz_cib_copy_1 = 1,
 +    //#= ~B();
 +    __zz_cib_delete_2 = 2,

@@ -18,13 +18,13 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
   enum {
-    //#= A(const ::Example::A&);
+    //#= A(::Example::A const &);
     __zz_cib_copy_0 = 0,
     //#= ~A();
     __zz_cib_delete_1 = 1,
     //#= A();
     __zz_cib_new_2 = 2,
-    //#= void Set(const ::Example::Number<int>&);
+    //#= void Set(::Example::Number<int> const &);
     Set_3 = 3,
     //#= ::Example::Number<int> Get() const;
     Get_4 = 4,
@@ -34,7 +34,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { namespace __zz_cib_methodid {
   enum {
-    //#= Number(const ::Example::Number<int>&);
+    //#= Number(::Example::Number<int> const &);
     __zz_cib_copy_0 = 0,
     //#= ~Number();
     __zz_cib_delete_1 = 1,
@@ -44,7 +44,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { namespace 
     GetValue_3 = 3,
     //#= void SetValue(int);
     SetValue_4 = 4,
-    //#= void Add(const ::Example::Number<int>&);
+    //#= void Add(::Example::Number<int> const &);
     Add_5 = 5,
     __zz_cib_next_method_id = 6
   };

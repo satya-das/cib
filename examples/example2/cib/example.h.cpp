@@ -8,7 +8,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
   return new ::Example::A();
 }
-static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const ::Example::A* __zz_cib_param0) {
+static ::Example::A* __zz_cib_decl __zz_cib_copy_1(::Example::A const * __zz_cib_param0) {
   return new ::Example::A(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
@@ -26,7 +26,7 @@ namespace __zz_cib_ { namespace Example { namespace B {
 static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
   return new ::Example::B();
 }
-static ::Example::B* __zz_cib_decl __zz_cib_copy_1(const ::Example::B* __zz_cib_param0) {
+static ::Example::B* __zz_cib_decl __zz_cib_copy_1(::Example::B const * __zz_cib_param0) {
   return new ::Example::B(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_2(::Example::B* __zz_cib_obj) {

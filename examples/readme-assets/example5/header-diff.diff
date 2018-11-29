@@ -26,7 +26,8 @@
    {
      x_ = x;
    }
-   void Add(Number<_T> num)
+-  void Add(const Number<_T>& num)
++    void Add(Number<_T> const& num)
    {
      x_ += num.x_;
    }
@@ -42,16 +43,17 @@
 -    : x_(5)
 -  {
 -  }
-+    A(A&& rhs);
-+  public:
-+    A(const A& );
-+    ~A();
-+    A();
-   void        Set(const Number<int>& x);
+-  void        Set(const Number<int>& x);
 -  Number<int> Get() const
 -  {
 -    return x_;
 -  }
++    A(A&& rhs);
++  public:
++    A(A const & );
++    ~A();
++    A();
++    void Set(Number<int> const & x);
 +    Number<int> Get() const;
  
  private:

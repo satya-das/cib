@@ -13,7 +13,7 @@ namespace Example
     A(A&& rhs);
   public:
     A();
-    A(const A& );
+    A(A const & );
     ~A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.

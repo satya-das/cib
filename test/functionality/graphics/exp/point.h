@@ -7,14 +7,14 @@ class Point
 public:
   Point(Point&& rhs);
 public:
-  Point(const Point& );
+  Point(Point const & );
   ~Point();
   Point(double x, double y);
   double X() const;
   void X(double x);
   double Y() const;
   void Y(double y);
-  Point operator +(const Point& p) const;
+  Point operator +(Point const & p) const;
   Point operator -(Point p) const;
 
 private:

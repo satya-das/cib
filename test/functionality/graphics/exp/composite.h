@@ -14,7 +14,7 @@ typedef std::vector<Graphics::Shape*> Shapes;
   public:
     Composite(Composite&& rhs);
   public:
-    Composite(const Composite& );
+    Composite(Composite const & );
     ~Composite();
     Composite();
     void Add(Shape* shape);

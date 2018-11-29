@@ -18,7 +18,7 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  LogContext(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::LogContext& __zz_cib_param0)
+  LogContext(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::LogContext const & __zz_cib_param0)
     : ::Graphics::LogContext::LogContext(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -55,7 +55,7 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
-static ::Graphics::LogContext* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::LogContext* __zz_cib_param0) {
+static ::Graphics::LogContext* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::LogContext const * __zz_cib_param0) {
   return new __zz_cib_::Graphics::LogContext::__zz_cib_GenericProxy::LogContext(proxy, mtbl, *__zz_cib_param0);
 }
 static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {

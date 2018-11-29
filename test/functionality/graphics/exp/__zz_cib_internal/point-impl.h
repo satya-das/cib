@@ -10,8 +10,8 @@ private:
   friend class ::Point;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Point, __zz_cib_Helper>;
 
-  static __zz_cib_HANDLE* __zz_cib_copy_0(const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
+  static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc>(
       __zz_cib_methodid::__zz_cib_copy_0,
       __zz_cib_param0);
@@ -56,8 +56,8 @@ private:
       __zz_cib_obj,
       y);
   }
-  static __zz_cib_HANDLE* __zz_cib_OperatorPlus_7(__zz_cib_HANDLE* __zz_cib_obj, const __zz_cib_HANDLE* p) {
-    using __zz_cib_OperatorPlusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, const __zz_cib_HANDLE* p);
+  static __zz_cib_HANDLE* __zz_cib_OperatorPlus_7(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE const * p) {
+    using __zz_cib_OperatorPlusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE const * p);
     return instance().invoke<__zz_cib_OperatorPlusProc>(
       __zz_cib_methodid::__zz_cib_OperatorPlus_7,
       __zz_cib_obj,
@@ -110,7 +110,7 @@ inline Point::Point(Point&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-inline Point::Point(const ::Point& __zz_cib_param0)
+inline Point::Point(::Point const & __zz_cib_param0)
   : Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
@@ -124,22 +124,22 @@ inline Point::Point(double x, double y)
 {}
 
 inline double Point::X() const {
-  return __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
-}
+  return     __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
+  }
 
 inline void Point::X(double x) {
   __zz_cib_::Point::__zz_cib_Helper::X_4(__zz_cib_h_, x);
 }
 
 inline double Point::Y() const {
-  return __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
-}
+  return     __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
+  }
 
 inline void Point::Y(double y) {
   __zz_cib_::Point::__zz_cib_Helper::Y_6(__zz_cib_h_, y);
 }
 
-inline ::Point Point::operator +(const ::Point& p) const {
+inline ::Point Point::operator +(::Point const & p) const {
   return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
     __zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
   );

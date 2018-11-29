@@ -16,7 +16,7 @@ namespace Example
     A(A&& rhs);
   public:
     A();
-    A(const A& );
+    A(A const & );
     ~A();
     //! This is to know what cib does with virtual functions.
     virtual void VirtFunc();
@@ -33,7 +33,7 @@ namespace Example
     B(B&& rhs);
   public:
     B();
-    B(const B& );
+    B(B const & );
     ~B();
     virtual void VirtFunc();
 

@@ -5,7 +5,7 @@
 #include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Point {
-static ::Point* __zz_cib_decl __zz_cib_copy_0(const ::Point* __zz_cib_param0) {
+static ::Point* __zz_cib_decl __zz_cib_copy_0(::Point const * __zz_cib_param0) {
   return new ::Point(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Point* __zz_cib_obj) {
@@ -26,10 +26,10 @@ static double __zz_cib_decl Y_5(const ::Point* __zz_cib_obj) {
 static void __zz_cib_decl Y_6(::Point* __zz_cib_obj, double y) {
   __zz_cib_obj->::Point::Y(y);
 }
-static const ::Point* __zz_cib_decl __zz_cib_OperatorPlus_7(const ::Point* __zz_cib_obj, const ::Point* p) {
+static ::Point* __zz_cib_decl __zz_cib_OperatorPlus_7(const ::Point* __zz_cib_obj, ::Point const * p) {
   return new ::Point(__zz_cib_obj->::Point::operator +(*p));
 }
-static const ::Point* __zz_cib_decl __zz_cib_OperatorMinus_8(const ::Point* __zz_cib_obj, const ::Point* p) {
+static ::Point* __zz_cib_decl __zz_cib_OperatorMinus_8(const ::Point* __zz_cib_obj, ::Point* p) {
   return new ::Point(__zz_cib_obj->::Point::operator -(*p));
 }
 }}

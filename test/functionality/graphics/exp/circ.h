@@ -15,7 +15,7 @@ namespace Graphics
   public:
     Circle(Circle&& rhs);
   public:
-    Circle(const Circle& );
+    Circle(Circle const & );
     ~Circle();
     Circle(double Ox, double Oy, double radius);
     virtual double Area() const;

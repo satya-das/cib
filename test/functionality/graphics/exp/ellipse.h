@@ -17,7 +17,7 @@ class Context;
   public:
     Ellipse(Ellipse&& rhs);
   public:
-    Ellipse(const Ellipse& );
+    Ellipse(Ellipse const & );
     ~Ellipse();
     Ellipse(double Ox, double Oy, double a, double b);
     virtual double Area() const;

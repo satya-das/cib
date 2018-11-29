@@ -33,10 +33,10 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A(const A& );
+    A(A const & );
     ~A();
     A();
-    void Set(const Number<int>& x);
+    void Set(Number<int> const & x);
     Number<int> Get() const;
 
   private:

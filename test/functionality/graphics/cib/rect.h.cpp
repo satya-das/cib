@@ -19,7 +19,7 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  Rectangle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Rectangle& __zz_cib_param0)
+  Rectangle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Rectangle const & __zz_cib_param0)
     : ::Graphics::Rectangle::Rectangle(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -47,7 +47,7 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
-static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Rectangle* __zz_cib_param0) {
+static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Rectangle const * __zz_cib_param0) {
   return new __zz_cib_::Graphics::Rectangle::__zz_cib_GenericProxy::Rectangle(proxy, mtbl, *__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Rectangle* __zz_cib_obj) {

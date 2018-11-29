@@ -11,8 +11,8 @@ private:
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Circle, __zz_cib_Helper>;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
 
-  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::Circle* __zz_cib_proxy, const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, const __zz_cib_HANDLE* __zz_cib_param0);
+  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::Circle* __zz_cib_proxy, __zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Circle*, const __zz_cib_MethodTable*, __zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc>(
       __zz_cib_methodid::__zz_cib_copy_0,
       __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
@@ -115,7 +115,7 @@ inline Graphics::Circle::Circle(Circle&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-inline Graphics::Circle::Circle(const ::Graphics::Circle& __zz_cib_param0)
+inline Graphics::Circle::Circle(::Graphics::Circle const & __zz_cib_param0)
   : Graphics::Circle(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_copy_0(this, __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
@@ -130,12 +130,12 @@ inline Graphics::Circle::Circle(double Ox, double Oy, double radius)
 {}
 
 inline double Graphics::Circle::Area() const {
-  return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_3(__zz_cib_h_);
-}
+  return     __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_3(__zz_cib_h_);
+  }
 
 inline double Graphics::Circle::Perimeter() const {
-  return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-}
+  return     __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
+  }
 
 inline void Graphics::Circle::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));

@@ -14,7 +14,7 @@ namespace Graphics
   public:
     LogContext(LogContext&& rhs);
   public:
-    LogContext(const LogContext& );
+    LogContext(LogContext const & );
     LogContext();
     ~LogContext();
     virtual void Line(double x1, double y1, double x2, double y2);

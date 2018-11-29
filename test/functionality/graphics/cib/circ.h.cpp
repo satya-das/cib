@@ -20,7 +20,7 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Circle& __zz_cib_param0)
+  Circle(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Circle const & __zz_cib_param0)
     : ::Graphics::Circle::Circle(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -48,7 +48,7 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
-static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Circle* __zz_cib_param0) {
+static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Circle const * __zz_cib_param0) {
   return new __zz_cib_::Graphics::Circle::__zz_cib_GenericProxy::Circle(proxy, mtbl, *__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Circle* __zz_cib_obj) {

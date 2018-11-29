@@ -19,7 +19,7 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  Ellipse(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Ellipse& __zz_cib_param0)
+  Ellipse(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Ellipse const & __zz_cib_param0)
     : ::Graphics::Ellipse::Ellipse(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -47,7 +47,7 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
-static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const ::Graphics::Ellipse* __zz_cib_param0) {
+static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_copy_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::Graphics::Ellipse const * __zz_cib_param0) {
   return new __zz_cib_::Graphics::Ellipse::__zz_cib_GenericProxy::Ellipse(proxy, mtbl, *__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_1(::Graphics::Ellipse* __zz_cib_obj) {
