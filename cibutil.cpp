@@ -70,6 +70,8 @@ CppVarType* parseType(std::string s)
     delete var;
   } while (false);
   delete compound;
+  if (ret)
+    normalizeConst(ret);
   return ret;
 }
 

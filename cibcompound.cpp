@@ -74,14 +74,14 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
 static std::string stringify(const CppVarType* varType)
 {
   std::string ret = varType->baseType();
-  for (auto ptrLevel = varType->typeModifier_.ptrLevel_; ptrLevel--;)
+  for (unsigned short i = 0; i <= varType->ptrLevel(); ++i)
   {
-    if (varType->typeModifier_.constBits_ & (1 << ptrLevel))
+    if (varType->typeModifier_.constBits_ & (1 << i))
       ret += " const ";
-    ret += '*';
+    if (i != varType->ptrLevel())
+      ret += '*';
   }
-  if (varType->typeModifier_.constBits_ & (1 << varType->typeModifier_.ptrLevel_))
-    ret += " const";
+
   if (varType->refType() == kByRef)
     ret += "&";
   else if (varType->refType() == kRValRef)
