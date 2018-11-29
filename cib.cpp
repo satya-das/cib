@@ -37,6 +37,14 @@
 
 static CppWriter gCppWriter;
 
+static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
+{
+  if (typeModifier.refType_ == kNoRef)
+    return typeModifier;
+  return resolveTypeModifier(CppTypeModifier{kNoRef, 1, 0},
+                             CppTypeModifier{kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
+}
+
 static void emitType(std::ostream&         stm,
                      const CppVarType*     typeObj,
                      const CibCppCompound* typeResolver,
@@ -51,15 +59,11 @@ static void emitType(std::ostream&         stm,
   auto* resolvedType =
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
 
-  bool isConst      = typeObj->isConst();
   bool emitHandle   = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
   bool convertToPtr = (purpose & kPurposeGlueCode) && (purpose != kPurposeGenericProxy);
   bool byValToPtr   = resolvedType && convertToPtr && typeObj->isByValue();
-  if (byValToPtr && !emitHandle)
-    isConst = true;
 
-  if (isConst && !typeObj->ptrLevel())
-    stm << "const ";
+  auto typeModifier = convertToPtr ? convertRefToPtr(typeObj->typeModifier_) : typeObj->typeModifier_;
   if (resolvedType != nullptr)
   {
     if (emitHandle)
@@ -86,25 +90,20 @@ static void emitType(std::ostream&         stm,
       stm << typeObj->baseType();
     }
   }
-  for (unsigned short i = 0; i < typeObj->ptrLevel(); ++i)
+  for (unsigned short i = 0; i <= typeModifier.ptrLevel_; ++i)
   {
-    if (typeObj->typeModifier_.constBits_ & (1 << i))
+    if (typeModifier.constBits_ & (1 << i))
       stm << " const ";
-    stm << '*';
-  }
-  if (typeObj->refType() == kByRef)
-  {
-    if (convertToPtr)
+    if (i != typeModifier.ptrLevel_)
       stm << '*';
-    else
-      stm << '&';
   }
-  else if (typeObj->refType() == kRValRef)
+  if (typeModifier.refType_ == kByRef)
   {
-    if (convertToPtr)
-      stm << '*';
-    else
-      stm << "&&";
+    stm << '&';
+  }
+  else if (typeModifier.refType_ == kRValRef)
+  {
+    stm << "&&";
   }
   if (byValToPtr)
     stm << '*';
@@ -430,20 +429,20 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       retType =
         resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
-      if (retType)
+      if (retType && returnType()->isByValue())
       {
-        if (returnType()->isByValue())
-        {
-          stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
-        }
-        else
-        {
-          if (returnType()->isByRef())
-            stm << '*';
-          stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
-        }
-        stm << ++indentation;
+        stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
       }
+      else
+      {
+        if (returnType()->isByRef())
+        {
+          stm << '*';
+        }
+        if (retType)
+          stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
+      }
+      stm << ++indentation;
     }
     stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_Helper::" << capiName << "(";
     if (isDestructor())

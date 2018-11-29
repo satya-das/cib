@@ -56,7 +56,8 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
       }
       else
       {
-        substituteVar = instantiateVarType(static_cast<CppVarType*>(templParam->defaultParam_.get()), templArgSubstitution);
+        substituteVar =
+          instantiateVarType(static_cast<CppVarType*>(templParam->defaultParam_.get()), templArgSubstitution);
       }
 
       templArgSubstitution[templParam->paramName_] = substituteVar;
@@ -165,6 +166,7 @@ static CppVarType* instantiateVarType(CppVarType* varType, const TemplateArgValu
 
   auto typeModifier = resolveTypeModifier(varType->typeModifier_, itr->second->typeModifier_);
   auto ret          = new CppVarType(baseType, typeModifier);
+  ret->typeAttr_    = varType->typeAttr_ | itr->second->typeAttr_;
   return ret;
 }
 
