@@ -50,7 +50,9 @@ typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
 using StringVector      = std::vector<std::string>;
 using TemplateArgs      = StringVector;
-using TemplateInstances = std::map<TemplateArgs, CibCppCompound*>;
+using TemplateInstances = std::map<std::string, CibCppCompound*>;
+using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
+using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
 enum CibClassPropFlags
 {
@@ -85,7 +87,9 @@ private:
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
   TemplateInstances        templateInstances_;      ///< Meaningful for template classes only.
+  TmplInstanceCache        tmplInstanceCache_;
   CibCppCompound*          templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  TemplateArgValues        templateArgValues_;
   std::string              nsName_;
 
 public:
@@ -194,6 +198,10 @@ public:
   const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
   /// Identifies mothods that need to be bridged
   void                          identifyMethodsToBridge(const CibHelper& helper);
+  bool needsBridging() const
+  {
+    return (!needsBridging_.empty()) || isFacadeLike();
+  }
   const CibFunctionHelperArray& getNeedsBridgingMethods() const
   {
     return needsBridging_;
@@ -202,17 +210,26 @@ public:
   {
     return allVirtuals_;
   }
-  void addTemplateInstance(TemplateArgs templateArgs, CibCppCompound* templateInstance = nullptr)
+  void addTemplateInstance(const TemplateArgs& templateArgs, CibCppCompound* templateInstance = nullptr)
   {
     // Only template class can have template-instances.
     assert(templSpec_);
-    templateInstances_.insert(std::make_pair(std::move(templateArgs), templateInstance));
+    auto insRez = templateInstances_.insert(std::make_pair(templateInstance->name(), templateInstance));
+    assert(insRez.second);
+    tmplInstanceCache_.insert(std::make_pair(templateArgs, insRez.first));
   }
   CibCppCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
   {
     // Only template class can have template-instances.
     assert(templSpec_);
-    auto itr = templateInstances_.find(templateArgs);
+    auto itr = tmplInstanceCache_.find(templateArgs);
+    return (itr == tmplInstanceCache_.end()) ? nullptr : itr->second->second;
+  }
+  CibCppCompound* getTemplateInstance(const std::string& instanceName) const
+  {
+    // Only template class can have template-instances.
+    assert(templSpec_);
+    auto itr = templateInstances_.find(instanceName);
     return (itr == templateInstances_.end()) ? nullptr : itr->second;
   }
   CibCppCompound* getTemplateInstantiation(const TemplateArgs&   templateArgs,
@@ -357,7 +374,7 @@ public:
   void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
   bool forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const;
-  void forEachTemplateInstance(std::function<void(const TemplateArgs&, CibCppCompound*)> callable) const;
+  void forEachTemplateInstance(std::function<void(const std::string&, CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
   CibFunctionHelper            getDtor() const
@@ -514,7 +531,7 @@ inline bool CibCppCompound::forEachMember(CppObjProtLevel prot, std::function<bo
 }
 
 inline void CibCppCompound::forEachTemplateInstance(
-  std::function<void(const TemplateArgs&, CibCppCompound*)> callable) const
+  std::function<void(const std::string&, CibCppCompound*)> callable) const
 {
   for (auto& ins : templateInstances_)
     callable(ins.first, ins.second);

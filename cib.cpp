@@ -624,6 +624,7 @@ const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const
       return resolvedType == nullptr;
     });
   }
+
   typeNameToCibCppObj_[typeName] = resolvedType;
   return resolvedType;
 }
@@ -787,6 +788,12 @@ bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
 
 void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
 {
+  auto addDependency = [&](const std::string& typeName) {
+    auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    if (resolvedCppObj)
+      cppObjs.insert(resolvedCppObj);
+  };
+
   for (auto mem : members_)
   {
     if (!isMemberPublic(mem->prot_, compoundType_))
@@ -797,18 +804,15 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
       compound->collectTypeDependencies(helper, cppObjs);
       if (compound->isTemplated())
       {
-        compound->forEachTemplateInstance([&](const TemplateArgs&, CibCppCompound* tmplInstance) {
+        compound->forEachTemplateInstance([&](const std::string&, CibCppCompound* tmplInstance) {
           tmplInstance->collectTypeDependencies(helper, cppObjs);
+          for (auto& arg : tmplInstance->templateArgValues_)
+            addDependency(arg.second->baseType());
         });
       }
     }
     else if (mem->isFunctionLike())
     {
-      auto addDependency = [&](const std::string& typeName) {
-        auto* resolvedCppObj = resolveTypeName(typeName, helper);
-        if (resolvedCppObj)
-          cppObjs.insert(resolvedCppObj);
-      };
       CibFunctionHelper func(mem);
       if (func.returnType() && !func.returnType()->isVoid())
         addDependency(func.returnType()->baseType());
@@ -1450,7 +1454,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
       auto compound = static_cast<const CibCppCompound*>(mem);
       if (compound->isTemplated())
       {
-        compound->forEachTemplateInstance([&](const TemplateArgs& args, CibCppCompound* templCompound) {
+        compound->forEachTemplateInstance([&](const std::string&, CibCppCompound* templCompound) {
           templCompound->emitHelperDecl(stm, helper, cibParams);
           templCompound->emitDecl(stm, helper, cibParams);
           templCompound->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
@@ -1465,7 +1469,9 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     if (mem->objType_ == CppObj::kCompound)
       static_cast<const CibCppCompound*>(mem)->emitDefn(stm, helper, cibParams, cibIdMgr, indentation);
   }
-
+  //TODO: Emit global functions too.
+  if (isCppFile())
+    return;
   auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isClassLike() && !needsBridging_.empty())
   {
@@ -1692,7 +1698,7 @@ void CibCppCompound::collectPublicCompounds(std::vector<const CibCppCompound*>& 
       continue;
     compound->collectPublicCompounds(compounds);
     compound->forEachTemplateInstance(
-      [&](const TemplateArgs&, CibCppCompound* templateIns) { templateIns->collectPublicCompounds(compounds); });
+      [&](const std::string&, CibCppCompound* templateIns) { templateIns->collectPublicCompounds(compounds); });
   }
   if (isNamespaceLike() && !needsBridging_.empty())
   {

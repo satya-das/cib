@@ -118,7 +118,7 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
   {
     if (b == e)
     {
-      for (auto i = argStart; i <= b; ++i)
+      for (auto i = argStart; i < b; ++i)
         ret += s[i];
     }
     else if (s[b] == '<')
@@ -215,7 +215,7 @@ static std::string canonicalName(const CibCppCompound*        compound,
     }
     sep = ", ";
   }
-  name += '>';
+  name += ">";
 
   return name;
 }
@@ -230,6 +230,9 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const TemplateArgs&   t
 
   auto resolvedArgs   = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
   auto clsName        = canonicalName(this, templSpec_, resolvedArgs);
+  ret = getTemplateInstance(clsName);
+  if (ret)
+    return ret;
   ret                 = new CibCppCompound(clsName, compoundType_);
   ret->templateClass_ = this;
   ret->owner_         = owner_;
@@ -257,6 +260,7 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const TemplateArgs&   t
   });
 
   addTemplateInstance(templateArgs, ret);
+  ret->templateArgValues_.swap(resolvedArgs);
   helper.onNewCompound(ret, outer());
   return ret;
 }

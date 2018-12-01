@@ -80,6 +80,14 @@ std::string longName(const CibCppCompound* compound)
   return compound->longName();
 }
 
+std::string longName(const CppFwdClsDecl* fwdCls)
+{
+  if (fwdCls->owner_->isCppFile())
+    return "::" + fwdCls->name_;
+  else
+    return longName(fwdCls->owner_) + "::" + fwdCls->name_;
+}
+
 std::string longName(const CppObj* typeObj)
 {
   switch (typeObj->objType_)
@@ -94,8 +102,11 @@ std::string longName(const CppObj* typeObj)
       return longName(static_cast<const CppFunctionPtr*>(typeObj));
     case CppObj::kCompound:
       return longName(static_cast<const CibCppCompound*>(typeObj));
+    case CppObj::kFwdClsDecl:
+      return longName(static_cast<const CppFwdClsDecl*>(typeObj));
 
     default:
+      assert(false && "May be we need more case above");
       return "";
   }
 }

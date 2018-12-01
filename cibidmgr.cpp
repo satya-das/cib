@@ -181,7 +181,9 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   if (compound->isTemplated())
   {
     compound->forEachTemplateInstance(
-      [&](const TemplateArgs&, CibCppCompound* ins) { this->assignIds(ins, helper, cibParams, forGenericProxy); });
+      [&](const std::string&, CibCppCompound* ins) {
+      this->assignIds(ins, helper, cibParams, forGenericProxy);
+    });
     return;
   }
   if (compound->name().empty())
@@ -189,14 +191,13 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   // Dummy loop
   do
   {
-    if (!forGenericProxy && compound->getNeedsBridgingMethods().empty())
-    {
+    if (compound->isCppFile())
       break;
-    }
+    if (!forGenericProxy && !compound->needsBridging())
+      break;
     if (forGenericProxy && (!compound->needsGenericProxyDefinition() || compound->getAllVirtualMethods().empty()))
-    {
       break;
-    }
+
     const auto className = forGenericProxy ? compound->longName() + "::__zz_cib_GenericProxy" : compound->longName();
     CibIdData* cibIdData = nullptr;
     auto       itr       = cibIdTable_.find(className);
