@@ -301,10 +301,6 @@ void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
   // Also for protected ctor/dtor things will be slightly less trivial.
   if (!cppCompound->hasDtor() || !isMemberPrivate(cppCompound->dtor()->protectionLevel(), cppCompound->compoundType_))
     cppCompound->setNeedsGenericProxyDefinition();
-  for (auto child : cppCompound->children_[kPublic])
-  {
-    setNeedsGenericProxyDefinition(child);
-  }
 }
 
 void CibHelper::markNeedsGenericProxyDefinition(CibCppCompound* cppCompound)

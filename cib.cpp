@@ -1151,7 +1151,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (!isClassLike())
     return;
 
-  if (!hasDtor() && (!isAbstract() || needsGenericProxyDefinition()))
+  if (!hasDtor() && (!isAbstract() || isFacadeLike() || needsGenericProxyDefinition()))
   {
     auto defaultDtor = CibFunctionHelper::CreateDestructor(kPublic, "~" + ctorName(), 0);
     addMemberAtFront(defaultDtor);
