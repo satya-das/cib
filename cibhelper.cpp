@@ -191,6 +191,9 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritList_))
     {
+      //TODO: We will have to consider protected inheritance too.
+      if (inh.inhType != kPublic)
+        continue;
       auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode);
       auto* parentObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
@@ -254,6 +257,10 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
         returnObj->setFacadeLike();
       }
     }
+    else
+    {
+      normalizeConst(func.returnType());
+    }
   }
 }
 
@@ -290,7 +297,10 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
 
 void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
 {
-  cppCompound->setNeedsGenericProxyDefinition();
+  //TODO: Considers private ctors too.
+  // Also for protected ctor/dtor things will be slightly less trivial.
+  if (!cppCompound->hasDtor() || !isMemberPrivate(cppCompound->dtor()->protectionLevel(), cppCompound->compoundType_))
+    cppCompound->setNeedsGenericProxyDefinition();
   for (auto child : cppCompound->children_[kPublic])
   {
     setNeedsGenericProxyDefinition(child);
