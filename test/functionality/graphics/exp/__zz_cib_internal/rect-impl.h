@@ -9,13 +9,11 @@ class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
 private:
   friend class ::Graphics::Rectangle;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Rectangle, __zz_cib_Helper>;
-  static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
 
-  static __zz_cib_HANDLE* __zz_cib_copy_0(::Graphics::Rectangle* __zz_cib_proxy, __zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, const __zz_cib_MethodTable*, __zz_cib_HANDLE const * __zz_cib_param0);
+  static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc>(
       __zz_cib_methodid::__zz_cib_copy_0,
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
       __zz_cib_param0);
   }
   static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -26,11 +24,10 @@ private:
         __zz_cib_obj);
     }
   }
-  static __zz_cib_HANDLE* __zz_cib_new_2(::Graphics::Rectangle* __zz_cib_proxy, double left, double bottom, double right, double top) {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Rectangle*, const __zz_cib_MethodTable*, double left, double bottom, double right, double top);
+  static __zz_cib_HANDLE* __zz_cib_new_2(double left, double bottom, double right, double top) {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double left, double bottom, double right, double top);
     return instance().invoke<__zz_cib_newProc>(
       __zz_cib_methodid::__zz_cib_new_2,
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
       left, bottom, right, top);
   }
   static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
@@ -86,14 +83,6 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle& __zz_cib_ob
     __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     return h;
   }
-  static void __zz_cib_release_proxy(::Graphics::Rectangle* __zz_cib_obj) {
-    if (__zz_cib_obj->__zz_cib_h_) {
-      using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_release_proxyProc>(
-        __zz_cib_methodid::__zz_cib_release_proxy_7,
-        __zz_cib_obj->__zz_cib_h_);
-    }
-  }
 };
 }}}
 
@@ -110,17 +99,16 @@ inline Graphics::Rectangle::Rectangle(Rectangle&& rhs)
 }
 
 inline Graphics::Rectangle::Rectangle(::Graphics::Rectangle const & __zz_cib_param0)
-  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_copy_0(this, __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Graphics::Rectangle::~Rectangle() {
-  __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
 inline Graphics::Rectangle::Rectangle(double left, double bottom, double right, double top)
-  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_2(this, left, bottom, right, top))
+  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_2(left, bottom, right, top))
 {}
 
 inline double Graphics::Rectangle::Area() const {
