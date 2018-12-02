@@ -686,6 +686,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
+  stm << "#pragma once\n\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";

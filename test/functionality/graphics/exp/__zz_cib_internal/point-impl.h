@@ -1,3 +1,5 @@
+#pragma once
+
 #include "__zz_cib_internal/__zz_cib_Graphics-def.h"
 #include "__zz_cib_internal/__zz_cib_Graphics-ids.h"
 #include "__zz_cib_internal/__zz_cib_Graphics-mtable-helper.h"
