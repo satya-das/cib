@@ -673,7 +673,7 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   bfs::create_directories(implPath.parent_path());
   std::ofstream stm(implPath.string(), std::ios_base::out);
 
-  stm << "#include \"" << cibParams.cibInternalDirName << "/__zz_cib_" << cibParams.moduleName
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName
       << "-class-internal-def.h\"\n";
 
   emitHelperDecl(stm, helper, cibParams);
@@ -686,10 +686,10 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
 

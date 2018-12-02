@@ -1,7 +1,7 @@
-#include "__zz_cib_Example-def.h"
-#include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_Example-handle-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-def.h"
+#include "__zz_cib_internal/__zz_cib_Example-ids.h"
+#include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
