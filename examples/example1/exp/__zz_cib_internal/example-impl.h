@@ -51,10 +51,10 @@ public:
   static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::A(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
@@ -64,30 +64,3 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
   }
 };
 }}}
-
-inline Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
-  : __zz_cib_h_(h)
-{}
-
-inline Example::A::A(A&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Example::A::A()
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_0())
-{}
-
-inline Example::A::A(::Example::A const & __zz_cib_param0)
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Example::A::~A() {
-  auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
-}
-
-inline void Example::A::SomeFunc() {
-  __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
-}

@@ -1,6 +1,28 @@
 #include "context.h"
+
+#include "context.h"
 #include "log_context.h"
 
+
+Graphics::Context::Context(__zz_cib_::__zz_cib_HANDLE* h)
+  : __zz_cib_h_(h)
+{}
+
+Graphics::Context::Context(Context&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+}
+
+Graphics::Context::Context()
+  : Graphics::Context(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_new_0(this))
+{}
+
+Graphics::Context::~Context() {
+  __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_proxy(this);
+  auto h = __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete_5(h);
+}
 namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_Generic {
 class Context : public ::Graphics::Context {
   __zz_cib_HANDLE* __zz_cib_h_;

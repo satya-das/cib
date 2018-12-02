@@ -16,8 +16,8 @@ foreach(example ${EXAMPLES})
     set(LIBNAME ${example}_lib)
     set(CLIENTNAME ${example}_client)
 
-    set(PUB_FILE_NAMES
-	    example.h
+    set(PUB_FILE_BASE_NAMES
+	    example # File name without extension
     )
     set(LIB_GLUE_SRCS
 	    ${example_ROOT}/cib/__zz_cib_Example.cpp
@@ -30,9 +30,11 @@ foreach(example ${EXAMPLES})
 	    ${example_ROOT}/cib/__zz_cib_Example-proxy.h
     )
     set(PUB_FILES "")
-    foreach(PUBFILE ${PUB_FILE_NAMES})
-	    list(APPEND LIB_GLUE_SRCS ${example_ROOT}/cib/${PUBFILE}.cpp)
-	    list(APPEND PUB_FILES ${example_ROOT}/pub/${PUBFILE})
+    set(EXP_SOURCES "")
+    foreach(PUBFILE ${PUB_FILE_BASE_NAMES})
+	    list(APPEND LIB_GLUE_SRCS ${example_ROOT}/cib/${PUBFILE}.h.cpp)
+	    list(APPEND PUB_FILES ${example_ROOT}/pub/${PUBFILE}.h)
+	    list(APPEND EXP_SOURCES ${example_ROOT}/exp/${PUBFILE}.cpp)
     endforeach()
     list(APPEND EXAMPLE_HEADERS ${PUB_FILES})
     foreach(CIBOUTFILE ${LIB_GLUE_SRCS})

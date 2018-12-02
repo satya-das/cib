@@ -58,10 +58,10 @@ public:
   static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::A(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
@@ -157,10 +157,10 @@ public:
   static ::Example::Number<int> __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::Number<int>(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Number<int>* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Number<int>* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Number<int>& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Number<int>& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Number<int>* __zz_cib_obj) {
@@ -204,37 +204,4 @@ inline void Example::Number<int>::SetValue(int x) {
 
 inline void Example::Number<int>::Add(::Example::Number<int> const & num) {
   __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::Add_5(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_handle(num));
-}
-
-inline Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
-  : __zz_cib_h_(h)
-{}
-
-inline Example::A::A(A&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Example::A::A(::Example::A const & __zz_cib_param0)
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Example::A::~A() {
-  auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_1(h);
-}
-
-inline Example::A::A()
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_2())
-{}
-
-inline void Example::A::Set(::Example::Number<int> const & x) {
-  __zz_cib_::Example::A::__zz_cib_Helper::Set_3(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_handle(x));
-}
-
-inline ::Example::Number<int> Example::A::Get() const {
-  return __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Example::A::__zz_cib_Helper::Get_4(__zz_cib_h_)
-  );
 }

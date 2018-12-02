@@ -71,10 +71,10 @@ public:
   static ::Graphics::Ellipse __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Graphics::Ellipse(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Ellipse* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Ellipse* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Ellipse& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Ellipse& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Ellipse* __zz_cib_obj) {
@@ -85,40 +85,3 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Ellipse& __zz_cib_obj)
   }
 };
 }}}
-
-inline Graphics::Ellipse::Ellipse(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Graphics::Shape::Shape(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
-  , __zz_cib_h_(h)
-{}
-
-inline Graphics::Ellipse::Ellipse(Ellipse&& rhs)
-  : ::Graphics::Shape::Shape(std::move(rhs))
-  , __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Graphics::Ellipse::Ellipse(::Graphics::Ellipse const & __zz_cib_param0)
-  : Graphics::Ellipse(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Graphics::Ellipse::~Ellipse() {
-  auto h = __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_delete_1(h);
-}
-
-inline Graphics::Ellipse::Ellipse(double Ox, double Oy, double a, double b)
-  : Graphics::Ellipse(__zz_cib_::Graphics::Ellipse::__zz_cib_Helper::__zz_cib_new_2(Ox, Oy, a, b))
-{}
-
-inline double Graphics::Ellipse::Area() const {
-  return     __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Area_3(__zz_cib_h_);
-  }
-
-inline double Graphics::Ellipse::Perimeter() const {
-  return     __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-  }
-
-inline void Graphics::Ellipse::Draw(::Graphics::Context* ctx) const {
-  __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
-}

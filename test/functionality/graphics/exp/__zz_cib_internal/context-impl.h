@@ -63,23 +63,3 @@ static void __zz_cib_release_proxy(::Graphics::Context* __zz_cib_obj) {
 }
 };
 }}}
-
-inline Graphics::Context::Context(__zz_cib_::__zz_cib_HANDLE* h)
-  : __zz_cib_h_(h)
-{}
-
-inline Graphics::Context::Context(Context&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Graphics::Context::Context()
-  : Graphics::Context(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_new_0(this))
-{}
-
-inline Graphics::Context::~Context() {
-  __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_proxy(this);
-  auto h = __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete_5(h);
-}

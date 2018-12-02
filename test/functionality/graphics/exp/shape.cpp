@@ -1,3 +1,5 @@
+#include "shape.h"
+
 #include "circ.h"
 #include "composite.h"
 #include "context.h"
@@ -5,6 +7,26 @@
 #include "rect.h"
 #include "shape.h"
 
+
+Graphics::Shape::Shape(__zz_cib_::__zz_cib_HANDLE* h)
+  : __zz_cib_h_(h)
+{}
+
+Graphics::Shape::Shape(Shape&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+}
+
+Graphics::Shape::Shape()
+  : Graphics::Shape(__zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_new_0(this))
+{}
+
+Graphics::Shape::~Shape() {
+  __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_proxy(this);
+  auto h = __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_4(h);
+}
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_Generic {
 class Shape : public ::Graphics::Shape {
   __zz_cib_HANDLE* __zz_cib_h_;

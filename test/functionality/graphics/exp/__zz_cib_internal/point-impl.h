@@ -86,10 +86,10 @@ public:
   static ::Point __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Point(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Point* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Point* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
@@ -99,54 +99,3 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Point& __zz_cib_obj) {
   }
 };
 }}
-
-inline Point::Point(__zz_cib_::__zz_cib_HANDLE* h)
-  : __zz_cib_h_(h)
-{}
-
-inline Point::Point(Point&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Point::Point(::Point const & __zz_cib_param0)
-  : Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Point::~Point() {
-  auto h = __zz_cib_::Point::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_1(h);
-}
-
-inline Point::Point(double x, double y)
-  : Point(__zz_cib_::Point::__zz_cib_Helper::__zz_cib_new_2(x, y))
-{}
-
-inline double Point::X() const {
-  return     __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
-  }
-
-inline void Point::X(double x) {
-  __zz_cib_::Point::__zz_cib_Helper::X_4(__zz_cib_h_, x);
-}
-
-inline double Point::Y() const {
-  return     __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
-  }
-
-inline void Point::Y(double y) {
-  __zz_cib_::Point::__zz_cib_Helper::Y_6(__zz_cib_h_, y);
-}
-
-inline ::Point Point::operator +(::Point const & p) const {
-  return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
-  );
-}
-
-inline ::Point Point::operator -(::Point p) const {
-  return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_8(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
-  );
-}

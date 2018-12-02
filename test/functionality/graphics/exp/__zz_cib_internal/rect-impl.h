@@ -71,10 +71,10 @@ public:
   static ::Graphics::Rectangle __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Graphics::Rectangle(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Rectangle* __zz_cib_obj) {
@@ -85,40 +85,3 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::Rectangle& __zz_cib_ob
   }
 };
 }}}
-
-inline Graphics::Rectangle::Rectangle(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Graphics::Shape::Shape(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
-  , __zz_cib_h_(h)
-{}
-
-inline Graphics::Rectangle::Rectangle(Rectangle&& rhs)
-  : ::Graphics::Shape::Shape(std::move(rhs))
-  , __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Graphics::Rectangle::Rectangle(::Graphics::Rectangle const & __zz_cib_param0)
-  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Graphics::Rectangle::~Rectangle() {
-  auto h = __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_delete_1(h);
-}
-
-inline Graphics::Rectangle::Rectangle(double left, double bottom, double right, double top)
-  : Graphics::Rectangle(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_new_2(left, bottom, right, top))
-{}
-
-inline double Graphics::Rectangle::Area() const {
-  return     __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Area_3(__zz_cib_h_);
-  }
-
-inline double Graphics::Rectangle::Perimeter() const {
-  return     __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-  }
-
-inline void Graphics::Rectangle::Draw(::Graphics::Context* ctx) const {
-  __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
-}
