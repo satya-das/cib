@@ -230,6 +230,8 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
         auto castMethodName = compound->castToBaseName(parent, cibParams);
         if (!cibIdData->hasMethod(castMethodName))
           cibIdData->addMethod(castMethodName, castMethodName);
+
+        return false;
       });
       if (compound->isFacadeLike())
       {

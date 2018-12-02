@@ -67,7 +67,7 @@ CibParams parseCmdLine(int argc, char* argv[])
     ("module,m", po::value<std::string>()->required(), "Name of module/library.")
     ("cib-ids-file,c", po::value<std::string>()->default_value(""), "Previously created cib-ids-file.")
     ("macro,M", po::value<std::string>(), "List of comma separated known macro names.")
-    ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.");
+    ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.")
     ;
   // clang-format on
   po::variables_map vm;

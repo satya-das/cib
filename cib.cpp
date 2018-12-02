@@ -1091,6 +1091,8 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
           allVirtuals.push_back(func);
       }
     }
+
+    return false;
   };
   forEachAncestor(kPublic, processClass);
   processClass(this);
@@ -1135,7 +1137,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
         continue;
-      if (func.isPureVirtual() && !isFacadeLike() && !func.isDestructor())
+      if (func.isPureVirtual() && !isFacadeLike() && !isAncestorFacadeLike() && !func.isDestructor())
         continue;
       if (func.hasVariadicParam())
         continue;
@@ -1306,6 +1308,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "__zz_cib_obj);\n";
       --indentation;
       stm << --indentation << "}\n";
+
+      return false;
     });
     if (!needsBridging_.empty())
     {
@@ -1645,6 +1649,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
           << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj;\n";
       stm << --indentation << "}\n";
+
+      return false;
     });
 
     if (isFacadeLike())

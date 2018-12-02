@@ -268,6 +268,14 @@ public:
   {
     return (props_ & kClassPropFacade) == kClassPropFacade;
   }
+  bool isAncestorFacadeLike() const
+  {
+    return forEachAncestor(kPublic,[](const CibCppCompound* ancestor)->bool {
+      return ancestor->isFacadeLike();
+    });
+
+    return false;
+  }
   void setIsInline()
   {
     props_ |= kClassPropInline;
@@ -368,7 +376,7 @@ public:
 
 public:
   bool forEachParent(CppObjProtLevel prot, std::function<bool(const CibCppCompound*)> callable) const;
-  void forEachAncestor(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
+  bool forEachAncestor(CppObjProtLevel prot, std::function<bool(const CibCppCompound*)> callable) const;
   bool forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const;
   void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
@@ -461,17 +469,19 @@ inline bool CibCppCompound::forEachParent(CppObjProtLevel                       
   return true;
 }
 
-inline void CibCppCompound::forEachAncestor(CppObjProtLevel                            prot,
-                                            std::function<void(const CibCppCompound*)> callable) const
+inline bool CibCppCompound::forEachAncestor(CppObjProtLevel                            prot,
+                                            std::function<bool(const CibCppCompound*)> callable) const
 {
   auto parentsItr = parents_.find(prot);
   if (parentsItr == parents_.end())
-    return;
+    return false;
   for (const auto& parent : parentsItr->second)
   {
-    parent->forEachAncestor(prot, callable);
-    callable(parent);
+    if (parent->forEachAncestor(prot, callable) || callable(parent))
+      return true;
   }
+
+  return false;
 }
 
 inline bool CibCppCompound::forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const
