@@ -1135,7 +1135,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
         continue;
-      if (func.isPureVirtual() && !needsGenericProxyDefinition() && !func.isDestructor())
+      if (func.isPureVirtual() && !isFacadeLike() && !func.isDestructor())
         continue;
       if (func.hasVariadicParam())
         continue;
