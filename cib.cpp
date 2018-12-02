@@ -371,13 +371,16 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
 }
 
 void CibFunctionHelper::emitDefn(std::ostream&         stm,
+                                 bool asInline,
                                  const CibHelper&      helper,
                                  const CibParams&      cibParams,
                                  const CibCppCompound* callingOwner,
                                  const CibIdData*      cibIdData,
                                  CppIndent             indentation) const
 {
-  stm << indentation << "inline ";
+  stm << indentation;
+  if (asInline)
+    stm << "inline ";
   if (isFunction())
   {
     emitType(stm, returnType(), callingOwner, helper, kPurposeProxyDefn);
@@ -689,7 +692,11 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
-  emitDefn(stm, helper, cibParams, cibIdMgr);
+
+  forEachNested([&](const CibCppCompound* compound) {
+    if (compound->isTemplated())
+      compound->emitDefn(stm, true, helper, cibParams, cibIdMgr);
+  });
 }
 
 void CibCppCompound::emitImplSource(std::ostream&    stm,
@@ -741,12 +748,16 @@ void CibCppCompound::emitImplSource(const CibHelper& helper, const CibParams& ci
   if (!isCppFile())
     return;
   bfs::path headerPath = name_;
-  bfs::path usrSrcPath = cibParams.outputPath / name_.substr(cibParams.inputPath.string().length());
-  usrSrcPath.replace_extension(".cpp");
+  auto headerName = name_.substr(cibParams.inputPath.string().length());
+  bfs::path usrSrcPath = (cibParams.outputPath / headerName).replace_extension(".cpp");
   {
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
-
+    stm << "#include \"" << headerName << "\"\n\n";
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
+    forEachNested([&](const CibCppCompound* compound) {
+      if (!compound->isTemplated())
+        compound->emitDefn(stm, false, helper, cibParams, cibIdMgr);
+    });
     emitImplSource(stm, helper, cibParams, cibIdMgr);
   }
   if (bfs::file_size(usrSrcPath) == 0)
@@ -1345,10 +1356,10 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         stm << ++indentation << "return " << longName() << "(h);\n";
         stm << --indentation << "}\n";
       }
-      stm << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
+      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
       stm << --indentation << "}\n";
-      stm << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
+      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj.__zz_cib_h_;\n";
       stm << --indentation << "}\n";
       stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
@@ -1391,6 +1402,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
 }
 
 void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
+                                               bool asInline,
                                                const CibHelper& helper,
                                                const CibParams& cibParams,
                                                const CibIdMgr&  cibIdMgr,
@@ -1399,7 +1411,10 @@ void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
   auto cibIdData = cibIdMgr.getCibIdData(longName());
 
   stm << '\n'; // Start in new line.
-  stm << indentation << "inline " << fullName() << "::" << ctorName() << "(__zz_cib_::__zz_cib_HANDLE* h)\n";
+  stm << indentation;
+  if (asInline)
+    stm << "inline ";
+  stm << fullName() << "::" << ctorName() << "(__zz_cib_::__zz_cib_HANDLE* h)\n";
   ++indentation;
   char sep = ':';
   forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
@@ -1420,6 +1435,7 @@ void CibCppCompound::emitMoveConstructorDecl(std::ostream& stm, CppIndent indent
 }
 
 void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
+                                             bool asInline,
                                              const CibHelper& helper,
                                              const CibParams& cibParams,
                                              const CibIdMgr&  cibIdMgr,
@@ -1428,7 +1444,10 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
   auto cibIdData = cibIdMgr.getCibIdData(longName());
 
   stm << '\n'; // Start in new line.
-  stm << indentation << "inline " << fullName() << "::" << ctorName() << '(' << name() << "&& rhs)\n";
+  stm << indentation;
+  if(asInline)
+    stm << "inline ";
+  stm << fullName() << "::" << ctorName() << '(' << name() << "&& rhs)\n";
   ++indentation;
   char sep = ':';
   forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
@@ -1444,6 +1463,7 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
 }
 
 void CibCppCompound::emitDefn(std::ostream&    stm,
+                              bool asInline,
                               const CibHelper& helper,
                               const CibParams& cibParams,
                               const CibIdMgr&  cibIdMgr,
@@ -1451,28 +1471,16 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
 {
   if (templSpec_ && templateInstances_.empty())
     return;
-  for (auto mem : members_)
+  if (isTemplated())
   {
-    if (mem->isNamespaceLike() && isMemberPublic(mem->prot_, compoundType_))
-    {
-      auto compound = static_cast<const CibCppCompound*>(mem);
-      if (compound->isTemplated())
-      {
-        compound->forEachTemplateInstance([&](const std::string&, CibCppCompound* templCompound) {
-          templCompound->emitHelperDecl(stm, helper, cibParams);
-          templCompound->emitDecl(stm, helper, cibParams);
-          templCompound->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
-          templCompound->emitDefn(stm, helper, cibParams, cibIdMgr);
-        });
-      }
-    }
+    forEachTemplateInstance([&](const std::string&, CibCppCompound* templCompound) {
+      templCompound->emitHelperDecl(stm, helper, cibParams);
+      templCompound->emitDecl(stm, helper, cibParams);
+      templCompound->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
+      templCompound->emitDefn(stm, asInline, helper, cibParams, cibIdMgr);
+    });
   }
 
-  for (auto mem : members_)
-  {
-    if (mem->objType_ == CppObj::kCompound)
-      static_cast<const CibCppCompound*>(mem)->emitDefn(stm, helper, cibParams, cibIdMgr, indentation);
-  }
   //TODO: Emit global functions too.
   if (isCppFile())
     return;
@@ -1480,15 +1488,15 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
   if (isClassLike() && !needsBridging_.empty())
   {
     // Emit the ctor to construct from __zz_cib_HANDLE.
-    emitHandleConstructorDefn(stm, helper, cibParams, cibIdMgr, indentation);
-    emitMoveConstructorDefn(stm, helper, cibParams, cibIdMgr, indentation);
+    emitHandleConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
+    emitMoveConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
   }
   for (auto func : needsBridging_)
   {
     if (func.isPureVirtual() && !func.isDestructor())
       continue;
     stm << '\n'; // Start in new line.
-    func.emitDefn(stm, helper, cibParams, this, cibIdData, indentation);
+    func.emitDefn(stm, asInline, helper, cibParams, this, cibIdData, indentation);
   }
 }
 

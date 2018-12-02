@@ -410,6 +410,7 @@ private:
                 const CibParams& cibParams,
                 CppIndent        indentation = CppIndent()) const;
   void emitDefn(std::ostream&    stm,
+                bool asInline,
                 const CibHelper& helper,
                 const CibParams& cibParams,
                 const CibIdMgr&  cibIdMgr,
@@ -431,12 +432,14 @@ private:
                                               bool             forProxy,
                                               CppIndent        indentation) const;
   void emitHandleConstructorDefn(std::ostream&    stm,
+                                 bool asInline,
                                  const CibHelper& helper,
                                  const CibParams& cibParams,
                                  const CibIdMgr&  cibIdMgr,
                                  CppIndent        indentation = CppIndent()) const;
   void emitMoveConstructorDecl(std::ostream& stm, CppIndent indentation = CppIndent()) const;
   void emitMoveConstructorDefn(std::ostream&    stm,
+                               bool asInline,
                                const CibHelper& helper,
                                const CibParams& cibParams,
                                const CibIdMgr&  cibIdMgr,
@@ -524,8 +527,12 @@ inline void CibCppCompound::forEachNested(std::function<void(const CibCppCompoun
 {
   for (auto mem : members_)
   {
-    if (mem->isNamespaceLike() && isMemberPublic(mem->prot_, compoundType_))
-      callable(static_cast<const CibCppCompound*>(mem));
+    if (mem->isNamespaceLike())
+    {
+      auto* nested = static_cast<const CibCppCompound*>(mem);
+      callable(nested);
+      nested->forEachNested(callable);
+    }
   }
 }
 

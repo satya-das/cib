@@ -277,6 +277,7 @@ public:
                     bool                  forProxy,
                     CppIndent             indentation = CppIndent()) const;
   void emitDefn(std::ostream&         stm,
+                bool asInline,
                 const CibHelper&      helper,
                 const CibParams&      cibParams,
                 const CibCppCompound* callingOwner,
