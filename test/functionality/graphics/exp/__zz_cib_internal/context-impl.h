@@ -16,28 +16,28 @@ private:
   static __zz_cib_HANDLE* __zz_cib_new_0(::Graphics::Context* __zz_cib_proxy) {
     using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Context*, const __zz_cib_MethodTable*);
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
-    __zz_cib_proxy, __zz_cib_get_proxy_method_table());
-}
-static void __zz_cib_delete_5(__zz_cib_HANDLE* __zz_cib_obj) {
-  if (__zz_cib_obj) {
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_5>(
-    __zz_cib_obj);
-}
-}
-__zz_cib_Helper()
-  : __zz_cib_::__zz_cib_MethodTableHelper(
-    __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-{}
-static const __zz_cib_Helper& instance() {
-  static __zz_cib_Helper helper;
-  return helper;
-}
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table()      );
+  }
+  static void __zz_cib_delete_5(__zz_cib_HANDLE* __zz_cib_obj) {
+    if (__zz_cib_obj) {
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_5>(
+        __zz_cib_obj        );
+    }
+  }
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+  {}
+  static const __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
 
-static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
-  using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
-  return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_6>(
-  __zz_cib_obj);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_6>(
+    __zz_cib_obj);
 }
 static ::Graphics::Context* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 public:

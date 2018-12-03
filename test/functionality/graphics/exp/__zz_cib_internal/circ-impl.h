@@ -15,45 +15,45 @@ private:
   static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
-__zz_cib_param0);
-}
-static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
-  if (__zz_cib_obj) {
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
+      __zz_cib_param0);
+  }
+  static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
+    if (__zz_cib_obj) {
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
+        __zz_cib_obj        );
+    }
+  }
+  static __zz_cib_HANDLE* __zz_cib_new_2(double Ox, double Oy, double radius) {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+      Ox, Oy, radius);
+  }
+  static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<AreaProc, __zz_cib_methodid::Area_3>(
+      __zz_cib_obj      );
+  }
+  static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
+    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_4>(
+      __zz_cib_obj      );
+  }
+  static void Draw_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+    using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
+    return instance().invoke<DrawProc, __zz_cib_methodid::Draw_5>(
+      __zz_cib_obj,
+      ctx);
+  }
+  static __zz_cib_HANDLE* CreateCircle_6(double Ox, double Oy, double radius) {
+    using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
+    return instance().invoke<CreateCircleProc, __zz_cib_methodid::CreateCircle_6>(
+      Ox, Oy, radius);
+  }
+  static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7>(
     __zz_cib_obj);
-}
-}
-static __zz_cib_HANDLE* __zz_cib_new_2(double Ox, double Oy, double radius) {
-  using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
-  return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
-Ox, Oy, radius);
-}
-static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
-  using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
-  return instance().invoke<AreaProc, __zz_cib_methodid::Area_3>(
-  __zz_cib_obj);
-}
-static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
-  using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
-  return instance().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_4>(
-  __zz_cib_obj);
-}
-static void Draw_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
-  using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
-  return instance().invoke<DrawProc, __zz_cib_methodid::Draw_5>(
-  __zz_cib_obj,
-  ctx);
-}
-static __zz_cib_HANDLE* CreateCircle_6(double Ox, double Oy, double radius) {
-  using CreateCircleProc = __zz_cib_HANDLE* (__zz_cib_decl *) (double Ox, double Oy, double radius);
-  return instance().invoke<CreateCircleProc, __zz_cib_methodid::CreateCircle_6>(
-Ox, Oy, radius);
-}
-static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
-  using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-  return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7>(
-  __zz_cib_obj);
 }
 __zz_cib_Helper()
   : __zz_cib_::__zz_cib_MethodTableHelper(

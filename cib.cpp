@@ -1312,21 +1312,21 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         ++indentation;
       }
       func.emitProcType(stm, helper, cibParams, false, indentation);
-      stm << indentation << "return instance().invoke<" << func.procType() << ", __zz_cib_methodid::"
+      stm << indentation++ << "return instance().invoke<" << func.procType() << ", __zz_cib_methodid::"
           << cibIdData->getMethodCApiName(func.signature(helper)) << ">(\n";
       if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
       {
         stm << indentation << "__zz_cib_obj";
         if (func.hasParams())
-          stm << ",\n" << indentation;
+          stm << ",\n";
       }
       else if (needsGenericProxyDefinition() && func.isConstructor())
       {
-        stm << indentation;
-        stm << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
+        stm << indentation << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
         if (func.hasParams())
-          stm << ",\n" << indentation;
+          stm << ",\n";
       }
+      stm << indentation;
       func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
       stm << ");\n";
       --indentation;
