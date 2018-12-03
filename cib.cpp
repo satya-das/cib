@@ -532,8 +532,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   }();
   if (byValueObj || (genericProxy && returnType() && returnType()->isByRef()))
     stm << "*";
-  stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ">(\n";
-  stm << ++indentation;
+  stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ", ";
   if (genericProxy)
   {
     stm << "__zz_cib_GenericProxy::__zz_cib_methodid::";
@@ -542,7 +541,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   {
     stm << "__zz_cib_methodid::";
   }
-  stm << capiName << ",\n";
+  stm << capiName << ">(\n";
   if (genericProxy)
     stm << indentation << "__zz_cib_proxy";
   else
@@ -1313,22 +1312,20 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         ++indentation;
       }
       func.emitProcType(stm, helper, cibParams, false, indentation);
-      stm << indentation << "return instance().invoke<" << func.procType() << ">(\n";
-      stm << ++indentation << "__zz_cib_methodid::";
-      stm << cibIdData->getMethodCApiName(func.signature(helper));
+      stm << indentation << "return instance().invoke<" << func.procType() << ", __zz_cib_methodid::"
+          << cibIdData->getMethodCApiName(func.signature(helper)) << ">(\n";
       if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
       {
-        stm << ",\n" << indentation << "__zz_cib_obj";
+        stm << indentation << "__zz_cib_obj";
+        if (func.hasParams())
+          stm << ",\n" << indentation;
       }
       else if (needsGenericProxyDefinition() && func.isConstructor())
       {
-        stm << ",\n" << indentation;
-        stm << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
-      }
-      if (func.hasParams())
-      {
-        stm << ",\n";
         stm << indentation;
+        stm << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
+        if (func.hasParams())
+          stm << ",\n" << indentation;
       }
       func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
       stm << ");\n";
@@ -1346,9 +1343,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "static __zz_cib_HANDLE* " << capiName << "(__zz_cib_HANDLE* __zz_cib_obj) {\n";
       stm << ++indentation << "using " << castProcName
           << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
-      stm << indentation << "return instance().invoke<" << castProcName << "Proc>(\n";
-      stm << ++indentation << "__zz_cib_methodid::";
-      stm << capiName << ",\n";
+      stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::"
+          << capiName << ">(\n";
       stm << indentation << "__zz_cib_obj);\n";
       --indentation;
       stm << --indentation << "}\n";
@@ -1374,8 +1370,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << ++indentation
           << "using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) "
              "(__zz_cib_HANDLE*);\n";
-      stm << indentation << "return instance().invoke<__zz_cib_get_class_idProc>(\n";
-      stm << ++indentation << "__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << ",\n";
+      stm << indentation << "return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::"
+          << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << ">(\n";
       stm << indentation-- << "__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     }
@@ -1413,9 +1409,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         stm << indentation << "if (__zz_cib_obj->__zz_cib_h_) {\n";
         ++indentation;
         stm << indentation << "using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);\n";
-        stm << indentation << "return instance().invoke<__zz_cib_release_proxyProc>(\n";
-        stm << ++indentation << "__zz_cib_methodid::" << cibIdData->getMethodCApiName("__zz_cib_release_proxy")
-            << ",\n";
+        stm << indentation << "return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::"
+            << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ">(\n";
         stm << indentation << "__zz_cib_obj->__zz_cib_h_);\n";
         --indentation;
         stm << --indentation << "}\n";

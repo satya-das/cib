@@ -39,39 +39,34 @@ public:
   }
   void Line(double x1, double y1, double x2, double y2) override {
     using LineProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double x1, double y1, double x2, double y2);
-    return __zz_cib_get_mtable_helper().invoke<LineProc>(
-      __zz_cib_methodid::Line_1,
-      __zz_cib_h_,
-      x1, y1, x2, y2);
-  }
+    return __zz_cib_get_mtable_helper().invoke<LineProc, __zz_cib_methodid::Line_1>(
+    __zz_cib_h_,
+    x1, y1, x2, y2);
+}
   void Rect(double l, double b, double r, double t) override {
     using RectProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double l, double b, double r, double t);
-    return __zz_cib_get_mtable_helper().invoke<RectProc>(
-      __zz_cib_methodid::Rect_2,
-      __zz_cib_h_,
-      l, b, r, t);
-  }
+    return __zz_cib_get_mtable_helper().invoke<RectProc, __zz_cib_methodid::Rect_2>(
+    __zz_cib_h_,
+    l, b, r, t);
+}
   void Circle(double cx, double cy, double r) override {
     using CircleProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double r);
-    return __zz_cib_get_mtable_helper().invoke<CircleProc>(
-      __zz_cib_methodid::Circle_3,
-      __zz_cib_h_,
-      cx, cy, r);
-  }
+    return __zz_cib_get_mtable_helper().invoke<CircleProc, __zz_cib_methodid::Circle_3>(
+    __zz_cib_h_,
+    cx, cy, r);
+}
   void Ellipse(double cx, double cy, double a, double b) override {
     using EllipseProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double cx, double cy, double a, double b);
-    return __zz_cib_get_mtable_helper().invoke<EllipseProc>(
-      __zz_cib_methodid::Ellipse_4,
-      __zz_cib_h_,
-      cx, cy, a, b);
-  }
+    return __zz_cib_get_mtable_helper().invoke<EllipseProc, __zz_cib_methodid::Ellipse_4>(
+    __zz_cib_h_,
+    cx, cy, a, b);
+}
   ~Context() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc>(
-      __zz_cib_methodid::__zz_cib_delete_5,
-      __zz_cib_h_);
-  }
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_5>(
+    __zz_cib_h_);
+}
 };
 }}}}
 ::Graphics::Context* __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {

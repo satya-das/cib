@@ -15,8 +15,8 @@ public:
   }
   //! @note Will throw std::bad_function_call() if method table doesn't contain
   //! method or the fetched method is null.
-  template <typename _MethodType, typename... _TArgs>
-  auto invoke(std::uint32_t methodId, _TArgs... args) const
+  template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
+  auto invoke(_TArgs... args) const
   {
     auto method = getMethod<_MethodType>(methodId);
     if (method == nullptr)

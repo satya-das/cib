@@ -32,30 +32,26 @@ public:
   {}
   double Area() const override {
     using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<AreaProc>(
-      __zz_cib_GenericProxy::__zz_cib_methodid::Area_0,
-      __zz_cib_proxy);
-  }
+    return __zz_cib_get_mtable_helper().invoke<AreaProc, __zz_cib_GenericProxy::__zz_cib_methodid::Area_0>(
+    __zz_cib_proxy);
+}
   double Perimeter() const override {
     using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<PerimeterProc>(
-      __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1,
-      __zz_cib_proxy);
-  }
+    return __zz_cib_get_mtable_helper().invoke<PerimeterProc, __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1>(
+    __zz_cib_proxy);
+}
   void Draw(::Graphics::Context* ctx) const override {
     using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
-    return __zz_cib_get_mtable_helper().invoke<DrawProc>(
-      __zz_cib_GenericProxy::__zz_cib_methodid::Draw_2,
-      __zz_cib_proxy,
-      ctx);
-  }
+    return __zz_cib_get_mtable_helper().invoke<DrawProc, __zz_cib_GenericProxy::__zz_cib_methodid::Draw_2>(
+    __zz_cib_proxy,
+    ctx);
+}
   ~Shape() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc>(
-      __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_3,
-      __zz_cib_proxy);
-  }
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_3>(
+    __zz_cib_proxy);
+}
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}}
