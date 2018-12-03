@@ -798,6 +798,25 @@ bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
   return false;
 }
 
+void CibCppCompound::collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
+{
+  if (!isTemplated())
+    return;
+  // TODO addDependency is duplicated in another function.
+  // Remove duplication, may be by having dependecy collector as another class.
+  auto addDependency = [&](const std::string& typeName) {
+    auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    if (resolvedCppObj)
+      cppObjs.insert(resolvedCppObj);
+  };
+
+  forEachTemplateInstance([&](const std::string&, CibCppCompound* tmplInstance) {
+    tmplInstance->collectTypeDependencies(helper, cppObjs);
+    for (auto& arg : tmplInstance->templateArgValues_)
+      addDependency(arg.second->baseType());
+  });
+}
+
 void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
 {
   auto addDependency = [&](const std::string& typeName) {
@@ -814,14 +833,7 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
     {
       auto compound = static_cast<const CibCppCompound*>(mem);
       compound->collectTypeDependencies(helper, cppObjs);
-      if (compound->isTemplated())
-      {
-        compound->forEachTemplateInstance([&](const std::string&, CibCppCompound* tmplInstance) {
-          tmplInstance->collectTypeDependencies(helper, cppObjs);
-          for (auto& arg : tmplInstance->templateArgValues_)
-            addDependency(arg.second->baseType());
-        });
-      }
+      compound->collectTemplateInstanceTypeDependencies(helper, cppObjs);
     }
     else if (mem->isFunctionLike())
     {

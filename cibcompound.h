@@ -444,7 +444,10 @@ private:
                                const CibParams& cibParams,
                                const CibIdMgr&  cibIdMgr,
                                CppIndent        indentation = CppIndent()) const;
+
   void collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
+  void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
+
   void collectFacades(std::set<const CibCppCompound*>& facades) const;
   static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs,
                                                          const std::string&             dependentPath);

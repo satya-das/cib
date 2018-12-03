@@ -85,7 +85,7 @@ static OperNameMap kOperNameMap = {
   {"^=", "XorEq"},      {"&=", "AndEq"},       {"|=", "OrEq"},    {"<<", "LShift"}, {">>", "RShift"},   {"<<=", "LShiftEq"},
   {">>=", "RShiftEq"},  {"==", "CmpEq"},       {"<=", "LE"},      {">=", "GE"},     {"<=>", "3WayCmp"}, {"&&", "LogAnd"},
   {"||", "LogOr"},      {"++", "Inc"},         {"--", "Dec"},     {",", "Comma"},   {"->", "Arrow"},    {"->*", "ArrowStar"},
-  {"()", "App"},        {"[]", "Index"},       {"new", "New"},
+  {"()", "App"},        {"[]", "Index"},       {"new", "New"},    {"!=", "NotEq"},
   {"delete", "Delete"}, {"new[]", "NewArray"}, {"delete[]", "DeleteArray"}};
 // clang-format on
 
