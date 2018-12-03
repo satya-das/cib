@@ -679,6 +679,25 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   emitHelperDecl(stm, helper, cibParams);
 }
 
+void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
+{
+  std::set<const CppObj*> dependencies;
+  forEachNested([&](const CibCppCompound* compound) {
+    if (compound->isTemplated())
+      compound->collectTemplateInstanceTypeDependencies(helper, dependencies);
+  });
+  if (!dependencies.empty())
+  {
+    stm << '\n';
+    for (const auto& header : collectHeaderDependencies(dependencies, cibParams.inputPath.string()))
+      stm << "#include \"" << header << "\"\n";
+  }
+  forEachNested([&](const CibCppCompound* compound) {
+    if (compound->isTemplated())
+      compound->emitDefn(stm, true, helper, cibParams, cibIdMgr);
+  });
+}
+
 void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
   if (!isCppFile())
@@ -693,11 +712,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
-
-  forEachNested([&](const CibCppCompound* compound) {
-    if (compound->isTemplated())
-      compound->emitDefn(stm, true, helper, cibParams, cibIdMgr);
-  });
+  emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
 }
 
 void CibCppCompound::emitImplSource(std::ostream&    stm,
@@ -912,7 +927,12 @@ static void emitDocComment(std::ostream& stm, const CppDocComment* docComment, C
     stm << indentation;
     stm.write(comment.c_str() + prevPos, newLinePos - prevPos);
     stm << '\n';
-    prevPos = newLinePos + startPos + 1;
+    for (size_t i = 0; i <= startPos; ++i)
+    {
+      prevPos = newLinePos + i + 1;
+      if (!(prevPos < comment.size()) || !isspace(comment[prevPos]))
+        break;
+    }
   }
 }
 

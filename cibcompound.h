@@ -340,6 +340,7 @@ public:
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitTemplateInstanceSpecializations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitGenericProxyDefn(std::ostream&    stm,
                             const CibHelper& helper,
