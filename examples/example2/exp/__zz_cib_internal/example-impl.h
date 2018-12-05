@@ -26,18 +26,21 @@ private:
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   static void VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   __zz_cib_Helper()
     : __zz_cib_::__zz_cib_MethodTableHelper(
@@ -90,13 +93,15 @@ private:
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   static void VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_3>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static __zz_cib_HANDLE* __zz_cib_cast_to___Example__A_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_cast_to___Example__AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);

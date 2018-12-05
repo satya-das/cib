@@ -16,13 +16,15 @@ private:
   static __zz_cib_HANDLE* __zz_cib_new_0(::Graphics::Shape* __zz_cib_proxy) {
     using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Shape*, const __zz_cib_MethodTable*);
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table()      );
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table()
+      );
   }
   static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_4>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   __zz_cib_Helper()

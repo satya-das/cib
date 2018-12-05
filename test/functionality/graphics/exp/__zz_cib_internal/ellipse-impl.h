@@ -21,7 +21,8 @@ private:
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   static __zz_cib_HANDLE* __zz_cib_new_2(double Ox, double Oy, double a, double b) {
@@ -32,12 +33,14 @@ private:
   static double Area_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<AreaProc, __zz_cib_methodid::Area_3>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static double Perimeter_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_4>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static void Draw_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
     using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);

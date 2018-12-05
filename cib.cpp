@@ -1313,20 +1313,20 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       }
       func.emitProcType(stm, helper, cibParams, false, indentation);
       stm << indentation++ << "return instance().invoke<" << func.procType() << ", __zz_cib_methodid::"
-          << cibIdData->getMethodCApiName(func.signature(helper)) << ">(\n";
+          << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
       if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
       {
-        stm << indentation << "__zz_cib_obj";
+        stm << '\n' << indentation << "__zz_cib_obj";
         if (func.hasParams())
-          stm << ",\n";
+          stm << ",";
       }
       else if (needsGenericProxyDefinition() && func.isConstructor())
       {
-        stm << indentation << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
+        stm << '\n' << indentation << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
         if (func.hasParams())
-          stm << ",\n";
+          stm << ",";
       }
-      stm << indentation;
+      stm << '\n' << indentation;
       func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
       stm << ");\n";
       --indentation;
@@ -1513,7 +1513,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
   if (isCppFile())
     return;
   auto cibIdData = cibIdMgr.getCibIdData(longName());
-  if (isClassLike() && !needsBridging_.empty())
+  if (isClassLike() && (isShared() || !needsBridging_.empty()))
   {
     // Emit the ctor to construct from __zz_cib_HANDLE.
     emitHandleConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);

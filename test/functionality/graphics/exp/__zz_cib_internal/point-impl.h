@@ -21,7 +21,8 @@ private:
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   static __zz_cib_HANDLE* __zz_cib_new_2(double x, double y) {
@@ -32,7 +33,8 @@ private:
   static double X_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using XProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<XProc, __zz_cib_methodid::X_3>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static void X_4(__zz_cib_HANDLE* __zz_cib_obj, double x) {
     using XProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double x);
@@ -43,7 +45,8 @@ private:
   static double Y_5(__zz_cib_HANDLE* __zz_cib_obj) {
     using YProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<YProc, __zz_cib_methodid::Y_5>(
-      __zz_cib_obj      );
+      __zz_cib_obj
+      );
   }
   static void Y_6(__zz_cib_HANDLE* __zz_cib_obj, double y) {
     using YProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, double y);

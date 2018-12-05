@@ -26,7 +26,8 @@ private:
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
-        __zz_cib_obj        );
+        __zz_cib_obj
+        );
     }
   }
   static void Line_3(__zz_cib_HANDLE* __zz_cib_obj, double x1, double y1, double x2, double y2) {
