@@ -227,10 +227,12 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
     if (!forGenericProxy)
     {
       compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
-        auto castMethodName = compound->castToBaseName(parent, cibParams);
-        if (!cibIdData->hasMethod(castMethodName))
-          cibIdData->addMethod(castMethodName, castMethodName);
-
+        if (parent->isShared() || !parent->isEmpty())
+        {
+          auto castMethodName = compound->castToBaseName(parent, cibParams);
+          if (!cibIdData->hasMethod(castMethodName))
+            cibIdData->addMethod(castMethodName, castMethodName);
+        }
         return false;
       });
       if (compound->isFacadeLike())

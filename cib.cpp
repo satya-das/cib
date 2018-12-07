@@ -943,11 +943,11 @@ void CibCppCompound::emitDecl(const CppObj*    obj,
 {
   if (obj->isFunctionLike())
   {
+    CibFunctionHelper func = obj;
     if (objNeedingBridge_.count(obj))
-    {
-      CibFunctionHelper func = obj;
       func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
-    }
+    else if (func.isTemplated())
+      gCppWriter.emit(obj, stm);
   }
   else if (obj->objType_ == CppObj::kCompound)
   {
@@ -1059,6 +1059,8 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
                                         const CibIdMgr&  cibIdMgr,
                                         CppIndent        indentation) const
 {
+  if (!isShared() || isEmpty())
+    return;
   stm << indentation << longName() << "* __zz_cib_" << longName()
       << "::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {\n";
   ++indentation;
@@ -1193,7 +1195,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
       compound->identifyMethodsToBridge(helper);
     }
   }
-  if (!isClassLike())
+  if (!isClassLike() || (isEmpty() && !isShared()))
     return;
 
   if (!hasDtor() && (!isAbstract() || isFacadeLike() || needsGenericProxyDefinition()))
@@ -1338,17 +1340,19 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << --indentation << "}\n";
     }
     forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
-      auto castProcName = castToBaseName(pubParent, cibParams);
-      auto capiName     = cibIdData->getMethodCApiName(castProcName);
-      stm << indentation << "static __zz_cib_HANDLE* " << capiName << "(__zz_cib_HANDLE* __zz_cib_obj) {\n";
-      stm << ++indentation << "using " << castProcName
-          << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
-      stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::"
-          << capiName << ">(\n";
-      stm << indentation << "__zz_cib_obj);\n";
-      --indentation;
-      stm << --indentation << "}\n";
-
+      if (pubParent->isShared() || !pubParent->isEmpty())
+      {
+        auto castProcName = castToBaseName(pubParent, cibParams);
+        auto capiName     = cibIdData->getMethodCApiName(castProcName);
+        stm << indentation << "static __zz_cib_HANDLE* " << capiName << "(__zz_cib_HANDLE* __zz_cib_obj) {\n";
+        stm << ++indentation << "using " << castProcName
+            << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
+        stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::"
+            << capiName << ">(\n";
+        stm << indentation << "__zz_cib_obj);\n";
+        --indentation;
+        stm << --indentation << "}\n";
+      }
       return false;
     });
     if (!needsBridging_.empty())
@@ -1375,7 +1379,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation-- << "__zz_cib_obj);\n";
       stm << --indentation << "}\n";
     }
-    if (isClassLike())
+    if (isClassLike() && (isShared() || !isEmpty()))
     {
       emitFromHandleDecl(stm, cibParams, indentation);
       stm << --indentation << "public:\n";
@@ -1446,10 +1450,13 @@ void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
   ++indentation;
   char sep = ':';
   forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
-    auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-    stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_" << longName()
-        << "::__zz_cib_Helper::" << capiName << "(h))\n";
-    sep = ',';
+    if (pubParent->isShared() || !pubParent->isEmpty())
+    {
+      auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
+      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_" << longName()
+          << "::__zz_cib_Helper::" << capiName << "(h))\n";
+      sep = ',';
+    }
     return true;
   });
   stm << indentation << sep << " __zz_cib_h_(h)";
@@ -1479,9 +1486,12 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
   ++indentation;
   char sep = ':';
   forEachParent(kPublic, [&](const CibCppCompound* pubParent) {
-    auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-    stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(std::move(rhs))\n";
-    sep = ',';
+    if (pubParent->isShared() || !pubParent->isEmpty())
+    {
+      auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
+      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(std::move(rhs))\n";
+      sep = ',';
+    }
     return true;
   });
   stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
@@ -1509,9 +1519,6 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     });
   }
 
-  //TODO: Emit global functions too.
-  if (isCppFile())
-    return;
   auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isClassLike() && (isShared() || !needsBridging_.empty()))
   {
@@ -1680,12 +1687,14 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     }
 
     forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
-      auto castApiName = castToBaseName(pubParent, cibParams);
-      stm << indentation << "static " << pubParent->longName() << "* __zz_cib_decl "
-          << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
-      stm << ++indentation << "return __zz_cib_obj;\n";
-      stm << --indentation << "}\n";
-
+      if (pubParent->isShared() || !pubParent->isEmpty())
+      {
+        auto castApiName = castToBaseName(pubParent, cibParams);
+        stm << indentation << "static " << pubParent->longName() << "* __zz_cib_decl "
+            << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
+        stm << ++indentation << "return __zz_cib_obj;\n";
+        stm << --indentation << "}\n";
+      }
       return false;
     });
 

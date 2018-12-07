@@ -56,12 +56,11 @@ using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
 enum CibClassPropFlags
 {
-  // Unusable const section begins
-  kClassPropBaseLine = __LINE__,
-  // Unusable const section ends
+  kClassPropBaseLine = __LINE__, //< Unusable const
   kClassPropInline    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropAbstract  = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)),  //< When class doesn't have any non-static member
   kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
 };
@@ -245,9 +244,6 @@ public:
   {
     if (isShared())
       return;
-    props_ |= kClassPropShared;
-    for (auto parent : parents_[kPublic])
-      parent->setShared();
   }
   /**
    * @ return true if this compound object is interface-like.
@@ -295,6 +291,14 @@ public:
   void setAbstract()
   {
     props_ |= kClassPropAbstract;
+  }
+  void setEmpty()
+  {
+    props_ |= kClassPropEmpty;
+  }
+  bool isEmpty() const
+  {
+    return (props_ & kClassPropEmpty);
   }
   //! @return true if it has at least one constructor other than copy/move.
   bool hasCtor() const

@@ -272,6 +272,7 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
     return;
   }
   auto isInline = true;
+  auto isEmpty =  true;
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
@@ -288,11 +289,21 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
         evaluateArgs(mem);
         evaluateReturnType(mem);
       }
+      if (!(func.getAttr() & kStatic))
+        isEmpty = false;
+    }
+    else if (mem->objType_ == CppObj::kVar)
+    {
+      const CppVar* var = static_cast<const CppVar*>(mem);
+      if (!(var->varType_->typeAttr_ & kStatic))
+        isEmpty = false;
     }
   }
   isInline = isInline || (cppCompound->templSpec_ != nullptr);
   if (isInline && cppCompound->isClassLike())
     cppCompound->setIsInline();
+  if (isEmpty && cppCompound->isClassLike())
+    cppCompound->setEmpty();
 }
 
 void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
