@@ -193,6 +193,8 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case CallType::kToHandle:
         if (resolvedType)
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
+        else if (param.varObj->isByRef() || param.varObj->isByRValueRef())
+          stm << '&';
         emitParamName(stm, param.varObj, i);
         if (resolvedType)
           stm << ")";
@@ -446,9 +448,11 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
           stm << '*';
         }
         if (retType)
+        {
           stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
+          stm << ++indentation;
+        }
       }
-      stm << ++indentation;
     }
     stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_Helper::" << capiName << "(";
     if (isDestructor())
