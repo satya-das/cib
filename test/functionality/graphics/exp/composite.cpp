@@ -1,6 +1,4 @@
 #include "composite.h"
-
-#include "composite.h"
 #include "context.h"
 #include "shape.h"
 

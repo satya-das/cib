@@ -41,55 +41,6 @@ CibHelper::CibHelper(const char* inputPath, CibIdMgr& cibIdMgr)
   buildCibCppObjTree();
 }
 
-static bool isWhite(char c)
-{
-  return (c == ' ') || (c == '\t') || (c == '\n');
-}
-
-static TemplateArgs CollectTemplateArgs(const std::string& s, size_t b, size_t e)
-{
-  assert((s[b] == '<') && (b < e));
-  auto jumpToArgStart = [&]() {
-    while ((++b < e) && isWhite(s[b]))
-      ;
-    return b;
-  };
-  auto extractArg = [&s](size_t b, size_t e) {
-    while (isWhite(s[--e]))
-      ;
-    ++e;
-    return s.substr(b, e - b);
-  };
-  TemplateArgs ret;
-  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
-  {
-    if (s[b] == '<')
-    {
-      ++nestedTemplateArg;
-    }
-    else if (s[b] == '>')
-    {
-      if (nestedTemplateArg)
-      {
-        --nestedTemplateArg;
-      }
-      else
-      {
-        ret.push_back(extractArg(argStart, b));
-        return ret;
-      }
-    }
-    else if ((nestedTemplateArg == 0) && s[b] == ',')
-    {
-      ret.push_back(extractArg(argStart, b));
-      argStart = jumpToArgStart();
-    }
-  }
-
-  assert(false && "We should never ever be here.");
-  return ret;
-}
-
 void CibHelper::onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const
 {
   program_->addCompound(compound, parent);
@@ -157,7 +108,7 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     else
     {
       auto classNameEnd = templateArgStart;
-      while (isWhite(name[--classNameEnd]))
+      while (isspace(name[--classNameEnd]))
         ;
       ++classNameEnd;
       return program_->findTypeNode(name.substr(0, classNameEnd), startNode);
@@ -173,10 +124,9 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     {
       if (templateArgStart != name.npos)
       {
-        auto  templateArgs       = CollectTemplateArgs(name, templateArgStart, name.length());
         auto* compound           = static_cast<CibCppCompound*>(cppObj);
         auto* instantiationScope = static_cast<const CibCppCompound*>(*(startNode->cppObjSet.begin()));
-        return compound->getTemplateInstantiation(templateArgs, instantiationScope, *this);
+        return compound->getTemplateInstantiation(name, instantiationScope, *this);
       }
     }
   }

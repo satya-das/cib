@@ -181,7 +181,7 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   if (compound->isTemplated())
   {
     compound->forEachTemplateInstance(
-      [&](const std::string&, CibCppCompound* ins) {
+      [&](CibCppCompound* ins) {
       this->assignIds(ins, helper, cibParams, forGenericProxy);
     });
     return;

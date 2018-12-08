@@ -1,3 +1,4 @@
+#include "context.h"
 #include "ellipse.h"
 
 

@@ -50,7 +50,7 @@ typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
 using StringVector      = std::vector<std::string>;
 using TemplateArgs      = StringVector;
-using TemplateInstances = std::map<std::string, CibCppCompound*>;
+using TemplateInstances = std::set<CibCppCompound*>;
 using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
 using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
@@ -209,29 +209,13 @@ public:
   {
     return allVirtuals_;
   }
-  void addTemplateInstance(const TemplateArgs& templateArgs, CibCppCompound* templateInstance = nullptr)
-  {
-    // Only template class can have template-instances.
-    assert(templSpec_);
-    auto insRez = templateInstances_.insert(std::make_pair(templateInstance->name(), templateInstance));
-    assert(insRez.second);
-    tmplInstanceCache_.insert(std::make_pair(templateArgs, insRez.first));
-  }
   CibCppCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
   {
-    // Only template class can have template-instances.
     assert(templSpec_);
     auto itr = tmplInstanceCache_.find(templateArgs);
-    return (itr == tmplInstanceCache_.end()) ? nullptr : itr->second->second;
+    return (itr == tmplInstanceCache_.end()) ? nullptr : *(itr->second);
   }
-  CibCppCompound* getTemplateInstance(const std::string& instanceName) const
-  {
-    // Only template class can have template-instances.
-    assert(templSpec_);
-    auto itr = templateInstances_.find(instanceName);
-    return (itr == templateInstances_.end()) ? nullptr : itr->second;
-  }
-  CibCppCompound* getTemplateInstantiation(const TemplateArgs&   templateArgs,
+  CibCppCompound* getTemplateInstantiation(const std::string&    name,
                                            const CibCppCompound* instantiationScope,
                                            const CibHelper&      helper);
 
@@ -387,7 +371,7 @@ public:
   void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
   bool forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const;
-  void forEachTemplateInstance(std::function<void(const std::string&, CibCppCompound*)> callable) const;
+  void forEachTemplateInstance(std::function<void(CibCppCompound*)> callable) const;
 
   static const CibCppCompound* getFileDomObj(const CppObj* obj);
   CibFunctionHelper            getDtor() const
@@ -454,15 +438,16 @@ private:
   void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
 
   void collectFacades(std::set<const CibCppCompound*>& facades) const;
-  static std::set<std::string> collectHeaderDependencies(const std::set<const CppObj*>& cppObjs,
+  static std::set<const CibCppCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
+  static std::set<std::string> collectHeaderDependencies(const std::set<const CibCppCompound*>& compoundObjs,
                                                          const std::string&             dependentPath);
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool                  collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
-  std::set<std::string> collectHeaderDependencies(const CibHelper& helper) const;
   bool                  hasClassThatNeedsGenericProxyDefn() const;
   std::string           getImplPath(const CibParams& cibParams) const;
   std::string           implIncludeName(const CibParams& cibParams) const;
+  TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
@@ -556,8 +541,8 @@ inline bool CibCppCompound::forEachMember(CppObjProtLevel prot, std::function<bo
 }
 
 inline void CibCppCompound::forEachTemplateInstance(
-  std::function<void(const std::string&, CibCppCompound*)> callable) const
+  std::function<void(CibCppCompound*)> callable) const
 {
   for (auto& ins : templateInstances_)
-    callable(ins.first, ins.second);
+    callable(ins);
 }

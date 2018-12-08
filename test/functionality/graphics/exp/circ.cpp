@@ -1,4 +1,6 @@
 #include "circ.h"
+#include "context.h"
+#include "shape.h"
 
 
 Graphics::Circle::Circle(__zz_cib_::__zz_cib_HANDLE* h)

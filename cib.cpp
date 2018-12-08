@@ -144,13 +144,16 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
       stm << ' ';
       emitParamName(stm, param.varObj, i, !(purpose & kPurposeProxyDecl));
     }
-    if (!param.varObj->varDecl_.arraySizes_.empty())
+    if (param.cppObj->objType_ == CppObj::kVar)
     {
-      // FIXME: Emit error if the parameter type is not of basic types
-      for (const auto& idx : param.varObj->varDecl_.arraySizes_)
+      if (!param.varObj->varDecl_.arraySizes_.empty())
       {
-        // FIXME use index values.
-        stm << "[]";
+        // FIXME: Emit error if the parameter type is not of basic types
+        for (const auto& idx : param.varObj->varDecl_.arraySizes_)
+        {
+          // FIXME use index values.
+          stm << "[]";
+        }
       }
     }
     sep = ", ";
@@ -687,8 +690,10 @@ void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream& stm, cons
   });
   if (!dependencies.empty())
   {
+    auto asts = collectAstDependencies(dependencies);
+    dependencies.erase(getFileDomObj(this));
     stm << '\n';
-    for (const auto& header : collectHeaderDependencies(dependencies, cibParams.inputPath.string()))
+    for (const auto& header : collectHeaderDependencies(asts, cibParams.inputPath.string()))
       stm << "#include \"" << header << "\"\n";
   }
   forEachNested([&](const CibCppCompound* compound) {
@@ -767,7 +772,6 @@ void CibCppCompound::emitImplSource(const CibHelper& helper, const CibParams& ci
   bfs::path usrSrcPath = (cibParams.outputPath / headerName).replace_extension(".cpp");
   {
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
-    stm << "#include \"" << headerName << "\"\n\n";
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
     forEachNested([&](const CibCppCompound* compound) {
       if (!compound->isTemplated())
@@ -824,7 +828,7 @@ void CibCppCompound::collectTemplateInstanceTypeDependencies(const CibHelper& he
       cppObjs.insert(resolvedCppObj);
   };
 
-  forEachTemplateInstance([&](const std::string&, CibCppCompound* tmplInstance) {
+  forEachTemplateInstance([&](CibCppCompound* tmplInstance) {
     tmplInstance->collectTypeDependencies(helper, cppObjs);
     for (auto& arg : tmplInstance->templateArgValues_)
       addDependency(arg.second->baseType());
@@ -866,14 +870,6 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
   }
 }
 
-std::set<std::string> CibCppCompound::collectHeaderDependencies(const CibHelper& helper) const
-{
-  std::set<const CppObj*> cppObjs;
-  collectTypeDependencies(helper, cppObjs);
-  bfs::path path = getFileDomObj(this)->name();
-  return collectHeaderDependencies(cppObjs, path.parent_path().string());
-}
-
 const CibCppCompound* CibCppCompound::getFileDomObj(const CppObj* obj)
 {
   const CppCompound* parent = obj->objType_ == kCompound ? static_cast<const CppCompound*>(obj) : obj->owner_;
@@ -882,16 +878,25 @@ const CibCppCompound* CibCppCompound::getFileDomObj(const CppObj* obj)
   return static_cast<const CibCppCompound*>(parent);
 }
 
-std::set<std::string> CibCppCompound::collectHeaderDependencies(const std::set<const CppObj*>& cppObjs,
+std::set<const CibCppCompound*> CibCppCompound::collectAstDependencies(const std::set<const CppObj*>& cppObjs)
+{
+  std::set<const CibCppCompound*> asts;
+  for (auto obj : cppObjs)
+  {
+    auto* ast = getFileDomObj(obj);
+    asts.insert(ast);
+  }
+  return asts;
+}
+
+std::set<std::string> CibCppCompound::collectHeaderDependencies(const std::set<const CibCppCompound*>& compoundObjs,
                                                                 const std::string&             dependentPath)
 {
   std::set<std::string> headers;
-  // std::string           parentPath = bfs::path(dependentPath).parent_path().string();
-
-  for (auto obj : cppObjs)
+  for (auto compound : compoundObjs)
   {
-    auto fileDom = getFileDomObj(obj);
-    headers.emplace(fileDom->name().substr(dependentPath.length()));
+    assert(compound->isCppFile());
+    headers.emplace(compound->name().substr(dependentPath.length()));
   }
   return headers;
 }
@@ -1150,7 +1155,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (isTemplated())
   {
     for (auto& templateInstace : templateInstances_)
-      templateInstace.second->identifyMethodsToBridge(helper);
+      templateInstace->identifyMethodsToBridge(helper);
     return;
   }
   // A class that is inline and not shared don't need any bridging.
@@ -1400,8 +1405,11 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
       stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
       forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
-        stm << indentation << "__zz_cib_" << baseCompound->longName()
-            << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
+        if (!baseCompound->isEmpty() || baseCompound->isShared())
+        {
+          stm << indentation << "__zz_cib_" << baseCompound->longName()
+              << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
+        }
         return true;
       });
       stm << indentation << "return h;\n";
@@ -1511,7 +1519,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     return;
   if (isTemplated())
   {
-    forEachTemplateInstance([&](const std::string&, CibCppCompound* templCompound) {
+    forEachTemplateInstance([&](CibCppCompound* templCompound) {
       templCompound->emitHelperDecl(stm, helper, cibParams);
       templCompound->emitDecl(stm, helper, cibParams);
       templCompound->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
@@ -1614,6 +1622,7 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}}\n";
 }
 
+//TODO: Rename this function as now it doesn't only emit facade/interface headers.
 void CibCppCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
                                                             const CibHelper& helper,
                                                             const CibParams& cibParams,
@@ -1623,8 +1632,6 @@ void CibCppCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm
 {
   std::set<const CibCppCompound*> facades;
   collectFacades(facades);
-  if (facades.empty() && forProxy && !hasClassThatNeedsGenericProxyDefn())
-    return;
   std::set<const CppObj*> dependencies;
   collectTypeDependencies(helper, dependencies);
   dependencies.insert(this);
@@ -1633,8 +1640,13 @@ void CibCppCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm
     dependencies.insert(facade);
     facade->forEachDescendent(kPublic, [&dependencies](const CibCppCompound* obj) { dependencies.insert(obj); });
   }
-  for (const auto& header : collectHeaderDependencies(dependencies, cibParams.inputPath.string()))
-    stm << indentation << "#include \"" << header << "\"\n";
+  if (!dependencies.empty())
+  {
+    auto asts = collectAstDependencies(dependencies);
+    asts.insert(getFileDomObj(this));
+    for (const auto& header : collectHeaderDependencies(asts, cibParams.inputPath.string()))
+      stm << indentation << "#include \"" << header << "\"\n";
+  }
   stm << '\n'; // Start in new line.
   if (!facades.empty() && !forProxy)
   {
@@ -1664,7 +1676,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
   if (isTemplated())
   {
     for (auto& templateInstace : templateInstances_)
-      templateInstace.second->emitLibGlueCode(stm, helper, cibParams, cibIdMgr, indentation);
+      templateInstace->emitLibGlueCode(stm, helper, cibParams, cibIdMgr, indentation);
     return;
   }
   for (auto mem : members_)
@@ -1749,7 +1761,7 @@ void CibCppCompound::collectPublicCompounds(std::vector<const CibCppCompound*>& 
       continue;
     compound->collectPublicCompounds(compounds);
     compound->forEachTemplateInstance(
-      [&](const std::string&, CibCppCompound* templateIns) { templateIns->collectPublicCompounds(compounds); });
+      [&](CibCppCompound* templateIns) { templateIns->collectPublicCompounds(compounds); });
   }
   if (isNamespaceLike() && !needsBridging_.empty())
   {
@@ -1767,7 +1779,7 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
   if (isTemplated())
   {
     for (auto& templateInstace : templateInstances_)
-      templateInstace.second->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, forProxy, indentation);
+      templateInstace->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, forProxy, indentation);
     return;
   }
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)

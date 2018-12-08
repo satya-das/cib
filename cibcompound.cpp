@@ -220,17 +220,72 @@ static std::string canonicalName(const CibCppCompound*        compound,
   return name;
 }
 
-CibCppCompound* CibCppCompound::getTemplateInstantiation(const TemplateArgs&   templateArgs,
+static TemplateArgs CollectTemplateArgs(const std::string& s)
+{
+  auto b = s.find('<');
+  auto e = s.length();
+  assert((s[b] == '<') && (b < e));
+  auto jumpToArgStart = [&]() {
+    while ((++b < e) && isspace(s[b]))
+      ;
+    return b;
+  };
+  auto extractArg = [&s](size_t b, size_t e) {
+    while (isspace(s[--e]))
+      ;
+    ++e;
+    return s.substr(b, e - b);
+  };
+  TemplateArgs ret;
+  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
+  {
+    if (s[b] == '<')
+    {
+      ++nestedTemplateArg;
+    }
+    else if (s[b] == '>')
+    {
+      if (nestedTemplateArg)
+      {
+        --nestedTemplateArg;
+      }
+      else
+      {
+        ret.push_back(extractArg(argStart, b));
+        return ret;
+      }
+    }
+    else if ((nestedTemplateArg == 0) && s[b] == ',')
+    {
+      ret.push_back(extractArg(argStart, b));
+      argStart = jumpToArgStart();
+    }
+  }
+
+  assert(false && "We should never ever be here.");
+  return ret;
+}
+
+TemplateInstances::const_iterator CibCppCompound::addTemplateInstance(CibCppCompound* templateInstance)
+{
+  assert(templSpec_);
+  auto insRez = templateInstances_.insert(templateInstance);
+  assert(insRez.second);
+  return insRez.first;
+}
+
+CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    name,
                                                          const CibCppCompound* instantiationScope,
                                                          const CibHelper&      helper)
 {
-  auto ret = getTemplateInstance(templateArgs);
+  auto templateArgs = CollectTemplateArgs(name);
+  auto* ret = getTemplateInstance(templateArgs);
   if (ret)
     return ret;
-
-  auto resolvedArgs   = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
-  auto clsName        = canonicalName(this, templSpec_, resolvedArgs);
-  ret = getTemplateInstance(clsName);
+  auto resolvedArgVals  = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
+  auto clsName          = canonicalName(this, templSpec_, resolvedArgVals);
+  auto resolvedArgs     = CollectTemplateArgs(clsName);
+  ret = getTemplateInstance(resolvedArgs);
   if (ret)
     return ret;
   ret                 = new CibCppCompound(clsName, compoundType_);
@@ -244,23 +299,25 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const TemplateArgs&   t
       CppFunctionBase*  newMem = nullptr;
       if (func.isConstructorLike())
         newMem = CibFunctionHelper::CreateConstructor(
-          kPublic, this->name(), instantiateParams(func.getParams(), resolvedArgs), nullptr, func.getAttr());
+          kPublic, this->name(), instantiateParams(func.getParams(), resolvedArgVals), nullptr, func.getAttr());
       else if (func.isDestructor())
         newMem = CibFunctionHelper::CreateDestructor(kPublic, "~" + this->name(), func.getAttr());
       else
         newMem = CibFunctionHelper::CreateFunction(kPublic,
                                                    func.funcName(),
-                                                   instantiateVarType(func.returnType(), resolvedArgs),
-                                                   instantiateParams(func.getParams(), resolvedArgs),
+                                                   instantiateVarType(func.returnType(), resolvedArgVals),
+                                                   instantiateParams(func.getParams(), resolvedArgVals),
                                                    func.getAttr());
-      newMem->owner_ = this;
+      newMem->owner_ = ret;
       ret->addMember(newMem);
     }
     return false;
   });
 
-  addTemplateInstance(templateArgs, ret);
-  ret->templateArgValues_.swap(resolvedArgs);
+  auto itr = addTemplateInstance(ret);
+  tmplInstanceCache_.insert(std::make_pair(templateArgs, itr));
+  tmplInstanceCache_.insert(std::make_pair(resolvedArgs, itr));
+  ret->templateArgValues_.swap(resolvedArgVals);
   helper.onNewCompound(ret, outer());
   return ret;
 }
