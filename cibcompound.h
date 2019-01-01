@@ -436,7 +436,7 @@ private:
                                CppIndent        indentation = CppIndent()) const;
 
   void collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
-  void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
+  void collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
 
   void collectFacades(std::set<const CibCppCompound*>& facades) const;
   static std::set<const CibCppCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);

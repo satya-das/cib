@@ -868,7 +868,7 @@ bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
   return false;
 }
 
-void CibCppCompound::collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
+void CibCppCompound::collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
 {
   if (!isTemplated())
     return;
@@ -903,7 +903,7 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
     {
       auto compound = static_cast<const CibCppCompound*>(mem);
       compound->collectTypeDependencies(helper, cppObjs);
-      compound->collectTemplateInstanceTypeDependencies(helper, cppObjs);
+      compound->collectTemplateInstancesTypeDependencies(helper, cppObjs);
     }
     else if (mem->isFunctionLike())
     {
