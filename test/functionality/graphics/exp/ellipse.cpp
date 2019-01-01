@@ -28,12 +28,12 @@ Graphics::Ellipse::Ellipse(double Ox, double Oy, double a, double b)
 {}
 
 double Graphics::Ellipse::Area() const {
-  return     __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Area_3(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Area_3(__zz_cib_h_);
+}
 
 double Graphics::Ellipse::Perimeter() const {
-  return     __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
+}
 
 void Graphics::Ellipse::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Ellipse::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));

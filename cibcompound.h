@@ -328,6 +328,7 @@ public:
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitTemplateInstanceForwardDeclarations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitTemplateInstanceSpecializations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitGenericProxyDefn(std::ostream&    stm,
@@ -445,6 +446,7 @@ private:
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool                  collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
   bool                  hasClassThatNeedsGenericProxyDefn() const;
+  bfs::path             getImplDir(const CibParams& cibParams) const;
   std::string           getImplPath(const CibParams& cibParams) const;
   std::string           implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);

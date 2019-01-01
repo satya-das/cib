@@ -685,24 +685,71 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   emitHelperDecl(stm, helper, cibParams);
 }
 
+void CibCppCompound::emitTemplateInstanceForwardDeclarations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
+{
+  auto addDependency = [&](std::set<const CppObj*>& cppObjs, const std::string& typeName) {
+    auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    if (resolvedCppObj)
+      cppObjs.insert(resolvedCppObj);
+  };
+  auto emitFwdDeclaration = [&](const CppObj* cppObj) {
+    if (cppObj->objType_ == CppObj::kFwdClsDecl)
+    {
+      gCppWriter.emitFwdDecl(static_cast<const CppFwdClsDecl*>(cppObj), stm);
+    }
+    else if (cppObj->isClassLike())
+    {
+      auto* compound = static_cast<const CibCppCompound*>(cppObj);
+      if (compound->isTemplateInstance())
+        stm << "template <>\n";
+      stm << compound->compoundType_ << ' ' << compound->fullName() << ";\n";
+    }
+  };
+  auto emitFwdDeclarations = [&](const std::set<const CppObj*>& cppObjs) {
+    for (auto* cppObj : cppObjs)
+      emitFwdDeclaration(cppObj);
+  };
+  forEachNested([&](const CibCppCompound* compound) {
+    if (compound->isTemplated())
+    {
+      compound->forEachTemplateInstance([&](CibCppCompound* tmplInstance) {
+        std::set<const CppObj*> cppObjs;
+        for (auto& arg : tmplInstance->templateArgValues_)
+          addDependency(cppObjs, arg.second->baseType());
+        emitFwdDeclarations(cppObjs);
+        emitFwdDeclaration(tmplInstance);
+      });
+    }
+  });
+}
+
 void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
-  std::set<const CppObj*> dependencies;
   forEachNested([&](const CibCppCompound* compound) {
-    if (compound->isTemplated())
-      compound->collectTemplateInstanceTypeDependencies(helper, dependencies);
-  });
-  if (!dependencies.empty())
-  {
-    auto asts = collectAstDependencies(dependencies);
-    dependencies.erase(getFileDomObj(this));
-    stm << '\n';
-    for (const auto& header : collectHeaderDependencies(asts, cibParams.inputPath.string()))
-      stm << "#include \"" << header << "\"\n";
-  }
-  forEachNested([&](const CibCppCompound* compound) {
-    if (compound->isTemplated())
-      compound->emitDefn(stm, true, helper, cibParams, cibIdMgr);
+    if (!compound->isTemplated() || compound->templateInstances_.empty())
+      return;
+    compound->forEachTemplateInstance([&](CibCppCompound* templCompound) {
+      auto specializationFilename = templCompound->nsName() + ".h";
+      auto specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
+      std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
+      std::set<const CppObj*> dependencies;
+      templCompound->collectTypeDependencies(helper, dependencies);
+      auto asts = collectAstDependencies(dependencies);
+      asts.erase(getFileDomObj(this));
+      auto headers = collectHeaderDependencies(asts, cibParams.inputPath.string());
+      if (!headers.empty())
+      {
+        tmplStm << '\n';
+        for (const auto& header : headers)
+          tmplStm << "#include \"" << header << "\"\n";
+      }
+      templCompound->emitHelperDecl(tmplStm, helper, cibParams);
+      templCompound->emitDecl(tmplStm, helper, cibParams);
+      templCompound->emitHelperDefn(tmplStm, helper, cibParams, cibIdMgr);
+      templCompound->emitDefn(tmplStm, true, helper, cibParams, cibIdMgr);
+
+      stm << "#include \"" << specializationFilename << "\"\n";
+    });
   });
 }
 
@@ -720,6 +767,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
+  emitTemplateInstanceForwardDeclarations(stm, helper, cibParams, cibIdMgr);
   emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
 }
 
@@ -905,13 +953,17 @@ std::set<std::string> CibCppCompound::collectHeaderDependencies(const std::set<c
   return headers;
 }
 
+bfs::path CibCppCompound::getImplDir(const CibParams& cibParams) const
+{
+  bfs::path impl         = name();
+  return bfs::path(cibParams.cibInternalDirName) / bfs::relative(impl, cibParams.inputPath).remove_filename();
+}
+
 std::string CibCppCompound::getImplPath(const CibParams& cibParams) const
 {
   bfs::path impl         = name();
   auto      implFilename = impl.stem().string();
-  impl.remove_filename();
-  impl /= implFilename;
-  return (bfs::path(cibParams.cibInternalDirName) / bfs::relative(impl, cibParams.inputPath)).string();
+  return (getImplDir(cibParams) / implFilename).string();
 }
 
 std::string CibCppCompound::implIncludeName(const CibParams& cibParams) const
@@ -1519,18 +1571,6 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
                               const CibIdMgr&  cibIdMgr,
                               CppIndent        indentation /* = CppIndent */) const
 {
-  if (templSpec_ && templateInstances_.empty())
-    return;
-  if (isTemplated())
-  {
-    forEachTemplateInstance([&](CibCppCompound* templCompound) {
-      templCompound->emitHelperDecl(stm, helper, cibParams);
-      templCompound->emitDecl(stm, helper, cibParams);
-      templCompound->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
-      templCompound->emitDefn(stm, asInline, helper, cibParams, cibIdMgr);
-    });
-  }
-
   auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (isClassLike() && (isShared() || !needsBridging_.empty()))
   {

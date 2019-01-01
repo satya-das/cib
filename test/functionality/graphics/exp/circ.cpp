@@ -29,12 +29,12 @@ Graphics::Circle::Circle(double Ox, double Oy, double radius)
 {}
 
 double Graphics::Circle::Area() const {
-  return     __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_3(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Area_3(__zz_cib_h_);
+}
 
 double Graphics::Circle::Perimeter() const {
-  return     __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Circle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
+}
 
 void Graphics::Circle::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Circle::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));

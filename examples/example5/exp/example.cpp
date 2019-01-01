@@ -30,6 +30,6 @@ void Example::A::Set(::Example::Number<int> const & x) {
 
 ::Example::Number<int> Example::A::Get() const {
   return __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Example::A::__zz_cib_Helper::Get_4(__zz_cib_h_)
-  );
+__zz_cib_::Example::A::__zz_cib_Helper::Get_4(__zz_cib_h_)
+);
 }

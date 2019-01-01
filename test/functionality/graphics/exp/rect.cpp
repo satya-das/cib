@@ -28,12 +28,12 @@ Graphics::Rectangle::Rectangle(double left, double bottom, double right, double 
 {}
 
 double Graphics::Rectangle::Area() const {
-  return     __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Area_3(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Area_3(__zz_cib_h_);
+}
 
 double Graphics::Rectangle::Perimeter() const {
-  return     __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Perimeter_4(__zz_cib_h_);
+}
 
 void Graphics::Rectangle::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Rectangle::__zz_cib_Helper::Draw_5(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));

@@ -25,16 +25,16 @@ Point::Point(double x, double y)
 {}
 
 double Point::X() const {
-  return     __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
-  }
+  return __zz_cib_::Point::__zz_cib_Helper::X_3(__zz_cib_h_);
+}
 
 void Point::X(double x) {
   __zz_cib_::Point::__zz_cib_Helper::X_4(__zz_cib_h_, x);
 }
 
 double Point::Y() const {
-  return     __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
-  }
+  return __zz_cib_::Point::__zz_cib_Helper::Y_5(__zz_cib_h_);
+}
 
 void Point::Y(double y) {
   __zz_cib_::Point::__zz_cib_Helper::Y_6(__zz_cib_h_, y);
@@ -42,12 +42,12 @@ void Point::Y(double y) {
 
 ::Point Point::operator +(::Point const & p) const {
   return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
-  );
+__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorPlus_7(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
+);
 }
 
 ::Point Point::operator -(::Point p) const {
   return __zz_cib_::Point::__zz_cib_Helper::__zz_cib_obj_from_handle(
-    __zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_8(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
-  );
+__zz_cib_::Point::__zz_cib_Helper::__zz_cib_OperatorMinus_8(__zz_cib_h_, __zz_cib_::Point::__zz_cib_Helper::__zz_cib_handle(p))
+);
 }

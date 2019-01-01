@@ -33,8 +33,8 @@ void Graphics::Composite::Add(::Graphics::Shape* shape) {
 }
 
 size_t Graphics::Composite::NumShapes() const {
-  return     __zz_cib_::Graphics::Composite::__zz_cib_Helper::NumShapes_4(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Composite::__zz_cib_Helper::NumShapes_4(__zz_cib_h_);
+}
 
 ::Graphics::Shape* Graphics::Composite::ShapeAt(size_t idxShape) const {
   return __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_from_handle(
@@ -43,12 +43,12 @@ size_t Graphics::Composite::NumShapes() const {
 }
 
 double Graphics::Composite::Area() const {
-  return     __zz_cib_::Graphics::Composite::__zz_cib_Helper::Area_6(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Area_6(__zz_cib_h_);
+}
 
 double Graphics::Composite::Perimeter() const {
-  return     __zz_cib_::Graphics::Composite::__zz_cib_Helper::Perimeter_7(__zz_cib_h_);
-  }
+  return __zz_cib_::Graphics::Composite::__zz_cib_Helper::Perimeter_7(__zz_cib_h_);
+}
 
 void Graphics::Composite::Draw(::Graphics::Context* ctx) const {
   __zz_cib_::Graphics::Composite::__zz_cib_Helper::Draw_8(__zz_cib_h_, __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
