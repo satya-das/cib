@@ -63,6 +63,7 @@ enum CibClassPropFlags
   kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)),  //< When class doesn't have any non-static member
   kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropCompositeTmpl = (1 << (__LINE__ - kClassPropBaseLine)), //< Template instance that uses another compound as argument.
 };
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
@@ -89,6 +90,7 @@ private:
   TmplInstanceCache        tmplInstanceCache_;
   CibCppCompound*          templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues        templateArgValues_;
+  std::set<const CibCppCompound*> usedInTemplArg;   ///< Set of al templateinstances that use this compound as ar
   std::string              nsName_;
 
 public:
@@ -284,6 +286,10 @@ public:
   {
     return (props_ & kClassPropEmpty);
   }
+  bool isCompositeTemplate() const
+  {
+    return (props_ & kClassPropCompositeTmpl);
+  }
   //! @return true if it has at least one constructor other than copy/move.
   bool hasCtor() const
   {
@@ -434,9 +440,11 @@ private:
                                const CibParams& cibParams,
                                const CibIdMgr&  cibIdMgr,
                                CppIndent        indentation = CppIndent()) const;
+  void emitDependentTemplateSpecilizationHeaders(std::ostream& stm) const;
 
   void collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
   void collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
+  void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
 
   void collectFacades(std::set<const CibCppCompound*>& facades) const;
   static std::set<const CibCppCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
@@ -450,6 +458,7 @@ private:
   std::string           getImplPath(const CibParams& cibParams) const;
   std::string           implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
+  void                  setupTemplateDependencies(const CibHelper& helper);
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,

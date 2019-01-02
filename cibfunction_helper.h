@@ -188,6 +188,10 @@ public:
   {
     return func_->templSpec_ != nullptr;
   }
+  bool isOutOfClassDefinition() const
+  {
+    return hasDefinition() && (funcName().find(":") != std::string::npos);
+  }
   bool hasVariadicParam() const
   {
     if (!isFunction() || !hasParams())

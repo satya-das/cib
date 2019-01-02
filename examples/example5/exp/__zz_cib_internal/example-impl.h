@@ -71,6 +71,4 @@ public:
   }
 };
 }}}
-template <>
-class Example::Number<int>;
 #include "__zz_cib_Class1.h"

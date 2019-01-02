@@ -1,3 +1,7 @@
+#pragma once
+
+
+#include "example.h"
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
 class __zz_cib_Helper;

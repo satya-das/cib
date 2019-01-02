@@ -319,5 +319,25 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    n
   tmplInstanceCache_.insert(std::make_pair(resolvedArgs, itr));
   ret->templateArgValues_.swap(resolvedArgVals);
   helper.onNewCompound(ret, outer());
+  ret->setupTemplateDependencies(helper);
   return ret;
+}
+
+void CibCppCompound::setupTemplateDependencies(const CibHelper& helper)
+{
+  bool compositeTemplate = false;
+  for (auto& arg : templateArgValues_)
+  {
+    auto* resolvedCppObj = helper.getCppObjFromTypeName(arg.second->baseType(), this);
+    if (resolvedCppObj && resolvedCppObj->isClassLike())
+    {
+      auto* resolvedCompound = static_cast<CibCppCompound*>(resolvedCppObj);
+      resolvedCompound->usedInTemplArg.insert(this);
+
+      compositeTemplate = true;
+    }
+  }
+
+  if (compositeTemplate)
+    props_ |= kClassPropCompositeTmpl;
 }

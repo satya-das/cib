@@ -732,10 +732,11 @@ void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream& stm, cons
       auto specializationFilename = templCompound->nsName() + ".h";
       auto specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
       std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
+      tmplStm << "#pragma once\n\n";
       std::set<const CppObj*> dependencies;
-      templCompound->collectTypeDependencies(helper, dependencies);
+      templCompound->collectTemplateInstanceTypeDependencies(helper, dependencies);
       auto asts = collectAstDependencies(dependencies);
-      asts.erase(getFileDomObj(this));
+      asts.insert(getFileDomObj(this));
       auto headers = collectHeaderDependencies(asts, cibParams.inputPath.string());
       if (!headers.empty())
       {
@@ -747,10 +748,21 @@ void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream& stm, cons
       templCompound->emitDecl(tmplStm, helper, cibParams);
       templCompound->emitHelperDefn(tmplStm, helper, cibParams, cibIdMgr);
       templCompound->emitDefn(tmplStm, true, helper, cibParams, cibIdMgr);
-
-      stm << "#include \"" << specializationFilename << "\"\n";
+      templCompound->emitDependentTemplateSpecilizationHeaders(tmplStm);
+      if (!templCompound->isCompositeTemplate())
+        stm << "#include \"" << specializationFilename << "\"\n";
     });
   });
+}
+
+void CibCppCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm) const
+{
+  for (auto* usedAsArgIn : usedInTemplArg)
+  {
+    auto headerName = usedAsArgIn->nsName() + ".h";
+    assert(headerName.find('<') == std::string::npos);
+    stm << "#include \"" << headerName << "\"\n";
+  }
 }
 
 void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
@@ -767,8 +779,12 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 
   emitHelperDefn(stm, helper, cibParams, cibIdMgr);
-  emitTemplateInstanceForwardDeclarations(stm, helper, cibParams, cibIdMgr);
+  //emitTemplateInstanceForwardDeclarations(stm, helper, cibParams, cibIdMgr);
   emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
+
+  forEachNested([&](const CibCppCompound* compound) {
+    compound->emitDependentTemplateSpecilizationHeaders(stm);
+  });
 }
 
 void CibCppCompound::emitImplSource(std::ostream&    stm,
@@ -868,9 +884,9 @@ bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
   return false;
 }
 
-void CibCppCompound::collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
+void CibCppCompound::collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
 {
-  if (!isTemplated())
+  if (!isTemplateInstance())
     return;
   // TODO addDependency is duplicated in another function.
   // Remove duplication, may be by having dependecy collector as another class.
@@ -880,15 +896,26 @@ void CibCppCompound::collectTemplateInstancesTypeDependencies(const CibHelper& h
       cppObjs.insert(resolvedCppObj);
   };
 
+  collectTypeDependencies(helper, cppObjs);
+  for (auto& arg : templateArgValues_)
+    addDependency(arg.second->baseType());
+}
+
+void CibCppCompound::collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
+{
+  if (!isTemplated())
+    return;
   forEachTemplateInstance([&](CibCppCompound* tmplInstance) {
-    tmplInstance->collectTypeDependencies(helper, cppObjs);
-    for (auto& arg : tmplInstance->templateArgValues_)
-      addDependency(arg.second->baseType());
+    tmplInstance->collectTemplateInstanceTypeDependencies(helper, cppObjs);
   });
 }
 
 void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
 {
+  //TODO: We still would like to collect dependencies that are not related to template arguments.
+  if (isTemplated())
+    return;
+
   auto addDependency = [&](const std::string& typeName) {
     auto* resolvedCppObj = resolveTypeName(typeName, helper);
     if (resolvedCppObj)
@@ -908,14 +935,17 @@ void CibCppCompound::collectTypeDependencies(const CibHelper& helper, std::set<c
     else if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
-      if (func.returnType() && !func.returnType()->isVoid())
-        addDependency(func.returnType()->baseType());
-      if (func.hasParams())
+      if (!func.isOutOfClassDefinition())
       {
-        for (auto param : *func.getParams())
+        if (func.returnType() && !func.returnType()->isVoid())
+          addDependency(func.returnType()->baseType());
+        if (func.hasParams())
         {
-          if ((param.cppObj->objType_ == kVarType) || (param.cppObj->objType_ == kVar))
-            addDependency(param.varObj->baseType());
+          for (auto param : *func.getParams())
+          {
+            if ((param.cppObj->objType_ == kVarType) || (param.cppObj->objType_ == kVar))
+              addDependency(param.varObj->baseType());
+          }
         }
       }
     }

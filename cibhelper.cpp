@@ -164,6 +164,8 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
 
 void CibHelper::evaluateArgs(const CibFunctionHelper& func)
 {
+  if (func.isTemplated())
+    return;
   // Evaluate the arguments to detect properties of class.
   if (func.hasParams())
   {
@@ -193,6 +195,8 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
 }
 void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
 {
+  if (func.isTemplated())
+    return;
   if (func.returnType())
   {
     if (func.returnType()->ptrLevel() == 1 || func.returnType()->refType() == kByRef)
@@ -234,11 +238,8 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
       CibFunctionHelper func(mem);
       if (!func.hasDefinition() || func.isVirtual())
         isInline = false;
-      if (func.isMethod())
-      {
-        evaluateArgs(mem);
-        evaluateReturnType(mem);
-      }
+      evaluateArgs(mem);
+      evaluateReturnType(mem);
       if (!(func.getAttr() & kStatic))
         isEmpty = false;
     }
