@@ -57,14 +57,15 @@ using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
 enum CibClassPropFlags
 {
-  kClassPropBaseLine = __LINE__, //< Unusable const
+  kClassPropBaseLine  = __LINE__, //< Unusable const
   kClassPropInline    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared    = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropAbstract  = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)),  //< When class doesn't have any non-static member
+  kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)), //< When class doesn't have any non-static member
   kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropCompositeTmpl = (1 << (__LINE__ - kClassPropBaseLine)), //< Template instance that uses another compound as argument.
+  kClassPropCompositeTmpl =
+    (1 << (__LINE__ - kClassPropBaseLine)), //< Template instance that uses another compound as argument.
 };
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
@@ -87,12 +88,12 @@ private:
   CibFunctionHelperArray   allVirtuals_; // All virtual methods including that of parent classes.
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
-  TemplateInstances        templateInstances_;      ///< Meaningful for template classes only.
+  TemplateInstances        templateInstances_; ///< Meaningful for template classes only.
   TmplInstanceCache        tmplInstanceCache_;
   CibCppCompound*          templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues        templateArgValues_;
-  std::set<const CibCppCompound*> usedInTemplArg;   ///< Set of al templateinstances that use this compound as ar
-  std::string              nsName_;
+  std::set<const CibCppCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
+  std::string                     nsName_;
 
 public:
   /// @return name of this class.
@@ -199,7 +200,7 @@ public:
   ///@ return CppObj corresponding to name of a given type
   const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
   /// Identifies mothods that need to be bridged
-  void                          identifyMethodsToBridge(const CibHelper& helper);
+  void identifyMethodsToBridge(const CibHelper& helper);
   bool needsBridging() const
   {
     return (!needsBridging_.empty()) || isFacadeLike();
@@ -253,9 +254,7 @@ public:
   }
   bool isAncestorFacadeLike() const
   {
-    return forEachAncestor(kPublic,[](const CibCppCompound* ancestor)->bool {
-      return ancestor->isFacadeLike();
-    });
+    return forEachAncestor(kPublic, [](const CibCppCompound* ancestor) -> bool { return ancestor->isFacadeLike(); });
 
     return false;
   }
@@ -335,8 +334,14 @@ public:
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
-  void emitTemplateInstanceForwardDeclarations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
-  void emitTemplateInstanceSpecializations(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitTemplateInstanceForwardDeclarations(std::ostream&    stm,
+                                               const CibHelper& helper,
+                                               const CibParams& cibParams,
+                                               const CibIdMgr&  cibIdMgr) const;
+  void emitTemplateInstanceSpecializations(std::ostream&    stm,
+                                           const CibHelper& helper,
+                                           const CibParams& cibParams,
+                                           const CibIdMgr&  cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitGenericProxyDefn(std::ostream&    stm,
                             const CibHelper& helper,
@@ -407,7 +412,7 @@ private:
                 const CibParams& cibParams,
                 CppIndent        indentation = CppIndent()) const;
   void emitDefn(std::ostream&    stm,
-                bool asInline,
+                bool             asInline,
                 const CibHelper& helper,
                 const CibParams& cibParams,
                 const CibIdMgr&  cibIdMgr,
@@ -429,14 +434,14 @@ private:
                                               bool             forProxy,
                                               CppIndent        indentation) const;
   void emitHandleConstructorDefn(std::ostream&    stm,
-                                 bool asInline,
+                                 bool             asInline,
                                  const CibHelper& helper,
                                  const CibParams& cibParams,
                                  const CibIdMgr&  cibIdMgr,
                                  CppIndent        indentation = CppIndent()) const;
   void emitMoveConstructorDecl(std::ostream& stm, CppIndent indentation = CppIndent()) const;
   void emitMoveConstructorDefn(std::ostream&    stm,
-                               bool asInline,
+                               bool             asInline,
                                const CibHelper& helper,
                                const CibParams& cibParams,
                                const CibIdMgr&  cibIdMgr,
@@ -447,19 +452,19 @@ private:
   void collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
   void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
 
-  void collectFacades(std::set<const CibCppCompound*>& facades) const;
+  void                                   collectFacades(std::set<const CibCppCompound*>& facades) const;
   static std::set<const CibCppCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
-  static std::set<std::string> collectHeaderDependencies(const std::set<const CibCppCompound*>& compoundObjs,
-                                                         const std::string&             dependentPath);
+  static std::set<std::string>           collectHeaderDependencies(const std::set<const CibCppCompound*>& compoundObjs,
+                                                                   const bfs::path&                       dependentPath);
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
-  bool                  collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
-  bool                  hasClassThatNeedsGenericProxyDefn() const;
-  bfs::path             getImplDir(const CibParams& cibParams) const;
-  std::string           getImplPath(const CibParams& cibParams) const;
-  std::string           implIncludeName(const CibParams& cibParams) const;
+  bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
+  bool        hasClassThatNeedsGenericProxyDefn() const;
+  bfs::path   getImplDir(const CibParams& cibParams) const;
+  std::string getImplPath(const CibParams& cibParams) const;
+  std::string implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
-  void                  setupTemplateDependencies(const CibHelper& helper);
+  void                              setupTemplateDependencies(const CibHelper& helper);
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
@@ -552,8 +557,7 @@ inline bool CibCppCompound::forEachMember(CppObjProtLevel prot, std::function<bo
   return false;
 }
 
-inline void CibCppCompound::forEachTemplateInstance(
-  std::function<void(CibCppCompound*)> callable) const
+inline void CibCppCompound::forEachTemplateInstance(std::function<void(CibCppCompound*)> callable) const
 {
   for (auto& ins : templateInstances_)
     callable(ins.second);
