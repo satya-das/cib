@@ -29,20 +29,22 @@
 class CibObjFactory : public CppObjFactory
 {
 public:
-  virtual CppCompound* CreateCompound(std::string name, CppObjProtLevel prot, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(CppObjProtLevel prot, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(std::string name, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(CppCompoundType type) const;
+  CppCompound* CreateCompound(std::string name, CppObjProtLevel prot, CppCompoundType type) const override;
+  CppCompound* CreateCompound(CppObjProtLevel prot, CppCompoundType type) const override;
+  CppCompound* CreateCompound(std::string name, CppCompoundType type) const override;
+  CppCompound* CreateCompound(CppCompoundType type) const override;
 
-  virtual CppConstructor* CreateConstructor(CppObjProtLevel prot,
+  CppConstructor* CreateConstructor(CppObjProtLevel prot,
                                             std::string     name,
                                             CppParamList*   params,
                                             CppMemInitList* memInitList,
-                                            unsigned int    attr) const;
-  virtual CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr) const;
-  virtual CppFunction*    CreateFunction(CppObjProtLevel prot,
+                                            unsigned int    attr) const override;
+  CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr) const override;
+  CppFunction*    CreateFunction(CppObjProtLevel prot,
                                          std::string     name,
                                          CppVarType*     retType,
                                          CppParamList*   params,
-                                         unsigned int    attr) const;
+                                         unsigned int    attr) const override;
+
+  CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name) const override;
 };

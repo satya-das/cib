@@ -68,3 +68,8 @@ CppFunction* CibObjFactory::CreateFunction(CppObjProtLevel prot,
 {
   return CibFunctionHelper::CreateFunction(prot, std::move(name), retType, params, attr);
 }
+
+CppTypeConverter* CibObjFactory::CreateTypeConverter(CppVarType* type, std::string name) const
+{
+  return CibFunctionHelper::CreateTypeConverter(type, std::move(name));
+}

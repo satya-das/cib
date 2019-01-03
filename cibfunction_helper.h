@@ -77,10 +77,11 @@ class CibFunctionHelper
 private:
   union
   {
-    const CppObj*            cppObj_;
-    const CibCppConstructor* ctor_;
-    const CibCppDestructor*  dtor_;
-    const CibCppFunction*    func_;
+    const CppObj*               cppObj_;
+    const CibCppConstructor*    ctor_;
+    const CibCppDestructor*     dtor_;
+    const CibCppFunction*       func_;
+    const CibCppTypeConverter*  converter_;
   };
 
 public:
@@ -92,6 +93,7 @@ public:
   static CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
   static CppFunction*
   CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
+  static CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name);
 
 public:
   CibFunctionHelper(const CppObj* cppObj);
@@ -136,6 +138,10 @@ public:
   {
     return cppObj_->objType_ == CppObj::kDestructor;
   }
+  bool isTypeConverter() const
+  {
+    return cppObj_->objType_ == CppObj::kTypeConverter;
+  }
   bool isStatic() const
   {
     return (func_->attr_ & kStatic) == kStatic;
@@ -174,7 +180,7 @@ public:
   }
   bool isFunction() const
   {
-    return !isConstructor() && !isDestructor();
+    return !isConstructor() && !isDestructor() && !isTypeConverter();
   }
   bool isMethod() const
   {
@@ -207,7 +213,7 @@ public:
 
   bool hasParams() const
   {
-    if (isDestructor() || (func_->params_ == nullptr) || func_->params_->empty())
+    if (isDestructor() || isTypeConverter() || (func_->params_ == nullptr) || func_->params_->empty())
       return false;
     // It may happen there is parameter but it is a 'void' one.
     const auto& param = func_->params_->front();
@@ -217,11 +223,16 @@ public:
   }
   CppParamList* getParams() const
   {
-    return isDestructor() ? nullptr : func_->params_;
+    return !hasParams() ? nullptr : func_->params_;
   }
   CppVarType* returnType() const
   {
-    return isFunction() ? func_->retType_ : nullptr;
+    if (isTypeConverter())
+      return converter_->to_;
+    else if(isFunction())
+      return func_->retType_;
+    else
+      return nullptr;
   }
 
   /// Name of function.

@@ -68,3 +68,8 @@ struct CibCppFunction : public CppFunctionLikeMixin<CppFunction>
 {
   using CppFunctionLikeMixin::CppFunctionLikeMixin;
 };
+
+struct CibCppTypeConverter : public CppFunctionLikeMixin<CppTypeConverter>
+{
+  using CppFunctionLikeMixin::CppFunctionLikeMixin;
+};

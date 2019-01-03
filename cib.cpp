@@ -229,14 +229,25 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
 
 void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose) const
 {
-  if (isFunction() && func_->retType_)
+  if (isTypeConverter())
+    stm << "operator ";
+  if (returnType())
   {
-    emitType(stm, func_->retType_, getOwner(), helper, purpose);
+    emitType(stm, returnType(), getOwner(), helper, purpose);
     stm << ' ';
   }
-  stm << funcName() << '(';
-  emitArgsForDecl(stm, helper, true, purpose);
-  stm << ')';
+
+  if (!isTypeConverter())
+  {
+    stm << funcName() << '(';
+    emitArgsForDecl(stm, helper, true, purpose);
+    stm << ')';
+  }
+  else
+  {
+    stm << "()";
+  }
+
   if (isConst())
     stm << " const";
 }
@@ -272,7 +283,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, func_->retType_, callingOwner, helper, purpose);
+    emitType(stm, returnType(), callingOwner, helper, purpose);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if ((purpose != kPurposeSignature) && isConstructor() && callingOwner->needsGenericProxyDefinition())
@@ -281,7 +292,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
     if (hasParams())
       stm << ", ";
   }
-  else if (!isStatic() && (isMethod() || isDestructor()))
+  else if (!isStatic() && (isMethod() || isDestructor() || isTypeConverter()))
   {
     if (isConst())
       stm << "const ";
@@ -337,15 +348,21 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
   {
     stm << "delete __zz_cib_obj;\n";
   }
+  else if (isTypeConverter())
+  {
+    stm << "return (";
+    emitType(stm, returnType(), getOwner(), helper, kPurposeSignature);
+    stm << ") (*__zz_cib_obj);\n";
+  }
   else
   {
     bool convertFromValue = false;
-    if (func_->retType_ && !func_->retType_->isVoid())
+    if (returnType() && !returnType()->isVoid())
     {
       stm << "return ";
-      if (func_->retType_->isByValue())
+      if (returnType()->isByValue())
       {
-        auto* resolvedCppObj = callingOwner->resolveTypeName(func_->retType_->baseType(), helper);
+        auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
         auto* resolvedType   = resolvedCppObj && resolvedCppObj->isClassLike()
                                ? static_cast<const CibCppCompound*>(resolvedCppObj)
                                : nullptr;
@@ -356,7 +373,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
           stm << "new ::" << retTypeCompound->fullName() << '(';
         }
       }
-      else if (func_->retType_->isByRef())
+      else if (returnType()->isByRef())
       {
         stm << '&';
       }
@@ -386,14 +403,23 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
   stm << indentation;
   if (asInline)
     stm << "inline ";
-  if (isFunction())
+  if (isTypeConverter())
   {
+    stm << callingOwner->fullName() << "::operator ";
     emitType(stm, returnType(), callingOwner, helper, kPurposeProxyDefn);
-    stm << ' ';
+    stm << "()";
   }
-  stm << callingOwner->fullName() << "::" << funcName() << '(';
-  emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
-  stm << ")";
+  else
+  {
+    if (isFunction())
+    {
+      emitType(stm, returnType(), callingOwner, helper, kPurposeProxyDefn);
+      stm << ' ';
+    }
+    stm << callingOwner->fullName() << "::" << funcName() << '(';
+    emitArgsForDecl(stm, helper, true, kPurposeProxyDefn);
+    stm << ")";
+  }
   auto capiName = cibIdData->getMethodCApiName(signature(helper));
   if (isConstructor())
   {
@@ -574,7 +600,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   stm << "using " << procType() << " = ";
   emitCAPIReturnType(stm, helper, forGenericProxy);
   stm << " (__zz_cib_decl *) (";
-  if (!isStatic() && (isDestructor() || isMethod()))
+  if (!isStatic() && (isDestructor() || isMethod() || isTypeConverter()))
   {
     if (forGenericProxy)
       stm << "__zz_cib_PROXY*";
@@ -605,7 +631,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
     stm << "void";
   else
     emitType(
-      stm, func_->retType_, getOwner(), helper, forGenericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType);
+      stm, returnType(), getOwner(), helper, forGenericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

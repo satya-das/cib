@@ -63,6 +63,11 @@ CppFunction* CibFunctionHelper::CreateFunction(CppObjProtLevel prot,
   return new CibCppFunction(prot, std::move(name), retType, params, attr);
 }
 
+CppTypeConverter* CibFunctionHelper::CreateTypeConverter(CppVarType* type, std::string name)
+{
+  return new CibCppTypeConverter(type, std::move(name));
+}
+
 CibCppCompound* CibFunctionHelper::getOwner() const
 {
   return static_cast<CibCppCompound*>(func_->owner_);
