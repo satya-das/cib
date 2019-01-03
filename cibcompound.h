@@ -50,7 +50,8 @@ typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
 using StringVector      = std::vector<std::string>;
 using TemplateArgs      = StringVector;
-using TemplateInstances = std::set<CibCppCompound*>;
+// A set is sufficient but for having order we need map.
+using TemplateInstances = std::map<std::string, CibCppCompound*>;
 using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
 using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
@@ -215,7 +216,7 @@ public:
   {
     assert(templSpec_);
     auto itr = tmplInstanceCache_.find(templateArgs);
-    return (itr == tmplInstanceCache_.end()) ? nullptr : *(itr->second);
+    return (itr == tmplInstanceCache_.end()) ? nullptr : itr->second->second;
   }
   CibCppCompound* getTemplateInstantiation(const std::string&    name,
                                            const CibCppCompound* instantiationScope,
@@ -555,5 +556,5 @@ inline void CibCppCompound::forEachTemplateInstance(
   std::function<void(CibCppCompound*)> callable) const
 {
   for (auto& ins : templateInstances_)
-    callable(ins);
+    callable(ins.second);
 }

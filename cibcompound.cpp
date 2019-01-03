@@ -269,7 +269,7 @@ static TemplateArgs CollectTemplateArgs(const std::string& s)
 TemplateInstances::const_iterator CibCppCompound::addTemplateInstance(CibCppCompound* templateInstance)
 {
   assert(templSpec_);
-  auto insRez = templateInstances_.insert(templateInstance);
+  auto insRez = templateInstances_.insert(std::make_pair(templateInstance->name(), templateInstance));
   assert(insRez.second);
   return insRez.first;
 }

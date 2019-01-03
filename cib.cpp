@@ -1266,8 +1266,9 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
   if (isTemplated())
   {
-    for (auto& templateInstace : templateInstances_)
+    forEachTemplateInstance([&](CibCppCompound* templateInstace) {
       templateInstace->identifyMethodsToBridge(helper);
+    });
     return;
   }
   // A class that is inline and not shared don't need any bridging.
@@ -1378,7 +1379,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
                                     const CibIdMgr&  cibIdMgr,
                                     CppIndent        indentation /* = CppIndent */) const
 {
-  if (templSpec_ && templateInstances_.empty())
+  if (isTemplated() && templateInstances_.empty())
     return;
 
   if (isNamespaceLike() && !needsBridging_.empty())
@@ -1775,8 +1776,9 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
   }
   if (isTemplated())
   {
-    for (auto& templateInstace : templateInstances_)
+    forEachTemplateInstance([&](CibCppCompound* templateInstace) {
       templateInstace->emitLibGlueCode(stm, helper, cibParams, cibIdMgr, indentation);
+    });
     return;
   }
   for (auto mem : members_)
@@ -1878,8 +1880,9 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
 {
   if (isTemplated())
   {
-    for (auto& templateInstace : templateInstances_)
+    forEachTemplateInstance([&](CibCppCompound* templateInstace) {
       templateInstace->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, forProxy, indentation);
+    });
     return;
   }
   for (CppObjArray::const_iterator memItr = members_.begin(); memItr != members_.end(); ++memItr)
