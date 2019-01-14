@@ -14,10 +14,8 @@ static void TestLibraryCallingClientFunctions();
 
 int main(int argc, char* argv[])
 {
-  if (argc == 1 || !strcmp(argv[1], "--test-1"))
-    TestClientCallingLibraryFunctions();
-  if (argc == 1 || !strcmp(argv[1], "--test-2"))
-    TestLibraryCallingClientFunctions();
+  TestClientCallingLibraryFunctions();
+  TestLibraryCallingClientFunctions();
 
   return 0;
 }
