@@ -16,8 +16,15 @@ set(DRAW_SOURCES
 	svg_context.h
 )
 
-file(GLOB GRAPHICS_EXP_SOURCES
-	../graphics/exp/*.cpp
+set(GRAPHICS_EXP_SOURCES
+	../graphics/exp/circ.cpp
+	../graphics/exp/context.cpp
+	../graphics/exp/ellipse.cpp
+	../graphics/exp/log_context.cpp
+	../graphics/exp/rect.cpp
+	../graphics/exp/shape.cpp
+	../graphics/exp/point.cpp
+	../graphics/exp/composite.cpp
 )
 
 add_executable(draw_cibified
