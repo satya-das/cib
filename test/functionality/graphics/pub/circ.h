@@ -1,37 +1,27 @@
 #pragma once
 
-#include "shape.h"
 #include "context.h"
+#include "shape.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace Graphics
-{
+namespace Graphics {
 /**
  * \brief Represents a circle.
  */
 class GRAPHICSAPI Circle : public Shape
 {
-  double Ox_, Oy_, radius_;
-
 public:
-  Circle(double Ox, double Oy, double radius)
-    : Ox_(Ox), Oy_(Oy), radius_(radius)
-  {}
+  Circle(double Ox, double Oy, double radius);
 
-  double Area() const override {
-    return 3.1416 * radius_ * radius_;
-  }
-  double Perimeter() const override {
-    return 2 * 3.1416 * radius_;
-  }
-  void Draw(Context* ctx) const override {
-    ctx->Circle(Ox_, Oy_, radius_);
-  }
+  double Area() const override;
+  double Perimeter() const override;
+  void   Draw(Context* ctx) const override;
 
-  static Shape* CreateCircle(double Ox, double Oy, double radius) {
-    return new Circle(Ox, Oy, radius);
-  }
+  static Shape* CreateCircle(double Ox, double Oy, double radius);
+
+private:
+  double Ox_, Oy_, radius_;
 };
 
-}
+} // namespace Graphics

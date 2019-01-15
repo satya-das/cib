@@ -2,8 +2,7 @@
 
 #include "context.h"
 
-namespace Graphics
-{
+namespace Graphics {
 
 /**
  * \brief Abstract base class for all shapes
@@ -26,9 +25,7 @@ public:
   /**
    * Virtual dtor
    */
-  virtual ~Shape()
-  {
-  }
+  virtual ~Shape() {}
 };
 
-}
+} // namespace Graphics
