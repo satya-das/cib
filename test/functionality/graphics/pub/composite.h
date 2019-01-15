@@ -1,36 +1,25 @@
 #pragma once
 
-#include "shape.h"
 #include "context.h"
+#include "shape.h"
 
 #include <vector>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace Graphics
-{
+namespace Graphics {
 
 typedef std::vector<Graphics::Shape*> Shapes;
 
 class GRAPHICSAPI Composite : public Shape
 {
   Shapes shapes_;
+
 public:
-  Composite()
-  {
-  }
-  void Add(Shape* shape)
-  {
-    shapes_.push_back(shape);
-  }
-  size_t NumShapes() const
-  {
-    return shapes_.size();
-  }
-  Shape* ShapeAt(size_t idxShape) const
-  {
-    return shapes_[idxShape];
-  }
+  Composite();
+  void   Add(Shape* shape);
+  size_t NumShapes() const;
+  Shape* ShapeAt(size_t idxShape) const;
   /**
    * @return Area of this shape object.
    */
@@ -46,4 +35,5 @@ public:
 
   static Composite* CreateCompositeOfRectAndCircle();
 };
-}
+
+} // namespace Graphics

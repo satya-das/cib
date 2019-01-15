@@ -2,6 +2,7 @@
 
 #include "context.h"
 #include "shape.h"
+
 #include <cmath>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -9,7 +10,7 @@
 namespace Graphics {
 class Context;
 /**
- * \brief Represents a circle.
+ * \brief Represents an ellipse.
  */
 class GRAPHICSAPI Ellipse : public Shape
 {

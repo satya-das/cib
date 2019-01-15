@@ -1,6 +1,6 @@
 #pragma  once
-#include "shape.h"
 #include "context.h"
+#include "shape.h"
 #include <cmath>
 
 #include "__zz_cib_internal/ellipse-predef.h"
@@ -10,8 +10,8 @@ namespace Graphics
 {
 class Context;
   /**
-  * \brief Represents a circle.
-  */
+   * \brief Represents an ellipse.
+   */
   class Ellipse : public ::Graphics::Shape
   {
   public:

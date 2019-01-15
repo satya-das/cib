@@ -9,13 +9,13 @@
 #include <vector>
 #include <string.h>
 
-static void TestClientCallingLibraryFunctions();
-static void TestLibraryCallingClientFunctions();
+static void DrawShapesUsingLogContext();
+static void DrawShapesUsingSvgContext();
 
 int main(int argc, char* argv[])
 {
-  TestClientCallingLibraryFunctions();
-  TestLibraryCallingClientFunctions();
+  DrawShapesUsingLogContext();
+  DrawShapesUsingSvgContext();
 
   return 0;
 }
@@ -33,7 +33,7 @@ static Shapes CreateVectorOfShapes()
   return shapes;
 }
 
-static void TestClientCallingLibraryFunctions()
+static void DrawShapesUsingLogContext()
 {
   auto                 shapes = CreateVectorOfShapes();
   Graphics::LogContext ctx;
@@ -46,7 +46,7 @@ static void TestClientCallingLibraryFunctions()
   }
 }
 
-static void TestLibraryCallingClientFunctions()
+static void DrawShapesUsingSvgContext()
 {
   auto       shapes = CreateVectorOfShapes();
   SvgContext svgContext;
