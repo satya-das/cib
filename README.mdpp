@@ -151,6 +151,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support struct                    | Automatically add getter/setter for public data members. |
 | Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
 | Support exporting protected methods ||
+| Use CIB for real production SDK   | To demonstraly prove viability of this architecture and tool it will be better to use it for at leat one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Multiple library integration      | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
 
 ---
@@ -203,8 +204,9 @@ Undoudtedly in this example we have a vividly simple class, but we do see lots o
 
 Let's first look at some of the fundamental types and definitions `cib` uses in generated code.
 
-### Symbol __zz_cib_
+### Symbol `__zz_cib_`
 We are going to see `cib` generate code that will contain lots of symbols that will start with `__zz_cib_` and there will be top level namespace with exact same name. `cib` has chosen this so that:
+
     - Genearted code doesn't pollute global namespace.
     - Generated code doesn't clash with any possible name used in library or client code.
     - Since the name starts with double underscore it is expected that developers will stay away from directly using it.
@@ -213,7 +215,7 @@ We are going to see `cib` generate code that will contain lots of symbols that w
 
 ### Method Table
 
-`cib`'s basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function name and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
+`cib`'s basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function names and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
 
 **Method table and helper function**:
 
@@ -229,7 +231,7 @@ Above we have definition of method table and helper function to fetch method fro
 
 !INCLUDECODE "examples/example1/cib/__zz_cib_Example-export.h" (c++)
 
-We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported funtion needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
+We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported function needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
 
 **Macro for import function attribute**:
 

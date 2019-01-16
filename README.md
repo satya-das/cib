@@ -32,7 +32,7 @@ CIB doesn't only solve the incompatible ABI problem, but also makes component re
 12\.  [Running CIB](#runningcib)  
 13\.  [Disection of CIB generated code](#disectionofcibgeneratedcode)  
 13.1\.  [Example-1: A Simple Class](#example-1:asimpleclass)  
-13.2\.  [Symbol __zz_cib_](#symbol__zz_cib_)  
+13.2\.  [Symbol `__zz_cib_`](#symbol`__zz_cib_`)  
 13.3\.  [Method Table](#methodtable)  
 13.3.1\.  [Unique IDs for all entities.](#uniqueidsforallentities.)  
 13.3.2\.  [Library Glue Code](#librarygluecode)  
@@ -195,7 +195,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Backward compatibility of library | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
 | Create correct proxy class        | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
 | Operator overloading              | It is common for C++ classes to have overloaded operators. | Done |
-| Simple Template class support     | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. ||
+| Simple Template class support     | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. |Done|
 | Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. |
 | Rvalue reference parameter        | RValue references need to cross component boundary. |
 | Enum and enum classes             | Enums used as parameter or return type. |
@@ -206,6 +206,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support struct                    | Automatically add getter/setter for public data members. |
 | Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
 | Support exporting protected methods ||
+| Use CIB for real production SDK   | To demonstraly prove viability of this architecture and tool it will be better to use it for at leat one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Multiple library integration      | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
 
 ---
@@ -296,10 +297,11 @@ Undoudtedly in this example we have a vividly simple class, but we do see lots o
 
 Let's first look at some of the fundamental types and definitions `cib` uses in generated code.
 
-<a name="symbol__zz_cib_"></a>
+<a name="symbol`__zz_cib_`"></a>
 
-### 13.2\. Symbol __zz_cib_
+### 13.2\. Symbol `__zz_cib_`
 We are going to see `cib` generate code that will contain lots of symbols that will start with `__zz_cib_` and there will be top level namespace with exact same name. `cib` has chosen this so that:
+
     - Genearted code doesn't pollute global namespace.
     - Generated code doesn't clash with any possible name used in library or client code.
     - Since the name starts with double underscore it is expected that developers will stay away from directly using it.
@@ -310,7 +312,7 @@ We are going to see `cib` generate code that will contain lots of symbols that w
 
 ### 13.3\. Method Table
 
-`cib`'s basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function name and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
+`cib`'s basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function names and virtual tables. `cib` bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, `cib` uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
 
 **Method table and helper function**:
 
@@ -384,7 +386,7 @@ Above we have definition of method table and helper function to fetch method fro
 
 ```
 
-We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported funtion needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
+We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported function needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
 
 **Macro for import function attribute**:
 
@@ -497,8 +499,8 @@ public:
   }
   //! @note Will throw std::bad_function_call() if method table doesn't contain
   //! method or the fetched method is null.
-  template <typename _MethodType, typename... _TArgs>
-  auto invoke(std::uint32_t methodId, _TArgs... args) const
+  template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
+  auto invoke(_TArgs... args) const
   {
     auto method = getMethod<_MethodType>(methodId);
     if (method == nullptr)
@@ -556,7 +558,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
   enum {
     //#= A();
     __zz_cib_new_0 = 0,
-    //#= A(const ::Example::A&);
+    //#= A(::Example::A const &);
     __zz_cib_copy_1 = 1,
     //#= ~A();
     __zz_cib_delete_2 = 2,
@@ -598,7 +600,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
   return new ::Example::A();
 }
-static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const ::Example::A* __zz_cib_param0) {
+static ::Example::A* __zz_cib_decl __zz_cib_copy_1(::Example::A const * __zz_cib_param0) {
   return new ::Example::A(*__zz_cib_param0);
 }
 static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
@@ -704,7 +706,7 @@ namespace Example
     A(A&& rhs);
   public:
     A();
-    A(const A& );
+    A(A const & );
     ~A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
@@ -722,8 +724,8 @@ namespace Example
 You can notice certain differences between this class and the original class in folder pub/. Below is the diff between original and cib generated header:
 
 ```diff
---- pub/example.h	2018-10-31 21:20:03.717219007 +0100
-+++ exp/example.h	2018-11-26 18:30:10.843781962 +0100
+--- pub/example.h
++++ exp/example.h
 @@ -1,16 +1,27 @@
  #pragma once
  
@@ -740,7 +742,7 @@ You can notice certain differences between this class and the original class in 
 +    A(A&& rhs);
 +  public:
 +    A();
-+    A(const A& );
++    A(A const & );
 +    ~A();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
@@ -800,10 +802,12 @@ Macro `__ZZ_CIB_CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz
 **Implementation detail of proxy class**:
 
 ```c++
-#include "__zz_cib_Example-def.h"
-#include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_Example-handle-helper.h"
+#pragma once
+
+#include "__zz_cib_internal/__zz_cib_Example-def.h"
+#include "__zz_cib_internal/__zz_cib_Example-ids.h"
+#include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
@@ -814,28 +818,27 @@ private:
 
   static __zz_cib_HANDLE* __zz_cib_new_0() {
     using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc>(
-      __zz_cib_methodid::__zz_cib_new_0);
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
+      );
   }
-  static __zz_cib_HANDLE* __zz_cib_copy_1(const __zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc>(
-      __zz_cib_methodid::__zz_cib_copy_1,
+  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_param0);
   }
   static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc>(
-        __zz_cib_methodid::__zz_cib_delete_2,
-        __zz_cib_obj);
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+        __zz_cib_obj
+        );
     }
   }
   static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<SomeFuncProc>(
-      __zz_cib_methodid::SomeFunc_3,
-      __zz_cib_obj);
+    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
+      __zz_cib_obj
+      );
   }
   __zz_cib_Helper()
     : __zz_cib_::__zz_cib_MethodTableHelper(
@@ -853,10 +856,10 @@ public:
   static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::A(h);
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
     return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
@@ -866,33 +869,6 @@ static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
   }
 };
 }}}
-
-inline Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
-  : __zz_cib_h_(h)
-{}
-
-inline Example::A::A(A&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
-{
-  rhs.__zz_cib_h_ = nullptr;
-}
-
-inline Example::A::A()
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_0())
-{}
-
-inline Example::A::A(const ::Example::A& __zz_cib_param0)
-  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
-
-inline Example::A::~A() {
-  auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
-}
-
-inline void Example::A::SomeFunc() {
-  __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
-}
 
 ```
 
@@ -984,8 +960,8 @@ cib -i pub/ -o exp/ -b cib/ -m Example -c ../example1/cib/__zz_cib_Example-ids.h
 We will now see what the ids file that got genearted for this example. We will see the diff with the corresponding file of previous example, because afterall this example is next version of previous example and so we expect binary compatibility to remain intact.
 
 ```diff
---- ../example1/cib/__zz_cib_Example-ids.h	2018-11-26 18:30:10.843781962 +0100
-+++ cib/__zz_cib_Example-ids.h	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/cib/__zz_cib_Example-ids.h
++++ cib/__zz_cib_Example-ids.h
 @@ -7,8 +7,13 @@
    enum { __zz_cib_classid = 1 };
  }}}
@@ -1016,7 +992,7 @@ We will now see what the ids file that got genearted for this example. We will s
 +  enum {
 +    //#= B();
 +    __zz_cib_new_0 = 0,
-+    //#= B(const ::Example::B&);
++    //#= B(::Example::B const &);
 +    __zz_cib_copy_1 = 1,
 +    //#= ~B();
 +    __zz_cib_delete_2 = 2,
@@ -1034,8 +1010,8 @@ We will now see what the ids file that got genearted for this example. We will s
 Please note that none of the IDs that were used by previous version are changed, only the new IDs got added. This is the fundamental working of `cib` to ensure forward compatibility at binary level. This will be more clear when we see the diff of library glue code:
 
 ```diff
---- ../example1/cib/example.h.cpp	2018-11-26 18:30:10.843781962 +0100
-+++ cib/example.h.cpp	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/cib/example.h.cpp
++++ cib/example.h.cpp
 @@ -14,20 +14,55 @@
  static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
    delete __zz_cib_obj;
@@ -1052,7 +1028,7 @@ Please note that none of the IDs that were used by previous version are changed,
 +static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
 +  return new ::Example::B();
 +}
-+static ::Example::B* __zz_cib_decl __zz_cib_copy_1(const ::Example::B* __zz_cib_param0) {
++static ::Example::B* __zz_cib_decl __zz_cib_copy_1(::Example::B const * __zz_cib_param0) {
 +  return new ::Example::B(*__zz_cib_param0);
 +}
 +static void __zz_cib_decl __zz_cib_delete_2(::Example::B* __zz_cib_obj) {
@@ -1102,8 +1078,8 @@ The library glue code now has code for class B as well and it has modification f
 We will continue looking at the diffs and now we will look at diffs of proxy classes:
 
 ```diff
---- ../example1/exp/example.h	2018-11-26 18:30:10.843781962 +0100
-+++ exp/example.h	2018-11-26 18:30:10.843781962 +0100
+--- ../example1/exp/example.h
++++ exp/example.h
 @@ -1,27 +1,45 @@
  #pragma  once
  
@@ -1125,7 +1101,7 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
      A(A&& rhs);
    public:
      A();
-     A(const A& );
+     A(A const & );
      ~A();
 +    //! This is to know what cib does with virtual functions.
 +    virtual void VirtFunc();
@@ -1142,7 +1118,7 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
 +    B(B&& rhs);
 +  public:
 +    B();
-+    B(const B& );
++    B(B const & );
 +    ~B();
 +    virtual void VirtFunc();
 +
@@ -1158,25 +1134,27 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
 Definition of proxy classes is as expected. No surprises there. The class definitions are almost same as original. Methods that were declared virtual are still virtial in proxy clases too. So, we will move on and see the diffs for implementation of proxy classes and also their helper classes.
 
 ```diff
---- ../example1/exp/__zz_cib_internal/example-impl.h	2018-11-26 18:30:10.843781962 +0100
-+++ exp/__zz_cib_internal/example-impl.h	2018-11-26 18:30:10.843781962 +0100
-@@ -29,6 +29,12 @@
-         __zz_cib_obj);
+--- ../example1/exp/__zz_cib_internal/example-impl.h
++++ exp/__zz_cib_internal/example-impl.h
+@@ -30,6 +30,12 @@
+         );
      }
    }
 +  static void VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
 +    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-+    return instance().invoke<VirtFuncProc>(
-+      __zz_cib_methodid::VirtFunc_4,
-+      __zz_cib_obj);
++    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
++      __zz_cib_obj
++      );
 +  }
    static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
      using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-     return instance().invoke<SomeFuncProc>(
-@@ -65,6 +71,75 @@
+     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
+@@ -64,4 +70,71 @@
+     return h;
+   }
  };
- }}}
- 
++}}}
++
 +namespace __zz_cib_ { namespace Example { namespace B {
 +class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
 +  , public __zz_cib_::__zz_cib_HandleHelper<::Example::B, __zz_cib_Helper> {
@@ -1186,55 +1164,53 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +
 +  static __zz_cib_HANDLE* __zz_cib_new_0() {
 +    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-+    return instance().invoke<__zz_cib_newProc>(
-+      __zz_cib_methodid::__zz_cib_new_0);
++    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
++      );
 +  }
-+  static __zz_cib_HANDLE* __zz_cib_copy_1(const __zz_cib_HANDLE* __zz_cib_param0) {
-+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_HANDLE* __zz_cib_param0);
-+    return instance().invoke<__zz_cib_copyProc>(
-+      __zz_cib_methodid::__zz_cib_copy_1,
++  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
++    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
++    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
 +      __zz_cib_param0);
 +  }
 +  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
 +    if (__zz_cib_obj) {
 +      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-+      return instance().invoke<__zz_cib_deleteProc>(
-+        __zz_cib_methodid::__zz_cib_delete_2,
-+        __zz_cib_obj);
++      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
++        __zz_cib_obj
++        );
 +    }
 +  }
 +  static void VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
 +    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-+    return instance().invoke<VirtFuncProc>(
-+      __zz_cib_methodid::VirtFunc_3,
-+      __zz_cib_obj);
++    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_3>(
++      __zz_cib_obj
++      );
 +  }
 +  static __zz_cib_HANDLE* __zz_cib_cast_to___Example__A_4(__zz_cib_HANDLE* __zz_cib_obj) {
 +    using __zz_cib_cast_to___Example__AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-+    return instance().invoke<__zz_cib_cast_to___Example__AProc>(
-+      __zz_cib_methodid::__zz_cib_cast_to___Example__A_4,
-+      __zz_cib_obj);
-+  }
-+  __zz_cib_Helper()
-+    : __zz_cib_::__zz_cib_MethodTableHelper(
-+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-+  {}
-+  static const __zz_cib_Helper& instance() {
-+    static __zz_cib_Helper helper;
-+    return helper;
-+  }
++    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(
++    __zz_cib_obj);
++}
++__zz_cib_Helper()
++  : __zz_cib_::__zz_cib_MethodTableHelper(
++    __zz_cib_Example_GetMethodTable(__zz_cib_classid))
++{}
++static const __zz_cib_Helper& instance() {
++  static __zz_cib_Helper helper;
++  return helper;
++}
 +
-+  static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-+    return new ::Example::B(h);
-+  }
++static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
++  return new ::Example::B(h);
++}
 +public:
 +  static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
 +    return ::Example::B(h);
 +  }
-+static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B* __zz_cib_obj) {
++  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B* __zz_cib_obj) {
 +    return __zz_cib_obj->__zz_cib_h_;
 +  }
-+static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B& __zz_cib_obj) {
++  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B& __zz_cib_obj) {
 +    return __zz_cib_obj.__zz_cib_h_;
 +  }
 +  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {
@@ -1244,51 +1220,7 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +    return h;
 +  }
 +};
-+}}}
-+
- inline Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
-   : __zz_cib_h_(h)
- {}
-@@ -88,6 +163,39 @@
-   __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
- }
- 
-+inline void Example::A::VirtFunc() {
-+  __zz_cib_::Example::A::__zz_cib_Helper::VirtFunc_4(__zz_cib_h_);
-+}
-+
- inline void Example::A::SomeFunc() {
-   __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
- }
-+
-+inline Example::B::B(__zz_cib_::__zz_cib_HANDLE* h)
-+  : ::Example::A::A(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_cast_to___Example__A_4(h))
-+  , __zz_cib_h_(h)
-+{}
-+
-+inline Example::B::B(B&& rhs)
-+  : ::Example::A::A(std::move(rhs))
-+  , __zz_cib_h_(rhs.__zz_cib_h_)
-+{
-+  rhs.__zz_cib_h_ = nullptr;
-+}
-+
-+inline Example::B::B()
-+  : Example::B(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_new_0())
-+{}
-+
-+inline Example::B::B(const ::Example::B& __zz_cib_param0)
-+  : Example::B(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-+{}
-+
-+inline Example::B::~B() {
-+  auto h = __zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_release_handle(this);
-+  __zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_delete_2(h);
-+}
-+
-+inline void Example::B::VirtFunc() {
-+  __zz_cib_::Example::B::__zz_cib_Helper::VirtFunc_3(__zz_cib_h_);
-+}
+ }}}
 
 ```
 
