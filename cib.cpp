@@ -45,6 +45,17 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
                              CppTypeModifier{kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
 }
 
+static std::uint8_t effectivePtrLevel(const CppVarType* varType)
+{
+  return varType->isByRef() ? 1 + varType->ptrLevel() : varType->ptrLevel();
+}
+
+static void emitStars(std::ostream& stm, std::uint8_t numStars)
+{
+  while(numStars--)
+    stm << '*';
+}
+
 static void emitType(std::ostream&         stm,
                      const CppVarType*     typeObj,
                      const CibCppCompound* typeResolver,
@@ -156,6 +167,11 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
         }
       }
     }
+    if ((purpose == kPurposeProxyDecl) && param.varObj->varDecl_.assign_)
+    {
+      stm << " = ";
+      gCppWriter.emitExpr(param.varObj->varDecl_.assign_.get(), stm);
+    }
     sep = ", ";
   }
 }
@@ -192,9 +208,15 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         break;
       case CallType::kToHandle:
         if (resolvedType)
+        {
+          if (effectivePtrLevel(param.varObj->varType_) == 2)
+            stm << '&';
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
+        }
         else if (param.varObj->isByRef() || param.varObj->isByRValueRef())
+        {
           stm << '&';
+        }
         emitParamName(stm, param.varObj, i);
         if (resolvedType)
           stm << ")";
@@ -348,12 +370,6 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
   {
     stm << "delete __zz_cib_obj;\n";
   }
-  else if (isTypeConverter())
-  {
-    stm << "return (";
-    emitType(stm, returnType(), getOwner(), helper, kPurposeSignature);
-    stm << ") (*__zz_cib_obj);\n";
-  }
   else
   {
     bool convertFromValue = false;
@@ -469,7 +485,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       }
       else
       {
-        if (returnType()->isByRef())
+        if (returnType()->isByRef() && (returnType()->ptrLevel() == 0))
         {
           stm << '*';
         }
@@ -477,6 +493,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
         {
           stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
           stm << ++indentation;
+          emitStars(stm, effectivePtrLevel(returnType())-1);
         }
       }
     }
@@ -1182,22 +1199,32 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
       << "::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {\n";
   ++indentation;
   stm << indentation << "switch(__zz_cib_get_class_id(h)) {\n";
-  forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
-    auto cibIdData = cibIdMgr.getCibIdData(derived->longName());
-    if (cibIdData)
+  auto emitCaseStmt = [&](const CibCppCompound* compound) {
+    if (!compound->isAbstract())
     {
-      stm << indentation << "case __zz_cib_::" << derived->fullNsName() << "::__zz_cib_classid:\n";
-      ++indentation;
-      stm << indentation << "return __zz_cib_" << derived->longName()
-          << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
-      --indentation;
+      auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
+      if (cibIdData)
+      {
+        stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
+        ++indentation;
+        stm << indentation << "return __zz_cib_" << compound->longName()
+            << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
+        --indentation;
+      }
     }
+  };
+  forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
+    emitCaseStmt(derived);
   });
-  stm << indentation << "default:\n";
-  stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
-      << "::__zz_cib_from_handle(h);\n";
-  stm << --indentation << "}\n";
-  --indentation;
+  emitCaseStmt(this);
+  if (triviallyConstructable())
+  {
+    stm << indentation << "default:\n";
+    stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
+        << "::__zz_cib_from_handle(h);\n";
+    stm << --indentation << "}\n";
+  }
+
   stm << --indentation << "}\n";
 }
 
@@ -1466,9 +1493,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         stm << ++indentation << "using " << castProcName
             << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
         stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::"
-            << capiName << ">(\n";
-        stm << indentation << "__zz_cib_obj);\n";
-        --indentation;
+            << capiName << ">(__zz_cib_obj);\n";
         stm << --indentation << "}\n";
       }
       return false;
@@ -1518,7 +1543,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
       stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
       forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
-        if (!baseCompound->isEmpty() || baseCompound->isShared())
+        if (baseCompound->needsBridging())
         {
           stm << indentation << "__zz_cib_" << baseCompound->longName()
               << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
@@ -1692,7 +1717,7 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
                                      const CibIdMgr&  cibIdMgr,
                                      CppIndent        indentation) const
 {
-  if (!isFacadeLike())
+  if (!isFacadeLike() || !triviallyConstructable())
     return;
 
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName()
