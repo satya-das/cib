@@ -41,9 +41,11 @@ CibHelper::CibHelper(const char* inputPath, CibIdMgr& cibIdMgr)
   buildCibCppObjTree();
 }
 
-void CibHelper::onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const
+void CibHelper::onNewCompound(CibCppCompound* compound, const CibCppCompound* parent) const
 {
   program_->addCompound(compound, parent);
+  auto* pThis = const_cast<CibHelper*>(this); // TODO: Fix const_cast.
+  pThis->markClassType(compound);
 }
 
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
@@ -199,17 +201,16 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
     return;
   if (func.returnType())
   {
+    auto* cppObj    = resolveVarType(func.returnType(), func.getOwner());
+    auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+    if (!returnObj)
+      return;
+    returnObj->setShared();
+
     if (func.returnType()->ptrLevel() == 1 || func.returnType()->refType() == kByRef)
     {
-      auto* cppObj    = resolveVarType(func.returnType(), func.getOwner());
-      auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
-      if (!returnObj)
-        return;
-      returnObj->setShared();
       if (returnObj->hasPublicVirtualMethod())
-      {
         returnObj->setFacadeLike();
-      }
     }
     else
     {

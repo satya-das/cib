@@ -48,8 +48,8 @@ typedef std::vector<CibCppCompound*>                   CibCppCompoundArray;
 typedef std::map<CppObjProtLevel, CibCppCompoundArray> CibCppInheritInfo;
 typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
 
-using StringVector      = std::vector<std::string>;
-using TemplateArgs      = StringVector;
+using StringVector = std::vector<std::string>;
+using TemplateArgs = StringVector;
 // A set is sufficient but for having order we need map.
 using TemplateInstances = std::map<std::string, CibCppCompound*>;
 using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
@@ -230,8 +230,7 @@ public:
   }
   void setShared()
   {
-    if (isShared())
-      return;
+    props_ |= kClassPropShared;
   }
   /**
    * @ return true if this compound object is interface-like.

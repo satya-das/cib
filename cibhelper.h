@@ -76,7 +76,7 @@ public:
     return resolveTypename(name, begScope);
   }
 
-  void onNewCompound(const CibCppCompound* compound, const CibCppCompound* parent) const;
+  void onNewCompound(CibCppCompound* compound, const CibCppCompound* parent) const;
 
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
   CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);

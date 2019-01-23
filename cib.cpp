@@ -52,7 +52,7 @@ static std::uint8_t effectivePtrLevel(const CppVarType* varType)
 
 static void emitStars(std::ostream& stm, std::uint8_t numStars)
 {
-  while(numStars--)
+  while (numStars--)
     stm << '*';
 }
 
@@ -493,7 +493,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
         {
           stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
           stm << ++indentation;
-          emitStars(stm, effectivePtrLevel(returnType())-1);
+          emitStars(stm, effectivePtrLevel(returnType()) - 1);
         }
       }
     }
@@ -1107,7 +1107,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
                               const CibParams& cibParams,
                               CppIndent        indentation /* = CppIndent */) const
 {
-  if (isInline())
+  if (isInline() && !isShared())
   {
     gCppWriter.emit(this, stm, indentation);
     return;
@@ -1130,23 +1130,18 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
       };
       char sep = ':';
       emitInheritance(kPublic, sep);
-      if (isInline())
-      {
-        emitInheritance(kProtected, sep);
-        emitInheritance(kPrivate, sep);
-      }
     }
     stm << '\n' << indentation++ << "{\n";
   }
 
-  if (isClassLike() && !isInline() && !needsBridging_.empty())
+  if (isClassLike() && needsBridging())
     emitMoveConstructorDecl(stm, indentation);
 
   CppObjProtLevel         lastProt = kUnknownProt;
   std::set<const CppObj*> memDeclared;
   for (auto mem : members_)
   {
-    if (!isInline()
+    if (needsBridging()
         && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
       continue;
     if (isClassLike() && lastProt != mem->prot_)
@@ -1173,7 +1168,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
 
   if (isClassLike())
   {
-    if (!isInline())
+    if (needsBridging())
     {
       // Everything below this is for glue code
       stm << '\n';
@@ -1217,9 +1212,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
       }
     }
   };
-  forEachDescendent(kPublic, [&](const CibCppCompound* derived) {
-    emitCaseStmt(derived);
-  });
+  forEachDescendent(kPublic, [&](const CibCppCompound* derived) { emitCaseStmt(derived); });
   emitCaseStmt(this);
   if (triviallyConstructable())
   {
@@ -1297,9 +1290,7 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
   if (isTemplated())
   {
-    forEachTemplateInstance([&](CibCppCompound* templateInstace) {
-      templateInstace->identifyMethodsToBridge(helper);
-    });
+    forEachTemplateInstance([&](CibCppCompound* templateInstace) { templateInstace->identifyMethodsToBridge(helper); });
     return;
   }
   // A class that is inline and not shared don't need any bridging.
@@ -1497,8 +1488,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         stm << indentation << "static __zz_cib_HANDLE* " << capiName << "(__zz_cib_HANDLE* __zz_cib_obj) {\n";
         stm << ++indentation << "using " << castProcName
             << "Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);\n";
-        stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::"
-            << capiName << ">(__zz_cib_obj);\n";
+        stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::" << capiName
+            << ">(__zz_cib_obj);\n";
         stm << --indentation << "}\n";
       }
       return false;
@@ -1659,7 +1650,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
                               CppIndent        indentation /* = CppIndent */) const
 {
   auto cibIdData = cibIdMgr.getCibIdData(longName());
-  if (isClassLike() && (isShared() || !needsBridging_.empty()))
+  if (isClassLike() && (isShared() || needsBridging()))
   {
     // Emit the ctor to construct from __zz_cib_HANDLE.
     emitHandleConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
