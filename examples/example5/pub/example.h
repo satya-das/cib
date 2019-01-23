@@ -4,10 +4,10 @@
 namespace Example {
 
 template <typename _T>
-class Number
+class Value
 {
 public:
-  Number(_T x)
+  Value(_T x = _T())
     : x_(x)
   {
   }
@@ -19,30 +19,44 @@ public:
   {
     x_ = x;
   }
-  void Add(const Number<_T>& num)
-  {
-    x_ += num.x_;
-  }
 
 private:
   _T x_;
 };
 
-class A
+class Int
 {
 public:
-  A()
-    : x_(5)
+  Int(int x = 0)
+    : v_(x)
   {
   }
-  void        Set(const Number<int>& x);
-  Number<int> Get() const
+  operator int() const
   {
-    return x_;
+    return v_;
   }
 
 private:
-  Number<int> x_;
+  int v_;
+};
+
+class A
+{
+public:
+  void       Set(const Value<int>& x);
+  Value<int> Get() const
+  {
+    return x_;
+  }
+  void       SetInt(const Value<Int>& y);
+  Value<Int> GetInt() const
+  {
+    return y_;
+  }
+
+private:
+  Value<int> x_;
+  Value<Int> y_;
 };
 
 } // namespace Example

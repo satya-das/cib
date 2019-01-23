@@ -2,9 +2,11 @@
 
 int main()
 {
-  Example::Number<int> x(5);
-  x.Add(Example::Number<int>(10));
-  Example::A a;
+  Example::Value<int>          x(5);
+  Example::Value<Example::Int> y(Example::Int(9));
+  Example::A                   a;
   a.Set(x);
-  assert(a.Get().GetValue() == 15);
+  a.SetInt(y);
+  assert(a.Get().GetValue() == 5);
+  assert(a.GetInt().GetValue() == 9);
 }

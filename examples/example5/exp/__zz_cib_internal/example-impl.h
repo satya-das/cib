@@ -5,12 +5,12 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ { namespace Example { namespace Int {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
-  , public __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
+  , public __zz_cib_::__zz_cib_HandleHelper<::Example::Int, __zz_cib_Helper> {
 private:
-  friend class ::Example::A;
-  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper>;
+  friend class ::Example::Int;
+  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::Int, __zz_cib_Helper>;
 
   static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
@@ -25,10 +25,71 @@ private:
         );
     }
   }
-  static __zz_cib_HANDLE* __zz_cib_new_2() {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+  static __zz_cib_HANDLE* __zz_cib_new_2(int x) {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (int x);
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+      x);
+  }
+  static int __zz_cib_Operator_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_OperatorProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<__zz_cib_OperatorProc, __zz_cib_methodid::__zz_cib_Operator_3>(
+      __zz_cib_obj
       );
+  }
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+  {}
+  static const __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
+
+  static ::Example::Int* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+    return new ::Example::Int(h);
+  }
+public:
+  static ::Example::Int __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::Example::Int(h);
+  }
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Int* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::Int& __zz_cib_obj) {
+    return __zz_cib_obj.__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Int* __zz_cib_obj) {
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
+};
+}}}
+
+namespace __zz_cib_ { namespace Example { namespace A {
+class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+  , public __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
+private:
+  friend class ::Example::A;
+  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper>;
+
+  static __zz_cib_HANDLE* __zz_cib_new_0() {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
+      );
+  }
+  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
+      __zz_cib_param0);
+  }
+  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+    if (__zz_cib_obj) {
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+        __zz_cib_obj
+        );
+    }
   }
   static void Set_3(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE const * x) {
     using SetProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE const * x);
@@ -39,6 +100,18 @@ private:
   static __zz_cib_HANDLE* Get_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using GetProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<GetProc, __zz_cib_methodid::Get_4>(
+      __zz_cib_obj
+      );
+  }
+  static void SetInt_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE const * y) {
+    using SetIntProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE const * y);
+    return instance().invoke<SetIntProc, __zz_cib_methodid::SetInt_5>(
+      __zz_cib_obj,
+      y);
+  }
+  static __zz_cib_HANDLE* GetInt_6(__zz_cib_HANDLE* __zz_cib_obj) {
+    using GetIntProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<GetIntProc, __zz_cib_methodid::GetInt_6>(
       __zz_cib_obj
       );
   }
@@ -71,4 +144,5 @@ public:
   }
 };
 }}}
+#include "__zz_cib_Class2.h"
 #include "__zz_cib_Class1.h"

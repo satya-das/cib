@@ -4,6 +4,8 @@
 #include "__zz_cib_Example-mtable.h"
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class2 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace Example { namespace Int { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 namespace __zz_cib_ { namespace Example { namespace A { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 
 extern "C" __zz_cib_export
@@ -12,6 +14,10 @@ const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Example_GetMethodT
   switch(classId) {
   case __zz_cib_::Example::__zz_cib_Class1::__zz_cib_classid:
     return __zz_cib_::Example::__zz_cib_Class1::__zz_cib_GetMethodTable();
+  case __zz_cib_::Example::__zz_cib_Class2::__zz_cib_classid:
+    return __zz_cib_::Example::__zz_cib_Class2::__zz_cib_GetMethodTable();
+  case __zz_cib_::Example::Int::__zz_cib_classid:
+    return __zz_cib_::Example::Int::__zz_cib_GetMethodTable();
   case __zz_cib_::Example::A::__zz_cib_classid:
     return __zz_cib_::Example::A::__zz_cib_GetMethodTable();
   default:
