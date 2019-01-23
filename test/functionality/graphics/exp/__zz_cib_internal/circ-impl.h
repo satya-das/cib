@@ -55,21 +55,20 @@ private:
   }
   static __zz_cib_HANDLE* __zz_cib_cast_to___Graphics__Shape_7(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7>(
-    __zz_cib_obj);
-}
-__zz_cib_Helper()
-  : __zz_cib_::__zz_cib_MethodTableHelper(
-    __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-{}
-static const __zz_cib_Helper& instance() {
-  static __zz_cib_Helper helper;
-  return helper;
-}
+    return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_7>(__zz_cib_obj);
+  }
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+  {}
+  static const __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
 
-static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-  return new ::Graphics::Circle(h);
-}
+  static ::Graphics::Circle* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+    return new ::Graphics::Circle(h);
+  }
 public:
   static ::Graphics::Circle __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Graphics::Circle(h);

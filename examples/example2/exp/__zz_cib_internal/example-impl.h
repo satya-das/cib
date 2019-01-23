@@ -105,21 +105,20 @@ private:
   }
   static __zz_cib_HANDLE* __zz_cib_cast_to___Example__A_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_cast_to___Example__AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(
-    __zz_cib_obj);
-}
-__zz_cib_Helper()
-  : __zz_cib_::__zz_cib_MethodTableHelper(
-    __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-{}
-static const __zz_cib_Helper& instance() {
-  static __zz_cib_Helper helper;
-  return helper;
-}
+    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(__zz_cib_obj);
+  }
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+  {}
+  static const __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
 
-static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-  return new ::Example::B(h);
-}
+  static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+    return new ::Example::B(h);
+  }
 public:
   static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::B(h);
