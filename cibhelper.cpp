@@ -56,7 +56,7 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
   {
     // TODO: We need to resolve typedefs fully only if it resolves to conpound object uniquely.
     // For cases when typedef uses non-compound types we need to know ptr and ref only.
-    auto* typedefObj = static_cast<CppTypedefName*>(cppObj);
+    auto* typedefObj       = static_cast<CppTypedefName*>(cppObj);
     auto* finalResolvedObj = resolveTypename(typedefObj->var_->baseType(), typeNode);
     if (finalResolvedObj && finalResolvedObj->isClassLike())
     {
@@ -64,7 +64,7 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
       if (typedefObj->var_->refType() != kNoRef)
         varType->typeModifier_.refType_ = typedefObj->var_->refType();
       varType->baseType_ = typedefObj->var_->baseType();
-        return finalResolvedObj;
+      return finalResolvedObj;
     }
   }
 
@@ -87,7 +87,7 @@ void CibHelper::buildCibCppObjTree()
     resolveInheritance(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
-  // detecting facades need detection of interfaces.
+  // In some cases detecting facades need detection of interfaces.
   // so just call markClassType() again for all classes to correctly detect all facades.
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
@@ -141,7 +141,7 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritList_))
     {
-      //TODO: We will have to consider protected inheritance too.
+      // TODO: We will have to consider protected inheritance too.
       if (inh.inhType != kPublic)
         continue;
       auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode);
@@ -226,7 +226,7 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
     return;
   }
   auto isInline = true;
-  auto isEmpty =  true;
+  auto isEmpty  = true;
   for (auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
@@ -259,7 +259,7 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
 
 void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
 {
-  //TODO: Considers private ctors too.
+  // TODO: Considers private ctors too.
   // Also for protected ctor/dtor things will be slightly less trivial.
   if (!cppCompound->hasDtor() || !isMemberPrivate(cppCompound->dtor()->protectionLevel(), cppCompound->compoundType_))
     cppCompound->setNeedsGenericProxyDefinition();
