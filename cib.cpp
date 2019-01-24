@@ -398,7 +398,14 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       stm << "__zz_cib_obj->";
     if (!forProxy && !isPureVirtual())
       stm << callingOwner->longName() << "::";
-    stm << funcName();
+
+    if (!isTypeConverter())
+      stm << funcName();
+    else
+    {
+      stm << "operator ";
+      emitType(stm, returnType(), getOwner(), helper, EmitPurpose::kPurposeSignature);
+    }
     stm << '(';
     emitArgsForCall(stm, helper, cibParams, callType);
     if (convertFromValue)
@@ -473,7 +480,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
 
     stm << indentation;
     const CibCppCompound* retType = nullptr;
-    if (isFunction() && returnType() && !returnType()->isVoid())
+    if (returnType() && !returnType()->isVoid())
     {
       stm << "return ";
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
