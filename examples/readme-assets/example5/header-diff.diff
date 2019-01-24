@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,48 +1,47 @@
+@@ -1,62 +1,58 @@
  #pragma once
  
 -//! Contains example definitions to explain cib's functioning
@@ -11,10 +11,10 @@
 +namespace Example
 +{
  template <typename _T>
- class Number
+ class Value
  {
  public:
-   Number(_T x)
+   Value(_T x = _T())
      : x_(x)
    {
    }
@@ -26,38 +26,60 @@
    {
      x_ = x;
    }
--  void Add(const Number<_T>& num)
-+    void Add(Number<_T> const& num)
-   {
-     x_ += num.x_;
-   }
 -
  private:
    _T x_;
  };
 -
+ class Int
+ {
+ public:
+-  Int(int x = 0)
+-    : v_(x)
+-  {
+-  }
+-  operator int() const
+-  {
+-    return v_;
+-  }
++    Int(Int&& rhs);
++  public:
++    Int(Int const & );
++    ~Int();
++    Int(int x = 0);
++    operator int () const;
+ 
+ private:
+-  int v_;
++    __ZZ_CIB_CLASS_INTERNAL_DEF(Int, Example::Int);
+ };
+-
  class A
  {
  public:
--  A()
--    : x_(5)
--  {
--  }
--  void        Set(const Number<int>& x);
--  Number<int> Get() const
+-  void       Set(const Value<int>& x);
+-  Value<int> Get() const
 -  {
 -    return x_;
 -  }
+-  void       SetInt(const Value<Int>& y);
+-  Value<Int> GetInt() const
+-  {
+-    return y_;
+-  }
 +    A(A&& rhs);
 +  public:
++    A();
 +    A(A const & );
 +    ~A();
-+    A();
-+    void Set(Number<int> const & x);
-+    Number<int> Get() const;
++    void Set(Value<int> const & x);
++    Value<int> Get() const;
++    void SetInt(Value<Int> const & y);
++    Value<Int> GetInt() const;
  
  private:
--  Number<int> x_;
+-  Value<int> x_;
+-  Value<Int> y_;
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
  };
 +}
