@@ -398,7 +398,14 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       stm << "__zz_cib_obj->";
     if (!forProxy && !isPureVirtual())
       stm << callingOwner->longName() << "::";
-    stm << funcName();
+
+    if (!isTypeConverter())
+      stm << funcName();
+    else
+    {
+      stm << "operator ";
+      emitType(stm, returnType(), getOwner(), helper, EmitPurpose::kPurposeSignature);
+    }
     stm << '(';
     emitArgsForCall(stm, helper, cibParams, callType);
     if (convertFromValue)
@@ -473,7 +480,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
 
     stm << indentation;
     const CibCppCompound* retType = nullptr;
-    if (isFunction() && returnType() && !returnType()->isVoid())
+    if (returnType() && !returnType()->isVoid())
     {
       stm << "return ";
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
@@ -485,9 +492,10 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       }
       else
       {
-        if (returnType()->isByRef() && (returnType()->ptrLevel() == 0))
+        if (returnType()->isByRef())
         {
-          stm << '*';
+          if ((returnType()->ptrLevel() == 0) || (retType == nullptr))
+            stm << '*';
         }
         if (retType)
         {
@@ -1528,11 +1536,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
         stm << ++indentation << "return " << longName() << "(h);\n";
         stm << --indentation << "}\n";
       }
-      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "* __zz_cib_obj) {\n";
+      stm << indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
-      stm << --indentation << "}\n";
-      stm << indentation << "static __zz_cib_HANDLE* __zz_cib_handle(const " << longName() << "& __zz_cib_obj) {\n";
-      stm << ++indentation << "return __zz_cib_obj.__zz_cib_h_;\n";
       stm << --indentation << "}\n";
       stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;

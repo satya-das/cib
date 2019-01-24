@@ -25,7 +25,7 @@ Example::Int::Int(int x)
 {}
 
 Example::Int::operator int() const {
-  __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_Operator_3(__zz_cib_h_);
+  return __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_Operator_3(__zz_cib_h_);
 }
 
 Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)

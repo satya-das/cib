@@ -6,7 +6,7 @@
 namespace Example
 {
   template <typename _T>
-  class Value  
+  class Value
   {
   public:
     Value(_T x = _T())

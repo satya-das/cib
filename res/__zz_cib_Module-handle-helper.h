@@ -26,6 +26,18 @@ public:
   {
     return _Helper::__zz_cib_create_proxy(h);
   }
+  static __zz_cib_HANDLE*& __zz_cib_handle(_ProxyClass* __zz_cib_obj) {
+    return _Helper::__zz_cib_get_handle(__zz_cib_obj);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_handle(_ProxyClass& __zz_cib_obj) {
+    return _Helper::__zz_cib_get_handle(&__zz_cib_obj);
+  }
+  static __zz_cib_HANDLE* const & __zz_cib_handle(const _ProxyClass* __zz_cib_obj) {
+    return _Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(__zz_cib_obj));
+  }
+  static __zz_cib_HANDLE* const & __zz_cib_handle(const _ProxyClass& __zz_cib_obj) {
+    return _Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(&__zz_cib_obj));
+  }
 };
 
 } // namespace __zz_cib_
