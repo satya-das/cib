@@ -70,7 +70,7 @@ target_include_directories(cib
 )
 add_dependencies(cib CibResources)
 
-set(EXAMPLES example1 example2 example5)
+set(EXAMPLES example1 example2 example5 example6)
 add_subdirectory(examples)
 
 add_subdirectory(test)
