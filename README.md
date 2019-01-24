@@ -195,6 +195,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Backward compatibility of library | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
 | Create correct proxy class        | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
 | Operator overloading              | It is common for C++ classes to have overloaded operators. | Done |
+| Typecast operator overloading     | Typecast operator overloading of user defined types is common in C++. | Done |
 | Simple Template class support     | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. | Done|
 | Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. |
 | Rvalue reference parameter        | RValue references need to cross component boundary. |
@@ -208,6 +209,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
 | Support exporting protected methods ||
 | Use CIB for real production SDK   | To demonstraly prove viability of this architecture and tool it will be better to use it for at leat one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
+| Warn when compatibility breaks    | When a change in library header will break compatibility, like when a function is removed, then `cib` should warn about such changes. |
 | Multiple library integration      | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
 
 ---
