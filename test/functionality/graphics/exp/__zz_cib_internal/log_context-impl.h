@@ -74,11 +74,8 @@ public:
   static ::Graphics::LogContext __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Graphics::LogContext(h);
   }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::LogContext* __zz_cib_obj) {
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::LogContext* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::Graphics::LogContext& __zz_cib_obj) {
-    return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::LogContext* __zz_cib_obj) {
     auto h = __zz_cib_obj->__zz_cib_h_;
