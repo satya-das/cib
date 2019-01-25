@@ -521,6 +521,9 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
     if (retType)
       stm << '\n' << --indentation << ")";
     stm << ";\n";
+    if (isDestructor() && getOwner()->isShared())
+      stm << indentation << "__zz_cib_" << callingOwner->longNsName()
+          << "::__zz_cib_Helper::__zz_cib_remove_proxy(h);\n";
     stm << --indentation << "}\n";
   }
 }
@@ -1509,7 +1512,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(__zz_cib_classid))\n";
       --indentation;
       stm << --indentation << "{}\n";
-      stm << indentation << "static const __zz_cib_Helper& instance() {\n";
+      stm << indentation << "static __zz_cib_Helper& instance() {\n";
       stm << ++indentation << "static __zz_cib_Helper helper;\n";
       stm << indentation << "return helper;\n";
       stm << --indentation << "}\n";
@@ -1600,14 +1603,22 @@ void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
     if (pubParent->isShared() || !pubParent->isEmpty())
     {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(__zz_cib_"
+      stm << indentation << sep << ' ' << pubParent->longNsName() << "::" << pubParent->name() << "(__zz_cib_"
           << longName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
       sep = ',';
     }
     return true;
   });
-  stm << indentation << sep << " __zz_cib_h_(h)";
-  stm << --indentation << "\n{}\n";
+  stm << indentation << sep << " __zz_cib_h_(h)\n";
+  stm << --indentation << '{';
+  if (isShared())
+  {
+    stm << '\n'
+        << ++indentation << "__zz_cib_" << longNsName()
+        << "::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);\n";
+    stm << --indentation;
+  }
+  stm << "}\n";
 }
 
 void CibCppCompound::emitMoveConstructorDecl(std::ostream& stm, CppIndent indentation /* = CppIndent */) const
@@ -1644,6 +1655,10 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
   stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
   stm << --indentation << "\n{\n";
   stm << ++indentation << "rhs.__zz_cib_h_ = nullptr;\n";
+  if (isShared())
+  {
+    stm << indentation << "__zz_cib_" << longNsName() << "::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);\n";
+  }
   stm << --indentation << "}\n";
 }
 
