@@ -464,6 +464,7 @@ private:
   std::string implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
   void                              setupTemplateDependencies(const CibHelper& helper);
+  bool                              setupTemplateDependencies(const std::string& typeName, const CibHelper& helper);
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,

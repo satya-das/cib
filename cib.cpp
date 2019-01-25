@@ -779,6 +779,20 @@ void CibCppCompound::emitTemplateInstanceForwardDeclarations(std::ostream&    st
   });
 }
 
+static std::set<const CppObj*> extractFwdDeclarations(std::set<const CppObj*>& dependencies)
+{
+  std::set<const CppObj*> fwdDecls;
+  for (auto cppObj : dependencies)
+  {
+    if (cppObj->objType_ == CppObj::kFwdClsDecl)
+      fwdDecls.insert(cppObj);
+  }
+  for (auto cppObj : fwdDecls)
+    dependencies.erase(cppObj);
+
+  return fwdDecls;
+}
+
 void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
                                                          const CibHelper& helper,
                                                          const CibParams& cibParams,
@@ -794,6 +808,7 @@ void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
       tmplStm << "#pragma once\n\n";
       std::set<const CppObj*> dependencies;
       templCompound->collectTemplateInstanceTypeDependencies(helper, dependencies);
+      auto fwdDecls = extractFwdDeclarations(dependencies);
       auto asts = collectAstDependencies(dependencies);
       asts.insert(getFileDomObj(this));
       auto headers = collectHeaderDependencies(asts, cibParams.inputPath);
@@ -803,6 +818,8 @@ void CibCppCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
         for (const auto& header : headers)
           tmplStm << "#include \"" << header << "\"\n";
       }
+      for (auto cppObj: fwdDecls)
+        gCppWriter.emit(cppObj, tmplStm);
       templCompound->emitHelperDecl(tmplStm, helper, cibParams);
       templCompound->emitDecl(tmplStm, helper, cibParams);
       templCompound->emitHelperDefn(tmplStm, helper, cibParams, cibIdMgr);
@@ -842,6 +859,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
   emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
 
   forEachNested([&](const CibCppCompound* compound) { compound->emitDependentTemplateSpecilizationHeaders(stm); });
+  emitDependentTemplateSpecilizationHeaders(stm);
 }
 
 void CibCppCompound::emitImplSource(std::ostream&    stm,

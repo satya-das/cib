@@ -323,19 +323,42 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    n
   return ret;
 }
 
+bool CibCppCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper)
+{
+  bool compositeTemplate = false;
+  auto* resolvedCppObj = helper.getCppObjFromTypeName(typeName, this);
+  if (resolvedCppObj)
+  {
+    if (resolvedCppObj->isClassLike())
+    {
+      auto* resolvedCompound = static_cast<CibCppCompound*>(resolvedCppObj);
+      resolvedCompound->usedInTemplArg.insert(this);
+      compositeTemplate = true;
+    }
+    else if (resolvedCppObj->isTypedefLike())
+    {
+      if (resolvedCppObj->objType_ == CppObj::kTypedefName)
+      {
+        auto* typedefObj = static_cast<CppTypedefName*>(resolvedCppObj);
+        compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType_->baseType(), helper);
+      }
+      else
+      {
+        auto* usingObj = static_cast<CppUsingDecl*>(resolvedCppObj);
+        compositeTemplate = setupTemplateDependencies(usingObj->varType_->baseType(), helper);
+      }
+    }
+  }
+
+  return compositeTemplate;
+}
+
 void CibCppCompound::setupTemplateDependencies(const CibHelper& helper)
 {
   bool compositeTemplate = false;
   for (auto& arg : templateArgValues_)
   {
-    auto* resolvedCppObj = helper.getCppObjFromTypeName(arg.second->baseType(), this);
-    if (resolvedCppObj && resolvedCppObj->isClassLike())
-    {
-      auto* resolvedCompound = static_cast<CibCppCompound*>(resolvedCppObj);
-      resolvedCompound->usedInTemplArg.insert(this);
-
-      compositeTemplate = true;
-    }
+    compositeTemplate = setupTemplateDependencies(arg.second->baseType(), helper) || compositeTemplate;
   }
 
   if (compositeTemplate)
