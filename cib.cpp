@@ -373,15 +373,22 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
   else
   {
     bool convertFromValue = false;
+    const CibCppCompound* resolvedType = nullptr;
     if (returnType() && !returnType()->isVoid())
     {
+      auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
+      resolvedType   = resolvedCppObj && resolvedCppObj->isClassLike()
+                              ? static_cast<const CibCppCompound*>(resolvedCppObj)
+                              : nullptr;
+
       stm << "return ";
+      if (resolvedType && forProxy)
+      {
+        stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(\n";
+        stm << ++indentation;
+      }
       if (returnType()->isByValue())
       {
-        auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
-        auto* resolvedType   = resolvedCppObj && resolvedCppObj->isClassLike()
-                               ? static_cast<const CibCppCompound*>(resolvedCppObj)
-                               : nullptr;
         convertFromValue = (resolvedType != nullptr);
         if (convertFromValue)
         {
@@ -410,6 +417,11 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     emitArgsForCall(stm, helper, cibParams, callType);
     if (convertFromValue)
       stm << ')';
+    if (resolvedType && forProxy)
+    {
+      stm << ")";
+      --indentation;
+    }
     stm << ");\n";
   }
   stm << --indentation << "}\n";
