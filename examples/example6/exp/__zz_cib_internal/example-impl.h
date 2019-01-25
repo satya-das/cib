@@ -46,11 +46,8 @@ public:
   static ::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::A(h);
   }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::A* __zz_cib_obj) {
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::A& __zz_cib_obj) {
-    return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -113,11 +110,8 @@ public:
   static ::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::B(h);
   }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::B* __zz_cib_obj) {
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::B* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::B& __zz_cib_obj) {
-    return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::B* __zz_cib_obj) {
     auto h = __zz_cib_obj->__zz_cib_h_;

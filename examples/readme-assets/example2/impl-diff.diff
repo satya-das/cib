@@ -13,7 +13,7 @@
    static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
      using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
-@@ -64,4 +70,70 @@
+@@ -61,4 +67,67 @@
      return h;
    }
  };
@@ -70,11 +70,8 @@
 +  static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
 +    return ::Example::B(h);
 +  }
-+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B* __zz_cib_obj) {
++  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::B* __zz_cib_obj) {
 +    return __zz_cib_obj->__zz_cib_h_;
-+  }
-+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B& __zz_cib_obj) {
-+    return __zz_cib_obj.__zz_cib_h_;
 +  }
 +  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {
 +    auto h = __zz_cib_obj->__zz_cib_h_;
