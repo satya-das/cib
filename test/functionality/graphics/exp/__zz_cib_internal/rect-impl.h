@@ -56,7 +56,7 @@ private:
     : __zz_cib_::__zz_cib_MethodTableHelper(
       __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
   {}
-  static const __zz_cib_Helper& instance() {
+  static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }

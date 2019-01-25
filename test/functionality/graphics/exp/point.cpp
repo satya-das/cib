@@ -3,12 +3,15 @@
 
 Point::Point(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::Point::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 Point::Point(Point&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::Point::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 Point::Point(::Point const & __zz_cib_param0)
@@ -18,6 +21,7 @@ Point::Point(::Point const & __zz_cib_param0)
 Point::~Point() {
   auto h = __zz_cib_::Point::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::Point::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 Point::Point(double x, double y)

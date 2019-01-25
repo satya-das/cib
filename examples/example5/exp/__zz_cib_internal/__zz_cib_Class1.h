@@ -65,7 +65,7 @@ private:
     : __zz_cib_::__zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
-  static const __zz_cib_Helper& instance() {
+  static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
@@ -90,12 +90,15 @@ public:
 
 inline Example::Value<::Example::Int>::Value(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 inline Example::Value<::Example::Int>::Value(Value<::Example::Int>&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 inline Example::Value<::Example::Int>::Value(::Example::Value<::Example::Int> const & __zz_cib_param0)
@@ -105,6 +108,7 @@ inline Example::Value<::Example::Int>::Value(::Example::Value<::Example::Int> co
 inline Example::Value<::Example::Int>::~Value() {
   auto h = __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::Example::__zz_cib_Class1::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 inline Example::Value<::Example::Int>::Value(::Example::Int x)

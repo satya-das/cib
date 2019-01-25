@@ -6,13 +6,16 @@
 Graphics::Composite::Composite(__zz_cib_::__zz_cib_HANDLE* h)
   : ::Graphics::Shape::Shape(__zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_10(h))
   , __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 Graphics::Composite::Composite(Composite&& rhs)
   : ::Graphics::Shape::Shape(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 Graphics::Composite::Composite(::Graphics::Composite const & __zz_cib_param0)
@@ -22,6 +25,7 @@ Graphics::Composite::Composite(::Graphics::Composite const & __zz_cib_param0)
 Graphics::Composite::~Composite() {
   auto h = __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 Graphics::Composite::Composite()

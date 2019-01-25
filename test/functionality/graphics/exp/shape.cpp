@@ -8,12 +8,15 @@
 
 Graphics::Shape::Shape(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 Graphics::Shape::Shape(Shape&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 Graphics::Shape::Shape()
@@ -24,6 +27,7 @@ Graphics::Shape::~Shape() {
   __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_delete_4(h);
+  __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_Generic {
 class Shape : public ::Graphics::Shape {
