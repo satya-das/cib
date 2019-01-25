@@ -1579,7 +1579,7 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {
         if (baseCompound->needsBridging())
         {
-          stm << indentation << "__zz_cib_" << baseCompound->longName()
+          stm << indentation << "__zz_cib_" << baseCompound->longNsName()
               << "::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n";
         }
         return true;
