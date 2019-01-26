@@ -41,8 +41,25 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
 {
   if (typeModifier.refType_ == kNoRef)
     return typeModifier;
-  return resolveTypeModifier(CppTypeModifier{kNoRef, 1, 0},
+  auto ret = resolveTypeModifier(CppTypeModifier{kNoRef, 1, 0},
                              CppTypeModifier{kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
+
+  if ((ret.ptrLevel_ > 1) && (typeModifier.constBits_ & 0x1))
+  {
+    // The following gives error:
+    /*
+      int i = 0;
+      int* pi = &i;
+      int** ppi = &pi;
+      const int** cppi = ppi; // error: cannot initialize a variable of type 'const int **' with an lvalue of type 'int **'
+    */
+    // See https://stackoverflow.com/questions/27447220/invalid-conversion-from-const-int-to-int,
+    // https://stackoverflow.com/questions/16390294/conversion-from-int-to-const-int, and also
+    // http://c-faq.com/ansi/constmismatch.html
+    //ret.constBits_ |= 0x02;
+  }
+
+  return ret;
 }
 
 static std::uint8_t effectivePtrLevel(const CppVarType* varType)
@@ -201,7 +218,14 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     {
       case CallType::kFromHandle:
         if (resolvedType)
-          stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
+        {
+          if (param.varObj->isByValue())
+            stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(";
+          else
+            stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
+        }
+        if (param.varObj->isByRef())
+          stm << '*';
         emitParamName(stm, param.varObj, i);
         if (resolvedType)
           stm << ")";
