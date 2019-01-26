@@ -4,12 +4,12 @@
 
 
 Graphics::Circle::Circle(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Graphics::Shape::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_7(h))
+  : ::Graphics::Shape(__zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_7(h))
   , __zz_cib_h_(h)
 {}
 
 Graphics::Circle::Circle(Circle&& rhs)
-  : ::Graphics::Shape::Shape(std::move(rhs))
+  : ::Graphics::Shape(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;

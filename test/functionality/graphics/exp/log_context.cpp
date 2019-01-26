@@ -2,12 +2,12 @@
 
 
 Graphics::LogContext::LogContext(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Graphics::Context::Context(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_7(h))
+  : ::Graphics::Context(__zz_cib_::Graphics::LogContext::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Context_7(h))
   , __zz_cib_h_(h)
 {}
 
 Graphics::LogContext::LogContext(LogContext&& rhs)
-  : ::Graphics::Context::Context(std::move(rhs))
+  : ::Graphics::Context(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;

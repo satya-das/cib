@@ -1656,7 +1656,7 @@ void CibCppCompound::emitHandleConstructorDefn(std::ostream&    stm,
     if (pubParent->isShared() || !pubParent->isEmpty())
     {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << ' ' << pubParent->longNsName() << "::" << pubParent->name() << "(__zz_cib_"
+      stm << indentation << sep << " ::" << pubParent->fullName() << "(__zz_cib_"
           << longName() << "::__zz_cib_Helper::" << capiName << "(h))\n";
       sep = ',';
     }
@@ -1700,7 +1700,7 @@ void CibCppCompound::emitMoveConstructorDefn(std::ostream&    stm,
     if (pubParent->isShared() || !pubParent->isEmpty())
     {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << ' ' << pubParent->longName() << "::" << pubParent->name() << "(std::move(rhs))\n";
+      stm << indentation << sep << " ::" << pubParent->fullName() << "(std::move(rhs))\n";
       sep = ',';
     }
     return true;

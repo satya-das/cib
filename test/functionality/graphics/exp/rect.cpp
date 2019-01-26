@@ -3,12 +3,12 @@
 
 
 Graphics::Rectangle::Rectangle(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Graphics::Shape::Shape(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
+  : ::Graphics::Shape(__zz_cib_::Graphics::Rectangle::__zz_cib_Helper::__zz_cib_cast_to___Graphics__Shape_6(h))
   , __zz_cib_h_(h)
 {}
 
 Graphics::Rectangle::Rectangle(Rectangle&& rhs)
-  : ::Graphics::Shape::Shape(std::move(rhs))
+  : ::Graphics::Shape(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;

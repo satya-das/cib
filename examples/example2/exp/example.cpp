@@ -33,12 +33,12 @@ void Example::A::SomeFunc() {
 }
 
 Example::B::B(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Example::A::A(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_cast_to___Example__A_4(h))
+  : ::Example::A(__zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_cast_to___Example__A_4(h))
   , __zz_cib_h_(h)
 {}
 
 Example::B::B(B&& rhs)
-  : ::Example::A::A(std::move(rhs))
+  : ::Example::A(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
