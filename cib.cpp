@@ -640,9 +640,9 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   }
   stm << capiName << ">(\n";
   if (genericProxy)
-    stm << indentation << "__zz_cib_proxy";
+    stm << ++indentation << "__zz_cib_proxy";
   else
-    stm << indentation << "__zz_cib_h_";
+    stm << ++indentation << "__zz_cib_h_";
   if (hasParams())
   {
     stm << ",\n";
@@ -1983,8 +1983,11 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
   {
     CppObj* mem = *memItr;
     if (mem->objType_ == CppObj::kCompound)
-      static_cast<const CibCppCompound*>(mem)->emitMethodTableGetterDefn(
-        stm, helper, cibParams, cibIdMgr, forProxy, indentation);
+    {
+      auto* nested = static_cast<const CibCppCompound*>(mem);
+      if (!forProxy || nested->needsGenericProxyDefinition())
+        nested->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, forProxy, indentation);
+    }
   }
   if (isNamespaceLike() && !needsBridging_.empty())
   {
