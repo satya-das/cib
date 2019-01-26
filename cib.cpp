@@ -1270,8 +1270,7 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
       if (cibIdData)
       {
         stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
-        ++indentation;
-        stm << indentation << "return __zz_cib_" << compound->longName()
+        stm << ++indentation << "return __zz_cib_" << compound->longName()
             << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
         --indentation;
       }
@@ -1284,8 +1283,8 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
     stm << indentation << "default:\n";
     stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
         << "::__zz_cib_from_handle(h);\n";
-    stm << --indentation << "}\n";
   }
+  stm << --indentation << "}\n";
 
   stm << --indentation << "}\n";
 }
