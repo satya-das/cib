@@ -1336,9 +1336,12 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
       else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
                && !allVirtSigs.count(sig))
       {
-        allVirtSigs.insert(sig);
-        if (!func.hasAttr(kOverride))
-          allVirtuals.push_back(func);
+        if (func.protectionLevel() == kPublic)
+        {
+          allVirtSigs.insert(sig);
+          if (!func.hasAttr(kOverride))
+            allVirtuals.push_back(func);
+        }
       }
     }
 
