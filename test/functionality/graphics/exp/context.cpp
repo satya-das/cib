@@ -34,7 +34,7 @@ class Context : public ::Graphics::Context {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Context(__zz_cib_HANDLE* h) : __zz_cib_h_(h) {}
+  Context(__zz_cib_HANDLE* h) : ::Graphics::Context(h) {}
 public:
   static ::Graphics::Context* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Context(h);
