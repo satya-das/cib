@@ -342,14 +342,24 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
   {
     if (isConst())
       stm << "const ";
-    stm << callingOwner->longName() << "*";
+    if (purpose == kPurposeCApi)
+      stm << "__zz_cib_Delegator*";
+    else
+      stm << callingOwner->longName() << "*";
     if (purpose != kPurposeSignature)
       stm << " __zz_cib_obj";
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, helper, true, purpose);
-  stm << ')';
+  if ((purpose == kPurposeCApi) && isCopyConstructor())
+  {
+    stm << "const __zz_cib_Delegator* __zz_cib_obj)";
+  }
+  else
+  {
+    emitArgsForDecl(stm, helper, true, purpose);
+    stm << ')';
+  }
 }
 
 void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
@@ -384,10 +394,16 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     else
     {
-      stm << callingOwner->longName();
-      stm << '(';
+      stm << "__zz_cib_Delegator(";
     }
-    emitArgsForCall(stm, helper, cibParams, callType);
+    if (!forProxy && isCopyConstructor())
+    {
+      stm << "*__zz_cib_obj";
+    }
+    else
+    {
+      emitArgsForCall(stm, helper, cibParams, callType);
+    }
     stm << ");\n";
   }
   else if (isDestructor())
@@ -427,8 +443,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     if (callingOwner->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
-    if (!forProxy && !isPureVirtual())
-      stm << callingOwner->longName() << "::";
+    if (!forProxy && !isPureVirtual() && (protectionLevel() != kPrivate))
+      stm << "__zz_cib_ParentClass::";
 
     if (!isTypeConverter())
       stm << funcName();
@@ -1910,6 +1926,9 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     if (needsGenericProxyDefinition())
       emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
+    stm << indentation << "struct __zz_cib_Delegator : public " << longName() << "{\n";
+    stm << ++indentation << "using __zz_cib_ParentClass = " << longName() << ";\n";
+    stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
     for (auto func : needsBridging_)
     {
       func.emitCAPIDefn(
@@ -1930,7 +1949,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
 
     if (isFacadeLike())
     {
-      stm << indentation << "std::uint32_t __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_get_class_id")
+      stm << indentation << "static std::uint32_t __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_get_class_id")
           << "(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
       stm << indentation << "static bool classIdRepoPopulated = false;\n";
@@ -1964,6 +1983,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       --indentation;
       stm << indentation << "}\n";
     }
+    stm << --indentation << "};\n";
     stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
   }
 }
@@ -2026,7 +2046,10 @@ void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,
       className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
         if (methodId == nextMethodId++)
         {
-          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&" << methodName << ')';
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&";
+          if (!forProxy)
+            stm << "__zz_cib_Delegator::";
+          stm << methodName << ')';
         }
         else
         {

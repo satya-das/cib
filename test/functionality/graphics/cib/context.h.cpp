@@ -60,50 +60,54 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-static ::Graphics::Context* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context(proxy, mtbl);
-}
-static void __zz_cib_decl Line_1(::Graphics::Context* __zz_cib_obj, double x1, double y1, double x2, double y2) {
-  __zz_cib_obj->Line(x1, y1, x2, y2);
-}
-static void __zz_cib_decl Rect_2(::Graphics::Context* __zz_cib_obj, double l, double b, double r, double t) {
-  __zz_cib_obj->Rect(l, b, r, t);
-}
-static void __zz_cib_decl Circle_3(::Graphics::Context* __zz_cib_obj, double cx, double cy, double r) {
-  __zz_cib_obj->Circle(cx, cy, r);
-}
-static void __zz_cib_decl Ellipse_4(::Graphics::Context* __zz_cib_obj, double cx, double cy, double a, double b) {
-  __zz_cib_obj->Ellipse(cx, cy, a, b);
-}
-static void __zz_cib_decl __zz_cib_delete_5(::Graphics::Context* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context* __zz_cib_obj) {
-  static bool classIdRepoPopulated = false;
-  if (!classIdRepoPopulated) {
-    __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] = __zz_cib_::Graphics::LogContext::__zz_cib_classid;
-    classIdRepoPopulated = true;
+struct __zz_cib_Delegator : public ::Graphics::Context{
+  using __zz_cib_ParentClass = ::Graphics::Context;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  static ::Graphics::Context* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
+    return new __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context(proxy, mtbl);
   }
-  return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
-}
-static void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Context* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
-}
+  static void __zz_cib_decl Line_1(__zz_cib_Delegator* __zz_cib_obj, double x1, double y1, double x2, double y2) {
+    __zz_cib_obj->Line(x1, y1, x2, y2);
+  }
+  static void __zz_cib_decl Rect_2(__zz_cib_Delegator* __zz_cib_obj, double l, double b, double r, double t) {
+    __zz_cib_obj->Rect(l, b, r, t);
+  }
+  static void __zz_cib_decl Circle_3(__zz_cib_Delegator* __zz_cib_obj, double cx, double cy, double r) {
+    __zz_cib_obj->Circle(cx, cy, r);
+  }
+  static void __zz_cib_decl Ellipse_4(__zz_cib_Delegator* __zz_cib_obj, double cx, double cy, double a, double b) {
+    __zz_cib_obj->Ellipse(cx, cy, a, b);
+  }
+  static void __zz_cib_decl __zz_cib_delete_5(__zz_cib_Delegator* __zz_cib_obj) {
+    delete __zz_cib_obj;
+  }
+  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context* __zz_cib_obj) {
+    static bool classIdRepoPopulated = false;
+    if (!classIdRepoPopulated) {
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] = __zz_cib_::Graphics::LogContext::__zz_cib_classid;
+      classIdRepoPopulated = true;
+    }
+    return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+  }
+  static void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Context* __zz_cib_obj) {
+    auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context*>(__zz_cib_obj);
+    if (unknownProxy)
+      unknownProxy->__zz_cib_release_proxy();
+  }
+};
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Line_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Rect_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Circle_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Ellipse_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_get_class_id_6),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_release_proxy_7)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Line_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Rect_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Circle_3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Ellipse_4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_6),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_7)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
   return &methodTable;
