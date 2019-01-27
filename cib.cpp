@@ -621,6 +621,14 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     stm << "return ";
   auto* resolvedCppObj = (getOwner() && returnType() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
   auto* resolvedType = (resolvedCppObj && resolvedCppObj->isClassLike()) ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+  if (resolvedType && !genericProxy)
+  {
+    if (returnType()->isByValue())
+      stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
+    else
+      stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
+  }
+
   bool byValueObj = (genericProxy && resolvedType && returnType() && returnType()->isByValue());
   if (byValueObj || (genericProxy && returnType() && returnType()->isByRef()))
     stm << "*";
@@ -645,6 +653,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     stm << indentation;
     emitArgsForCall(stm, helper, cibParams, genericProxy ? CallType::kRefIfByVal : CallType::kToHandle);
   }
+  if (resolvedType && !genericProxy)
+    stm << ')';
   stm << ");\n";
   --indentation;
   stm << --indentation << "}\n";
