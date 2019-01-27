@@ -1203,11 +1203,12 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
     emitMoveConstructorDecl(stm, indentation);
 
   CppObjProtLevel         lastProt = kUnknownProt;
-  std::set<const CppObj*> memDeclared;
   for (auto mem : members_)
   {
+    if ((mem->objType_ == CppObj::kVar) || (mem->objType_ == CppObj::kVarList))
+      continue;
     if (needsBridging()
-        && !isMemberPublic(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
+        && isMemberPrivate(mem->prot_, compoundType_)) // We will emit only public members unless class is inline.
       continue;
     if (isClassLike() && lastProt != mem->prot_)
     {
@@ -1217,18 +1218,6 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
       lastProt = mem->prot_;
     }
     emitDecl(mem, stm, helper, cibParams, indentation);
-    memDeclared.insert(mem);
-  }
-  for (auto func : needsBridging_)
-  {
-    if (memDeclared.count(func))
-      continue;
-    if (func.protectionLevel() != lastProt)
-    {
-      stm << --indentation << func.protectionLevel() << ":\n";
-      ++indentation;
-    }
-    func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
   }
 
   if (isClassLike())
@@ -1336,7 +1325,8 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
       else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
                && !allVirtSigs.count(sig))
       {
-        if (func.protectionLevel() == kPublic)
+        // TODO: Allow protected too.
+        //if (func.protectionLevel() == kPublic)
         {
           allVirtSigs.insert(sig);
           if (!func.hasAttr(kOverride))
@@ -1405,7 +1395,27 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   }
   if (!isClassLike() || (isEmpty() && !isShared()))
     return;
-
+  if (isFacadeLike())
+  {
+    std::unordered_set<std::string> virtSigs;
+    for (auto obj : objNeedingBridge_)
+    {
+      CibFunctionHelper func(obj);
+      if (func.isFunction() && func.isVirtual())
+        virtSigs.insert(func.signature(helper));
+    }
+    for (auto func : allVirtuals_)
+    {
+      if (objNeedingBridge_.count(func) == 0)
+      {
+        if (virtSigs.count(func.signature(helper)) == 0)
+        {
+          objNeedingBridge_.insert(func);
+          needsBridging_.push_back(func);
+        }
+      }
+    }
+  }
   if (!hasDtor() && (!isAbstract() || isFacadeLike() || needsGenericProxyDefinition()))
   {
     auto defaultDtor = CibFunctionHelper::CreateDestructor(kPublic, "~" + ctorName(), 0);
@@ -1432,7 +1442,10 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   {
     auto ctorProtection = isAbstract() ? kProtected : kPublic;
     auto defaultCtor    = CibFunctionHelper::CreateConstructor(ctorProtection, ctorName(), nullptr, nullptr, 0);
-    addMemberAtFront(defaultCtor);
+    if (isAbstract())
+      addMember(defaultCtor);
+    else
+      addMemberAtFront(defaultCtor);
     CibFunctionHelper func(defaultCtor);
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(defaultCtor);
