@@ -18,17 +18,20 @@ public:
   }
   static const _ProxyClass*& __zz_cib_from_handle(const __zz_cib_HANDLE* h)
   {
-    return __zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h));
+    return const_cast<const _ProxyClass*&>(__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h)));
   }
   static const _ProxyClass& __zz_cib_from_handle(const __zz_cib_HANDLE& h)
   {
     return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
   }
-  static _ProxyClass* __zz_cib_from_handle(__zz_cib_HANDLE* h)
+  static _ProxyClass*& __zz_cib_from_handle(__zz_cib_HANDLE* h)
   {
     auto& dis   = _Helper::instance();
-    auto* proxy = dis.findProxy(h);
-    return proxy ? proxy : _Helper::__zz_cib_create_proxy(h);
+    auto*& proxy = dis.findProxy(h);
+    if (proxy)
+      return proxy;
+    _Helper::__zz_cib_create_proxy(h);
+    return dis.findProxy(h);
   }
   static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {
@@ -50,7 +53,7 @@ public:
   }
   static const __zz_cib_HANDLE*& __zz_cib_handle(const _ProxyClass* __zz_cib_obj)
   {
-    return _Helper::__zz_cib_get_handle(__zz_cib_obj);
+    return const_cast<const __zz_cib_HANDLE*&>(_Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(__zz_cib_obj)));
   }
   static __zz_cib_HANDLE*& __zz_cib_handle(const _ProxyClass& __zz_cib_obj)
   {
@@ -58,10 +61,11 @@ public:
   }
 
 private:
-  _ProxyClass* findProxy(__zz_cib_HANDLE* h) const
+  _ProxyClass*& findProxy(__zz_cib_HANDLE* h) const
   {
+    static _ProxyClass* nullProxy = nullptr;
     auto itr = proxyRepo.find(h);
-    return (itr == proxyRepo.end()) ? nullptr : itr->second;
+    return (itr == proxyRepo.end()) ? nullProxy : itr->second;
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {
