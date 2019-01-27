@@ -619,16 +619,12 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   stm << indentation;
   if (!isDestructor())
     stm << "return ";
-  bool byValueObj = [&]() {
-    if (genericProxy && returnType() && returnType()->isByValue())
-    {
-      auto* resolvedCppObj = (getOwner() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
-      return (resolvedCppObj && resolvedCppObj->isClassLike());
-    }
-    return false;
-  }();
+  auto* resolvedCppObj = (getOwner() && returnType() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
+  auto* resolvedType = (resolvedCppObj && resolvedCppObj->isClassLike()) ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+  bool byValueObj = (genericProxy && resolvedType && returnType() && returnType()->isByValue());
   if (byValueObj || (genericProxy && returnType() && returnType()->isByRef()))
     stm << "*";
+
   stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ", ";
   if (genericProxy)
   {
