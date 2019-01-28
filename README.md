@@ -197,8 +197,9 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Operator overloading              | It is common for C++ classes to have overloaded operators. | Done |
 | Typecast operator overloading     | Typecast operator overloading of user defined types is common in C++. | Done |
 | Simple Template class support     | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. | Done|
-| Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. |
-| Support protected methods			| Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
+| Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. | Done|
+| Support protected methods			    | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
+| Support private pure virtual		  | Private pure virtual is used in template method design pattern. | Done|
 | Use CIB for real production SDK   | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Rvalue reference parameter        | RValue references need to cross component boundary. |
 | Enum and enum classes             | Enums used as parameter or return type. |
@@ -209,7 +210,6 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Non-const pointer ref return type | When a reference of pointer of non-POD is returned from a function a change in that should be propagated to the library.|
 | Support struct                    | Automatically add getter/setter for public data members. |
 | Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
-| Support private pure virtual		| Private pure virtual is used in template method design pattern. |
 | Warn when compatibility breaks    | When a change in library header will break compatibility, like when a function is removed, then `cib` should warn about such changes. |
 | Multiple library integration      | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
 
