@@ -6,12 +6,14 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 struct __zz_cib_Delegator : public ::Graphics::LogContext {
-  using __zz_cib_Delegatee = ::Graphics::LogContext;
-  static ::Graphics::LogContext* __zz_cib_decl __zz_cib_copy_0(::Graphics::LogContext const * __zz_cib_param0) {
-    return new ::Graphics::LogContext(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::Graphics::LogContext;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::Graphics::LogContext* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static ::Graphics::LogContext* __zz_cib_decl __zz_cib_new_1() {
-    return new ::Graphics::LogContext();
+    return new __zz_cib_Delegator();
   }
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;

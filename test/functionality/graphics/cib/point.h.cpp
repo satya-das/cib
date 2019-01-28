@@ -6,15 +6,17 @@
 
 namespace __zz_cib_ { namespace Point {
 struct __zz_cib_Delegator : public ::Point {
-  using __zz_cib_Delegatee = ::Point;
-  static ::Point* __zz_cib_decl __zz_cib_copy_0(::Point const * __zz_cib_param0) {
-    return new ::Point(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::Point;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::Point* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::Point* __zz_cib_decl __zz_cib_new_2(double x, double y) {
-    return new ::Point(x, y);
+    return new __zz_cib_Delegator(x, y);
   }
   static double __zz_cib_decl X_3(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->X();

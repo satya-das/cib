@@ -8,15 +8,17 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {
 struct __zz_cib_Delegator : public ::Graphics::Circle {
-  using __zz_cib_Delegatee = ::Graphics::Circle;
-  static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(::Graphics::Circle const * __zz_cib_param0) {
-    return new ::Graphics::Circle(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::Graphics::Circle;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::Graphics::Circle* __zz_cib_decl __zz_cib_new_2(double Ox, double Oy, double radius) {
-    return new ::Graphics::Circle(Ox, Oy, radius);
+    return new __zz_cib_Delegator(Ox, Oy, radius);
   }
   static double __zz_cib_decl Area_3(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_Delegatee::Area();

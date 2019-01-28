@@ -6,12 +6,14 @@
 
 namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A {
-  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_ParentClass = ::Example::A;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
-    return new ::Example::A();
+    return new __zz_cib_Delegator();
   }
-  static ::Example::A* __zz_cib_decl __zz_cib_copy_1(::Example::A const * __zz_cib_param0) {
-    return new ::Example::A(*__zz_cib_param0);
+  static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
@@ -27,12 +29,14 @@ struct __zz_cib_Delegator : public ::Example::A {
 
 namespace __zz_cib_ { namespace Example { namespace B {
 struct __zz_cib_Delegator : public ::Example::B {
-  using __zz_cib_Delegatee = ::Example::B;
+  using __zz_cib_ParentClass = ::Example::B;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
-    return new ::Example::B();
+    return new __zz_cib_Delegator();
   }
-  static ::Example::B* __zz_cib_decl __zz_cib_copy_1(::Example::B const * __zz_cib_param0) {
-    return new ::Example::B(*__zz_cib_param0);
+  static ::Example::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;

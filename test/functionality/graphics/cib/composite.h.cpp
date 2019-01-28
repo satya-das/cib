@@ -15,15 +15,17 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {
 struct __zz_cib_Delegator : public ::Graphics::Composite {
-  using __zz_cib_Delegatee = ::Graphics::Composite;
-  static ::Graphics::Composite* __zz_cib_decl __zz_cib_copy_0(::Graphics::Composite const * __zz_cib_param0) {
-    return new ::Graphics::Composite(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::Graphics::Composite;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::Graphics::Composite* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::Graphics::Composite* __zz_cib_decl __zz_cib_new_2() {
-    return new ::Graphics::Composite();
+    return new __zz_cib_Delegator();
   }
   static void __zz_cib_decl Add_3(__zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Shape* shape) {
     __zz_cib_obj->Add(shape);

@@ -7,15 +7,17 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 struct __zz_cib_Delegator : public ::Graphics::Ellipse {
-  using __zz_cib_Delegatee = ::Graphics::Ellipse;
-  static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_copy_0(::Graphics::Ellipse const * __zz_cib_param0) {
-    return new ::Graphics::Ellipse(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::Graphics::Ellipse;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_2(double Ox, double Oy, double a, double b) {
-    return new ::Graphics::Ellipse(Ox, Oy, a, b);
+    return new __zz_cib_Delegator(Ox, Oy, a, b);
   }
   static double __zz_cib_decl Area_3(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_Delegatee::Area();
