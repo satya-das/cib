@@ -198,6 +198,8 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Typecast operator overloading     | Typecast operator overloading of user defined types is common in C++. | Done |
 | Simple Template class support     | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. | Done|
 | Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. |
+| Support protected methods			| Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
+| Use CIB for real production SDK   | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Rvalue reference parameter        | RValue references need to cross component boundary. |
 | Enum and enum classes             | Enums used as parameter or return type. |
 | STL classes                       | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
@@ -207,8 +209,7 @@ To build CIB you need to pull **common**, **cppparser**, and **cib** source code
 | Non-const pointer ref return type | When a reference of pointer of non-POD is returned from a function a change in that should be propagated to the library.|
 | Support struct                    | Automatically add getter/setter for public data members. |
 | Support struct in a better way    | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
-| Support exporting protected methods ||
-| Use CIB for real production SDK   | To demonstraly prove viability of this architecture and tool it will be better to use it for at leat one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
+| Support private pure virtual		| Private pure virtual is used in template method design pattern. |
 | Warn when compatibility breaks    | When a change in library header will break compatibility, like when a function is removed, then `cib` should warn about such changes. |
 | Multiple library integration      | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
 
@@ -600,27 +601,31 @@ There are few points to note about this id file:
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
-  return new ::Example::A();
-}
-static ::Example::A* __zz_cib_decl __zz_cib_copy_1(::Example::A const * __zz_cib_param0) {
-  return new ::Example::A(*__zz_cib_param0);
-}
-static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static void __zz_cib_decl SomeFunc_3(::Example::A* __zz_cib_obj) {
-  __zz_cib_obj->::Example::A::SomeFunc();
-}
+struct __zz_cib_Delegator : public ::Example::A{
+  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
+  static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
+    return new __zz_cib_Delegator();
+  }
+  static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
+  }
+  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
+    delete __zz_cib_obj;
+  }
+  static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
+    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  }
+};
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_copy_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_3)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
   return &methodTable;
@@ -847,7 +852,7 @@ private:
     : __zz_cib_::__zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
-  static const __zz_cib_Helper& instance() {
+  static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
@@ -859,11 +864,8 @@ public:
   static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
     return ::Example::A(h);
   }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::A& __zz_cib_obj) {
-    return __zz_cib_obj.__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -1015,45 +1017,50 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -14,20 +14,55 @@
- static void __zz_cib_decl __zz_cib_delete_2(::Example::A* __zz_cib_obj) {
-   delete __zz_cib_obj;
- }
-+static void __zz_cib_decl VirtFunc_4(::Example::A* __zz_cib_obj) {
-+  __zz_cib_obj->::Example::A::VirtFunc();
-+}
- static void __zz_cib_decl SomeFunc_3(::Example::A* __zz_cib_obj) {
-   __zz_cib_obj->::Example::A::SomeFunc();
- }
+@@ -17,21 +17,60 @@
+   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
+     delete __zz_cib_obj;
+   }
++  static void __zz_cib_decl VirtFunc_4(__zz_cib_Delegator* __zz_cib_obj) {
++    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
++  }
+   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
+     __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+   }
+ };
  }}}
  
 +namespace __zz_cib_ { namespace Example { namespace B {
-+static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
-+  return new ::Example::B();
-+}
-+static ::Example::B* __zz_cib_decl __zz_cib_copy_1(::Example::B const * __zz_cib_param0) {
-+  return new ::Example::B(*__zz_cib_param0);
-+}
-+static void __zz_cib_decl __zz_cib_delete_2(::Example::B* __zz_cib_obj) {
-+  delete __zz_cib_obj;
-+}
-+static void __zz_cib_decl VirtFunc_3(::Example::B* __zz_cib_obj) {
-+  __zz_cib_obj->::Example::B::VirtFunc();
-+}
-+static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
-+  return __zz_cib_obj;
-+}
++struct __zz_cib_Delegator : public ::Example::B{
++  using __zz_cib_Delegatee = ::Example::B;
++  using __zz_cib_Delegatee::__zz_cib_Delegatee;
++  static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
++    return new __zz_cib_Delegator();
++  }
++  static ::Example::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
++    return new __zz_cib_Delegator(*__zz_cib_obj);
++  }
++  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
++    delete __zz_cib_obj;
++  }
++  static void __zz_cib_decl VirtFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
++    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
++  }
++  static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
++    return __zz_cib_obj;
++  }
++};
 +}}}
 +
  namespace __zz_cib_ { namespace Example { namespace A {
  const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
    static const __zz_cib_MTableEntry methodArray[] = {
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_0),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_copy_1),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_2),
--    reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_3)
-+    reinterpret_cast<__zz_cib_MTableEntry> (&SomeFunc_3),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&VirtFunc_4)
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
+-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_4)
 +  };
 +  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
 +  return &methodTable;
@@ -1062,11 +1069,11 @@ Please note that none of the IDs that were used by previous version are changed,
 +namespace __zz_cib_ { namespace Example { namespace B {
 +const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 +  static const __zz_cib_MTableEntry methodArray[] = {
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_new_0),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_copy_1),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_2),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&VirtFunc_3),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_cast_to___Example__A_4)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_3),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to___Example__A_4)
    };
 -  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
 +  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
@@ -1152,7 +1159,7 @@ Definition of proxy classes is as expected. No surprises there. The class defini
    static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
      using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
-@@ -64,4 +70,71 @@
+@@ -61,4 +67,67 @@
      return h;
    }
  };
@@ -1191,30 +1198,26 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +  }
 +  static __zz_cib_HANDLE* __zz_cib_cast_to___Example__A_4(__zz_cib_HANDLE* __zz_cib_obj) {
 +    using __zz_cib_cast_to___Example__AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-+    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(
-+    __zz_cib_obj);
-+}
-+__zz_cib_Helper()
-+  : __zz_cib_::__zz_cib_MethodTableHelper(
-+    __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-+{}
-+static const __zz_cib_Helper& instance() {
-+  static __zz_cib_Helper helper;
-+  return helper;
-+}
++    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(__zz_cib_obj);
++  }
++  __zz_cib_Helper()
++    : __zz_cib_::__zz_cib_MethodTableHelper(
++      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
++  {}
++  static __zz_cib_Helper& instance() {
++    static __zz_cib_Helper helper;
++    return helper;
++  }
 +
-+static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-+  return new ::Example::B(h);
-+}
++  static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
++    return new ::Example::B(h);
++  }
 +public:
 +  static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
 +    return ::Example::B(h);
 +  }
-+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B* __zz_cib_obj) {
++  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::B* __zz_cib_obj) {
 +    return __zz_cib_obj->__zz_cib_h_;
-+  }
-+  static __zz_cib_HANDLE* __zz_cib_handle(const ::Example::B& __zz_cib_obj) {
-+    return __zz_cib_obj.__zz_cib_h_;
 +  }
 +  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {
 +    auto h = __zz_cib_obj->__zz_cib_h_;
