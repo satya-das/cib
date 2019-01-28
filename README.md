@@ -601,20 +601,21 @@ There are few points to note about this id file:
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-struct __zz_cib_Delegator : public ::Example::A{
-  using __zz_cib_Delegatee = ::Example::A;
-  using __zz_cib_Delegatee::__zz_cib_Delegatee;
+struct __zz_cib_Delegator : public ::Example::A {
+  using __zz_cib_ParentClass = ::Example::A;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
   }
   static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
-  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    __zz_cib_obj->SomeFunc();
   }
 };
 }}}
@@ -776,6 +777,7 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper;
+struct __zz_cib_Delegator;
 }}}
 
 ```
@@ -788,7 +790,7 @@ We see a #include and a forward declaration of `class __zz_cib_Helper`. __zz_cib
 #include "__zz_cib_Example-handle-helper.h"
 
 #ifdef __ZZ_CIB_CLASS_INTERNAL_DEF
-#  undef __ZZ_CIB_CLASS_INTERNAL_DEF
+#undef __ZZ_CIB_CLASS_INTERNAL_DEF
 #endif
 
 //! @def __ZZ_CIB_CLASS_INTERNAL_DEF
@@ -801,6 +803,7 @@ protected:                                                                      
                                                                                                                        \
 private:                                                                                                               \
   friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
+  friend struct __zz_cib_::fullName::__zz_cib_Delegator;                                                               \
   __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
 
 ```
@@ -1017,33 +1020,34 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -17,21 +17,60 @@
-   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
+@@ -18,21 +18,61 @@
+   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
      delete __zz_cib_obj;
    }
-+  static void __zz_cib_decl VirtFunc_4(__zz_cib_Delegator* __zz_cib_obj) {
++  static void __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
 +    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 +  }
-   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
-     __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+     __zz_cib_obj->SomeFunc();
    }
  };
  }}}
  
 +namespace __zz_cib_ { namespace Example { namespace B {
-+struct __zz_cib_Delegator : public ::Example::B{
-+  using __zz_cib_Delegatee = ::Example::B;
-+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
++struct __zz_cib_Delegator : public ::Example::B {
++  using __zz_cib_ParentClass = ::Example::B;
++  using __zz_cib_ParentClass::__zz_cib_ParentClass;
++  using __zz_cib_Delegatee = __zz_cib_Delegator;
 +  static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
 +    return new __zz_cib_Delegator();
 +  }
 +  static ::Example::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
 +    return new __zz_cib_Delegator(*__zz_cib_obj);
 +  }
-+  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
++  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
 +    delete __zz_cib_obj;
 +  }
-+  static void __zz_cib_decl VirtFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
++  static void __zz_cib_decl VirtFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
 +    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 +  }
 +  static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
