@@ -7,8 +7,8 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {
 struct __zz_cib_Delegator : public ::Graphics::Rectangle{
-  using __zz_cib_ParentClass = ::Graphics::Rectangle;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Graphics::Rectangle;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
@@ -19,13 +19,13 @@ struct __zz_cib_Delegator : public ::Graphics::Rectangle{
     return new __zz_cib_Delegator(left, bottom, right, top);
   }
   static double __zz_cib_decl Area_3(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::Area();
+    return __zz_cib_obj->__zz_cib_Delegatee::Area();
   }
   static double __zz_cib_decl Perimeter_4(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::Perimeter();
+    return __zz_cib_obj->__zz_cib_Delegatee::Perimeter();
   }
   static void __zz_cib_decl Draw_5(const __zz_cib_Delegator* __zz_cib_obj, ::Graphics::Context* ctx) {
-    __zz_cib_obj->__zz_cib_ParentClass::Draw(ctx);
+    __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
   }
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Rectangle* __zz_cib_obj) {
     return __zz_cib_obj;

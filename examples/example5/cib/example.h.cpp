@@ -6,8 +6,8 @@
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
 struct __zz_cib_Delegator : public ::Example::Value<::Example::Int>{
-  using __zz_cib_ParentClass = ::Example::Value<::Example::Int>;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::Value<::Example::Int>* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
@@ -18,18 +18,18 @@ struct __zz_cib_Delegator : public ::Example::Value<::Example::Int>{
     return new __zz_cib_Delegator(*x);
   }
   static ::Example::Int* __zz_cib_decl GetValue_3(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new ::Example::Int(__zz_cib_obj->__zz_cib_ParentClass::GetValue());
+    return new ::Example::Int(__zz_cib_obj->__zz_cib_Delegatee::GetValue());
   }
   static void __zz_cib_decl SetValue_4(__zz_cib_Delegator* __zz_cib_obj, ::Example::Int* x) {
-    __zz_cib_obj->__zz_cib_ParentClass::SetValue(*x);
+    __zz_cib_obj->__zz_cib_Delegatee::SetValue(*x);
   }
 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class2 {
 struct __zz_cib_Delegator : public ::Example::Value<int>{
-  using __zz_cib_ParentClass = ::Example::Value<int>;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::Value<int>;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::Value<int>* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
@@ -40,18 +40,18 @@ struct __zz_cib_Delegator : public ::Example::Value<int>{
     return new __zz_cib_Delegator(x);
   }
   static int __zz_cib_decl GetValue_3(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::GetValue();
+    return __zz_cib_obj->__zz_cib_Delegatee::GetValue();
   }
   static void __zz_cib_decl SetValue_4(__zz_cib_Delegator* __zz_cib_obj, int x) {
-    __zz_cib_obj->__zz_cib_ParentClass::SetValue(x);
+    __zz_cib_obj->__zz_cib_Delegatee::SetValue(x);
   }
 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace Int {
 struct __zz_cib_Delegator : public ::Example::Int{
-  using __zz_cib_ParentClass = ::Example::Int;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::Int;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::Int* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
@@ -62,15 +62,15 @@ struct __zz_cib_Delegator : public ::Example::Int{
     return new __zz_cib_Delegator(x);
   }
   static int __zz_cib_decl __zz_cib_Operator_3(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::operator int();
+    return __zz_cib_obj->__zz_cib_Delegatee::operator int();
   }
 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A{
-  using __zz_cib_ParentClass = ::Example::A;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
   }
@@ -81,16 +81,16 @@ struct __zz_cib_Delegator : public ::Example::A{
     delete __zz_cib_obj;
   }
   static void __zz_cib_decl Set_3(__zz_cib_Delegator* __zz_cib_obj, ::Example::Value<int> const * x) {
-    __zz_cib_obj->__zz_cib_ParentClass::Set(*x);
+    __zz_cib_obj->__zz_cib_Delegatee::Set(*x);
   }
   static ::Example::Value<int>* __zz_cib_decl Get_4(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new ::Example::Value<int>(__zz_cib_obj->__zz_cib_ParentClass::Get());
+    return new ::Example::Value<int>(__zz_cib_obj->__zz_cib_Delegatee::Get());
   }
   static void __zz_cib_decl SetInt_5(__zz_cib_Delegator* __zz_cib_obj, ::Example::Value<::Example::Int> const * y) {
-    __zz_cib_obj->__zz_cib_ParentClass::SetInt(*y);
+    __zz_cib_obj->__zz_cib_Delegatee::SetInt(*y);
   }
   static ::Example::Value<::Example::Int>* __zz_cib_decl GetInt_6(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new ::Example::Value<::Example::Int>(__zz_cib_obj->__zz_cib_ParentClass::GetInt());
+    return new ::Example::Value<::Example::Int>(__zz_cib_obj->__zz_cib_Delegatee::GetInt());
   }
 };
 }}}

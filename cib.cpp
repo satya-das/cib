@@ -444,7 +444,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     if (callingOwner->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
     if (!forProxy && !isPureVirtual() && (protectionLevel() != kPrivate))
-      stm << "__zz_cib_ParentClass::";
+      stm << "__zz_cib_Delegatee::";
 
     if (!isTypeConverter())
       stm << funcName();
@@ -1927,8 +1927,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     stm << indentation << "struct __zz_cib_Delegator : public " << longName() << "{\n";
-    stm << ++indentation << "using __zz_cib_ParentClass = " << longName() << ";\n";
-    stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
+    stm << ++indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
+    stm << indentation << "using __zz_cib_Delegatee::__zz_cib_Delegatee;\n";
     for (auto func : needsBridging_)
     {
       func.emitCAPIDefn(

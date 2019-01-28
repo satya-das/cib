@@ -7,8 +7,8 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace Ellipse {
 struct __zz_cib_Delegator : public ::Graphics::Ellipse{
-  using __zz_cib_ParentClass = ::Graphics::Ellipse;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Graphics::Ellipse;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
   }
@@ -19,13 +19,13 @@ struct __zz_cib_Delegator : public ::Graphics::Ellipse{
     return new __zz_cib_Delegator(Ox, Oy, a, b);
   }
   static double __zz_cib_decl Area_3(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::Area();
+    return __zz_cib_obj->__zz_cib_Delegatee::Area();
   }
   static double __zz_cib_decl Perimeter_4(const __zz_cib_Delegator* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_ParentClass::Perimeter();
+    return __zz_cib_obj->__zz_cib_Delegatee::Perimeter();
   }
   static void __zz_cib_decl Draw_5(const __zz_cib_Delegator* __zz_cib_obj, ::Graphics::Context* ctx) {
-    __zz_cib_obj->__zz_cib_ParentClass::Draw(ctx);
+    __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
   }
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Ellipse* __zz_cib_obj) {
     return __zz_cib_obj;

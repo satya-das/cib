@@ -57,8 +57,8 @@ public:
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
 struct __zz_cib_Delegator : public ::Graphics::Shape{
-  using __zz_cib_ParentClass = ::Graphics::Shape;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Graphics::Shape;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape(proxy, mtbl);
   }

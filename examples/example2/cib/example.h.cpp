@@ -6,8 +6,8 @@
 
 namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A{
-  using __zz_cib_ParentClass = ::Example::A;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
   }
@@ -18,18 +18,18 @@ struct __zz_cib_Delegator : public ::Example::A{
     delete __zz_cib_obj;
   }
   static void __zz_cib_decl VirtFunc_4(__zz_cib_Delegator* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_ParentClass::VirtFunc();
+    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
   }
   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_ParentClass::SomeFunc();
+    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
   }
 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace B {
 struct __zz_cib_Delegator : public ::Example::B{
-  using __zz_cib_ParentClass = ::Example::B;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = ::Example::B;
+  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
   }
@@ -40,7 +40,7 @@ struct __zz_cib_Delegator : public ::Example::B{
     delete __zz_cib_obj;
   }
   static void __zz_cib_decl VirtFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_ParentClass::VirtFunc();
+    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
   }
   static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
     return __zz_cib_obj;
