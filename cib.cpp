@@ -342,7 +342,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
   {
     if (isConst())
       stm << "const ";
-    if (purpose == kPurposeCApi)
+    if ((purpose == kPurposeCApi) && callingOwner->isOverridable())
       stm << "__zz_cib_Delegator*";
     else
       stm << callingOwner->longName() << "*";
@@ -351,7 +351,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
     if (hasParams())
       stm << ", ";
   }
-  if ((purpose == kPurposeCApi) && isCopyConstructor())
+  if ((purpose == kPurposeCApi) && isCopyConstructor() && getOwner()->isOverridable())
   {
     stm << "const __zz_cib_Delegator* __zz_cib_obj)";
   }
@@ -392,11 +392,15 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       if (hasParams())
         stm << ", ";
     }
-    else
+    else if (callingOwner->isOverridable())
     {
       stm << "__zz_cib_Delegator(";
     }
-    if (!forProxy && isCopyConstructor())
+    else
+    {
+      stm << callingOwner->longName() << '(';
+    }
+    if (!forProxy && isCopyConstructor() && getOwner()->isOverridable())
     {
       stm << "*__zz_cib_obj";
     }
@@ -1926,9 +1930,16 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     if (needsGenericProxyDefinition())
       emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-    stm << indentation << "struct __zz_cib_Delegator : public " << longName() << "{\n";
-    stm << ++indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
-    stm << indentation << "using __zz_cib_Delegatee::__zz_cib_Delegatee;\n";
+    auto delegatee = longName();
+    if (needsGenericProxyDefinition())
+      delegatee = "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name();
+    if (isOverridable())
+      stm << indentation << "struct __zz_cib_Delegator : public " << delegatee << "{\n";
+    else
+      stm << indentation << "namespace __zz_cib_Delegator {\n";
+    stm << ++indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
+    if (isOverridable())
+      stm << indentation << "using __zz_cib_Delegatee::__zz_cib_Delegatee;\n";
     for (auto func : needsBridging_)
     {
       func.emitCAPIDefn(
@@ -1983,7 +1994,10 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       --indentation;
       stm << indentation << "}\n";
     }
-    stm << --indentation << "};\n";
+    if (isOverridable())
+      stm << --indentation << "};\n";
+    else
+      stm << --indentation << "}\n";
     stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
   }
 }

@@ -294,6 +294,14 @@ public:
   {
     return (props_ & kClassPropCompositeTmpl);
   }
+  bool isOverridable() const
+  {
+    //if (isAbstract())
+    //  return false;
+    if (compoundType_ == CppCompoundType::kUnion)
+      return false;
+    return !hasDtor() || !isMemberPrivate(dtor()->protectionLevel(), compoundType_);
+  }
   //! @return true if it has at least one constructor other than copy/move.
   bool hasCtor() const
   {
