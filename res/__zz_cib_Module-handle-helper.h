@@ -26,7 +26,7 @@ public:
   }
   static _ProxyClass*& __zz_cib_from_handle(__zz_cib_HANDLE* h)
   {
-    auto& dis   = _Helper::instance();
+    auto&  dis   = _Helper::instance();
     auto*& proxy = dis.findProxy(h);
     if (proxy)
       return proxy;
@@ -61,10 +61,10 @@ public:
   }
 
 private:
-  _ProxyClass*& findProxy(__zz_cib_HANDLE* h) const
+  _ProxyClass*& findProxy(__zz_cib_HANDLE* h)
   {
     static _ProxyClass* nullProxy = nullptr;
-    auto itr = proxyRepo.find(h);
+    auto                itr       = proxyRepo.find(h);
     return (itr == proxyRepo.end()) ? nullProxy : itr->second;
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
