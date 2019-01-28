@@ -352,8 +352,15 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
     if (hasParams())
       stm << ", ";
   }
-  emitArgsForDecl(stm, helper, true, purpose);
-  stm << ')';
+  if ((purpose == kPurposeCApi) && isCopyConstructor() && getOwner()->isOverridable())
+  {
+    stm << "const __zz_cib_Delegator* __zz_cib_obj)";
+  }
+  else
+  {
+    emitArgsForDecl(stm, helper, true, purpose);
+    stm << ')';
+  }
 }
 
 void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
@@ -386,11 +393,22 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       if (hasParams())
         stm << ", ";
     }
+    else if (callingOwner->isOverridable())
+    {
+      stm << "__zz_cib_Delegator(";
+    }
     else
     {
       stm << callingOwner->longName() << '(';
     }
-    emitArgsForCall(stm, helper, cibParams, callType);
+    if (!forProxy && isCopyConstructor() && getOwner()->isOverridable())
+    {
+      stm << "*__zz_cib_obj";
+    }
+    else
+    {
+      emitArgsForCall(stm, helper, cibParams, callType);
+    }
     stm << ");\n";
   }
   else if (isDestructor())
@@ -1928,14 +1946,20 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     if (needsGenericProxyDefinition())
       emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-    auto delegatee = longName();
-    if (needsGenericProxyDefinition())
-      delegatee = "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name();
+    auto parentClass =
+      needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
+    auto delegatee = needsGenericProxyDefinition() ? parentClass : "__zz_cib_Delegator";
     if (isOverridable())
-      stm << indentation << "struct __zz_cib_Delegator : public " << delegatee << " {\n";
+    {
+      stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
+      stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
+      stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
+    }
     else
+    {
       stm << indentation << "namespace __zz_cib_Delegator {\n";
-    stm << ++indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
+    }
+    stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
 
     for (auto func : needsBridging_)
     {

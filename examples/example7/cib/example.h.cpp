@@ -63,6 +63,8 @@ public:
 }}}
 namespace __zz_cib_ { namespace IF {
 struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
+  using __zz_cib_ParentClass = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
   using __zz_cib_Delegatee = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
   static ::IF* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::IF::__zz_cib_GenericProxy::IF(proxy, mtbl);
@@ -111,15 +113,17 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
 
 namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator : public ::A {
-  using __zz_cib_Delegatee = ::A;
-  static ::A* __zz_cib_decl __zz_cib_copy_0(::A const * __zz_cib_param0) {
-    return new ::A(*__zz_cib_param0);
+  using __zz_cib_ParentClass = ::A;
+  using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
+  static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
+    return new __zz_cib_Delegator(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::A* __zz_cib_decl __zz_cib_new_2() {
-    return new ::A();
+    return new __zz_cib_Delegator();
   }
   static void __zz_cib_decl SetIF_3(__zz_cib_Delegatee* __zz_cib_obj, ::IF* pIF) {
     __zz_cib_obj->SetIF(pIF);
