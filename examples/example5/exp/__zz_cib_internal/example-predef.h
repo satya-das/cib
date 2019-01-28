@@ -2,8 +2,10 @@
 
 namespace __zz_cib_ { namespace Example { namespace Int {
 class __zz_cib_Helper;
+struct __zz_cib_Delegator;
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper;
+struct __zz_cib_Delegator;
 }}}

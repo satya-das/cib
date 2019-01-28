@@ -5,20 +5,19 @@
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-struct __zz_cib_Delegator : public ::Example::A{
+struct __zz_cib_Delegator : public ::Example::A {
   using __zz_cib_Delegatee = ::Example::A;
-  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
-    return new __zz_cib_Delegator();
+    return new ::Example::A();
   }
-  static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new __zz_cib_Delegator(*__zz_cib_obj);
+  static ::Example::A* __zz_cib_decl __zz_cib_copy_1(::Example::A const * __zz_cib_param0) {
+    return new ::Example::A(*__zz_cib_param0);
   }
-  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegator* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegator* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    __zz_cib_obj->SomeFunc();
   }
 };
 }}}

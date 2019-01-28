@@ -16,8 +16,11 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Graphics-mtable-helper.h"
 #include "__zz_cib_Graphics-proxy.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace Graphics { namespace Shape {
+struct __zz_cib_Delegator;
+namespace __zz_cib_GenericProxy {
 class Shape : public ::Graphics::Shape {
+  friend struct __zz_cib_::Graphics::Shape::__zz_cib_Delegator;
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -56,22 +59,21 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-struct __zz_cib_Delegator : public __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape{
+struct __zz_cib_Delegator : public __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape {
   using __zz_cib_Delegatee = __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape;
-  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape(proxy, mtbl);
   }
-  static double __zz_cib_decl Area_1(const __zz_cib_Delegator* __zz_cib_obj) {
+  static double __zz_cib_decl Area_1(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->Area();
   }
-  static double __zz_cib_decl Perimeter_2(const __zz_cib_Delegator* __zz_cib_obj) {
+  static double __zz_cib_decl Perimeter_2(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->Perimeter();
   }
-  static void __zz_cib_decl Draw_3(const __zz_cib_Delegator* __zz_cib_obj, ::Graphics::Context* ctx) {
+  static void __zz_cib_decl Draw_3(const __zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Context* ctx) {
     __zz_cib_obj->Draw(ctx);
   }
-  static void __zz_cib_decl __zz_cib_delete_4(__zz_cib_Delegator* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_4(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_5(::Graphics::Shape* __zz_cib_obj) {

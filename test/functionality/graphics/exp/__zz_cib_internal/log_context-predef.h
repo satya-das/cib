@@ -2,4 +2,5 @@
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 class __zz_cib_Helper;
+struct __zz_cib_Delegator;
 }}}

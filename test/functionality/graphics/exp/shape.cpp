@@ -82,27 +82,30 @@ public:
   }
 }
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
-static double __zz_cib_decl Area_0(const ::Graphics::Shape* __zz_cib_obj) {
-  return __zz_cib_obj->Area();
-}
-static double __zz_cib_decl Perimeter_1(const ::Graphics::Shape* __zz_cib_obj) {
-  return __zz_cib_obj->Perimeter();
-}
-static void __zz_cib_decl Draw_2(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
-  __zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
-}
-static void __zz_cib_decl __zz_cib_delete_3(::Graphics::Shape* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
+struct __zz_cib_Delegator {
+  using __zz_cib_Delegatee = ::Graphics::Shape;
+  static double __zz_cib_decl Area_0(const ::Graphics::Shape* __zz_cib_obj) {
+    return __zz_cib_obj->Area();
+  }
+  static double __zz_cib_decl Perimeter_1(const ::Graphics::Shape* __zz_cib_obj) {
+    return __zz_cib_obj->Perimeter();
+  }
+  static void __zz_cib_decl Draw_2(const ::Graphics::Shape* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+    __zz_cib_obj->Draw(__zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_from_handle(ctx));
+  }
+  static void __zz_cib_decl __zz_cib_delete_3(::Graphics::Shape* __zz_cib_obj) {
+    delete __zz_cib_obj;
+  }
+};
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&Area_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Perimeter_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Draw_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_delete_3)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Area_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Perimeter_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Draw_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_3)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
   return &methodTable;

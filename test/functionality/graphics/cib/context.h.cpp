@@ -12,8 +12,11 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Graphics-mtable-helper.h"
 #include "__zz_cib_Graphics-proxy.h"
 
-namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace Graphics { namespace Context {
+struct __zz_cib_Delegator;
+namespace __zz_cib_GenericProxy {
 class Context : public ::Graphics::Context {
+  friend struct __zz_cib_::Graphics::Context::__zz_cib_Delegator;
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -60,25 +63,24 @@ public:
 };
 }}}}
 namespace __zz_cib_ { namespace Graphics { namespace Context {
-struct __zz_cib_Delegator : public __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context{
+struct __zz_cib_Delegator : public __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context {
   using __zz_cib_Delegatee = __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context;
-  using __zz_cib_Delegatee::__zz_cib_Delegatee;
   static ::Graphics::Context* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context(proxy, mtbl);
   }
-  static void __zz_cib_decl Line_1(__zz_cib_Delegator* __zz_cib_obj, double x1, double y1, double x2, double y2) {
+  static void __zz_cib_decl Line_1(__zz_cib_Delegatee* __zz_cib_obj, double x1, double y1, double x2, double y2) {
     __zz_cib_obj->Line(x1, y1, x2, y2);
   }
-  static void __zz_cib_decl Rect_2(__zz_cib_Delegator* __zz_cib_obj, double l, double b, double r, double t) {
+  static void __zz_cib_decl Rect_2(__zz_cib_Delegatee* __zz_cib_obj, double l, double b, double r, double t) {
     __zz_cib_obj->Rect(l, b, r, t);
   }
-  static void __zz_cib_decl Circle_3(__zz_cib_Delegator* __zz_cib_obj, double cx, double cy, double r) {
+  static void __zz_cib_decl Circle_3(__zz_cib_Delegatee* __zz_cib_obj, double cx, double cy, double r) {
     __zz_cib_obj->Circle(cx, cy, r);
   }
-  static void __zz_cib_decl Ellipse_4(__zz_cib_Delegator* __zz_cib_obj, double cx, double cy, double a, double b) {
+  static void __zz_cib_decl Ellipse_4(__zz_cib_Delegatee* __zz_cib_obj, double cx, double cy, double a, double b) {
     __zz_cib_obj->Ellipse(cx, cy, a, b);
   }
-  static void __zz_cib_decl __zz_cib_delete_5(__zz_cib_Delegator* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_5(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context* __zz_cib_obj) {
