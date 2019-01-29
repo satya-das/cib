@@ -604,6 +604,9 @@ namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A {
   using __zz_cib_ParentClass = ::Example::A;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
@@ -615,7 +618,7 @@ struct __zz_cib_Delegator : public ::Example::A {
     delete __zz_cib_obj;
   }
   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    __zz_cib_obj->SomeFunc();
+    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
   }
 };
 }}}
@@ -1020,7 +1023,7 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -18,21 +18,61 @@
+@@ -21,21 +21,64 @@
    static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
      delete __zz_cib_obj;
    }
@@ -1028,7 +1031,7 @@ Please note that none of the IDs that were used by previous version are changed,
 +    __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 +  }
    static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-     __zz_cib_obj->SomeFunc();
+     __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
    }
  };
  }}}
@@ -1037,6 +1040,9 @@ Please note that none of the IDs that were used by previous version are changed,
 +struct __zz_cib_Delegator : public ::Example::B {
 +  using __zz_cib_ParentClass = ::Example::B;
 +  using __zz_cib_ParentClass::__zz_cib_ParentClass;
++  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
++    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
++  }
 +  using __zz_cib_Delegatee = __zz_cib_Delegator;
 +  static ::Example::B* __zz_cib_decl __zz_cib_new_0() {
 +    return new __zz_cib_Delegator();
