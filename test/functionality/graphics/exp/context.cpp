@@ -23,7 +23,6 @@ Graphics::Context::~Context() {
   __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_delete_5(h);
-  __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 namespace __zz_cib_ { namespace Graphics { namespace Context { namespace __zz_cib_Generic {
 class Context : public ::Graphics::Context {

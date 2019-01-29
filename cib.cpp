@@ -577,9 +577,6 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
     if (retType)
       stm << '\n' << --indentation << ")";
     stm << ";\n";
-    if (isDestructor() && getOwner()->isShared())
-      stm << indentation << "__zz_cib_" << callingOwner->longNsName()
-          << "::__zz_cib_Helper::__zz_cib_remove_proxy(h);\n";
     stm << --indentation << "}\n";
   }
 }
@@ -1653,6 +1650,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
       stm << --indentation << "}\n";
       stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
       ++indentation;
+      if (isShared())
+        stm << indentation << "__zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);\n";
       stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
       stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
       forEachParent(kPublic, [&stm, &indentation](const CibCppCompound* baseCompound) {

@@ -25,7 +25,6 @@ Graphics::Composite::Composite(::Graphics::Composite const & __zz_cib_param0)
 Graphics::Composite::~Composite() {
   auto h = __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 Graphics::Composite::Composite()

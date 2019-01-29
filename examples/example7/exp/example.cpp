@@ -22,7 +22,6 @@ IF::~IF() {
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::IF::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 void IF::ProtectedVirtual() {

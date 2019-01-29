@@ -82,6 +82,7 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Value<int>* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
@@ -109,7 +110,6 @@ inline Example::Value<int>::Value(::Example::Value<int> const & __zz_cib_param0)
 inline Example::Value<int>::~Value() {
   auto h = __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 inline Example::Value<int>::Value(int x)

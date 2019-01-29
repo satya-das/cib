@@ -21,7 +21,6 @@ Example::Int::Int(::Example::Int const & __zz_cib_param0)
 Example::Int::~Int() {
   auto h = __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 Example::Int::Int(int x)

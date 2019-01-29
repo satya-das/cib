@@ -47,6 +47,7 @@ static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::Context* __zz_cib_obj) 
   return __zz_cib_obj->__zz_cib_h_;
 }
 static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Context* __zz_cib_obj) {
+  __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
   auto h = __zz_cib_obj->__zz_cib_h_;
   __zz_cib_obj->__zz_cib_h_ = nullptr;
   return h;

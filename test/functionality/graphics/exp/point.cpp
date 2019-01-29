@@ -21,7 +21,6 @@ Point::Point(::Point const & __zz_cib_param0)
 Point::~Point() {
   auto h = __zz_cib_::Point::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Point::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::Point::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 Point::Point(double x, double y)

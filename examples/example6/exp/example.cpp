@@ -21,7 +21,6 @@ A::A(::A const & __zz_cib_param0)
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_1(h);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_remove_proxy(h);
 }
 
 A::A(int i)
