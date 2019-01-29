@@ -8,7 +8,7 @@ namespace __zz_cib_ { namespace Graphics { namespace LogContext {
 struct __zz_cib_Delegator : public ::Graphics::LogContext {
   using __zz_cib_ParentClass = ::Graphics::LogContext;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;

@@ -65,7 +65,7 @@ namespace __zz_cib_ { namespace IF {
 struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
   using __zz_cib_ParentClass = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
@@ -118,7 +118,7 @@ namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator : public ::A {
   using __zz_cib_ParentClass = ::A;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;

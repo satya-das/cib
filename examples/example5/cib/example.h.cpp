@@ -8,7 +8,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class1 {
 struct __zz_cib_Delegator : public ::Example::Value<::Example::Int> {
   using __zz_cib_ParentClass = ::Example::Value<::Example::Int>;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
@@ -34,7 +34,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class2 {
 struct __zz_cib_Delegator : public ::Example::Value<int> {
   using __zz_cib_ParentClass = ::Example::Value<int>;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
@@ -60,7 +60,7 @@ namespace __zz_cib_ { namespace Example { namespace Int {
 struct __zz_cib_Delegator : public ::Example::Int {
   using __zz_cib_ParentClass = ::Example::Int;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
@@ -83,7 +83,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A {
   using __zz_cib_ParentClass = ::Example::A;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;

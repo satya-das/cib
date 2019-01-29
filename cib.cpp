@@ -1234,7 +1234,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
     emitMoveConstructorDecl(stm, indentation);
 
   CppObjProtLevel lastProt = kUnknownProt;
-  if (isNamespace() || needsBridging())
+  if (!isClassLike() || needsBridging())
   {
     for (auto mem : members_)
     {
@@ -1954,8 +1954,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
       stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
       stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
-      stm << indentation << "template <typename D = __zz_cib_ParentClass>";
-      stm << indentation << "__zz_cib_ParentClass& operator=(const D& rhs) {\n";
+      stm << indentation << "template <typename _T>";
+      stm << indentation << "__zz_cib_ParentClass& operator=(const _T& rhs) {\n";
       stm << ++indentation << "return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));\n";
       stm << --indentation << "}\n";
     }
