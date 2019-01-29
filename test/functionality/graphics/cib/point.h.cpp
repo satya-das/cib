@@ -8,6 +8,9 @@ namespace __zz_cib_ { namespace Point {
 struct __zz_cib_Delegator : public ::Point {
   using __zz_cib_ParentClass = ::Point;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Point* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
@@ -19,22 +22,22 @@ struct __zz_cib_Delegator : public ::Point {
     return new __zz_cib_Delegator(x, y);
   }
   static double __zz_cib_decl X_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->X();
+    return __zz_cib_obj->__zz_cib_Delegatee::X();
   }
   static void __zz_cib_decl X_4(__zz_cib_Delegatee* __zz_cib_obj, double x) {
-    __zz_cib_obj->X(x);
+    __zz_cib_obj->__zz_cib_Delegatee::X(x);
   }
   static double __zz_cib_decl Y_5(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->Y();
+    return __zz_cib_obj->__zz_cib_Delegatee::Y();
   }
   static void __zz_cib_decl Y_6(__zz_cib_Delegatee* __zz_cib_obj, double y) {
-    __zz_cib_obj->Y(y);
+    __zz_cib_obj->__zz_cib_Delegatee::Y(y);
   }
   static ::Point* __zz_cib_decl __zz_cib_OperatorPlus_7(const __zz_cib_Delegatee* __zz_cib_obj, ::Point const * p) {
-    return new ::Point(__zz_cib_obj->operator +(*p));
+    return new ::Point(__zz_cib_obj->__zz_cib_Delegatee::operator +(*p));
   }
   static ::Point* __zz_cib_decl __zz_cib_OperatorMinus_8(const __zz_cib_Delegatee* __zz_cib_obj, ::Point* p) {
-    return new ::Point(__zz_cib_obj->operator -(*p));
+    return new ::Point(__zz_cib_obj->__zz_cib_Delegatee::operator -(*p));
   }
 };
 }}

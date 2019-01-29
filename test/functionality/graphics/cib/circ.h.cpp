@@ -10,6 +10,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Circle {
 struct __zz_cib_Delegator : public ::Graphics::Circle {
   using __zz_cib_ParentClass = ::Graphics::Circle;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Graphics::Circle* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
@@ -30,7 +33,7 @@ struct __zz_cib_Delegator : public ::Graphics::Circle {
     __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
   }
   static ::Graphics::Shape* __zz_cib_decl CreateCircle_6(double Ox, double Oy, double radius) {
-    return CreateCircle(Ox, Oy, radius);
+    return __zz_cib_Delegatee::CreateCircle(Ox, Oy, radius);
   }
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Circle* __zz_cib_obj) {
     return __zz_cib_obj;

@@ -62,6 +62,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 struct __zz_cib_Delegator : public __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape {
   using __zz_cib_ParentClass = __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape;
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape(proxy, mtbl);

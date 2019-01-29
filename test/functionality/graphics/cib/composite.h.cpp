@@ -17,6 +17,9 @@ namespace __zz_cib_ { namespace Graphics { namespace Composite {
 struct __zz_cib_Delegator : public ::Graphics::Composite {
   using __zz_cib_ParentClass = ::Graphics::Composite;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Graphics::Composite* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
     return new __zz_cib_Delegator(*__zz_cib_obj);
@@ -28,13 +31,13 @@ struct __zz_cib_Delegator : public ::Graphics::Composite {
     return new __zz_cib_Delegator();
   }
   static void __zz_cib_decl Add_3(__zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Shape* shape) {
-    __zz_cib_obj->Add(shape);
+    __zz_cib_obj->__zz_cib_Delegatee::Add(shape);
   }
   static size_t __zz_cib_decl NumShapes_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->NumShapes();
+    return __zz_cib_obj->__zz_cib_Delegatee::NumShapes();
   }
   static ::Graphics::Shape* __zz_cib_decl ShapeAt_5(const __zz_cib_Delegatee* __zz_cib_obj, size_t idxShape) {
-    return __zz_cib_obj->ShapeAt(idxShape);
+    return __zz_cib_obj->__zz_cib_Delegatee::ShapeAt(idxShape);
   }
   static double __zz_cib_decl Area_6(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_Delegatee::Area();
@@ -46,7 +49,7 @@ struct __zz_cib_Delegator : public ::Graphics::Composite {
     __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
   }
   static ::Graphics::Composite* __zz_cib_decl CreateCompositeOfRectAndCircle_9() {
-    return CreateCompositeOfRectAndCircle();
+    return __zz_cib_Delegatee::CreateCompositeOfRectAndCircle();
   }
   static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_10(::Graphics::Composite* __zz_cib_obj) {
     return __zz_cib_obj;

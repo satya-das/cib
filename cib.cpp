@@ -447,7 +447,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     if (callingOwner->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
-    if (isVirtual() && !isPureVirtual() && (forProxy || (protectionLevel() != kPrivate)))
+    if (!isPureVirtual() && (forProxy || (protectionLevel() != kPrivate)))
       stm << "__zz_cib_Delegatee::";
 
     if (!isTypeConverter())
@@ -1954,10 +1954,15 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
       stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
       stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
+      stm << indentation << "template <typename D = __zz_cib_ParentClass>";
+      stm << indentation << "__zz_cib_ParentClass& operator=(const D& rhs) {\n";
+      stm << ++indentation << "return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));\n";
+      stm << --indentation << "}\n";
     }
     else
     {
       stm << indentation << "namespace __zz_cib_Delegator {\n";
+      delegatee = parentClass;
     }
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
 

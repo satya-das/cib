@@ -8,6 +8,9 @@ namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator : public ::Example::A {
   using __zz_cib_ParentClass = ::Example::A;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
+  template <typename D = __zz_cib_ParentClass>  __zz_cib_ParentClass& operator=(const D& rhs) {
+    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
+  }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
     return new __zz_cib_Delegator();
@@ -19,7 +22,7 @@ struct __zz_cib_Delegator : public ::Example::A {
     delete __zz_cib_obj;
   }
   static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    __zz_cib_obj->SomeFunc();
+    __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
   }
 };
 }}}
