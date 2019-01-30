@@ -28,6 +28,7 @@ class Shape : public ::Graphics::Shape {
   }
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(Shape, ::Graphics::Shape)
+
   Shape(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::Graphics::Shape::Shape()
     , __zz_cib_proxy(proxy)

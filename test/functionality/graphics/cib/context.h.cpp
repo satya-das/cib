@@ -24,6 +24,7 @@ class Context : public ::Graphics::Context {
   }
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(Context, ::Graphics::Context)
+
   Context(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::Graphics::Context::Context()
     , __zz_cib_proxy(proxy)

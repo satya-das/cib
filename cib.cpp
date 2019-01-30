@@ -1449,6 +1449,8 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
           needsBridging_.push_back(func);
         }
       }
+      if (isMemberProtected(func.protectionLevel(), compoundType_))
+        setHasProtectedMethods();
     }
   }
   if (!hasDtor() && (!isAbstract() || isFacadeLike() || needsGenericProxyDefinition()))

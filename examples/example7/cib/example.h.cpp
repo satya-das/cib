@@ -23,6 +23,7 @@ class IF : public ::IF {
   }
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(IF, ::IF)
+
   IF(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::IF::IF()
     , __zz_cib_proxy(proxy)
