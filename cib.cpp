@@ -1804,15 +1804,15 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
   stm << "namespace __zz_cib_GenericProxy {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
-  ++indentation;
-  stm << indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
+  stm << ++indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
   stm << indentation << "const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;\n\n";
   stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {\n";
   stm << ++indentation << "return __zz_cib_mtbl_helper;\n";
   stm << --indentation << "}\n";
+
   --indentation;
   stm << indentation << "public:\n";
-  ++indentation;
+  stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(" << name() << ", " << longName() << ")\n\n";
   auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
   for (auto ctor : ctors())
   {
@@ -1919,6 +1919,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, false, indentation);
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
     stm << '\n';
   }
@@ -1944,16 +1945,13 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     auto parentClass =
       needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
-    auto delegatee = parentClass;
+    std::string delegatee;
     if (needsDelagatorClass())
     {
       stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
       stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
       stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
-      stm << indentation << "template <typename _T>";
-      stm << indentation << "__zz_cib_ParentClass& operator=(const _T& rhs) {\n";
-      stm << ++indentation << "return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));\n";
-      stm << --indentation << "}\n";
+      stm << indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)\n";
       delegatee = "__zz_cib_Delegator";
     }
     else

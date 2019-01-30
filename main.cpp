@@ -176,6 +176,7 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStr
 {
   const char* filesToProcessForBinder[] = {"__zz_cib_Module-mtable.h",
                                            "__zz_cib_Module-mtable-helper.h",
+                                           "__zz_cib_Module-delegate-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-export.h",
                                            "__zz_cib_Module-proxy.h",

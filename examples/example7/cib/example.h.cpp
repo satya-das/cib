@@ -9,6 +9,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace IF {
@@ -21,6 +22,7 @@ class IF : public ::IF {
     return __zz_cib_mtbl_helper;
   }
 public:
+  __ZZ_CIB_DELEGATOR_MEMBERS(IF, ::IF)
   IF(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::IF::IF()
     , __zz_cib_proxy(proxy)
@@ -63,9 +65,7 @@ namespace __zz_cib_ { namespace IF {
 struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
   using __zz_cib_ParentClass = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
-    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
-  }
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::IF* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::IF::__zz_cib_GenericProxy::IF(proxy, mtbl);
@@ -116,9 +116,7 @@ namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator : public ::A {
   using __zz_cib_ParentClass = ::A;
   using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
-    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
-  }
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)
   using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);

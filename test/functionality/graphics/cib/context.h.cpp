@@ -10,6 +10,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "__zz_cib_Graphics-ids.h"
 #include "__zz_cib_Graphics-mtable-helper.h"
+#include "__zz_cib_Graphics-delegate-helper.h"
 #include "__zz_cib_Graphics-proxy.h"
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {
@@ -22,6 +23,7 @@ class Context : public ::Graphics::Context {
     return __zz_cib_mtbl_helper;
   }
 public:
+  __ZZ_CIB_DELEGATOR_MEMBERS(Context, ::Graphics::Context)
   Context(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::Graphics::Context::Context()
     , __zz_cib_proxy(proxy)
