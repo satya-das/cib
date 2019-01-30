@@ -193,7 +193,7 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   {
     if (compound->isCppFile())
       break;
-    if (!forGenericProxy && !compound->needsBridging())
+    if (!forGenericProxy && !compound->needsBridging() && !compound->isShared())
       break;
     if (forGenericProxy && (!compound->needsGenericProxyDefinition() || compound->getAllVirtualMethods().empty()))
       break;
