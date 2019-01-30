@@ -111,7 +111,7 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Function overloading              | Same named functions of a class should be seamlessly exported. | Done |
 | Function overridding              | Allow library to use interface implemented by client. | Done |
 | Forward compatibility of client   | Older client works with newer library. | Done |
-| Forward compatibility of library  | Library should be forward compatible with newer client. | Done |
+| Forward compatibility of library  | Library should be forward compatible with newer client. As of now library and client can catch exception when non existing function is called and should take corrective measures to work with newer component. | Done |
 | Backward compatibility of client  | When newer client invokes a method present only in new SDK then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. | Done |
 | Backward compatibility of library | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
 | Create correct proxy class        | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
@@ -274,7 +274,7 @@ There are few points to note about this id file:
 3. For every method IDs there is a comment starting with `//#=`. It is meant for next run of CIB which uses these comments to identify previously assigned IDs to methods. So, in the next run if the path of the ID file is provided to CIB it will ensure that IDs of entities don't change. **This is very important part of CIB that guarantees forward compatibility of C++ componenets.**
 4. ID names corresponding to methods end with an integer. It is for ensuring unique name for overloaded methods.
 5. ID names are created for default constructor, copy constructor, and destructor even when they were not present in original class definition. We will shortly know why.
-6. ID name for constructor starts with `__zz_cib_new`, for copy constructor it is `__zz_cib_copy`, and for destructor it is `__zz_cib_delete`. These are the namesCIB gives.
+6. ID name for constructor starts with `__zz_cib_new`, for copy constructor it is `__zz_cib_copy`, and for destructor it is `__zz_cib_delete`. These are the names CIB gives.
 7. There are some more symbols like `__zz_cib_next_class_id` and `__zz_cib_next_method_id`. They are for CIB to know what IDs to use for next entity.
 
 #### Library Glue Code
