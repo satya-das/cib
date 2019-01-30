@@ -5,48 +5,38 @@
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace A {
-struct __zz_cib_Delegator : public ::A {
-  using __zz_cib_ParentClass = ::A;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
-    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
-  }
-  using __zz_cib_Delegatee = __zz_cib_Delegator;
-  static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new __zz_cib_Delegator(*__zz_cib_obj);
-  }
-  static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
-    delete __zz_cib_obj;
-  }
-  static ::A* __zz_cib_decl __zz_cib_new_2(int i) {
-    return new __zz_cib_Delegator(i);
-  }
+namespace __zz_cib_Delegator {
+using __zz_cib_Delegatee = ::A;
+static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new __zz_cib_Delegatee(*__zz_cib_obj);
+}
+static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+  delete __zz_cib_obj;
+}
+static ::A* __zz_cib_decl __zz_cib_new_2(int i) {
+  return new __zz_cib_Delegatee(i);
+}
 };
 }}
 
 namespace __zz_cib_ { namespace B {
-struct __zz_cib_Delegator : public ::B {
-  using __zz_cib_ParentClass = ::B;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
-    return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
-  }
-  using __zz_cib_Delegatee = __zz_cib_Delegator;
-  static ::B* __zz_cib_decl __zz_cib_new_0() {
-    return new __zz_cib_Delegator();
-  }
-  static ::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new __zz_cib_Delegator(*__zz_cib_obj);
-  }
-  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
-    delete __zz_cib_obj;
-  }
-  static void __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, ::A* pA) {
-    __zz_cib_obj->__zz_cib_Delegatee::SetA(pA);
-  }
-  static ::A* __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::GetA();
-  }
+namespace __zz_cib_Delegator {
+using __zz_cib_Delegatee = ::B;
+static ::B* __zz_cib_decl __zz_cib_new_0() {
+  return new __zz_cib_Delegatee();
+}
+static ::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new __zz_cib_Delegatee(*__zz_cib_obj);
+}
+static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+  delete __zz_cib_obj;
+}
+static void __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, ::A* pA) {
+  __zz_cib_obj->__zz_cib_Delegatee::SetA(pA);
+}
+static ::A* __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->__zz_cib_Delegatee::GetA();
+}
 };
 }}
 

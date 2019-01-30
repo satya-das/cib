@@ -354,7 +354,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
   }
   if ((purpose == kPurposeCApi) && isCopyConstructor() && getOwner()->isOverridable())
   {
-    stm << "const __zz_cib_Delegator* __zz_cib_obj)";
+    stm << "const __zz_cib_Delegatee* __zz_cib_obj)";
   }
   else
   {
@@ -395,7 +395,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     else if (callingOwner->isOverridable())
     {
-      stm << "__zz_cib_Delegator(";
+      stm << "__zz_cib_Delegatee(";
     }
     else
     {
@@ -1361,13 +1361,9 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
       else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
                && !allVirtSigs.count(sig))
       {
-        // TODO: Allow protected too.
-        // if (func.protectionLevel() == kPublic)
-        {
-          allVirtSigs.insert(sig);
-          if (!func.hasAttr(kOverride))
-            allVirtuals.push_back(func);
-        }
+        allVirtSigs.insert(sig);
+        if (!func.hasAttr(kOverride))
+          allVirtuals.push_back(func);
       }
     }
 
@@ -1420,6 +1416,9 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if (func.hasVariadicParam())
         continue;
+      if (isMemberProtected(mem->protectionLevel(), compoundType_))
+        setHasProtectedMethods();
+
       needsBridging_.push_back(func);
       objNeedingBridge_.insert(mem);
     }
@@ -1803,11 +1802,9 @@ void CibCppCompound::emitGenericProxyDefn(std::ostream&    stm,
     return;
 
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-  stm << indentation << "struct __zz_cib_Delegator;\n";
   stm << "namespace __zz_cib_GenericProxy {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   ++indentation;
-  stm << indentation << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
   stm << indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
   stm << indentation << "const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;\n\n";
   stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {\n";
@@ -1947,8 +1944,8 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     auto parentClass =
       needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
-    auto delegatee = needsGenericProxyDefinition() ? parentClass : "__zz_cib_Delegator";
-    if (isOverridable())
+    auto delegatee = parentClass;
+    if (needsDelagatorClass())
     {
       stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
       stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
@@ -1957,6 +1954,7 @@ void CibCppCompound::emitLibGlueCode(std::ostream&    stm,
       stm << indentation << "__zz_cib_ParentClass& operator=(const _T& rhs) {\n";
       stm << ++indentation << "return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));\n";
       stm << --indentation << "}\n";
+      delegatee = "__zz_cib_Delegator";
     }
     else
     {
