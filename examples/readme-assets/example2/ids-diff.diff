@@ -1,6 +1,6 @@
 --- ../example1/cib/__zz_cib_Example-ids.h
 +++ cib/__zz_cib_Example-ids.h
-@@ -7,8 +7,13 @@
+@@ -5,8 +5,13 @@
    enum { __zz_cib_classid = 1 };
  }}}
  
@@ -15,7 +15,7 @@
  }}
  
  namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
-@@ -21,7 +26,25 @@
+@@ -19,7 +24,25 @@
      __zz_cib_delete_2 = 2,
      //#= void SomeFunc();
      SomeFunc_3 = 3,

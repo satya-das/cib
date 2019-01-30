@@ -12,10 +12,8 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace IF {
-struct __zz_cib_Delegator;
 namespace __zz_cib_GenericProxy {
 class IF : public ::IF {
-  friend struct __zz_cib_::IF::__zz_cib_Delegator;
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -68,7 +66,7 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
   template <typename _T>  __zz_cib_ParentClass& operator=(const _T& rhs) {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
-  using __zz_cib_Delegatee = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
+  using __zz_cib_Delegatee = __zz_cib_Delegator;
   static ::IF* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::IF::__zz_cib_GenericProxy::IF(proxy, mtbl);
   }
@@ -122,14 +120,14 @@ struct __zz_cib_Delegator : public ::A {
     return const_cast<__zz_cib_ParentClass&>(this->__zz_cib_ParentClass::operator=(rhs));
   }
   using __zz_cib_Delegatee = __zz_cib_Delegator;
-  static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegator* __zz_cib_obj) {
-    return new __zz_cib_Delegator(*__zz_cib_obj);
+  static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
   static ::A* __zz_cib_decl __zz_cib_new_2() {
-    return new __zz_cib_Delegator();
+    return new __zz_cib_Delegatee();
   }
   static void __zz_cib_decl SetIF_3(__zz_cib_Delegatee* __zz_cib_obj, ::IF* pIF) {
     __zz_cib_obj->__zz_cib_Delegatee::SetIF(pIF);
