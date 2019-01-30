@@ -57,10 +57,12 @@ using TemplateArgValues = std::map<std::string, const CppVarType*>;
 
 enum CibClassPropFlags
 {
-  kClassPropBaseLine  = __LINE__, //< Unusable const
-  kClassPropInline    = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropShared    = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropAbstract  = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropBaseLine           = __LINE__, //< Unusable const
+  kClassPropInline             = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropShared             = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropAbstract           = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasProtectedMethod = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasPrivateVirtual  = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)), //< When class doesn't have any non-static member
   kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
   kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
@@ -296,11 +298,17 @@ public:
   }
   bool isOverridable() const
   {
-    //if (isAbstract())
-    //  return false;
     if (compoundType_ == CppCompoundType::kUnion)
       return false;
     return !hasDtor() || !isMemberPrivate(dtor()->protectionLevel(), compoundType_);
+  }
+  bool hasProtectedMethods() const
+  {
+    return props_ & kClassPropHasProtectedMethod;
+  }
+  bool hasPrivateVirtuals() const
+  {
+    return props_ & kClassPropHasPrivateVirtual;
   }
   //! @return true if it has at least one constructor other than copy/move.
   bool hasCtor() const
@@ -386,6 +394,11 @@ public:
   void setFacadeLike()
   {
     props_ |= kClassPropFacade;
+  }
+
+  bool needsDelagatorClass() const
+  {
+    return hasProtectedMethods() && isOverridable();
   }
 
 public:
@@ -478,6 +491,15 @@ private:
   TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
   void                              setupTemplateDependencies(const CibHelper& helper);
   bool                              setupTemplateDependencies(const std::string& typeName, const CibHelper& helper);
+
+  void setHasProtectedMethods()
+  {
+    props_ |= kClassPropHasProtectedMethod;
+  }
+  void setHasPrivateVirtuals()
+  {
+    props_ |= kClassPropHasPrivateVirtual;
+  }
 };
 
 inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
