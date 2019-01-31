@@ -1253,6 +1253,8 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
         lastProt = mem->prot_;
       }
       emitDecl(mem, stm, helper, cibParams, indentation);
+      if (mem->isFunctionLike() && objNeedingBridge_.count(mem))
+        needsClientDefinition_.emplace_back(mem);
     }
   }
 
@@ -1785,7 +1787,7 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
     emitHandleConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
     emitMoveConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
   }
-  for (auto func : needsBridging_)
+  for (auto func : needsClientDefinition_)
   {
     if (func.isPureVirtual() && !func.isDestructor())
       continue;

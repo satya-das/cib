@@ -14,14 +14,14 @@ IF::IF(IF&& rhs)
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-IF::IF()
-  : IF(__zz_cib_::IF::__zz_cib_Helper::__zz_cib_new_0(this))
-{}
-
 IF::~IF() {
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_delete_1(h);
+}
+
+void IF::PrivateVirtual() {
+  __zz_cib_::IF::__zz_cib_Helper::PrivateVirtual_9(__zz_cib_h_);
 }
 
 void IF::ProtectedVirtual() {
@@ -40,9 +40,9 @@ void IF::PublicNonVirtual() {
   __zz_cib_::IF::__zz_cib_Helper::PublicNonVirtual_7(__zz_cib_h_);
 }
 
-void IF::PrivateVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::PrivateVirtual_9(__zz_cib_h_);
-}
+IF::IF()
+  : IF(__zz_cib_::IF::__zz_cib_Helper::__zz_cib_new_0(this))
+{}
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)

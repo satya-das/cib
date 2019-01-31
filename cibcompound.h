@@ -88,6 +88,7 @@ private:
   CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
                                          // implementation at client side.
   CibFunctionHelperArray   allVirtuals_; // All virtual methods including that of parent classes.
+  mutable CibFunctionHelperArray   needsClientDefinition_;
   std::set<const CppObj*>  objNeedingBridge_;
   mutable TypeNameToCppObj typeNameToCibCppObj_;
   TemplateInstances        templateInstances_; ///< Meaningful for template classes only.
