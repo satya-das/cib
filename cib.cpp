@@ -753,6 +753,34 @@ const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const
   return resolvedType;
 }
 
+static const CppHashIf* hasHeaderGuard(const CppObjArray& members)
+{
+  auto firstNonCommentItr      = std::find_if(members.begin(), members.end(), [](const CppObj* mem) {
+    return (mem->objType_ > CppObj::kCPreProcessorTypeStarts);
+  });
+  if (firstNonCommentItr == members.end())
+    return nullptr;
+
+  const CppObj* firstNonCommentObj = *firstNonCommentItr;
+  if (firstNonCommentObj->objType_ != CppObj::kHashIf)
+    return nullptr;
+
+  auto* hashIf = static_cast<const CppHashIf*>(firstNonCommentObj);
+  if (hashIf->condType_ != CppHashIf::kIfNDef)
+    return nullptr;
+
+  auto lastNonCommentItr = std::find_if(members.rbegin(), members.rend(), [](const CppObj* mem) {
+    return (mem->objType_ > CppObj::kCPreProcessorTypeStarts);
+  });
+
+  const CppObj* lastNonCommentObj = *lastNonCommentItr;
+  if (lastNonCommentObj->objType_ != CppObj::kHashIf)
+    return nullptr;
+
+  auto* lastHashIf = static_cast<const CppHashIf*>(lastNonCommentObj);
+  return (lastHashIf->condType_ == CppHashIf::kEndIf) ? lastHashIf : nullptr;
+}
+
 void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
   if (!isCppFile())
@@ -762,7 +790,7 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
   bfs::create_directories(usrIncPath.parent_path());
   std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
-  auto firstStatementItr      = std::find_if(members_.begin(), members_.end(), [](const CppObj* mem) -> bool {
+  auto firstStatementItr      = std::find_if(members_.begin(), members_.end(), [](const CppObj* mem) {
     return (mem->objType_ > kCppStatementObjectTypeStarts);
   });
   auto lastPreProcessorRevItr = std::find_if(std::reverse_iterator<decltype(firstStatementItr)>(firstStatementItr),
@@ -776,13 +804,18 @@ void CibCppCompound::emitUserHeader(const CibHelper& helper, const CibParams& ci
 
     stm << "\n";
   }
-
+  auto* headerGuardEndIf = hasHeaderGuard(members_);
   stm << "#include \"" << implIncludeName(cibParams) << "-predef.h\"\n\n";
   for (; memItr != members_.end(); ++memItr)
   {
+    const CppObj* mem = *memItr;
+    if (mem == headerGuardEndIf)
+      stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
     emitDecl(*memItr, stm, helper, cibParams);
   }
-  stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
+
+  if (!headerGuardEndIf)
+    stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
 }
 
 void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
