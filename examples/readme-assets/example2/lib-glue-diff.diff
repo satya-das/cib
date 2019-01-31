@@ -1,6 +1,6 @@
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -16,21 +16,59 @@
+@@ -17,21 +17,59 @@
  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
    delete __zz_cib_obj;
  }
