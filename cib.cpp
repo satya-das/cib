@@ -289,6 +289,8 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
     stm << funcName() << '(';
     emitArgsForDecl(stm, helper, true, purpose);
     stm << ')';
+    if (isDeleted())
+      stm << " = delete";
   }
   else
   {
@@ -447,7 +449,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     if (callingOwner->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
-    if (isStatic() || (!cibParams.noExactDelegation && !isPureVirtual() && (forProxy || (protectionLevel() != kPrivate))))
+    if (isStatic()
+        || (!cibParams.noExactDelegation && !isPureVirtual() && (forProxy || (protectionLevel() != kPrivate))))
       stm << "__zz_cib_Delegatee::";
 
     if (!isTypeConverter())
@@ -755,7 +758,7 @@ const CppObj* CibCppCompound::resolveTypeName(const std::string& typeName, const
 
 static const CppHashIf* hasHeaderGuard(const CppObjArray& members)
 {
-  auto firstNonCommentItr      = std::find_if(members.begin(), members.end(), [](const CppObj* mem) {
+  auto firstNonCommentItr = std::find_if(members.begin(), members.end(), [](const CppObj* mem) {
     return (mem->objType_ > CppObj::kCPreProcessorTypeStarts);
   });
   if (firstNonCommentItr == members.end())
@@ -1260,7 +1263,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
     stm << '\n' << indentation++ << "{\n";
   }
 
-  if (isClassLike() && needsBridging())
+  if (isClassLike() && needsBridging() && !moveCtor())
     emitMoveConstructorDecl(stm, indentation);
 
   CppObjProtLevel lastProt = kUnknownProt;
@@ -1432,8 +1435,6 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
-      if (func.isMoveConstructor())
-        continue;
       if (func.isCopyConstructor() && !isCopyCtorCallable())
         continue;
       if (func.funcName().find(':') != std::string::npos)
@@ -1818,7 +1819,8 @@ void CibCppCompound::emitDefn(std::ostream&    stm,
   {
     // Emit the ctor to construct from __zz_cib_HANDLE.
     emitHandleConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
-    emitMoveConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
+    if (!moveCtor())
+      emitMoveConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
   }
   for (auto func : needsClientDefinition_)
   {
