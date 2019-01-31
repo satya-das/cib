@@ -169,10 +169,11 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Return existing proxy class       | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. | Done|
 | Support protected methods			    | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
 | Support private pure virtual		  | Private pure virtual is used in template method design pattern. | Done|
+| Rvalue reference parameter        | RValue references need to cross component boundary. | Done|
 | Use CIB for real production SDK   | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
-| Rvalue reference parameter        | RValue references need to cross component boundary. |
+| Support deleted members           | Constructors and operators marked as `delete` should be deleted for proxy classes as well. ||
 | Enum and enum classes             | Enums used as parameter or return type. |
 | STL classes                       | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
 | Support shared_ptr and unique_ptr | Modern C++ programing expects these to be used more often. |
@@ -993,7 +994,7 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -16,21 +16,59 @@
+@@ -17,21 +17,59 @@
  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
    delete __zz_cib_obj;
  }
