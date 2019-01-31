@@ -447,7 +447,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     }
     if (callingOwner->isClassLike() && !isStatic())
       stm << "__zz_cib_obj->";
-    if (!isPureVirtual() && (forProxy || (protectionLevel() != kPrivate)))
+    if (isStatic() || (!cibParams.noExactDelegation && !isPureVirtual() && (forProxy || (protectionLevel() != kPrivate))))
       stm << "__zz_cib_Delegatee::";
 
     if (!isTypeConverter())

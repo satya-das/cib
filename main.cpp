@@ -68,6 +68,7 @@ CibParams parseCmdLine(int argc, char* argv[])
     ("cib-ids-file,c", po::value<std::string>()->default_value(""), "Previously created cib-ids-file.")
     ("macro,M", po::value<std::string>(), "List of comma separated known macro names.")
     ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.")
+    ("no-exact-delegation,d", "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation")
     ;
   // clang-format on
   po::variables_map vm;
@@ -94,6 +95,7 @@ CibParams parseCmdLine(int argc, char* argv[])
   bfs::path   binderPath = vm["bind-folder"].as<std::string>();
   std::string moduleName = vm["module"].as<std::string>();
   bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
+  bool d = vm.count("no-exact-delegation") != 0;
 
   bool recurse = true;
 
@@ -109,7 +111,7 @@ CibParams parseCmdLine(int argc, char* argv[])
   make_preferred_dir_format(outputPath);
   make_preferred_dir_format(binderPath);
 
-  return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile);
+  return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile, d);
 }
 
 void ensureDirectoriesExist(const CibParams& cibParams)

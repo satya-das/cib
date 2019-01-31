@@ -55,9 +55,10 @@ public:
   std::string ctorCAPIPrefix;
   std::string dtorCAPIPrefix;
   std::string castToBasePrefix;
+  bool noExactDelegation { false };
 
 public:
-  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c)
+  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d)
     : moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
@@ -69,6 +70,7 @@ public:
     , ctorCAPIPrefix(CIBPREFIX "new")
     , dtorCAPIPrefix(CIBPREFIX "delete")
     , castToBasePrefix(CIBPREFIX "cast_to_")
+    , noExactDelegation(d)
   {
   }
   CibParams(CibParams&&) = default;
