@@ -655,7 +655,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   }
 
   bool byValueObj = (genericProxy && resolvedType && returnType() && returnType()->isByValue());
-  if (byValueObj || (genericProxy && returnType() && returnType()->isByRef()))
+  if (byValueObj || (returnType() && returnType()->isByRef()))
     stm << "*";
 
   stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ", ";
