@@ -13,6 +13,8 @@ endif(MSVC)
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(${ROOT_DIR}/cppparser  ${CMAKE_OBJFILE_OUTPUT_DIRECTORY}/cppparser)
 
+include_directories(third-party)
+
 #############################################
 ## CIB
 

@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,27 +1,45 @@
+@@ -1,28 +1,45 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -8,10 +8,11 @@
  //! Contains example definitions to explain cib's functioning
  //! @attention
  //! This example is like next version of example-1.
- //! The compiled library of this example will remain binary 
+ //! The compiled library of this example will remain binary
  //! compatible with client of previous example.
  namespace Example
  {
+-
    //! Example to see what cib does for classes with virtual methods.
    class A
    {
@@ -22,12 +23,12 @@
 +    A(A const & );
 +    ~A();
      //! This is to know what cib does with virtual functions.
-     virtual void VirtFunc();
+     virtual int VirtFunc();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
-     void SomeFunc();
+     int SomeFunc();
 -  };
-   
+ 
 -  class B : public A
 +  private:
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
@@ -35,17 +36,18 @@
 +  class B : public ::Example::A
    {
    public:
--    void VirtFunc() override;
+-    int VirtFunc() override;
+-  };
 +    B(B&& rhs);
 +  public:
 +    B();
 +    B(B const & );
 +    ~B();
-+    virtual void VirtFunc();
-+
++    virtual int VirtFunc();
+ 
 +  private:
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);
-   };
++  };
  }
- 
++
 +#include "__zz_cib_internal/example-impl.h"

@@ -1,8 +1,9 @@
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Method call")
 {
   Example::A a;
-  a.SomeFunc();
+  REQUIRE(a.SomeFunc() == 5);
 }
-

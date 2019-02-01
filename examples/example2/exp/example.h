@@ -5,7 +5,7 @@
 //! Contains example definitions to explain cib's functioning
 //! @attention
 //! This example is like next version of example-1.
-//! The compiled library of this example will remain binary 
+//! The compiled library of this example will remain binary
 //! compatible with client of previous example.
 namespace Example
 {
@@ -19,10 +19,10 @@ namespace Example
     A(A const & );
     ~A();
     //! This is to know what cib does with virtual functions.
-    virtual void VirtFunc();
+    virtual int VirtFunc();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    void SomeFunc();
+    int SomeFunc();
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
@@ -35,7 +35,7 @@ namespace Example
     B();
     B(B const & );
     ~B();
-    virtual void VirtFunc();
+    virtual int VirtFunc();
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);

@@ -1,13 +1,15 @@
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("RValue references should work expectedly")
 {
   RValueExample x(5);
   RValueExample y = std::move(x);
-  assert(x.GetValue() == 0);
-  assert(y.GetValue() == 5);
+  REQUIRE(x.GetValue() == 0);
+  REQUIRE(y.GetValue() == 5);
   RValueExample z(0);
   z = std::move(y);
-  assert(y.GetValue() == 0);
-  assert(z.GetValue() == 5);
+  REQUIRE(y.GetValue() == 0);
+  REQUIRE(z.GetValue() == 5);
 }

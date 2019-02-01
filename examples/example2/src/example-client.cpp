@@ -1,8 +1,12 @@
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Virtual function call across library")
 {
   Example::A* pA = new Example::B();
-  pA->VirtFunc();
-}
 
+  REQUIRE(pA->VirtFunc() == 15);    // Should call B::VirtFunc
+  REQUIRE(pA->A::VirtFunc() == 10); // A regular call without use of virtual table.
+  REQUIRE(pA->SomeFunc() == 5);     // Non-virtual call.
+}

@@ -30,14 +30,14 @@ private:
         );
     }
   }
-  static void VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
-    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
+    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
       __zz_cib_obj
       );
   }
-  static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
       __zz_cib_obj
       );
@@ -94,8 +94,8 @@ private:
         );
     }
   }
-  static void VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_3>(
       __zz_cib_obj
       );
