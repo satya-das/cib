@@ -3,7 +3,7 @@ Component Interface Binder (CIB)
 
 # CIB
 
-**In a nutshell CIB is the answer to the problem for which C is used for exporting APIs of an application/library even when the application/library itself uses C++ for most of its implementation. C++ is great in expressing API but compiler generated ABI makes it difficult to use to publish compiler independent and forward compatible SDK.**
+**In a nutshell CIB is the answer to the problem for which C is used for exporting APIs of an application/library even when the application/library itself uses C++ for most of its implementation. C++ is great in expressing API but compiler generated ABI makes it difficult to use to publish compiler independent and ABI stable SDK.**
 
 ## Abstract
 *C++ components are not ABI compatible and achieving ABI stability is very difficult. Programmers use C for exporting APIs that can be called from across component boundary. ABI compatibility and stability problem of C++ is what makes programmer resort to use of C when in comes to exporting API.
@@ -67,7 +67,7 @@ _In this document the binary component that exposes its classes will be called *
 ## 2\. CIB Features
   - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
   - **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
-  - **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
+  - **ABI stability**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
   - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
   - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
@@ -156,7 +156,7 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Function overloading              | Same named functions of a class should be seamlessly exported. | Done |
 | Function overridding              | Allow library to use interface implemented by client. | Done |
 | Forward compatibility of client   | Older client works with newer library. | Done |
-| Forward compatibility of library  | Library should be forward compatible with newer client. As of now library and client can catch exception when non existing function is called and should take corrective measures to work with newer component. | Done |
+| Forward compatibility of library  | Library should be ABI compatible with newer client. As of now library and client can catch exception when non existing function is called and should take corrective measures to work with newer component. | Done |
 | Backward compatibility of client  | When newer client invokes a method present only in new SDK then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. | Done |
 | Backward compatibility of library | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
 | Create correct proxy class        | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
@@ -259,7 +259,6 @@ namespace Example
   };
 
 }
-
 ```
 
 [**File**: src/example-lib.cpp] _Class Implementation by library_:
@@ -283,7 +282,7 @@ int Example::A::SomeFunc()
 
 #include <catch/catch.hpp>
 
-TEST_CASE("Calling method of library exported class yeild expected behavior")
+TEST_CASE("Method call")
 {
   Example::A a;
   REQUIRE(a.SomeFunc() == 5);
@@ -291,7 +290,7 @@ TEST_CASE("Calling method of library exported class yeild expected behavior")
 
 ```
 
-With this tiny library and client code we would like to see what pieces of CIB architecture be there to satisfy client's expectation.
+With this tiny library and client code we would like to see what pieces of CIB architecture be there to make method call across component boundary in an ABI compatible way.
 
 Assuming current working directory is `examples/example1/` we can run CIB as shown below:
 
@@ -582,7 +581,7 @@ There are few points to note about this id file:
 
 1. There is always a top level namespace with name `__zz_cib_`, reason for this is mentioned before.
 2. There are namespaces with same name as class name (e.g. for class A there is a namespace A). That's the way CIB arranges IDs of entities. Going forward we will see lots of uses of namespace in code generated by CIB.
-3. For every method IDs there is a comment starting with `//#=`. It is meant for next run of CIB which uses these comments to identify previously assigned IDs to methods. So, in the next run if the path of the ID file is provided to CIB it will ensure that IDs of entities don't change. **This is very important part of CIB that guarantees forward compatibility of C++ componenets.**
+3. For every method IDs there is a comment starting with `//#=`. It is meant for next run of CIB which uses these comments to identify previously assigned IDs to methods. So, in the next run if the path of the ID file is provided to CIB it will ensure that IDs of entities don't change. **This is very important part of CIB that guarantees ABI stability of C++ componenets.**
 4. ID names corresponding to methods end with an integer. It is for ensuring unique name for overloaded methods.
 5. ID names are created for default constructor, copy constructor, and destructor even when they were not present in original class definition. We will shortly know why.
 6. ID name for constructor starts with `__zz_cib_new`, for copy constructor it is `__zz_cib_copy`, and for destructor it is `__zz_cib_delete`. These are the names CIB gives.
@@ -591,7 +590,7 @@ There are few points to note about this id file:
 <a name="librarygluecode"></a>
 
 #### 10.3.2\. Library Glue Code
-CIB will generate library glue code and library is expected to compile these source code while building itself. The aim here for CIB is to generate compiler independent and forward compatible glue code. So, for the `class A` of example-1 following will be the generated library glue code:
+CIB will generate library glue code and library is expected to compile these source code while building itself. The aim here for CIB is to generate compiler independent and ABI stable glue code. So, for the `class A` of example-1 following will be the generated library glue code:
 
 **File**: cib/example.h.cpp:
 
@@ -639,7 +638,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 As mentioned earlier CIB uses namespace in plenty to isolate it's generated code from main code and also to avoid any possible name clashes.
 There are mainly 2 parts in this file. In the first part we see plain C-style static functions that are implemented by just delegating to C++ methods. For example function `SomeFunc_3` is implemented by calling `::Example::A::SomeFunc()`. Similarly there are functions for constructors and destructor too and they call `new` and `delete`.
 The second part of this file defines a function `__zz_cib_GetMethodTable`.
-The implementation of `__zz_cib_GetMethodTable` is to return a static table of methods. We will later see how this method table is used by the client side glue code to implement classes that client would use but I want to make a point here that CIB guarentees that the items in the table will not be shuffled around when CIB is run again. **That's the backbone of how CIB guarentees forward compatibility.** So, even when new methods are added to `class A` the new items in the method table will only get added at the end irrespective of where the new method is added in the class. So, older client of library that were compiled with older SDK will continue working with new library if no existing methods are removed.
+The implementation of `__zz_cib_GetMethodTable` is to return a static table of methods. We will later see how this method table is used by the client side glue code to implement classes that client would use but I want to make a point here that CIB guarentees that the items in the table will not be shuffled around when CIB is run again. **That's the backbone of how CIB guarentees ABI stability.** So, even when new methods are added to `class A` the new items in the method table will only get added at the end irrespective of where the new method is added in the class. So, older client of library that were compiled with older SDK will continue working with new library if no existing methods are removed.
 
 <a name="librarygatewayfunction"></a>
 
@@ -764,6 +763,7 @@ You can notice certain differences between this class and the original class in 
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
 +  };
  }
+\ No newline at end of file
 +
 +#include "__zz_cib_internal/example-impl.h"
 
@@ -773,7 +773,7 @@ We can see that the header is *almost* same as original, except some "hook point
 
 Now, let's have a look at the `predef` file that is `#include`d in the beginning.
 
-**File: __zz_cib_internal/example-predef.h**:
+**File**: __zz_cib_internal/example-predef.h:
 
 ```c++
 #include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
@@ -787,7 +787,7 @@ struct __zz_cib_Delegator;
 
 We see a #include and a forward declaration of `class __zz_cib_Helper`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header clean as much as possible. We will look into that in next part. Let's see what is the definition of that macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
 
-**File: __zz_cib_internal/__zz_cib_Example-class-internal-def.h**:
+**File**: __zz_cib_internal/__zz_cib_Example-class-internal-def.h.:
 
 ```c++
 #include "__zz_cib_Example-handle-helper.h"
@@ -811,9 +811,9 @@ private:                                                                        
 
 ```
 
-Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. We will now move to see how the methods of this proxy class are defined.
+Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. We will now move to see the content of file that was #include'd at the end of proxy class definition file.
 
-**Implementation detail of proxy class**:
+**File**: exp/__zz_cib_internal/example-impl.h. _Helper of proxy class_:
 
 ```c++
 #pragma once
@@ -883,16 +883,49 @@ public:
 
 ```
 
-This file contains primarily two things. Definition of `class __zz_cib_Helper` and implementation of methods of proxy class.
+This file contains definition of `class __zz_cib_Helper`.
 
-**class __zz_cib_Helper definition**:
+We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_MethodTableHelper`, and `__zz_cib_HandleHelper`. We had already seen __zz_cib_MethodTableHelper before. `__zz_cib_HandleHelper` has methods to convert handle to proxy class and vice versa.
+Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches method table on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. As the name suggest, this class is helper of proxy class. We will next see use of this class in implementation of methods.
 
-We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_MethodTableHelper`, and `__zz_cib_HandleHelper`. We had already seen __zz_cib_MethodTableHelper before `__zz_cib_HandleHelper` has methods to convert handle to proxy class and vice versa.
-Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches method table on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. Now, it should be clear how the methods of class defined by library are called by client and that how it is independent of compiler used to compile library and client.
+**File**: exp/example.cpp. _Implementation of proxy class methods_:
 
-**Implementation of proxy class methods**:
+```c++
+#include "example.h"
 
-First one is the constructor that constructs from opaque handle. This constructor is meant to be called from only CIB generated code. The next is a move constructor that CIB always geneartes. Since the proxy class holds handle of original class it makes sense for this optiization of always defining move constructor. There is one exception to that, if move constriuctor is deleted in original class definition then it is deleted in proxy class too.
+
+Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
+  : __zz_cib_h_(h)
+{}
+
+Example::A::A(A&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+}
+
+Example::A::A()
+  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_new_0())
+{}
+
+Example::A::A(::Example::A const & __zz_cib_param0)
+  : Example::A(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
+
+Example::A::~A() {
+  auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
+}
+
+int Example::A::SomeFunc() {
+  return __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
+}
+
+```
+
+This file contains the implementation of proxy class methods. As you can see that implementation is to just delegate calls to functions of method table. Use of `__zz_cib_Helper` is just to make it easy to deal with method table and handle objects.
+
+First one is the constructor that constructs from opaque handle. This constructor is meant to be called from only CIB generated code. The next is a move constructor that CIB almost always geneartes. Since the proxy class holds handle of original class it makes sense for this optimization of always defining move constructor. There is one exception to that, if move constriuctor is deleted in original class definition then it is deleted in proxy class too.
 Implementation of next three are mostly about delegating to methods of `__zz_cib_Helper`. Implementation of constructors are slightly different. They endup calling the very first constructor by passing returned value of method calls of `__zz_cib_Helper`.
 Let's see what happens when following code is executed by client program:
 
@@ -903,7 +936,7 @@ Let's see what happens when following code is executed by client program:
 
 #include <catch/catch.hpp>
 
-TEST_CASE("Calling method of library exported class yeild expected behavior")
+TEST_CASE("Method call")
 {
   Example::A a;
   REQUIRE(a.SomeFunc() == 5);
@@ -911,7 +944,7 @@ TEST_CASE("Calling method of library exported class yeild expected behavior")
 
 ```
 
-This is simple code but involves integration of two C++ components. CIB ensures that integration is compiler independent and forward compatible and so call sequence is different than what it would be when CIB is not involved.
+This is simple code but involves integration of two C++ components. CIB ensures that integration is compiler independent and ABI stable and so call sequence is different than what it would be when CIB is not involved.
 Below is the call sequence diagram for this sample, it will elaborate more about what code generated by CIB does:
 ![Call sequence for sample-1](examples/example1/SAMPLE-1.svg "Call sequence for sample-1")
 
@@ -924,7 +957,7 @@ This ends the explanation of our first example I hope the basics of how CIB work
 
 ### 10.4\. Example-2 - Virtual function and runtime polymorphism
 
-In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. The code for this example is the next version of previous example and so we will also know how CIB ensures forward compatibility at binary level. Consider the following example:
+In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. The code for this example is the next version of previous example and so we will also know how CIB ensures ABI stability at binary level. Consider the following example:
 
 ```c++
 #pragma once
@@ -958,7 +991,7 @@ namespace Example
 
 ```
 
-This example defines 2 classes, `class A` is from previous example and has a new method that is a virtual function. I have intentionally added it before existing method to make a point about how CIB guarantees forward compatibility of client. We will see that in detail later. `class B` is the new class that is added in this example that inherits from `class A` and overrides the virtual method. We will see how runtime polymorphism works across the component boundary.
+This example defines 2 classes, `class A` is from previous example and has a new method that is a virtual function. I have intentionally added it before existing method to make a point about how CIB guarantees ABI stability of client. We will see that in detail later. `class B` is the new class that is added in this example that inherits from `class A` and overrides the virtual method. We will see how runtime polymorphism works across the component boundary.
 
 Let's now run CIB:
 
@@ -1020,7 +1053,7 @@ We will now see what the ids file that got genearted for this example. We will s
 
 ```
 
-Please note that none of the IDs that were used by previous version are changed, only the new IDs got added. This is the fundamental working of CIB to ensure forward compatibility at binary level. This will be more clear when we see the diff of library glue code:
+Please note that none of the IDs that were used by previous version are changed, only the new IDs got added. This is the fundamental working of CIB to ensure ABI stability at binary level. This will be more clear when we see the diff of library glue code:
 
 ```diff
 --- ../example1/cib/example.h.cpp
@@ -1090,7 +1123,7 @@ Please note that none of the IDs that were used by previous version are changed,
 
 ```
 
-The library glue code now has code for class B as well and it has modification for glue code of `class A`. If we look at the method table of `class A` we see that the order of items in the table is not disrupted from previous version. The items that were present in previous version of method table are still at exactly the same index. So, if we run the client of previous example with library of this example the client will see the method table exactly as it would see with library of older version. For the client there is no change at `ABI` level and so it will have no problem working with newer library. This is how CIB acheives forward compatibility for client at binary level.
+The library glue code now has code for class B as well and it has modification for glue code of `class A`. If we look at the method table of `class A` we see that the order of items in the table is not disrupted from previous version. The items that were present in previous version of method table are still at exactly the same index. So, if we run the client of previous example with library of this example the client will see the method table exactly as it would see with library of older version. For the client there is no change at `ABI` level and so it will have no problem working with newer library. This is how CIB acheives ABI stability for client at binary level.
 
 We will continue looking at the diffs and now we will look at diffs of proxy classes:
 

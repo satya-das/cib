@@ -28,5 +28,6 @@
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
 +  };
  }
+\ No newline at end of file
 +
 +#include "__zz_cib_internal/example-impl.h"
