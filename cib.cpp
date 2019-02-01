@@ -1344,12 +1344,9 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
   };
   forEachDescendent(kPublic, [&](const CibCppCompound* derived) { emitCaseStmt(derived); });
   emitCaseStmt(this);
-  if (triviallyConstructable())
-  {
-    stm << indentation << "default:\n";
-    stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
-        << "::__zz_cib_from_handle(h);\n";
-  }
+  stm << indentation << "default:\n";
+  stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
+      << "::__zz_cib_from_handle(h);\n";
   stm << --indentation << "}\n";
 
   stm << --indentation << "}\n";
@@ -1882,7 +1879,7 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
                                      const CibIdMgr&  cibIdMgr,
                                      CppIndent        indentation) const
 {
-  if (!isFacadeLike() || !triviallyConstructable())
+  if (!isFacadeLike())
     return;
 
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName()
