@@ -17,7 +17,7 @@ namespace Example
     ~A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    void SomeFunc();
+    int SomeFunc();
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);

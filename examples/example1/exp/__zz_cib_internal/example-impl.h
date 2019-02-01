@@ -30,8 +30,8 @@ private:
         );
     }
   }
-  static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
       __zz_cib_obj
       );

@@ -1,8 +1,9 @@
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Calling method of library exported class yeild expected behavior")
 {
   Example::A a;
-  a.SomeFunc();
+  REQUIRE(a.SomeFunc() == 5);
 }
-

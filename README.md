@@ -18,7 +18,7 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 2\.  [CIB Features](#cibfeatures)  
 3\.  [CIB Goals](#cibgoals)  
 4\.  [Other Solutions](#othersolutions)  
-5\.  [Non breaking changes](#nonbreakingchanges)  
+5\.  [ABI Resilience](#abiresilience)  
 6\.  [CIB Architecture](#cibarchitecture)  
 7\.  [Feature Progress of CIB tool](#featureprogressofcibtool)  
 8\.  [CIB Terminology](#cibterminology)  
@@ -29,7 +29,7 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 8.5\.  [Proxy Class](#proxyclass)  
 8.6\.  [Handle](#handle)  
 9\.  [Running CIB](#runningcib)  
-10\.  [Disection of CIB generated code](#disectionofcibgeneratedcode)  
+10\.  [CIB Architecture Detail](#cibarchitecturedetail)  
 10.1\.  [Example-1 - A Simple Class](#example-1-asimpleclass)  
 10.2\.  [Symbol `__zz_cib_`](#symbol`__zz_cib_`)  
 10.3\.  [Method Table](#methodtable)  
@@ -55,30 +55,27 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 ## 1\. Overview
  CIB is an architecture to make it possible to publish compiler independent and ABI stable C++ library.
  CIB is also a tool that implements `cib architecture` for a given library headers.
- CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components unless previously published contract is broken. The cases for which the earlier contract gets broken is significantly fewer in number compared to the case when CIB is not used.
+ CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components unless previously published contract is broken. The cases for which the earlier contract gets broken is significantly fewer compared to the case when CIB is not used.
 CIB can also be used as plugin architecture of application.
 
 _In this document the binary component that exposes its classes will be called **Library**, a library can be an executable or a **DLL/SO**. The component that is compiled using SDK of the library will be called client of that library._
 
-**Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This github project is for developing a tool that implements CIB architecture.**
+**Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This github project is for describing what excatly is CIB architecture and also for developing a tool that implements it.**
  
 <a name="cibfeatures"></a>
 
 ## 2\. CIB Features
-  - Clients don't need to recompile just because library headers are modified unless breaking changes are done by library.
-  - Clients of library will keep working, without recompiling, with new version of library.
-  - Newer clients too can work with older library. _Some precautions is needed by both library and client for this._
-  - Functions, methods (including virtual methods) can be reordered in SDK without breaking ABI stability.
-  - Clients can use library provided classes without linking with the library at compile time.
-  - Clients and library will remain compatible even when there are changes that generally make them incompatible. Lists of such changes are mentioned below.
+  - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
+  - **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
+  - **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
+  - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
+  - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
  **Some of these features are provided by COM. But CIB has other advantages over COM.**
 
   - Clients can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
   - No need to write interface definition files (.idl/.odl files).
   - No need to maintain order of virtual functions across releases.
-  - No need to maintain order of data members of structs.
-  - No need to have a size member in struct. *This is a big hack almost all C/C++ library uses*.
   - No need to declare all functions as pure virtual. CIB allows a class to export all kind of methods like static, virtual, pure virtual, inline etc. Only thing is that an inline function will actually make a proper function call when called from across the component boundary.
   - CIB , unlike COM, works on all platforms.
 
@@ -103,10 +100,10 @@ I have come across some solutions that try to solve the same problem but none of
  
  **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
 
-<a name="nonbreakingchanges"></a>
+<a name="abiresilience"></a>
 
-## 5\. Non breaking changes
-  Some changes are conceptually unimportant for clients of a library but they break binary compatiblity of library and client. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
+## 5\. ABI Resilience
+  Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
 - Any change in internal data member of a class.
 - Addition of new virtual methods anywhere in the class.
 - Change in order of virtual functions of a class.
@@ -137,7 +134,7 @@ I have come across some solutions that try to solve the same problem but none of
   - Function ID is used as an index to fetch function pointer from **MethodTable**.
   - Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
 
-Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this github project is mainly about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
+Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this github project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
 
 In all cases CIB avoids sharing of compiler generated _problematic_ stuffs across component boundary. Below is the list of such compiler generated stuffs:
 1. Mangled function name.
@@ -230,21 +227,19 @@ cib -i pub/ -o exp/ -b cib/ -m Example
 
 Assuming `pub/` is the folder that contains public headers that library wants to publish. `exp/` is the folder where cib creates headers (and also some source files) that forms the part of published SDK. `cib/` is the folder where cib creates glue code for library. Library is expected to compile these sources as part of itself. `Example` is the name of the module (or library). It is a mandatory command line argument required by cib to define glue code.
 
-<a name="disectionofcibgeneratedcode"></a>
+<a name="cibarchitecturedetail"></a>
 
-## 10\. Disection of CIB generated code
-For better understanding of what CIB architecture is we will consider examples to see what will happen if we want to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB tool will do in more complex cases. Most part of code generated by CIB are solely for compilers. Developers (of both library and client) don't even need to look into them. But we will look into generated code to understand CIB architecture.
+## 10\. CIB Architecture Detail
+For better understanding of what CIB architecture is we will consider examples to see what are the required glue code to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB architecture requires in more complex cases. Most part of code generated by CIB are solely for compilers. Developers (of both library and client) don't even need to look into them. But we will look into generated code to understand CIB architecture.
 
-**Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and also serve the purpose of testing CIB.
-
-**TODO**: _Update below explanation as the CIB tool has changed significantly._
+**Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and are actually an automated tests for CIB.
 
 <a name="example-1-asimpleclass"></a>
 
 ### 10.1\. Example-1 - A Simple Class
 To begin with we will consider following example:
 
-[**File: pub/example.h**]:
+[**File**: pub/example.h] _Public header of library_:
 
 ```c++
 #pragma once
@@ -252,6 +247,7 @@ To begin with we will consider following example:
 //! Contains example definitions to explain cib's functioning
 namespace Example
 {
+
   //! A vividly trivial class
   //! Contains just a simple method.
   class A
@@ -259,12 +255,43 @@ namespace Example
   public:
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    void SomeFunc();
+    int SomeFunc();
   };
+
 }
 
+```
+
+[**File**: src/example-lib.cpp] _Class Implementation by library_:
+
+```c++
+#include "example.h"
+
+#include <iostream>
+
+int Example::A::SomeFunc()
+{
+  return 5;
+}
 
 ```
+
+[**File**: src/example-client.cpp] _Client's expectation from library_:
+
+```c++
+#include "example.h"
+
+#include <catch/catch.hpp>
+
+TEST_CASE("Calling method of library exported class yeild expected behavior")
+{
+  Example::A a;
+  REQUIRE(a.SomeFunc() == 5);
+}
+
+```
+
+With this tiny library and client code we would like to see what pieces of CIB architecture be there to satisfy client's expectation.
 
 Assuming current working directory is `examples/example1/` we can run CIB as shown below:
 
@@ -274,7 +301,7 @@ cib -i pub/ -o exp/ -b cib/ -m Example
 
 After above command we will see quite a good number of files created in folder cib/ and exp/.
 We will go into the details of these files. Broadly there will be 2 sets of files. One set is for library (files in folder `cib/`) that it will have to compile when it builds itself and other set (files in folder `exp/`) is for clients of the library to use.
-Undoudtedly in this example we have a vividly simple class, but we do see lots of code getting generated. These codes are required for CIB to guarentee compiler independence and forward compatibility. They are not complex but there are few pieces that we will look closer. Please brace yourself for a deep dive. :)
+Undoudtedly in this example we have a vividly simple class, but we do see lots of code getting generated. These codes are required for CIB to guarentee compiler independence and ABI stability. They are not complex but there are few pieces that we will look closer. Please brace yourself for a deep dive. :)
 
 Let's first look at some of the fundamental types and definitions CIB uses in generated code.
 
@@ -541,7 +568,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     __zz_cib_copy_1 = 1,
     //#= ~A();
     __zz_cib_delete_2 = 2,
-    //#= void SomeFunc();
+    //#= int SomeFunc();
     SomeFunc_3 = 3,
     __zz_cib_next_method_id = 4
   };
@@ -566,7 +593,7 @@ There are few points to note about this id file:
 #### 10.3.2\. Library Glue Code
 CIB will generate library glue code and library is expected to compile these source code while building itself. The aim here for CIB is to generate compiler independent and forward compatible glue code. So, for the `class A` of example-1 following will be the generated library glue code:
 
-**File: cib/example.h.cpp**:
+**File**: cib/example.h.cpp:
 
 ```c++
 #include "example.h"
@@ -588,8 +615,8 @@ static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __z
 static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
 }
 };
 }}}
@@ -669,9 +696,9 @@ As you can see it is counter part of what library code defined which had used `_
 <a name="sdkheadersandproxyclasses"></a>
 
 #### 10.3.5\. SDK Headers and Proxy Classes
-Now we will look into the headers that will be used by client developer. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wished to publish.
+Now we will look into the headers that will be used by client developer. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wanted to publish.
 
-**File: example.h**:
+**File**: example.h:
 
 ```c++
 #pragma  once
@@ -693,7 +720,7 @@ namespace Example
     ~A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    void SomeFunc();
+    int SomeFunc();
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
@@ -709,7 +736,7 @@ You can notice certain differences between this class and the original class in 
 ```diff
 --- pub/example.h
 +++ exp/example.h
-@@ -1,16 +1,27 @@
+@@ -1,17 +1,27 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -717,6 +744,7 @@ You can notice certain differences between this class and the original class in 
  //! Contains example definitions to explain cib's functioning
  namespace Example
  {
+-
    //! A vividly trivial class
    //! Contains just a simple method.
    class A
@@ -729,13 +757,14 @@ You can notice certain differences between this class and the original class in 
 +    ~A();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
-     void SomeFunc();
-+
+     int SomeFunc();
+-  };
+ 
 +  private:
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
-   };
++  };
  }
- 
++
 +#include "__zz_cib_internal/example-impl.h"
 
 ```
@@ -819,8 +848,8 @@ private:
         );
     }
   }
-  static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
+    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
       __zz_cib_obj
       );
@@ -872,12 +901,13 @@ Let's see what happens when following code is executed by client program:
 ```c++
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Calling method of library exported class yeild expected behavior")
 {
   Example::A a;
-  a.SomeFunc();
+  REQUIRE(a.SomeFunc() == 5);
 }
-
 
 ```
 
@@ -902,28 +932,29 @@ In this example we will see what CIB does with virtual functions and how runtime
 //! Contains example definitions to explain cib's functioning
 //! @attention
 //! This example is like next version of example-1.
-//! The compiled library of this example will remain binary 
+//! The compiled library of this example will remain binary
 //! compatible with client of previous example.
 namespace Example
 {
+
   //! Example to see what cib does for classes with virtual methods.
   class A
   {
   public:
     //! This is to know what cib does with virtual functions.
-    virtual void VirtFunc();
+    virtual int VirtFunc();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    void SomeFunc();
+    int SomeFunc();
   };
-  
+
   class B : public A
   {
   public:
-    void VirtFunc() override;
+    int VirtFunc() override;
   };
-}
 
+}
 
 ```
 
@@ -961,10 +992,10 @@ We will now see what the ids file that got genearted for this example. We will s
  namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
 @@ -19,7 +24,25 @@
      __zz_cib_delete_2 = 2,
-     //#= void SomeFunc();
+     //#= int SomeFunc();
      SomeFunc_3 = 3,
 -    __zz_cib_next_method_id = 4
-+    //#= void VirtFunc();
++    //#= int VirtFunc();
 +    VirtFunc_4 = 4,
 +    __zz_cib_next_method_id = 5
 +  };
@@ -978,7 +1009,7 @@ We will now see what the ids file that got genearted for this example. We will s
 +    __zz_cib_copy_1 = 1,
 +    //#= ~B();
 +    __zz_cib_delete_2 = 2,
-+    //#= void VirtFunc();
++    //#= int VirtFunc();
 +    VirtFunc_3 = 3,
 +    //#= __zz_cib_cast_to___Example__A
 +    __zz_cib_cast_to___Example__A_4 = 4,
@@ -998,11 +1029,11 @@ Please note that none of the IDs that were used by previous version are changed,
  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
    delete __zz_cib_obj;
  }
-+static void __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
-+  __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
++static int __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
++  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 +}
- static void __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-   __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+ static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+   return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
  }
  };
  }}}
@@ -1019,8 +1050,8 @@ Please note that none of the IDs that were used by previous version are changed,
 +static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
 +  delete __zz_cib_obj;
 +}
-+static void __zz_cib_decl VirtFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-+  __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
++static int __zz_cib_decl VirtFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
++  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 +}
 +static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
 +  return __zz_cib_obj;
@@ -1074,7 +1105,7 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
  //! Contains example definitions to explain cib's functioning
 +//! @attention
 +//! This example is like next version of example-1.
-+//! The compiled library of this example will remain binary 
++//! The compiled library of this example will remain binary
 +//! compatible with client of previous example.
  namespace Example
  {
@@ -1090,10 +1121,10 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
      A(A const & );
      ~A();
 +    //! This is to know what cib does with virtual functions.
-+    virtual void VirtFunc();
++    virtual int VirtFunc();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
-     void SomeFunc();
+     int SomeFunc();
  
    private:
      __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
@@ -1106,7 +1137,7 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
 +    B();
 +    B(B const & );
 +    ~B();
-+    virtual void VirtFunc();
++    virtual int VirtFunc();
 +
 +  private:
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);
@@ -1126,14 +1157,14 @@ Definition of proxy classes is as expected. No surprises there. The class defini
          );
      }
    }
-+  static void VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
-+    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
++  static int VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
++    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
 +    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
 +      __zz_cib_obj
 +      );
 +  }
-   static void SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-     using SomeFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+   static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
+     using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
 @@ -61,4 +67,67 @@
      return h;
@@ -1166,8 +1197,8 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +        );
 +    }
 +  }
-+  static void VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-+    using VirtFuncProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
++  static int VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
++    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
 +    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_3>(
 +      __zz_cib_obj
 +      );
@@ -1211,12 +1242,16 @@ Here too we mostly see things as expected. There was a new method in `class A` a
 ```c++
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Virtual function call across library")
 {
   Example::A* pA = new Example::B();
-  pA->VirtFunc();
-}
 
+  REQUIRE(pA->VirtFunc() == 15);    // Should call B::VirtFunc
+  REQUIRE(pA->A::VirtFunc() == 10); // A regular call without use of virtual table.
+  REQUIRE(pA->SomeFunc() == 5);     // Non-virtual call.
+}
 
 ```
 

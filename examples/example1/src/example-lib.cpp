@@ -2,8 +2,7 @@
 
 #include <iostream>
 
-void Example::A::SomeFunc()
+int Example::A::SomeFunc()
 {
-  std::cout << "Example::A::SomeFunc()" << std::endl;
+  return 5;
 }
-

@@ -2,18 +2,17 @@
 
 #include <iostream>
 
-void Example::A::SomeFunc()
+int Example::A::SomeFunc()
 {
-  std::cout << "Example::A::SomeFunc()" << std::endl;
+  return 5;
 }
 
-void Example::A::VirtFunc()
+int Example::A::VirtFunc()
 {
-  std::cout << "Example::A::VirtFunc()" << std::endl;
+  return 10;
 }
 
-void Example::B::VirtFunc()
+int Example::B::VirtFunc()
 {
-  std::cout << "Example::B::VirtFunc()" << std::endl;
+  return 15;
 }
-

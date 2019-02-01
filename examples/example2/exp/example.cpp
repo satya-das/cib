@@ -24,12 +24,12 @@ Example::A::~A() {
   __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
 }
 
-void Example::A::VirtFunc() {
-  __zz_cib_::Example::A::__zz_cib_Helper::VirtFunc_4(__zz_cib_h_);
+int Example::A::VirtFunc() {
+  return __zz_cib_::Example::A::__zz_cib_Helper::VirtFunc_4(__zz_cib_h_);
 }
 
-void Example::A::SomeFunc() {
-  __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
+int Example::A::SomeFunc() {
+  return __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
 }
 
 Example::B::B(__zz_cib_::__zz_cib_HANDLE* h)
@@ -57,6 +57,6 @@ Example::B::~B() {
   __zz_cib_::Example::B::__zz_cib_Helper::__zz_cib_delete_2(h);
 }
 
-void Example::B::VirtFunc() {
-  __zz_cib_::Example::B::__zz_cib_Helper::VirtFunc_3(__zz_cib_h_);
+int Example::B::VirtFunc() {
+  return __zz_cib_::Example::B::__zz_cib_Helper::VirtFunc_3(__zz_cib_h_);
 }

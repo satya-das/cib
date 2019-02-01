@@ -1,5 +1,7 @@
 #include "example.h"
 
+#include <catch/catch.hpp>
+
 class OverriddenIF : public IF
 {
 private:
@@ -21,7 +23,7 @@ public:
   void PublicVirtual() override {}
 };
 
-int main()
+TEST_CASE("Virtual methods of all access type should be exported.")
 {
   OverriddenIF ifObj;
 }

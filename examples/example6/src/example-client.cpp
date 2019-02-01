@@ -1,9 +1,11 @@
 #include "example.h"
 
-int main()
+#include <catch/catch.hpp>
+
+TEST_CASE("Same proxy class instaces should be used for same object.")
 {
   A a;
   B b;
   b.SetA(&a);
-  assert(b.GetA() == &a);
+  REQUIRE(b.GetA() == &a);
 }

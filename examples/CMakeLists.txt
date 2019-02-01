@@ -80,6 +80,7 @@ foreach(example ${EXAMPLES})
 
     set(CLIENT_SOURCES
         ${example_ROOT}/src/example-client.cpp
+        example-main.cpp
     )
     add_executable(${CLIENTNAME}
 	    ${CLIENT_SOURCES}
