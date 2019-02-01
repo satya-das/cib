@@ -65,7 +65,7 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
 
 static std::uint8_t effectivePtrLevel(const CppVarType* varType)
 {
-  return varType->isByRef() ? 1 + varType->ptrLevel() : varType->ptrLevel();
+  return (varType->isByRef() || varType->isByRValueRef()) ? 1 + varType->ptrLevel() : varType->ptrLevel();
 }
 
 static void emitStars(std::ostream& stm, std::uint8_t numStars)
@@ -119,12 +119,15 @@ static void emitType(std::ostream&         stm,
       stm << typeObj->baseType();
     }
   }
-  for (unsigned short i = 0; i <= typeModifier.ptrLevel_; ++i)
+  if (!resolvedType || effectivePtrLevel(typeObj))
   {
-    if (typeModifier.constBits_ & (1 << i))
-      stm << " const ";
-    if (i != typeModifier.ptrLevel_)
-      stm << '*';
+    for (unsigned short i = 0; i <= typeModifier.ptrLevel_; ++i)
+    {
+      if (typeModifier.constBits_ & (1 << i))
+        stm << " const ";
+      if (i != typeModifier.ptrLevel_)
+        stm << '*';
+    }
   }
   if (typeModifier.refType_ == kByRef)
   {
