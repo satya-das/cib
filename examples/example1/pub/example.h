@@ -13,5 +13,4 @@ namespace Example
     //! @note It is just for explaining how cib works.
     int SomeFunc();
   };
-
 }
