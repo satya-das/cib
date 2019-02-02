@@ -97,7 +97,7 @@ static void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Context* __zz_cib
   if (unknownProxy)
     unknownProxy->__zz_cib_release_proxy();
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Context {

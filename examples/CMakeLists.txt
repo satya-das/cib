@@ -20,7 +20,7 @@ foreach(example ${EXAMPLES})
 	    example # File name without extension
     )
     set(LIB_GLUE_SRCS
-	    ${example_ROOT}/cib/__zz_cib_Example.cpp
+	    ${example_ROOT}/cib/__zz_cib_Example-gateway.cpp
 	    ${example_ROOT}/cib/__zz_cib_Example-classId-repo.cpp
 	    ${example_ROOT}/cib/__zz_cib_Example-decl.h
 	    ${example_ROOT}/cib/__zz_cib_Example-export.h

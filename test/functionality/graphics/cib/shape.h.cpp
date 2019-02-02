@@ -93,7 +93,7 @@ static void __zz_cib_decl __zz_cib_release_proxy_6(::Graphics::Shape* __zz_cib_o
   if (unknownProxy)
     unknownProxy->__zz_cib_release_proxy();
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Shape {

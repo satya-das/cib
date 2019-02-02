@@ -110,3 +110,32 @@ std::string longName(const CppObj* typeObj)
       return "";
   }
 }
+
+std::string expandNs(std::string::const_iterator beg, std::string::const_iterator end)
+{
+  if (beg == end)
+    return std::string();
+  if (*beg == ':')
+    return expandNs(beg + 2, end);
+  auto itr = std::adjacent_find(beg, end, [](char c1, char c2) -> bool { return c1 == c2 && c1 == ':'; });
+
+  auto expanded = std::string("namespace ") + std::string(beg, itr) + " {";
+  if (itr == end)
+    return expanded;
+  else
+    return expanded + std::string(" ") + expandNs(itr + 2, end);
+}
+
+std::string closingNs(std::string::const_iterator beg, std::string::const_iterator end)
+{
+  if (beg == end)
+    return std::string();
+  if (*beg == ':')
+    return closingNs(beg + 2, end);
+  auto        itr = std::adjacent_find(beg, end, [](char c1, char c2) -> bool { return c1 == c2 && c1 == ':'; });
+  std::string closingBraces = "}";
+  if (itr == end)
+    return closingBraces;
+  else
+    return closingBraces + closingNs(itr + 2, end);
+}

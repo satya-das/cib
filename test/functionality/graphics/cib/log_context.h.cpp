@@ -32,7 +32,7 @@ static void __zz_cib_decl Ellipse_6(__zz_cib_Delegatee* __zz_cib_obj, double cx,
 static ::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {
   return __zz_cib_obj;
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace LogContext {

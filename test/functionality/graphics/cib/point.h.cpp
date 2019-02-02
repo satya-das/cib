@@ -35,7 +35,7 @@ static ::Point* __zz_cib_decl __zz_cib_OperatorPlus_7(const __zz_cib_Delegatee* 
 static ::Point* __zz_cib_decl __zz_cib_OperatorMinus_8(const __zz_cib_Delegatee* __zz_cib_obj, ::Point* p) {
   return new ::Point(__zz_cib_obj->__zz_cib_Delegatee::operator -(*p));
 }
-};
+}
 }}
 
 namespace __zz_cib_ { namespace Point {

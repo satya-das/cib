@@ -41,7 +41,7 @@
 
 typedef boost::filesystem::path::value_type chartype;
 #ifndef _T
-#  define _T(x) L##x
+#define _T(x) L##x
 #endif //#ifndef _T
 
 namespace bfs = boost::filesystem;
@@ -95,7 +95,7 @@ CibParams parseCmdLine(int argc, char* argv[])
   bfs::path   binderPath = vm["bind-folder"].as<std::string>();
   std::string moduleName = vm["module"].as<std::string>();
   bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
-  bool d = vm.count("no-exact-delegation") != 0;
+  bool        d          = vm.count("no-exact-delegation") != 0;
 
   bool recurse = true;
 
@@ -126,37 +126,113 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
                                        const CibParams&        cibParams,
                                        const CibIdMgr&         cibIdMgr)
 {
-  std::vector<const CibCppCompound*> compounds;
-  for (auto cppDom : fileDOMs)
-  {
-    auto cibCppCompound = static_cast<const CibCppCompound*>(cppDom);
-    cibCppCompound->collectPublicCompounds(compounds);
-  }
   CppIndent indentation;
-  for (auto compound : compounds)
-  {
-    stm << indentation << compound->wrappingNsNamespaceDeclarations(cibParams);
-    stm << " namespace " << compound->nsName() << " { ";
-    stm << "const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); ";
-    stm << compound->closingBracesForWrappingNsNamespaces() << "}\n";
-  }
+  cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
+    stm << "namespace __zz_cib_ { " << expandNs(nsName.begin(), nsName.end());
+    stm << " const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); ";
+    stm << --indentation << closingNs(nsName.begin(), nsName.end()) << "}\n";
+  });
+
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export\n"
       << "const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
-  for (auto compound : compounds)
-  {
-    auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
-    stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
-    stm << ++indentation << "return __zz_cib_::" << compound->fullNsName() << "::__zz_cib_GetMethodTable();\n";
+  cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
+    stm << indentation << "case __zz_cib_::" << nsName << "::__zz_cib_classid:\n";
+    stm << ++indentation << "return __zz_cib_::" << nsName << "::__zz_cib_GetMethodTable();\n";
     --indentation;
-  }
+  });
   stm << indentation << "default:\n";
   stm << ++indentation << "return nullptr;\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
+}
+
+using BridgableNamespaces = std::map<CibFullClassName, std::set<const CibCppCompound*> >;
+
+static BridgableNamespaces collectBridgableNamespaces(const CppCompoundArray& fileAsts)
+{
+  BridgableNamespaces bridgableNamespaces;
+  for (auto* fileAst : fileAsts)
+  {
+    auto* ast = static_cast<const CibCppCompound*>(fileAst);
+    ast->forEachNested([&](const CibCppCompound* nested) {
+      if (nested->isNamespace() && nested->needsBridging())
+        bridgableNamespaces[nested->fullName()].insert(nested);
+    });
+    if (ast->needsBridging())
+      bridgableNamespaces[ast->fullName()].insert(ast);
+  }
+
+  return bridgableNamespaces;
+}
+
+static std::string replaceString(std::string s, const std::string& p, const std::string& q)
+{
+  for (auto loc = s.find(p.c_str(), 0, p.length()); loc < s.size(); loc = s.find(p.c_str(), loc, p.length()))
+    s.replace(loc, p.length(), q.c_str());
+  return s;
+}
+
+static void emitHelperDefinitionForNamespace(std::ostream&                          stm,
+                                             const std::set<const CibCppCompound*>& nameSpaceCompounds,
+                                             const CibHelper&                       cibHelper,
+                                             const CibParams&                       cibParams,
+                                             const CibIdData*                       cibIdData,
+                                             CppIndent                              indentation = CppIndent())
+{
+  auto* compound = *(nameSpaceCompounds.begin());
+  compound->emitHelperDefnStart(stm, cibParams, indentation++);
+  for (auto* comp : nameSpaceCompounds)
+    comp->emitFunctionInvokeHelper(stm, comp->getNeedsBridgingMethods(), cibHelper, cibParams, cibIdData, indentation);
+  compound->emitHelperDefnEnd(stm, indentation);
+}
+
+static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
+                                      const CibHelper&        helper,
+                                      const CibParams&        cibParams,
+                                      const CibIdMgr&         cibIdMgr)
+{
+  auto bridgableNamespaces = collectBridgableNamespaces(fileAsts);
+  for (auto& bridgableNamespace : bridgableNamespaces)
+  {
+    const auto& name      = bridgableNamespace.first;
+    const auto& compounds = bridgableNamespace.second;
+    auto fileName   = (name.empty() ? cibParams.globalNsName() : "__zz_cib_" + replaceString(name, "::", "-")) + ".cpp";
+    auto bndSrcPath = cibParams.binderPath / fileName;
+    auto gluSrcPath = cibParams.outputPath / fileName;
+
+    auto* cmp = *(compounds.begin());
+
+    std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
+
+    CibCppCompound::emitCommonCibHeaders(bindSrcStm, cibParams);
+    for (auto* compound : compounds)
+    {
+      auto* ast = compound->root();
+      bindSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+      compound->emitDelegators(bindSrcStm, helper, cibParams, cibIdMgr);
+    }
+    cmp->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
+
+    std::ofstream glueSrcStm(gluSrcPath.string(), std::ios_base::out);
+    CibCppCompound::emitCommonExpHeaders(glueSrcStm, cibParams);
+    auto cibIdData = cibIdMgr.getCibIdData(cmp->longName());
+    emitHelperDefinitionForNamespace(glueSrcStm, compounds, helper, cibParams, cibIdData);
+    for (auto* compound : compounds)
+    {
+      auto* ast = compound->root();
+      glueSrcStm << '\n';
+      glueSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+      for (auto func : compound->getNeedsBridgingMethods())
+      {
+        glueSrcStm << '\n'; // Start in new line.
+        func.emitDefn(glueSrcStm, false, helper, cibParams, compound, cibIdData);
+      }
+    }
+  }
 }
 
 static void processResourceFile(const std::string&       filename,
@@ -236,10 +312,10 @@ int main(int argc, char* argv[])
     bfs::create_directories(bndSrcPath.parent_path());
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
-    cibCppCompound->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
   }
+  emitGlueCodeForNamespaces(fileDOMs, helper, cibParams, cibIdMgr);
 
-  std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + ".cpp")).string(),
+  std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
                              std::ios_base::out);
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";

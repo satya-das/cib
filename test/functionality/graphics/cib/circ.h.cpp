@@ -34,7 +34,7 @@ static ::Graphics::Shape* __zz_cib_decl CreateCircle_6(double Ox, double Oy, dou
 static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_7(::Graphics::Circle* __zz_cib_obj) {
   return __zz_cib_obj;
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Circle {

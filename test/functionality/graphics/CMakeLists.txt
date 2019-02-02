@@ -23,7 +23,7 @@ set(GRAPHICS_PUB_FILE_NAMES
 )
 
 set(CIB_OUTPUT
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-gateway.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-decl.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-export.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-ids.h

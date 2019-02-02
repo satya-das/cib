@@ -85,16 +85,16 @@ private:
   std::uint32_t props_{0};
   bool          needsGenericProxyDefinition_{false};
 
-  CibFunctionHelperArray needsBridging_; // Array of all functions that require bridging for
-                                         // implementation at client side.
-  CibFunctionHelperArray   allVirtuals_; // All virtual methods including that of parent classes.
-  mutable CibFunctionHelperArray   needsClientDefinition_;
-  std::set<const CppObj*>  objNeedingBridge_;
-  mutable TypeNameToCppObj typeNameToCibCppObj_;
-  TemplateInstances        templateInstances_; ///< Meaningful for template classes only.
-  TmplInstanceCache        tmplInstanceCache_;
-  CibCppCompound*          templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
-  TemplateArgValues        templateArgValues_;
+  CibFunctionHelperArray needsBridging_;       // Array of all functions that require bridging for
+                                               // implementation at client side.
+  CibFunctionHelperArray         allVirtuals_; // All virtual methods including that of parent classes.
+  mutable CibFunctionHelperArray needsClientDefinition_;
+  std::set<const CppObj*>        objNeedingBridge_;
+  mutable TypeNameToCppObj       typeNameToCibCppObj_;
+  TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
+  TmplInstanceCache              tmplInstanceCache_;
+  CibCppCompound*   templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  TemplateArgValues templateArgValues_;
   std::set<const CibCppCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
   std::string                     nsName_;
 
@@ -103,6 +103,10 @@ public:
   const std::string& name() const
   {
     return name_;
+  }
+  bool isNsNameEmpty() const
+  {
+    return nsName_.empty();
   }
   const std::string& nsName() const
   {
@@ -122,8 +126,6 @@ public:
   }
   std::string fullNsName() const
   {
-    if (!isNamespaceLike())
-      return "";
     if (outer() && outer()->isNamespaceLike())
       return outer()->fullNsName() + "::" + nsName();
     else
@@ -131,7 +133,7 @@ public:
   }
   std::string longNsName() const
   {
-    return isCppFile() ? "::" : "::" + fullNsName();
+    return "::" + fullNsName();
   }
   bool isTemplated() const
   {
@@ -364,6 +366,12 @@ public:
                                            const CibParams& cibParams,
                                            const CibIdMgr&  cibIdMgr) const;
   void emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
+  void emitDefn(std::ostream&    stm,
+                bool             asInline,
+                const CibHelper& helper,
+                const CibParams& cibParams,
+                const CibIdMgr&  cibIdMgr,
+                CppIndent        indentation = CppIndent()) const;
   void emitGenericProxyDefn(std::ostream&    stm,
                             const CibHelper& helper,
                             const CibParams& cibParams,
@@ -379,6 +387,42 @@ public:
                        const CibParams& cibParams,
                        const CibIdMgr&  cibIdMgr,
                        CppIndent        indentation = CppIndent()) const;
+  void emitDependecyHeaders(std::ostream&    stm,
+                            const CibHelper& helper,
+                            const CibParams& cibParams,
+                            const CibIdMgr&  cibIdMgr,
+                            CppIndent        indentation = CppIndent()) const;
+  void emitHelperDefn(std::ostream&    stm,
+                      const CibHelper& helper,
+                      const CibParams& cibParams,
+                      const CibIdMgr&  cibIdMgr,
+                      CppIndent        indentation = CppIndent()) const;
+  void emitFunctionInvokeHelper(std::ostream&                 stm,
+                                const CibFunctionHelperArray& functions,
+                                const CibHelper&              helper,
+                                const CibParams&              cibParams,
+                                const CibIdData*              cibIdData,
+                                CppIndent                     indentation) const;
+  void emitHelperDefnStart(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const;
+  void emitCastingHelpers(std::ostream&    stm,
+                          const CibParams& cibParams,
+                          const CibIdData* cibIdData,
+                          CppIndent        indentation) const;
+  void emitFacadeHelpers(std::ostream& stm, const CibIdData* cibIdData, CppIndent indentation /* = CppIndent */) const;
+  void emitHandleHelpers(std::ostream&    stm,
+                         const CibParams& cibParams,
+                         const CibIdData* cibIdData,
+                         CppIndent        indentation) const;
+
+  void        emitHelperDefnEnd(std::ostream& stm, CppIndent indentation) const;
+  void        emitDelegators(std::ostream&    stm,
+                             const CibHelper& helper,
+                             const CibParams& cibParams,
+                             const CibIdMgr&  cibIdMgr,
+                             CppIndent        indentation = CppIndent()) const;
+  static void emitCommonCibHeaders(std::ostream& stm, const CibParams& cibParams);
+  static void emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams);
+
   void collectPublicCompounds(std::vector<const CibCppCompound*>& compounds) const;
   void emitMethodTableGetterDefn(std::ostream&    stm,
                                  const CibHelper& helper,
@@ -428,20 +472,9 @@ private:
                       const CibHelper& helper,
                       const CibParams& cibParams,
                       CppIndent        indentation = CppIndent()) const;
-  void emitHelperDefn(std::ostream&    stm,
-                      const CibHelper& helper,
-                      const CibParams& cibParams,
-                      const CibIdMgr&  cibIdMgr,
-                      CppIndent        indentation = CppIndent()) const;
   void emitDecl(std::ostream&    stm,
                 const CibHelper& helper,
                 const CibParams& cibParams,
-                CppIndent        indentation = CppIndent()) const;
-  void emitDefn(std::ostream&    stm,
-                bool             asInline,
-                const CibHelper& helper,
-                const CibParams& cibParams,
-                const CibIdMgr&  cibIdMgr,
                 CppIndent        indentation = CppIndent()) const;
   void emitImplSource(std::ostream&    stm,
                       const CibHelper& helper,

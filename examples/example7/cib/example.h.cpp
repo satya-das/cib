@@ -113,6 +113,26 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
 };
 }}
 
+namespace __zz_cib_ { namespace IF {
+const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+  static const __zz_cib_MTableEntry methodArray[] = {
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedPureVirtual_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedVirtual_3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedNonVirtual_4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicPureVirtual_5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicVirtual_6),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicNonVirtual_7),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual_8),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivateVirtual_9),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_10),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_11)
+  };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 12 };
+  return &methodTable;
+}
+}}
 namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator : public ::A {
   using __zz_cib_ParentClass = ::A;
@@ -137,26 +157,6 @@ struct __zz_cib_Delegator : public ::A {
 };
 }}
 
-namespace __zz_cib_ { namespace IF {
-const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-  static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedPureVirtual_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedVirtual_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedNonVirtual_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicPureVirtual_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicVirtual_6),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicNonVirtual_7),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual_8),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivateVirtual_9),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_10),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_11)
-  };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 12 };
-  return &methodTable;
-}
-}}
 namespace __zz_cib_ { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {

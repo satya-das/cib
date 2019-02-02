@@ -12,6 +12,15 @@ private:
   friend class ::Graphics::LogContext;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::LogContext, __zz_cib_Helper>;
 
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+  {}
+  static __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
+
   static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
@@ -58,30 +67,21 @@ private:
     using __zz_cib_cast_to___Graphics__ContextProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
     return instance().invoke<__zz_cib_cast_to___Graphics__ContextProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Context_7>(__zz_cib_obj);
   }
-  __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
-      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-  {}
-  static __zz_cib_Helper& instance() {
-    static __zz_cib_Helper helper;
-    return helper;
-  }
-
   static ::Graphics::LogContext* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::Graphics::LogContext(h);
   }
 public:
-  static ::Graphics::LogContext __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-    return ::Graphics::LogContext(h);
-  }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::LogContext* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::LogContext* __zz_cib_obj) {
-    auto h = __zz_cib_obj->__zz_cib_h_;
-    __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
-    return h;
-  }
+    static ::Graphics::LogContext __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+      return ::Graphics::LogContext(h);
+    }
+    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::LogContext* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::LogContext* __zz_cib_obj) {
+      auto h = __zz_cib_obj->__zz_cib_h_;
+      __zz_cib_obj->__zz_cib_h_ = nullptr;
+      __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+      return h;
+    }
 };
 }}}

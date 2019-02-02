@@ -30,7 +30,7 @@ static void __zz_cib_decl Draw_5(const __zz_cib_Delegatee* __zz_cib_obj, ::Graph
 static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Rectangle* __zz_cib_obj) {
   return __zz_cib_obj;
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Rectangle {

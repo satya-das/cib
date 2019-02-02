@@ -57,7 +57,7 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_11(::Graphics::Composit
   }
   return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Graphics { namespace Composite {

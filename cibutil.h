@@ -149,3 +149,12 @@ inline void normalizeConst(CppVarType* varType)
     varType->typeAttr_ ^= kConst;
   }
 }
+/*!
+ * @return "namespace X { namespace Y {" for X::Y as input.
+ */
+std::string expandNs(std::string::const_iterator beg, std::string::const_iterator end);
+/*!
+ * @return "}}" for X::Y as input.
+ * @sa expandNs.
+ */
+std::string closingNs(std::string::const_iterator beg, std::string::const_iterator end);

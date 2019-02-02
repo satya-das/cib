@@ -29,7 +29,7 @@ static std::int32_t __zz_cib_decl Set_5(__zz_cib_Delegatee* __zz_cib_obj, ::RVal
 static std::int32_t __zz_cib_decl GetValue_6(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->__zz_cib_Delegatee::GetValue();
 }
-};
+}
 }}
 
 namespace __zz_cib_ { namespace RValueExample {

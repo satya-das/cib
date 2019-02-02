@@ -189,8 +189,6 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   // Dummy loop
   do
   {
-    if (compound->isCppFile())
-      break;
     if (!forGenericProxy && !compound->needsBridging() && !compound->isShared())
       break;
     if (forGenericProxy && (!compound->needsGenericProxyDefinition() || compound->getAllVirtualMethods().empty()))
@@ -204,6 +202,8 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
       auto clsId = nextClassId_++;
       if (compound->isTemplateInstance())
         compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
+      else if (compound->isCppFile())
+        compound->setNsName(cibParams.globalNsName());
       const auto classNsName =
         forGenericProxy ? compound->fullNsName() + "::__zz_cib_GenericProxy" : compound->fullNsName();
       cibIdData = addClass(className, classNsName, clsId);
@@ -211,6 +211,8 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
     else
     {
       cibIdData = &itr->second;
+      if (compound->isCppFile() && compound->isNsNameEmpty())
+        compound->setNsName(cibParams.globalNsName());
     }
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
     auto        addMethod = [&](const CibFunctionHelper& func) {
@@ -266,42 +268,6 @@ CibIdData* CibIdMgr::addClass(CibFullClassName className, CibFullClassNsName ful
   return &(res.first->second);
 }
 
-/*!
- * @return "namespace X { namespace Y {" for X::Y as input.
- */
-static std::string expandNs(std::string::const_iterator beg, std::string::const_iterator end)
-{
-  if (beg == end)
-    return std::string();
-  if (*beg == ':')
-    return expandNs(beg + 2, end);
-  auto itr = std::adjacent_find(beg, end, [](char c1, char c2) -> bool { return c1 == c2 && c1 == ':'; });
-
-  auto expanded = std::string("namespace ") + std::string(beg, itr) + " {";
-  if (itr == end)
-    return expanded;
-  else
-    return expanded + std::string(" ") + expandNs(itr + 2, end);
-}
-
-/*!
- * @return "}}" for X::Y as input.
- * @sa expandNs.
- */
-static std::string closingNs(std::string::const_iterator beg, std::string::const_iterator end)
-{
-  if (beg == end)
-    return std::string();
-  if (*beg == ':')
-    return closingNs(beg + 2, end);
-  auto        itr = std::adjacent_find(beg, end, [](char c1, char c2) -> bool { return c1 == c2 && c1 == ':'; });
-  std::string closingBraces = "}";
-  if (itr == end)
-    return closingBraces;
-  else
-    return closingBraces + closingNs(itr + 2, end);
-}
-
 bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParams) const
 {
   std::ofstream stm(idsFilePath, std::ios_base::out);
@@ -309,6 +275,8 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
   CppIndent indentation;
   for (const auto& cls : cibIdTable_)
   {
+    if (cls.second.numMethods() == 0)
+      continue;
     const auto& className   = cls.first;
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cls.second.getFullNsName();
@@ -324,6 +292,8 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
 
   for (const auto& cls : cibIdTable_)
   {
+    if (cls.second.numMethods() == 0)
+      continue;
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cls.second.getFullNsName();
     stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end())
@@ -340,4 +310,23 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
   }
   return true;
+}
+
+void CibIdMgr::forEachCompound(CompoundVisitor visitor) const
+{
+  for (const auto& cls : cibIdTable_)
+  {
+    if (cls.second.numMethods() == 0)
+      continue;
+    const auto& className   = cls.first;
+    const auto& cibIdData   = cls.second;
+    const auto& classNsName = cls.second.getFullNsName();
+    static const std::string genericProxyName = "__zz_cib_GenericProxy";
+    if (classNsName.length() > 2 + genericProxyName.length())
+    {
+      if (strcmp(classNsName.c_str() + classNsName.length() - genericProxyName.length(), genericProxyName.c_str()) == 0)
+        continue;
+    }
+    visitor(className, classNsName, cibIdData);
+  }
 }

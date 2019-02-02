@@ -12,6 +12,15 @@ private:
   friend class ::RValueExample;
   friend class __zz_cib_::__zz_cib_HandleHelper<::RValueExample, __zz_cib_Helper>;
 
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+  {}
+  static __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
+
   static void __zz_cib_delete_0(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
@@ -54,30 +63,21 @@ private:
       __zz_cib_obj
       );
   }
-  __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-  {}
-  static __zz_cib_Helper& instance() {
-    static __zz_cib_Helper helper;
-    return helper;
-  }
-
   static ::RValueExample* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::RValueExample(h);
   }
 public:
-  static ::RValueExample __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-    return ::RValueExample(h);
-  }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::RValueExample* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::RValueExample* __zz_cib_obj) {
-    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-    auto h = __zz_cib_obj->__zz_cib_h_;
-    __zz_cib_obj->__zz_cib_h_ = nullptr;
-    return h;
-  }
+    static ::RValueExample __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+      return ::RValueExample(h);
+    }
+    static __zz_cib_HANDLE*& __zz_cib_get_handle(::RValueExample* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* __zz_cib_release_handle(::RValueExample* __zz_cib_obj) {
+      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+      auto h = __zz_cib_obj->__zz_cib_h_;
+      __zz_cib_obj->__zz_cib_h_ = nullptr;
+      return h;
+    }
 };
 }}

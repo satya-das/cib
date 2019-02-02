@@ -12,6 +12,15 @@ private:
   friend class ::Graphics::Composite;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Composite, __zz_cib_Helper>;
 
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
+  {}
+  static __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
+
   static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
@@ -75,34 +84,24 @@ private:
     using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
     return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_10>(__zz_cib_obj);
   }
-  __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
-      __zz_cib_Graphics_GetMethodTable(__zz_cib_classid))
-  {}
-  static __zz_cib_Helper& instance() {
-    static __zz_cib_Helper helper;
-    return helper;
-  }
-
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_11>(
-    __zz_cib_obj);
-}
-static ::Graphics::Composite* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_11>(__zz_cib_obj);
+  }
+  static ::Graphics::Composite* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 public:
-  static ::Graphics::Composite __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-    return ::Graphics::Composite(h);
-  }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::Composite* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
-    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-    auto h = __zz_cib_obj->__zz_cib_h_;
-    __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
-    return h;
-  }
+    static ::Graphics::Composite __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+      return ::Graphics::Composite(h);
+    }
+    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::Composite* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {
+      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+      auto h = __zz_cib_obj->__zz_cib_h_;
+      __zz_cib_obj->__zz_cib_h_ = nullptr;
+      __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+      return h;
+    }
 };
 }}}
