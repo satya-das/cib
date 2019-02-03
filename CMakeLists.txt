@@ -79,12 +79,12 @@ add_subdirectory(examples)
 add_subdirectory(test)
 
 find_program(
-	MARKDOWN_PP_EXISTS
+	MARKDOWN_PP
 	"markdown-pp"
 	PATHS ENV PATH
 )
 
-if(${MARKDOWN_PP} NOT MATCHES "MARKDOWN_PP-NOTFOUND")
+if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
 		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
@@ -96,5 +96,5 @@ if(${MARKDOWN_PP} NOT MATCHES "MARKDOWN_PP-NOTFOUND")
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 	add_dependencies(ReadMe example1_client example2_client DiffsForReadMe)
 else()
-  message("Markdown-pp NOT FOUND")
+  message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
