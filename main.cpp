@@ -36,6 +36,7 @@
 #include <map>
 #include <strstream>
 #include <tuple>
+#include <unordered_set>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -176,6 +177,8 @@ static std::string replaceString(std::string s, const std::string& p, const std:
   return s;
 }
 
+using FunctionRepo = std::unordered_set<std::string>;
+
 static void emitHelperDefinitionForNamespace(std::ostream&                          stm,
                                              const std::set<const CibCppCompound*>& nameSpaceCompounds,
                                              const CibHelper&                       cibHelper,
@@ -183,10 +186,18 @@ static void emitHelperDefinitionForNamespace(std::ostream&                      
                                              const CibIdData*                       cibIdData,
                                              CppIndent                              indentation = CppIndent())
 {
+  FunctionRepo funcRepo;
   auto* compound = *(nameSpaceCompounds.begin());
   compound->emitHelperDefnStart(stm, cibParams, indentation++);
   for (auto* comp : nameSpaceCompounds)
-    comp->emitFunctionInvokeHelper(stm, comp->getNeedsBridgingMethods(), cibHelper, cibParams, cibIdData, indentation);
+  {
+    const auto& functions = comp->getNeedsBridgingMethods();
+    for (auto func : functions)
+    {
+      if (funcRepo.insert(func.signature(cibHelper)).second)
+        comp->emitFunctionInvokeHelper(stm, func, cibHelper, cibParams, cibIdData, indentation);
+    }
+  }
   compound->emitHelperDefnEnd(stm, indentation);
 }
 
@@ -213,23 +224,35 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     {
       auto* ast = compound->root();
       bindSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+    }
+    bindSrcStm << '\n';
+    for (auto* compound : compounds)
+    {
       compound->emitDelegators(bindSrcStm, helper, cibParams, cibIdMgr);
     }
     cmp->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
 
     std::ofstream glueSrcStm(gluSrcPath.string(), std::ios_base::out);
     CibCppCompound::emitCommonExpHeaders(glueSrcStm, cibParams);
-    auto cibIdData = cibIdMgr.getCibIdData(cmp->longName());
-    emitHelperDefinitionForNamespace(glueSrcStm, compounds, helper, cibParams, cibIdData);
+    glueSrcStm << '\n';
     for (auto* compound : compounds)
     {
       auto* ast = compound->root();
-      glueSrcStm << '\n';
       glueSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+    }
+    glueSrcStm << '\n';
+    auto cibIdData = cibIdMgr.getCibIdData(cmp->longName());
+    emitHelperDefinitionForNamespace(glueSrcStm, compounds, helper, cibParams, cibIdData);
+    FunctionRepo funcRepo;
+    for (auto* compound : compounds)
+    {
       for (auto func : compound->getNeedsBridgingMethods())
       {
-        glueSrcStm << '\n'; // Start in new line.
-        func.emitDefn(glueSrcStm, false, helper, cibParams, compound, cibIdData);
+        if (funcRepo.insert(func.signature(helper)).second)
+        {
+          glueSrcStm << '\n'; // Start in new line.
+          func.emitDefn(glueSrcStm, false, helper, cibParams, compound, cibIdData);
+        }
       }
     }
   }

@@ -1563,65 +1563,62 @@ void CibCppCompound::emitHelperDecl(std::ostream&    stm,
 }
 
 void CibCppCompound::emitFunctionInvokeHelper(std::ostream&                 stm,
-                                              const CibFunctionHelperArray& functions,
+                                              const CibFunctionHelper       func,
                                               const CibHelper&              helper,
                                               const CibParams&              cibParams,
                                               const CibIdData*              cibIdData,
                                               CppIndent                     indentation /* = CppIndent */) const
 {
-  for (auto func : functions)
+  if (func.isPureVirtual() && !func.isDestructor())
+    return;
+  stm << indentation << "static ";
+  func.emitCAPIReturnType(stm, helper, false);
+  stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
+  if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
   {
-    if (func.isPureVirtual() && !func.isDestructor())
-      continue;
-    stm << indentation << "static ";
-    func.emitCAPIReturnType(stm, helper, false);
-    stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
-    if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
-    {
-      stm << "__zz_cib_HANDLE* __zz_cib_obj";
-      if (func.hasParams())
-        stm << ", ";
-    }
-    else if (needsGenericProxyDefinition() && func.isConstructor())
-    {
-      stm << longName() << "* __zz_cib_proxy";
-      if (func.hasParams())
-        stm << ", ";
-    }
-    func.emitArgsForDecl(stm, helper, true, kPurposeProxyProcType);
-    stm << ") {\n";
-    ++indentation;
-    if (func.isDestructor())
-    {
-      stm << indentation << "if (__zz_cib_obj) {\n";
-      ++indentation;
-    }
-    func.emitProcType(stm, helper, cibParams, false, indentation);
-    stm << indentation++ << "return instance().invoke<" << func.procType()
-        << ", __zz_cib_methodid::" << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
-    if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
-    {
-      stm << '\n' << indentation << "__zz_cib_obj";
-      if (func.hasParams())
-        stm << ",";
-    }
-    else if (needsGenericProxyDefinition() && func.isConstructor())
-    {
-      stm << '\n' << indentation << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
-      if (func.hasParams())
-        stm << ",";
-    }
-    stm << '\n' << indentation;
-    func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
-    stm << ");\n";
-    --indentation;
-    if (func.isDestructor())
-    {
-      --indentation;
-      stm << indentation << "}\n";
-    }
-    stm << --indentation << "}\n";
+    stm << "__zz_cib_HANDLE* __zz_cib_obj";
+    if (func.hasParams())
+      stm << ", ";
   }
+  else if (needsGenericProxyDefinition() && func.isConstructor())
+  {
+    stm << longName() << "* __zz_cib_proxy";
+    if (func.hasParams())
+      stm << ", ";
+  }
+  func.emitArgsForDecl(stm, helper, true, kPurposeProxyProcType);
+  stm << ") {\n";
+  ++indentation;
+  if (func.isDestructor())
+  {
+    stm << indentation << "if (__zz_cib_obj) {\n";
+    ++indentation;
+  }
+  func.emitProcType(stm, helper, cibParams, false, indentation);
+  stm << indentation++ << "return instance().invoke<" << func.procType()
+      << ", __zz_cib_methodid::" << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
+  if (isClassLike() && !func.isStatic() && !func.isConstructor() && !func.isCopyConstructor())
+  {
+    stm << '\n' << indentation << "__zz_cib_obj";
+    if (func.hasParams())
+      stm << ",";
+  }
+  else if (needsGenericProxyDefinition() && func.isConstructor())
+  {
+    stm << '\n' << indentation << "__zz_cib_proxy, __zz_cib_get_proxy_method_table()";
+    if (func.hasParams())
+      stm << ",";
+  }
+  stm << '\n' << indentation;
+  func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
+  stm << ");\n";
+  --indentation;
+  if (func.isDestructor())
+  {
+    --indentation;
+    stm << indentation << "}\n";
+  }
+  stm << --indentation << "}\n";
 }
 
 void CibCppCompound::emitHelperDefnStart(std::ostream&    stm,
@@ -1754,7 +1751,8 @@ void CibCppCompound::emitHelperDefn(std::ostream&    stm,
   stm << '\n';
   emitHelperDefnStart(stm, cibParams, indentation++);
   auto cibIdData = cibIdMgr.getCibIdData(longName());
-  emitFunctionInvokeHelper(stm, needsBridging_, helper, cibParams, cibIdData, indentation);
+  for (auto func : needsBridging_)
+    emitFunctionInvokeHelper(stm, func, helper, cibParams, cibIdData, indentation);
   emitCastingHelpers(stm, cibParams, cibIdData, indentation);
 
   if (isFacadeLike())
@@ -2047,93 +2045,95 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
                                     const CibIdMgr&  cibIdMgr,
                                     CppIndent        indentation /* = CppIndent */) const
 {
-  auto cibIdData = cibIdMgr.getCibIdData(longName());
-  if (!needsBridging_.empty())
-  {
-    if (needsGenericProxyDefinition())
-      emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
-    stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-    auto parentClass =
-      needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
-    std::string delegatee;
-    if (needsDelagatorClass())
-    {
-      stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
-      stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
-      stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
-      stm << indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)\n";
-      delegatee = "__zz_cib_Delegator";
-    }
-    else
-    {
-      stm << indentation << "namespace __zz_cib_Delegator {\n";
-      delegatee = parentClass;
-    }
-    if (isClassLike())
-      stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
-    else if (isNamespace())
-      stm << indentation << "namespace __zz_cib_Delegatee = " << delegatee << ";\n";
+  if (needsBridging_.empty())
+    return;
 
-    for (auto func : needsBridging_)
-    {
+  auto cibIdData = cibIdMgr.getCibIdData(longName());
+  if (needsGenericProxyDefinition())
+    emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
+  stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
+  auto parentClass =
+    needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
+  std::string delegatee;
+  if (needsDelagatorClass())
+  {
+    stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
+    stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
+    stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
+    stm << indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)\n";
+    delegatee = "__zz_cib_Delegator";
+  }
+  else
+  {
+    stm << indentation << "namespace __zz_cib_Delegator {\n";
+    delegatee = parentClass;
+  }
+  if (isClassLike())
+    stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
+  else if (isNamespace())
+    stm << indentation << "namespace __zz_cib_Delegatee = " << delegatee << ";\n";
+
+  std::unordered_set<std::string> funcSignatures;
+  for (auto func : needsBridging_)
+  {
+    if (funcSignatures.insert(func.signature(helper)).second)
       func.emitCAPIDefn(
         stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
-    }
-
-    forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
-      if (pubParent->isShared() || !pubParent->isEmpty())
-      {
-        auto castApiName = castToBaseName(pubParent, cibParams);
-        stm << indentation << "static " << pubParent->longName() << "* __zz_cib_decl "
-            << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
-        stm << ++indentation << "return __zz_cib_obj;\n";
-        stm << --indentation << "}\n";
-      }
-      return false;
-    });
-
-    if (isFacadeLike())
-    {
-      stm << indentation << "static std::uint32_t __zz_cib_decl "
-          << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "(" << longName() << "* __zz_cib_obj) {\n";
-      ++indentation;
-      stm << indentation << "static bool classIdRepoPopulated = false;\n";
-      stm << indentation << "if (!classIdRepoPopulated) {\n";
-      ++indentation;
-      forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
-        auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
-        if (cibIdData)
-        {
-          stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
-          stm << "__zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid;\n";
-        }
-      });
-      stm << indentation << "classIdRepoPopulated = true;\n";
-      --indentation;
-      stm << indentation << "}\n";
-      stm << indentation << "return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];\n";
-      stm << --indentation << "}\n";
-    }
-    if (needsGenericProxyDefinition())
-    {
-      stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy")
-          << "(" << longName() << "* __zz_cib_obj) {\n";
-      ++indentation;
-      stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName()
-          << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
-      stm << indentation << "if (unknownProxy)\n";
-      ++indentation;
-      stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
-      --indentation;
-      --indentation;
-      stm << indentation << "}\n";
-    }
-    if (needsDelagatorClass())
-      stm << --indentation << "};\n";
-    else
-      stm << --indentation << "}\n";
-    stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
   }
+
+  forEachAncestor(kPublic, [&](const CibCppCompound* pubParent) {
+    if (pubParent->isShared() || !pubParent->isEmpty())
+    {
+      auto castApiName = castToBaseName(pubParent, cibParams);
+      stm << indentation << "static " << pubParent->longName() << "* __zz_cib_decl "
+          << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
+      stm << ++indentation << "return __zz_cib_obj;\n";
+      stm << --indentation << "}\n";
+    }
+    return false;
+  });
+
+  if (isFacadeLike())
+  {
+    stm << indentation << "static std::uint32_t __zz_cib_decl "
+        << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "(" << longName() << "* __zz_cib_obj) {\n";
+    ++indentation;
+    stm << indentation << "static bool classIdRepoPopulated = false;\n";
+    stm << indentation << "if (!classIdRepoPopulated) {\n";
+    ++indentation;
+    forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
+      auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
+      if (cibIdData)
+      {
+        stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
+        stm << "__zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid;\n";
+      }
+    });
+    stm << indentation << "classIdRepoPopulated = true;\n";
+    --indentation;
+    stm << indentation << "}\n";
+    stm << indentation << "return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];\n";
+    stm << --indentation << "}\n";
+  }
+  if (needsGenericProxyDefinition())
+  {
+    stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy")
+        << "(" << longName() << "* __zz_cib_obj) {\n";
+    ++indentation;
+    stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName()
+        << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
+    stm << indentation << "if (unknownProxy)\n";
+    ++indentation;
+    stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
+    --indentation;
+    --indentation;
+    stm << indentation << "}\n";
+  }
+  if (needsDelagatorClass())
+    stm << --indentation << "};\n";
+  else
+    stm << --indentation << "}\n";
+  stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
 }
 
 void CibCppCompound::collectPublicCompounds(std::vector<const CibCppCompound*>& compounds) const

@@ -398,7 +398,7 @@ public:
                       const CibIdMgr&  cibIdMgr,
                       CppIndent        indentation = CppIndent()) const;
   void emitFunctionInvokeHelper(std::ostream&                 stm,
-                                const CibFunctionHelperArray& functions,
+                                const CibFunctionHelper       func,
                                 const CibHelper&              helper,
                                 const CibParams&              cibParams,
                                 const CibIdData*              cibIdData,
