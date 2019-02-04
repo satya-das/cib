@@ -97,7 +97,7 @@ public:
 ::Graphics::Composite* __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(h)) {
   case __zz_cib_::Graphics::Composite::__zz_cib_classid:
-    return __zz_cib_::Graphics::Composite::__zz_cib_Helper::__zz_cib_from_handle(h);
+    return new ::Graphics::Composite(h);
   default:
     return ::__zz_cib_::Graphics::Composite::__zz_cib_Generic::Composite::__zz_cib_from_handle(h);
   }

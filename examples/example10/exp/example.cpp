@@ -86,7 +86,7 @@ public:
   case __zz_cib_::B::__zz_cib_classid:
     return __zz_cib_::B::__zz_cib_Helper::__zz_cib_from_handle(h);
   case __zz_cib_::A::__zz_cib_classid:
-    return __zz_cib_::A::__zz_cib_Helper::__zz_cib_from_handle(h);
+    return new ::A(h);
   default:
     return ::__zz_cib_::A::__zz_cib_Generic::A::__zz_cib_from_handle(h);
   }

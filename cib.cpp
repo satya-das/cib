@@ -237,9 +237,9 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case CallType::kToHandle:
         if (resolvedType)
         {
+          stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
           if (effectivePtrLevel(param.varObj->varType_) == 2)
             stm << '&';
-          stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
         }
         else if (param.varObj->isByRef() || param.varObj->isByRValueRef())
         {
@@ -1357,7 +1357,16 @@ void CibCppCompound::emitFromHandleDefn(std::ostream&    stm,
     }
   };
   forEachDescendent(kPublic, [&](const CibCppCompound* derived) { emitCaseStmt(derived); });
-  emitCaseStmt(this);
+  if (!isAbstract())
+  {
+    auto cibIdData = cibIdMgr.getCibIdData(longName());
+    if (cibIdData)
+    {
+      stm << indentation << "case __zz_cib_::" << fullNsName() << "::__zz_cib_classid:\n";
+      stm << ++indentation << "return new " << longName() << "(h);\n";
+      --indentation;
+    }
+  }
   stm << indentation << "default:\n";
   stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
       << "::__zz_cib_from_handle(h);\n";
@@ -2111,6 +2120,8 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
         stm << "__zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid;\n";
       }
     });
+    stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << longName() << "))] = ";
+    stm << "__zz_cib_::" << fullNsName() << "::__zz_cib_classid;\n";
     stm << indentation << "classIdRepoPopulated = true;\n";
     --indentation;
     stm << indentation << "}\n";

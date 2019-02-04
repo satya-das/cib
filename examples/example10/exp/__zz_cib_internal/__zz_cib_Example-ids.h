@@ -30,7 +30,11 @@ namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_met
     GetNewA_0 = 0,
     //#= int GetNewB(::A*&);
     GetNewB_1 = 1,
-    __zz_cib_next_method_id = 2
+    //#= int GetNewA(::A const *&);
+    GetNewA_2 = 2,
+    //#= int GetNewB(::A const *&);
+    GetNewB_3 = 3,
+    __zz_cib_next_method_id = 4
   };
 }}}
 

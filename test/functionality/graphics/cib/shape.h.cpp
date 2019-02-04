@@ -84,6 +84,7 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_5(::Graphics::Shape* __
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] = __zz_cib_::Graphics::Composite::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] = __zz_cib_::Graphics::Ellipse::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] = __zz_cib_::Graphics::Rectangle::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Shape))] = __zz_cib_::Graphics::Shape::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
   return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

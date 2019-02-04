@@ -30,5 +30,7 @@ private:
 };
 int GetNewA(A*& pA);
 int GetNewB(A*& pA);
+int GetNewA(A const *& pA);
+int GetNewB(A const *& pA);
 
 #include "__zz_cib_internal/example-impl.h"

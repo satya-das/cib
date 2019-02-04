@@ -2,15 +2,31 @@
 
 #include <catch/catch.hpp>
 
+#include <iostream>
+#include <typeindex>
+#include <typeinfo>
+
 TEST_CASE("Reference to pointer")
 {
   A* pA = nullptr;
   GetNewA(pA);
-  REQUIRE(typeid(pA) == typeid(A));
+  std::cerr << typeid(*pA).name();
+  CHECK(std::type_index(typeid(*pA)) == std::type_index(typeid(A)));
   delete pA;
 
   pA = nullptr;
   GetNewB(pA);
-  REQUIRE(typeid(pA) == typeid(B));
+  REQUIRE(std::type_index(typeid(*pA)) == std::type_index(typeid(B)));
   delete pA;
+
+  const A* pCA = nullptr;
+  GetNewA(pCA);
+  std::cerr << typeid(*pCA).name();
+  CHECK(std::type_index(typeid(*pCA)) == std::type_index(typeid(A)));
+  delete pCA;
+
+  pA = nullptr;
+  GetNewB(pCA);
+  REQUIRE(std::type_index(typeid(*pCA)) == std::type_index(typeid(B)));
+  delete pCA;
 }

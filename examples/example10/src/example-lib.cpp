@@ -23,3 +23,17 @@ int GetNewB(A*& pA)
 
   return 100;
 }
+
+int GetNewA(const A*& pA)
+{
+  pA = new A;
+
+  return 500;
+}
+
+int GetNewB(const A*& pA)
+{
+  pA = new B;
+
+  return 1000;
+}

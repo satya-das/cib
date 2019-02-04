@@ -6,6 +6,11 @@ RValueExample::RValueExample(RValueExample&& x)
   x.mValue = 0;
 }
 
+RValueExample::RValueExample(const RValueExample& x)
+  : mValue(x.mValue)
+{
+}
+
 RValueExample& RValueExample::operator=(RValueExample&& rhs)
 {
   mValue     = rhs.mValue;

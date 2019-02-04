@@ -101,6 +101,7 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_10(::IF* __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::IF))] = __zz_cib_::IF::__zz_cib_classid;
       classIdRepoPopulated = true;
     }
     return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

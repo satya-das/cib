@@ -20,22 +20,26 @@ RValueExample::RValueExample(::RValueExample&& __zz_cib_param0)
   : RValueExample(__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_new_2(__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
-::RValueExample& RValueExample::operator=(::RValueExample&& rhs) {
-  return *__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_OperatorEqual_3(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(rhs))
-  );
-}
+RValueExample::RValueExample(::RValueExample const & __zz_cib_param0)
+  : RValueExample(__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_copy_3(__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
 
-::RValueExample& RValueExample::operator=(::RValueExample const & rhs) {
+::RValueExample& RValueExample::operator=(::RValueExample&& rhs) {
   return *__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_from_handle(
     __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_OperatorEqual_4(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(rhs))
   );
 }
 
+::RValueExample& RValueExample::operator=(::RValueExample const & rhs) {
+  return *__zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_from_handle(
+    __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_OperatorEqual_5(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(rhs))
+  );
+}
+
 std::int32_t RValueExample::Set(::RValueExample&& x) {
-  return __zz_cib_::RValueExample::__zz_cib_Helper::Set_5(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(x));
+  return __zz_cib_::RValueExample::__zz_cib_Helper::Set_6(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(x));
 }
 
 std::int32_t RValueExample::GetValue() const {
-  return __zz_cib_::RValueExample::__zz_cib_Helper::GetValue_6(__zz_cib_h_);
+  return __zz_cib_::RValueExample::__zz_cib_Helper::GetValue_7(__zz_cib_h_);
 }

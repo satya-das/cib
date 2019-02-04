@@ -88,6 +88,7 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context* 
   static bool classIdRepoPopulated = false;
   if (!classIdRepoPopulated) {
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] = __zz_cib_::Graphics::LogContext::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Context))] = __zz_cib_::Graphics::Context::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
   return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];

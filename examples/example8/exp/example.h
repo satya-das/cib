@@ -9,6 +9,7 @@ public:
   ~RValueExample();
   RValueExample(std::int32_t val);
   RValueExample(RValueExample&& );
+  RValueExample(RValueExample const & );
   RValueExample& operator=(RValueExample&& rhs);
   RValueExample& operator=(RValueExample const & rhs);
   std::int32_t Set(RValueExample&& x);
