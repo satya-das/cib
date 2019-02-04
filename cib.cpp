@@ -953,6 +953,7 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
+  stm << "#pragma once\n\n";
   emitCommonExpHeaders(stm, cibParams);
 
   forEachNested([&](const CibCppCompound* nested) {
@@ -968,7 +969,6 @@ void CibCppCompound::emitImplHeader(const CibHelper& helper, const CibParams& ci
 
 void CibCppCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams)
 {
-  stm << "#pragma once\n\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
@@ -1564,12 +1564,12 @@ void CibCppCompound::emitHelperDecl(std::ostream&    stm,
   }
 }
 
-void CibCppCompound::emitFunctionInvokeHelper(std::ostream&                 stm,
-                                              const CibFunctionHelper       func,
-                                              const CibHelper&              helper,
-                                              const CibParams&              cibParams,
-                                              const CibIdData*              cibIdData,
-                                              CppIndent                     indentation /* = CppIndent */) const
+void CibCppCompound::emitFunctionInvokeHelper(std::ostream&           stm,
+                                              const CibFunctionHelper func,
+                                              const CibHelper&        helper,
+                                              const CibParams&        cibParams,
+                                              const CibIdData*        cibIdData,
+                                              CppIndent               indentation /* = CppIndent */) const
 {
   if (func.isPureVirtual() && !func.isDestructor())
     return;
@@ -2097,8 +2097,8 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
 
   if (isFacadeLike())
   {
-    stm << indentation << "static std::uint32_t __zz_cib_decl "
-        << cibIdData->getMethodCApiName("__zz_cib_get_class_id") << "(" << longName() << "* __zz_cib_obj) {\n";
+    stm << indentation << "static std::uint32_t __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_get_class_id")
+        << "(" << longName() << "* __zz_cib_obj) {\n";
     ++indentation;
     stm << indentation << "static bool classIdRepoPopulated = false;\n";
     stm << indentation << "if (!classIdRepoPopulated) {\n";
@@ -2119,8 +2119,8 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
   }
   if (needsGenericProxyDefinition())
   {
-    stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy")
-        << "(" << longName() << "* __zz_cib_obj) {\n";
+    stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "("
+        << longName() << "* __zz_cib_obj) {\n";
     ++indentation;
     stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName()
         << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
