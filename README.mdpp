@@ -119,6 +119,7 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Support protected methods			    | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
 | Support private pure virtual		  | Private pure virtual is used in template method design pattern. | Done|
 | Rvalue reference parameter        | RValue references need to cross component boundary. | Done|
+| Support of free functions         | Free functions in global and orher namespaces too should be supported. | Done |
 | Use CIB for real production SDK   | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
@@ -299,9 +300,9 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 #### Library Gateway function
 
-**File: __zz_cib_Example.cpp**:
+**File: __zz_cib_Example-gateway.cpp**:
 
-!INCLUDECODE "examples/example1/cib/__zz_cib_Example.cpp" (c++)
+!INCLUDECODE "examples/example1/cib/__zz_cib_Example-gateway.cpp" (c++)
 
 We see implementation of function `__zz_cib_Example_GetMethodTable`. *`Example` in name is because it is the name of module supplied as value of `-m` command line parameter*. This function is like gateway for client to access all functionality of the library. This function returns the method table for a given class-id. In previous section we had already seen implementation of `__zz_cib_GetMethodTable` for classes which is called from here. Since our trivial example had just one class there is just one `case` statement, had there been more classes there would have been more case statements. In later examples we will see those cases as well.
 

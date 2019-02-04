@@ -167,6 +167,7 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Support protected methods			    | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
 | Support private pure virtual		  | Private pure virtual is used in template method design pattern. | Done|
 | Rvalue reference parameter        | RValue references need to cross component boundary. | Done|
+| Support of free functions         | Free functions in global and orher namespaces too should be supported. | Done |
 | Use CIB for real production SDK   | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **IN PROGRESS** |
 | Use CIB for real production SDK   | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
@@ -616,7 +617,7 @@ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
 static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
 }
-};
+}
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {
@@ -643,7 +644,7 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 #### 10.3.3\. Library Gateway function
 
-**File: __zz_cib_Example.cpp**:
+**File: __zz_cib_Example-gateway.cpp**:
 
 ```c++
 #include "__zz_cib_Example-decl.h"
@@ -828,6 +829,15 @@ private:
   friend class ::Example::A;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper>;
 
+  __zz_cib_Helper()
+    : __zz_cib_::__zz_cib_MethodTableHelper(
+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+  {}
+  static __zz_cib_Helper& instance() {
+    static __zz_cib_Helper helper;
+    return helper;
+  }
+
   static __zz_cib_HANDLE* __zz_cib_new_0() {
     using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
@@ -852,30 +862,21 @@ private:
       __zz_cib_obj
       );
   }
-  __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-  {}
-  static __zz_cib_Helper& instance() {
-    static __zz_cib_Helper helper;
-    return helper;
-  }
-
   static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::Example::A(h);
   }
 public:
-  static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-    return ::Example::A(h);
-  }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_h_;
-  }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
-    auto h = __zz_cib_obj->__zz_cib_h_;
-    __zz_cib_obj->__zz_cib_h_ = nullptr;
-    return h;
-  }
+    static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+      return ::Example::A(h);
+    }
+    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
+      auto h = __zz_cib_obj->__zz_cib_h_;
+      __zz_cib_obj->__zz_cib_h_ = nullptr;
+      return h;
+    }
 };
 }}}
 
@@ -1056,7 +1057,7 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -17,21 +17,59 @@
+@@ -17,6 +17,9 @@
  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
    delete __zz_cib_obj;
  }
@@ -1066,9 +1067,18 @@ Please note that none of the IDs that were used by previous version are changed,
  static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
    return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
  }
- };
- }}}
- 
+@@ -29,9 +32,44 @@
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
+-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_4)
++  };
++  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
++  return &methodTable;
++}
++}}}
 +namespace __zz_cib_ { namespace Example { namespace B {
 +namespace __zz_cib_Delegator {
 +using __zz_cib_Delegatee = ::Example::B;
@@ -1087,23 +1097,9 @@ Please note that none of the IDs that were used by previous version are changed,
 +static ::Example::A* __zz_cib_decl __zz_cib_cast_to___Example__A_4(::Example::B* __zz_cib_obj) {
 +  return __zz_cib_obj;
 +}
-+};
-+}}}
-+
- namespace __zz_cib_ { namespace Example { namespace A {
- const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-   static const __zz_cib_MTableEntry methodArray[] = {
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
--    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3)
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_4)
-+  };
-+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
-+  return &methodTable;
 +}
 +}}}
++
 +namespace __zz_cib_ { namespace Example { namespace B {
 +const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 +  static const __zz_cib_MTableEntry methodArray[] = {
@@ -1184,7 +1180,7 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 ```diff
 --- ../example1/exp/__zz_cib_internal/example-impl.h
 +++ exp/__zz_cib_internal/example-impl.h
-@@ -30,6 +30,12 @@
+@@ -39,6 +39,12 @@
          );
      }
    }
@@ -1198,8 +1194,8 @@ Definition of proxy classes is as expected. No surprises there. The class defini
      using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
 @@ -61,4 +67,67 @@
-     return h;
-   }
+       return h;
+     }
  };
 +}}}
 +
@@ -1209,6 +1205,15 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +private:
 +  friend class ::Example::B;
 +  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::B, __zz_cib_Helper>;
++
++  __zz_cib_Helper()
++    : __zz_cib_::__zz_cib_MethodTableHelper(
++      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
++  {}
++  static __zz_cib_Helper& instance() {
++    static __zz_cib_Helper helper;
++    return helper;
++  }
 +
 +  static __zz_cib_HANDLE* __zz_cib_new_0() {
 +    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
@@ -1238,31 +1243,22 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +    using __zz_cib_cast_to___Example__AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
 +    return instance().invoke<__zz_cib_cast_to___Example__AProc, __zz_cib_methodid::__zz_cib_cast_to___Example__A_4>(__zz_cib_obj);
 +  }
-+  __zz_cib_Helper()
-+    : __zz_cib_::__zz_cib_MethodTableHelper(
-+      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-+  {}
-+  static __zz_cib_Helper& instance() {
-+    static __zz_cib_Helper helper;
-+    return helper;
-+  }
-+
 +  static ::Example::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
 +    return new ::Example::B(h);
 +  }
 +public:
-+  static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-+    return ::Example::B(h);
-+  }
-+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::B* __zz_cib_obj) {
-+    return __zz_cib_obj->__zz_cib_h_;
-+  }
-+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {
-+    auto h = __zz_cib_obj->__zz_cib_h_;
-+    __zz_cib_obj->__zz_cib_h_ = nullptr;
-+    __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
-+    return h;
-+  }
++    static ::Example::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
++      return ::Example::B(h);
++    }
++    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::B* __zz_cib_obj) {
++      return __zz_cib_obj->__zz_cib_h_;
++    }
++    static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {
++      auto h = __zz_cib_obj->__zz_cib_h_;
++      __zz_cib_obj->__zz_cib_h_ = nullptr;
++      __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
++      return h;
++    }
 +};
  }}}
 
