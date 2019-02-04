@@ -10,6 +10,7 @@ public:
   {
   }
   RValueExample(RValueExample&&);
+  RValueExample(const RValueExample&);
 
   RValueExample& operator=(RValueExample&& rhs);
   RValueExample& operator=(const RValueExample& rhs);

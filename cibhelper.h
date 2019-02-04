@@ -101,6 +101,14 @@ private:
   CppObj* resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode) const;
   CppObj* resolveTypename(const std::string& name, const CppCompound* begScope) const;
 
+  /**
+   * Itmay happen a class is not directly identifiable as facades.
+   * But if it has pure virtual and it's parent is facade then may be this class
+   * too is used as facade.
+   */
+  void identifyPobableFacades(CibCppCompound* compound);
+  void identifyAbstract(CibCppCompound* compound);
+
 private:
   bool cibCppObjTreeCreated_;
 

@@ -77,16 +77,48 @@ static void __zz_cib_decl Draw_3(const __zz_cib_Delegatee* __zz_cib_obj, ::Graph
 static void __zz_cib_decl __zz_cib_delete_4(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_5(::Graphics::Shape* __zz_cib_obj) {
+static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_5(::Graphics::Shape** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
   if (!classIdRepoPopulated) {
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Circle))] = __zz_cib_::Graphics::Circle::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Composite))] = __zz_cib_::Graphics::Composite::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Ellipse))] = __zz_cib_::Graphics::Ellipse::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Rectangle))] = __zz_cib_::Graphics::Rectangle::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Shape))] = __zz_cib_::Graphics::Shape::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
-  return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+  auto tdx = std::type_index(typeid(**__zz_cib_obj));
+  auto itr = __zz_cib_gClassIdRepo.find(tdx);
+  if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
+  {
+    auto* obj = dynamic_cast<::Graphics::Circle*>(*__zz_cib_obj);
+    if (obj) {
+      *__zz_cib_obj = obj;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::Graphics::Circle::__zz_cib_classid;
+    }
+  }
+  {
+    auto* obj = dynamic_cast<::Graphics::Composite*>(*__zz_cib_obj);
+    if (obj) {
+      *__zz_cib_obj = obj;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::Graphics::Composite::__zz_cib_classid;
+    }
+  }
+  {
+    auto* obj = dynamic_cast<::Graphics::Ellipse*>(*__zz_cib_obj);
+    if (obj) {
+      *__zz_cib_obj = obj;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::Graphics::Ellipse::__zz_cib_classid;
+    }
+  }
+  {
+    auto* obj = dynamic_cast<::Graphics::Rectangle*>(*__zz_cib_obj);
+    if (obj) {
+      *__zz_cib_obj = obj;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::Graphics::Rectangle::__zz_cib_classid;
+    }
+  }
+  return __zz_cib_::Graphics::Shape::__zz_cib_classid;
 }
 static void __zz_cib_decl __zz_cib_release_proxy_6(::Graphics::Shape* __zz_cib_obj) {
   auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Shape::__zz_cib_GenericProxy::Shape*>(__zz_cib_obj);

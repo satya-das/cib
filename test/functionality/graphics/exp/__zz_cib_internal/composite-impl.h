@@ -84,8 +84,8 @@ private:
     using __zz_cib_cast_to___Graphics__ShapeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
     return instance().invoke<__zz_cib_cast_to___Graphics__ShapeProc, __zz_cib_methodid::__zz_cib_cast_to___Graphics__Shape_10>(__zz_cib_obj);
   }
-  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
     return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_11>(__zz_cib_obj);
   }
   static ::Graphics::Composite* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
@@ -94,6 +94,9 @@ public:
       return ::Graphics::Composite(h);
     }
     static __zz_cib_HANDLE*& __zz_cib_get_handle(::Graphics::Composite* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Graphics::Composite* __zz_cib_obj) {
       return __zz_cib_obj->__zz_cib_h_;
     }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::Graphics::Composite* __zz_cib_obj) {

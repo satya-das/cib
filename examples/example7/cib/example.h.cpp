@@ -98,12 +98,16 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
   static void __zz_cib_decl PrivateVirtual_9(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->PrivateVirtual();
   }
-  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_10(::IF* __zz_cib_obj) {
+  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_10(::IF** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::IF))] = __zz_cib_::IF::__zz_cib_classid;
       classIdRepoPopulated = true;
     }
-    return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+    auto tdx = std::type_index(typeid(**__zz_cib_obj));
+    auto itr = __zz_cib_gClassIdRepo.find(tdx);
+    if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
+    return __zz_cib_::IF::__zz_cib_classid;
   }
   static void __zz_cib_decl __zz_cib_release_proxy_11(::IF* __zz_cib_obj) {
     auto unknownProxy = dynamic_cast<__zz_cib_::IF::__zz_cib_GenericProxy::IF*>(__zz_cib_obj);

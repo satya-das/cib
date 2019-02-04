@@ -94,6 +94,10 @@ void CibHelper::buildCibCppObjTree()
   for (auto fileDom : program_->getFileDOMs())
     markClassType(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
+    identifyAbstract(static_cast<CibCppCompound*>(fileDom));
+  for (auto fileDom : program_->getFileDOMs())
+    identifyPobableFacades(static_cast<CibCppCompound*>(fileDom));
+  for (auto fileDom : program_->getFileDOMs())
     markNeedsGenericProxyDefinition(static_cast<CibCppCompound*>(fileDom));
   for (auto fileDom : program_->getFileDOMs())
     static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
@@ -277,6 +281,39 @@ void CibHelper::markNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
       if (compound->isInterfaceLike())
       {
         setNeedsGenericProxyDefinition(compound);
+      }
+    }
+  }
+}
+
+void CibHelper::identifyAbstract(CibCppCompound* cppCompound)
+{
+  for (auto mem : cppCompound->members_)
+  {
+    if (mem->objType_ == CppObj::kCompound)
+    {
+      auto compound = static_cast<CibCppCompound*>(mem);
+      identifyAbstract(compound);
+      compound->identifyAbstract(*this);
+    }
+  }
+}
+
+void CibHelper::identifyPobableFacades(CibCppCompound* cppCompound)
+{
+  for (auto mem : cppCompound->members_)
+  {
+    if (mem->objType_ == CppObj::kCompound)
+    {
+      auto compound = static_cast<CibCppCompound*>(mem);
+      identifyPobableFacades(compound);
+      if (!compound->isFacadeLike() && compound->isAbstract())
+      {
+        compound->forEachAncestor([compound](const CibCppCompound* ancestor) {
+          if (ancestor->isFacadeLike())
+            compound->setFacadeLike();
+          return ancestor->isFacadeLike();
+        });
       }
     }
   }

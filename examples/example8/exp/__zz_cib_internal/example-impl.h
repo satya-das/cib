@@ -39,27 +39,32 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       __zz_cib_param0);
   }
-  static __zz_cib_HANDLE* __zz_cib_OperatorEqual_3(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* rhs) {
-    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* rhs);
-    return instance().invoke<__zz_cib_OperatorEqualProc, __zz_cib_methodid::__zz_cib_OperatorEqual_3>(
-      __zz_cib_obj,
-      rhs);
+  static __zz_cib_HANDLE* __zz_cib_copy_3(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_3>(
+      __zz_cib_param0);
   }
-  static __zz_cib_HANDLE* __zz_cib_OperatorEqual_4(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE const * rhs) {
-    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE const * rhs);
+  static __zz_cib_HANDLE* __zz_cib_OperatorEqual_4(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* rhs) {
+    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* rhs);
     return instance().invoke<__zz_cib_OperatorEqualProc, __zz_cib_methodid::__zz_cib_OperatorEqual_4>(
       __zz_cib_obj,
       rhs);
   }
-  static std::int32_t Set_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* x) {
+  static __zz_cib_HANDLE* __zz_cib_OperatorEqual_5(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE const * rhs) {
+    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE const * rhs);
+    return instance().invoke<__zz_cib_OperatorEqualProc, __zz_cib_methodid::__zz_cib_OperatorEqual_5>(
+      __zz_cib_obj,
+      rhs);
+  }
+  static std::int32_t Set_6(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* x) {
     using SetProc = std::int32_t (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* x);
-    return instance().invoke<SetProc, __zz_cib_methodid::Set_5>(
+    return instance().invoke<SetProc, __zz_cib_methodid::Set_6>(
       __zz_cib_obj,
       x);
   }
-  static std::int32_t GetValue_6(__zz_cib_HANDLE* __zz_cib_obj) {
+  static std::int32_t GetValue_7(__zz_cib_HANDLE* __zz_cib_obj) {
     using GetValueProc = std::int32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue_6>(
+    return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue_7>(
       __zz_cib_obj
       );
   }
@@ -71,6 +76,9 @@ public:
       return ::RValueExample(h);
     }
     static __zz_cib_HANDLE*& __zz_cib_get_handle(::RValueExample* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::RValueExample* __zz_cib_obj) {
       return __zz_cib_obj->__zz_cib_h_;
     }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::RValueExample* __zz_cib_obj) {

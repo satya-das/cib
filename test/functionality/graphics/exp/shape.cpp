@@ -37,7 +37,7 @@ class Shape : public ::Graphics::Shape {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Shape(__zz_cib_HANDLE* h) : ::Graphics::Shape(h) {}
+  Shape(__zz_cib_HANDLE* h) : ::Graphics::Shape(h), __zz_cib_h_(h) {}
 public:
   static ::Graphics::Shape* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Shape(h);
@@ -67,7 +67,7 @@ public:
 };
 }}}}
 ::Graphics::Shape* __zz_cib_::Graphics::Shape::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-  switch(__zz_cib_get_class_id(h)) {
+  switch(__zz_cib_get_class_id(&h)) {
   case __zz_cib_::Graphics::Circle::__zz_cib_classid:
     return __zz_cib_::Graphics::Circle::__zz_cib_Helper::__zz_cib_from_handle(h);
   case __zz_cib_::Graphics::Composite::__zz_cib_classid:

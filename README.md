@@ -872,6 +872,9 @@ public:
     static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
       return __zz_cib_obj->__zz_cib_h_;
     }
+    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
       auto h = __zz_cib_obj->__zz_cib_h_;
       __zz_cib_obj->__zz_cib_h_ = nullptr;
@@ -1193,7 +1196,7 @@ Definition of proxy classes is as expected. No surprises there. The class defini
    static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
      using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
-@@ -61,4 +67,67 @@
+@@ -64,4 +70,70 @@
        return h;
      }
  };
@@ -1251,6 +1254,9 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 +      return ::Example::B(h);
 +    }
 +    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::B* __zz_cib_obj) {
++      return __zz_cib_obj->__zz_cib_h_;
++    }
++    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::B* __zz_cib_obj) {
 +      return __zz_cib_obj->__zz_cib_h_;
 +    }
 +    static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::B* __zz_cib_obj) {

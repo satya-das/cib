@@ -15,11 +15,11 @@ namespace Example
     }
     _T GetValue() const
     {
-        return x_;
+      return x_;
     }
     void SetValue(_T x)
     {
-        x_ = x;
+      x_ = x;
     }
   private:
     _T x_;

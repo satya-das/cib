@@ -85,7 +85,7 @@ class IF : public ::IF {
       __zz_cib_classid));
     return mtableHelper;
   }
-  IF(__zz_cib_HANDLE* h) : ::IF(h) {}
+  IF(__zz_cib_HANDLE* h) : ::IF(h), __zz_cib_h_(h) {}
 public:
   static ::IF* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new IF(h);
@@ -123,7 +123,7 @@ public:
 };
 }}}
 ::IF* __zz_cib_::IF::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-  switch(__zz_cib_get_class_id(h)) {
+  switch(__zz_cib_get_class_id(&h)) {
   default:
     return ::__zz_cib_::IF::__zz_cib_Generic::IF::__zz_cib_from_handle(h);
   }

@@ -1,6 +1,7 @@
 project(cib)
 
 cmake_minimum_required(VERSION 3.4)
+enable_testing()
 
 include("../common/cmake/conf.cmake")
 
@@ -73,7 +74,7 @@ target_include_directories(cib
 )
 add_dependencies(cib CibResources)
 
-set(EXAMPLES example1 example2 example5 example6 example7 example8 example9)
+set(EXAMPLES example1 example2 example5 example6 example7 example8 example9 example10)
 add_subdirectory(examples)
 
 add_subdirectory(test)

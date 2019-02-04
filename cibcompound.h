@@ -206,6 +206,7 @@ public:
   const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
   /// Identifies mothods that need to be bridged
   void identifyMethodsToBridge(const CibHelper& helper);
+  void identifyAbstract(const CibHelper& helper);
   bool needsBridging() const
   {
     return (!needsBridging_.empty()) || isFacadeLike();

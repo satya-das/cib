@@ -84,13 +84,24 @@ static void __zz_cib_decl Ellipse_4(__zz_cib_Delegatee* __zz_cib_obj, double cx,
 static void __zz_cib_decl __zz_cib_delete_5(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context* __zz_cib_obj) {
+static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::Graphics::Context** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
   if (!classIdRepoPopulated) {
     __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::LogContext))] = __zz_cib_::Graphics::LogContext::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::Graphics::Context))] = __zz_cib_::Graphics::Context::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
-  return __zz_cib_gClassIdRepo[std::type_index(typeid(*__zz_cib_obj))];
+  auto tdx = std::type_index(typeid(**__zz_cib_obj));
+  auto itr = __zz_cib_gClassIdRepo.find(tdx);
+  if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
+  {
+    auto* obj = dynamic_cast<::Graphics::LogContext*>(*__zz_cib_obj);
+    if (obj) {
+      *__zz_cib_obj = obj;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::Graphics::LogContext::__zz_cib_classid;
+    }
+  }
+  return __zz_cib_::Graphics::Context::__zz_cib_classid;
 }
 static void __zz_cib_decl __zz_cib_release_proxy_7(::Graphics::Context* __zz_cib_obj) {
   auto unknownProxy = dynamic_cast<__zz_cib_::Graphics::Context::__zz_cib_GenericProxy::Context*>(__zz_cib_obj);

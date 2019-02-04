@@ -85,6 +85,9 @@ public:
     static __zz_cib_HANDLE*& __zz_cib_get_handle(::Point* __zz_cib_obj) {
       return __zz_cib_obj->__zz_cib_h_;
     }
+    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Point* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::Point* __zz_cib_obj) {
       __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
       auto h = __zz_cib_obj->__zz_cib_h_;

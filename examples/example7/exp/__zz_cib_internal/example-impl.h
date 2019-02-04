@@ -66,13 +66,16 @@ private:
       __zz_cib_obj
       );
   }
-  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
     return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_10>(__zz_cib_obj);
   }
   static ::IF* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 public:
   static __zz_cib_HANDLE*& __zz_cib_get_handle(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::IF* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::IF* __zz_cib_obj) {
@@ -145,6 +148,9 @@ public:
       return ::A(h);
     }
     static __zz_cib_HANDLE*& __zz_cib_get_handle(::A* __zz_cib_obj) {
+      return __zz_cib_obj->__zz_cib_h_;
+    }
+    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::A* __zz_cib_obj) {
       return __zz_cib_obj->__zz_cib_h_;
     }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {

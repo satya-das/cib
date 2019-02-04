@@ -11,6 +11,7 @@ set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 
 add_custom_target(DiffsForReadMe ALL)
 set(EXAMPLE_HEADERS "")
+
 foreach(example ${EXAMPLES})
     set(example_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/${example})
     set(LIBNAME ${example}_lib)
@@ -86,6 +87,7 @@ foreach(example ${EXAMPLES})
 	    ${CLIENT_SOURCES}
 	    ${EXP_SOURCES}
     )
+    add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
     target_include_directories(${CLIENTNAME}
 	    PRIVATE
 		    ${example_ROOT}/exp
