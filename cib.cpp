@@ -315,8 +315,10 @@ void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
     stm << "static ";
   else if (isVirtual())
     stm << "virtual ";
+  /* inline will not remain inline.
   else if (isInline())
     stm << "inline ";
+  */
   emitSignature(stm, helper, purpose);
   if (isPureVirtual())
     stm << " = 0";
