@@ -1718,6 +1718,9 @@ void CibCppCompound::emitHandleHelpers(std::ostream&    stm,
   stm << indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
+  stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName() << "* __zz_cib_obj) {\n";
+  stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
+  stm << --indentation << "}\n";
   stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
   ++indentation;
   if (isShared())

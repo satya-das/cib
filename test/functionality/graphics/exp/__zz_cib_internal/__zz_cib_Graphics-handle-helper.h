@@ -86,7 +86,6 @@ template <typename _ProxyClass, typename _Helper>
 class __zz_cib_ObjectCompanion<_ProxyClass* const*, _Helper>
 {
   _ProxyClass* const* mObj;
-  __zz_cib_HANDLE*    mHandle{nullptr};
 
 public:
   __zz_cib_ObjectCompanion(_ProxyClass* const* obj)
@@ -95,12 +94,7 @@ public:
   }
   operator __zz_cib_HANDLE* const*()
   {
-    return &mHandle;
-  }
-  ~__zz_cib_ObjectCompanion()
-  {
-    if (mHandle)
-      *mObj = _Helper::__zz_cib_from_handle(mHandle);
+    return &_Helper::__zz_cib_get_handle(*mObj);;
   }
 };
 
