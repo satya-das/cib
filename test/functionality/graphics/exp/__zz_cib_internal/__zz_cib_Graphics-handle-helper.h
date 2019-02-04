@@ -141,6 +141,14 @@ public:
     auto& dis = _Helper::instance();
     dis.removeProxy(h);
   }
+  template <typename T>
+  static __zz_cib_ObjectCompanion<T, _Helper> __zz_cib_handle(T __zz_cib_obj)
+  {
+    return __zz_cib_ObjectCompanion<T, _Helper>(__zz_cib_obj);
+  }
+
+  // HACK: We don't need these statics but without them some tests are crashing.
+  // Looks like the generated instructions are wrong.
   static __zz_cib_HANDLE*& __zz_cib_handle(_ProxyClass* __zz_cib_obj)
   {
     return _Helper::__zz_cib_get_handle(__zz_cib_obj);
@@ -157,11 +165,7 @@ public:
   {
     return _Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(&__zz_cib_obj));
   }
-  template <typename T>
-  static __zz_cib_ObjectCompanion<T, _Helper> __zz_cib_handle(T __zz_cib_obj)
-  {
-    return __zz_cib_ObjectCompanion<T, _Helper>(__zz_cib_obj);
-  }
+  // HACK End.
 
 private:
   _ProxyClass*& findProxy(__zz_cib_HANDLE* h)
