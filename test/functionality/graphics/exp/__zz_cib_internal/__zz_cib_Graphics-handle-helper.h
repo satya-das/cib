@@ -141,6 +141,22 @@ public:
     auto& dis = _Helper::instance();
     dis.removeProxy(h);
   }
+  static __zz_cib_HANDLE*& __zz_cib_handle(_ProxyClass* __zz_cib_obj)
+  {
+    return _Helper::__zz_cib_get_handle(__zz_cib_obj);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_handle(_ProxyClass& __zz_cib_obj)
+  {
+    return _Helper::__zz_cib_get_handle(&__zz_cib_obj);
+  }
+  static const __zz_cib_HANDLE*& __zz_cib_handle(const _ProxyClass* __zz_cib_obj)
+  {
+    return const_cast<const __zz_cib_HANDLE*&>(_Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(__zz_cib_obj)));
+  }
+  static __zz_cib_HANDLE*& __zz_cib_handle(const _ProxyClass& __zz_cib_obj)
+  {
+    return _Helper::__zz_cib_get_handle(const_cast<_ProxyClass*>(&__zz_cib_obj));
+  }
   template <typename T>
   static __zz_cib_ObjectCompanion<T, _Helper> __zz_cib_handle(T __zz_cib_obj)
   {
