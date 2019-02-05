@@ -107,7 +107,7 @@ public:
   }
 
 public:
-  using MethodVisitor   = std::function<void(CibMethodId, const CibMethodCAPIName&, const CibMethodSignature&)>;
+  using MethodVisitor = std::function<void(CibMethodId, const CibMethodCAPIName&, const CibMethodSignature&)>;
   /*!
    * Visits each methods in ascending order of their id.
    * @return Id of next method if that gets added.

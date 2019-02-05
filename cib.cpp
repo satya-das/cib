@@ -87,6 +87,8 @@ static void emitType(std::ostream&         stm,
   auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : nullptr);
   auto* resolvedType =
     resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+  if (resolvedType && resolvedType->isPodStruct())
+    resolvedType = nullptr;
 
   bool emitHandle   = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
   bool convertToPtr = (purpose & kPurposeGlueCode) && (purpose != kPurposeGenericProxy);
@@ -218,6 +220,8 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     auto* resolvedCppObj = getOwner()->resolveTypeName(param.varObj->baseType(), helper);
     auto* resolvedType =
       resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+    if (resolvedType && resolvedType->isPodStruct())
+      resolvedType = nullptr;
     switch (callType)
     {
       case CallType::kFromHandle:
@@ -431,6 +435,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       resolvedType =
         resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+      if (resolvedType && resolvedType->isPodStruct())
+        resolvedType = nullptr;
 
       stm << "return ";
       if (resolvedType && forProxy)
@@ -553,6 +559,8 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       retType =
         resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+      if (retType && retType->isPodStruct())
+        retType = nullptr;
       if (retType && returnType()->isByValue())
       {
         stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
@@ -651,6 +659,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     (getOwner() && returnType() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
   auto* resolvedType =
     (resolvedCppObj && resolvedCppObj->isClassLike()) ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
+  if (resolvedType && resolvedType->isPodStruct())
+    resolvedType = nullptr;
   if (resolvedType && !genericProxy)
   {
     if (returnType()->isByValue())
@@ -1034,7 +1044,7 @@ void CibCppCompound::emitImplSource(const CibHelper& helper, const CibParams& ci
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
     forEachNested([&](const CibCppCompound* compound) {
-      if (!compound->isTemplated())
+      if (!compound->isTemplated() && (!compound->isInline() || compound->isShared()) && !compound->isPodStruct())
         compound->emitDefn(stm, false, helper, cibParams, cibIdMgr);
     });
     emitImplSource(stm, helper, cibParams, cibIdMgr);
@@ -1253,7 +1263,7 @@ void CibCppCompound::emitDecl(std::ostream&    stm,
                               const CibParams& cibParams,
                               CppIndent        indentation /* = CppIndent */) const
 {
-  if (isInline() && !isShared())
+  if (isPodStruct() || (isInline() && !isShared()))
   {
     gCppWriter.emit(this, stm, indentation);
     return;
@@ -1446,6 +1456,8 @@ void CibCppCompound::identifyMethodsToBridge(const CibHelper& helper)
   // A class that is inline and not shared don't need any bridging.
   // An inline class that is shared should be treated same as non-inline class.
   if (isInline() && !isShared())
+    return;
+  if (isPodStruct())
     return;
   if (name().empty())
     return;
@@ -1718,7 +1730,8 @@ void CibCppCompound::emitHandleHelpers(std::ostream&    stm,
   stm << indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName() << "* __zz_cib_obj) {\n";
+  stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName()
+      << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
   stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";

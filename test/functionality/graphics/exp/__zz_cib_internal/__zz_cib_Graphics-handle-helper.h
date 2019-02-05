@@ -94,7 +94,8 @@ public:
   }
   operator __zz_cib_HANDLE* const*()
   {
-    return &_Helper::__zz_cib_get_handle(*mObj);;
+    return &_Helper::__zz_cib_get_handle(*mObj);
+    ;
   }
 };
 
