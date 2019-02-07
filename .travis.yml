@@ -9,6 +9,9 @@ matrix:
             - g++-5
             - cmake-data
             - cmake
+          sources: &sources
+            - llvm-toolchain-precise-3.8
+            - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc && CXX=g++"
 
