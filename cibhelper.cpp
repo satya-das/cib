@@ -230,16 +230,24 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
     cppCompound->setIsInline();
     return;
   }
-  auto isInline = true;
-  auto isEmpty  = true;
+  auto isInline    = true;
+  auto isEmpty     = true;
+  auto isPodStruct = (cppCompound->isStruct() || cppCompound->isUnion());
   for (auto mem : cppCompound->members_)
   {
+    if (isPodStruct && !isMemberPublic(mem->protectionLevel(), cppCompound->compoundType_))
+      isPodStruct = false;
     if (mem->objType_ == CppObj::kCompound)
     {
-      markClassType(static_cast<CibCppCompound*>(mem));
+      isPodStruct  = false;
+      auto* nested = static_cast<CibCppCompound*>(mem);
+      markClassType(nested);
+      if (isPodStruct)
+        isPodStruct = nested->isPodStruct();
     }
     else if (mem->isFunctionLike())
     {
+      isPodStruct = false;
       CibFunctionHelper func(mem);
       if (!func.hasDefinition() || func.isVirtual())
         isInline = false;
@@ -253,6 +261,12 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
       const CppVar* var = static_cast<const CppVar*>(mem);
       if (!(var->varType_->typeAttr_ & kStatic))
         isEmpty = false;
+      if (isPodStruct)
+      {
+        auto* cppObj = resolveVarType(var->varType_, cppCompound);
+        if (cppObj && cppObj->isClassLike())
+          isPodStruct = false;
+      }
     }
   }
   isInline = isInline || (cppCompound->templSpec_ != nullptr);
@@ -260,6 +274,8 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
     cppCompound->setIsInline();
   if (isEmpty && cppCompound->isClassLike())
     cppCompound->setEmpty();
+  if (isPodStruct && cppCompound->templSpec_ == nullptr)
+    cppCompound->setPodStruct();
 }
 
 void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)

@@ -318,9 +318,9 @@ void CibIdMgr::forEachCompound(CompoundVisitor visitor) const
   {
     if (cls.second.numMethods() == 0)
       continue;
-    const auto& className   = cls.first;
-    const auto& cibIdData   = cls.second;
-    const auto& classNsName = cls.second.getFullNsName();
+    const auto&              className        = cls.first;
+    const auto&              cibIdData        = cls.second;
+    const auto&              classNsName      = cls.second.getFullNsName();
     static const std::string genericProxyName = "__zz_cib_GenericProxy";
     if (classNsName.length() > 2 + genericProxyName.length())
     {

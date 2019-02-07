@@ -58,6 +58,7 @@ using TemplateArgValues = std::map<std::string, const CppVarType*>;
 enum CibClassPropFlags
 {
   kClassPropBaseLine           = __LINE__, //< Unusable const
+  kClassPropPodStruct          = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropInline             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropAbstract           = (1 << (__LINE__ - kClassPropBaseLine)),
@@ -292,6 +293,14 @@ public:
   {
     props_ |= kClassPropEmpty;
   }
+  void setPodStruct()
+  {
+    props_ |= kClassPropPodStruct;
+  }
+  bool isPodStruct() const
+  {
+    return (props_ & kClassPropPodStruct);
+  }
   bool isEmpty() const
   {
     return (props_ & kClassPropEmpty);
@@ -398,12 +407,12 @@ public:
                       const CibParams& cibParams,
                       const CibIdMgr&  cibIdMgr,
                       CppIndent        indentation = CppIndent()) const;
-  void emitFunctionInvokeHelper(std::ostream&                 stm,
-                                const CibFunctionHelper       func,
-                                const CibHelper&              helper,
-                                const CibParams&              cibParams,
-                                const CibIdData*              cibIdData,
-                                CppIndent                     indentation) const;
+  void emitFunctionInvokeHelper(std::ostream&           stm,
+                                const CibFunctionHelper func,
+                                const CibHelper&        helper,
+                                const CibParams&        cibParams,
+                                const CibIdData*        cibIdData,
+                                CppIndent               indentation) const;
   void emitHelperDefnStart(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const;
   void emitCastingHelpers(std::ostream&    stm,
                           const CibParams& cibParams,

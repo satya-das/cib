@@ -1,0 +1,44 @@
+#include "example.h"
+
+#include <catch/catch.hpp>
+
+<<<<<<< HEAD
+#include <iostream>
+#include <typeindex>
+#include <typeinfo>
+
+=======
+>>>>>>> We now have a failing test.
+TEST_CASE("Reference to pointer")
+{
+  A* pA = nullptr;
+  GetNewA(pA);
+<<<<<<< HEAD
+  std::cerr << typeid(*pA).name();
+  CHECK(std::type_index(typeid(*pA)) == std::type_index(typeid(A)));
+=======
+  REQUIRE(typeid(pA) == typeid(A));
+>>>>>>> We now have a failing test.
+  delete pA;
+
+  pA = nullptr;
+  GetNewB(pA);
+<<<<<<< HEAD
+  REQUIRE(std::type_index(typeid(*pA)) == std::type_index(typeid(B)));
+  delete pA;
+
+  const A* pCA = nullptr;
+  GetNewA(pCA);
+  std::cerr << typeid(*pCA).name();
+  CHECK(std::type_index(typeid(*pCA)) == std::type_index(typeid(A)));
+  delete pCA;
+
+  pA = nullptr;
+  GetNewB(pCA);
+  REQUIRE(std::type_index(typeid(*pCA)) == std::type_index(typeid(B)));
+  delete pCA;
+=======
+  REQUIRE(typeid(pA) == typeid(B));
+  delete pA;
+>>>>>>> We now have a failing test.
+}
