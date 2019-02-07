@@ -26,8 +26,9 @@ script:
   - cd build_results/GNU
   - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cib/
   - make
-
-after_success:
   - make test
 
+#after_success:
+#  - make test
+# It's not working.
 
