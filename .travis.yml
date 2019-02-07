@@ -13,7 +13,7 @@ matrix:
             - llvm-toolchain-precise-3.8
             - ubuntu-toolchain-r-test
       env:
-        - MATRIX_EVAL="CC=gcc && CXX=g++"
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 
 before_install:
   - eval "${MATRIX_EVAL}"
@@ -22,8 +22,8 @@ script:
   - git clone https://github.com/satya-das/cib.git
   - git clone https://github.com/satya-das/cppparser.git
   - git clone https://github.com/satya-das/common.git
-  - mkdir -p build_results/Clang
-  - cd build_results/Clang
+  - mkdir -p build_results/GNU
+  - cd build_results/GNU
   - cmake ../../cib
   - make
 
