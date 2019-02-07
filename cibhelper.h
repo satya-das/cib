@@ -25,8 +25,6 @@
 
 #include "cppprog.h"
 
-#include <boost/filesystem.hpp>
-
 #include <map>
 #include <set>
 

@@ -1,6 +1,4 @@
-language: cpp
-compiler:
-  - gcc
+language: generic
 
 matrix:
   include:
@@ -8,6 +6,7 @@ matrix:
       addons:
         apt:
           packages:
+            - g++-5
             - cmake-data
             - cmake
       env:

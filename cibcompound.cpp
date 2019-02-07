@@ -278,21 +278,21 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    n
                                                          const CibCppCompound* instantiationScope,
                                                          const CibHelper&      helper)
 {
-  auto templateArgs = CollectTemplateArgs(name);
-  auto* ret = getTemplateInstance(templateArgs);
+  auto  templateArgs = CollectTemplateArgs(name);
+  auto* ret          = getTemplateInstance(templateArgs);
   if (ret)
     return ret;
-  auto resolvedArgVals  = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
-  auto clsName          = canonicalName(this, templSpec_, resolvedArgVals);
-  auto resolvedArgs     = CollectTemplateArgs(clsName);
-  ret = getTemplateInstance(resolvedArgs);
+  auto resolvedArgVals = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
+  auto clsName         = canonicalName(this, templSpec_, resolvedArgVals);
+  auto resolvedArgs    = CollectTemplateArgs(clsName);
+  ret                  = getTemplateInstance(resolvedArgs);
   if (ret)
     return ret;
   ret                 = new CibCppCompound(clsName, compoundType_);
   ret->templateClass_ = this;
   ret->owner_         = owner_;
   ret->setShared();
-  forEachMember(kPublic, [&](auto mem) -> bool {
+  forEachMember(kPublic, [&](const CppObj* mem) -> bool {
     if (mem->isFunctionLike())
     {
       CibFunctionHelper func(mem);
@@ -325,8 +325,8 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    n
 
 bool CibCppCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper)
 {
-  bool compositeTemplate = false;
-  auto* resolvedCppObj = helper.getCppObjFromTypeName(typeName, this);
+  bool  compositeTemplate = false;
+  auto* resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
   if (resolvedCppObj)
   {
     if (resolvedCppObj->isClassLike())
@@ -339,12 +339,12 @@ bool CibCppCompound::setupTemplateDependencies(const std::string& typeName, cons
     {
       if (resolvedCppObj->objType_ == CppObj::kTypedefName)
       {
-        auto* typedefObj = static_cast<CppTypedefName*>(resolvedCppObj);
+        auto* typedefObj  = static_cast<CppTypedefName*>(resolvedCppObj);
         compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType_->baseType(), helper);
       }
       else
       {
-        auto* usingObj = static_cast<CppUsingDecl*>(resolvedCppObj);
+        auto* usingObj    = static_cast<CppUsingDecl*>(resolvedCppObj);
         compositeTemplate = setupTemplateDependencies(usingObj->varType_->baseType(), helper);
       }
     }

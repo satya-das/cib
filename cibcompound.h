@@ -360,7 +360,7 @@ public:
   {
     if (copyCtor() && (copyCtor()->isDeleted() || copyCtor()->isPrivate()))
       return false;
-    if (!forEachAncestor([](const auto* ancestor) { return ancestor->isCopyCtorCallable(); }))
+    if (!forEachAncestor([](const CibCppCompound* ancestor) { return ancestor->isCopyCtorCallable(); }))
       return false;
     return true;
   }

@@ -1408,7 +1408,7 @@ bool CibCppCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelp
   std::unordered_set<std::string> allVirtSigs;
   std::unordered_set<std::string> unresolvedPureVirtSigs;
 
-  auto processClass = [&](const auto* ancestor) {
+  auto processClass = [&](const CibCppCompound* ancestor) {
     for (auto mem : ancestor->members_)
     {
       if (!mem->isFunctionLike())
@@ -1731,7 +1731,8 @@ void CibCppCompound::emitHandleHelpers(std::ostream&    stm,
   stm << indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName() << "* __zz_cib_obj) {\n";
+  stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName()
+      << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
   stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
@@ -2146,7 +2147,7 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;\n";
     forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
       stm << indentation++ << "{\n";
-      stm << indentation << "auto* obj = dynamic_cast<"<< compound->longNsName() << "*>(*__zz_cib_obj);\n";
+      stm << indentation << "auto* obj = dynamic_cast<" << compound->longNsName() << "*>(*__zz_cib_obj);\n";
       stm << indentation << "if (obj) {\n";
       stm << ++indentation << "*__zz_cib_obj = obj;\n";
       stm << indentation << "return __zz_cib_gClassIdRepo[tdx] = "
