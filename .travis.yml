@@ -92,9 +92,9 @@ script:
   - git clone https://github.com/satya-das/common.git
   - mkdir -p build_results/Clang
   - cd build_results/Clang
-  - cmake -G Ninja ../../cib
-  - ninja
+  - cmake ../../cib
+  - make
 
 after_success:
-  - ctest
+  - make test
 
