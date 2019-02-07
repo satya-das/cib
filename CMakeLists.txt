@@ -11,7 +11,7 @@ if(MSVC)
 endif(MSVC)
 ]]
 
-add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
+add_definitions(-DBOOST_AUTO_LINK_NOMANGLE -DBOOST_NO_STDLIB_CONFIG)
 add_subdirectory(${ROOT_DIR}/cppparser  ${CMAKE_OBJFILE_OUTPUT_DIRECTORY}/cppparser)
 
 include_directories(third-party)
