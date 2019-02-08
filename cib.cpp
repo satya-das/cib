@@ -202,7 +202,7 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
 void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
                                         const CibHelper& helper,
                                         const CibParams& cibParams,
-                                        CallType         callType) const
+                                        ParamConversion  callType) const
 {
   // FIXME for function pointer type params, it currently handles only functions whose parameter is
   // not function-pointer type.
@@ -224,7 +224,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       resolvedType = nullptr;
     switch (callType)
     {
-      case CallType::kFromHandle:
+      case ParamConversion::kFromHandle:
         if (resolvedType)
         {
           if (param.varObj->isByValue())
@@ -238,7 +238,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         if (resolvedType)
           stm << ")";
         break;
-      case CallType::kToHandle:
+      case ParamConversion::kToHandle:
         if (resolvedType)
         {
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
@@ -253,7 +253,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         if (resolvedType)
           stm << ")";
         break;
-      case CallType::kDerefIfByVal:
+      case ParamConversion::kDerefIfByVal:
         if (resolvedType && param.varObj->isByValue())
         {
           stm << '*';
@@ -269,12 +269,12 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         if (param.varObj->isByRValueRef())
           stm << ')';
         break;
-      case CallType::kRefIfByVal:
+      case ParamConversion::kRefIfByVal:
         if ((resolvedType && param.varObj->isByValue()) || param.varObj->isByRef())
           stm << '&';
         emitParamName(stm, param.varObj, i);
         break;
-      case CallType::kAsIs:
+      case ParamConversion::kAsIs:
         emitParamName(stm, param.varObj, i);
         break;
     }
@@ -389,7 +389,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     if (isConstructorLike() && callingOwner->isAbstract() && !callingOwner->needsGenericProxyDefinition())
       return;
   }
-  auto callType = forProxy ? CallType::kFromHandle : CallType::kDerefIfByVal;
+  auto callType = forProxy ? ParamConversion::kFromHandle : ParamConversion::kDerefIfByVal;
   stm << indentation << "static ";
   emitCAPIDecl(stm, helper, cibParams, callingOwner, capiName, forProxy ? kPurposeProxyCApi : kPurposeCApi);
   stm << " {\n";
@@ -528,7 +528,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       if (hasParams())
         stm << ", ";
     }
-    emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
+    emitArgsForCall(stm, helper, cibParams, ParamConversion::kToHandle);
     stm << "))\n";
     stm << --indentation << "{}\n";
   }
@@ -591,7 +591,7 @@ void CibFunctionHelper::emitDefn(std::ostream&         stm,
       if (hasParams())
         stm << ", ";
     }
-    emitArgsForCall(stm, helper, cibParams, CallType::kToHandle);
+    emitArgsForCall(stm, helper, cibParams, ParamConversion::kToHandle);
     stm << ')';
     if (retType)
       stm << '\n' << --indentation << ")";
@@ -619,7 +619,7 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
     stm << ")\n";
     ++indentation;
     stm << indentation << ": " << getOwner()->longName() << "::" << funcName() << '(';
-    emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
+    emitArgsForCall(stm, helper, cibParams, ParamConversion::kAsIs);
     stm << ")\n";
     stm << indentation << ", __zz_cib_proxy(proxy)\n";
     stm << indentation << ", __zz_cib_mtbl_helper(mtbl)\n";
@@ -691,7 +691,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   {
     stm << ",\n";
     stm << indentation;
-    emitArgsForCall(stm, helper, cibParams, genericProxy ? CallType::kRefIfByVal : CallType::kToHandle);
+    emitArgsForCall(stm, helper, cibParams, genericProxy ? ParamConversion::kRefIfByVal : ParamConversion::kToHandle);
   }
   if (resolvedType && !genericProxy)
     stm << ')';
@@ -1634,7 +1634,7 @@ void CibCppCompound::emitFunctionInvokeHelper(std::ostream&           stm,
       stm << ",";
   }
   stm << '\n' << indentation;
-  func.emitArgsForCall(stm, helper, cibParams, CallType::kAsIs);
+  func.emitArgsForCall(stm, helper, cibParams, ParamConversion::kAsIs);
   stm << ");\n";
   --indentation;
   if (func.isDestructor())
