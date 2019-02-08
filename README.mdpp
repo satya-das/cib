@@ -32,7 +32,7 @@ _In this document the binary component that exposes its classes will be called *
 ## CIB Features
   - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
   - **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
-  - **ABI stability**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
+  - **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
   - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
   - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
