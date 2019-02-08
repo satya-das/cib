@@ -73,6 +73,7 @@ target_include_directories(cib
 		${ROOT_DIR}/common
 )
 add_dependencies(cib CibResources)
+set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
 set(EXAMPLES example1 example2 example5 example6 example7 example8 example9 example10 example11)
 add_subdirectory(examples)
