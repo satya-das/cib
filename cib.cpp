@@ -78,7 +78,7 @@ static void emitType(std::ostream&         stm,
                      const CppVarType*     typeObj,
                      const CibCppCompound* typeResolver,
                      const CibHelper&      helper,
-                     EmitPurpose           purpose)
+                     FuncProtoPurpose      purpose)
 {
   if (typeObj == nullptr)
     return;
@@ -158,7 +158,7 @@ inline void emitParamName(std::ostream& stm, const CppVar* var, size_t paramName
 void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
                                         const CibHelper& helper,
                                         bool             resolveTypes,
-                                        EmitPurpose      purpose) const
+                                        FuncProtoPurpose purpose) const
 {
   // FIXME for function pointer type params, it currently handles only functions whose parameter is
   // not function-pointer type.
@@ -281,7 +281,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
   }
 }
 
-void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose) const
+void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper, FuncProtoPurpose purpose) const
 {
   if (isTypeConverter())
     stm << "operator ";
@@ -311,7 +311,7 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
 void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
                                      const CibHelper& helper,
                                      const CibParams& cibParams,
-                                     EmitPurpose      purpose,
+                                     FuncProtoPurpose purpose,
                                      CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
@@ -334,7 +334,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&         stm,
                                      const CibParams&      cibParams,
                                      const CibCppCompound* callingOwner,
                                      const std::string&    capiName,
-                                     EmitPurpose           purpose) const
+                                     FuncProtoPurpose      purpose) const
 {
   if (isConstructor())
     stm << callingOwner->longName() << "*";
@@ -470,7 +470,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
     else
     {
       stm << "operator ";
-      emitType(stm, returnType(), getOwner(), helper, EmitPurpose::kPurposeSignature);
+      emitType(stm, returnType(), getOwner(), helper, FuncProtoPurpose::kPurposeSignature);
     }
     stm << '(';
     emitArgsForCall(stm, helper, cibParams, callType);
@@ -632,7 +632,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
                                         const CibHelper&   helper,
                                         const CibParams&   cibParams,
                                         const std::string& capiName,
-                                        EmitPurpose        purpose,
+                                        FuncProtoPurpose   purpose,
                                         CppIndent          indentation /* = CppIndent */) const
 {
   if (!isVirtual())

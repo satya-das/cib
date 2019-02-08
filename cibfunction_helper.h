@@ -47,7 +47,13 @@ enum class CallType
   kRefIfByVal
 };
 
-enum EmitPurpose
+/*!
+ * Purpose of function prototype.
+ *
+ * CIB generates many function and their purpose is needed to be known
+ * to generate the right prototype.
+ */
+enum FuncProtoPurpose
 {
   kPurposeBaseLine             = __LINE__, //!< This is unusable const, don't use it.
   kPurposeGlueCode             = (1 << (__LINE__ - kPurposeBaseLine)),
@@ -77,11 +83,11 @@ class CibFunctionHelper
 private:
   union
   {
-    const CppObj*               cppObj_;
-    const CibCppConstructor*    ctor_;
-    const CibCppDestructor*     dtor_;
-    const CibCppFunction*       func_;
-    const CibCppTypeConverter*  converter_;
+    const CppObj*              cppObj_;
+    const CibCppConstructor*   ctor_;
+    const CibCppDestructor*    dtor_;
+    const CibCppFunction*      func_;
+    const CibCppTypeConverter* converter_;
   };
 
 public:
@@ -92,7 +98,7 @@ public:
                                            unsigned int    attr);
   static CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
   static CppFunction*
-  CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
+                           CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
   static CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name);
 
 public:
@@ -229,7 +235,7 @@ public:
   {
     if (isTypeConverter())
       return converter_->to_;
-    else if(isFunction())
+    else if (isFunction())
       return func_->retType_;
     else
       return nullptr;
@@ -267,22 +273,22 @@ public:
   std::string signature(const CibHelper& helper) const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, EmitPurpose purpose) const;
-  void emitSignature(std::ostream& stm, const CibHelper& helper, EmitPurpose purpose) const;
+  void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, FuncProtoPurpose purpose) const;
+  void emitSignature(std::ostream& stm, const CibHelper& helper, FuncProtoPurpose purpose) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams, CallType callType) const;
   /// Emits declaration as originally defined/declared.
   void emitOrigDecl(std::ostream&    stm,
                     const CibHelper& helper,
                     const CibParams& cibParams,
-                    EmitPurpose      purpose,
+                    FuncProtoPurpose purpose,
                     CppIndent        indentation = CppIndent()) const;
   void emitCAPIDecl(std::ostream&         stm,
                     const CibHelper&      helper,
                     const CibParams&      cibParams,
                     const CibCppCompound* callingOwner,
                     const std::string&    capiName,
-                    EmitPurpose           purpose) const;
+                    FuncProtoPurpose      purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
   void emitCAPIDefn(std::ostream&         stm,
                     const CibHelper&      helper,
@@ -292,7 +298,7 @@ public:
                     bool                  forProxy,
                     CppIndent             indentation = CppIndent()) const;
   void emitDefn(std::ostream&         stm,
-                bool asInline,
+                bool                  asInline,
                 const CibHelper&      helper,
                 const CibParams&      cibParams,
                 const CibCppCompound* callingOwner,
@@ -307,7 +313,7 @@ public:
                        const CibHelper&   helper,
                        const CibParams&   cibParams,
                        const std::string& capiName,
-                       EmitPurpose        purpose,
+                       FuncProtoPurpose   purpose,
                        CppIndent          indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
   void emitProcType(std::ostream&    stm,
