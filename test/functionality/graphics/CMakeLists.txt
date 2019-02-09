@@ -4,13 +4,6 @@ cmake_minimum_required(VERSION 3.4)
 
 include("../../../../common/cmake/conf.cmake")
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
-set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
-set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
-set(CMAKE_CURRENT_BINARY_DIR, ${CMAKE_OBJFILE_OUTPUT_DIRECTORY})
-
 set(GRAPHICS_PUB_FILE_NAMES
 	circ.h
 	composite.h
@@ -44,7 +37,7 @@ endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
 	COMMAND echo Running cib...
-	COMMAND ${BINDIR}/cib -i pub -o exp -b cib -m Graphics -c ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-ids.h
+	COMMAND ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Graphics -c ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Graphics-ids.h
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib ${GRAPHICS_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

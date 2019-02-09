@@ -2,12 +2,6 @@ cmake_minimum_required(VERSION 2.8.7)
 
 include("../../common/cmake/conf.cmake")
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/examples)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/examples)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/examples)
-set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
-set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
-
 add_custom_target(DiffsForReadMe ALL)
 set(EXAMPLE_HEADERS "")
 set(FINAL_LCOV_CMD "lcov -o cib.info")
@@ -51,7 +45,7 @@ foreach(example ${EXAMPLES})
     endforeach()
 
     ## Vars that can be changed by CMakeVars.txt file in respective example
-    set(CIBCMD ${BINDIR}/cib -i pub -o exp -b cib -m Example)
+    set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
     set(DEPENDS cib ${example}GlueCode)
     include("${example}/CMakeVars.txt")
     
@@ -89,8 +83,8 @@ foreach(example ${EXAMPLES})
 	    ${EXP_SOURCES}
     )
     add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
-    add_custom_target(${example}_lcov ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${example}_client
-        COMMAND lcov -c -d ${BASEOUTDIR}/.. -o ${example}.info || echo "Ignore" >/dev/null
+    add_custom_target(${example}_lcov ${CMAKE_BINARY_DIR}/examples/${example}_client
+        COMMAND lcov -c -d ${CMAKE_CACHEFILE_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
         DEPENDS ${CLIENTNAME}
     )
     string(CONCAT FINAL_LCOV_CMD ${FINAL_LCOV_CMD} " -a ${example}.info")

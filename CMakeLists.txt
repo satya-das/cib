@@ -13,7 +13,7 @@ endif(MSVC)
 ]]
 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
-add_subdirectory(${ROOT_DIR}/cppparser  ${CMAKE_OBJFILE_OUTPUT_DIRECTORY}/cppparser)
+add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)
 
 include_directories(third-party)
 
@@ -31,7 +31,7 @@ set(CIB_SOURCES
 	cibcompound.cpp
 )
 
-set(RESDIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/cibres)
+set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
 set(RESFILES
 	__zz_cib_Module-classId-repo.cpp
 	__zz_cib_Module-class-internal-def.h
@@ -71,7 +71,7 @@ target_link_libraries(cib
 )
 target_include_directories(cib
 	PRIVATE
-		${ROOT_DIR}/common
+		../common
 )
 add_dependencies(cib CibResources)
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)

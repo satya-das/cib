@@ -4,12 +4,6 @@ cmake_minimum_required(VERSION 3.4)
 
 include("../../../../common/cmake/conf.cmake")
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
-set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
-set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
-
 set(DRAW_SOURCES
 	draw.cpp
 	svg_context.cpp
