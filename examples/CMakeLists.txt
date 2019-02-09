@@ -84,7 +84,7 @@ foreach(example ${EXAMPLES})
     )
     add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
     add_custom_target(${example}_lcov ${CMAKE_BINARY_DIR}/examples/${example}_client
-        COMMAND lcov -c -d ${CMAKE_CACHEFILE_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
+        COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
         DEPENDS ${CLIENTNAME}
     )
     string(CONCAT FINAL_LCOV_CMD ${FINAL_LCOV_CMD} " -a ${example}.info")
@@ -116,7 +116,6 @@ add_custom_target(CibCoverage echo "Running lcov to create final cib.info ..."
     COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
     COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
     COMMAND lcov --remove cib.info '*boost/*' --output-file cib.info
-    COMMAND lcov --remove cib.info '*examples/*' --output-file cib.info
     COMMAND lcov --remove cib.info '/usr/*' --output-file cib.info
     COMMAND genhtml cib.info
     DEPENDS ${LCOV_TARGETS}
