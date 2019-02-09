@@ -14,14 +14,14 @@ static ::Example::A* __zz_cib_decl __zz_cib_new_0() {
 static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
 static int __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
 }
 static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+}
+static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+  delete __zz_cib_obj;
 }
 }
 }}}

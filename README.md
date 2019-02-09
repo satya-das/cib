@@ -997,6 +997,8 @@ namespace Example
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
     int SomeFunc();
+
+    virtual ~A() {}
   };
 
   class B : public A
@@ -1076,16 +1078,24 @@ Please note that none of the IDs that were used by previous version are changed,
 ```diff
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -17,6 +17,9 @@
- static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
-   delete __zz_cib_obj;
+@@ -14,12 +14,15 @@
+ static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
+   return new __zz_cib_Delegatee(*__zz_cib_obj);
  }
+-static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+-  delete __zz_cib_obj;
 +static int __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
 +  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
-+}
+ }
  static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
    return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
  }
++static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
++  delete __zz_cib_obj;
++}
+ }
+ }}}
+ 
 @@ -29,9 +32,44 @@
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
@@ -1165,12 +1175,13 @@ We will continue looking at the diffs and now we will look at diffs of proxy cla
    public:
      A();
      A(A const & );
-     ~A();
+-    ~A();
 +    //! This is to know what cib does with virtual functions.
 +    virtual int VirtFunc();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
      int SomeFunc();
++    virtual ~A();
  
    private:
      __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
@@ -1199,19 +1210,38 @@ Definition of proxy classes is as expected. No surprises there. The class defini
 ```diff
 --- ../example1/exp/__zz_cib_internal/example-impl.h
 +++ exp/__zz_cib_internal/example-impl.h
-@@ -39,6 +39,12 @@
-         );
-     }
+@@ -31,20 +31,26 @@
+     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
+       __zz_cib_param0);
    }
+-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+-    if (__zz_cib_obj) {
+-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
 +  static int VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
 +    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
 +    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
-+      __zz_cib_obj
-+      );
-+  }
+         __zz_cib_obj
+         );
+     }
+-  }
    static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
      using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
      return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
+       __zz_cib_obj
+       );
+   }
++  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
++    if (__zz_cib_obj) {
++      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
++      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
++        __zz_cib_obj
++        );
++    }
++  }
+   static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+     return new ::Example::A(h);
+   }
 @@ -64,4 +70,70 @@
        return h;
      }

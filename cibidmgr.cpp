@@ -295,12 +295,12 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     if (cls.second.numMethods() == 0)
       continue;
     const auto& cibIdData   = cls.second;
-    const auto& classNsName = cls.second.getFullNsName();
+    const auto& classNsName = cibIdData.getFullNsName();
     stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end())
         << " namespace __zz_cib_methodid {\n";
     stm << ++indentation << "enum {\n";
     ++indentation;
-    auto nextMethodId = cls.second.forEachMethod(
+    auto nextMethodId = cibIdData.forEachMethod(
       [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
         stm << indentation << "//#= " << methodSig << '\n';
         stm << indentation << methodName << " = " << methodId << ",\n";

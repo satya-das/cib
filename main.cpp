@@ -34,7 +34,7 @@
 
 #include <iostream>
 #include <map>
-#include <strstream>
+#include <sstream>
 #include <tuple>
 #include <unordered_set>
 
@@ -97,8 +97,6 @@ CibParams parseCmdLine(int argc, char* argv[])
   std::string moduleName = vm["module"].as<std::string>();
   bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
   bool        d          = vm.count("no-exact-delegation") != 0;
-
-  bool recurse = true;
 
   if (!bfs::is_directory(inputPath) || (bfs::exists(outputPath) && !bfs::is_directory(outputPath))
       || (bfs::exists(binderPath) && !bfs::is_directory(binderPath)))
@@ -187,7 +185,7 @@ static void emitHelperDefinitionForNamespace(std::ostream&                      
                                              CppIndent                              indentation = CppIndent())
 {
   FunctionRepo funcRepo;
-  auto* compound = *(nameSpaceCompounds.begin());
+  auto*        compound = *(nameSpaceCompounds.begin());
   compound->emitHelperDefnStart(stm, cibParams, indentation++);
   for (auto* comp : nameSpaceCompounds)
   {
@@ -264,10 +262,11 @@ static void processResourceFile(const std::string&       filename,
                                 const StringToStringMap& substituteInfo)
 {
   {
-    std::strstreambuf tmpbuf;
+    std::stringbuf tmpbuf;
     std::ifstream((cibParams.resDir / filename).string(), std::ios_base::in) >> &tmpbuf;
+    auto          buf         = tmpbuf.str();
     auto          outFilename = "__zz_cib_" + cibParams.moduleName + filename.substr(15);
-    auto          cibcode = replacePlaceholdersInTemplate(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount(), substituteInfo);
+    auto          cibcode     = replacePlaceholdersInTemplate(buf.begin(), buf.end(), substituteInfo);
     std::ofstream cibLibIncStm((outDir / outFilename).string(), std::ios_base::out);
     cibLibIncStm << cibcode;
   }

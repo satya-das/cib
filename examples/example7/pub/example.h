@@ -29,6 +29,8 @@ public:
     PrivateVirtual();
     PrivateNonVirtual();
   }
+
+  virtual ~IF() {}
 };
 
 //! Class that has methods to make class IF interface and facade.

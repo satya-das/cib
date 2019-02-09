@@ -4,12 +4,16 @@ class A
 {
 public:
   virtual int VirtualFunction() const;
+
+  virtual ~A() {};
 };
 
 class B : public A
 {
 public:
   virtual int VirtualFunction() const;
+
+  virtual ~B() {};
 };
 
 int GetNewA(A*& pA);

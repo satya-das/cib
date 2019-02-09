@@ -22,14 +22,14 @@ A::A(::A const & __zz_cib_param0)
   : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy_1(this, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
+int A::VirtualFunction() const {
+  return __zz_cib_::A::__zz_cib_Helper::VirtualFunction_2(__zz_cib_h_);
+}
+
 A::~A() {
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_2(h);
-}
-
-int A::VirtualFunction() const {
-  return __zz_cib_::A::__zz_cib_Helper::VirtualFunction_3(__zz_cib_h_);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_3(h);
 }
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
@@ -52,13 +52,13 @@ B::B(::B const & __zz_cib_param0)
   : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_copy_1(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
-B::~B() {
-  auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete_2(h);
+int B::VirtualFunction() const {
+  return __zz_cib_::B::__zz_cib_Helper::VirtualFunction_2(__zz_cib_h_);
 }
 
-int B::VirtualFunction() const {
-  return __zz_cib_::B::__zz_cib_Helper::VirtualFunction_3(__zz_cib_h_);
+B::~B() {
+  auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete_3(h);
 }
 namespace __zz_cib_ { namespace A { namespace __zz_cib_Generic {
 class A : public ::A {
@@ -76,7 +76,13 @@ public:
   }
   int VirtualFunction() const override {
     using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_3>(
+    return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
+      __zz_cib_h_);
+  }
+  ~A() override {
+    if (!__zz_cib_h_) return;
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_3>(
       __zz_cib_h_);
   }
 };

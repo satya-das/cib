@@ -183,7 +183,7 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
       if (!param.varObj->varDecl_.arraySizes_.empty())
       {
         // FIXME: Emit error if the parameter type is not of basic types
-        for (const auto& idx : param.varObj->varDecl_.arraySizes_)
+        // for (const auto& idx : param.varObj->varDecl_.arraySizes_)
         {
           // FIXME use index values.
           stm << "[]";
@@ -853,47 +853,6 @@ void CibCppCompound::emitPredefHeader(const CibHelper& helper, const CibParams& 
   emitHelperDecl(stm, helper, cibParams);
 }
 
-void CibCppCompound::emitTemplateInstanceForwardDeclarations(std::ostream&    stm,
-                                                             const CibHelper& helper,
-                                                             const CibParams& cibParams,
-                                                             const CibIdMgr&  cibIdMgr) const
-{
-  auto addDependency = [&](std::set<const CppObj*>& cppObjs, const std::string& typeName) {
-    auto* resolvedCppObj = resolveTypeName(typeName, helper);
-    if (resolvedCppObj)
-      cppObjs.insert(resolvedCppObj);
-  };
-  auto emitFwdDeclaration = [&](const CppObj* cppObj) {
-    if (cppObj->objType_ == CppObj::kFwdClsDecl)
-    {
-      gCppWriter.emitFwdDecl(static_cast<const CppFwdClsDecl*>(cppObj), stm);
-    }
-    else if (cppObj->isClassLike())
-    {
-      auto* compound = static_cast<const CibCppCompound*>(cppObj);
-      if (compound->isTemplateInstance())
-        stm << "template <>\n";
-      stm << compound->compoundType_ << ' ' << compound->fullName() << ";\n";
-    }
-  };
-  auto emitFwdDeclarations = [&](const std::set<const CppObj*>& cppObjs) {
-    for (auto* cppObj : cppObjs)
-      emitFwdDeclaration(cppObj);
-  };
-  forEachNested([&](const CibCppCompound* compound) {
-    if (compound->isTemplated())
-    {
-      compound->forEachTemplateInstance([&](CibCppCompound* tmplInstance) {
-        std::set<const CppObj*> cppObjs;
-        for (auto& arg : tmplInstance->templateArgValues_)
-          addDependency(cppObjs, arg.second->baseType());
-        emitFwdDeclarations(cppObjs);
-        emitFwdDeclaration(tmplInstance);
-      });
-    }
-  });
-}
-
 static std::set<const CppObj*> extractFwdDeclarations(std::set<const CppObj*>& dependencies)
 {
   std::set<const CppObj*> fwdDecls;
@@ -1067,23 +1026,6 @@ void CibCppCompound::collectFacades(std::set<const CibCppCompound*>& facades) co
         facades.insert(compound);
     }
   }
-}
-
-bool CibCppCompound::hasClassThatNeedsGenericProxyDefn() const
-{
-  for (auto mem : members_)
-  {
-    if (!isMemberPublic(mem->prot_, compoundType_))
-      continue;
-    if (mem->isNamespaceLike())
-    {
-      auto compound = static_cast<const CibCppCompound*>(mem);
-      if (compound->needsGenericProxyDefinition() || compound->hasClassThatNeedsGenericProxyDefn())
-        return true;
-    }
-  }
-
-  return false;
 }
 
 void CibCppCompound::collectTemplateInstanceTypeDependencies(const CibHelper&         helper,
@@ -2178,25 +2120,6 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
   else
     stm << --indentation << "}\n";
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
-}
-
-void CibCppCompound::collectPublicCompounds(std::vector<const CibCppCompound*>& compounds) const
-{
-  for (auto mem : members_)
-  {
-    if (!mem->isNamespaceLike())
-      continue;
-    auto compound = static_cast<const CibCppCompound*>(mem);
-    if (!isMemberPublic(mem->prot_, compoundType_))
-      continue;
-    compound->collectPublicCompounds(compounds);
-    compound->forEachTemplateInstance(
-      [&](CibCppCompound* templateIns) { templateIns->collectPublicCompounds(compounds); });
-  }
-  if (isNamespaceLike() && !needsBridging_.empty())
-  {
-    compounds.push_back(this);
-  }
 }
 
 void CibCppCompound::emitMethodTableGetterDefn(std::ostream&    stm,

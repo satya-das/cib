@@ -31,7 +31,7 @@
 #include "cppdom.h"
 
 #include <map>
-#include <strstream>
+#include <sstream>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -75,10 +75,10 @@ CibCppCompound* CibFunctionHelper::getOwner() const
 
 std::string CibFunctionHelper::signature(const CibHelper& helper) const
 {
-  std::ostrstream tmpbuf;
+  std::stringstream tmpbuf;
   emitSignature(tmpbuf, helper, kPurposeSignature);
   tmpbuf << ';';
-  return std::string(tmpbuf.str(), tmpbuf.str() + tmpbuf.pcount());
+  return tmpbuf.str();
 }
 
 using OperNameMap = std::map<std::string, std::string>;
