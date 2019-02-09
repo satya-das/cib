@@ -26,9 +26,8 @@ script:
   - cd build_results/GNU
   - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cib/
   - make
-  - make test
+  - make CibCoverage
 
-#after_success:
-#  - make test
-# It's not working.
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -f build_results/GNU/examples/cib.info || echo "Codecov did not collect coverage reports"
 

@@ -2,14 +2,16 @@ cmake_minimum_required(VERSION 2.8.7)
 
 include("../../common/cmake/conf.cmake")
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/cibtest)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/cibtest)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/examples)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${BASEOUTDIR}/lib/examples)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BASEOUTDIR}/bin/examples)
 set(CMAKE_OBJFILE_OUTPUT_DIRECTORY ${BASEOUTDIR}/obj)
 set(CMAKE_PDB_OUTPUT_DIRECTORY     ${BASEOUTDIR}/pdb)
 
 add_custom_target(DiffsForReadMe ALL)
 set(EXAMPLE_HEADERS "")
+set(FINAL_LCOV_CMD "lcov -o cib.info")
+set(LCOV_TARGETS "")
 
 foreach(example ${EXAMPLES})
     set(example_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/${example})
@@ -87,6 +89,13 @@ foreach(example ${EXAMPLES})
 	    ${EXP_SOURCES}
     )
     add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
+    add_custom_target(${example}_lcov ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${example}_client
+        COMMAND lcov -c -d ${BASEOUTDIR}/.. -o ${example}.info || echo "Ignore" >/dev/null
+        DEPENDS ${CLIENTNAME}
+    )
+    string(CONCAT FINAL_LCOV_CMD ${FINAL_LCOV_CMD} " -a ${example}.info")
+    list(APPEND LCOV_TARGETS ${example}_lcov)
+
     target_include_directories(${CLIENTNAME}
 	    PRIVATE
 		    ${example_ROOT}/exp
@@ -104,6 +113,20 @@ foreach(example ${EXAMPLES})
 		add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
 	endif()
 endforeach()
+
+add_custom_target(CibCoverage echo "Running lcov to create final cib.info ..."
+    COMMAND echo "${FINAL_LCOV_CMD}" >run-lcov.sh
+    COMMAND chmod +x run-lcov.sh
+    COMMAND "./run-lcov.sh"
+    COMMAND lcov --remove cib.info '*cppparser*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*boost/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*examples/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '/usr/*' --output-file cib.info
+    COMMAND genhtml cib.info
+    DEPENDS ${LCOV_TARGETS}
+)
 
 set(EXAMPLE_HEADERS ${EXAMPLE_HEADERS} PARENT_SCOPE)
 
