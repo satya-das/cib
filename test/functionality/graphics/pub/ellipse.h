@@ -22,7 +22,7 @@ public:
   void   Draw(Context* ctx) const override;
 
 private:
-  double a_, b_, Ox_, Oy_;
+  double Ox_, Oy_, a_, b_;
 };
 
 } // namespace Graphics

@@ -9,8 +9,8 @@ public:
 public:
   A();
   A(A const & );
-  ~A();
   virtual int VirtualFunction() const;
+  virtual ~A();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
@@ -22,8 +22,8 @@ public:
 public:
   B();
   B(B const & );
-  ~B();
   virtual int VirtualFunction() const;
+  virtual ~B();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);

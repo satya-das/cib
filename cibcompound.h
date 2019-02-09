@@ -367,10 +367,6 @@ public:
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
-  void emitTemplateInstanceForwardDeclarations(std::ostream&    stm,
-                                               const CibHelper& helper,
-                                               const CibParams& cibParams,
-                                               const CibIdMgr&  cibIdMgr) const;
   void emitTemplateInstanceSpecializations(std::ostream&    stm,
                                            const CibHelper& helper,
                                            const CibParams& cibParams,
@@ -433,7 +429,6 @@ public:
   static void emitCommonCibHeaders(std::ostream& stm, const CibParams& cibParams);
   static void emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams);
 
-  void collectPublicCompounds(std::vector<const CibCppCompound*>& compounds) const;
   void emitMethodTableGetterDefn(std::ostream&    stm,
                                  const CibHelper& helper,
                                  const CibParams& cibParams,
@@ -528,7 +523,6 @@ private:
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
-  bool        hasClassThatNeedsGenericProxyDefn() const;
   bfs::path   getImplDir(const CibParams& cibParams) const;
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;

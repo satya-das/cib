@@ -7,8 +7,6 @@ class IF
 {
 public:
   IF(IF&& rhs);
-public:
-  ~IF();
 private:
   virtual void PrivatePureVirtual() = 0;
   virtual void PrivateVirtual();
@@ -20,6 +18,7 @@ public:
   virtual void PublicPureVirtual() = 0;
   virtual void PublicVirtual();
   void PublicNonVirtual();
+  virtual ~IF();
 protected:
   IF();
 

@@ -34,19 +34,19 @@ private:
       __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+  static int VirtualFunction_2(__zz_cib_HANDLE* __zz_cib_obj) {
+    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
+      __zz_cib_obj
+      );
+  }
+  static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_3>(
         __zz_cib_obj
         );
     }
-  }
-  static int VirtualFunction_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_3>(
-      __zz_cib_obj
-      );
   }
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
@@ -105,19 +105,19 @@ private:
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+  static int VirtualFunction_2(__zz_cib_HANDLE* __zz_cib_obj) {
+    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
+      __zz_cib_obj
+      );
+  }
+  static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_3>(
         __zz_cib_obj
         );
     }
-  }
-  static int VirtualFunction_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_3>(
-      __zz_cib_obj
-      );
   }
   static __zz_cib_HANDLE* __zz_cib_cast_to___A_4(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_cast_to___AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);

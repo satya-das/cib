@@ -1,15 +1,23 @@
 --- ../example1/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -17,6 +17,9 @@
- static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
-   delete __zz_cib_obj;
+@@ -14,12 +14,15 @@
+ static ::Example::A* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
+   return new __zz_cib_Delegatee(*__zz_cib_obj);
  }
+-static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+-  delete __zz_cib_obj;
 +static int __zz_cib_decl VirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
 +  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
-+}
+ }
  static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
    return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
  }
++static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
++  delete __zz_cib_obj;
++}
+ }
+ }}}
+ 
 @@ -29,9 +32,44 @@
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),

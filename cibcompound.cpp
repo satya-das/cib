@@ -185,11 +185,6 @@ static CppParamList* instantiateParams(CppParamList* params, const TemplateArgVa
   return ret;
 }
 
-static CibCppFunction* instantiateFunctionTemplate(const CibFunctionHelper func, const TemplateArgValueMap& argValues)
-{
-  //
-}
-
 static std::string canonicalName(const CibCppCompound*        compound,
                                  const CppTemplateParamListP& templSpec,
                                  const TemplateArgValueMap&   argValues)

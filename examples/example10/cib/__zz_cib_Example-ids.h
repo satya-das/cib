@@ -44,10 +44,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     __zz_cib_new_0 = 0,
     //#= A(::A const &);
     __zz_cib_copy_1 = 1,
-    //#= ~A();
-    __zz_cib_delete_2 = 2,
     //#= int VirtualFunction() const;
-    VirtualFunction_3 = 3,
+    VirtualFunction_2 = 2,
+    //#= ~A();
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id_4 = 4,
     //#= __zz_cib_release_proxy
@@ -72,10 +72,10 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_new_0 = 0,
     //#= B(::B const &);
     __zz_cib_copy_1 = 1,
-    //#= ~B();
-    __zz_cib_delete_2 = 2,
     //#= int VirtualFunction() const;
-    VirtualFunction_3 = 3,
+    VirtualFunction_2 = 2,
+    //#= ~B();
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_cast_to___A
     __zz_cib_cast_to___A_4 = 4,
     __zz_cib_next_method_id = 5
