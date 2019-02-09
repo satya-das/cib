@@ -30,5 +30,6 @@ script:
   - make CibCoverage
 
 after_success:
+  - cd ../..
   - bash <(curl -s https://codecov.io/bash) -f build_results/GNU/examples/cib.info -t"66bf246c-fcae-4dcc-8101-44e7e66e467d" || echo "Codecov did not collect coverage reports"
 
