@@ -211,10 +211,14 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
       return;
     returnObj->setShared();
 
-    if (func.returnType()->ptrLevel() == 1 || func.returnType()->refType() == kByRef)
+    if ((func.returnType()->ptrLevel() == 1) || (func.returnType()->refType() == kByRef))
     {
       if (returnObj->hasPublicVirtualMethod())
+      {
         returnObj->setFacadeLike();
+        if (func.getOwner()->isInterfaceLike())
+          returnObj->setInterfaceLike();
+      }
     }
     else
     {
