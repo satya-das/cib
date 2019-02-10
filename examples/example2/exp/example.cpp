@@ -20,7 +20,7 @@ Example::A::A(::Example::A const & __zz_cib_param0)
 {}
 
 int Example::A::VirtFunc() {
-  return __zz_cib_::Example::A::__zz_cib_Helper::VirtFunc_4(__zz_cib_h_);
+  return __zz_cib_::Example::A::__zz_cib_Helper::VirtFunc_2(__zz_cib_h_);
 }
 
 int Example::A::SomeFunc() {
@@ -29,7 +29,7 @@ int Example::A::SomeFunc() {
 
 Example::A::~A() {
   auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_2(h);
+  __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_delete_4(h);
 }
 
 Example::B::B(__zz_cib_::__zz_cib_HANDLE* h)

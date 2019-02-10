@@ -20,12 +20,12 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     __zz_cib_new_0 = 0,
     //#= A(::Example::A const &);
     __zz_cib_copy_1 = 1,
-    //#= ~A();
-    __zz_cib_delete_2 = 2,
+    //#= int VirtFunc();
+    VirtFunc_2 = 2,
     //#= int SomeFunc();
     SomeFunc_3 = 3,
-    //#= int VirtFunc();
-    VirtFunc_4 = 4,
+    //#= ~A();
+    __zz_cib_delete_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}

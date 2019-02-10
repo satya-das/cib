@@ -31,9 +31,9 @@ private:
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_param0);
   }
-  static int VirtFunc_4(__zz_cib_HANDLE* __zz_cib_obj) {
+  static int VirtFunc_2(__zz_cib_HANDLE* __zz_cib_obj) {
     using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_4>(
+    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_2>(
       __zz_cib_obj
       );
   }
@@ -43,10 +43,10 @@ private:
       __zz_cib_obj
       );
   }
-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_4>(
         __zz_cib_obj
         );
     }

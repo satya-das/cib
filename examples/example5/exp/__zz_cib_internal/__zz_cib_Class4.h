@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "example.h"
+#include "value.h"
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class2 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
 class __zz_cib_Helper;
 struct __zz_cib_Delegator;
 }}}
@@ -21,11 +21,11 @@ public:
   void SetValue(int x);
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Value, Example::__zz_cib_Class2);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(Value, Example::__zz_cib_Class4);
 };
 }
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class2 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
   , public __zz_cib_::__zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
 private:
@@ -96,33 +96,33 @@ public:
 inline Example::Value<int>::Value(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
-  __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 inline Example::Value<int>::Value(Value<int>&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
-  __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 inline Example::Value<int>::Value(::Example::Value<int> const & __zz_cib_param0)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::Value<int>::~Value() {
-  auto h = __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_delete_1(h);
+  auto h = __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_delete_1(h);
 }
 
 inline Example::Value<int>::Value(int x)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::__zz_cib_new_2(x))
+  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::__zz_cib_new_2(x))
 {}
 
 inline int Example::Value<int>::GetValue() const {
-  return __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::GetValue_3(__zz_cib_h_);
+  return __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::GetValue_3(__zz_cib_h_);
 }
 
 inline void Example::Value<int>::SetValue(int x) {
-  __zz_cib_::Example::__zz_cib_Class2::__zz_cib_Helper::SetValue_4(__zz_cib_h_, x);
+  __zz_cib_::Example::__zz_cib_Class4::__zz_cib_Helper::SetValue_4(__zz_cib_h_, x);
 }

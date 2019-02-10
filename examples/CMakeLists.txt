@@ -27,6 +27,9 @@ foreach(example ${EXAMPLES})
     )
     set(PUB_FILES "")
     set(EXP_SOURCES "")
+
+    include("${example}/CMakeVars.txt")
+
     foreach(PUBFILE ${PUB_FILE_BASE_NAMES})
 	    list(APPEND LIB_GLUE_SRCS ${example_ROOT}/cib/${PUBFILE}.h.cpp)
 	    list(APPEND PUB_FILES ${example_ROOT}/pub/${PUBFILE}.h)
@@ -47,21 +50,16 @@ foreach(example ${EXAMPLES})
     ## Vars that can be changed by CMakeVars.txt file in respective example
     set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
     set(DEPENDS cib ${example}GlueCode)
-    include("${example}/CMakeVars.txt")
-    
-    add_custom_command(
-	    OUTPUT ${LIB_GLUE_SRCS}
-	    COMMAND echo Running cib...
-	    COMMAND ${CIBCMD}
-	    COMMAND echo Generated files: ${LIB_GLUE_SRCS}
-	    DEPENDS cib CibResources ${PUB_FILES} ${RESPATHS}
-	    WORKING_DIRECTORY ${example_ROOT}
-    )
-    add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
 
     set(LIB_SOURCES
         ${example_ROOT}/src/example-lib.cpp
     )
+
+    set(CLIENT_SOURCES
+        ${example_ROOT}/src/example-client.cpp
+        example-main.cpp
+    )
+
     add_library(${LIBNAME}
 	    SHARED
 		    ${LIB_SOURCES}
@@ -74,14 +72,20 @@ foreach(example ${EXAMPLES})
     )
     add_dependencies(${LIBNAME} cib ${DEPENDS})
 
-    set(CLIENT_SOURCES
-        ${example_ROOT}/src/example-client.cpp
-        example-main.cpp
-    )
     add_executable(${CLIENTNAME}
 	    ${CLIENT_SOURCES}
 	    ${EXP_SOURCES}
     )
+    
+    add_custom_command(
+	    OUTPUT ${LIB_GLUE_SRCS}
+	    COMMAND echo Running cib...
+	    COMMAND ${CIBCMD}
+	    COMMAND echo Generated files: ${LIB_GLUE_SRCS}
+	    DEPENDS cib CibResources ${PUB_FILES} ${RESPATHS}
+	    WORKING_DIRECTORY ${example_ROOT}
+    )
+    add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
     add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
     add_custom_target(${example}_lcov ${CMAKE_BINARY_DIR}/examples/${example}_client
         COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
