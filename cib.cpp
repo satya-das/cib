@@ -2088,6 +2088,8 @@ void CibCppCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "auto itr = __zz_cib_gClassIdRepo.find(tdx);\n";
     stm << indentation << "if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;\n";
     forEachDescendent(kPublic, [&](const CibCppCompound* compound) {
+      if (!isMemberPublic(compound->protectionLevel(), compound->compoundType_))
+        return;
       stm << indentation++ << "{\n";
       stm << indentation << "auto* obj = dynamic_cast<" << compound->longNsName() << "*>(*__zz_cib_obj);\n";
       stm << indentation << "if (obj) {\n";
