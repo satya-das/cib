@@ -376,7 +376,7 @@ This sequence diagram doesn't mention destrutor but destructor will have similar
 
 **This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
 
-### Example - Virtual function and runtime polymorphism
+## Example - Virtual function and runtime polymorphism
 
 In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
 
@@ -400,27 +400,27 @@ I will spare you from showing the CIB generated code, you can surely see the cod
 The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
 
 
-### Example - Facade Classes and RTTI
+## Example - Facade Classes and RTTI
 
 **TODO**: Add documentation.
 
-### Example - Interface Classes
+## Example - Interface Classes
 
 **TODO**: Add documentation.
 
-### Example - Template Classes
+## Example - Template Classes
 
 **TODO**: Add documentation.
 
-### Example - Reusing proxy classes.
+## Example - Reusing proxy classes.
 
 **TODO**: Add documentation.
 
-### Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
+## Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
 
 **TODO**: Add documentation.
 
-### Demo Project
+# Demo Project
 For working demo see projects **graphics** and **draw** in test folders.
 
 **graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
@@ -433,8 +433,8 @@ Files in **graphics/exp** are part of SDK of library and meant for **draw** proj
 
 Build **graphics** and **draw** and run them. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
 
-## Building CIB
-### Get the source
+# Building CIB
+## Get the source
 
 ```sh
 git clone https://github.com/satya-das/common.git
@@ -462,8 +462,8 @@ cmake -G Ninja ..
 ninja && ninja test
 ```
 
-## Implementation Details
-### Parsing Technique
+# Implementation Details
+## Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -472,7 +472,7 @@ void ExampleFunction(wxInt32 i);
 
 cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
 
-### Creating proxy class from handle
+## Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
 **TODO**: Add more details.

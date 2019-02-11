@@ -42,19 +42,19 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 9.1.6\.  [Library Gateway function](#librarygatewayfunction)  
 9.1.7\.  [Import of library gateway function](#importoflibrarygatewayfunction)  
 9.1.8\.  [SDK Headers and Proxy Classes](#sdkheadersandproxyclasses)  
-9.1.9\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
-9.1.10\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
-9.1.11\.  [Example - Interface Classes](#example-interfaceclasses)  
-9.1.12\.  [Example - Template Classes](#example-templateclasses)  
-9.1.13\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
-9.1.14\.  [Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.](#example-methodsespeciallyvirtualsandpurevirtualsofprivateprotectedandpublicaccesstypes.)  
-9.1.15\.  [Demo Project](#demoproject)  
-9.2\.  [Building CIB](#buildingcib)  
-9.2.1\.  [Get the source](#getthesource)  
-9.2.2\.  [Configure and build](#configureandbuild)  
-9.3\.  [Implementation Details](#implementationdetails)  
-9.3.1\.  [Parsing Technique](#parsingtechnique)  
-9.3.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
+9.2\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
+9.3\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
+9.4\.  [Example - Interface Classes](#example-interfaceclasses)  
+9.5\.  [Example - Template Classes](#example-templateclasses)  
+9.6\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
+9.7\.  [Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.](#example-methodsespeciallyvirtualsandpurevirtualsofprivateprotectedandpublicaccesstypes.)  
+10\.  [Demo Project](#demoproject)  
+11\.  [Building CIB](#buildingcib)  
+11.1\.  [Get the source](#getthesource)  
+11.1.1\.  [Configure and build](#configureandbuild)  
+12\.  [Implementation Details](#implementationdetails)  
+12.1\.  [Parsing Technique](#parsingtechnique)  
+12.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
 
 <a name="overview"></a>
 
@@ -969,7 +969,7 @@ This sequence diagram doesn't mention destrutor but destructor will have similar
 
 <a name="example-virtualfunctionandruntimepolymorphism"></a>
 
-### 9.1.9\. Example - Virtual function and runtime polymorphism
+## 9.2\. Example - Virtual function and runtime polymorphism
 
 In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
 
@@ -1031,37 +1031,37 @@ The instruction generated for client-code takes the decision which virtual funct
 
 <a name="example-facadeclassesandrtti"></a>
 
-### 9.1.10\. Example - Facade Classes and RTTI
+## 9.3\. Example - Facade Classes and RTTI
 
 **TODO**: Add documentation.
 
 <a name="example-interfaceclasses"></a>
 
-### 9.1.11\. Example - Interface Classes
+## 9.4\. Example - Interface Classes
 
 **TODO**: Add documentation.
 
 <a name="example-templateclasses"></a>
 
-### 9.1.12\. Example - Template Classes
+## 9.5\. Example - Template Classes
 
 **TODO**: Add documentation.
 
 <a name="example-reusingproxyclasses."></a>
 
-### 9.1.13\. Example - Reusing proxy classes.
+## 9.6\. Example - Reusing proxy classes.
 
 **TODO**: Add documentation.
 
 <a name="example-methodsespeciallyvirtualsandpurevirtualsofprivateprotectedandpublicaccesstypes."></a>
 
-### 9.1.14\. Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
+## 9.7\. Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
 
 **TODO**: Add documentation.
 
 <a name="demoproject"></a>
 
-### 9.1.15\. Demo Project
+# 10\. Demo Project
 For working demo see projects **graphics** and **draw** in test folders.
 
 **graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
@@ -1076,10 +1076,10 @@ Build **graphics** and **draw** and run them. Make changes in headers of **graph
 
 <a name="buildingcib"></a>
 
-## 9.2\. Building CIB
+# 11\. Building CIB
 <a name="getthesource"></a>
 
-### 9.2.1\. Get the source
+## 11.1\. Get the source
 
 ```sh
 git clone https://github.com/satya-das/common.git
@@ -1089,7 +1089,7 @@ git clone https://github.com/satya-das/cib.git
 
 <a name="configureandbuild"></a>
 
-### 9.2.2\. Configure and build
+### 11.1.1\. Configure and build
 
 ```sh
 cd cib
@@ -1111,10 +1111,10 @@ ninja && ninja test
 
 <a name="implementationdetails"></a>
 
-## 9.3\. Implementation Details
+# 12\. Implementation Details
 <a name="parsingtechnique"></a>
 
-### 9.3.1\. Parsing Technique
+## 12.1\. Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -1125,7 +1125,7 @@ cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then i
 
 <a name="creatingproxyclassfromhandle"></a>
 
-### 9.3.2\. Creating proxy class from handle
+## 12.2\. Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
 **TODO**: Add more details.
