@@ -3,7 +3,6 @@
 //! Contains example definitions to explain cib's functioning
 namespace Example
 {
-
   //! A vividly trivial class
   //! Contains just a simple method.
   class A

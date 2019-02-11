@@ -22,13 +22,13 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 
 ## Overview
  CIB is an architecture to make it possible to publish compiler independent and ABI stable C++ library.
- CIB is also a tool that implements `cib architecture` for a given library headers.
+ This project is also about a tool that implements `cib architecture` for a given library headers.
  CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components unless previously published contract is broken. The cases for which the earlier contract gets broken is significantly fewer compared to the case when CIB is not used.
 CIB can also be used as plugin architecture of application.
 
 _In this document the binary component that exposes its classes will be called **Library**, a library can be an executable or a **DLL/SO**. The component that is compiled using SDK of the library will be called client of that library._
 
-**Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This github project is for describing what excatly is CIB architecture and also for developing a tool that implements it.**
+**Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This project is for describing what excatly is CIB architecture and also for developing a tool that implements it.**
  
 ## CIB Features
   - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
@@ -50,7 +50,7 @@ _In this document the binary component that exposes its classes will be called *
 ## CIB Goals
  - To make it possible to publish ABI stable and compiler independent C++ library.
  - To make it possible to publish forward and backward compatible plugin SDK of an application.
- - To work on all platforms without any gotcha.
+ - Solution should be platform and compiler agnostic.
  - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will of course be a small boiler plate code on both side but that's about it, the rest of the code should remain aloof about existence of CIB.
 
 ## Other Solutions
@@ -147,26 +147,16 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 ### Inline Class
 A class that has all methods inline. *For example a template class is surely an inline class*.
 ### Shared Class
-A C++ class that crosses component boundary: *if there exists a public function that returns an object/pointer/reference of a C++ class or takes an object/reference/pointer as parameter then such class is called a shared class*.
+A C++ class whose intances cross component boundary: *When a class is not an inline class or there exists a public function that returns or takes an object/pointer/reference of a C++ class then such class is called a shared class*.
 ### Facade Class
-A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*.
+A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
 ### Interface Class
 A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
-*A simplest example can be that when a C++ class that has public virtual method and there is a function that accepts pointer/reference of that class as parameter*.
+*A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
 ### Proxy Class
-For each public class of a library CIB produces another class with same name and methods but with small changes so that CIB can do it's job that it promises to do. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
+For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
 ### Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
-
-## Running CIB
-CIB  is expected to be run with public headers that a library wants to publish.
-Below is the example of running cib:
-
-```shell
-cib -i pub/ -o exp/ -b cib/ -m Example
-```
-
-Assuming `pub/` is the folder that contains public headers that library wants to publish. `exp/` is the folder where cib creates headers (and also some source files) that forms the part of published SDK. `cib/` is the folder where cib creates glue code for library. Library is expected to compile these sources as part of itself. `Example` is the name of the module (or library). It is a mandatory command line argument required by cib to define glue code.
 
 ## CIB Architecture Detail
 For better understanding of what CIB architecture is we will consider examples to see what are the required glue code to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB architecture requires in more complex cases. We will learn about bits and peices of CIB architecture through code generated by cib-tool. Most part of code generated by cib are solely for compilers. But we will look into generated code to understand CIB architecture.
@@ -191,6 +181,11 @@ To begin with we will consider following example:
 **Please note that the client code is in form of automated test. It is written using `catch test framework`. I have chosen this way to clearly convey what we expect and also to use these code as automated tests.**
 
 With this tiny library and client code we would like to see what pieces of CIB architecture should be there to make method call across component boundary in an ABI compatible way.
+
+### Running CIB
+CIB  is expected to be run with public headers that a library wants to publish.
+
+Assuming `pub/` is the folder that contains public headers that library wants to publish. `exp/` is the folder where cib creates headers (and also some source files) that forms the part of published SDK. `cib/` is the folder where cib creates glue code for library. Library is expected to compile these sources as part of itself. `Example` is the name of the module (or library). It is a mandatory command line argument required by cib to define glue code.
 
 Assuming current working directory is `examples/example1/` we can run CIB as shown below:
 
@@ -322,7 +317,7 @@ Let's begin to look at client side with the part that imports library gateway fu
 As you can see it is counter part of what library code defined which had used `__zz_cib_export` instead of `__zz_cib_import`. With this declaration client code gets access to `__zz_cib_Example_GetMethodTable` and we will shortly see use of this below.
 
 #### SDK Headers and Proxy Classes
-Now we will look into the headers that will be used by client developer. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wanted to publish.
+Now we will look into the headers that will be used by client developers. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wanted to publish.
 
 **File**: example.h:
 
@@ -340,7 +335,7 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 
 !INCLUDECODE "examples/example1/exp/__zz_cib_internal/example-predef.h" (c++)
 
-We see a #include and a forward declaration of `class __zz_cib_Helper`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header clean as much as possible. We will look into that in next part. Let's see what is the definition of that macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
+We see a #include and forward declarations of `class __zz_cib_Helper`, and `struct __zz_cib_Delegator`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header as clean as possible. We will look into that in next part. __zz_cib_Delegator is the struct that is needed when the class is an interface like class. We will see use of that in other example. Let's see what is the definition of the macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
 
 **File**: __zz_cib_internal/__zz_cib_Example-class-internal-def.h.:
 
@@ -376,7 +371,7 @@ Below is the call sequence diagram for this sample, it will elaborate more about
 ![Call sequence for sample-1](examples/example1/SAMPLE-1.svg "Call sequence for sample-1")
 
 As mentioned before, no compiler generated stuff are shared between components, and we can see method-table generated by CIB is the only thing that are shared by `library` and `client`. This is the way CIB achieves compiler independence.
-This sequence diagram doesn't mention destrutor because I didn't want to make it look complicated. Destructor will have similar call sequence like other methods.
+This sequence diagram doesn't mention destrutor but destructor will have similar call sequence like other methods.
 
 This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.
 

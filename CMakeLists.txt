@@ -76,7 +76,19 @@ target_include_directories(cib
 add_dependencies(cib CibResources)
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
-set(EXAMPLES example1 example2 example3 example4 example5 example6 example7 example8 example9 example10 example11)
+set(EXAMPLES
+	simple-class
+	runtime-polymorphism
+	facade-classes-and-rtti
+	interface-classes
+	template-classes
+	proxy-object-reuse
+	private-virtuals
+	rvalue-parameters
+	free-functions
+	reference-of-pointer
+	pod-struct
+	)
 add_subdirectory(examples)
 
 add_subdirectory(test)
