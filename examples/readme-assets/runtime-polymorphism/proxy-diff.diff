@@ -1,20 +1,16 @@
 --- ../simple-class/exp/example.h
 +++ exp/example.h
-@@ -1,27 +1,45 @@
+@@ -1,27 +1,37 @@
  #pragma  once
  
  #include "__zz_cib_internal/example-predef.h"
  
- //! Contains example definitions to explain cib's functioning
-+//! @attention
-+//! This example is like next version of example-1.
-+//! The compiled library of this example will remain binary
-+//! compatible with client of previous example.
- namespace Example
- {
+-//! Contains example definitions to explain cib's functioning
+-namespace Example
+-{
 -  //! A vividly trivial class
 -  //! Contains just a simple method.
-+  //! Example to see what cib does for classes with virtual methods.
++//! Example to see what cib does for classes with virtual methods.
    class A
    {
    public:
@@ -23,29 +19,30 @@
      A();
      A(A const & );
 -    ~A();
-+    //! This is to know what cib does with virtual functions.
-+    virtual int VirtFunc();
++  //! This is to know what cib does with virtual functions.
++  virtual int VirtFunc();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
      int SomeFunc();
-+    virtual ~A();
++  virtual ~A();
++
++private:
++  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
++};
++class B : public ::A
++{
++public:
++  B(B&& rhs);
++public:
++  B();
++  B(B const & );
++  ~B();
++  virtual int VirtFunc();
  
    private:
-     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
++  __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);
    };
-+  class B : public ::Example::A
-+  {
-+  public:
-+    B(B&& rhs);
-+  public:
-+    B();
-+    B(B const & );
-+    ~B();
-+    virtual int VirtFunc();
-+
-+  private:
-+    __ZZ_CIB_CLASS_INTERNAL_DEF(B, Example::B);
-+  };
- }
+-}
  
  #include "__zz_cib_internal/example-impl.h"
