@@ -91,7 +91,7 @@ set(EXAMPLES
 	)
 add_subdirectory(examples)
 
-add_subdirectory(test)
+add_subdirectory(demo)
 
 find_program(
 	MARKDOWN_PP
