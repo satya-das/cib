@@ -109,7 +109,7 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_target(
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
-	add_dependencies(ReadMe example1_client example2_client DiffsForReadMe)
+	add_dependencies(ReadMe simple-class_client runtime-polymorphism_client DiffsForReadMe)
 else()
   message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
