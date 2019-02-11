@@ -47,7 +47,7 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 9.4\.  [Example - Interface Classes](#example-interfaceclasses)  
 9.5\.  [Example - Template Classes](#example-templateclasses)  
 9.6\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
-9.7\.  [Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.](#example-methodsespeciallyvirtualsandpurevirtualsofprivateprotectedandpublicaccesstypes.)  
+9.7\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
 10\.  [Demo Project](#demoproject)  
 11\.  [Building CIB](#buildingcib)  
 11.1\.  [Get the source](#getthesource)  
@@ -1053,9 +1053,9 @@ The instruction generated for client-code takes the decision which virtual funct
 
 **TODO**: Add documentation.
 
-<a name="example-methodsespeciallyvirtualsandpurevirtualsofprivateprotectedandpublicaccesstypes."></a>
+<a name="example-nonpublicvirtualfunctions."></a>
 
-## 9.7\. Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
+## 9.7\. Example - Non public virtual functions.
 
 **TODO**: Add documentation.
 

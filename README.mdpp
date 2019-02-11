@@ -416,7 +416,7 @@ The instruction generated for client-code takes the decision which virtual funct
 
 **TODO**: Add documentation.
 
-## Example - Methods especially virtuals and pure virtuals of private, protected, and public access types.
+## Example - Non public virtual functions.
 
 **TODO**: Add documentation.
 
