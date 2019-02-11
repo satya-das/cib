@@ -24,6 +24,12 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 4\.  [Other Solutions](#othersolutions)  
 5\.  [ABI Resilience](#abiresilience)  
 6\.  [CIB Architecture](#cibarchitecture)  
+6.1\.  [High level architecture](#highlevelarchitecture)  
+6.1.1\.  [Library Side Glue Code](#librarysidegluecode)  
+6.1.2\.  [Client Side Glue Code](#clientsidegluecode)  
+6.1.3\.  [ABI Compatibility](#abicompatibility)  
+6.1.4\.  [ABI Stability](#abistability)  
+6.2\.  [CIB Architecture Elements](#cibarchitectureelements)  
 7\.  [Feature Progress of CIB tool](#featureprogressofcibtool)  
 8\.  [CIB Terminology](#cibterminology)  
 8.1\.  [Inline Class](#inlineclass)  
@@ -123,24 +129,53 @@ I have come across some solutions that try to solve the same problem but none of
 
 # 6\. CIB Architecture
 
+<a name="highlevelarchitecture"></a>
+
+## 6.1\. High level architecture
+The high level architecture is that there will be thin layers added to both Library and Client. These layers will have code to ensure ABI compatible communication between the two layers. These layers will communicate with their corresponding component in usual way because they will always be compiled together and so no special things need to be done. Graphically it can be depicted as:
+
 ![Integration architecture produced by CIB ](img/cib_design.png "Integration architecture produced by CIB ")
+
+<a name="librarysidegluecode"></a>
+
+### 6.1.1\. Library Side Glue Code
+The code that forms library side layer is called **library side glue code**. This layer contains the code to represent class as set of free functions. These free functions for a class are bundled together in an array. This array of pointers-to-free-functions is called **MethodTable**. To avoid name mangling done by compiler to ruin the ABI compatibility, the library needs to export the MethodTable instead.
+
+<a name="clientsidegluecode"></a>
+
+### 6.1.2\. Client Side Glue Code
+The code that forms client side layer is called **client side glue code**. This layer contains the code to reconstruct the class back from the MethodTable exported by library.
+
+<a name="abicompatibility"></a>
+
+### 6.1.3\. ABI Compatibility
+Since no C++ functions or variables are exported by library there is no problem of ABI compatibility. Anything that is exported by library is MethodTable which can be exported using `extern "C"` and so name mangling doesn't come into play.
+
+<a name="abistability"></a>
+
+### 6.1.4\. ABI Stability
+Since only thing that is shared between client and library is MethodTable maintaining it's stability ensures ABI stability across releases.
+
+<a name="cibarchitectureelements"></a>
+
+## 6.2\. CIB Architecture Elements
 
  Following are the broad elements of CIB architecture:
 
   - CIB architecture needs two sets of files that are created based on public headers that library wants to publish.
-  - One set of files should be compiled with the library. We will call it library side glue code
+  - One set of files, that is called library side glue code, should be compiled with the library.
   - The other set should be used by the client of the library. This is client side glue code.
-  - Library side glue code defines raw C functions for all functions including class methods, constructors, and destructors.
+  - Library side glue code defines free C style functions for all functions including class methods, constructors, and destructors.
   - For non-static method of class the corresponding C function has aditional parameter which is pointer to class.
   - Implementation of such C functions are just to delegate the call to original function/method/constructor/destructor/etc.
-  - All C functions are assigned an integer value as its ID. This ID for an API will remain same across releases.
+  - All C functions are assigned an integer value as its ID. This ID for a function will remain same across releases.
   - For every class/struct/union/namespace a **MethodTable** is defined which is basically an array of function pointers.
   - Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
   - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern (aka bridge pattern) with pimpl pointing to object across component boundary.
   - Function ID is used as an index to fetch function pointer from **MethodTable**.
   - Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
 
-Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this github project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
+Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
 
 In all cases CIB avoids sharing of compiler generated _problematic_ stuffs across component boundary. Below is the list of such compiler generated stuffs:
 1. Mangled function name.
@@ -186,10 +221,7 @@ In all cases CIB avoids sharing of compiler generated _problematic_ stuffs acros
 | Support std::function                     | std::function can be used as function parameter or return type. They too should be supported. ||
 | Support for intrusive pointer             | Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. |
 | Non-const pointer ref return type         | When a reference of pointer of non-POD is returned from a function a change in that should be propagated to the library.|
-| Support struct                            | Automatically add getter/setter for public data members. |
-| Support struct in a better way            | Add smart objects as data members in proxy classes so that user does not need to explicitly call getter and setter for public data members defined in class/struct exported by library. Instead, user can write code as if the structs are locally defined. |
-| Warn when compatibility breaks            | When a change in library header will break compatibility, like when a function is removed, then CIB should warn about such changes. |
-| Multiple library integration              | A program can use 2 cibified libraries which are also interdependent. Objects of one library can be passed to another|
+| Support public data members               | Public data members of a class should be exported in ABI stable way. |
 
 ---
 
@@ -1022,8 +1054,8 @@ TEST_CASE("Virtual function call across library")
   A* pA = new B();
 
   REQUIRE(pA->VirtFunc() == 15);    // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
-  REQUIRE(pA->A::VirtFunc() == 10); // A regular call without use of virtual table.
-  REQUIRE(pA->SomeFunc() == 5);     // Non-virtual call.
+  REQUIRE(pA->A::VirtFunc() == 5);  // A regular call without use of virtual table.
+  REQUIRE(pA->SomeFunc() == 10);    // Non-virtual call.
 }
 
 ```
