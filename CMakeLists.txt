@@ -21,14 +21,14 @@ include_directories(third-party)
 ## CIB
 
 set(CIB_SOURCES
-	cib.cpp
-	cibhelper.cpp
-	cibidmgr.cpp
-	main.cpp
-	cibobjfactory.cpp
-	cibfunction_helper.cpp
-	cibutil.cpp
-	cibcompound.cpp
+	src/cib.cpp
+	src/cibhelper.cpp
+	src/cibidmgr.cpp
+	src/main.cpp
+	src/cibobjfactory.cpp
+	src/cibfunction_helper.cpp
+	src/cibutil.cpp
+	src/cibcompound.cpp
 )
 
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)

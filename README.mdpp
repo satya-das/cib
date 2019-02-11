@@ -75,7 +75,7 @@ I have come across some solutions that try to solve the same problem but none of
 
 # CIB Architecture
 
-![Integration architecture produced by CIB ](cib_design.png "Integration architecture produced by CIB ")
+![Integration architecture produced by CIB ](img/cib_design.png "Integration architecture produced by CIB ")
 
  Following are the broad elements of CIB architecture:
 

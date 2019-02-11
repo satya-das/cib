@@ -123,7 +123,7 @@ I have come across some solutions that try to solve the same problem but none of
 
 # 6\. CIB Architecture
 
-![Integration architecture produced by CIB ](cib_design.png "Integration architecture produced by CIB ")
+![Integration architecture produced by CIB ](img/cib_design.png "Integration architecture produced by CIB ")
 
  Following are the broad elements of CIB architecture:
 
@@ -1062,17 +1062,17 @@ The instruction generated for client-code takes the decision which virtual funct
 <a name="demoproject"></a>
 
 # 10\. Demo Project
-For working demo see projects **graphics** and **draw** in test folders.
+For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
 
 **graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
 **draw** is the client of **graphics** that uses it to draw various shapes.
 Folder **graphics/pub** contains files that graphics library wants to make public.
 
-When **cib** is run it creates files in **graphics/cib** and **graphics/exp**. These generated files uses files in **graphics/pub** as input.
-Files in **graphics/cib** are meant for **graphics** library to compile with it.
-Files in **graphics/exp** are part of SDK of library and meant for **draw** project to compile with.
+When **cib** is run, which is done as pre-build step, it creates files in **graphics/cib** and **graphics/exp**. These generated files use files in **graphics/pub** as input.
+Files in **graphics/cib** are meant for **graphics** library to compile with.
+Files in **graphics/exp** are part of SDK of library and meant for client of **graphics**, in this case **draw** project to compile with.
 
-Build **graphics** and **draw** and run them. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
+Build **draw** and run it. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw_cibified**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
 
 <a name="buildingcib"></a>
 
