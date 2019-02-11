@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,20 +1,37 @@
+@@ -1,23 +1,37 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -11,13 +11,15 @@
  public:
 +  A(A&& rhs);
 +public:
-+  A();
 +  A(A const & );
+   A();
    //! This is to know what cib does with virtual functions.
-   virtual int VirtFunc();
+-  virtual int VirtFunc() { return 5; }
++  virtual int VirtFunc();
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
-   int SomeFunc();
+-  int SomeFunc() { return 10; }
++  int SomeFunc();
 +  virtual ~A();
  
 -  virtual ~A() {}
@@ -29,16 +31,16 @@
 +class B : public ::A
  {
  public:
--  int VirtFunc() override;
 +  B(B&& rhs);
 +public:
-+  B();
 +  B(B const & );
 +  ~B();
+   B();
+-  int VirtFunc() override { return 15; }
 +  virtual int VirtFunc();
 +
 +private:
 +  __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);
  };
-+
+ 
 +#include "__zz_cib_internal/example-impl.h"

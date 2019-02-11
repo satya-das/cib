@@ -4,11 +4,12 @@
 class A
 {
 public:
+  A();
   //! This is to know what cib does with virtual functions.
-  virtual int VirtFunc();
+  virtual int VirtFunc() { return 5; }
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc();
+  int SomeFunc() { return 10; }
 
   virtual ~A() {}
 };
@@ -16,5 +17,7 @@ public:
 class B : public A
 {
 public:
-  int VirtFunc() override;
+  B();
+  int VirtFunc() override { return 15; }
 };
+

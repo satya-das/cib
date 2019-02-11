@@ -16,9 +16,10 @@
    public:
      A(A&& rhs);
    public:
-     A();
+-    A();
      A(A const & );
 -    ~A();
++  A();
 +  //! This is to know what cib does with virtual functions.
 +  virtual int VirtFunc();
      //! Doesn't do anything meaningful
@@ -34,9 +35,9 @@
 +public:
 +  B(B&& rhs);
 +public:
-+  B();
 +  B(B const & );
 +  ~B();
++  B();
 +  virtual int VirtFunc();
  
    private:

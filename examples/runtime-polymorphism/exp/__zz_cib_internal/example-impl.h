@@ -21,15 +21,15 @@ private:
     return helper;
   }
 
-  static __zz_cib_HANDLE* __zz_cib_new_0() {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
-      );
-  }
-  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+  static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_param0);
+  }
+  static __zz_cib_HANDLE* __zz_cib_new_1() {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_1>(
+      );
   }
   static int VirtFunc_2(__zz_cib_HANDLE* __zz_cib_obj) {
     using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
@@ -88,23 +88,23 @@ private:
     return helper;
   }
 
-  static __zz_cib_HANDLE* __zz_cib_new_0() {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
-      );
-  }
-  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+  static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
+  }
+  static __zz_cib_HANDLE* __zz_cib_new_2() {
+    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+      );
   }
   static int VirtFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
     using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);

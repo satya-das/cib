@@ -1,18 +1,8 @@
 #include "example.h"
 
-#include <iostream>
+A::A()
+{}
 
-int A::SomeFunc()
-{
-  return 5;
-}
+B::B()
+{}
 
-int A::VirtFunc()
-{
-  return 10;
-}
-
-int B::VirtFunc()
-{
-  return 15;
-}
