@@ -1,7 +1,9 @@
+#ifndef __zz_cib_MethodTableHelper_defined
+#define __zz_cib_MethodTableHelper_defined
+
 #include "__zz_cib_Graphics-mtable.h"
 
-#ifndef __zz_cib_MethodTableHelper_defined
-#  include <functional>
+#include <functional>
 
 namespace __zz_cib_ {
 
@@ -41,5 +43,4 @@ private:
 
 } // namespace __zz_cib_
 
-#  define __zz_cib_MethodTableHelper_defined
 #endif

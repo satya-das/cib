@@ -2,7 +2,7 @@
 
 #include <catch/catch.hpp>
 
-TEST_CASE("Virtual function call across library")
+TEST_CASE("Virtual function call across component boundary")
 {
   A* pA = new B();
 

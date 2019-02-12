@@ -228,7 +228,7 @@ CIB's basic functioning is that it doesn't let compiler generated problematic st
 
 **Method table and helper function**:
 
-[**File: cib/__zz_cib_Example-mtable.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable.h**]:
+[**File**: cib/__zz_cib_Example-mtable.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable.h]:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-mtable.h" (c++)
 
@@ -236,7 +236,7 @@ Above we have definition of method table and helper function to fetch method fro
 
 **Macro for export function attribute**:
 
-[**File: cib/__zz_cib_Example-export.h**]:
+[**File**: cib/__zz_cib_Example-export.h]:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-export.h" (c++)
 
@@ -244,7 +244,7 @@ We will see `__zz_cib_export` used exactly once in generated code and that too i
 
 **Macro for import function attribute**:
 
-[**File: exp/__zz_cib_internal/__zz_cib_Example-import.h**]:
+[**File**: exp/__zz_cib_internal/__zz_cib_Example-import.h]:
 
 !INCLUDECODE "examples/simple-class/exp/__zz_cib_internal/__zz_cib_Example-import.h" (c++)
 
@@ -252,7 +252,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 **Macro to define calling convention**:
 
-[**File: cib/__zz_cib_Example-decl.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-decl.h**]:
+[**File**: cib/__zz_cib_Example-decl.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-decl.h]:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-decl.h" (c++)
 
@@ -260,13 +260,13 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 **Type definiton of opaque pointers used by client**:
 
-[**File: exp/__zz_cib_internal/__zz_cib_Example-handle.h**]:
+[**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
 
 !INCLUDECODE "examples/simple-class/exp/__zz_cib_internal/__zz_cib_Example-handle.h" (c++)
 
 **Type definiton of opaque pointers used by library**:
 
-[**File: cib/__zz_cib_Example-proxy.h**]:
+[**File**: cib/__zz_cib_Example-proxy.h]:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-proxy.h" (c++)
 
@@ -274,7 +274,7 @@ As I have mentioned earlier that CIB doesn't let compiler generated "problematic
 
 **MethodTableHelper class**
 
-[**File: cib/__zz_cib_Example-mtable-helper.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h**]:  
+[**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-mtable-helper.h" (c++)
 
@@ -284,7 +284,7 @@ As you can guess these types are independent of headers that library wants to pu
 
 ### Unique IDs for all entities.
 
-**File: cib/__zz_cib_Example-ids.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-ids.h**:
+**File**: cib/__zz_cib_Example-ids.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-ids.h:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-ids.h" (c++)
 
@@ -314,7 +314,7 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 ### Library Gateway function
 
-**File: __zz_cib_Example-gateway.cpp**:
+**File**: __zz_cib_Example-gateway.cpp:
 
 !INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-gateway.cpp" (c++)
 
@@ -325,7 +325,7 @@ Now we will visit code that will be part of SDK and will be used by clients.
 ### Import of library gateway function
 Let's begin to look at client side with the part that imports library gateway function.
 
-**File: __zz_cib_Example-def.h**:
+**File**: __zz_cib_Example-def.h:
 
 !INCLUDECODE "examples/simple-class/exp/__zz_cib_internal/__zz_cib_Example-def.h" (c++)
 
@@ -377,7 +377,7 @@ First one is the constructor that constructs from opaque handle. This constructo
 Implementation of next three are mostly about delegating to methods of `__zz_cib_Helper`. Implementation of constructors are slightly different. They endup calling the very first constructor by passing returned value of method calls of `__zz_cib_Helper`.
 Let's see what happens when following code is executed by client program:
 
-**File: example-client.cpp**:
+**File**: example-client.cpp:
 
 !INCLUDECODE "examples/simple-class/src/example-client.cpp" (c++)
 
@@ -411,7 +411,7 @@ Below is what client of library can expect. It is trivial and there is no surpri
 !INCLUDECODE "examples/runtime-polymorphism/src/example-client.cpp" (c++)
 
 I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
-The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
+I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
 
 
 ## Example - Facade Classes and RTTI

@@ -356,7 +356,7 @@ CIB's basic functioning is that it doesn't let compiler generated problematic st
 
 **Method table and helper function**:
 
-[**File: cib/__zz_cib_Example-mtable.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable.h**]:
+[**File**: cib/__zz_cib_Example-mtable.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable.h]:
 
 ```c++
 #ifndef __zz_cib_MethodTable_defined
@@ -401,7 +401,7 @@ Above we have definition of method table and helper function to fetch method fro
 
 **Macro for export function attribute**:
 
-[**File: cib/__zz_cib_Example-export.h**]:
+[**File**: cib/__zz_cib_Example-export.h]:
 
 ```c++
 //! @def __zz_cib_export
@@ -430,7 +430,7 @@ We will see `__zz_cib_export` used exactly once in generated code and that too i
 
 **Macro for import function attribute**:
 
-[**File: exp/__zz_cib_internal/__zz_cib_Example-import.h**]:
+[**File**: exp/__zz_cib_internal/__zz_cib_Example-import.h]:
 
 ```c++
 //! @def __zz_cib_import
@@ -459,7 +459,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 **Macro to define calling convention**:
 
-[**File: cib/__zz_cib_Example-decl.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-decl.h**]:
+[**File**: cib/__zz_cib_Example-decl.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-decl.h]:
 
 ```c++
 //! @def __zz_cib_decl
@@ -493,7 +493,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 **Type definiton of opaque pointers used by client**:
 
-[**File: exp/__zz_cib_internal/__zz_cib_Example-handle.h**]:
+[**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
 
 ```c++
 #pragma once
@@ -511,7 +511,7 @@ class __zz_cib_HANDLE;
 
 **Type definiton of opaque pointers used by library**:
 
-[**File: cib/__zz_cib_Example-proxy.h**]:
+[**File**: cib/__zz_cib_Example-proxy.h]:
 
 ```c++
 #pragma once
@@ -531,13 +531,15 @@ As I have mentioned earlier that CIB doesn't let compiler generated "problematic
 
 **MethodTableHelper class**
 
-[**File: cib/__zz_cib_Example-mtable-helper.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h**]:  
+[**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
 
 ```c++
+#ifndef __zz_cib_MethodTableHelper_defined
+#define __zz_cib_MethodTableHelper_defined
+
 #include "__zz_cib_Example-mtable.h"
 
-#ifndef __zz_cib_MethodTableHelper_defined
-#  include <functional>
+#include <functional>
 
 namespace __zz_cib_ {
 
@@ -577,7 +579,6 @@ private:
 
 } // namespace __zz_cib_
 
-#  define __zz_cib_MethodTableHelper_defined
 #endif
 
 ```
@@ -590,7 +591,7 @@ As you can guess these types are independent of headers that library wants to pu
 
 ### 9.1.4\. Unique IDs for all entities.
 
-**File: cib/__zz_cib_Example-ids.h** and also **File: exp/__zz_cib_internal/__zz_cib_Example-ids.h**:
+**File**: cib/__zz_cib_Example-ids.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-ids.h:
 
 ```c++
 #pragma once
@@ -690,7 +691,7 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 ### 9.1.6\. Library Gateway function
 
-**File: __zz_cib_Example-gateway.cpp**:
+**File**: __zz_cib_Example-gateway.cpp:
 
 ```c++
 #include "__zz_cib_Example-decl.h"
@@ -722,7 +723,7 @@ Now we will visit code that will be part of SDK and will be used by clients.
 ### 9.1.7\. Import of library gateway function
 Let's begin to look at client side with the part that imports library gateway function.
 
-**File: __zz_cib_Example-def.h**:
+**File**: __zz_cib_Example-def.h:
 
 ```c++
 #pragma once
@@ -975,7 +976,7 @@ First one is the constructor that constructs from opaque handle. This constructo
 Implementation of next three are mostly about delegating to methods of `__zz_cib_Helper`. Implementation of constructors are slightly different. They endup calling the very first constructor by passing returned value of method calls of `__zz_cib_Helper`.
 Let's see what happens when following code is executed by client program:
 
-**File: example-client.cpp**:
+**File**: example-client.cpp:
 
 ```c++
 #include "example.h"
