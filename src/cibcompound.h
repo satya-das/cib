@@ -403,12 +403,12 @@ public:
                       const CibParams& cibParams,
                       const CibIdMgr&  cibIdMgr,
                       CppIndent        indentation = CppIndent()) const;
-  void emitFunctionInvokeHelper(std::ostream&           stm,
-                                const CibFunctionHelper func,
-                                const CibHelper&        helper,
-                                const CibParams&        cibParams,
-                                const CibIdData*        cibIdData,
-                                CppIndent               indentation) const;
+  void emitFunctionInvokeHelper(std::ostream&            stm,
+                                const CibFunctionHelper& func,
+                                const CibHelper&         helper,
+                                const CibParams&         cibParams,
+                                const CibIdData*         cibIdData,
+                                CppIndent                indentation) const;
   void emitHelperDefnStart(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const;
   void emitCastingHelpers(std::ostream&    stm,
                           const CibParams& cibParams,

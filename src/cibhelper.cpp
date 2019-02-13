@@ -164,7 +164,7 @@ void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
   for (const auto mem : cppCompound->members_)
   {
     if (mem->objType_ == CppObj::kCompound)
-      resolveInheritance((CibCppCompound*) mem);
+      resolveInheritance(static_cast<CibCppCompound*>(mem));
   }
 }
 
@@ -243,7 +243,6 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
       isPodStruct = false;
     if (mem->objType_ == CppObj::kCompound)
     {
-      isPodStruct  = false;
       auto* nested = static_cast<CibCppCompound*>(mem);
       markClassType(nested);
       if (isPodStruct)

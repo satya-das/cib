@@ -1528,12 +1528,12 @@ void CibCppCompound::emitHelperDecl(std::ostream&    stm,
   }
 }
 
-void CibCppCompound::emitFunctionInvokeHelper(std::ostream&           stm,
-                                              const CibFunctionHelper func,
-                                              const CibHelper&        helper,
-                                              const CibParams&        cibParams,
-                                              const CibIdData*        cibIdData,
-                                              CppIndent               indentation /* = CppIndent */) const
+void CibCppCompound::emitFunctionInvokeHelper(std::ostream&            stm,
+                                              const CibFunctionHelper& func,
+                                              const CibHelper&         helper,
+                                              const CibParams&         cibParams,
+                                              const CibIdData*         cibIdData,
+                                              CppIndent                indentation /* = CppIndent */) const
 {
   if (func.isPureVirtual() && !func.isDestructor())
     return;

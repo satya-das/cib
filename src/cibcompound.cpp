@@ -219,7 +219,7 @@ static TemplateArgs CollectTemplateArgs(const std::string& s)
 {
   auto b = s.find('<');
   auto e = s.length();
-  assert((s[b] == '<') && (b < e));
+  assert(b < e);
   auto jumpToArgStart = [&]() {
     while ((++b < e) && isspace(s[b]))
       ;

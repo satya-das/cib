@@ -31,39 +31,39 @@ _In this document the binary component that exposes its classes will be called *
 **Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This project is for describing what excatly is CIB architecture and also for developing a tool that implements it.**
  
 # CIB Features
-  - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
-  - **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
-  - **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
-  - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
-  - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
+- **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
+- **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
+- **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
+- **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
+- **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
- **Some of these features are provided by COM. But CIB has other advantages over COM.**
+**Some of these features are provided by COM. But CIB has other advantages over COM.**
 
-  - Clients can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
-  - No need to write interface definition files (.idl/.odl files).
-  - No need to maintain order of virtual functions across releases.
-  - No need to declare all functions as pure virtual. CIB allows a class to export all kind of methods like static, virtual, pure virtual, inline etc. Only thing is that an inline function will actually make a proper function call when called from across the component boundary.
-  - CIB , unlike COM, works on all platforms.
+- Clients can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
+- No need to write interface definition files (.idl/.odl files).
+- No need to maintain order of virtual functions across releases.
+- No need to declare all functions as pure virtual. CIB allows a class to export all kind of methods like static, virtual, pure virtual, inline etc. Only thing is that an inline function will actually make a proper function call when called from across the component boundary.
+- CIB , unlike COM, works on all platforms.
 
- **CIB  allows client of a library to use all exported classes, as if those classes are part of the client code itself, without exposing the internals of classes.**
+**CIB  allows client of a library to use all exported classes, as if those classes are part of the client code itself, without exposing the internals of classes.**
 
 # CIB Goals
- - To make it possible to publish ABI stable and compiler independent C++ library.
- - To make it possible to publish forward and backward compatible plugin SDK of an application.
- - Solution should be platform and compiler agnostic.
- - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will of course be a small boiler plate code on both side but that's about it, the rest of the code should remain aloof about existence of CIB.
+- To make it possible to publish ABI stable and compiler independent C++ library.
+- To make it possible to publish forward and backward compatible plugin SDK of an application.
+- Solution should be platform and compiler agnostic.
+- Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will of course be a small boiler plate code on both side but that's about it, the rest of the code should remain aloof about existence of CIB.
 
 # Other Solutions
 I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across component boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals or some is too specific to the project it was developed for.
 
- - **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
- - **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
- - **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
- 
- **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
+- **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
+- **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
+- **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
+
+**And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
 
 # ABI Resilience
-  Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
+Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
 - Any change in internal data member of a class.
 - Addition of new virtual methods anywhere in the class.
 - Change in order of virtual functions of a class.
@@ -96,18 +96,18 @@ Since only thing that is shared between client and library is MethodTable mainta
 
  Following are the broad elements of CIB architecture:
 
-  - CIB architecture needs two sets of files that are created based on public headers that library wants to publish.
-  - One set of files, that is called library side glue code, should be compiled with the library.
-  - The other set should be used by the client of the library. This is client side glue code.
-  - Library side glue code defines free C style functions for all functions including class methods, constructors, and destructors.
-  - For non-static method of class the corresponding C function has aditional parameter which is pointer to class.
-  - Implementation of such C functions are just to delegate the call to original function/method/constructor/destructor/etc.
-  - All C functions are assigned an integer value as its ID. This ID for a function will remain same across releases.
-  - For every class/struct/union/namespace a **MethodTable** is defined which is basically an array of function pointers.
-  - Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
-  - Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern (aka bridge pattern) with pimpl pointing to object across component boundary.
-  - Function ID is used as an index to fetch function pointer from **MethodTable**.
-  - Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
+- CIB architecture needs two sets of files that are created based on public headers that library wants to publish.
+- One set of files, that is called library side glue code, should be compiled with the library.
+- The other set should be used by the client of the library. This is client side glue code.
+- Library side glue code defines free C style functions for all functions including class methods, constructors, and destructors.
+- For non-static method of class the corresponding C function has aditional parameter which is pointer to class.
+- Implementation of such C functions are just to delegate the call to original function/method/constructor/destructor/etc.
+- All C functions are assigned an integer value as its ID. This ID for a function will remain same across releases.
+- For every class/struct/union/namespace a **MethodTable** is defined which is basically an array of function pointers.
+- Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
+- Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern (aka bridge pattern) with pimpl pointing to object across component boundary.
+- Function ID is used as an index to fetch function pointer from **MethodTable**.
+- Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
 
 Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
 

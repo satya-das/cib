@@ -1,9 +1,10 @@
 #ifndef __zz_cib_MethodTable_defined
+#define __zz_cib_MethodTable_defined
 
-#  include "__zz_cib_Example-decl.h"
+#include "__zz_cib_Example-decl.h"
 
-#  include <cassert>
-#  include <cstdint>
+#include <cassert>
+#include <cstdint>
 
 namespace __zz_cib_ {
 
@@ -31,5 +32,4 @@ inline __zz_cib_MTableEntry __zz_cib_GetMTableEntry(const __zz_cib_MethodTable* 
 
 } // namespace __zz_cib_
 
-#  define __zz_cib_MethodTable_defined
 #endif

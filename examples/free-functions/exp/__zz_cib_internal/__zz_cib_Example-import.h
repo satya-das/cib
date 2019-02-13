@@ -1,3 +1,5 @@
+#pragma once
+
 //! @def __zz_cib_import
 //! Function attribute that makes external symbol accessible
 #ifdef __zz_cib_import
@@ -16,4 +18,8 @@
 #  else
 #    define __zz_cib_import
 #  endif
+#endif
+
+#ifndef __zz_cib_import
+#  define __zz_cib_import
 #endif

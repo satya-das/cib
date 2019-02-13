@@ -25,7 +25,7 @@ TEST_CASE("Reference to pointer")
   CHECK(std::type_index(typeid(*pCA)) == std::type_index(typeid(A)));
   delete pCA;
 
-  pA = nullptr;
+  pCA = nullptr;
   GetNewB(pCA);
   REQUIRE(std::type_index(typeid(*pCA)) == std::type_index(typeid(B)));
   delete pCA;
