@@ -13,8 +13,12 @@ set(LIB_GLUE_SRCS
 )
 set(PUB_FILES "")
 set(EXP_SOURCES "")
+set(TEST_CMD ${CLIENTNAME})
+set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
+set(DEPENDS cib ${example}GlueCode)
+set(EXAMPLES_BIN_DIR ${CMAKE_BINARY_DIR}/examples)
 
-include("${example}/CMakeVars.txt")
+include("${example}/Prologue.cmake")
 
 foreach(PUBFILE ${PUB_FILE_BASE_NAMES})
     list(APPEND LIB_GLUE_SRCS ${example_ROOT}/cib/${PUBFILE}.h.cpp)
@@ -36,10 +40,6 @@ foreach(CIBOUTFILE ${EXP_SOURCES})
     set_source_files_properties(${CIBOUTFILE} GENERATED)
 endforeach()
 
-## Vars that can be changed by CMakeVars.txt file in respective example
-set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
-set(DEPENDS cib ${example}GlueCode)
-
 set(LIB_SOURCES
     ${example_ROOT}/src/example-lib.cpp
 )
@@ -55,27 +55,34 @@ add_library(${LIBNAME}
         ${PUB_FILES}
         ${LIB_GLUE_SRCS}
 )
+set_target_properties(${LIBNAME} PROPERTIES
+    SUFFIX ".so"
+    PREFIX "lib"
+)
+
 target_include_directories(${LIBNAME}
     PRIVATE
         ${example_ROOT}/pub
 )
-add_dependencies(${LIBNAME} cib ${DEPENDS})
+add_dependencies(${LIBNAME} cib ${example}GlueCode ${DEPENDS})
 
 add_executable(${CLIENTNAME}
     ${CLIENT_SOURCES}
     ${EXP_SOURCES}
 )
+set_target_properties(${CLIENTNAME} PROPERTIES SUFFIX "")
+
+add_test(NAME ${CLIENTNAME} COMMAND ${TEST_CMD})
 
 add_custom_command(
     OUTPUT ${LIB_GLUE_SRCS}
     COMMAND echo Running cib...
     COMMAND ${CIBCMD}
     COMMAND echo Generated files: ${LIB_GLUE_SRCS}
-    DEPENDS cib CibResources ${PUB_FILES} ${RESPATHS}
+    DEPENDS cib CibResources ${PUB_FILES} ${RESPATHS} ${DEPENDS}
     WORKING_DIRECTORY ${example_ROOT}
 )
 add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
-add_test(NAME ${CLIENTNAME} COMMAND ${CLIENTNAME})
 add_custom_target(${example}_lcov ${CMAKE_BINARY_DIR}/examples/${example}_client
     COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
     DEPENDS ${CLIENTNAME}
@@ -99,3 +106,5 @@ if(NOT MSVC)
     include("${example}/DocCommands.cmake")
     add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
 endif()
+
+include("${example}/Epilogue.cmake")

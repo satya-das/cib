@@ -79,6 +79,9 @@ set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 set(EXAMPLES
 	simple-class
 	runtime-polymorphism
+	virtual-function-and-abi-stability
+	inheritance-type-and-abi-stability
+	inheritance-change-and-abi-stability
 	facade-classes-and-rtti
 	interface-classes
 	template-classes
@@ -88,7 +91,7 @@ set(EXAMPLES
 	free-functions
 	reference-of-pointer
 	pod-struct
-	)
+)
 add_subdirectory(examples)
 
 add_subdirectory(demo)
