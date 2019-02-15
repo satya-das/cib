@@ -94,7 +94,7 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
                                           size_t                     e,
                                           const TemplateArgValueMap& argValues)
 {
-  assert((s[b] == '<') && (b < e));
+  assert((b < e) && (b < s.length()) && (s[b] == '<'));
   auto jumpToArgStart = [&]() {
     while ((++b < e) && isspace(s[b]))
       ;

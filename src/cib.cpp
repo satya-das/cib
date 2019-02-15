@@ -1903,7 +1903,8 @@ void CibCppCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
-  stm << indentation << name() << "(__zz_cib_HANDLE* h) : " << longNsName() << "(h), __zz_cib_h_(h) {}\n";
+  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longNsName()
+      << "(h), __zz_cib_h_(h) {}\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "static " << longName() << "* __zz_cib_from_handle(__zz_cib_HANDLE* h) {\n";
   stm << ++indentation << "return new " << name() << "(h);\n";

@@ -37,7 +37,7 @@ class Shape : public ::Graphics::Shape {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Shape(__zz_cib_HANDLE* h) : ::Graphics::Shape(h), __zz_cib_h_(h) {}
+  explicit Shape(__zz_cib_HANDLE* h) : ::Graphics::Shape(h), __zz_cib_h_(h) {}
 public:
   static ::Graphics::Shape* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Shape(h);

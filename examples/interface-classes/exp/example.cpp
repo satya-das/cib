@@ -105,7 +105,7 @@ class Interface2 : public ::Interface2 {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Interface2(__zz_cib_HANDLE* h) : ::Interface2(h), __zz_cib_h_(h) {}
+  explicit Interface2(__zz_cib_HANDLE* h) : ::Interface2(h), __zz_cib_h_(h) {}
 public:
   static ::Interface2* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Interface2(h);
@@ -167,7 +167,7 @@ class Interface3 : public ::Interface3 {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Interface3(__zz_cib_HANDLE* h) : ::Interface3(h), __zz_cib_h_(h) {}
+  explicit Interface3(__zz_cib_HANDLE* h) : ::Interface3(h), __zz_cib_h_(h) {}
 public:
   static ::Interface3* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Interface3(h);

@@ -97,7 +97,7 @@ class Facade : public ::Facade {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Facade(__zz_cib_HANDLE* h) : ::Facade(h), __zz_cib_h_(h) {}
+  explicit Facade(__zz_cib_HANDLE* h) : ::Facade(h), __zz_cib_h_(h) {}
 public:
   static ::Facade* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Facade(h);

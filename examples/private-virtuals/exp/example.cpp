@@ -85,7 +85,7 @@ class IF : public ::IF {
       __zz_cib_classid));
     return mtableHelper;
   }
-  IF(__zz_cib_HANDLE* h) : ::IF(h), __zz_cib_h_(h) {}
+  explicit IF(__zz_cib_HANDLE* h) : ::IF(h), __zz_cib_h_(h) {}
 public:
   static ::IF* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new IF(h);

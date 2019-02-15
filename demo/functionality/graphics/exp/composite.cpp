@@ -71,7 +71,7 @@ class Composite : public ::Graphics::Composite {
       __zz_cib_classid));
     return mtableHelper;
   }
-  Composite(__zz_cib_HANDLE* h) : ::Graphics::Composite(h), __zz_cib_h_(h) {}
+  explicit Composite(__zz_cib_HANDLE* h) : ::Graphics::Composite(h), __zz_cib_h_(h) {}
 public:
   static ::Graphics::Composite* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new Composite(h);

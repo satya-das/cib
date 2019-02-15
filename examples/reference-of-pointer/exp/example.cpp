@@ -69,7 +69,7 @@ class A : public ::A {
       __zz_cib_classid));
     return mtableHelper;
   }
-  A(__zz_cib_HANDLE* h) : ::A(h), __zz_cib_h_(h) {}
+  explicit A(__zz_cib_HANDLE* h) : ::A(h), __zz_cib_h_(h) {}
 public:
   static ::A* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new A(h);
