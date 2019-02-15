@@ -16,7 +16,7 @@ TEST_CASE("Reference to pointer")
 
   pA = nullptr;
   GetNewB(pA);
-  REQUIRE(std::type_index(typeid(*pA)) == std::type_index(typeid(B)));
+  CHECK(std::type_index(typeid(*pA)) == std::type_index(typeid(B)));
   delete pA;
 
   const A* pCA = nullptr;
@@ -27,6 +27,6 @@ TEST_CASE("Reference to pointer")
 
   pCA = nullptr;
   GetNewB(pCA);
-  REQUIRE(std::type_index(typeid(*pCA)) == std::type_index(typeid(B)));
+  CHECK(std::type_index(typeid(*pCA)) == std::type_index(typeid(B)));
   delete pCA;
 }

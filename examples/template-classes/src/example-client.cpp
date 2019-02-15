@@ -9,6 +9,6 @@ TEST_CASE("Instances of template class can cross component boundary")
   Example::A                   a;
   a.Set(x);
   a.SetInt(y);
-  REQUIRE(a.Get().GetValue() == 5);
-  REQUIRE(a.GetInt().GetValue() == 9);
+  CHECK(a.Get().GetValue() == 5);
+  CHECK(a.GetInt().GetValue() == 9);
 }

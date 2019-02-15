@@ -5,8 +5,8 @@
 
 TEST_CASE("Global functions")
 {
-  REQUIRE(GlobalFunction1() == 10);
-  REQUIRE(GlobalFunction2() == 20);
-  REQUIRE(Example::Function1() == 100);
-  REQUIRE(Example::Function2() == 200);
+  CHECK(GlobalFunction1() == 10);
+  CHECK(GlobalFunction2() == 20);
+  CHECK(Example::Function1() == 100);
+  CHECK(Example::Function2() == 200);
 }

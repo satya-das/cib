@@ -5,5 +5,5 @@
 TEST_CASE("Method call")
 {
   Example::A a;
-  REQUIRE(a.SomeFunc() == 5);
+  CHECK(a.SomeFunc() == 5);
 }

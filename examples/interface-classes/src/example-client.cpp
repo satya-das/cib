@@ -41,5 +41,5 @@ TEST_CASE("Interface detection")
 {
   A a;
   Implement1 i;
-  REQUIRE(a.SetInterface(&i) == 55);
+  CHECK(a.SetInterface(&i) == 55);
 }
