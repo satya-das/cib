@@ -55,6 +55,10 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 9.1.6\.  [Library Gateway function](#librarygatewayfunction)  
 9.1.7\.  [Import of library gateway function](#importoflibrarygatewayfunction)  
 9.1.8\.  [SDK Headers and Proxy Classes](#sdkheadersandproxyclasses)  
+9.1.8.1\.  [Proxy class definition](#proxyclassdefinition)  
+9.1.9\.  [Client side glue code](#clientsidegluecode-1)  
+9.1.9.1\.  [Helper class definition](#helperclassdefinition)  
+9.1.9.2\.  [Proxy class implementation](#proxyclassimplementation)  
 9.2\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
 9.3\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
 9.4\.  [Example - Interface Classes](#example-interfaceclasses)  
@@ -694,6 +698,9 @@ As you can see it is counter part of what library code defined which had used `_
 ### 9.1.8\. SDK Headers and Proxy Classes
 Now we will look into the headers that will be used by client developers. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wanted to publish.
 
+<a name="proxyclassdefinition"></a>
+
+#### 9.1.8.1\. Proxy class definition
 **File**: example.h:
 
 ```c++
@@ -765,6 +772,9 @@ You can notice certain differences between this class and the original class in 
 
 We can see that the header is *almost* same as original, except some "hook points" that CIB inserted. There is one file inclusion in the beginning and one at the end. Class definition is same functionality wise. CIB added *missing* default constructor, copy constructor, destructor and also a move constructor. A macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` is also inserted in private section of the class. *The `private:` before __ZZ_ CIB _CLASS_INTERNAL_DEF is a lie, we will later see why.* These extra insertions in the header certainly makes the header a bit ugly but they are worth the price because they add lots of value which were simply not present earlier. 
 
+<a name="clientsidegluecode-1"></a>
+
+### 9.1.9\. Client side glue code
 Now, let's have a look at the `predef` file that is `#include`d in the beginning.
 
 **File**: __zz_cib_internal/example-predef.h:
@@ -805,7 +815,12 @@ private:                                                                        
 
 ```
 
-Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. We will now move to see the content of file that was #include'd at the end of proxy class definition file.
+Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__zz_cib_Helper` as a friend class and adds a private data member. The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that.
+
+<a name="helperclassdefinition"></a>
+
+#### 9.1.9.1\. Helper class definition
+We will now move to see the content of file that was #include'd at the end of proxy class definition file.
 
 **File**: exp/__zz_cib_internal/example-impl.h. _Helper of proxy class_:
 
@@ -883,7 +898,12 @@ public:
 This file contains definition of `class __zz_cib_Helper`.
 
 We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_MethodTableHelper`, and `__zz_cib_HandleHelper`. We had already seen __zz_cib_MethodTableHelper before. `__zz_cib_HandleHelper` has methods to convert handle to proxy class and vice versa.
-Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches method table on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. As the name suggest, this class is helper of proxy class. We will next see use of this class in implementation of methods.
+Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches method table on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. As the name suggest, this class is helper of proxy class.
+
+<a name="proxyclassimplementation"></a>
+
+#### 9.1.9.2\. Proxy class implementation
+We will next see use of this class in implementation of methods.
 
 **File**: exp/example.cpp. _Implementation of proxy class methods_:
 
