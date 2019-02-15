@@ -235,27 +235,20 @@ CIB's basic functioning is that it doesn't let compiler generated problematic st
 
 Above we have definition of method table and helper function to fetch method from method-table. So, basically method table is an array of function pointers. This is the table that crosses component boundary instead of mangled function name or virtual table. We will see how but as of now it is enough to know what exactly is method table.
 
-**Macro for export function attribute**:
+#### Design choice of Method Table
+Method table can have alternate design choice of being a `struct` of function pointers instead of array of function pointers. And that too can serve the purpose and in some cases be better. But CIB uses array for following reasons:
+- Array helps in reducing total number of constructs. In case Method Table is a struct of function pointers we will need many structs.
+- Using array we can fetch function pointer by an index. Those index can be treated as function ID. If those ID is changed or removed it will be easy to detect and warn the library author of breaking the compatibility.
+- With array we only export one function from library. In case of struct all the structs would have to be exported.
 
-[**File**: cib/__zz_cib_Example-export.h]:
+_Nevertheless `struct` MethodTable would have benefits too but I decided to use array._
 
-!INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-export.h" (c++)
+**Macro for import, export, and calling convention for functions**:
+In the glue code we will see macros `__zz_cib_export`, `__zz_cib_import`, and `__zz_cib_decl`.
 
-We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported function needs to be called by client there has to be a macro for import attribute of function. So, let's see that:
-
-**Macro for import function attribute**:
-
-[**File**: exp/__zz_cib_internal/__zz_cib_Example-import.h]:
-
-!INCLUDECODE "examples/simple-class/exp/__zz_cib_internal/__zz_cib_Example-import.h" (c++)
+We will see `__zz_cib_export` used exactly once in generated code and that too in library glue code. That will tell us that the function for which it is used is the only function that will cross component boundary with it's *name*. All other functions cross component boundary only as function pointer. Since an exported function needs to be called by client there has to be a macro for import attribute of function. So we have `__zz_cib_import` too.
 
 Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in generated code for client. That will tell us that the function for which it is used is the only function that will be imported with it's *name*. All other functions of library will be used by client only as function pointer.
-
-**Macro to define calling convention**:
-
-[**File**: cib/__zz_cib_Example-decl.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-decl.h]:
-
-!INCLUDECODE "examples/simple-class/cib/__zz_cib_Example-decl.h" (c++)
 
 `__zz_cib_decl` is needed to ensure both library and clients use same calling convention for calling functions across the component boundary. `stdcall` is chosen by default because that is what most compilers support. It can be changed to something different if library vendor wants to use other appropriate calling convention.
 
@@ -312,6 +305,9 @@ There are mainly 2 parts in this file. In the first part we see plain C-style st
 
 The second part of this file defines a function `__zz_cib_GetMethodTable`.
 The implementation of `__zz_cib_GetMethodTable` is to return a static table of methods. We will later see how this method table is used by the client side glue code to implement classes that client would use but I want to make a point here that CIB guarentees that the items in the table will not be shuffled around when CIB is run again. **That's the backbone of how CIB guarentees ABI stability.** So, even when new methods are added to `class A` the new items in the method table will only get added at the end irrespective of where the new method is added in the class. So, older client of library that were compiled with older SDK will continue working with new library if no existing methods are removed.
+
+#### Function Name Suffix
+If you notice the names of delegator functions in library glue code has suffix `_n`, where `n` is an integer. These numbers are IDs of respective functions. ID is appended in function names so that even if there are functions with same name we will end up with unique function names within one `__zz_cib_Delegator` namespace.
 
 ### Library Gateway function
 
