@@ -243,6 +243,7 @@ Method table can have alternate design choice of being a `struct` of function po
 
 _Nevertheless `struct` MethodTable would have benefits too but I decided to use array._
 
+#### Helpful macros
 **Macro for import, export, and calling convention for functions**:
 In the glue code we will see macros `__zz_cib_export`, `__zz_cib_import`, and `__zz_cib_decl`.
 
@@ -252,12 +253,14 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 `__zz_cib_decl` is needed to ensure both library and clients use same calling convention for calling functions across the component boundary. `stdcall` is chosen by default because that is what most compilers support. It can be changed to something different if library vendor wants to use other appropriate calling convention.
 
+#### Handle definition
 **Type definiton of opaque pointers used by client**:
 
 [**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
 
 !INCLUDECODE "examples/simple-class/exp/__zz_cib_internal/__zz_cib_Example-handle.h" (c++)
 
+#### Definition of Handle to proxy
 **Type definiton of opaque pointers used by library**:
 
 [**File**: cib/__zz_cib_Example-proxy.h]:
@@ -266,7 +269,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 As I have mentioned earlier that CIB doesn't let compiler generated "problematic" stuff to cross component boundary. Among those stuff is object layout too. CIB uses opaque pointer for objects belonging to other component and completely avoids accessing compiler generated object layout of another component. For this purpose CIB defines `__zz_cib_HANDLE` and `__zz_cib_PROXY` to represent library side and client side objects to vice versa in opaque manner.
 
-**MethodTableHelper class**
+#### MethodTableHelper class
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
 

@@ -45,6 +45,10 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 9.1.2\.  [Symbol `__zz_cib_`](#symbol`__zz_cib_`)  
 9.1.3\.  [Method Table](#methodtable)  
 9.1.3.1\.  [Design choice of Method Table](#designchoiceofmethodtable)  
+9.1.3.2\.  [Helpful macros](#helpfulmacros)  
+9.1.3.3\.  [Handle definition](#handledefinition)  
+9.1.3.4\.  [Definition of Handle to proxy](#definitionofhandletoproxy)  
+9.1.3.5\.  [MethodTableHelper class](#methodtablehelperclass)  
 9.1.4\.  [Unique IDs for all entities.](#uniqueidsforallentities.)  
 9.1.5\.  [Library Glue Code](#librarygluecode)  
 9.1.5.1\.  [Function Name Suffix](#functionnamesuffix)  
@@ -412,6 +416,9 @@ Method table can have alternate design choice of being a `struct` of function po
 
 _Nevertheless `struct` MethodTable would have benefits too but I decided to use array._
 
+<a name="helpfulmacros"></a>
+
+#### 9.1.3.2\. Helpful macros
 **Macro for import, export, and calling convention for functions**:
 In the glue code we will see macros `__zz_cib_export`, `__zz_cib_import`, and `__zz_cib_decl`.
 
@@ -421,6 +428,9 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 `__zz_cib_decl` is needed to ensure both library and clients use same calling convention for calling functions across the component boundary. `stdcall` is chosen by default because that is what most compilers support. It can be changed to something different if library vendor wants to use other appropriate calling convention.
 
+<a name="handledefinition"></a>
+
+#### 9.1.3.3\. Handle definition
 **Type definiton of opaque pointers used by client**:
 
 [**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
@@ -439,6 +449,9 @@ class __zz_cib_HANDLE;
 
 ```
 
+<a name="definitionofhandletoproxy"></a>
+
+#### 9.1.3.4\. Definition of Handle to proxy
 **Type definiton of opaque pointers used by library**:
 
 [**File**: cib/__zz_cib_Example-proxy.h]:
@@ -459,7 +472,9 @@ class __zz_cib_PROXY;
 
 As I have mentioned earlier that CIB doesn't let compiler generated "problematic" stuff to cross component boundary. Among those stuff is object layout too. CIB uses opaque pointer for objects belonging to other component and completely avoids accessing compiler generated object layout of another component. For this purpose CIB defines `__zz_cib_HANDLE` and `__zz_cib_PROXY` to represent library side and client side objects to vice versa in opaque manner.
 
-**MethodTableHelper class**
+<a name="methodtablehelperclass"></a>
+
+#### 9.1.3.5\. MethodTableHelper class
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
 
