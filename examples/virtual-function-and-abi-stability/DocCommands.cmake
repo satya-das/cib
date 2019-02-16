@@ -1,4 +1,4 @@
-set(${example}DiffFilesForReadMe ${example_ROOT}/header-diff.diff)
+set(${example}DiffFilesForReadMe ${example_ROOT}/header-diff.diff ${example_ROOT}/client-diff.diff)
 
 add_custom_command(
     OUTPUT ${${example}DiffFilesForReadMe}

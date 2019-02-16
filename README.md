@@ -305,7 +305,7 @@ ninja && ninja test
 <a name="aboutcibproject"></a>
 
 # 10\. About CIB project
-This project is about creating a tool that implements CIB architecture. For detail exaplanation of architecture there are several examples. Examples are also automated tests. Each example tries to explain one part of architecture. To know the detail about how a particular feature works when CIB is used you can find the corresponding example. E.g. there is an example `runtime-polymorphism` to explain how polymorphism works across component boundary in ABI stable way. Each example contains two binary components. One is library and another is client which is an executable. In most cases it is sufficient to read `pub/example.h` and `src/example-client.cpp` files to understand what library exports and what client expects. Since these examples are also automated tests they can be run individually using ctest. For example `runtime-polymorphism` can be tested as:
+This project is about creating a tool that implements CIB architecture. For detail explanation of architecture there are several examples. Examples are also automated tests. Each example tries to explain one part of architecture. To know the detail about how a particular feature works when CIB is used you can find the corresponding example. E.g. there is an example `runtime-polymorphism` to explain how polymorphism works across component boundary in ABI stable way. Each example contains two binary components. One is library and another is client which is an executable. In most cases it is sufficient to read `pub/example.h` and `src/example-client.cpp` files to understand what library exports and what client expects. Since these examples are also automated tests they can be run individually using ctest. For example `runtime-polymorphism` can be tested as:
 
 ```sh
 ctest -R runtime-polymorphism
@@ -1151,29 +1151,21 @@ As it can be seen that only a new virtual method is added to an existing class. 
 Below is the diff of client code from the previous example:
 
 ```diff
---- runtime-polymorphism/pub/example.h
-+++ virtual-function-and-abi-stability/pub/example.h
-@@ -1,19 +1,20 @@
- #pragma once
+--- runtime-polymorphism/src/example-client.cpp
++++ virtual-function-and-abi-stability/src/example-client.cpp
+@@ -1,11 +1,12 @@
+ #include "example.h"
  
- //! Example to see what cib does for classes with virtual methods.
- class A
+ #include <catch/catch.hpp>
+ 
+ TEST_CASE("ABI stable virtual function call across component boundary")
  {
- public:
-   A();
-+  virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
-   //! This is to know what cib does with virtual functions.
-   virtual int VirtFunc() { return 5; }
-   virtual ~A() {}
- };
+   A* pA = new B();
  
- class B : public A
- {
- public:
-   B();
-   int VirtFunc() override { return 15; }
- };
- 
+   CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
+   CHECK(pA->A::VirtFunc() == 5);        // A regular call without use of virtual table.
++  CHECK(pA->AnotherVirtFunc() == 100);  // New function should be available to newer clients.
+ }
 
 ```
 
