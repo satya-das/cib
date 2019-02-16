@@ -462,8 +462,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&         stm,
       stm << "__zz_cib_obj->";
     if (!callingOwner->isCppFile() && !forProxy
         && (isStatic() || (!cibParams.noExactDelegation && !isPureVirtual() && (protectionLevel() != kPrivate))))
-      stm << "__zz_cib_Delegatee::";
-
+    {
+      stm << callingOwner->longName() << "::";
+    }
     if (!isTypeConverter())
       stm << funcName();
     else

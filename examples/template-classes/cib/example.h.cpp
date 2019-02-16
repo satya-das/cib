@@ -19,16 +19,16 @@ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
 static void __zz_cib_decl Set_3(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<int> const * x) {
-  __zz_cib_obj->__zz_cib_Delegatee::Set(*x);
+  __zz_cib_obj->::Example::A::Set(*x);
 }
 static ::Example::Value<int>* __zz_cib_decl Get_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new ::Example::Value<int>(__zz_cib_obj->__zz_cib_Delegatee::Get());
+  return new ::Example::Value<int>(__zz_cib_obj->::Example::A::Get());
 }
 static void __zz_cib_decl SetInt_5(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<::Example::Int> const * y) {
-  __zz_cib_obj->__zz_cib_Delegatee::SetInt(*y);
+  __zz_cib_obj->::Example::A::SetInt(*y);
 }
 static ::Example::Value<::Example::Int>* __zz_cib_decl GetInt_6(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new ::Example::Value<::Example::Int>(__zz_cib_obj->__zz_cib_Delegatee::GetInt());
+  return new ::Example::Value<::Example::Int>(__zz_cib_obj->::Example::A::GetInt());
 }
 }
 }}}

@@ -58,7 +58,7 @@ static ::A* __zz_cib_decl __zz_cib_copy_1(__zz_cib_PROXY* proxy, const __zz_cib_
   return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl, *__zz_cib_obj);
 }
 static int __zz_cib_decl VirtualFunction_2(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtualFunction();
+  return __zz_cib_obj->::A::VirtualFunction();
 }
 static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -114,7 +114,7 @@ static ::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
 static int __zz_cib_decl VirtualFunction_2(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtualFunction();
+  return __zz_cib_obj->::B::VirtualFunction();
 }
 static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;

@@ -96,19 +96,19 @@ static ::A* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static void __zz_cib_decl setPod_3(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
-  __zz_cib_obj->__zz_cib_Delegatee::setPod(*p);
+  __zz_cib_obj->::A::setPod(*p);
 }
 static void __zz_cib_decl setPod_4(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
-  __zz_cib_obj->__zz_cib_Delegatee::setPod(p);
+  __zz_cib_obj->::A::setPod(p);
 }
 static void __zz_cib_decl setNonPod1_5(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod1* n) {
-  __zz_cib_obj->__zz_cib_Delegatee::setNonPod1(*n);
+  __zz_cib_obj->::A::setNonPod1(*n);
 }
 static void __zz_cib_decl setNonPod2_6(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod2* n) {
-  __zz_cib_obj->__zz_cib_Delegatee::setNonPod2(*n);
+  __zz_cib_obj->::A::setNonPod2(*n);
 }
 static void __zz_cib_decl setNonPod3_7(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod3* n) {
-  __zz_cib_obj->__zz_cib_Delegatee::setNonPod3(*n);
+  __zz_cib_obj->::A::setNonPod3(*n);
 }
 }
 }}

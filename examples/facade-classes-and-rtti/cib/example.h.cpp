@@ -67,7 +67,7 @@ static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static void __zz_cib_decl F_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  __zz_cib_obj->__zz_cib_Delegatee::F();
+  __zz_cib_obj->::PublicFacadeImpl::F();
 }
 static ::Facade* __zz_cib_decl __zz_cib_cast_to___Facade_4(::PublicFacadeImpl* __zz_cib_obj) {
   return __zz_cib_obj;
@@ -101,13 +101,13 @@ static ::A* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static ::Facade* __zz_cib_decl PublicFacade_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::PublicFacade();
+  return __zz_cib_obj->::A::PublicFacade();
 }
 static ::Facade* __zz_cib_decl PrivateFacade1_4(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::PrivateFacade1();
+  return __zz_cib_obj->::A::PrivateFacade1();
 }
 static ::Facade* __zz_cib_decl PrivateFacade2_5(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::PrivateFacade2();
+  return __zz_cib_obj->::A::PrivateFacade2();
 }
 }
 }}

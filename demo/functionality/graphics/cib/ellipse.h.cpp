@@ -19,13 +19,13 @@ static ::Graphics::Ellipse* __zz_cib_decl __zz_cib_new_2(double Ox, double Oy, d
   return new __zz_cib_Delegatee(Ox, Oy, a, b);
 }
 static double __zz_cib_decl Area_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Area();
+  return __zz_cib_obj->::Graphics::Ellipse::Area();
 }
 static double __zz_cib_decl Perimeter_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Perimeter();
+  return __zz_cib_obj->::Graphics::Ellipse::Perimeter();
 }
 static void __zz_cib_decl Draw_5(const __zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Context* ctx) {
-  __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
+  __zz_cib_obj->::Graphics::Ellipse::Draw(ctx);
 }
 static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Ellipse* __zz_cib_obj) {
   return __zz_cib_obj;

@@ -15,13 +15,13 @@ static ::A* __zz_cib_decl __zz_cib_new_1() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl AnotherVirtFunc_5(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::AnotherVirtFunc();
+  return __zz_cib_obj->::A::AnotherVirtFunc();
 }
 static int __zz_cib_decl VirtFunc_2(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
+  return __zz_cib_obj->::A::VirtFunc();
 }
 static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  return __zz_cib_obj->::A::SomeFunc();
 }
 static void __zz_cib_decl __zz_cib_delete_4(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -53,7 +53,7 @@ static ::I1* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_ob
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
 static int __zz_cib_decl F_2(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::F();
+  return __zz_cib_obj->::I1::F();
 }
 static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -83,7 +83,7 @@ static ::I2* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_ob
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
 static int __zz_cib_decl G_2(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::G();
+  return __zz_cib_obj->::I2::G();
 }
 static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -116,7 +116,7 @@ static ::B* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl VirtFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
+  return __zz_cib_obj->::B::VirtFunc();
 }
 static ::I1* __zz_cib_decl __zz_cib_cast_to___I1_5(::B* __zz_cib_obj) {
   return __zz_cib_obj;

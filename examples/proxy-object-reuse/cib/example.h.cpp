@@ -44,10 +44,10 @@ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
 static void __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, ::A* pA) {
-  __zz_cib_obj->__zz_cib_Delegatee::SetA(pA);
+  __zz_cib_obj->::B::SetA(pA);
 }
 static ::A* __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::GetA();
+  return __zz_cib_obj->::B::GetA();
 }
 }
 }}

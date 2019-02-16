@@ -15,10 +15,10 @@ static ::A* __zz_cib_decl __zz_cib_new_1() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl VirtFunc_2(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
+  return __zz_cib_obj->::A::VirtFunc();
 }
 static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  return __zz_cib_obj->::A::SomeFunc();
 }
 static void __zz_cib_decl __zz_cib_delete_4(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -52,7 +52,7 @@ static ::B* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl VirtFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::VirtFunc();
+  return __zz_cib_obj->::B::VirtFunc();
 }
 static ::A* __zz_cib_decl __zz_cib_cast_to___A_4(::B* __zz_cib_obj) {
   return __zz_cib_obj;

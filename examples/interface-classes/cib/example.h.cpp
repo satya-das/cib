@@ -247,7 +247,7 @@ static ::A* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl SetInterface_3(const __zz_cib_Delegatee* __zz_cib_obj, ::Interface1* pInterface1) {
-  return __zz_cib_obj->__zz_cib_Delegatee::SetInterface(pInterface1);
+  return __zz_cib_obj->::A::SetInterface(pInterface1);
 }
 }
 }}

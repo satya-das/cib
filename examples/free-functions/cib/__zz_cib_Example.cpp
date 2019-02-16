@@ -10,7 +10,7 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_Delegator {
 namespace __zz_cib_Delegatee = ::Example;
 static int __zz_cib_decl Function1_0() {
-  return __zz_cib_Delegatee::Function1();
+  return ::Example::Function1();
 }
 }
 }}
@@ -19,7 +19,7 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_Delegator {
 namespace __zz_cib_Delegatee = ::Example;
 static int __zz_cib_decl Function2_1() {
-  return __zz_cib_Delegatee::Function2();
+  return ::Example::Function2();
 }
 }
 }}

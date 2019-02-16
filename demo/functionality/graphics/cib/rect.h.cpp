@@ -19,13 +19,13 @@ static ::Graphics::Rectangle* __zz_cib_decl __zz_cib_new_2(double left, double b
   return new __zz_cib_Delegatee(left, bottom, right, top);
 }
 static double __zz_cib_decl Area_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Area();
+  return __zz_cib_obj->::Graphics::Rectangle::Area();
 }
 static double __zz_cib_decl Perimeter_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Perimeter();
+  return __zz_cib_obj->::Graphics::Rectangle::Perimeter();
 }
 static void __zz_cib_decl Draw_5(const __zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Context* ctx) {
-  __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
+  __zz_cib_obj->::Graphics::Rectangle::Draw(ctx);
 }
 static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_6(::Graphics::Rectangle* __zz_cib_obj) {
   return __zz_cib_obj;

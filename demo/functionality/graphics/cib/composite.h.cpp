@@ -27,25 +27,25 @@ static ::Graphics::Composite* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static void __zz_cib_decl Add_3(__zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Shape* shape) {
-  __zz_cib_obj->__zz_cib_Delegatee::Add(shape);
+  __zz_cib_obj->::Graphics::Composite::Add(shape);
 }
 static size_t __zz_cib_decl NumShapes_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::NumShapes();
+  return __zz_cib_obj->::Graphics::Composite::NumShapes();
 }
 static ::Graphics::Shape* __zz_cib_decl ShapeAt_5(const __zz_cib_Delegatee* __zz_cib_obj, size_t idxShape) {
-  return __zz_cib_obj->__zz_cib_Delegatee::ShapeAt(idxShape);
+  return __zz_cib_obj->::Graphics::Composite::ShapeAt(idxShape);
 }
 static double __zz_cib_decl Area_6(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Area();
+  return __zz_cib_obj->::Graphics::Composite::Area();
 }
 static double __zz_cib_decl Perimeter_7(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Perimeter();
+  return __zz_cib_obj->::Graphics::Composite::Perimeter();
 }
 static void __zz_cib_decl Draw_8(const __zz_cib_Delegatee* __zz_cib_obj, ::Graphics::Context* ctx) {
-  __zz_cib_obj->__zz_cib_Delegatee::Draw(ctx);
+  __zz_cib_obj->::Graphics::Composite::Draw(ctx);
 }
 static ::Graphics::Composite* __zz_cib_decl CreateCompositeOfRectAndCircle_9() {
-  return __zz_cib_Delegatee::CreateCompositeOfRectAndCircle();
+  return ::Graphics::Composite::CreateCompositeOfRectAndCircle();
 }
 static ::Graphics::Shape* __zz_cib_decl __zz_cib_cast_to___Graphics__Shape_10(::Graphics::Composite* __zz_cib_obj) {
   return __zz_cib_obj;

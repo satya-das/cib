@@ -18,16 +18,16 @@ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
 static void __zz_cib_decl Line_3(__zz_cib_Delegatee* __zz_cib_obj, double x1, double y1, double x2, double y2) {
-  __zz_cib_obj->__zz_cib_Delegatee::Line(x1, y1, x2, y2);
+  __zz_cib_obj->::Graphics::LogContext::Line(x1, y1, x2, y2);
 }
 static void __zz_cib_decl Rect_4(__zz_cib_Delegatee* __zz_cib_obj, double l, double b, double r, double t) {
-  __zz_cib_obj->__zz_cib_Delegatee::Rect(l, b, r, t);
+  __zz_cib_obj->::Graphics::LogContext::Rect(l, b, r, t);
 }
 static void __zz_cib_decl Circle_5(__zz_cib_Delegatee* __zz_cib_obj, double cx, double cy, double r) {
-  __zz_cib_obj->__zz_cib_Delegatee::Circle(cx, cy, r);
+  __zz_cib_obj->::Graphics::LogContext::Circle(cx, cy, r);
 }
 static void __zz_cib_decl Ellipse_6(__zz_cib_Delegatee* __zz_cib_obj, double cx, double cy, double a, double b) {
-  __zz_cib_obj->__zz_cib_Delegatee::Ellipse(cx, cy, a, b);
+  __zz_cib_obj->::Graphics::LogContext::Ellipse(cx, cy, a, b);
 }
 static ::Graphics::Context* __zz_cib_decl __zz_cib_cast_to___Graphics__Context_7(::Graphics::LogContext* __zz_cib_obj) {
   return __zz_cib_obj;

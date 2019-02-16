@@ -81,19 +81,19 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
     return __zz_cib_obj->ProtectedPureVirtual();
   }
   static int __zz_cib_decl ProtectedVirtual_2(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::ProtectedVirtual();
+    return __zz_cib_obj->::IF::ProtectedVirtual();
   }
   static int __zz_cib_decl ProtectedNonVirtual_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::ProtectedNonVirtual();
+    return __zz_cib_obj->::IF::ProtectedNonVirtual();
   }
   static int __zz_cib_decl PublicPureVirtual_4(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->PublicPureVirtual();
   }
   static int __zz_cib_decl PublicVirtual_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::PublicVirtual();
+    return __zz_cib_obj->::IF::PublicVirtual();
   }
   static int __zz_cib_decl PublicNonVirtual_6(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::PublicNonVirtual();
+    return __zz_cib_obj->::IF::PublicNonVirtual();
   }
   static void __zz_cib_decl __zz_cib_delete_7(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
@@ -156,10 +156,10 @@ static ::A* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static int __zz_cib_decl SetIF_3(__zz_cib_Delegatee* __zz_cib_obj, ::IF* pIF) {
-  return __zz_cib_obj->__zz_cib_Delegatee::SetIF(pIF);
+  return __zz_cib_obj->::A::SetIF(pIF);
 }
 static ::IF* __zz_cib_decl GetIF_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::GetIF();
+  return __zz_cib_obj->::A::GetIF();
 }
 }
 }}

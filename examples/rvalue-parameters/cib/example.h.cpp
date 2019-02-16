@@ -21,16 +21,16 @@ static ::RValueExample* __zz_cib_decl __zz_cib_copy_3(const __zz_cib_Delegatee* 
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
 static ::RValueExample* __zz_cib_decl __zz_cib_OperatorEqual_4(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample* rhs) {
-  return &__zz_cib_obj->__zz_cib_Delegatee::operator=(std::move(*rhs));
+  return &__zz_cib_obj->::RValueExample::operator=(std::move(*rhs));
 }
 static ::RValueExample* __zz_cib_decl __zz_cib_OperatorEqual_5(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample const * rhs) {
-  return &__zz_cib_obj->__zz_cib_Delegatee::operator=(*rhs);
+  return &__zz_cib_obj->::RValueExample::operator=(*rhs);
 }
 static std::int32_t __zz_cib_decl Set_6(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample* x) {
-  return __zz_cib_obj->__zz_cib_Delegatee::Set(std::move(*x));
+  return __zz_cib_obj->::RValueExample::Set(std::move(*x));
 }
 static std::int32_t __zz_cib_decl GetValue_7(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::GetValue();
+  return __zz_cib_obj->::RValueExample::GetValue();
 }
 }
 }}
