@@ -14,24 +14,24 @@ IF::IF(IF&& rhs)
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-void IF::PrivateVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::PrivateVirtual_9(__zz_cib_h_);
+int IF::PrivateVirtual() {
+  return __zz_cib_::IF::__zz_cib_Helper::PrivateVirtual_9(__zz_cib_h_);
 }
 
-void IF::ProtectedVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::ProtectedVirtual_2(__zz_cib_h_);
+int IF::ProtectedVirtual() {
+  return __zz_cib_::IF::__zz_cib_Helper::ProtectedVirtual_2(__zz_cib_h_);
 }
 
-void IF::ProtectedNonVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::ProtectedNonVirtual_3(__zz_cib_h_);
+int IF::ProtectedNonVirtual() {
+  return __zz_cib_::IF::__zz_cib_Helper::ProtectedNonVirtual_3(__zz_cib_h_);
 }
 
-void IF::PublicVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::PublicVirtual_5(__zz_cib_h_);
+int IF::PublicVirtual() {
+  return __zz_cib_::IF::__zz_cib_Helper::PublicVirtual_5(__zz_cib_h_);
 }
 
-void IF::PublicNonVirtual() {
-  __zz_cib_::IF::__zz_cib_Helper::PublicNonVirtual_6(__zz_cib_h_);
+int IF::PublicNonVirtual() {
+  return __zz_cib_::IF::__zz_cib_Helper::PublicNonVirtual_6(__zz_cib_h_);
 }
 
 IF::~IF() {
@@ -67,8 +67,8 @@ A::A()
   : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_2())
 {}
 
-void A::SetIF(::IF* pIF) {
-  __zz_cib_::A::__zz_cib_Helper::SetIF_3(__zz_cib_h_, __zz_cib_::IF::__zz_cib_Helper::__zz_cib_handle(pIF));
+int A::SetIF(::IF* pIF) {
+  return __zz_cib_::A::__zz_cib_Helper::SetIF_3(__zz_cib_h_, __zz_cib_::IF::__zz_cib_Helper::__zz_cib_handle(pIF));
 }
 
 ::IF* A::GetIF() const {
@@ -90,33 +90,33 @@ public:
   static ::IF* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new IF(h);
   }
-  void PrivatePureVirtual() override {
-    using PrivatePureVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int PrivatePureVirtual() override {
+    using PrivatePureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<PrivatePureVirtualProc, __zz_cib_methodid::PrivatePureVirtual_8>(
       __zz_cib_h_);
   }
-  void PrivateVirtual() override {
-    using PrivateVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int PrivateVirtual() override {
+    using PrivateVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<PrivateVirtualProc, __zz_cib_methodid::PrivateVirtual_9>(
       __zz_cib_h_);
   }
-  void ProtectedPureVirtual() override {
-    using ProtectedPureVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int ProtectedPureVirtual() override {
+    using ProtectedPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<ProtectedPureVirtualProc, __zz_cib_methodid::ProtectedPureVirtual_1>(
       __zz_cib_h_);
   }
-  void ProtectedVirtual() override {
-    using ProtectedVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int ProtectedVirtual() override {
+    using ProtectedVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<ProtectedVirtualProc, __zz_cib_methodid::ProtectedVirtual_2>(
       __zz_cib_h_);
   }
-  void PublicPureVirtual() override {
-    using PublicPureVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int PublicPureVirtual() override {
+    using PublicPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<PublicPureVirtualProc, __zz_cib_methodid::PublicPureVirtual_4>(
       __zz_cib_h_);
   }
-  void PublicVirtual() override {
-    using PublicVirtualProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  int PublicVirtual() override {
+    using PublicVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
     return __zz_cib_get_mtable_helper().invoke<PublicVirtualProc, __zz_cib_methodid::PublicVirtual_5>(
       __zz_cib_h_);
   }
@@ -137,23 +137,23 @@ public:
 namespace __zz_cib_ { namespace IF {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::IF;
-  static void __zz_cib_decl PrivatePureVirtual_0(::IF* __zz_cib_obj) {
-    __zz_cib_obj->PrivatePureVirtual();
+  static int __zz_cib_decl PrivatePureVirtual_0(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->PrivatePureVirtual();
   }
-  static void __zz_cib_decl PrivateVirtual_1(::IF* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_Delegatee::PrivateVirtual();
+  static int __zz_cib_decl PrivateVirtual_1(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->PrivateVirtual();
   }
-  static void __zz_cib_decl ProtectedPureVirtual_2(::IF* __zz_cib_obj) {
-    __zz_cib_obj->ProtectedPureVirtual();
+  static int __zz_cib_decl ProtectedPureVirtual_2(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->ProtectedPureVirtual();
   }
-  static void __zz_cib_decl ProtectedVirtual_3(::IF* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_Delegatee::ProtectedVirtual();
+  static int __zz_cib_decl ProtectedVirtual_3(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->ProtectedVirtual();
   }
-  static void __zz_cib_decl PublicPureVirtual_4(::IF* __zz_cib_obj) {
-    __zz_cib_obj->PublicPureVirtual();
+  static int __zz_cib_decl PublicPureVirtual_4(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->PublicPureVirtual();
   }
-  static void __zz_cib_decl PublicVirtual_5(::IF* __zz_cib_obj) {
-    __zz_cib_obj->__zz_cib_Delegatee::PublicVirtual();
+  static int __zz_cib_decl PublicVirtual_5(::IF* __zz_cib_obj) {
+    return __zz_cib_obj->PublicVirtual();
   }
   static void __zz_cib_decl __zz_cib_delete_6(::IF* __zz_cib_obj) {
     delete __zz_cib_obj;

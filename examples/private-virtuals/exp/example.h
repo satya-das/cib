@@ -8,16 +8,16 @@ class IF
 public:
   IF(IF&& rhs);
 private:
-  virtual void PrivatePureVirtual() = 0;
-  virtual void PrivateVirtual();
+  virtual int PrivatePureVirtual() = 0;
+  virtual int PrivateVirtual();
 protected:
-  virtual void ProtectedPureVirtual() = 0;
-  virtual void ProtectedVirtual();
-  void ProtectedNonVirtual();
+  virtual int ProtectedPureVirtual() = 0;
+  virtual int ProtectedVirtual();
+  int ProtectedNonVirtual();
 public:
-  virtual void PublicPureVirtual() = 0;
-  virtual void PublicVirtual();
-  void PublicNonVirtual();
+  virtual int PublicPureVirtual() = 0;
+  virtual int PublicVirtual();
+  int PublicNonVirtual();
   virtual ~IF();
 protected:
   IF();
@@ -33,10 +33,9 @@ public:
 public:
   A(A const & );
   ~A();
-protected:
   A();
   //! Makes IF an interface class
-  void SetIF(IF* pIF);
+  int SetIF(IF* pIF);
   //! Makes IF a facade class.
   IF* GetIF() const;
 

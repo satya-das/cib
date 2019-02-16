@@ -4,30 +4,30 @@
 class IF
 {
 private:
-  virtual void PrivatePureVirtual() = 0;
-  virtual void PrivateVirtual() {}
-  void         PrivateNonVirtual() {}
+  virtual int PrivatePureVirtual() = 0;
+  virtual int PrivateVirtual()      { return 100; }
+  int         PrivateNonVirtual()   { return 200; }
 
 protected:
-  virtual void ProtectedPureVirtual() = 0;
-  virtual void ProtectedVirtual() {}
-  void         ProtectedNonVirtual() {}
+  virtual int ProtectedPureVirtual() = 0;
+  virtual int ProtectedVirtual()    { return 300; }
+  int         ProtectedNonVirtual() { return 400; }
 
 public:
-  virtual void PublicPureVirtual() = 0;
-  virtual void PublicVirtual() {}
+  virtual int PublicPureVirtual() = 0;
+  virtual int PublicVirtual()       { return 500; }
 
 public:
-  void PublicNonVirtual()
+  int PublicNonVirtual()
   {
-    PublicPureVirtual();
-    PublicVirtual();
-    ProtectedPureVirtual();
-    ProtectedVirtual();
-    ProtectedNonVirtual();
-    PrivatePureVirtual();
-    PrivateVirtual();
-    PrivateNonVirtual();
+    return PublicPureVirtual() +
+      PublicVirtual() +
+      ProtectedPureVirtual() +
+      ProtectedVirtual() +
+      ProtectedNonVirtual() +
+      PrivatePureVirtual() +
+      PrivateVirtual() +
+      PrivateNonVirtual();
   }
 
   virtual ~IF() {}
@@ -36,13 +36,13 @@ public:
 //! Class that has methods to make class IF interface and facade.
 class A
 {
-protected:
+public:
   A();
 
   //! Makes IF an interface class
-  void SetIF(IF* pIF)
+  int SetIF(IF* pIF)
   {
-    pIF->PublicNonVirtual();
+    return pIF->PublicNonVirtual();
   }
 
   //! Makes IF a facade class.

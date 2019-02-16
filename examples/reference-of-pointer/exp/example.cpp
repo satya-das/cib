@@ -101,7 +101,7 @@ namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
   static int __zz_cib_decl VirtualFunction_0(const ::A* __zz_cib_obj) {
-    return __zz_cib_obj->__zz_cib_Delegatee::VirtualFunction();
+    return __zz_cib_obj->VirtualFunction();
   }
   static void __zz_cib_decl __zz_cib_delete_1(::A* __zz_cib_obj) {
     delete __zz_cib_obj;
