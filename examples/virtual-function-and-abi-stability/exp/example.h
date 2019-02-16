@@ -2,6 +2,7 @@
 
 #include "__zz_cib_internal/example-predef.h"
 
+//! Example to see what cib does for classes with virtual methods.
 class A
 {
 public:
@@ -10,8 +11,8 @@ public:
   A(A const & );
   A();
   virtual int AnotherVirtFunc();
+  //! This is to know what cib does with virtual functions.
   virtual int VirtFunc();
-  int SomeFunc();
   virtual ~A();
 
 private:

@@ -23,13 +23,9 @@ int A::VirtFunc() {
   return __zz_cib_::A::__zz_cib_Helper::VirtFunc_2(__zz_cib_h_);
 }
 
-int A::SomeFunc() {
-  return __zz_cib_::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
-}
-
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_4(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_3(h);
 }
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)

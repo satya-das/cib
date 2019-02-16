@@ -37,16 +37,10 @@ private:
       __zz_cib_obj
       );
   }
-  static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
-    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
-      __zz_cib_obj
-      );
-  }
-  static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_3(__zz_cib_HANDLE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_4>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_3>(
         __zz_cib_obj
         );
     }

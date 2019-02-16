@@ -39,39 +39,41 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 8.4\.  [Interface Class](#interfaceclass)  
 8.5\.  [Proxy Class](#proxyclass)  
 8.6\.  [Handle](#handle)  
-9\.  [CIB Architecture Detail](#cibarchitecturedetail)  
-9.1\.  [Example - A Simple Class](#example-asimpleclass)  
-9.1.1\.  [Running CIB](#runningcib)  
-9.1.2\.  [Symbol `__zz_cib_`](#symbol`__zz_cib_`)  
-9.1.3\.  [Method Table](#methodtable)  
-9.1.3.1\.  [Design choice of Method Table](#designchoiceofmethodtable)  
-9.1.3.2\.  [Helpful macros](#helpfulmacros)  
-9.1.3.3\.  [Handle definition](#handledefinition)  
-9.1.3.4\.  [Definition of Handle to proxy](#definitionofhandletoproxy)  
-9.1.3.5\.  [MethodTableHelper class](#methodtablehelperclass)  
-9.1.4\.  [Unique IDs for all entities.](#uniqueidsforallentities.)  
-9.1.5\.  [Library Glue Code](#librarygluecode)  
-9.1.5.1\.  [Function Name Suffix](#functionnamesuffix)  
-9.1.6\.  [Library Gateway function](#librarygatewayfunction)  
-9.1.7\.  [Import of library gateway function](#importoflibrarygatewayfunction)  
-9.1.8\.  [SDK Headers and Proxy Classes](#sdkheadersandproxyclasses)  
-9.1.8.1\.  [Proxy class definition](#proxyclassdefinition)  
-9.1.9\.  [Client side glue code](#clientsidegluecode-1)  
-9.1.9.1\.  [Helper class definition](#helperclassdefinition)  
-9.1.9.2\.  [Proxy class implementation](#proxyclassimplementation)  
-9.2\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
-9.3\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
-9.4\.  [Example - Interface Classes](#example-interfaceclasses)  
-9.5\.  [Example - Template Classes](#example-templateclasses)  
-9.6\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
-9.7\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
-10\.  [Demo Project](#demoproject)  
-11\.  [Building CIB](#buildingcib)  
-11.1\.  [Get the source](#getthesource)  
-11.1.1\.  [Configure and build](#configureandbuild)  
-12\.  [Implementation Details](#implementationdetails)  
-12.1\.  [Parsing Technique](#parsingtechnique)  
-12.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
+9\.  [Building CIB](#buildingcib)  
+9.1\.  [Get the source](#getthesource)  
+9.2\.  [Configure and build](#configureandbuild)  
+10\.  [About CIB project](#aboutcibproject)  
+11\.  [CIB Architecture Detail](#cibarchitecturedetail)  
+11.1\.  [Example - A Simple Class](#example-asimpleclass)  
+11.1.1\.  [Running CIB](#runningcib)  
+11.1.2\.  [Symbol `__zz_cib_`](#symbol`__zz_cib_`)  
+11.1.3\.  [Method Table](#methodtable)  
+11.1.3.1\.  [Design choice of Method Table](#designchoiceofmethodtable)  
+11.1.3.2\.  [Helpful macros](#helpfulmacros)  
+11.1.3.3\.  [Handle definition](#handledefinition)  
+11.1.3.4\.  [Definition of Handle to proxy](#definitionofhandletoproxy)  
+11.1.3.5\.  [MethodTableHelper class](#methodtablehelperclass)  
+11.1.4\.  [Unique IDs for all entities.](#uniqueidsforallentities.)  
+11.1.5\.  [Library Glue Code](#librarygluecode)  
+11.1.5.1\.  [Function Name Suffix](#functionnamesuffix)  
+11.1.6\.  [Library Gateway function](#librarygatewayfunction)  
+11.1.7\.  [Import of library gateway function](#importoflibrarygatewayfunction)  
+11.1.8\.  [SDK Headers and Proxy Classes](#sdkheadersandproxyclasses)  
+11.1.8.1\.  [Proxy class definition](#proxyclassdefinition)  
+11.1.9\.  [Client side glue code](#clientsidegluecode-1)  
+11.1.9.1\.  [Helper class definition](#helperclassdefinition)  
+11.1.9.2\.  [Proxy class implementation](#proxyclassimplementation)  
+11.2\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
+11.3\.  [Example - Virtual Function and ABI Stability](#example-virtualfunctionandabistability)  
+11.4\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
+11.5\.  [Example - Interface Classes](#example-interfaceclasses)  
+11.6\.  [Example - Template Classes](#example-templateclasses)  
+11.7\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
+11.8\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
+12\.  [Demo Project](#demoproject)  
+13\.  [Implementation Details](#implementationdetails)  
+13.1\.  [Parsing Technique](#parsingtechnique)  
+13.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
 
 <a name="overview"></a>
 
@@ -265,16 +267,96 @@ For each public class of a library CIB produces another class with same name and
 ## 8.6\. Handle
 Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 
+<a name="buildingcib"></a>
+
+# 9\. Building CIB
+<a name="getthesource"></a>
+
+## 9.1\. Get the source
+
+```sh
+git clone https://github.com/satya-das/common.git
+git clone https://github.com/satya-das/cppparser.git
+git clone https://github.com/satya-das/cib.git
+```
+
+<a name="configureandbuild"></a>
+
+## 9.2\. Configure and build
+
+```sh
+cd cib
+mkdir builds
+cd builds
+cmake ..
+make && make test
+```
+
+*Alternatively, if you prefer `Ninja` instead of `make`*:
+
+```sh
+cd cib
+mkdir builds
+cd builds
+cmake -G Ninja ..
+ninja && ninja test
+```
+
+<a name="aboutcibproject"></a>
+
+# 10\. About CIB project
+This project is about creating a tool that implements CIB architecture. For detail exaplanation of architecture there are several examples. Examples are also automated tests. Each example tries to explain one part of architecture. To know the detail about how a particular feature works when CIB is used you can find the corresponding example. E.g. there is an example `runtime-polymorphism` to explain how polymorphism works across component boundary in ABI stable way. Each example contains two binary components. One is library and another is client which is an executable. In most cases it is sufficient to read `pub/example.h` and `src/example-client.cpp` files to understand what library exports and what client expects. Since these examples are also automated tests they can be run individually using ctest. For example `runtime-polymorphism` can be tested as:
+
+```sh
+ctest -R runtime-polymorphism
+```
+
+The output of above will be something like:
+
+```
+Test project /home/dassat/github/cib/builds
+    Start 3: runtime-polymorphism_client
+1/1 Test #3: runtime-polymorphism_client ......   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+```
+
+There are examples that uses client of another example to show ABI stability when the library is changed. For example running:
+
+```sh
+ctest -R virtual-function-and-abi-stability
+```
+
+Will give following output:
+
+```
+Test project /home/dassat/github/cib/builds
+    Start 4: virtual-function-and-abi-stability_client
+1/2 Test #4: virtual-function-and-abi-stability_client ...   Passed    0.01 sec
+    Start 5: virtual-function-and-abi-stability
+2/2 Test #5: virtual-function-and-abi-stability ..........   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.02 sec
+```
+
+It ran 2 tests. First one tests that new client works as expected with new library. The second one tests that old client (without recompilation) works with newer library. For details about what change library made please have a look at corresponding `example.h` file.
+
+Now we will delve into examples to know the details of CIB architecture.
+
 <a name="cibarchitecturedetail"></a>
 
-# 9\. CIB Architecture Detail
-For better understanding of what CIB architecture is we will consider examples to see what are the required glue code to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB architecture requires in more complex cases. We will learn about bits and peices of CIB architecture through code generated by cib-tool. Most part of code generated by cib are solely for compilers. But we will look into generated code to understand CIB architecture.
+# 11\. CIB Architecture Detail
+For better understanding of what CIB architecture is we will consider examples to see what are the required glue code to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB architecture requires in more complex cases. We will learn about bits and peices of CIB architecture through code generated by `cib`. Most part of code generated by cib are solely for compilers. But we will look into generated code to understand CIB architecture.
 
 **Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and are actually part of automated tests of cib.
 
 <a name="example-asimpleclass"></a>
 
-## 9.1\. Example - A Simple Class
+## 11.1\. Example - A Simple Class
 To begin with we will consider following example:
 
 [**File**: pub/example.h] _Public header of library_:
@@ -331,7 +413,7 @@ With this tiny library and client code we would like to see what pieces of CIB a
 
 <a name="runningcib"></a>
 
-### 9.1.1\. Running CIB
+### 11.1.1\. Running CIB
 CIB  is expected to be run with public headers that a library wants to publish.
 
 Assuming `pub/` is the folder that contains public headers that library wants to publish. `exp/` is the folder where cib creates headers (and also some source files) that forms the part of published SDK. `cib/` is the folder where cib creates glue code for library. Library is expected to compile these sources as part of itself. `Example` is the name of the module (or library). It is a mandatory command line argument required by cib to define glue code.
@@ -350,7 +432,7 @@ Let's first look at some of the fundamental types and definitions CIB uses in ge
 
 <a name="symbol`__zz_cib_`"></a>
 
-### 9.1.2\. Symbol `__zz_cib_`
+### 11.1.2\. Symbol `__zz_cib_`
 We are going to see CIB generate code that will contain lots of symbols that will start with `__zz_cib_` and there will be top level namespace with exact same name. CIB has chosen this so that:
 
   - Genearted code doesn't pollute global namespace.
@@ -361,7 +443,7 @@ We are going to see CIB generate code that will contain lots of symbols that wil
 
 <a name="methodtable"></a>
 
-### 9.1.3\. Method Table
+### 11.1.3\. Method Table
 
 CIB's basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function names and virtual tables. CIB bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called method table. So, CIB uses mechanism to use method table instead of mangled function name and virtual function table. Let's look at what this method table is exactly:
 
@@ -412,7 +494,7 @@ Above we have definition of method table and helper function to fetch method fro
 
 <a name="designchoiceofmethodtable"></a>
 
-#### 9.1.3.1\. Design choice of Method Table
+#### 11.1.3.1\. Design choice of Method Table
 Method table can have alternate design choice of being a `struct` of function pointers instead of array of function pointers. And that too can serve the purpose and in some cases be better. But CIB uses array for following reasons:
 - Array helps in reducing total number of constructs. In case Method Table is a struct of function pointers we will need many structs.
 - Using array we can fetch function pointer by an index. Those index can be treated as function ID. If those ID is changed or removed it will be easy to detect and warn the library author of breaking the compatibility.
@@ -422,7 +504,7 @@ _Nevertheless `struct` MethodTable would have benefits too but I decided to use 
 
 <a name="helpfulmacros"></a>
 
-#### 9.1.3.2\. Helpful macros
+#### 11.1.3.2\. Helpful macros
 **Macro for import, export, and calling convention for functions**:
 In the glue code we will see macros `__zz_cib_export`, `__zz_cib_import`, and `__zz_cib_decl`.
 
@@ -434,7 +516,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 <a name="handledefinition"></a>
 
-#### 9.1.3.3\. Handle definition
+#### 11.1.3.3\. Handle definition
 **Type definiton of opaque pointers used by client**:
 
 [**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
@@ -455,7 +537,7 @@ class __zz_cib_HANDLE;
 
 <a name="definitionofhandletoproxy"></a>
 
-#### 9.1.3.4\. Definition of Handle to proxy
+#### 11.1.3.4\. Definition of Handle to proxy
 **Type definiton of opaque pointers used by library**:
 
 [**File**: cib/__zz_cib_Example-proxy.h]:
@@ -478,7 +560,7 @@ As I have mentioned earlier that CIB doesn't let compiler generated "problematic
 
 <a name="methodtablehelperclass"></a>
 
-#### 9.1.3.5\. MethodTableHelper class
+#### 11.1.3.5\. MethodTableHelper class
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
 
@@ -538,7 +620,7 @@ As you can guess these types are independent of headers that library wants to pu
 
 <a name="uniqueidsforallentities."></a>
 
-### 9.1.4\. Unique IDs for all entities.
+### 11.1.4\. Unique IDs for all entities.
 
 **File**: cib/__zz_cib_Example-ids.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-ids.h:
 
@@ -584,7 +666,7 @@ There are few points to note about this id file:
 
 <a name="librarygluecode"></a>
 
-### 9.1.5\. Library Glue Code
+### 11.1.5\. Library Glue Code
 CIB will generate library glue code and library is expected to compile these source code while building itself. The aim here for CIB is to generate compiler independent and ABI stable glue code. So, for the `class A` following will be the generated library glue code:
 
 **File**: cib/example.h.cpp:
@@ -610,7 +692,7 @@ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
 static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->__zz_cib_Delegatee::SomeFunc();
+  return __zz_cib_obj->::Example::A::SomeFunc();
 }
 }
 }}}
@@ -638,12 +720,12 @@ The implementation of `__zz_cib_GetMethodTable` is to return a static table of m
 
 <a name="functionnamesuffix"></a>
 
-#### 9.1.5.1\. Function Name Suffix
+#### 11.1.5.1\. Function Name Suffix
 If you notice the names of delegator functions in library glue code has suffix `_n`, where `n` is an integer. These numbers are IDs of respective functions. ID is appended in function names so that even if there are functions with same name we will end up with unique function names within one `__zz_cib_Delegator` namespace.
 
 <a name="librarygatewayfunction"></a>
 
-### 9.1.6\. Library Gateway function
+### 11.1.6\. Library Gateway function
 
 **File**: __zz_cib_Example-gateway.cpp:
 
@@ -674,7 +756,7 @@ Now we will visit code that will be part of SDK and will be used by clients.
 
 <a name="importoflibrarygatewayfunction"></a>
 
-### 9.1.7\. Import of library gateway function
+### 11.1.7\. Import of library gateway function
 Let's begin to look at client side with the part that imports library gateway function.
 
 **File**: __zz_cib_Example-def.h:
@@ -695,12 +777,12 @@ As you can see it is counter part of what library code defined which had used `_
 
 <a name="sdkheadersandproxyclasses"></a>
 
-### 9.1.8\. SDK Headers and Proxy Classes
+### 11.1.8\. SDK Headers and Proxy Classes
 Now we will look into the headers that will be used by client developers. This is the only part of generated code that is meant to be seen by developers and so CIB tries to keep this as close to original as possible. Below is the header for  `class A` that CIB produced from the header library developer wanted to publish.
 
 <a name="proxyclassdefinition"></a>
 
-#### 9.1.8.1\. Proxy class definition
+#### 11.1.8.1\. Proxy class definition
 **File**: example.h:
 
 ```c++
@@ -774,7 +856,7 @@ We can see that the header is *almost* same as original, except some "hook point
 
 <a name="clientsidegluecode-1"></a>
 
-### 9.1.9\. Client side glue code
+### 11.1.9\. Client side glue code
 Now, let's have a look at the `predef` file that is `#include`d in the beginning.
 
 **File**: __zz_cib_internal/example-predef.h:
@@ -819,7 +901,7 @@ Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__
 
 <a name="helperclassdefinition"></a>
 
-#### 9.1.9.1\. Helper class definition
+#### 11.1.9.1\. Helper class definition
 We will now move to see the content of file that was #include'd at the end of proxy class definition file.
 
 **File**: exp/__zz_cib_internal/example-impl.h. _Helper of proxy class_:
@@ -902,7 +984,7 @@ Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which 
 
 <a name="proxyclassimplementation"></a>
 
-#### 9.1.9.2\. Proxy class implementation
+#### 11.1.9.2\. Proxy class implementation
 We will next see use of this class in implementation of methods.
 
 **File**: exp/example.cpp. _Implementation of proxy class methods_:
@@ -972,7 +1054,7 @@ This sequence diagram doesn't mention destrutor but destructor will have similar
 
 <a name="example-virtualfunctionandruntimepolymorphism"></a>
 
-## 9.2\. Example - Virtual function and runtime polymorphism
+## 11.2\. Example - Virtual function and runtime polymorphism
 
 In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
 
@@ -986,10 +1068,6 @@ public:
   A();
   //! This is to know what cib does with virtual functions.
   virtual int VirtFunc() { return 5; }
-  //! Doesn't do anything meaningful
-  //! @note It is just for explaining how cib works.
-  int SomeFunc() { return 10; }
-
   virtual ~A() {}
 };
 
@@ -1020,13 +1098,12 @@ Below is what client of library can expect. It is trivial and there is no surpri
 
 #include <catch/catch.hpp>
 
-TEST_CASE("Virtual function call across component boundary")
+TEST_CASE("ABI stable virtual function call across component boundary")
 {
   A* pA = new B();
 
-  CHECK(pA->VirtFunc() == 15);    // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
-  CHECK(pA->A::VirtFunc() == 5);  // A regular call without use of virtual table.
-  CHECK(pA->SomeFunc() == 10);    // Non-virtual call.
+  CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
+  CHECK(pA->A::VirtFunc() == 5);        // A regular call without use of virtual table.
 }
 
 ```
@@ -1034,40 +1111,106 @@ TEST_CASE("Virtual function call across component boundary")
 I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
 I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
 
+<a name="example-virtualfunctionandabistability"></a>
+
+## 11.3\. Example - Virtual Function and ABI Stability
+In prior examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability wasn't demonstrated. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
+This example is next version of immediate previous one (i.e. *Virtual function and runtime polymorphism*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
+
+Below I am showing the diff of new header with previous one.
+
+```diff
+--- runtime-polymorphism/pub/example.h
++++ virtual-function-and-abi-stability/pub/example.h
+@@ -1,19 +1,20 @@
+ #pragma once
+ 
+ //! Example to see what cib does for classes with virtual methods.
+ class A
+ {
+ public:
+   A();
++  virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
+   //! This is to know what cib does with virtual functions.
+   virtual int VirtFunc() { return 5; }
+   virtual ~A() {}
+ };
+ 
+ class B : public A
+ {
+ public:
+   B();
+   int VirtFunc() override { return 15; }
+ };
+ 
+
+```
+
+As it can be seen that only a new virtual method is added to an existing class. But the new method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
+
+Below is the diff of client code from the previous example:
+
+```diff
+--- runtime-polymorphism/pub/example.h
++++ virtual-function-and-abi-stability/pub/example.h
+@@ -1,19 +1,20 @@
+ #pragma once
+ 
+ //! Example to see what cib does for classes with virtual methods.
+ class A
+ {
+ public:
+   A();
++  virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
+   //! This is to know what cib does with virtual functions.
+   virtual int VirtFunc() { return 5; }
+   virtual ~A() {}
+ };
+ 
+ class B : public A
+ {
+ public:
+   B();
+   int VirtFunc() override { return 15; }
+ };
+ 
+
+```
+
 
 <a name="example-facadeclassesandrtti"></a>
 
-## 9.3\. Example - Facade Classes and RTTI
+## 11.4\. Example - Facade Classes and RTTI
 
 **TODO**: Add documentation.
 
 <a name="example-interfaceclasses"></a>
 
-## 9.4\. Example - Interface Classes
+## 11.5\. Example - Interface Classes
 
 **TODO**: Add documentation.
 
 <a name="example-templateclasses"></a>
 
-## 9.5\. Example - Template Classes
+## 11.6\. Example - Template Classes
 
 **TODO**: Add documentation.
 
 <a name="example-reusingproxyclasses."></a>
 
-## 9.6\. Example - Reusing proxy classes.
+## 11.7\. Example - Reusing proxy classes.
 
 **TODO**: Add documentation.
 
 <a name="example-nonpublicvirtualfunctions."></a>
 
-## 9.7\. Example - Non public virtual functions.
+## 11.8\. Example - Non public virtual functions.
 
 **TODO**: Add documentation.
 
 <a name="demoproject"></a>
 
-# 10\. Demo Project
+# 12\. Demo Project
 For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
 
 **graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
@@ -1080,47 +1223,12 @@ Files in **graphics/exp** are part of SDK of library and meant for client of **g
 
 Build **draw** and run it. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw_cibified**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
 
-<a name="buildingcib"></a>
-
-# 11\. Building CIB
-<a name="getthesource"></a>
-
-## 11.1\. Get the source
-
-```sh
-git clone https://github.com/satya-das/common.git
-git clone https://github.com/satya-das/cppparser.git
-git clone https://github.com/satya-das/cib.git
-```
-
-<a name="configureandbuild"></a>
-
-### 11.1.1\. Configure and build
-
-```sh
-cd cib
-mkdir builds
-cd builds
-cmake ..
-make && make test
-```
-
-*Alternatively, if you prefer `Ninja` instead of `make`*:
-
-```sh
-cd cib
-mkdir builds
-cd builds
-cmake -G Ninja ..
-ninja && ninja test
-```
-
 <a name="implementationdetails"></a>
 
-# 12\. Implementation Details
+# 13\. Implementation Details
 <a name="parsingtechnique"></a>
 
-## 12.1\. Parsing Technique
+## 13.1\. Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -1131,7 +1239,7 @@ cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then i
 
 <a name="creatingproxyclassfromhandle"></a>
 
-## 12.2\. Creating proxy class from handle
+## 13.2\. Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
 **TODO**: Add more details.

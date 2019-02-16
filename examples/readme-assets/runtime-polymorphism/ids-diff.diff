@@ -1,6 +1,6 @@
 --- ../simple-class/cib/__zz_cib_Example-ids.h
 +++ cib/__zz_cib_Example-ids.h
-@@ -1,25 +1,48 @@
+@@ -1,25 +1,46 @@
  #pragma once
  
 -namespace __zz_cib_ { namespace Example { namespace A {
@@ -30,17 +30,15 @@
 -    __zz_cib_new_0 = 0,
 -    //#= A(::Example::A const &);
 -    __zz_cib_copy_1 = 1,
--    //#= ~A();
--    __zz_cib_delete_2 = 2,
 +    __zz_cib_new_1 = 1,
 +    //#= int VirtFunc();
 +    VirtFunc_2 = 2,
-     //#= int SomeFunc();
-     SomeFunc_3 = 3,
--    __zz_cib_next_method_id = 4
-+    //#= ~A();
-+    __zz_cib_delete_4 = 4,
-+    __zz_cib_next_method_id = 5
+     //#= ~A();
+-    __zz_cib_delete_2 = 2,
+-    //#= int SomeFunc();
+-    SomeFunc_3 = 3,
++    __zz_cib_delete_3 = 3,
+     __zz_cib_next_method_id = 4
    };
 -}}}}
 +}}}
