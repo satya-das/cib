@@ -76,6 +76,12 @@ target_include_directories(cib
 add_dependencies(cib CibResources)
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
+find_program(
+	MARKDOWN_PP
+	"markdown-pp"
+	PATHS ENV PATH
+)
+
 set(EXAMPLES
 	simple-class
 	runtime-polymorphism
@@ -96,12 +102,6 @@ add_subdirectory(examples)
 
 add_subdirectory(demo)
 
-find_program(
-	MARKDOWN_PP
-	"markdown-pp"
-	PATHS ENV PATH
-)
-
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
@@ -112,7 +112,7 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_target(
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
-	add_dependencies(ReadMe simple-class_client runtime-polymorphism_client DiffsForReadMe)
+	add_dependencies(ReadMe ExamplesReadme)
 else()
   message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()

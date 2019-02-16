@@ -104,7 +104,7 @@ endif()
 
 if(NOT MSVC)
     include("${example}/DocCommands.cmake")
-    add_dependencies(DiffsForReadMe ${example}DiffsForReadMe)
+    add_dependencies(ExamplesReadme ${example}_ReadMe)
 endif()
 
 include("${example}/Epilogue.cmake")

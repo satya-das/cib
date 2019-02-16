@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.7)
 
 include("../../common/cmake/conf.cmake")
 
-add_custom_target(DiffsForReadMe ALL)
+add_custom_target(ExamplesReadme ALL)
 set(EXAMPLE_HEADERS "")
 set(FINAL_LCOV_CMD "lcov -o cib.info")
 set(LCOV_TARGETS "")

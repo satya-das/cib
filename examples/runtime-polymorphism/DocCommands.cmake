@@ -18,5 +18,5 @@ add_custom_command(
     WORKING_DIRECTORY ${example_ROOT}
 )
 
-add_custom_target(${example}DiffsForReadMe ALL DEPENDS ${${example}DiffFilesForReadMe})
+include("${example_ROOT}/../example-common-doc-cmd.cmake")
 
