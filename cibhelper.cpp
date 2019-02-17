@@ -216,7 +216,9 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
       if (returnObj->hasPublicVirtualMethod())
       {
         returnObj->setFacadeLike();
-        if (func.getOwner()->isInterfaceLike())
+        if (func.getOwner()->isInterfaceLike() ||
+          func.isPureVirtual() // TODO: It's a hack to just make AcGiSubEntityTraits get detected as interface
+          )
           returnObj->setInterfaceLike();
       }
     }
