@@ -96,7 +96,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 
 ```
 
-As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability.
+As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability**.
 
 ### Running CIB
 To make CIB ensure ABI stability we needed to run cib with additional parameter and supplied ID file of previous example:

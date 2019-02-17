@@ -258,10 +258,6 @@ For better understanding of what CIB architecture is we will consider examples t
 
 !INCLUDE "examples/virtual-function-and-abi-stability/README.mdpp"
 
-## Example - Facade Classes and RTTI
-
-**TODO**: Add documentation.
-
 ## Example - Interface Classes
 
 **TODO**: Add documentation.
@@ -270,7 +266,7 @@ For better understanding of what CIB architecture is we will consider examples t
 
 **TODO**: Add documentation.
 
-## Example - Reusing proxy classes.
+## Example - Facade Classes and RTTI
 
 **TODO**: Add documentation.
 

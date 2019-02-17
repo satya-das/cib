@@ -66,11 +66,10 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 11.2\.  [Example - Runtime polymorphism](#example-runtimepolymorphism)  
 11.3\.  [Example - Virtual Function and ABI Stability](#example-virtualfunctionandabistability)  
 11.3.1\.  [Running CIB](#runningcib-1)  
-11.4\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
-11.5\.  [Example - Interface Classes](#example-interfaceclasses)  
-11.6\.  [Example - Template Classes](#example-templateclasses)  
-11.7\.  [Example - Reusing proxy classes.](#example-reusingproxyclasses.)  
-11.8\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
+11.4\.  [Example - Interface Classes](#example-interfaceclasses)  
+11.5\.  [Example - Template Classes](#example-templateclasses)  
+11.6\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
+11.7\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
 12\.  [Demo Project](#demoproject)  
 13\.  [Implementation Details](#implementationdetails)  
 13.1\.  [Parsing Technique](#parsingtechnique)  
@@ -1110,7 +1109,7 @@ TEST_CASE("ABI stable virtual function call across component boundary")
 ```
 
 I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
-I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
+I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with other components.**
 
 
 <a name="example-virtualfunctionandabistability"></a>
@@ -1213,7 +1212,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 
 ```
 
-As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability.
+As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability**.
 
 <a name="runningcib-1"></a>
 
@@ -1227,33 +1226,27 @@ cib -i pub -o exp -b cib -m Example -c ../runtime-polymorphism/cib/__zz_cib_Exam
 This makes cib understand that we want ABI stability with previous example and CIB generated glue code accordingly.
 
 
-<a name="example-facadeclassesandrtti"></a>
-
-## 11.4\. Example - Facade Classes and RTTI
-
-**TODO**: Add documentation.
-
 <a name="example-interfaceclasses"></a>
 
-## 11.5\. Example - Interface Classes
+## 11.4\. Example - Interface Classes
 
 **TODO**: Add documentation.
 
 <a name="example-templateclasses"></a>
 
-## 11.6\. Example - Template Classes
+## 11.5\. Example - Template Classes
 
 **TODO**: Add documentation.
 
-<a name="example-reusingproxyclasses."></a>
+<a name="example-facadeclassesandrtti"></a>
 
-## 11.7\. Example - Reusing proxy classes.
+## 11.6\. Example - Facade Classes and RTTI
 
 **TODO**: Add documentation.
 
 <a name="example-nonpublicvirtualfunctions."></a>
 
-## 11.8\. Example - Non public virtual functions.
+## 11.7\. Example - Non public virtual functions.
 
 **TODO**: Add documentation.
 
