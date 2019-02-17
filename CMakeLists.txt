@@ -12,6 +12,9 @@ if(MSVC)
 endif(MSVC)
 ]]
 
+set(CMAKE_INSTALL_RPATH "$ORIGIN")
+set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) # only if you want copy from the build tree
+
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)
 
@@ -21,14 +24,14 @@ include_directories(third-party)
 ## CIB
 
 set(CIB_SOURCES
-	cib.cpp
-	cibhelper.cpp
-	cibidmgr.cpp
-	main.cpp
-	cibobjfactory.cpp
-	cibfunction_helper.cpp
-	cibutil.cpp
-	cibcompound.cpp
+	src/cib.cpp
+	src/cibhelper.cpp
+	src/cibidmgr.cpp
+	src/main.cpp
+	src/cibobjfactory.cpp
+	src/cibfunction_helper.cpp
+	src/cibutil.cpp
+	src/cibcompound.cpp
 )
 
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
@@ -76,28 +79,42 @@ target_include_directories(cib
 add_dependencies(cib CibResources)
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
-set(EXAMPLES example1 example2 example4 example5 example6 example7 example8 example9 example10 example11)
-add_subdirectory(examples)
-
-add_subdirectory(test)
-
 find_program(
 	MARKDOWN_PP
 	"markdown-pp"
 	PATHS ENV PATH
 )
 
+set(EXAMPLES
+	simple-class
+	runtime-polymorphism
+	virtual-function-and-abi-stability
+	inheritance-type-and-abi-stability
+	inheritance-change-and-abi-stability
+	facade-classes-and-rtti
+	interface-classes
+	template-classes
+	proxy-object-reuse
+	private-virtuals
+	rvalue-parameters
+	free-functions
+	reference-of-pointer
+	pod-struct
+)
+add_subdirectory(examples)
+
+add_subdirectory(demo)
+
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.mdpp ${RESPATHS} ${EXAMPLE_HEADERS}
+		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp ${RESPATHS} ${EXAMPLE_HEADERS} ExamplesReadme
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 	add_custom_target(
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
-	add_dependencies(ReadMe example1_client example2_client DiffsForReadMe)
 else()
   message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()

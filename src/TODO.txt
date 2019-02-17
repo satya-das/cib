@@ -1,0 +1,3 @@
+Better type safety for __zz_cib_HANDLE and __zz_cib_PROXY.
+	Needed for safe object creation from facade handle.
+
