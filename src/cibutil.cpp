@@ -25,84 +25,67 @@
 #include "cibcompound.h"
 #include "cibhelper.h"
 
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppparser.h"
 
 #include <cctype>
 
-const CibCppCompound* TypeResolver::operator()(const std::string& typeName) const
+CppVarTypePtr parseType(std::string s)
 {
-  if (!owner_ || !cppProgram_)
-    return nullptr;
-  auto* resolvedCppObj = owner_->resolveTypeName(typeName, *cppProgram_);
-  return resolvedCppObj && resolvedCppObj->isClassLike() ? static_cast<const CibCppCompound*>(resolvedCppObj) : nullptr;
-}
-
-std::string VarTypeResolver::operator()(const std::string& typeName) const
-{
-  auto resolvedType = TypeResolver::operator()(typeName);
-  if (!resolvedType)
-    return typeName;
-  return isHandle_ ? "__zz_cib::HANDLE" : "::" + resolvedType->fullName();
-}
-
-CppVarType* parseType(std::string s)
-{
-  CppVarType*  ret      = nullptr;
-  CppCompound* compound = nullptr;
   do
   {
     CppParser parser;
     s += " DummyVar;";
     s += '\0';
     s += '\0';
-    compound = parser.parseStream(&s[0], s.size());
+    auto compound = parser.parseStream(&s[0], s.size());
     if (compound == nullptr)
       break;
-    if (compound->members_.empty())
+    if (compound->members().empty())
       break;
-    if (compound->members_.front()->objType_ != CppObj::kVar)
+    if (compound->members().front()->objType_ != CppObjType::kVar)
       break;
-    auto* var = static_cast<CppVar*>(compound->members_.front());
-    compound->members_.erase(compound->members_.begin());
-    ret           = var->varType_;
-    var->varType_ = nullptr;
-    delete var;
+    auto       obj = compound->deassocMemberAt(0);
+    CppVarEPtr var = obj;
+    if (var)
+    {
+      CppVarTypePtr ret(new CppVarType(*var->varType()));
+      normalizeConst(ret.get());
+      return ret;
+    }
   } while (false);
-  delete compound;
-  if (ret)
-    normalizeConst(ret);
-  return ret;
+
+  return nullptr;
 }
 
-std::string longName(const CibCppCompound* compound)
+std::string longName(const CibCompound* compound)
 {
   return compound->longName();
 }
 
 std::string longName(const CppFwdClsDecl* fwdCls)
 {
-  if (fwdCls->owner_->isCppFile())
+  if (isCppFile(fwdCls->owner()))
     return "::" + fwdCls->name_;
   else
-    return longName(fwdCls->owner_) + "::" + fwdCls->name_;
+    return longName(fwdCls->owner()) + "::" + fwdCls->name_;
 }
 
 std::string longName(const CppObj* typeObj)
 {
   switch (typeObj->objType_)
   {
-    case CppObj::kEnum:
+    case CppObjType::kEnum:
       return longName(static_cast<const CppEnum*>(typeObj));
-    case CppObj::kTypedefName:
+    case CppObjType::kTypedefName:
       return longName(static_cast<const CppTypedefName*>(typeObj));
-    case CppObj::kUsingDecl:
+    case CppObjType::kUsingDecl:
       return longName(static_cast<const CppUsingDecl*>(typeObj));
-    case CppObj::kFunctionPtr:
+    case CppObjType::kFunctionPtr:
       return longName(static_cast<const CppFunctionPtr*>(typeObj));
-    case CppObj::kCompound:
-      return longName(static_cast<const CibCppCompound*>(typeObj));
-    case CppObj::kFwdClsDecl:
+    case CppObjType::kCompound:
+      return longName(static_cast<const CibCompound*>(typeObj));
+    case CppObjType::kFwdClsDecl:
       return longName(static_cast<const CppFwdClsDecl*>(typeObj));
 
     default:

@@ -23,28 +23,14 @@
 
 #pragma once
 
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppobjfactory.h"
 
 class CibObjFactory : public CppObjFactory
 {
 public:
-  CppCompound* CreateCompound(std::string name, CppObjProtLevel prot, CppCompoundType type) const override;
-  CppCompound* CreateCompound(CppObjProtLevel prot, CppCompoundType type) const override;
+  CppCompound* CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const override;
+  CppCompound* CreateCompound(CppAccessType accessType, CppCompoundType type) const override;
   CppCompound* CreateCompound(std::string name, CppCompoundType type) const override;
   CppCompound* CreateCompound(CppCompoundType type) const override;
-
-  CppConstructor* CreateConstructor(CppObjProtLevel prot,
-                                            std::string     name,
-                                            CppParamList*   params,
-                                            CppMemInitList* memInitList,
-                                            unsigned int    attr) const override;
-  CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr) const override;
-  CppFunction*    CreateFunction(CppObjProtLevel prot,
-                                         std::string     name,
-                                         CppVarType*     retType,
-                                         CppParamList*   params,
-                                         unsigned int    attr) const override;
-
-  CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name) const override;
 };

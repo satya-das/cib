@@ -32,8 +32,8 @@
 
 struct CppObj;
 
-struct CibCppCompound;
-struct CibCppFunction;
+struct CibCompound;
+struct CppFunction;
 class CibFunctionHelper;
 class CibIdMgr;
 
@@ -74,17 +74,17 @@ public:
     return resolveTypename(name, begScope);
   }
 
-  void onNewCompound(CibCppCompound* compound, const CibCppCompound* parent) const;
+  void onNewCompound(CibCompound* compound, const CibCompound* parent) const;
 
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
   CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
 
 private:
-  void resolveInheritance(CibCppCompound* cppCompound);
+  void resolveInheritance(CibCompound* cppCompound);
   void buildCibCppObjTree();
-  void markClassType(CibCppCompound* cppCompound);
-  void markNeedsGenericProxyDefinition(CibCppCompound* cppCompound);
-  void setNeedsGenericProxyDefinition(CibCppCompound* cppCompound);
+  void markClassType(CibCompound* cppCompound);
+  void markNeedsGenericProxyDefinition(CibCompound* cppCompound);
+  void setNeedsGenericProxyDefinition(CibCompound* cppCompound);
 
   /**
    * Evaluates argument function to detect attribute of classes used in args.
@@ -104,8 +104,8 @@ private:
    * But if it has pure virtual and it's parent is facade then may be this class
    * too is used as facade.
    */
-  void identifyPobableFacades(CibCppCompound* compound);
-  void identifyAbstract(CibCppCompound* compound);
+  void identifyPobableFacades(CibCompound* compound);
+  void identifyAbstract(CibCompound* compound);
 
 private:
   bool cibCppObjTreeCreated_;

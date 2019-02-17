@@ -23,11 +23,12 @@
 
 #include "cibidmgr.h"
 #include "cibcompound.h"
-#include "cibfunction.h"
 #include "cibfunction_helper.h"
 #include "cibutil.h"
 
 #include "cppparser.h"
+
+#include "cppcompound-accessor.h"
 
 #include <boost/tokenizer.hpp>
 
@@ -37,7 +38,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-static CibId parseIdExpression(const CppExpr* enumItemVal)
+static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
 {
   if (enumItemVal->expr1_.type == CppExprAtom::kAtom && enumItemVal->expr1_.atom != nullptr)
   {
@@ -54,8 +55,8 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
   if (idCmp == nullptr)
     return false;
   std::unordered_map<CibFullClassNsName, CibFullClassName> nsNameToNameMap;
-  idCmp->traverse([&](const CppObj* cppObj) -> bool {
-    if (cppObj->objType_ == CppObj::kEnum)
+  traverse(idCmp, [&](const CppObj* cppObj) -> bool {
+    if (cppObj->objType_ == CppObjType::kEnum)
     {
       auto* enumObj = static_cast<const CppEnum*>(cppObj);
       if (!enumObj->itemList_)
@@ -64,30 +65,30 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
       static const std::string kMethodIdName    = "__zz_cib_methodid";
       static const std::string kNextClsIdName   = "__zz_cib_next_class_id";
       auto                     extractClassName = [](const CppCompound* classObj) -> std::string {
-        if (!classObj->members_.empty() && (classObj->members_.front()->objType_ == CppObj::kDocComment))
+        if (!classObj->members().empty() && (classObj->members().front()->objType_ == CppObjType::kDocComment))
         {
           static const std::string kClsNameCommentStart = "//#= FullClassName: ";
-          const auto*              cmnt = static_cast<CppDocComment*>(classObj->members_.front());
-          auto                     startPos = cmnt->doc_.find(kClsNameCommentStart);
+          const CppDocCommentEPtr  cmnt                 = classObj->members().front();
+          auto                     startPos             = cmnt->doc_.find(kClsNameCommentStart);
           if (startPos != std::string::npos)
             return cmnt->doc_.substr(startPos + kClsNameCommentStart.size());
         }
         return "";
       };
       auto extractClassNsName = [](const CppCompound* classObj) -> std::string {
-        return classObj->fullName().substr(11); // skip "__zz_cib_::"
+        return fullName(classObj).substr(11); // skip "__zz_cib_::"
       };
-      if (cppObj->owner_->name_ == kMethodIdName)
+      if (cppObj->owner()->name() == kMethodIdName)
       {
-        auto classNsName = extractClassNsName(cppObj->owner_->owner_);
+        auto classNsName = extractClassNsName(cppObj->owner()->owner());
         auto itr         = nsNameToNameMap.find(classNsName);
         if (itr != nsNameToNameMap.end())
           loadMethodIds(itr->second, static_cast<const CppEnum*>(cppObj));
       }
       else if (enumObj->itemList_->front()->name_ == kClassIdName)
       {
-        auto clsName   = extractClassName(enumObj->owner_);
-        auto clsNsName = extractClassNsName(enumObj->owner_);
+        auto clsName   = extractClassName(enumObj->owner());
+        auto clsNsName = extractClassNsName(enumObj->owner());
         auto clsId     = parseIdExpression(enumObj->itemList_->front()->val_);
         if (clsId != 0)
           addClass(clsName, clsNsName, clsId);
@@ -117,16 +118,15 @@ std::pair<std::vector<IdInfo>, CibId> parseIdEnum(const CppEnum* classIdEnum)
   {
     if (item->name_.empty())
     {
-      if (item->anyItem_ && item->anyItem_->objType_ == CppObj::kDocComment)
+      if (CppDocCommentEPtr docComment = item->val_)
       {
-        auto docComment = static_cast<const CppDocComment*>(item->anyItem_);
-        auto itr        = docComment->doc_.find('/');
-        signature       = docComment->doc_.substr(itr + 5);
+        auto itr  = docComment->doc_.find('/');
+        signature = docComment->doc_.substr(itr + 5);
       }
     }
     else if (!signature.empty())
     {
-      auto val = item->val_;
+      CppExprEPtr val = item->val_;
       if (val->expr1_.type == CppExprAtom::kAtom && val->expr1_.atom != nullptr)
         idInfos.emplace_back(std::move(signature), item->name_, atoi(val->expr1_.atom->c_str()));
       else
@@ -134,7 +134,7 @@ std::pair<std::vector<IdInfo>, CibId> parseIdEnum(const CppEnum* classIdEnum)
     }
     else if (item->name_.compare(0, 14, "__zz_cib_next_") == 0)
     {
-      auto val = item->val_;
+      CppExprEPtr val = item->val_;
       if (val->expr1_.type == CppExprAtom::kAtom && val->expr1_.atom != nullptr)
         nextIdValue = atoi(val->expr1_.atom->c_str());
     }
@@ -163,15 +163,15 @@ void CibIdMgr::loadMethodIds(std::string className, const CppEnum* methodIdEnum)
 void CibIdMgr::assignIds(const CibHelper& helper, const CibParams& cibParams)
 {
   // First create Ids for global functions
-  const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
-  for (auto fileCmpound : fileDOMs)
+  const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
+  for (auto& fileAst : fileAsts)
   {
-    assignIds(static_cast<CibCppCompound*>(fileCmpound), helper, cibParams, false);
-    assignIds(static_cast<CibCppCompound*>(fileCmpound), helper, cibParams, true);
+    assignIds(static_cast<CibCompound*>(fileAst.get()), helper, cibParams, false);
+    assignIds(static_cast<CibCompound*>(fileAst.get()), helper, cibParams, true);
   }
 }
 
-void CibIdMgr::assignIds(CibCppCompound*  compound,
+void CibIdMgr::assignIds(CibCompound*     compound,
                          const CibHelper& helper,
                          const CibParams& cibParams,
                          bool             forGenericProxy)
@@ -181,7 +181,7 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
   if (compound->isTemplated())
   {
     compound->forEachTemplateInstance(
-      [&](CibCppCompound* ins) { this->assignIds(ins, helper, cibParams, forGenericProxy); });
+      [&](CibCompound* ins) { this->assignIds(ins, helper, cibParams, forGenericProxy); });
     return;
   }
   if (compound->name().empty())
@@ -202,7 +202,7 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
       auto clsId = nextClassId_++;
       if (compound->isTemplateInstance())
         compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
-      else if (compound->isCppFile())
+      else if (isCppFile(compound))
         compound->setNsName(cibParams.globalNsName());
       const auto classNsName =
         forGenericProxy ? compound->fullNsName() + "::__zz_cib_GenericProxy" : compound->fullNsName();
@@ -211,7 +211,7 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
     else
     {
       cibIdData = &itr->second;
-      if (compound->isCppFile() && compound->isNsNameEmpty())
+      if (isCppFile(compound) && compound->isNsNameEmpty())
         compound->setNsName(cibParams.globalNsName());
     }
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
@@ -223,10 +223,10 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
     for (auto& func : methods)
       addMethod(func);
     if (forGenericProxy)
-      addMethod(compound->getDtor());
+      addMethod(compound->dtor());
     if (!forGenericProxy)
     {
-      compound->forEachAncestor(kPublic, [compound, &cibIdData, &cibParams](const CibCppCompound* parent) {
+      compound->forEachAncestor(CppAccessType::kPublic, [compound, &cibIdData, &cibParams](const CibCompound* parent) {
         if (parent->isShared() || !parent->isEmpty())
         {
           auto castMethodName = compound->castToBaseName(parent, cibParams);
@@ -247,11 +247,11 @@ void CibIdMgr::assignIds(CibCppCompound*  compound,
       }
     }
   } while (false);
-  for (auto mem : compound->members_)
+  for (auto& mem : compound->members())
   {
-    if (isMemberPublic(mem->prot_, compound->compoundType_) && mem->isNamespaceLike())
+    if (isPublic(mem) && isNamespaceLike(mem))
     {
-      assignIds(static_cast<CibCppCompound*>(mem), helper, cibParams, forGenericProxy);
+      assignIds(CibCompoundEPtr(mem), helper, cibParams, forGenericProxy);
     }
   }
 }

@@ -26,41 +26,40 @@
 
 #include <map>
 
-using TemplateArgValueMap = std::map<std::string, const CppVarType*>;
+using TemplateArgValueMap = std::map<std::string, CppVarTypePtr>;
 
-static CppVarType* instantiateVarType(CppVarType* varType, const TemplateArgValueMap& argValues);
+static CppVarTypePtr instantiateVarType(CppVarTypeEPtr varType, const TemplateArgValueMap& argValues);
 
-static TemplateArgValueMap resolveArguments(const TemplateArgs&          templateArgs,
-                                            const CppTemplateParamListP& templSpec,
-                                            const CibCppCompound*        instantiationScope,
-                                            const CibHelper&             helper)
+static TemplateArgValueMap resolveArguments(const TemplateArgs&         templateArgs,
+                                            const CppTemplateParamList* templSpec,
+                                            const CibCompound*          instantiationScope,
+                                            const CibHelper&            helper)
 {
   assert(templSpec);
-  std::map<std::string, const CppVarType*> templArgSubstitution;
-  auto                                     argItr = templateArgs.begin();
+  std::map<std::string, CppVarTypePtr> templArgSubstitution;
+  auto                                 argItr = templateArgs.begin();
   for (const auto& templParam : *templSpec)
   {
     if (!templParam->paramType_)
     {
-      const CppVarType* substituteVar = nullptr;
+      CppVarTypePtr substituteVar;
       if (argItr != templateArgs.end())
       {
-        auto* var         = parseType(*argItr);
-        auto* resolvedVar = instantiationScope->resolveTypeName(var->baseType(), helper);
+        auto  varType     = parseType(*argItr);
+        auto* resolvedVar = instantiationScope->resolveTypeName(baseType(varType), helper);
         if (resolvedVar)
         {
-          var->baseType_ = longName(resolvedVar);
+          varType->baseType(longName(resolvedVar));
         }
-        substituteVar = var;
+        substituteVar = std::move(varType);
         ++argItr;
       }
       else
       {
-        substituteVar =
-          instantiateVarType(static_cast<CppVarType*>(templParam->defaultParam_.get()), templArgSubstitution);
+        substituteVar = instantiateVarType(templParam->defaultParam(), templArgSubstitution);
       }
 
-      templArgSubstitution[templParam->paramName_] = substituteVar;
+      templArgSubstitution[templParam->paramName_] = std::move(substituteVar);
     }
     else
     {
@@ -73,20 +72,25 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&          templat
 
 static std::string stringify(const CppVarType* varType)
 {
-  std::string ret = varType->baseType();
-  for (unsigned short i = 0; i <= varType->ptrLevel(); ++i)
+  std::string ret = baseType(varType);
+  for (unsigned short i = 0; i <= ptrLevel(varType); ++i)
   {
-    if (varType->typeModifier_.constBits_ & (1 << i))
+    if (varType->typeModifier().constBits_ & (1 << i))
       ret += " const ";
-    if (i != varType->ptrLevel())
+    if (i != ptrLevel(varType))
       ret += '*';
   }
 
-  if (varType->refType() == kByRef)
+  if (refType(varType) == CppRefType::kByRef)
     ret += "&";
-  else if (varType->refType() == kRValRef)
+  else if (refType(varType) == CppRefType::kRValRef)
     ret += "&&";
   return ret;
+}
+
+static std::string stringify(const CppVarTypePtr& varType)
+{
+  return stringify(varType.get());
 }
 
 std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
@@ -146,52 +150,51 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
   return ret;
 }
 
-static CppVarType* instantiateVarType(CppVarType* varType, const TemplateArgValueMap& argValues)
+static CppVarTypePtr instantiateVarType(CppVarTypeEPtr varType, const TemplateArgValueMap& argValues)
 {
   normalizeConst(varType);
-  auto baseType = varType->baseType();
-  auto itr      = argValues.find(baseType);
+  auto type = baseType(varType);
+  auto itr  = argValues.find(type);
   if (itr == argValues.end())
   {
-    auto templStart = baseType.find('<');
-    if (templStart != baseType.npos)
-      baseType = baseType.substr(0, templStart)
-                 + ReplaceTemplateParamsWithArgs(baseType, templStart, baseType.length(), argValues);
-    return new CppVarType(baseType, varType->typeModifier_);
+    auto templStart = type.find('<');
+    if (templStart != type.npos)
+      type = type.substr(0, templStart) + ReplaceTemplateParamsWithArgs(type, templStart, type.length(), argValues);
+    return std::make_unique<CppVarType>(type, varType->typeModifier());
   }
   else
   {
-    baseType = itr->second->baseType();
+    type = baseType(itr->second);
   }
 
-  auto typeModifier = resolveTypeModifier(varType->typeModifier_, itr->second->typeModifier_);
-  auto ret          = new CppVarType(baseType, typeModifier);
-  ret->typeAttr_    = varType->typeAttr_ | itr->second->typeAttr_;
-  return ret;
+  auto typeModifier = resolveTypeModifier(varType->typeModifier(), itr->second->typeModifier());
+  auto ret          = new CppVarType(type, typeModifier);
+  ret->typeAttr(varType->typeAttr() | itr->second->typeAttr());
+  return CppVarTypePtr(ret);
 }
 
-static CppParamList* instantiateParams(CppParamList* params, const TemplateArgValueMap& argValues)
+static CppParamVector* instantiateParams(const CppParamVector* params, const TemplateArgValueMap& argValues)
 {
   if (!params)
     return nullptr;
-  CppParamList* ret = new CppParamList;
+  CppParamVector* ret = new CppParamVector;
   for (auto& param : *params)
   {
-    assert((param.cppObj->objType_ == CppObj::kVar) && "TODO: Implement for other types as well");
-    ret->push_back(
-      {new CppVar(instantiateVarType(param.varObj->varType_, argValues), CppVarDecl(param.varObj->varDecl_.name_))});
+    CppVarEPtr var = param;
+    assert(var && "TODO: Implement for other types as well");
+    ret->emplace_back(new CppVar(instantiateVarType(var->varType(), argValues), CppVarDecl(var->varDecl().name())));
   }
 
   return ret;
 }
 
-static std::string canonicalName(const CibCppCompound*        compound,
-                                 const CppTemplateParamListP& templSpec,
-                                 const TemplateArgValueMap&   argValues)
+static std::string canonicalName(const CibCompound*          compound,
+                                 const CppTemplateParamList* templSpec,
+                                 const TemplateArgValueMap&  argValues)
 {
   auto getArg = [&argValues](const std::string& argName) -> const CppVarType* {
     auto itr = argValues.find(argName);
-    return (itr != argValues.end()) ? itr->second : nullptr;
+    return (itr != argValues.end()) ? itr->second.get() : nullptr;
   };
   std::string name = compound->name() + '<';
   const char* sep  = "";
@@ -261,49 +264,51 @@ static TemplateArgs CollectTemplateArgs(const std::string& s)
   return ret;
 }
 
-TemplateInstances::const_iterator CibCppCompound::addTemplateInstance(CibCppCompound* templateInstance)
+TemplateInstances::const_iterator CibCompound::addTemplateInstance(CibCompound* templateInstance)
 {
-  assert(templSpec_);
+  assert(templateParamList());
   auto insRez = templateInstances_.insert(std::make_pair(templateInstance->name(), templateInstance));
   assert(insRez.second);
   return insRez.first;
 }
 
-CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    name,
-                                                         const CibCppCompound* instantiationScope,
-                                                         const CibHelper&      helper)
+CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
+                                                   const CibCompound* instantiationScope,
+                                                   const CibHelper&   helper)
 {
   auto  templateArgs = CollectTemplateArgs(name);
   auto* ret          = getTemplateInstance(templateArgs);
   if (ret)
     return ret;
-  auto resolvedArgVals = resolveArguments(templateArgs, templSpec_, instantiationScope, helper);
-  auto clsName         = canonicalName(this, templSpec_, resolvedArgVals);
+  auto resolvedArgVals = resolveArguments(templateArgs, templateParamList(), instantiationScope, helper);
+  auto clsName         = canonicalName(this, templateParamList(), resolvedArgVals);
   auto resolvedArgs    = CollectTemplateArgs(clsName);
   ret                  = getTemplateInstance(resolvedArgs);
   if (ret)
     return ret;
-  ret                 = new CibCppCompound(clsName, compoundType_);
+  ret                 = new CibCompound(clsName, compoundType());
   ret->templateClass_ = this;
-  ret->owner_         = owner_;
+  ret->owner(owner());
   ret->setShared();
-  forEachMember(kPublic, [&](const CppObj* mem) -> bool {
-    if (mem->isFunctionLike())
+  forEachMember(this, CppAccessType::kPublic, [&](const CppObj* mem) -> bool {
+    if (isFunctionLike(mem))
     {
       CibFunctionHelper func(mem);
       CppFunctionBase*  newMem = nullptr;
       if (func.isConstructorLike())
-        newMem = CibFunctionHelper::CreateConstructor(
-          kPublic, this->name(), instantiateParams(func.getParams(), resolvedArgVals), nullptr, func.getAttr());
+        newMem = new CppConstructor(CppAccessType::kPublic,
+                                    this->name(),
+                                    instantiateParams(func.getParams(), resolvedArgVals),
+                                    nullptr,
+                                    func.getAttr());
       else if (func.isDestructor())
-        newMem = CibFunctionHelper::CreateDestructor(kPublic, "~" + this->name(), func.getAttr());
+        newMem = new CppDestructor(CppAccessType::kPublic, "~" + this->name(), func.getAttr());
       else
-        newMem = CibFunctionHelper::CreateFunction(kPublic,
-                                                   func.funcName(),
-                                                   instantiateVarType(func.returnType(), resolvedArgVals),
-                                                   instantiateParams(func.getParams(), resolvedArgVals),
-                                                   func.getAttr());
-      newMem->owner_ = ret;
+        newMem = new CppFunction(CppAccessType::kPublic,
+                                 func.funcName(),
+                                 instantiateVarType(func.returnType(), resolvedArgVals).release(),
+                                 instantiateParams(func.getParams(), resolvedArgVals),
+                                 func.getAttr());
       ret->addMember(newMem);
     }
     return false;
@@ -318,29 +323,28 @@ CibCppCompound* CibCppCompound::getTemplateInstantiation(const std::string&    n
   return ret;
 }
 
-bool CibCppCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper)
+bool CibCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper)
 {
   bool  compositeTemplate = false;
   auto* resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
   if (resolvedCppObj)
   {
-    if (resolvedCppObj->isClassLike())
+    if (isClassLike(resolvedCppObj))
     {
-      auto* resolvedCompound = static_cast<CibCppCompound*>(resolvedCppObj);
+      auto* resolvedCompound = static_cast<CibCompound*>(resolvedCppObj);
       resolvedCompound->usedInTemplArg.insert(this);
       compositeTemplate = true;
     }
-    else if (resolvedCppObj->isTypedefLike())
+    else if (isTypedefLike(resolvedCppObj))
     {
-      if (resolvedCppObj->objType_ == CppObj::kTypedefName)
+      if (CppTypedefNameEPtr typedefObj = resolvedCppObj)
       {
-        auto* typedefObj  = static_cast<CppTypedefName*>(resolvedCppObj);
-        compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType_->baseType(), helper);
+        compositeTemplate = setupTemplateDependencies(baseType(typedefObj->var_), helper);
       }
-      else
+      else if (CppUsingDeclEPtr usingObj = resolvedCppObj)
       {
-        auto* usingObj    = static_cast<CppUsingDecl*>(resolvedCppObj);
-        compositeTemplate = setupTemplateDependencies(usingObj->varType_->baseType(), helper);
+        CppVarTypeEPtr varType = usingObj->cppObj_;
+        compositeTemplate      = setupTemplateDependencies(baseType(varType), helper);
       }
     }
   }
@@ -348,12 +352,12 @@ bool CibCppCompound::setupTemplateDependencies(const std::string& typeName, cons
   return compositeTemplate;
 }
 
-void CibCppCompound::setupTemplateDependencies(const CibHelper& helper)
+void CibCompound::setupTemplateDependencies(const CibHelper& helper)
 {
   bool compositeTemplate = false;
   for (auto& arg : templateArgValues_)
   {
-    compositeTemplate = setupTemplateDependencies(arg.second->baseType(), helper) || compositeTemplate;
+    compositeTemplate = setupTemplateDependencies(baseType(arg.second), helper) || compositeTemplate;
   }
 
   if (compositeTemplate)

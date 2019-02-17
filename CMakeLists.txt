@@ -18,7 +18,7 @@ set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) # only if you want copy from the build 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)
 
-include_directories(third-party)
+include_directories(../common/third_party)
 
 #############################################
 ## CIB
@@ -100,6 +100,7 @@ set(EXAMPLES
 	free-functions
 	reference-of-pointer
 	pod-struct
+	# no-proxy-classes
 )
 add_subdirectory(examples)
 
@@ -113,7 +114,7 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 	add_custom_target(
-		ReadMe ALL
+		ReadMeCib ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 else()
   message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
