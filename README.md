@@ -63,8 +63,9 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 11.1.9\.  [Client side glue code](#clientsidegluecode-1)  
 11.1.9.1\.  [Helper class definition](#helperclassdefinition)  
 11.1.9.2\.  [Proxy class implementation](#proxyclassimplementation)  
-11.2\.  [Example - Virtual function and runtime polymorphism](#example-virtualfunctionandruntimepolymorphism)  
+11.2\.  [Example - Runtime polymorphism](#example-runtimepolymorphism)  
 11.3\.  [Example - Virtual Function and ABI Stability](#example-virtualfunctionandabistability)  
+11.3.1\.  [Running CIB](#runningcib-1)  
 11.4\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
 11.5\.  [Example - Interface Classes](#example-interfaceclasses)  
 11.6\.  [Example - Template Classes](#example-templateclasses)  
@@ -1052,9 +1053,9 @@ This sequence diagram doesn't mention destrutor but destructor will have similar
 
 **This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
 
-<a name="example-virtualfunctionandruntimepolymorphism"></a>
+<a name="example-runtimepolymorphism"></a>
 
-## 11.2\. Example - Virtual function and runtime polymorphism
+## 11.2\. Example - Runtime polymorphism
 
 In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
 
@@ -1111,10 +1112,12 @@ TEST_CASE("ABI stable virtual function call across component boundary")
 I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
 I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
 
+
 <a name="example-virtualfunctionandabistability"></a>
 
 ## 11.3\. Example - Virtual Function and ABI Stability
-In prior examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability wasn't demonstrated. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
+In previous examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability isn't demonstrated yet. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
+
 This example is next version of immediate previous one (i.e. *Virtual function and runtime polymorphism*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
 
 Below I am showing the diff of new header with previous one.
@@ -1146,7 +1149,7 @@ Below I am showing the diff of new header with previous one.
 
 ```
 
-As it can be seen that only a new virtual method is added to an existing class. But the new method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
+As it can be seen that only a new virtual method is added to an existing class. But the new virtual method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
 
 Below is the diff of client code from the previous example:
 
@@ -1168,6 +1171,60 @@ Below is the diff of client code from the previous example:
  }
 
 ```
+
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `runtime polymorphism`, should continue working with new library without any change or recompilation. The automated test `virtual-function-and-abi-stability` ensures the client of `runtime polymorphism` works with library of this example.
+
+The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
+
+```diff
+--- ../runtime-polymorphism/cib/example.h.cpp
++++ cib/example.h.cpp
+@@ -12,10 +12,13 @@
+   return new __zz_cib_Delegatee(*__zz_cib_obj);
+ }
+ static ::A* __zz_cib_decl __zz_cib_new_1() {
+   return new __zz_cib_Delegatee();
+ }
++static int __zz_cib_decl AnotherVirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
++  return __zz_cib_obj->::A::AnotherVirtFunc();
++}
+ static int __zz_cib_decl VirtFunc_2(__zz_cib_Delegatee* __zz_cib_obj) {
+   return __zz_cib_obj->::A::VirtFunc();
+ }
+ static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
+   delete __zz_cib_obj;
+@@ -27,13 +30,14 @@
+ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+   static const __zz_cib_MTableEntry methodArray[] = {
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_1),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_2),
+-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_3)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_3),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherVirtFunc_4)
+   };
+-  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
++  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+   return &methodTable;
+ }
+ }}
+ namespace __zz_cib_ { namespace B {
+ namespace __zz_cib_Delegator {
+
+```
+
+As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability.
+
+<a name="runningcib-1"></a>
+
+### 11.3.1\. Running CIB
+To make CIB ensure ABI stability we needed to run cib with additional parameter and supplied ID file of previous example:
+
+```sh
+cib -i pub -o exp -b cib -m Example -c ../runtime-polymorphism/cib/__zz_cib_Example-ids.h
+```
+
+This makes cib understand that we want ABI stability with previous example and CIB generated glue code accordingly.
 
 
 <a name="example-facadeclassesandrtti"></a>

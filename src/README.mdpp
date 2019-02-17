@@ -254,43 +254,9 @@ For better understanding of what CIB architecture is we will consider examples t
 
 **This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
 
-## Example - Virtual function and runtime polymorphism
+!INCLUDE "examples/runtime-polymorphism/README.mdpp"
 
-In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
-
-!INCLUDECODE "examples/runtime-polymorphism/pub/example.h" (c++)
-
-This example defines 2 classes, `class A` has a virtual method. `class B` inherits from `class A` and overrides the virtual method. We will see how runtime polymorphism works across the component boundary.
-
-Let's now run CIB:
-
-**Running cib**
-
-```sh
-cib -i pub/ -o exp/ -b cib/ -m Example
-```
-
-Below is what client of library can expect. It is trivial and there is no surprise but it is being done in **ABI compatible and stable** way.
-
-!INCLUDECODE "examples/runtime-polymorphism/src/example-client.cpp" (c++)
-
-I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
-I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with another component.**
-
-## Example - Virtual Function and ABI Stability
-In prior examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability wasn't demonstrated. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
-This example is next version of immediate previous one (i.e. *Virtual function and runtime polymorphism*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
-
-Below I am showing the diff of new header with previous one.
-
-!INCLUDECODE "examples/virtual-function-and-abi-stability/readme-assets/header-diff.diff" (diff)
-
-As it can be seen that only a new virtual method is added to an existing class. But the new method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
-
-Below is the diff of client code from the previous example:
-
-!INCLUDECODE "examples/virtual-function-and-abi-stability/readme-assets/client-diff.diff" (diff)
-
+!INCLUDE "examples/virtual-function-and-abi-stability/README.mdpp"
 
 ## Example - Facade Classes and RTTI
 
