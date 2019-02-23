@@ -70,10 +70,17 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 11.5\.  [Example - Template Classes](#example-templateclasses)  
 11.6\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
 11.7\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
-12\.  [Demo Project](#demoproject)  
-13\.  [Implementation Details](#implementationdetails)  
-13.1\.  [Parsing Technique](#parsingtechnique)  
-13.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
+12\.  [Limitation of CIB Architecture](#limitationofcibarchitecture)  
+12.1\.  [Mandatory creation of proxy objects](#mandatorycreationofproxyobjects)  
+12.2\.  [Objects of library are always created on heap by the client](#objectsoflibraryarealwayscreatedonheapbytheclient)  
+12.3\.  [Increased binary size and memory usage](#increasedbinarysizeandmemoryusage)  
+12.4\.  [Impact on runtime performance](#impactonruntimeperformance)  
+12.5\.  [No raw array of objects](#norawarrayofobjects)  
+12.6\.  [In some cases explicit cleanup of proxy objects may be needed](#insomecasesexplicitcleanupofproxyobjectsmaybeneeded)  
+13\.  [Demo Project](#demoproject)  
+14\.  [Implementation Details](#implementationdetails)  
+14.1\.  [Parsing Technique](#parsingtechnique)  
+14.2\.  [Creating proxy class from handle](#creatingproxyclassfromhandle)  
 
 <a name="overview"></a>
 
@@ -1250,9 +1257,54 @@ This makes cib understand that we want ABI stability with previous example and C
 
 **TODO**: Add documentation.
 
+<a name="limitationofcibarchitecture"></a>
+
+# 12\. Limitation of CIB Architecture
+CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
+
+<a name="mandatorycreationofproxyobjects"></a>
+
+## 12.1\. Mandatory creation of proxy objects
+The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.
+
+<a name="objectsoflibraryarealwayscreatedonheapbytheclient"></a>
+
+## 12.2\. Objects of library are always created on heap by the client
+When client creates a proxy object the corresponding object on library side is always created on heap.
+
+<a name="increasedbinarysizeandmemoryusage"></a>
+
+## 12.3\. Increased binary size and memory usage
+Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.
+
+<a name="impactonruntimeperformance"></a>
+
+## 12.4\. Impact on runtime performance
+CIB layers costs runtime performance too:
+- No inline function
+- Multiple function calls
+- Cross component function call always through function pointer
+
+<a name="norawarrayofobjects"></a>
+
+## 12.5\. No raw array of objects
+Since client can only use library side object through proxy objects, it is not possible for a function to return a pointer of object that points at contiguously allocated objects. The solution to that is to return vector instead.
+
+<a name="insomecasesexplicitcleanupofproxyobjectsmaybeneeded"></a>
+
+## 12.6\. In some cases explicit cleanup of proxy objects may be needed
+Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. The example of such cases can be:
+- Singleton object whose creation and deletion is handled by library.
+- Internal objects returned by library:
+  - A parameter of a callback invoked by library.
+  - Return object pointer or reference of internal object ob library.
+
+The solution for this problem is to completely avoid such things. For example returning `shared_ptr` or `unique_ptr` will not cause this problem.
+If the above solution cannot be used then the only solution would be to explicitly delete those proxy objects using some special mehanism outside of regular program flow. Admittedly this will be dirty and so use of smart pointers will be better.
+
 <a name="demoproject"></a>
 
-# 12\. Demo Project
+# 13\. Demo Project
 For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
 
 **graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
@@ -1267,10 +1319,10 @@ Build **draw** and run it. Make changes in headers of **graphics** and build jus
 
 <a name="implementationdetails"></a>
 
-# 13\. Implementation Details
+# 14\. Implementation Details
 <a name="parsingtechnique"></a>
 
-## 13.1\. Parsing Technique
+## 14.1\. Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 `
@@ -1281,7 +1333,7 @@ cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then i
 
 <a name="creatingproxyclassfromhandle"></a>
 
-## 13.2\. Creating proxy class from handle
+## 14.2\. Creating proxy class from handle
 When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
 
 **TODO**: Add more details.

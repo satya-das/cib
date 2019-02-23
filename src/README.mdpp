@@ -274,6 +274,37 @@ For better understanding of what CIB architecture is we will consider examples t
 
 **TODO**: Add documentation.
 
+# Limitation of CIB Architecture
+CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
+
+## Mandatory creation of proxy objects
+The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.
+
+## Objects of library are always created on heap by the client
+When client creates a proxy object the corresponding object on library side is always created on heap.
+
+## Increased binary size and memory usage
+Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.
+
+## Impact on runtime performance
+CIB layers costs runtime performance too:
+- No inline function
+- Multiple function calls
+- Cross component function call always through function pointer
+
+## No raw array of objects
+Since client can only use library side object through proxy objects, it is not possible for a function to return a pointer of object that points at contiguously allocated objects. The solution to that is to return vector instead.
+
+## In some cases explicit cleanup of proxy objects may be needed
+Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. The example of such cases can be:
+- Singleton object whose creation and deletion is handled by library.
+- Internal objects returned by library:
+  - A parameter of a callback invoked by library.
+  - Return object pointer or reference of internal object ob library.
+
+The solution for this problem is to completely avoid such things. For example returning `shared_ptr` or `unique_ptr` will not cause this problem.
+If the above solution cannot be used then the only solution would be to explicitly delete those proxy objects using some special mehanism outside of regular program flow. Admittedly this will be dirty and so use of smart pointers will be better.
+
 # Demo Project
 For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
 
