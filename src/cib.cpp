@@ -92,7 +92,7 @@ static void emitType(std::ostream&      stm,
   auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : nullptr);
   auto* resolvedType =
     resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-  if (resolvedType && resolvedType->isPodStruct())
+  if (resolvedType && resolvedType->needNoProxy())
     resolvedType = nullptr;
 
   bool emitHandle   = resolvedType && ((purpose == kPurposeProxyProcType) || (purpose == kPurposeProxyCApi));
@@ -228,7 +228,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     auto* resolvedCppObj = getOwner()->resolveTypeName(baseType(var), helper);
     auto* resolvedType =
       resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-    if (resolvedType && resolvedType->isPodStruct())
+    if (resolvedType && resolvedType->needNoProxy())
       resolvedType = nullptr;
     switch (callType)
     {
@@ -443,7 +443,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       resolvedType =
         resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-      if (resolvedType && resolvedType->isPodStruct())
+      if (resolvedType && resolvedType->needNoProxy())
         resolvedType = nullptr;
 
       stm << "return ";
@@ -568,7 +568,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       retType =
         resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-      if (retType && retType->isPodStruct())
+      if (retType && retType->needNoProxy())
         retType = nullptr;
       if (retType && isByValue(returnType()))
       {
@@ -668,7 +668,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     (getOwner() && returnType() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
   auto* resolvedType =
     (resolvedCppObj && isClassLike(resolvedCppObj)) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-  if (resolvedType && resolvedType->isPodStruct())
+  if (resolvedType && resolvedType->needNoProxy())
     resolvedType = nullptr;
   if (resolvedType && !genericProxy)
   {
@@ -1014,7 +1014,7 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
     forEachNested([&](const CibCompound* compound) {
-      if (!compound->isTemplated() && (!compound->isInline() || compound->isShared()) && !compound->isPodStruct())
+      if (!compound->isTemplated() && (!compound->isInline() || compound->isShared()) && !compound->needNoProxy())
         compound->emitDefn(stm, false, helper, cibParams, cibIdMgr);
     });
     emitImplSource(stm, helper, cibParams, cibIdMgr);
@@ -1219,7 +1219,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
                            const CibParams& cibParams,
                            CppIndent        indentation /* = CppIndent */) const
 {
-  if (isPodStruct() || (isInline() && !isShared()))
+  if (needNoProxy() || (isInline() && !isShared()))
   {
     gCppWriter.emit(this, stm, indentation);
     return;
@@ -1416,7 +1416,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   // An inline class that is shared should be treated same as non-inline class.
   if (isInline() && !isShared())
     return;
-  if (isPodStruct())
+  if (needNoProxy())
     return;
   if (name().empty())
     return;

@@ -24,6 +24,8 @@
 #include "cibcompound.h"
 #include "cibhelper.h"
 #include "cibidmgr.h"
+#include "ciboptionparser.h"
+
 #include "res_template.h"
 
 #include "cppast.h"
@@ -46,72 +48,6 @@ typedef boost::filesystem::path::value_type chartype;
 #endif //#ifndef _T
 
 namespace bfs = boost::filesystem;
-
-static bfs::path getResDir(const char* progPath)
-{
-  auto      progDir = bfs::path(progPath).parent_path();
-  bfs::path resDir  = progDir / "cibres";
-  return resDir;
-}
-
-CibParams parseCmdLine(int argc, char* argv[])
-{
-  namespace po = boost::program_options;
-  // Declare the supported options.
-  po::options_description desc("Allowed options");
-  // clang-format off
-  desc.add_options()
-    ("help,h", "produce help message")
-    ("input-folder,i", po::value<std::string>()->required(), "Input folder from where the headers and source files will be parsed.")
-    ("output-folder,o", po::value<std::string>()->required(), "Output folder for emitting files for client.")
-    ("bind-folder,b", po::value<std::string>()->required(), "Folder where binding code will be emitted for library.")
-    ("module,m", po::value<std::string>()->required(), "Name of module/library.")
-    ("cib-ids-file,c", po::value<std::string>()->default_value(""), "Previously created cib-ids-file.")
-    ("macro,M", po::value<std::string>(), "List of comma separated known macro names.")
-    ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.")
-    ("no-exact-delegation,d", "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation")
-    ;
-  // clang-format on
-  po::variables_map vm;
-  po::store(po::parse_command_line(argc, argv, desc), vm);
-
-  if (vm.count("help"))
-  {
-    std::cout << desc << "\n";
-    exit(0);
-  }
-  try
-  {
-    po::notify(vm);
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "Error: " << e.what() << "\n";
-    std::cout << desc << "\n";
-    exit(-1);
-  }
-
-  bfs::path   inputPath  = vm["input-folder"].as<std::string>();
-  bfs::path   outputPath = vm["output-folder"].as<std::string>();
-  bfs::path   binderPath = vm["bind-folder"].as<std::string>();
-  std::string moduleName = vm["module"].as<std::string>();
-  bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
-  bool        d          = vm.count("no-exact-delegation") != 0;
-
-  if (!bfs::is_directory(inputPath) || (bfs::exists(outputPath) && !bfs::is_directory(outputPath))
-      || (bfs::exists(binderPath) && !bfs::is_directory(binderPath)))
-  {
-    std::cerr << "Error in input.\n";
-    exit(-1);
-  }
-
-  bfs::path resDir = getResDir(argv[0]);
-  make_preferred_dir_format(inputPath);
-  make_preferred_dir_format(outputPath);
-  make_preferred_dir_format(binderPath);
-
-  return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile, d);
-}
 
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
@@ -306,13 +242,14 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
   }
 }
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
-  const CibParams& cibParams(parseCmdLine(argc, argv));
+  CibOptionParser optionParser(argc, argv);
+  auto            cibParams = optionParser.getCibParams();
   ensureDirectoriesExist(cibParams);
 
   CibIdMgr  cibIdMgr(cibParams);
-  CibHelper helper(cibParams.inputPath.string().c_str(), cibIdMgr);
+  CibHelper helper(cibParams, cibIdMgr);
   cibIdMgr.assignIds(helper, cibParams);
   StringToStringMap substituteInfo;
   substituteInfo["Module"] = cibParams.moduleName;

@@ -44,12 +44,14 @@ public:
   CibParams        getCibParams();
 
 private:
-  std::string moduleName;
-  std::string inputPath;
-  std::string outputPath;
-  std::string binderPath;
-  std::string resourcePath;
-  std::string cibIdFile;
+  std::string  moduleName;
+  std::string  inputPath;
+  std::string  outputPath;
+  std::string  binderPath;
+  std::string  resourcePath;
+  std::string  cibIdFile;
+  bool         noExactDelegation;
+  StringVector noProxyClassNames;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -67,5 +69,7 @@ inline CibParams CibOptionParser::getCibParams()
           std::move(outputPath),
           std::move(binderPath),
           std::move(resourcePath),
-          std::move(cibIdFile)};
+          std::move(cibIdFile),
+          noExactDelegation,
+          noProxyClassNames};
 }

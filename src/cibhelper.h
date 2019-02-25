@@ -33,7 +33,8 @@
 struct CppObj;
 
 struct CibCompound;
-struct CppFunction;
+struct CibParams;
+
 class CibFunctionHelper;
 class CibIdMgr;
 
@@ -45,7 +46,7 @@ typedef std::set<std::string> stringset;
 class CibHelper
 {
 public:
-  CibHelper(const char* inputPath, CibIdMgr& cibIdMgr);
+  CibHelper(const CibParams& cibParams, CibIdMgr& cibIdMgr);
 
   const CppProgram& getProgram() const
   {
@@ -74,6 +75,11 @@ public:
     return resolveTypename(name, begScope);
   }
 
+  CppObj* getCppObjFromTypeName(const std::string& name) const
+  {
+    return resolveTypename(name, (CppCompound*) nullptr);
+  }
+
   void onNewCompound(CibCompound* compound, const CibCompound* parent) const;
 
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
@@ -85,6 +91,7 @@ private:
   void markClassType(CibCompound* cppCompound);
   void markNeedsGenericProxyDefinition(CibCompound* cppCompound);
   void setNeedsGenericProxyDefinition(CibCompound* cppCompound);
+  void markNoProxyClasses();
 
   /**
    * Evaluates argument function to detect attribute of classes used in args.
@@ -111,6 +118,7 @@ private:
   bool cibCppObjTreeCreated_;
 
   std::unique_ptr<CppProgram> program_;
+  const CibParams&            cibParams_;
   CibIdMgr&                   cibIdMgr_;
 };
 

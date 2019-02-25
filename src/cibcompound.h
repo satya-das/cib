@@ -60,19 +60,20 @@ using TemplateArgValues = std::map<std::string, CppVarTypePtr>;
 
 enum CibClassPropFlags
 {
-  kClassPropBaseLine           = __LINE__, //< Unusable const
+  kClassPropBaseLine           = (__LINE__ + 1), //< Unusable const
   kClassPropPodStruct          = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropInline             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropAbstract           = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasProtectedMethod = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasPrivateVirtual  = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)), //< When class doesn't have any non-static member
-  kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropCompositeTmpl =
-    (1 << (__LINE__ - kClassPropBaseLine)), //< Template instance that uses another compound as argument.
+  kClassPropEmpty              = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface          = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropFacade             = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropCompositeTmpl      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropNeedNoProxy        = (1 << (__LINE__ - kClassPropBaseLine)),
 };
+
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
  */
@@ -299,6 +300,14 @@ public:
   bool isPodStruct() const
   {
     return (props_ & kClassPropPodStruct);
+  }
+  void setNeedNoProxy()
+  {
+    props_ |= kClassPropNeedNoProxy;
+  }
+  bool needNoProxy() const
+  {
+    return (props_ & kClassPropNeedNoProxy) || isPodStruct();
   }
   bool isEmpty() const
   {

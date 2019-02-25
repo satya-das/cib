@@ -31,12 +31,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CibHelper::CibHelper(const char* inputPath, CibIdMgr& cibIdMgr)
+CibHelper::CibHelper(const CibParams& cibParams, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
+  , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
 {
   CibObjFactory objFactory;
-  program_.reset(new CppProgram(inputPath, CppParser(std::make_unique<CibObjFactory>())));
+  program_.reset(new CppProgram(cibParams.inputPath.string(), CppParser(std::make_unique<CibObjFactory>())));
   buildCibCppObjTree();
 }
 
@@ -100,6 +101,17 @@ void CibHelper::buildCibCppObjTree()
     markNeedsGenericProxyDefinition(static_cast<CibCompound*>(fileAst.get()));
   for (auto& fileAst : program_->getFileAsts())
     static_cast<CibCompound*>(fileAst.get())->identifyMethodsToBridge(*this);
+}
+
+void CibHelper::markNoProxyClasses()
+{
+  for (auto& noProxyClassName : cibParams_.noProxyClasses)
+  {
+    CibCompoundEPtr noProxyClass = getCppObjFromTypeName(noProxyClassName);
+
+    if (noProxyClass)
+      noProxyClass->setNeedNoProxy();
+  }
 }
 
 CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const

@@ -28,26 +28,43 @@
 
 #include <iostream>
 
+static bfs::path getResDir(const char* progPath)
+{
+  auto      progDir = bfs::path(progPath).parent_path();
+  bfs::path resDir  = progDir / "cibres";
+  return resDir;
+}
+
 CibOptionParser::CibOptionParser(int argc, const char* argv[])
+  : resourcePath(getResDir(argv[0]).string())
 {
   namespace po = boost::program_options;
   po::options_description desc("Allowed options");
-  auto                    addOption = [&](const char* name, auto& value, bool isRequired) {
+  auto                    addOption = [&](const char* name, auto& value, bool isRequired, const char* doc) {
     using valueType = typename std::decay<decltype(value)>::type;
     auto* typedVal  = po::value<valueType>();
     if (isRequired)
       typedVal->required();
     typedVal->notifier([&value](valueType val) { value = val; });
-    desc.add(boost::make_shared<po::option_description>(name, typedVal));
+    desc.add(boost::make_shared<po::option_description>(name, typedVal, doc));
   };
-  desc.add_options()("help,h", "produce help message");
-  addOption("input-folder,i", inputPath, true);
-  addOption("output-folder,o", outputPath, true);
-  addOption("bind-folder,b", binderPath, true);
-  addOption("module,m", moduleName, true);
-  addOption("cib-ids-file,c", cibIdFile, false);
-  addOption("macro,M", knownMacros, false);
-  addOption("apidecor,A", knownApiDecor, false);
+  desc.add_options()("help,h", "Produce this help message");
+  addOption("input-folder,i", inputPath, true, "Input folder from where the headers and source files will be parsed.");
+  addOption("output-folder,o", outputPath, true, "Output folder for emitting files for client.");
+  addOption("bind-folder,b", binderPath, true, "Folder where binding code will be emitted for library.");
+  addOption("module,m", moduleName, true, "Name of module/library.");
+  addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
+  addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
+  addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
+  addOption("no-exact-delegation,d",
+            noExactDelegation,
+            false,
+            "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation");
+  addOption(
+    "no-proxy",
+    noProxyClassNames,
+    false,
+    "Share the object layout across component boundary and don't use proxies. This option can be used multiple times.");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
 
