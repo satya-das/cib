@@ -101,6 +101,7 @@ void CibHelper::buildCibCppObjTree()
     markNeedsGenericProxyDefinition(static_cast<CibCompound*>(fileAst.get()));
   for (auto& fileAst : program_->getFileAsts())
     static_cast<CibCompound*>(fileAst.get())->identifyMethodsToBridge(*this);
+  markNoProxyClasses();
 }
 
 void CibHelper::markNoProxyClasses()

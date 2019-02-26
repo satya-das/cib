@@ -32,6 +32,7 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape { namespace __zz_cib_
 class Shape : public ::Graphics::Shape {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Graphics_GetMethodTable(
       __zz_cib_classid));
@@ -43,24 +44,24 @@ public:
     return new Shape(h);
   }
   double Area() const override {
-    using AreaProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using AreaProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<AreaProc, __zz_cib_methodid::Area_1>(
       __zz_cib_h_);
   }
   double Perimeter() const override {
-    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_2>(
       __zz_cib_h_);
   }
   void Draw(::Graphics::Context* ctx) const override {
-    using DrawProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* ctx);
+    using DrawProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* ctx);
     return __zz_cib_get_mtable_helper().invoke<DrawProc, __zz_cib_methodid::Draw_3>(
       __zz_cib_h_,
       __zz_cib_::Graphics::Context::__zz_cib_Helper::__zz_cib_handle(ctx));
   }
   ~Shape() override {
     if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_4>(
       __zz_cib_h_);
   }

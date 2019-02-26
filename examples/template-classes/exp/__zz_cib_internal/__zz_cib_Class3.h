@@ -30,8 +30,9 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class3 {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
   , public __zz_cib_::__zz_cib_HandleHelper<::Example::Value<::Example::Int>, __zz_cib_Helper> {
 private:
-  friend class ::Example::Value<::Example::Int>;
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Example::Value<::Example::Int>, __zz_cib_Helper>;
+  friend class ::Example::Value<::Example::Int>;
 
   __zz_cib_Helper()
     : __zz_cib_::__zz_cib_MethodTableHelper(
@@ -42,32 +43,32 @@ private:
     return helper;
   }
 
-  static __zz_cib_HANDLE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+  static __zz_cib_TYPE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_1(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_1(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_HANDLE* __zz_cib_new_2(__zz_cib_HANDLE* x) {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* x);
+  static __zz_cib_TYPE* __zz_cib_new_2(__zz_cib_HANDLE* x) {
+    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE* x);
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       x);
   }
-  static __zz_cib_HANDLE* GetValue_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using GetValueProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static __zz_cib_HANDLE* GetValue_3(__zz_cib_TYPE* __zz_cib_obj) {
+    using GetValueProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
     return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue_3>(
       __zz_cib_obj
       );
   }
-  static void SetValue_4(__zz_cib_HANDLE* __zz_cib_obj, __zz_cib_HANDLE* x) {
-    using SetValueProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*, __zz_cib_HANDLE* x);
+  static void SetValue_4(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* x) {
+    using SetValueProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
     return instance().invoke<SetValueProc, __zz_cib_methodid::SetValue_4>(
       __zz_cib_obj,
       x);

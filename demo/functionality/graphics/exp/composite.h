@@ -8,7 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 namespace Graphics
 {
-typedef std::vector<Graphics::Shape*> Shapes;
+  typedef std::vector<Graphics::Shape*> Shapes;
   class Composite : public ::Graphics::Shape
   {
   public:

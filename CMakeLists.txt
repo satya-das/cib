@@ -32,6 +32,7 @@ set(CIB_SOURCES
 	src/cibfunction_helper.cpp
 	src/cibutil.cpp
 	src/cibcompound.cpp
+	src/ciboptionparser.cpp
 )
 
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
@@ -100,7 +101,7 @@ set(EXAMPLES
 	free-functions
 	reference-of-pointer
 	pod-struct
-	# no-proxy-classes
+	no-proxy-classes
 )
 add_subdirectory(examples)
 

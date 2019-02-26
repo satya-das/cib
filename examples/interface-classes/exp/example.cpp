@@ -100,6 +100,7 @@ namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_Generic {
 class Interface2 : public ::Interface2 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_classid));
@@ -111,13 +112,13 @@ public:
     return new Interface2(h);
   }
   int f() override {
-    using fProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using fProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f_1>(
       __zz_cib_h_);
   }
   ~Interface2() override {
     if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
       __zz_cib_h_);
   }
@@ -162,6 +163,7 @@ namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_Generic {
 class Interface3 : public ::Interface3 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_classid));
@@ -173,13 +175,13 @@ public:
     return new Interface3(h);
   }
   int g() override {
-    using gProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using gProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<gProc, __zz_cib_methodid::g_1>(
       __zz_cib_h_);
   }
   ~Interface3() override {
     if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
       __zz_cib_h_);
   }

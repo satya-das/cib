@@ -305,7 +305,7 @@ public:
   {
     props_ |= kClassPropNeedNoProxy;
   }
-  bool needNoProxy() const
+  bool needsNoProxy() const
   {
     return (props_ & kClassPropNeedNoProxy) || isPodStruct();
   }

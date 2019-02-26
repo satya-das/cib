@@ -5,9 +5,6 @@
 using Opaque = class Dummy;
 struct Pod
 {
-  int i;
-  double d;
-  Opaque* pObj;
 };
 class C
 {
