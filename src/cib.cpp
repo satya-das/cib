@@ -1293,7 +1293,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
     emitMoveConstructorDecl(stm, indentation);
 
   CppAccessType lastProt = CppAccessType::kUnknown;
-  if (!isClassLike(this) || needsBridging())
+  if (!isClassLike(this) || needsBridging() || needsNoProxy())
   {
     for (auto& mem : members())
     {
