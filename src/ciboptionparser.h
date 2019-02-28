@@ -50,7 +50,7 @@ private:
   std::string  binderPath;
   std::string  resourcePath;
   std::string  cibIdFile;
-  bool         noExactDelegation;
+  bool         noExactDelegation {false};
   StringVector noProxyClassNames;
   // C++ parser options.
   StringVector knownMacros;
