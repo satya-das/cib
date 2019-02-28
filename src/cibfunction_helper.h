@@ -25,15 +25,17 @@
 
 #include "cibparams.h"
 
-#include "cibfunction.h"
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppindent.h"
+
+#include "cppfunc-accessor.h"
+#include "cppvar-accessor.h"
 
 #include <string>
 
 //////////////////////////////////////////////////////////////////////////
 
-struct CibCppCompound;
+struct CibCompound;
 
 class CibHelper;
 class CibIdData;
@@ -100,50 +102,50 @@ class CibFunctionHelper
 private:
   union
   {
-    const CppObj*              cppObj_;
-    const CibCppConstructor*   ctor_;
-    const CibCppDestructor*    dtor_;
-    const CibCppFunction*      func_;
-    const CibCppTypeConverter* converter_;
+    const CppObj*           cppObj_;
+    const CppConstructor*   ctor_;
+    const CppDestructor*    dtor_;
+    const CppFunction*      func_;
+    const CppTypeConverter* converter_;
   };
 
 public:
-  static CppConstructor* CreateConstructor(CppObjProtLevel prot,
-                                           std::string     name,
-                                           CppParamList*   params,
-                                           CppMemInitList* memInitList,
-                                           unsigned int    attr);
-  static CppDestructor*  CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr);
-  static CppFunction*
-                           CreateFunction(CppObjProtLevel prot, std::string name, CppVarType* retType, CppParamList* params, unsigned int attr);
-  static CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name);
-
-public:
   CibFunctionHelper(const CppObj* cppObj);
-  CibFunctionHelper(const CibCppConstructor* ctor)
+  CibFunctionHelper(const std::unique_ptr<CppObj>& cppObj)
+    : CibFunctionHelper(cppObj.get())
+  {
+  }
+  CibFunctionHelper(const std::unique_ptr<const CppObj>& cppObj)
+    : CibFunctionHelper(cppObj.get())
+  {
+  }
+  CibFunctionHelper(const CppConstructor* ctor)
     : ctor_(ctor)
   {
   }
-  CibFunctionHelper(const CibCppDestructor* dtor)
+  CibFunctionHelper(const CppDestructor* dtor)
     : dtor_(dtor)
   {
   }
-  CibFunctionHelper(const CibCppFunction* func)
+  CibFunctionHelper(const CppFunction* func)
     : func_(func)
   {
   }
-
+  operator bool() const
+  {
+    return cppObj_ != nullptr;
+  }
   operator const CppObj*() const
   {
     return cppObj_;
   }
-  CppObjProtLevel protectionLevel() const
+  CppAccessType accessType() const
   {
-    return cppObj_->prot_;
+    return cppObj_->accessType_;
   }
   bool isConstructor() const
   {
-    return cppObj_->objType_ == CppObj::kConstructor;
+    return cppObj_->objType_ == CppObjType::kConstructor;
   }
   bool isCopyConstructor() const
   {
@@ -159,35 +161,35 @@ public:
   }
   bool isDestructor() const
   {
-    return cppObj_->objType_ == CppObj::kDestructor;
+    return cppObj_->objType_ == CppObjType::kDestructor;
   }
   bool isTypeConverter() const
   {
-    return cppObj_->objType_ == CppObj::kTypeConverter;
+    return cppObj_->objType_ == CppObjType::kTypeConverter;
   }
   bool isStatic() const
   {
-    return (func_->attr_ & kStatic) == kStatic;
+    return (func_->attr() & kStatic) == kStatic;
   }
   bool isInline() const
   {
-    return (func_->attr_ & kInline) == kInline;
+    return (func_->attr() & kInline) == kInline;
   }
   bool isVirtual() const
   {
-    return (func_->attr_ & kVirtual) == kVirtual;
+    return (func_->attr() & kVirtual) == kVirtual;
   }
   bool isPureVirtual() const
   {
-    return (func_->attr_ & kPureVirtual) == kPureVirtual;
+    return (func_->attr() & kPureVirtual) == kPureVirtual;
   }
   bool isFinal() const
   {
-    return (func_->attr_ & kFinal) == kFinal;
+    return (func_->attr() & kFinal) == kFinal;
   }
   bool hasAttr(CppIdentifierAttrib attr) const
   {
-    return (func_->attr_ & attr) == attr;
+    return (func_->attr() & attr) == attr;
   }
   bool isOveriddable() const
   {
@@ -195,11 +197,11 @@ public:
   }
   bool isDeleted() const
   {
-    return func_->isDeleted();
+    return ::isDeleted(func_);
   }
   bool isConst() const
   {
-    return (func_->attr_ & kConst) == kConst;
+    return (func_->attr() & kConst) == kConst;
   }
   bool isFunction() const
   {
@@ -207,15 +209,15 @@ public:
   }
   bool isMethod() const
   {
-    return isFunction() && func_->isMethod();
+    return isFunction() && ::isMethod(func_);
   }
   bool hasDefinition() const
   {
-    return func_->defn_ != nullptr;
+    return func_->defn() != nullptr;
   }
   bool isTemplated() const
   {
-    return func_->templSpec_ != nullptr;
+    return func_->templateParamList();
   }
   bool isOutOfClassDefinition() const
   {
@@ -226,34 +228,36 @@ public:
     if (!isFunction() || !hasParams())
       return false;
     const auto* params = getParams();
-    return (params->back().varObj->baseType() == "...");
+    CppVarEPtr  var    = params->back();
+    return var && (baseType(var) == "...");
   }
-  CibCppCompound* getOwner() const;
-  std::uint32_t   getAttr() const
+  CibCompound*  getOwner() const;
+  std::uint32_t getAttr() const
   {
-    return func_->attr_;
+    return func_->attr();
   }
 
   bool hasParams() const
   {
-    if (isDestructor() || isTypeConverter() || (func_->params_ == nullptr) || func_->params_->empty())
+    if (isDestructor() || isTypeConverter() || (func_->params() == nullptr) || func_->params()->empty())
       return false;
     // It may happen there is parameter but it is a 'void' one.
-    const auto& param = func_->params_->front();
-    if (param.cppObj->objType_ != CppObj::kVar)
+    const auto& param = func_->params()->front();
+    CppVarEPtr  var   = param;
+    if (!var)
       return true;
-    return !(param.varObj->varType_->isVoid());
+    return !isVoid(var->varType());
   }
-  CppParamList* getParams() const
+  const CppParamVector* getParams() const
   {
-    return !hasParams() ? nullptr : func_->params_;
+    return !hasParams() ? nullptr : func_->params();
   }
   CppVarType* returnType() const
   {
     if (isTypeConverter())
-      return converter_->to_;
+      return converter_->to_.get();
     else if (isFunction())
-      return func_->retType_;
+      return func_->retType_.get();
     else
       return nullptr;
   }
@@ -303,27 +307,27 @@ public:
                     const CibParams& cibParams,
                     FuncProtoPurpose purpose,
                     CppIndent        indentation = CppIndent()) const;
-  void emitCAPIDecl(std::ostream&         stm,
-                    const CibHelper&      helper,
-                    const CibParams&      cibParams,
-                    const CibCppCompound* callingOwner,
-                    const std::string&    capiName,
-                    FuncProtoPurpose      purpose) const;
+  void emitCAPIDecl(std::ostream&      stm,
+                    const CibHelper&   helper,
+                    const CibParams&   cibParams,
+                    const CibCompound* callingOwner,
+                    const std::string& capiName,
+                    FuncProtoPurpose   purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
-  void emitCAPIDefn(std::ostream&         stm,
-                    const CibHelper&      helper,
-                    const CibParams&      cibParams,
-                    const CibCppCompound* callingOwner,
-                    const std::string&    capiName,
-                    bool                  forProxy,
-                    CppIndent             indentation = CppIndent()) const;
-  void emitDefn(std::ostream&         stm,
-                bool                  asInline,
-                const CibHelper&      helper,
-                const CibParams&      cibParams,
-                const CibCppCompound* callingOwner,
-                const CibIdData*      cibIdData,
-                CppIndent             indentation = CppIndent()) const;
+  void emitCAPIDefn(std::ostream&      stm,
+                    const CibHelper&   helper,
+                    const CibParams&   cibParams,
+                    const CibCompound* callingOwner,
+                    const std::string& capiName,
+                    bool               forProxy,
+                    CppIndent          indentation = CppIndent()) const;
+  void emitDefn(std::ostream&      stm,
+                bool               asInline,
+                const CibHelper&   helper,
+                const CibParams&   cibParams,
+                const CibCompound* callingOwner,
+                const CibIdData*   cibIdData,
+                CppIndent          indentation = CppIndent()) const;
   void emitGenericProxyDefn(std::ostream&      stm,
                             const CibHelper&   helper,
                             const CibParams&   cibParams,

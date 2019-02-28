@@ -80,6 +80,7 @@ namespace __zz_cib_ { namespace IF { namespace __zz_cib_Generic {
 class IF : public ::IF {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_classid));
@@ -91,38 +92,38 @@ public:
     return new IF(h);
   }
   int PrivatePureVirtual() override {
-    using PrivatePureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using PrivatePureVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<PrivatePureVirtualProc, __zz_cib_methodid::PrivatePureVirtual_8>(
       __zz_cib_h_);
   }
   int PrivateVirtual() override {
-    using PrivateVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using PrivateVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<PrivateVirtualProc, __zz_cib_methodid::PrivateVirtual_9>(
       __zz_cib_h_);
   }
   int ProtectedPureVirtual() override {
-    using ProtectedPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using ProtectedPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<ProtectedPureVirtualProc, __zz_cib_methodid::ProtectedPureVirtual_1>(
       __zz_cib_h_);
   }
   int ProtectedVirtual() override {
-    using ProtectedVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using ProtectedVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<ProtectedVirtualProc, __zz_cib_methodid::ProtectedVirtual_2>(
       __zz_cib_h_);
   }
   int PublicPureVirtual() override {
-    using PublicPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using PublicPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<PublicPureVirtualProc, __zz_cib_methodid::PublicPureVirtual_4>(
       __zz_cib_h_);
   }
   int PublicVirtual() override {
-    using PublicVirtualProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using PublicVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<PublicVirtualProc, __zz_cib_methodid::PublicVirtual_5>(
       __zz_cib_h_);
   }
   ~IF() override {
     if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_7>(
       __zz_cib_h_);
   }

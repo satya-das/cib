@@ -64,6 +64,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_Generic {
 class A : public ::A {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_classid));
@@ -75,13 +76,13 @@ public:
     return new A(h);
   }
   int VirtualFunction() const override {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
       __zz_cib_h_);
   }
   ~A() override {
     if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_3>(
       __zz_cib_h_);
   }

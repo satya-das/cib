@@ -27,8 +27,11 @@
 
 #include "cibfunction_helper.h"
 #include "cibutil.h"
-#include "cppdom.h"
+#include "cppast.h"
 #include "cppindent.h"
+
+#include "cppcompound-accessor.h"
+#include "cppobj-accessor.h"
 
 #include <map>
 #include <set>
@@ -40,40 +43,41 @@ class CibHelper;
 class CibFunctionHelper;
 class CibIdMgr;
 
-struct CibCppFunction;
-struct CibCppCompound;
+struct CppFunction;
+struct CibCompound;
 
-typedef std::vector<CibFunctionHelper>                 CibFunctionHelperArray;
-typedef std::vector<CibCppCompound*>                   CibCppCompoundArray;
-typedef std::map<CppObjProtLevel, CibCppCompoundArray> CibCppInheritInfo;
-typedef std::map<std::string, const CppObj*>           TypeNameToCppObj;
+typedef std::vector<CibFunctionHelper>            CibFunctionHelperArray;
+typedef std::vector<CibCompound*>                 CibCompoundArray;
+typedef std::map<CppAccessType, CibCompoundArray> CibCppInheritInfo;
+typedef std::map<std::string, const CppObj*>      TypeNameToCppObj;
 
 using StringVector = std::vector<std::string>;
 using TemplateArgs = StringVector;
 // A set is sufficient but for having order we need map.
-using TemplateInstances = std::map<std::string, CibCppCompound*>;
+using TemplateInstances = std::map<std::string, CibCompound*>;
 using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
-using TemplateArgValues = std::map<std::string, const CppVarType*>;
+using TemplateArgValues = std::map<std::string, CppVarTypePtr>;
 
 enum CibClassPropFlags
 {
-  kClassPropBaseLine           = __LINE__, //< Unusable const
+  kClassPropBaseLine           = (__LINE__ + 1), //< Unusable const
   kClassPropPodStruct          = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropInline             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropShared             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropAbstract           = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasProtectedMethod = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasPrivateVirtual  = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropEmpty     = (1 << (__LINE__ - kClassPropBaseLine)), //< When class doesn't have any non-static member
-  kClassPropInterface = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropFacade    = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropCompositeTmpl =
-    (1 << (__LINE__ - kClassPropBaseLine)), //< Template instance that uses another compound as argument.
+  kClassPropEmpty              = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface          = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropFacade             = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropCompositeTmpl      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropNeedNoProxy        = (1 << (__LINE__ - kClassPropBaseLine)),
 };
+
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
  */
-struct CibCppCompound : public CppCompound
+struct CibCompound : public CppCompound
 {
 public:
   using CppCompound::CppCompound;
@@ -94,24 +98,19 @@ private:
   mutable TypeNameToCppObj       typeNameToCibCppObj_;
   TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
   TmplInstanceCache              tmplInstanceCache_;
-  CibCppCompound*   templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  CibCompound*      templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues templateArgValues_;
-  std::set<const CibCppCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
-  std::string                     nsName_;
+  std::set<const CibCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
+  std::string                  nsName_;
 
 public:
-  /// @return name of this class.
-  const std::string& name() const
-  {
-    return name_;
-  }
   bool isNsNameEmpty() const
   {
     return nsName_.empty();
   }
   const std::string& nsName() const
   {
-    return !nsName_.empty() ? nsName_ : name_;
+    return !nsName_.empty() ? nsName_ : name();
   }
   void setNsName(std::string nsName)
   {
@@ -123,11 +122,11 @@ public:
   }
   std::string longName() const
   {
-    return isCppFile() ? "::" : "::" + fullName();
+    return isCppFile(this) ? "::" : "::" + fullName(this);
   }
   std::string fullNsName() const
   {
-    if (outer() && outer()->isNamespaceLike())
+    if (outer() && isNamespaceLike(outer()))
       return outer()->fullNsName() + "::" + nsName();
     else
       return nsName();
@@ -138,19 +137,19 @@ public:
   }
   bool isTemplated() const
   {
-    return templSpec_ != nullptr;
+    return templateParamList() != nullptr;
   }
   bool isTemplateInstance() const
   {
     return (templateClass_ != nullptr);
   }
-  CibCppCompound* templateClass() const
+  CibCompound* templateClass() const
   {
     return templateClass_;
   }
   bool hasPubliclyDerived() const
   {
-    auto itr = children_.find(kPublic);
+    auto itr = children_.find(CppAccessType::kPublic);
     if (itr == children_.end())
       return false;
     return !itr->second.empty();
@@ -163,14 +162,14 @@ public:
     return uname;
   }
   /// @return Name of function that casts to object of parent class
-  std::string castToBaseName(const CibCppCompound* base, const CibParams& cibParams) const
+  std::string castToBaseName(const CibCompound* base, const CibParams& cibParams) const
   {
     return cibParams.castToBasePrefix + base->uniqName();
   }
   /// @return string that represents a sequence of all wrapping Ns namespaces
   std::string wrappingNsNamespaceDeclarations(const CibParams& cibParams) const
   {
-    if (outer() == nullptr || outer()->isCppFile())
+    if (outer() == nullptr || isCppFile(outer()))
       return "namespace __zz_cib_ {";
     return outer()->wrappingNsNamespaceDeclarations(cibParams) + " namespace " + outer()->nsName() + " {";
   }
@@ -178,16 +177,16 @@ public:
   /// @return sequence of closing braces that closes all wrapping Ns namespace definitions.
   std::string closingBracesForWrappingNsNamespaces() const
   {
-    if (outer() == nullptr || outer()->isCppFile())
+    if (outer() == nullptr || isCppFile(outer()))
       return "}";
     return outer()->closingBracesForWrappingNsNamespaces() + '}';
   }
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
   {
-    if (outer() == nullptr || outer()->isCppFile())
+    if (outer() == nullptr || isCppFile(outer()))
       return "";
-    if (outer()->isNamespace())
+    if (isNamespace(outer()))
       return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
     else
       return "namespace " + outer()->name() + " {";
@@ -196,9 +195,9 @@ public:
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
   std::string closingBracesForWrappingNamespaces() const
   {
-    if (outer() == nullptr || outer()->isCppFile())
+    if (outer() == nullptr || isCppFile(outer()))
       return "";
-    if (outer()->isNamespace())
+    if (isNamespace(outer()))
       return outer()->closingBracesForWrappingNamespaces() + '}';
     else
       return "}";
@@ -220,27 +219,27 @@ public:
   {
     return allVirtuals_;
   }
-  CibCppCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
+  CibCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
   {
-    assert(templSpec_);
+    assert(templateParamList());
     auto itr = tmplInstanceCache_.find(templateArgs);
     return (itr == tmplInstanceCache_.end()) ? nullptr : itr->second->second;
   }
-  CibCppCompound* getTemplateInstantiation(const std::string&    name,
-                                           const CibCppCompound* instantiationScope,
-                                           const CibHelper&      helper);
+  CibCompound* getTemplateInstantiation(const std::string& name,
+                                        const CibCompound* instantiationScope,
+                                        const CibHelper&   helper);
 
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
-  const CibCppCompound* outer() const
+  const CibCompound* outer() const
   {
-    return static_cast<CibCppCompound*>(owner_);
+    return static_cast<CibCompound*>(owner());
   }
   void setShared()
   {
     if (!isShared())
     {
       props_ |= kClassPropShared;
-      for (auto parent : parents_[kPublic])
+      for (auto parent : parents_[CppAccessType::kPublic])
         parent->setShared();
     }
   }
@@ -265,7 +264,8 @@ public:
   }
   bool isAncestorFacadeLike() const
   {
-    return forEachAncestor(kPublic, [](const CibCppCompound* ancestor) -> bool { return ancestor->isFacadeLike(); });
+    return forEachAncestor(CppAccessType::kPublic,
+                           [](const CibCompound* ancestor) -> bool { return ancestor->isFacadeLike(); });
 
     return false;
   }
@@ -301,6 +301,14 @@ public:
   {
     return (props_ & kClassPropPodStruct);
   }
+  void setNeedNoProxy()
+  {
+    props_ |= kClassPropNeedNoProxy;
+  }
+  bool needsNoProxy() const
+  {
+    return (props_ & kClassPropNeedNoProxy) || isPodStruct();
+  }
   bool isEmpty() const
   {
     return (props_ & kClassPropEmpty);
@@ -311,9 +319,9 @@ public:
   }
   bool isOverridable() const
   {
-    if (compoundType_ == CppCompoundType::kUnion)
+    if (compoundType() == CppCompoundType::kUnion)
       return false;
-    return !hasDtor() || !isMemberPrivate(dtor()->protectionLevel(), compoundType_);
+    return !hasDtor() || !isPrivate(dtor());
   }
   bool hasProtectedMethods() const
   {
@@ -358,9 +366,9 @@ public:
   }
   bool isCopyCtorCallable() const
   {
-    if (copyCtor() && (copyCtor()->isDeleted() || copyCtor()->isPrivate()))
+    if (copyCtor() && (isDeleted(copyCtor()) || isPrivate(copyCtor())))
       return false;
-    if (!forEachAncestor([](const CibCppCompound* ancestor) { return ancestor->isCopyCtorCallable(); }))
+    if (!forEachAncestor([](const CibCompound* ancestor) { return ancestor->isCopyCtorCallable(); }))
       return false;
     return true;
   }
@@ -452,20 +460,15 @@ public:
   }
 
 public:
-  bool forEachParent(CppObjProtLevel prot, std::function<bool(const CibCppCompound*)> callable) const;
-  bool forEachAncestor(CppObjProtLevel prot, std::function<bool(const CibCppCompound*)> callable) const;
-  bool forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const;
-  void forEachDerived(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
-  void forEachDescendent(CppObjProtLevel prot, std::function<void(const CibCppCompound*)> callable) const;
-  void forEachNested(std::function<void(const CibCppCompound*)> callable) const;
-  bool forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const;
-  void forEachTemplateInstance(std::function<void(CibCppCompound*)> callable) const;
+  bool forEachParent(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const;
+  bool forEachAncestor(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const;
+  bool forEachAncestor(std::function<bool(const CibCompound*)> callable) const;
+  void forEachDerived(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
+  void forEachDescendent(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
+  void forEachNested(std::function<void(const CibCompound*)> callable) const;
+  void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
 
-  static const CibCppCompound* getFileDomObj(const CppObj* obj);
-  CibFunctionHelper            getDtor() const
-  {
-    return dtor();
-  }
+  static const CibCompound* getFileAstObj(const CppObj* obj);
 
 private:
   void emitDecl(const CppObj*,
@@ -516,17 +519,17 @@ private:
   void collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
   void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
 
-  void                                   collectFacades(std::set<const CibCppCompound*>& facades) const;
-  static std::set<const CibCppCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
-  static std::set<std::string>           collectHeaderDependencies(const std::set<const CibCppCompound*>& compoundObjs,
-                                                                   const bfs::path&                       dependentPath);
+  void                                collectFacades(std::set<const CibCompound*>& facades) const;
+  static std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
+  static std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
+                                                                const bfs::path&                    dependentPath);
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
   bfs::path   getImplDir(const CibParams& cibParams) const;
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;
-  TemplateInstances::const_iterator addTemplateInstance(CibCppCompound* templateInstance = nullptr);
+  TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance = nullptr);
   void                              setupTemplateDependencies(const CibHelper& helper);
   bool                              setupTemplateDependencies(const std::string& typeName, const CibHelper& helper);
 
@@ -540,10 +543,12 @@ private:
   }
 };
 
-inline bool CibCppCompound::forEachParent(CppObjProtLevel                            prot,
-                                          std::function<bool(const CibCppCompound*)> callable) const
+using CibCompoundEPtr      = CppEasyPtr<CibCompound>;
+using CibConstCompoundEPtr = CppEasyPtr<const CibCompound>;
+
+inline bool CibCompound::forEachParent(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const
 {
-  auto parentsItr = parents_.find(prot);
+  auto parentsItr = parents_.find(accessType);
   if (parentsItr == parents_.end())
     return true;
   for (auto parent : parentsItr->second)
@@ -555,22 +560,22 @@ inline bool CibCppCompound::forEachParent(CppObjProtLevel                       
   return true;
 }
 
-inline bool CibCppCompound::forEachAncestor(CppObjProtLevel                            prot,
-                                            std::function<bool(const CibCppCompound*)> callable) const
+inline bool CibCompound::forEachAncestor(CppAccessType                           accessType,
+                                         std::function<bool(const CibCompound*)> callable) const
 {
-  auto parentsItr = parents_.find(prot);
+  auto parentsItr = parents_.find(accessType);
   if (parentsItr == parents_.end())
     return false;
   for (const auto& parent : parentsItr->second)
   {
-    if (parent->forEachAncestor(prot, callable) || callable(parent))
+    if (parent->forEachAncestor(accessType, callable) || callable(parent))
       return true;
   }
 
   return false;
 }
 
-inline bool CibCppCompound::forEachAncestor(std::function<bool(const CibCppCompound*)> callable) const
+inline bool CibCompound::forEachAncestor(std::function<bool(const CibCompound*)> callable) const
 {
   for (const auto& parentsItr : parents_)
   {
@@ -583,54 +588,43 @@ inline bool CibCppCompound::forEachAncestor(std::function<bool(const CibCppCompo
   return true;
 }
 
-inline void CibCppCompound::forEachDerived(CppObjProtLevel                            prot,
-                                           std::function<void(const CibCppCompound*)> callable) const
+inline void CibCompound::forEachDerived(CppAccessType                           accessType,
+                                        std::function<void(const CibCompound*)> callable) const
 {
-  auto childItr = children_.find(prot);
+  auto childItr = children_.find(accessType);
   if (childItr == children_.end())
     return;
   for (auto child : childItr->second)
     callable(child);
 }
 
-inline void CibCppCompound::forEachDescendent(CppObjProtLevel                            prot,
-                                              std::function<void(const CibCppCompound*)> callable) const
+inline void CibCompound::forEachDescendent(CppAccessType                           accessType,
+                                           std::function<void(const CibCompound*)> callable) const
 {
-  auto childItr = children_.find(prot);
+  auto childItr = children_.find(accessType);
   if (childItr == children_.end())
     return;
   for (auto child : childItr->second)
   {
-    child->forEachDescendent(prot, callable);
+    child->forEachDescendent(accessType, callable);
     callable(child);
   }
 }
 
-inline void CibCppCompound::forEachNested(std::function<void(const CibCppCompound*)> callable) const
+inline void CibCompound::forEachNested(std::function<void(const CibCompound*)> callable) const
 {
-  for (auto mem : members_)
+  for (const auto& mem : members())
   {
-    if (mem->isNamespaceLike())
+    if (isNamespaceLike(mem))
     {
-      auto* nested = static_cast<const CibCppCompound*>(mem);
+      CibCompoundEPtr nested = mem;
       callable(nested);
       nested->forEachNested(callable);
     }
   }
 }
 
-inline bool CibCppCompound::forEachMember(CppObjProtLevel prot, std::function<bool(const CppObj*)> callable) const
-{
-  for (auto mem : members_)
-  {
-    if ((effectiveProtectionLevel(mem->prot_, compoundType_) == prot) && callable(mem))
-      return true;
-  }
-
-  return false;
-}
-
-inline void CibCppCompound::forEachTemplateInstance(std::function<void(CibCppCompound*)> callable) const
+inline void CibCompound::forEachTemplateInstance(std::function<void(CibCompound*)> callable) const
 {
   for (auto& ins : templateInstances_)
     callable(ins.second);

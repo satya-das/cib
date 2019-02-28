@@ -23,59 +23,26 @@
 
 #pragma once
 
+#include "cppast.h"
 #include "cppconst.h"
-#include "cppdom.h"
 #include "cpputil.h"
+
+#include "cppcompound-accessor.h"
 
 #include <string>
 
 class CibHelper;
-struct CibCppCompound;
+struct CibCompound;
 struct CppVarType;
 
 struct CibParams;
 
-struct TypeResolver
-{
-  TypeResolver(const CibCppCompound* owner = nullptr, const CibHelper* helper = nullptr)
-    : owner_(owner)
-    , cppProgram_(helper)
-  {
-  }
-  // FIXME: It should actually return CppObj, but for now lets assume it will always be a compound
-  // object.
-  const CibCppCompound* operator()(const std::string& typeName) const;
-
-private:
-  const CibCppCompound* owner_;
-  const CibHelper*      cppProgram_;
-};
-
-struct VarTypeResolver : TypeResolver
-{
-  VarTypeResolver(const CibParams&      cibParams,
-                  const CibCppCompound* owner    = nullptr,
-                  const CibHelper*      helper   = nullptr,
-                  bool                  isHandle = false)
-    : TypeResolver(owner, helper)
-    , cibParams_(cibParams)
-    , isHandle_(isHandle)
-  {
-  }
-
-  std::string operator()(const std::string& typeName) const;
-
-private:
-  const CibParams& cibParams_;
-  bool             isHandle_;
-};
-
 inline std::string longName(const CppEnum* enumObj)
 {
   std::string ret = "::" + enumObj->name_;
-  if (enumObj->owner_)
+  if (enumObj->owner())
   {
-    auto ownerFullName = enumObj->owner_->fullName();
+    auto ownerFullName = fullName(enumObj->owner());
     if (!ownerFullName.empty())
       ret = "::" + ownerFullName + ret;
   }
@@ -86,9 +53,9 @@ inline std::string longName(const CppEnum* enumObj)
 inline std::string longName(const CppTypedefName* typedefObj)
 {
   std::string ret = "::" + typedefObj->var_->name();
-  if (typedefObj->owner_)
+  if (typedefObj->owner())
   {
-    auto ownerFullName = typedefObj->owner_->fullName();
+    auto ownerFullName = fullName(typedefObj->owner());
     if (!ownerFullName.empty())
       ret = "::" + ownerFullName + ret;
   }
@@ -99,9 +66,9 @@ inline std::string longName(const CppTypedefName* typedefObj)
 inline std::string longName(const CppUsingDecl* usingDecl)
 {
   std::string ret = "::" + usingDecl->name_;
-  if (usingDecl->owner_)
+  if (usingDecl->owner())
   {
-    auto ownerFullName = usingDecl->owner_->fullName();
+    auto ownerFullName = fullName(usingDecl->owner());
     if (!ownerFullName.empty())
       ret = "::" + ownerFullName + ret;
   }
@@ -112,9 +79,9 @@ inline std::string longName(const CppUsingDecl* usingDecl)
 inline std::string longName(const CppFunctionPtr* fptr)
 {
   std::string ret = "::" + fptr->name_;
-  if (fptr->owner_)
+  if (fptr->owner())
   {
-    auto ownerFullName = fptr->owner_->fullName();
+    auto ownerFullName = fullName(fptr->owner());
     if (!ownerFullName.empty())
       ret = "::" + ownerFullName + ret;
   }
@@ -122,7 +89,7 @@ inline std::string longName(const CppFunctionPtr* fptr)
   return ret;
 }
 
-std::string longName(const CibCppCompound* compound);
+std::string longName(const CibCompound* compound);
 
 std::string longName(const CppObj* typeObj);
 
@@ -130,7 +97,7 @@ std::string longName(const CppObj* typeObj);
  * Parses type declaration.
  * It is intended to parse types that can be used as template arguments.
  */
-CppVarType* parseType(std::string s);
+CppVarTypePtr parseType(std::string s);
 
 //! https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGNzdGRpbz4KI2luY2x1ZGUgPHZlY3Rvcj4KCnRlbXBsYXRlPHR5cGVuYW1lIFQ+CnZvaWQgZihjb25zdCBUKikgLy8xLCAwYjAxCnsKfQoKaW50IG1haW4oKQp7CiAgZjxjb25zdCBpbnQqPigwKTsgLy8xLCAwYjAxCiAgLy8gdm9pZCBmPGNvbnN0IGludCAqPihjb25zdCBpbnQgKmNvbnN0ICopCiAgLy8gMiwgMGIxMQogIGY8Y29uc3QgaW50Kio+KDApOyAvLzIsIDBiMDEKICAvLyB2b2lkIGY8Y29uc3QgaW50ICoqPihjb25zdCBpbnQgKipjb25zdCAqKQogIC8vIDMsIDBiMTAxCiAgZjxpbnQqPigwKTsgLy8xLCAwYjAwCiAgLy8gdm9pZCBmPGludCAqPihpbnQgKmNvbnN0ICopCiAgLy8gMiwgMGIwMQp9Cg==&rev=1.0
 inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier, const CppTypeModifier& templateArg)
@@ -143,10 +110,10 @@ inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier,
 
 inline void normalizeConst(CppVarType* varType)
 {
-  if (varType->typeAttr_ & kConst)
+  if (varType->typeAttr() & kConst)
   {
-    varType->typeModifier_.constBits_ |= 1;
-    varType->typeAttr_ ^= kConst;
+    varType->typeModifier().constBits_ |= 1;
+    varType->removeAttr(kConst);
   }
 }
 /*!

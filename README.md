@@ -925,8 +925,9 @@ namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
   , public __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
 private:
-  friend class ::Example::A;
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Example::A, __zz_cib_Helper>;
+  friend class ::Example::A;
 
   __zz_cib_Helper()
     : __zz_cib_::__zz_cib_MethodTableHelper(
@@ -937,26 +938,26 @@ private:
     return helper;
   }
 
-  static __zz_cib_HANDLE* __zz_cib_new_0() {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+  static __zz_cib_TYPE* __zz_cib_new_0() {
+    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
       );
   }
-  static __zz_cib_HANDLE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+  static __zz_cib_TYPE* __zz_cib_copy_1(__zz_cib_HANDLE const * __zz_cib_param0) {
+    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_2(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_2(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
         __zz_cib_obj
         );
     }
   }
-  static int SomeFunc_3(__zz_cib_HANDLE* __zz_cib_obj) {
-    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_HANDLE*);
+  static int SomeFunc_3(__zz_cib_TYPE* __zz_cib_obj) {
+    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
       __zz_cib_obj
       );

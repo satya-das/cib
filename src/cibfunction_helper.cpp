@@ -23,12 +23,11 @@
 
 #include "cibfunction_helper.h"
 #include "cibcompound.h"
-#include "cibfunction.h"
 #include "cibhelper.h"
 #include "cppwriter.h"
 
 #include "cibcompound.h"
-#include "cppdom.h"
+#include "cppast.h"
 
 #include <map>
 #include <sstream>
@@ -36,41 +35,13 @@
 //////////////////////////////////////////////////////////////////////////
 
 CibFunctionHelper::CibFunctionHelper(const CppObj* cppObj)
-  : cppObj_(cppObj->isFunctionLike() ? cppObj : nullptr)
+  : cppObj_(isFunctionLike(cppObj) ? cppObj : nullptr)
 {
 }
 
-CppConstructor* CibFunctionHelper::CreateConstructor(CppObjProtLevel prot,
-                                                     std::string     name,
-                                                     CppParamList*   params,
-                                                     CppMemInitList* memInitList,
-                                                     unsigned int    attr)
+CibCompound* CibFunctionHelper::getOwner() const
 {
-  return new CibCppConstructor(prot, name, params, memInitList, attr);
-}
-
-CppDestructor* CibFunctionHelper::CreateDestructor(CppObjProtLevel prot, std::string name, unsigned int attr)
-{
-  return new CibCppDestructor(prot, name, attr);
-}
-
-CppFunction* CibFunctionHelper::CreateFunction(CppObjProtLevel prot,
-                                               std::string     name,
-                                               CppVarType*     retType,
-                                               CppParamList*   params,
-                                               unsigned int    attr)
-{
-  return new CibCppFunction(prot, std::move(name), retType, params, attr);
-}
-
-CppTypeConverter* CibFunctionHelper::CreateTypeConverter(CppVarType* type, std::string name)
-{
-  return new CibCppTypeConverter(type, std::move(name));
-}
-
-CibCppCompound* CibFunctionHelper::getOwner() const
-{
-  return static_cast<CibCppCompound*>(func_->owner_);
+  return static_cast<CibCompound*>(func_->owner());
 }
 
 std::string CibFunctionHelper::signature(const CibHelper& helper) const

@@ -1,4 +1,4 @@
-/*
+/* accessType( compoundType() compoundType()
    The MIT License (MIT)
 
    Copyright (c) 2018 Satya Das
@@ -23,7 +23,6 @@
 
 #include "cibhelper.h"
 #include "cibcompound.h"
-#include "cibfunction.h"
 #include "cibfunction_helper.h"
 #include "cibidmgr.h"
 #include "cibobjfactory.h"
@@ -32,16 +31,17 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CibHelper::CibHelper(const char* inputPath, CibIdMgr& cibIdMgr)
+CibHelper::CibHelper(const CibParams& cibParams, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
+  , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
 {
   CibObjFactory objFactory;
-  program_.reset(CppParser(&objFactory).loadProgram(inputPath));
+  program_.reset(new CppProgram(cibParams.inputPath.string(), CppParser(std::make_unique<CibObjFactory>())));
   buildCibCppObjTree();
 }
 
-void CibHelper::onNewCompound(CibCppCompound* compound, const CibCppCompound* parent) const
+void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) const
 {
   program_->addCompound(compound, parent);
   auto* pThis = const_cast<CibHelper*>(this); // TODO: Fix const_cast.
@@ -51,21 +51,21 @@ void CibHelper::onNewCompound(CibCppCompound* compound, const CibCppCompound* pa
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
 {
   normalizeConst(varType);
-  auto* cppObj = resolveTypename(varType->baseType(), typeNode);
+  auto* cppObj = resolveTypename(baseType(varType), typeNode);
   if (cppObj == nullptr)
     return nullptr;
-  if (cppObj->objType_ == CppObj::kTypedefName)
+  if (cppObj->objType_ == CppObjType::kTypedefName)
   {
     // TODO: We need to resolve typedefs fully only if it resolves to conpound object uniquely.
     // For cases when typedef uses non-compound types we need to know ptr and ref only.
     auto* typedefObj       = static_cast<CppTypedefName*>(cppObj);
-    auto* finalResolvedObj = resolveTypename(typedefObj->var_->baseType(), typeNode);
-    if (finalResolvedObj && finalResolvedObj->isClassLike())
+    auto* finalResolvedObj = resolveTypename(baseType(typedefObj->var_), typeNode);
+    if (finalResolvedObj && isClassLike(finalResolvedObj))
     {
-      varType->typeModifier_.ptrLevel_ += typedefObj->var_->ptrLevel();
-      if (typedefObj->var_->refType() != kNoRef)
-        varType->typeModifier_.refType_ = typedefObj->var_->refType();
-      varType->baseType_ = typedefObj->var_->baseType();
+      varType->typeModifier().ptrLevel_ += ptrLevel(typedefObj->var_);
+      if (refType(typedefObj->var_) != CppRefType::kNoRef)
+        varType->typeModifier().refType_ = refType(typedefObj->var_);
+      varType->baseType(baseType(typedefObj->var_));
       return finalResolvedObj;
     }
   }
@@ -85,22 +85,34 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppCompound* begSco
 
 void CibHelper::buildCibCppObjTree()
 {
-  for (auto fileDom : program_->getFileDOMs())
-    resolveInheritance(static_cast<CibCppCompound*>(fileDom));
-  for (auto fileDom : program_->getFileDOMs())
-    markClassType(static_cast<CibCppCompound*>(fileDom));
+  for (auto& fileAst : program_->getFileAsts())
+    resolveInheritance(static_cast<CibCompound*>(fileAst.get()));
+  for (auto& fileAst : program_->getFileAsts())
+    markClassType(static_cast<CibCompound*>(fileAst.get()));
   // In some cases detecting facades need detection of interfaces.
   // so just call markClassType() again for all classes to correctly detect all facades.
-  for (auto fileDom : program_->getFileDOMs())
-    markClassType(static_cast<CibCppCompound*>(fileDom));
-  for (auto fileDom : program_->getFileDOMs())
-    identifyAbstract(static_cast<CibCppCompound*>(fileDom));
-  for (auto fileDom : program_->getFileDOMs())
-    identifyPobableFacades(static_cast<CibCppCompound*>(fileDom));
-  for (auto fileDom : program_->getFileDOMs())
-    markNeedsGenericProxyDefinition(static_cast<CibCppCompound*>(fileDom));
-  for (auto fileDom : program_->getFileDOMs())
-    static_cast<CibCppCompound*>(fileDom)->identifyMethodsToBridge(*this);
+  for (auto& fileAst : program_->getFileAsts())
+    markClassType(static_cast<CibCompound*>(fileAst.get()));
+  for (auto& fileAst : program_->getFileAsts())
+    identifyAbstract(static_cast<CibCompound*>(fileAst.get()));
+  for (auto& fileAst : program_->getFileAsts())
+    identifyPobableFacades(static_cast<CibCompound*>(fileAst.get()));
+  for (auto& fileAst : program_->getFileAsts())
+    markNeedsGenericProxyDefinition(static_cast<CibCompound*>(fileAst.get()));
+  for (auto& fileAst : program_->getFileAsts())
+    static_cast<CibCompound*>(fileAst.get())->identifyMethodsToBridge(*this);
+  markNoProxyClasses();
+}
+
+void CibHelper::markNoProxyClasses()
+{
+  for (auto& noProxyClassName : cibParams_.noProxyClasses)
+  {
+    CibCompoundEPtr noProxyClass = getCppObjFromTypeName(noProxyClassName);
+
+    if (noProxyClass)
+      noProxyClass->setNeedNoProxy();
+  }
 }
 
 CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
@@ -126,12 +138,12 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     typeNode && !typeNode->cppObjSet.empty() ? const_cast<CppObj*>(*(typeNode->cppObjSet.begin())) : nullptr;
   if (cppObj)
   {
-    if (cppObj->isClassLike())
+    if (isClassLike(cppObj))
     {
       if (templateArgStart != name.npos)
       {
-        auto* compound           = static_cast<CibCppCompound*>(cppObj);
-        auto* instantiationScope = static_cast<const CibCppCompound*>(*(startNode->cppObjSet.begin()));
+        auto* compound           = static_cast<CibCompound*>(cppObj);
+        auto* instantiationScope = static_cast<const CibCompound*>(*(startNode->cppObjSet.begin()));
         return compound->getTemplateInstantiation(name, instantiationScope, *this);
       }
     }
@@ -140,31 +152,32 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
   return cppObj;
 }
 
-void CibHelper::resolveInheritance(CibCppCompound* cppCompound)
+void CibHelper::resolveInheritance(CibCompound* cppCompound)
 {
   const CppTypeTreeNode& ownerTypeNode = *program_->typeTreeNodeFromCppObj(cppCompound);
-  if (cppCompound->inheritList_)
+  if (cppCompound->inheritanceList())
   {
-    for (const auto& inh : *(cppCompound->inheritList_))
+    for (const auto& inh : *(cppCompound->inheritanceList()))
     {
       // TODO: We will have to consider protected inheritance too.
-      if (inh.inhType != kPublic)
+      if (inh.inhType != CppAccessType::kPublic)
         continue;
       auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode);
-      auto* parentObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+      auto* parentObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
       // here.
       if (parentObj == nullptr)
         continue;
-      CppObjProtLevel inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType_);
+      CppAccessType inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType());
       cppCompound->parents_[inhType].push_back(parentObj);
       parentObj->children_[inhType].push_back(cppCompound);
     }
   }
-  for (const auto mem : cppCompound->members_)
+  for (const auto& mem : cppCompound->members())
   {
-    if (mem->objType_ == CppObj::kCompound)
-      resolveInheritance(static_cast<CibCppCompound*>(mem));
+    CibCompoundEPtr nested = mem;
+    if (nested)
+      resolveInheritance(nested);
   }
 }
 
@@ -177,15 +190,16 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
   {
     for (auto& param : *(func.getParams()))
     {
-      if (param.cppObj->objType_ != CppObj::kVar)
+      CppVarEPtr var = param;
+      if (!var)
         continue; // TODO: FIXME param can be function pointer too.
-      auto* cppObj   = resolveVarType(param.varObj->varType_, func.getOwner());
-      auto* paramObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+      auto* cppObj   = resolveVarType(var->varType(), func.getOwner());
+      auto* paramObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       if (!paramObj)
         continue;
       paramObj->setShared();
-      auto effectivePtrLevel = param.varObj->ptrLevel();
-      if (param.varObj->refType() == kByRef)
+      auto effectivePtrLevel = ptrLevel(var);
+      if (refType(var) == CppRefType::kByRef)
         ++effectivePtrLevel;
       if (effectivePtrLevel)
       {
@@ -206,12 +220,12 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
   if (func.returnType())
   {
     auto* cppObj    = resolveVarType(func.returnType(), func.getOwner());
-    auto* returnObj = cppObj && cppObj->isClassLike() ? static_cast<CibCppCompound*>(cppObj) : nullptr;
+    auto* returnObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
     if (!returnObj)
       return;
     returnObj->setShared();
 
-    if ((func.returnType()->ptrLevel() == 1) || (func.returnType()->refType() == kByRef))
+    if ((ptrLevel(func.returnType()) == 1) || (refType(func.returnType()) == CppRefType::kByRef))
     {
       if (returnObj->hasPublicVirtualMethod())
       {
@@ -229,7 +243,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
   }
 }
 
-void CibHelper::markClassType(CibCppCompound* cppCompound)
+void CibHelper::markClassType(CibCompound* cppCompound)
 {
   if (cppCompound->isTemplated())
   {
@@ -238,22 +252,20 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
   }
   auto isInline    = true;
   auto isEmpty     = true;
-  auto isPodStruct = (cppCompound->isStruct() || cppCompound->isUnion());
-  for (auto mem : cppCompound->members_)
+  auto isPodStruct = (isStruct(cppCompound) || isUnion(cppCompound));
+  for (auto& mem : cppCompound->members())
   {
-    if (isPodStruct && !isMemberPublic(mem->protectionLevel(), cppCompound->compoundType_))
+    if (isPodStruct && !isPublic(mem))
       isPodStruct = false;
-    if (mem->objType_ == CppObj::kCompound)
+    if (CibCompoundEPtr nested = mem)
     {
-      auto* nested = static_cast<CibCppCompound*>(mem);
       markClassType(nested);
       if (isPodStruct)
         isPodStruct = nested->isPodStruct();
     }
-    else if (mem->isFunctionLike())
+    else if (CibFunctionHelper func = mem)
     {
       isPodStruct = false;
-      CibFunctionHelper func(mem);
       if (!func.hasDefinition() || func.isVirtual())
         isInline = false;
       evaluateArgs(mem);
@@ -261,43 +273,41 @@ void CibHelper::markClassType(CibCppCompound* cppCompound)
       if (!(func.getAttr() & kStatic))
         isEmpty = false;
     }
-    else if (mem->objType_ == CppObj::kVar)
+    else if (CppVarEPtr var = mem)
     {
-      const CppVar* var = static_cast<const CppVar*>(mem);
-      if (!(var->varType_->typeAttr_ & kStatic))
+      if (!(var->varType()->typeAttr() & kStatic))
         isEmpty = false;
       if (isPodStruct)
       {
-        auto* cppObj = resolveVarType(var->varType_, cppCompound);
-        if (cppObj && cppObj->isClassLike())
+        auto* cppObj = resolveVarType(var->varType(), cppCompound);
+        if (cppObj && isClassLike(cppObj))
           isPodStruct = false;
       }
     }
   }
-  isInline = isInline || (cppCompound->templSpec_ != nullptr);
-  if (isInline && cppCompound->isClassLike())
+  isInline = isInline || (cppCompound->templateParamList() != nullptr);
+  if (isInline && isClassLike(cppCompound))
     cppCompound->setIsInline();
-  if (isEmpty && cppCompound->isClassLike())
+  if (isEmpty && isClassLike(cppCompound))
     cppCompound->setEmpty();
-  if (isPodStruct && cppCompound->templSpec_ == nullptr)
+  if (isPodStruct && cppCompound->templateParamList() == nullptr)
     cppCompound->setPodStruct();
 }
 
-void CibHelper::setNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
 {
   // TODO: Considers private ctors too.
   // Also for protected ctor/dtor things will be slightly less trivial.
-  if (!cppCompound->hasDtor() || !isMemberPrivate(cppCompound->dtor()->protectionLevel(), cppCompound->compoundType_))
+  if (!cppCompound->hasDtor() || !isPrivate(cppCompound->dtor()))
     cppCompound->setNeedsGenericProxyDefinition();
 }
 
-void CibHelper::markNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
+void CibHelper::markNeedsGenericProxyDefinition(CibCompound* cppCompound)
 {
-  for (auto mem : cppCompound->members_)
+  for (auto& mem : cppCompound->members())
   {
-    if (mem->objType_ == CppObj::kCompound)
+    if (CibCompoundEPtr compound = mem)
     {
-      auto compound = static_cast<CibCppCompound*>(mem);
       markNeedsGenericProxyDefinition(compound);
       if (compound->isInterfaceLike())
       {
@@ -307,30 +317,28 @@ void CibHelper::markNeedsGenericProxyDefinition(CibCppCompound* cppCompound)
   }
 }
 
-void CibHelper::identifyAbstract(CibCppCompound* cppCompound)
+void CibHelper::identifyAbstract(CibCompound* cppCompound)
 {
-  for (auto mem : cppCompound->members_)
+  for (auto& mem : cppCompound->members())
   {
-    if (mem->objType_ == CppObj::kCompound)
+    if (CibCompoundEPtr compound = mem)
     {
-      auto compound = static_cast<CibCppCompound*>(mem);
       identifyAbstract(compound);
       compound->identifyAbstract(*this);
     }
   }
 }
 
-void CibHelper::identifyPobableFacades(CibCppCompound* cppCompound)
+void CibHelper::identifyPobableFacades(CibCompound* cppCompound)
 {
-  for (auto mem : cppCompound->members_)
+  for (auto& mem : cppCompound->members())
   {
-    if (mem->objType_ == CppObj::kCompound)
+    if (CibCompoundEPtr compound = mem)
     {
-      auto compound = static_cast<CibCppCompound*>(mem);
       identifyPobableFacades(compound);
       if (!compound->isFacadeLike() && compound->isAbstract())
       {
-        compound->forEachAncestor([compound](const CibCppCompound* ancestor) {
+        compound->forEachAncestor([compound](const CibCompound* ancestor) {
           if (ancestor->isFacadeLike())
             compound->setFacadeLike();
           return ancestor->isFacadeLike();

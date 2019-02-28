@@ -24,9 +24,11 @@
 #include "cibcompound.h"
 #include "cibhelper.h"
 #include "cibidmgr.h"
+#include "ciboptionparser.h"
+
 #include "res_template.h"
 
-#include "cppdom.h"
+#include "cppast.h"
 
 #include "boost-helper/bfs.h"
 
@@ -42,76 +44,10 @@
 
 typedef boost::filesystem::path::value_type chartype;
 #ifndef _T
-#define _T(x) L##x
+#  define _T(x) L##x
 #endif //#ifndef _T
 
 namespace bfs = boost::filesystem;
-
-static bfs::path getResDir(const char* progPath)
-{
-  auto      progDir = bfs::path(progPath).parent_path();
-  bfs::path resDir  = progDir / "cibres";
-  return resDir;
-}
-
-CibParams parseCmdLine(int argc, char* argv[])
-{
-  namespace po = boost::program_options;
-  // Declare the supported options.
-  po::options_description desc("Allowed options");
-  // clang-format off
-  desc.add_options()
-    ("help,h", "produce help message")
-    ("input-folder,i", po::value<std::string>()->required(), "Input folder from where the headers and source files will be parsed.")
-    ("output-folder,o", po::value<std::string>()->required(), "Output folder for emitting files for client.")
-    ("bind-folder,b", po::value<std::string>()->required(), "Folder where binding code will be emitted for library.")
-    ("module,m", po::value<std::string>()->required(), "Name of module/library.")
-    ("cib-ids-file,c", po::value<std::string>()->default_value(""), "Previously created cib-ids-file.")
-    ("macro,M", po::value<std::string>(), "List of comma separated known macro names.")
-    ("apidecor,A", po::value<std::string>(), "List of comma separated known api decoration names.")
-    ("no-exact-delegation,d", "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation")
-    ;
-  // clang-format on
-  po::variables_map vm;
-  po::store(po::parse_command_line(argc, argv, desc), vm);
-
-  if (vm.count("help"))
-  {
-    std::cout << desc << "\n";
-    exit(0);
-  }
-  try
-  {
-    po::notify(vm);
-  }
-  catch (std::exception& e)
-  {
-    std::cerr << "Error: " << e.what() << "\n";
-    std::cout << desc << "\n";
-    exit(-1);
-  }
-
-  bfs::path   inputPath  = vm["input-folder"].as<std::string>();
-  bfs::path   outputPath = vm["output-folder"].as<std::string>();
-  bfs::path   binderPath = vm["bind-folder"].as<std::string>();
-  std::string moduleName = vm["module"].as<std::string>();
-  bfs::path   cibIdFile  = vm["cib-ids-file"].as<std::string>();
-  bool        d          = vm.count("no-exact-delegation") != 0;
-
-  if (!bfs::is_directory(inputPath) || (bfs::exists(outputPath) && !bfs::is_directory(outputPath))
-      || (bfs::exists(binderPath) && !bfs::is_directory(binderPath)))
-  {
-    std::cerr << "Error in input.\n";
-    exit(-1);
-  }
-
-  bfs::path resDir = getResDir(argv[0]);
-  make_preferred_dir_format(inputPath);
-  make_preferred_dir_format(outputPath);
-  make_preferred_dir_format(binderPath);
-
-  return CibParams(moduleName, inputPath, outputPath, binderPath, resDir, cibIdFile, d);
-}
 
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
@@ -121,7 +57,7 @@ void ensureDirectoriesExist(const CibParams& cibParams)
 }
 
 static void emitLibraryGatewayFunction(std::ostream&           stm,
-                                       const CppCompoundArray& fileDOMs,
+                                       const CppCompoundArray& fileAsts,
                                        const CibParams&        cibParams,
                                        const CibIdMgr&         cibIdMgr)
 {
@@ -149,20 +85,20 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << --indentation << "}\n";
 }
 
-using BridgableNamespaces = std::map<CibFullClassName, std::set<const CibCppCompound*> >;
+using BridgableNamespaces = std::map<CibFullClassName, std::set<const CibCompound*> >;
 
 static BridgableNamespaces collectBridgableNamespaces(const CppCompoundArray& fileAsts)
 {
   BridgableNamespaces bridgableNamespaces;
-  for (auto* fileAst : fileAsts)
+  for (auto& fileAst : fileAsts)
   {
-    auto* ast = static_cast<const CibCppCompound*>(fileAst);
-    ast->forEachNested([&](const CibCppCompound* nested) {
-      if (nested->isNamespace() && nested->needsBridging())
-        bridgableNamespaces[nested->fullName()].insert(nested);
+    CibConstCompoundEPtr ast = fileAst;
+    ast->forEachNested([&](const CibCompound* nested) {
+      if (isNamespace(nested) && nested->needsBridging())
+        bridgableNamespaces[fullName(nested)].insert(nested);
     });
     if (ast->needsBridging())
-      bridgableNamespaces[ast->fullName()].insert(ast);
+      bridgableNamespaces[fullName((const CppCompound*) ast)].insert(ast);
   }
 
   return bridgableNamespaces;
@@ -177,12 +113,12 @@ static std::string replaceString(std::string s, const std::string& p, const std:
 
 using FunctionRepo = std::unordered_set<std::string>;
 
-static void emitHelperDefinitionForNamespace(std::ostream&                          stm,
-                                             const std::set<const CibCppCompound*>& nameSpaceCompounds,
-                                             const CibHelper&                       cibHelper,
-                                             const CibParams&                       cibParams,
-                                             const CibIdData*                       cibIdData,
-                                             CppIndent                              indentation = CppIndent())
+static void emitHelperDefinitionForNamespace(std::ostream&                       stm,
+                                             const std::set<const CibCompound*>& nameSpaceCompounds,
+                                             const CibHelper&                    cibHelper,
+                                             const CibParams&                    cibParams,
+                                             const CibIdData*                    cibIdData,
+                                             CppIndent                           indentation = CppIndent())
 {
   FunctionRepo funcRepo;
   auto*        compound = *(nameSpaceCompounds.begin());
@@ -217,11 +153,11 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
 
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
 
-    CibCppCompound::emitCommonCibHeaders(bindSrcStm, cibParams);
+    CibCompound::emitCommonCibHeaders(bindSrcStm, cibParams);
     for (auto* compound : compounds)
     {
-      auto* ast = compound->root();
-      bindSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+      auto* ast = root(compound);
+      bindSrcStm << "#include \"" << bfs::relative(ast->name(), cibParams.inputPath).string() << "\"\n";
     }
     bindSrcStm << '\n';
     for (auto* compound : compounds)
@@ -231,12 +167,12 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     cmp->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
 
     std::ofstream glueSrcStm(gluSrcPath.string(), std::ios_base::out);
-    CibCppCompound::emitCommonExpHeaders(glueSrcStm, cibParams);
+    CibCompound::emitCommonExpHeaders(glueSrcStm, cibParams);
     glueSrcStm << '\n';
     for (auto* compound : compounds)
     {
-      auto* ast = compound->root();
-      glueSrcStm << "#include \"" << bfs::relative(ast->name_, cibParams.inputPath).string() << "\"\n";
+      auto* ast = root(compound);
+      glueSrcStm << "#include \"" << bfs::relative(ast->name(), cibParams.inputPath).string() << "\"\n";
     }
     glueSrcStm << '\n';
     auto cibIdData = cibIdMgr.getCibIdData(cmp->longName());
@@ -306,13 +242,14 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
   }
 }
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
-  const CibParams& cibParams(parseCmdLine(argc, argv));
+  CibOptionParser optionParser(argc, argv);
+  auto            cibParams = optionParser.getCibParams();
   ensureDirectoriesExist(cibParams);
 
   CibIdMgr  cibIdMgr(cibParams);
-  CibHelper helper(cibParams.inputPath.string().c_str(), cibIdMgr);
+  CibHelper helper(cibParams, cibIdMgr);
   cibIdMgr.assignIds(helper, cibParams);
   StringToStringMap substituteInfo;
   substituteInfo["Module"] = cibParams.moduleName;
@@ -320,14 +257,14 @@ int main(int argc, char* argv[])
   emitLibBoilerPlateCode(cibParams, substituteInfo);
   emitClientBoilerPlateCode(cibParams, substituteInfo);
 
-  const CppCompoundArray& fileDOMs = helper.getProgram().getFileDOMs();
-  for (auto cppDom : fileDOMs)
+  const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
+  for (auto& cppAst : fileAsts)
   {
-    auto* cibCppCompound = static_cast<const CibCppCompound*>(cppDom);
+    CibConstCompoundEPtr cibCppCompound = cppAst;
     cibCppCompound->emitUserHeader(helper, cibParams);
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
-    bfs::path usrSrcPath = cibParams.outputPath / cppDom->name_.substr(cibParams.inputPath.string().length());
+    bfs::path usrSrcPath = cibParams.outputPath / cppAst->name().substr(cibParams.inputPath.string().length());
     usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
     bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
@@ -335,7 +272,7 @@ int main(int argc, char* argv[])
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
   }
-  emitGlueCodeForNamespaces(fileDOMs, helper, cibParams, cibIdMgr);
+  emitGlueCodeForNamespaces(fileAsts, helper, cibParams, cibIdMgr);
 
   std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
                              std::ios_base::out);
@@ -343,7 +280,7 @@ int main(int argc, char* argv[])
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";
   cibLibSrcStm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n\n";
-  emitLibraryGatewayFunction(cibLibSrcStm, fileDOMs, cibParams, cibIdMgr);
+  emitLibraryGatewayFunction(cibLibSrcStm, fileAsts, cibParams, cibIdMgr);
 
   return 0;
 }

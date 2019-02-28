@@ -28,12 +28,15 @@
 
 #include <string>
 #include <tuple>
+#include <vector>
 
 #define CIBPREFIX "__zz_cib_"
 
 //////////////////////////////////////////////////////////////////////////
 
 namespace bfs = boost::filesystem;
+
+using StringVector = std::vector<std::string>;
 
 /**
  * Contains values of CIB Parameters.
@@ -44,21 +47,22 @@ namespace bfs = boost::filesystem;
 struct CibParams
 {
 public:
-  std::string moduleName;
-  bfs::path   inputPath;
-  bfs::path   outputPath;
-  bfs::path   binderPath;
-  bfs::path   resDir;
-  bfs::path   inputCibIdFile;
-  std::string cibInternalDirName;
-  std::string copyCtorCAPIPrefix;
-  std::string ctorCAPIPrefix;
-  std::string dtorCAPIPrefix;
-  std::string castToBasePrefix;
-  bool noExactDelegation { false };
+  std::string  moduleName;
+  bfs::path    inputPath;
+  bfs::path    outputPath;
+  bfs::path    binderPath;
+  bfs::path    resDir;
+  bfs::path    inputCibIdFile;
+  std::string  cibInternalDirName;
+  std::string  copyCtorCAPIPrefix;
+  std::string  ctorCAPIPrefix;
+  std::string  dtorCAPIPrefix;
+  std::string  castToBasePrefix;
+  bool         noExactDelegation{false};
+  StringVector noProxyClasses;
 
 public:
-  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d)
+  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d, StringVector n)
     : moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
@@ -71,6 +75,7 @@ public:
     , dtorCAPIPrefix(CIBPREFIX "delete")
     , castToBasePrefix(CIBPREFIX "cast_to_")
     , noExactDelegation(d)
+    , noProxyClasses(std::move(n))
   {
   }
   CibParams(CibParams&&) = default;

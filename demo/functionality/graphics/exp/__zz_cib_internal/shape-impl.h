@@ -9,9 +9,10 @@ namespace __zz_cib_ { namespace Graphics { namespace Shape {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
   , public __zz_cib_::__zz_cib_HandleHelper<::Graphics::Shape, __zz_cib_Helper> {
 private:
-  friend class ::Graphics::Shape;
+  using __zz_cib_TYPE = __zz_cib_HANDLE;
   friend class __zz_cib_::__zz_cib_HandleHelper<::Graphics::Shape, __zz_cib_Helper>;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
+  friend class ::Graphics::Shape;
 
   __zz_cib_Helper()
     : __zz_cib_::__zz_cib_MethodTableHelper(
@@ -22,15 +23,15 @@ private:
     return helper;
   }
 
-  static __zz_cib_HANDLE* __zz_cib_new_0(::Graphics::Shape* __zz_cib_proxy) {
-    using __zz_cib_newProc = __zz_cib_HANDLE* (__zz_cib_decl *) (::Graphics::Shape*, const __zz_cib_MethodTable*);
+  static __zz_cib_TYPE* __zz_cib_new_0(::Graphics::Shape* __zz_cib_proxy) {
+    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (::Graphics::Shape*, const __zz_cib_MethodTable*);
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
       __zz_cib_proxy, __zz_cib_get_proxy_method_table()
       );
   }
-  static void __zz_cib_delete_4(__zz_cib_HANDLE* __zz_cib_obj) {
+  static void __zz_cib_delete_4(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
       return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_4>(
         __zz_cib_obj
         );
