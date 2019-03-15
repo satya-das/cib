@@ -136,8 +136,8 @@ private:
       __zz_cib_obj,
       pIF);
   }
-  static __zz_cib_HANDLE* GetIF_4(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetIFProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static __zz_cib_HANDLE* GetIF_4(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetIFProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetIFProc, __zz_cib_methodid::GetIF_4>(
       __zz_cib_obj
       );

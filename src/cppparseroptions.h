@@ -23,48 +23,10 @@
 
 #pragma once
 
-#include "cibparams.h"
-#include "cppparseroptions.h"
-
-#include <string>
-#include <vector>
-
 using StringVector = std::vector<std::string>;
 
-class CibOptionParser
+struct CppParserOptions
 {
-public:
-  CibOptionParser(int argc, const char* argv[]);
-  CppParserOptions getCppParserOptions();
-  CibParams        getCibParams();
-
-private:
-  std::string  moduleName;
-  std::string  inputPath;
-  std::string  outputPath;
-  std::string  binderPath;
-  std::string  resourcePath;
-  std::string  cibIdFile;
-  bool         noExactDelegation {false};
-  StringVector noProxyClassNames;
-  // C++ parser options.
-  StringVector knownMacros;
-  StringVector knownApiDecor;
+  const StringVector knownMacros;
+  const StringVector knownApiDecor;
 };
-
-inline CppParserOptions CibOptionParser::getCppParserOptions()
-{
-  return {std::move(knownMacros), std::move(knownApiDecor)};
-}
-
-inline CibParams CibOptionParser::getCibParams()
-{
-  return {std::move(moduleName),
-          std::move(inputPath),
-          std::move(outputPath),
-          std::move(binderPath),
-          std::move(resourcePath),
-          std::move(cibIdFile),
-          noExactDelegation,
-          noProxyClassNames};
-}

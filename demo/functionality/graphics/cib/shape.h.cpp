@@ -35,17 +35,17 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   double Area() const override {
-    using AreaProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
+    using AreaProc = double (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<AreaProc, __zz_cib_GenericProxy::__zz_cib_methodid::Area_0>(
       __zz_cib_proxy);
   }
   double Perimeter() const override {
-    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_PROXY*);
+    using PerimeterProc = double (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<PerimeterProc, __zz_cib_GenericProxy::__zz_cib_methodid::Perimeter_1>(
       __zz_cib_proxy);
   }
   void Draw(::Graphics::Context* ctx) const override {
-    using DrawProc = void (__zz_cib_decl *) (__zz_cib_PROXY*, ::Graphics::Context* ctx);
+    using DrawProc = void (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Graphics::Context* ctx);
     return __zz_cib_get_mtable_helper().invoke<DrawProc, __zz_cib_GenericProxy::__zz_cib_methodid::Draw_2>(
       __zz_cib_proxy,
       ctx);

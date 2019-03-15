@@ -46,8 +46,8 @@ private:
       __zz_cib_obj,
       x);
   }
-  static __zz_cib_HANDLE* Get_4(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static __zz_cib_HANDLE* Get_4(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetProc, __zz_cib_methodid::Get_4>(
       __zz_cib_obj
       );
@@ -58,8 +58,8 @@ private:
       __zz_cib_obj,
       y);
   }
-  static __zz_cib_HANDLE* GetInt_6(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetIntProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static __zz_cib_HANDLE* GetInt_6(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetIntProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetIntProc, __zz_cib_methodid::GetInt_6>(
       __zz_cib_obj
       );

@@ -61,8 +61,8 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       x);
   }
-  static __zz_cib_HANDLE* GetValue_3(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetValueProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static __zz_cib_HANDLE* GetValue_3(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetValueProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue_3>(
       __zz_cib_obj
       );

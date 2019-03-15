@@ -40,20 +40,20 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       left, bottom, right, top);
   }
-  static double Area_3(__zz_cib_TYPE* __zz_cib_obj) {
-    using AreaProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double Area_3(const __zz_cib_TYPE* __zz_cib_obj) {
+    using AreaProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<AreaProc, __zz_cib_methodid::Area_3>(
       __zz_cib_obj
       );
   }
-  static double Perimeter_4(__zz_cib_TYPE* __zz_cib_obj) {
-    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double Perimeter_4(const __zz_cib_TYPE* __zz_cib_obj) {
+    using PerimeterProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_4>(
       __zz_cib_obj
       );
   }
-  static void Draw_5(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
-    using DrawProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* ctx);
+  static void Draw_5(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+    using DrawProc = void (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* ctx);
     return instance().invoke<DrawProc, __zz_cib_methodid::Draw_5>(
       __zz_cib_obj,
       ctx);

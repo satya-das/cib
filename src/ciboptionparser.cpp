@@ -61,7 +61,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             false,
             "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation");
   addOption(
-    "no-proxy",
+    "no-proxy,N",
     noProxyClassNames,
     false,
     "Share the object layout across component boundary and don't use proxies. This option can be used multiple times.");

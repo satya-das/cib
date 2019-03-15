@@ -63,8 +63,8 @@ private:
       __zz_cib_obj,
       x);
   }
-  static std::int32_t GetValue_7(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetValueProc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static std::int32_t GetValue_7(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetValueProc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue_7>(
       __zz_cib_obj
       );

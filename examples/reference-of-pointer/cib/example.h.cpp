@@ -35,7 +35,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int VirtualFunction() const override {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    using VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_GenericProxy::__zz_cib_methodid::VirtualFunction_0>(
       __zz_cib_proxy);
   }

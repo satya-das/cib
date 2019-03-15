@@ -483,7 +483,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << "__zz_cib_obj->";
     if (!isCppFile(callingOwner) && !forProxy
         && (isStatic()
-            || (!cibParams.noExactDelegation && !isPureVirtual() && (accessType() != CppAccessType::kPrivate))))
+            || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) &&
+                 !isPureVirtual() && (accessType() != CppAccessType::kPrivate))))
     {
       stm << callingOwner->longName() << "::";
     }
@@ -758,6 +759,8 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   stm << " (__zz_cib_decl *) (";
   if (!isStatic() && (isDestructor() || isMethod() || isTypeConverter()))
   {
+    if (isConst())
+      stm << "const ";
     if (forGenericProxy)
       stm << "__zz_cib_PROXY*";
     else
@@ -767,6 +770,8 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   }
   else if (isConstructor() && getOwner()->needsNoProxy())
   {
+    if (isConst())
+      stm << "const ";
     stm << "__zz_cib_TYPE*";
     if (hasParams())
       stm << ", ";
@@ -1601,6 +1606,8 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
   stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
   if (isClassLike(this) && !func.isStatic() && (!func.isConstructor() || needsNoProxy()))
   {
+    if (func.isConst())
+      stm << "const ";
     stm << "__zz_cib_TYPE* __zz_cib_obj";
     if (func.hasParams())
       stm << ", ";

@@ -40,8 +40,8 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       x, y);
   }
-  static double X_3(__zz_cib_TYPE* __zz_cib_obj) {
-    using XProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double X_3(const __zz_cib_TYPE* __zz_cib_obj) {
+    using XProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<XProc, __zz_cib_methodid::X_3>(
       __zz_cib_obj
       );
@@ -52,8 +52,8 @@ private:
       __zz_cib_obj,
       x);
   }
-  static double Y_5(__zz_cib_TYPE* __zz_cib_obj) {
-    using YProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double Y_5(const __zz_cib_TYPE* __zz_cib_obj) {
+    using YProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<YProc, __zz_cib_methodid::Y_5>(
       __zz_cib_obj
       );
@@ -64,14 +64,14 @@ private:
       __zz_cib_obj,
       y);
   }
-  static __zz_cib_HANDLE* __zz_cib_OperatorPlus_7(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * p) {
-    using __zz_cib_OperatorPlusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * p);
+  static __zz_cib_HANDLE* __zz_cib_OperatorPlus_7(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * p) {
+    using __zz_cib_OperatorPlusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE const * p);
     return instance().invoke<__zz_cib_OperatorPlusProc, __zz_cib_methodid::__zz_cib_OperatorPlus_7>(
       __zz_cib_obj,
       p);
   }
-  static __zz_cib_HANDLE* __zz_cib_OperatorMinus_8(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
-    using __zz_cib_OperatorMinusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* p);
+  static __zz_cib_HANDLE* __zz_cib_OperatorMinus_8(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
+    using __zz_cib_OperatorMinusProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
     return instance().invoke<__zz_cib_OperatorMinusProc, __zz_cib_methodid::__zz_cib_OperatorMinus_8>(
       __zz_cib_obj,
       p);

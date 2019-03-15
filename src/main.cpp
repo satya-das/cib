@@ -246,10 +246,12 @@ int main(int argc, const char* argv[])
 {
   CibOptionParser optionParser(argc, argv);
   auto            cibParams = optionParser.getCibParams();
+  auto            cppParams = optionParser.getCppParserOptions();
+
   ensureDirectoriesExist(cibParams);
 
   CibIdMgr  cibIdMgr(cibParams);
-  CibHelper helper(cibParams, cibIdMgr);
+  CibHelper helper(cibParams, cppParams, cibIdMgr);
   cibIdMgr.assignIds(helper, cibParams);
   StringToStringMap substituteInfo;
   substituteInfo["Module"] = cibParams.moduleName;

@@ -103,8 +103,8 @@ private:
       __zz_cib_obj,
       pA);
   }
-  static __zz_cib_HANDLE* GetA_4(__zz_cib_TYPE* __zz_cib_obj) {
-    using GetAProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static __zz_cib_HANDLE* GetA_4(const __zz_cib_TYPE* __zz_cib_obj) {
+    using GetAProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<GetAProc, __zz_cib_methodid::GetA_4>(
       __zz_cib_obj
       );

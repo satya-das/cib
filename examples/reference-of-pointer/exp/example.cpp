@@ -76,7 +76,7 @@ public:
     return new A(h);
   }
   int VirtualFunction() const override {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    using VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
       __zz_cib_h_);
   }

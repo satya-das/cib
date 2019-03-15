@@ -33,7 +33,9 @@
 struct CppObj;
 
 struct CibCompound;
+
 struct CibParams;
+struct CppParserOptions;
 
 class CibFunctionHelper;
 class CibIdMgr;
@@ -46,7 +48,7 @@ typedef std::set<std::string> stringset;
 class CibHelper
 {
 public:
-  CibHelper(const CibParams& cibParams, CibIdMgr& cibIdMgr);
+  CibHelper(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr);
 
   const CppProgram& getProgram() const
   {

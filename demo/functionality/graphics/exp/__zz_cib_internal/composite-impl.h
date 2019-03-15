@@ -46,32 +46,32 @@ private:
       __zz_cib_obj,
       shape);
   }
-  static size_t NumShapes_4(__zz_cib_TYPE* __zz_cib_obj) {
-    using NumShapesProc = size_t (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static size_t NumShapes_4(const __zz_cib_TYPE* __zz_cib_obj) {
+    using NumShapesProc = size_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<NumShapesProc, __zz_cib_methodid::NumShapes_4>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* ShapeAt_5(__zz_cib_TYPE* __zz_cib_obj, size_t idxShape) {
-    using ShapeAtProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, size_t idxShape);
+  static __zz_cib_HANDLE* ShapeAt_5(const __zz_cib_TYPE* __zz_cib_obj, size_t idxShape) {
+    using ShapeAtProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*, size_t idxShape);
     return instance().invoke<ShapeAtProc, __zz_cib_methodid::ShapeAt_5>(
       __zz_cib_obj,
       idxShape);
   }
-  static double Area_6(__zz_cib_TYPE* __zz_cib_obj) {
-    using AreaProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double Area_6(const __zz_cib_TYPE* __zz_cib_obj) {
+    using AreaProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<AreaProc, __zz_cib_methodid::Area_6>(
       __zz_cib_obj
       );
   }
-  static double Perimeter_7(__zz_cib_TYPE* __zz_cib_obj) {
-    using PerimeterProc = double (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static double Perimeter_7(const __zz_cib_TYPE* __zz_cib_obj) {
+    using PerimeterProc = double (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<PerimeterProc, __zz_cib_methodid::Perimeter_7>(
       __zz_cib_obj
       );
   }
-  static void Draw_8(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
-    using DrawProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* ctx);
+  static void Draw_8(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* ctx) {
+    using DrawProc = void (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* ctx);
     return instance().invoke<DrawProc, __zz_cib_methodid::Draw_8>(
       __zz_cib_obj,
       ctx);

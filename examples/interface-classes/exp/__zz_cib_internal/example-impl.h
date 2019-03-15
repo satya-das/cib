@@ -215,8 +215,8 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
       );
   }
-  static int SetInterface_3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pInterface1) {
-    using SetInterfaceProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pInterface1);
+  static int SetInterface_3(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pInterface1) {
+    using SetInterfaceProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* pInterface1);
     return instance().invoke<SetInterfaceProc, __zz_cib_methodid::SetInterface_3>(
       __zz_cib_obj,
       pInterface1);

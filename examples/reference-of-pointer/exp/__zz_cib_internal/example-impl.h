@@ -35,8 +35,8 @@ private:
       __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
       __zz_cib_param0);
   }
-  static int VirtualFunction_2(__zz_cib_TYPE* __zz_cib_obj) {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static int VirtualFunction_2(const __zz_cib_TYPE* __zz_cib_obj) {
+    using VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
       __zz_cib_obj
       );
@@ -107,8 +107,8 @@ private:
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_param0);
   }
-  static int VirtualFunction_2(__zz_cib_TYPE* __zz_cib_obj) {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+  static int VirtualFunction_2(const __zz_cib_TYPE* __zz_cib_obj) {
+    using VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction_2>(
       __zz_cib_obj
       );

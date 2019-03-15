@@ -28,16 +28,19 @@
 #include "cibobjfactory.h"
 #include "cibutil.h"
 #include "cppparser.h"
+#include "cppparseroptions.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-CibHelper::CibHelper(const CibParams& cibParams, CibIdMgr& cibIdMgr)
+CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
   , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
 {
-  CibObjFactory objFactory;
-  program_.reset(new CppProgram(cibParams.inputPath.string(), CppParser(std::make_unique<CibObjFactory>())));
+  CppParser parser(std::make_unique<CibObjFactory>());
+  parser.addKnownMacros(parserOptions.knownMacros);
+  parser.addKnownApiDecors(parserOptions.knownApiDecor);
+  program_.reset(new CppProgram(cibParams.inputPath.string(), std::move(parser)));
   buildCibCppObjTree();
 }
 
