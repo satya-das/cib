@@ -3,21 +3,21 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-#include "example-file2.h"
 #include "example-file1.h"
+#include "example-file2.h"
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
 namespace __zz_cib_Delegator {
-static int __zz_cib_decl GlobalFunction2_1() {
-  return GlobalFunction2();
+static int __zz_cib_decl GlobalFunction1_0() {
+  return GlobalFunction1();
 }
 }
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
 namespace __zz_cib_Delegator {
-static int __zz_cib_decl GlobalFunction1_0() {
-  return GlobalFunction1();
+static int __zz_cib_decl GlobalFunction2_1() {
+  return GlobalFunction2();
 }
 }
 }}

@@ -101,7 +101,7 @@ set(EXAMPLES
 	free-functions
 	reference-of-pointer
 	pod-struct
-	no-proxy-classes
+	layout-sharing-proxy-classes
 )
 add_subdirectory(examples)
 

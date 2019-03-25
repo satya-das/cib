@@ -74,6 +74,25 @@ Some changes are conceptually unimportant for clients of a library but they brea
     - inheritance type is changed to/from `virtual` inheritance.
 - Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
 
+# Why C++ has ABI commpatibity and stability issues
+Actually even C has this problem, it's just another matter that it is relatively easier to achieve ABI compatibility and stability in C.
+Things that can cause ABI compatibility and stability issues in C++ are:
+1. Object layout.
+2. Function calling convention.
+3. Allocators and deallocators.
+4. Underlying integer size of `enum`.
+5. Size of various integer types.
+6. Mangled function name.
+7. Virtual function table.
+8. RTTI.
+9. Exceptions.
+
+_If you are readinng this and think there is more reason for ABI problem then please create a pull request._
+
+As we can see first 5 can also be problems in C. But if we ensure same struct packing, same function calling convention across component boundary, use of same allocator and deallocator for both components, ensure same underlying integer type for enum, and ensure to use same size for integers that cross component boundary then that's all it takes to ensure ABI compatibility for C programs. Achieving ABI stability too is simpler in C. We just need to ensure that new members in struct should be only added at the end and there should be a way to detect different version of struct. The `size` or `version` member in many struct are just for that purpose. Of course that's not the only thing but the other things are damn easy, like not to remove existing function, or not change parameter type, etc. if we want to maintain ABI stability.
+For C++, problems start with name mangling, that's the first reason of misunderstanding that can happen between 2 components. Layout for C++ objects are far more complex than C. There can be different layout for virtual tables depending upon compiler. Same goes for RTTI and exception. So, ensuring ABI compatibility is hard in C++. Ensuring ABI stability is super hard in general.
+**One thing to note is that maintaining ABI stability in C is largely a responsibility of library developers.** Unfortunately that is not going to change even when CIB is used. But goal of CIB is to make it an easy and achievable to ensure ABI stability in C++.
+
 # CIB Architecture
 
 ## High level architecture
@@ -82,13 +101,13 @@ The high level architecture is that there will be thin layers added to both Libr
 ![Integration architecture produced by CIB ](img/cib_design.png "Integration architecture produced by CIB ")
 
 ### Library Side Glue Code
-The code that forms library side layer is called **library side glue code**. This layer contains the code to represent class as set of free functions. These free functions for a class are bundled together in an array. This array of pointers-to-free-functions is called **MethodTable**. To avoid name mangling done by compiler to ruin the ABI compatibility, the library needs to export the MethodTable instead.
+The code that forms library side layer is called **library side glue code**. This layer contains the code to represent class as set of free functions. These free functions for a class are bundled together in an array. This array of pointers-to-free-functions is called **MethodTable**. To avoid name mangling done by compilers that ruin the ABI compatibility, the library needs to export the MethodTable instead.
 
 ### Client Side Glue Code
 The code that forms client side layer is called **client side glue code**. This layer contains the code to reconstruct the class back from the MethodTable exported by library.
 
 ### ABI Compatibility
-Since no C++ functions or variables are exported by library there is no problem of ABI compatibility. Anything that is exported by library is MethodTable which can be exported using `extern "C"` and so name mangling doesn't come into play.
+Since no C++ functions or objects are exported by library there is no problem of ABI compatibility. Anything that is exported by library is MethodTable which can be exported using `extern "C"` and so name mangling doesn't come into play.
 
 ### ABI Stability
 Since only thing that is shared between client and library is MethodTable maintaining it's stability ensures ABI stability across releases.
@@ -106,20 +125,11 @@ Since only thing that is shared between client and library is MethodTable mainta
 - All C functions are assigned an integer value as its ID. This ID for a function will remain same across releases.
 - For every class/struct/union/namespace a **MethodTable** is defined which is basically an array of function pointers.
 - Library side glue code exports a C function that returns **MethodTable** for given class/struct/union/namespace ID.
-- Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern (aka bridge pattern) with pimpl pointing to object across component boundary.
+- Class definitions for client is generated with same class-name but without any data member other than an opaque pointer to original class defined by library. In *CIB terminology* classes that are seen by client are called **proxy-classes** and the opaque pointer held by proxy-class is called **handle**. This is basically pimpl pattern (aka bridge pattern) with pimpl pointing to object across component boundary. **Note**: There is another kind of proxy class too, see Layout Sharing Proxy Class.
 - Function ID is used as an index to fetch function pointer from **MethodTable**.
 - Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
 
 Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
-
-In all cases CIB avoids sharing of compiler generated _problematic_ stuffs across component boundary. Below is the list of such compiler generated stuffs:
-1. Mangled function name.
-2. Virtual function table.
-3. Object layout.
-4. RTTI.
-5. Function calling mechanism which is affected by function calling convention. For this problem CIB just uses same calling convention for both library and clients.
-6. Thrown exception objects.
-
 
 # Feature Progress of CIB tool
 
@@ -169,9 +179,12 @@ A C++ class that acts as facade for other classes: *A class that has public virt
 A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
 *A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
 ## Proxy Class
-For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client.
+For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
+  1. Isolated proxy class, aka bridge proxy class.
+  2. Layout sharing proxy class. Both original and proxy class share same object layout.
+**Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
 ## Handle
-Each proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
+Each bridge proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 
 # Building CIB
 ## Get the source
@@ -274,36 +287,52 @@ For better understanding of what CIB architecture is we will consider examples t
 
 **TODO**: Add documentation.
 
-# Limitation of CIB Architecture
+# Possible Optimization
+
+In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
+
+```c++
+class Point2D
+{
+public:
+  Point(int32_t x = , int32_t y = 0);
+
+private:
+  int32_t mX;
+  int32_t mY;
+};
+```
+
+There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `Point2D` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
+1. Memory is saved as layout is shared between client and library.
+2. It is possible to share raw object array across commponent boundary which is not possible for isolated proxy objects.
+
+But care must be taked by library developer.
+
+# Limitations of CIB Architecture
 CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
 
-## Mandatory creation of proxy objects
-The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.
+| Limitation                                                  | Reason       | Workaround, if any |
+| ---------------------------------                           | :----------  | :----------------- |
+| Mandatory creation of proxy objects                         | The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.                                                             | Use layout sharing proxy wherever applicable |
+| Objects of library are always created on heap by the client | This is not true for layout sharing proxy classes but when client creates an object of isolated proxy object the corresponding object on library side is always created on heap.   | Use layout sharing proxy wherever applicable |
+| Increased binary size and memory usage                      | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                           | Use layout sharing proxy wherever applicable |
+| Impact on runtime performance                               | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single cass across component, and cross component function calls happen always through function pointer. ||
+| No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                           | Return a container object instead or use layout sharing proxy wherever applicable. |
+| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
 
-## Objects of library are always created on heap by the client
-When client creates a proxy object the corresponding object on library side is always created on heap.
+## More on explicit proxy cleanup
 
-## Increased binary size and memory usage
-Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.
-
-## Impact on runtime performance
-CIB layers costs runtime performance too:
-- No inline function
-- Multiple function calls
-- Cross component function call always through function pointer
-
-## No raw array of objects
-Since client can only use library side object through proxy objects, it is not possible for a function to return a pointer of object that points at contiguously allocated objects. The solution to that is to return vector instead.
-
-## In some cases explicit cleanup of proxy objects may be needed
-Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. The example of such cases can be:
+The example of such cases can be 
 - Singleton object whose creation and deletion is handled by library.
 - Internal objects returned by library:
-  - A parameter of a callback invoked by library.
-  - Return object pointer or reference of internal object ob library.
+- A parameter of a callback invoked by library.
 
-The solution for this problem is to completely avoid such things. For example returning `shared_ptr` or `unique_ptr` will not cause this problem.
-If the above solution cannot be used then the only solution would be to explicitly delete those proxy objects using some special mehanism outside of regular program flow. Admittedly this will be dirty and so use of smart pointers will be better.
+If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see below.
+
+# Possible Improvement
+In the current implementation of CIB the association of library side object and proxy object is saved on the client side in a `map`. When a proxy object for a library side object is needed then unless there is no already existing proxy object available a new one is created. See example `proxy-object-reuse`.
+CIB uses this implementation because the goal of CIB is to be minimally invasive, i.e. it doesn't want to change the way developer wants to define their classes. But if we can relax this restriction a little bit then the association between library side object and it's proxy objects can be stored in the library side object itself. The main benefit of this change will be to avoid the limitation where there is a need to explicitly clean the proxy objects. When a library side object is deleted then all associated proxy objects, if any, can be deleted too.
 
 # Demo Project
 For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
