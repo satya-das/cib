@@ -63,6 +63,9 @@ I have come across some solutions that try to solve the same problem but none of
 
 **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
 
+# What is ABI
+It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
+
 # ABI Resilience
 Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
 - Any change in internal data member of a class.
@@ -87,18 +90,21 @@ Things that can cause ABI compatibility and stability issues in C++ are:
 8. RTTI.
 9. Exceptions.
 
-_If you are readinng this and think there is more reason for ABI problem then please create a pull request._
+**_If you are reading this and think there are more reasons for ABI problem then please create a pull request._**
 
 As we can see first 5 can also be problems in C. But if we ensure same struct packing, same function calling convention across component boundary, use of same allocator and deallocator for both components, ensure same underlying integer type for enum, and ensure to use same size for integers that cross component boundary then that's all it takes to ensure ABI compatibility for C programs. Achieving ABI stability too is simpler in C. We just need to ensure that new members in struct should be only added at the end and there should be a way to detect different version of struct. The `size` or `version` member in many struct are just for that purpose. Of course that's not the only thing but the other things are damn easy, like not to remove existing function, or not change parameter type, etc. if we want to maintain ABI stability.
 For C++, problems start with name mangling, that's the first reason of misunderstanding that can happen between 2 components. Layout for C++ objects are far more complex than C. There can be different layout for virtual tables depending upon compiler. Same goes for RTTI and exception. So, ensuring ABI compatibility is hard in C++. Ensuring ABI stability is super hard in general.
-**One thing to note is that maintaining ABI stability in C is largely a responsibility of library developers.** Unfortunately that is not going to change even when CIB is used. But goal of CIB is to make it an easy and achievable to ensure ABI stability in C++.
+**One thing to note is that maintaining ABI compatibility and stability in C is largely a responsibility of library developers.** Unfortunately that is not going to change even when CIB is used. But goal of CIB is to make it an easy and achievable to ensure ABI stability in C++.
 
 # CIB Architecture
+
+## Core architecture concept
+Because language feature implementations end up being ABI, see [What is ABI](#what-is-abi), CIB provides different implementation of language features at component boundary. So, the core of CIB architecture is to implement C++ language features differently at componenet boundary in such a way that the ABI can be guaranteed to bo compatible and easier to ensure stability.
 
 ## High level architecture
 The high level architecture is that there will be thin layers added to both Library and Client. These layers will have code to ensure ABI compatible communication between the two layers. These layers will communicate with their corresponding component in usual way because they will always be compiled together and so no special things need to be done. Graphically it can be depicted as:
 
-![Integration architecture produced by CIB ](img/cib_design.png "Integration architecture produced by CIB ")
+![Integration architecture produced by CIB](img/cib_design.png "Integration architecture produced by CIB ")
 
 ### Library Side Glue Code
 The code that forms library side layer is called **library side glue code**. This layer contains the code to represent class as set of free functions. These free functions for a class are bundled together in an array. This array of pointers-to-free-functions is called **MethodTable**. To avoid name mangling done by compilers that ruin the ABI compatibility, the library needs to export the MethodTable instead.
@@ -182,9 +188,10 @@ A C++ class that has public virtual method and there exists a way for library to
 For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
   1. Isolated proxy class, aka bridge proxy class.
   2. Layout sharing proxy class. Both original and proxy class share same object layout.
+
 **Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
 ## Handle
-Each bridge proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
+Each isolated proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 
 # Building CIB
 ## Get the source
@@ -289,13 +296,14 @@ For better understanding of what CIB architecture is we will consider examples t
 
 # Possible Optimization
 
+## Layout Sharing Proxy Class
 In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
 
 ```c++
 class Point2D
 {
 public:
-  Point(int32_t x = , int32_t y = 0);
+  Point(int32_t x = 0, int32_t y = 0);
 
 private:
   int32_t mX;
@@ -307,7 +315,7 @@ There is almost no chance that object layout of this class will change in future
 1. Memory is saved as layout is shared between client and library.
 2. It is possible to share raw object array across commponent boundary which is not possible for isolated proxy objects.
 
-But care must be taked by library developer.
+But library developer, when decide to use layout sharing proxy class for a particular class, must take care as they would, had it been a struct in a C library.
 
 # Limitations of CIB Architecture
 CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
@@ -317,9 +325,9 @@ CIB Architecture is good for ensuring ABI compatibility and stability. But unfor
 | Mandatory creation of proxy objects                         | The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.                                                             | Use layout sharing proxy wherever applicable |
 | Objects of library are always created on heap by the client | This is not true for layout sharing proxy classes but when client creates an object of isolated proxy object the corresponding object on library side is always created on heap.   | Use layout sharing proxy wherever applicable |
 | Increased binary size and memory usage                      | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                           | Use layout sharing proxy wherever applicable |
-| Impact on runtime performance                               | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single cass across component, and cross component function calls happen always through function pointer. ||
+| Impact on runtime performance                               | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer. | In practice these costs may not be significant. |
 | No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                           | Return a container object instead or use layout sharing proxy wherever applicable. |
-| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
+| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. [See More on explicit proxy cleanup](#more-on-explicit-proxy-cleanup) | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
 
 ## More on explicit proxy cleanup
 
@@ -328,7 +336,7 @@ The example of such cases can be
 - Internal objects returned by library:
 - A parameter of a callback invoked by library.
 
-If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see below.
+If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see [Possible Improvement](#possible-improvement).
 
 # Possible Improvement
 In the current implementation of CIB the association of library side object and proxy object is saved on the client side in a `map`. When a proxy object for a library side object is needed then unless there is no already existing proxy object available a new one is created. See example `proxy-object-reuse`.
