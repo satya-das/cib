@@ -172,7 +172,7 @@ For C++, problems start with name mangling, that's the first reason of misunders
 <a name="corearchitectureconcept"></a>
 
 ## 8.1\. Core architecture concept
-Because language feature implementations end up being ABI, see [What is ABI](#what-is-abi), CIB provides different implementation of language features at component boundary. So, the core of CIB architecture is to implement C++ language features differently at componenet boundary in such a way that the ABI can be guaranteed to bo compatible and easier to ensure stability.
+Because language feature implementations end up being ABI, see [What is ABI](#whatisabi), CIB provides different implementation of language features at component boundary. So, the core of CIB architecture is to implement C++ language features differently at componenet boundary in such a way that the ABI can be guaranteed to bo compatible and easier to ensure stability.
 
 <a name="highlevelarchitecture"></a>
 
