@@ -1,6 +1,6 @@
 --- runtime-polymorphism/pub/example.h
 +++ virtual-function-and-abi-stability/pub/example.h
-@@ -1,19 +1,20 @@
+@@ -1,20 +1,21 @@
  #pragma once
  
  //! Example to see what cib does for classes with virtual methods.
@@ -19,5 +19,6 @@
  public:
    B();
    int VirtFunc() override { return 15; }
- };
  
+   static B* Create() { return new B; }
+ };

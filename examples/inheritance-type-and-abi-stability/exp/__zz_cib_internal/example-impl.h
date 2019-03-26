@@ -72,6 +72,7 @@ public:
       return __zz_cib_obj->__zz_cib_h_;
     }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
+      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
       auto h = __zz_cib_obj->__zz_cib_h_;
       __zz_cib_obj->__zz_cib_h_ = nullptr;
       return h;
@@ -120,13 +121,26 @@ private:
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___A_4(__zz_cib_HANDLE* __zz_cib_obj) {
+  static __zz_cib_HANDLE* Create_4() {
+    using CreateProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+    return instance().invoke<CreateProc, __zz_cib_methodid::Create_4>(
+      );
+  }
+  static int AnotherVirtFunc_7(__zz_cib_TYPE* __zz_cib_obj) {
+    using AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc_7>(
+      __zz_cib_obj
+      );
+  }
+  static __zz_cib_HANDLE* __zz_cib_cast_to___A_5(__zz_cib_HANDLE* __zz_cib_obj) {
     using __zz_cib_cast_to___AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___AProc, __zz_cib_methodid::__zz_cib_cast_to___A_4>(__zz_cib_obj);
+    return instance().invoke<__zz_cib_cast_to___AProc, __zz_cib_methodid::__zz_cib_cast_to___A_5>(__zz_cib_obj);
   }
-  static ::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-    return new ::B(h);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
+    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_6>(__zz_cib_obj);
   }
+  static ::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 public:
     static ::B __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
       return ::B(h);
@@ -138,6 +152,7 @@ public:
       return __zz_cib_obj->__zz_cib_h_;
     }
     static __zz_cib_HANDLE* __zz_cib_release_handle(::B* __zz_cib_obj) {
+      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
       auto h = __zz_cib_obj->__zz_cib_h_;
       __zz_cib_obj->__zz_cib_h_ = nullptr;
       __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);

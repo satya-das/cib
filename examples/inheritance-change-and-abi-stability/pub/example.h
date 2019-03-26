@@ -39,4 +39,6 @@ class B : public I1, public A, public I2
 public:
   B();
   int VirtFunc() override  { return 15; }
+
+  static B* Create() { return new B; }
 };

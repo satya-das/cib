@@ -64,7 +64,7 @@ I have come across some solutions that try to solve the same problem but none of
 **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
 
 # What is ABI
-It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
+It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading language feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
 
 # ABI Resilience
 Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
@@ -314,7 +314,7 @@ private:
 There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `Point2D` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
 1. Memory is saved as layout is shared between client and library.
 2. It is possible to share raw object array across commponent boundary which is not possible for isolated proxy objects.
-
+ 
 But library developer, when decide to use layout sharing proxy class for a particular class, must take care as they would, had it been a struct in a C library.
 
 # Limitations of CIB Architecture

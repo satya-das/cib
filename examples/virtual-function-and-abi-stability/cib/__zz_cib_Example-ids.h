@@ -40,9 +40,15 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_new_2 = 2,
     //#= int VirtFunc();
     VirtFunc_3 = 3,
+    //#= ::B* Create();
+    Create_4 = 4,
     //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A_4 = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_cast_to___A_5 = 5,
+    //#= __zz_cib_get_class_id
+    __zz_cib_get_class_id_6 = 6,
+    //#= int AnotherVirtFunc();
+    AnotherVirtFunc_7 = 7,
+    __zz_cib_next_method_id = 8
   };
 }}}
 

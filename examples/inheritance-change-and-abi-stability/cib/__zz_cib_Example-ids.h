@@ -52,13 +52,23 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_new_2 = 2,
     //#= int VirtFunc();
     VirtFunc_3 = 3,
+    //#= ::B* Create();
+    Create_4 = 4,
     //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A_4 = 4,
+    __zz_cib_cast_to___A_5 = 5,
+    //#= __zz_cib_get_class_id
+    __zz_cib_get_class_id_6 = 6,
+    //#= int F();
+    F_7 = 7,
+    //#= int AnotherVirtFunc();
+    AnotherVirtFunc_8 = 8,
+    //#= int G();
+    G_9 = 9,
     //#= __zz_cib_cast_to___I1
-    __zz_cib_cast_to___I1_5 = 5,
+    __zz_cib_cast_to___I1_10 = 10,
     //#= __zz_cib_cast_to___I2
-    __zz_cib_cast_to___I2_6 = 6,
-    __zz_cib_next_method_id = 7
+    __zz_cib_cast_to___I2_11 = 11,
+    __zz_cib_next_method_id = 12
   };
 }}}
 

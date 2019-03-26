@@ -19,4 +19,6 @@ class B : public virtual A
 public:
   B();
   int VirtFunc() override  { return 15; }
+
+  static B* Create() { return new B; }
 };

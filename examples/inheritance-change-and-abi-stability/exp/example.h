@@ -52,6 +52,7 @@ public:
   ~B();
   B();
   virtual int VirtFunc();
+  static B* Create();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);

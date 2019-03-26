@@ -129,7 +129,7 @@ I have come across some solutions that try to solve the same problem but none of
 <a name="whatisabi"></a>
 
 # 5\. What is ABI
-It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
+It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading language feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
 
 <a name="abiresilience"></a>
 
@@ -1104,8 +1104,9 @@ class B : public A
 public:
   B();
   int VirtFunc() override { return 15; }
-};
 
+  static B* Create() { return new B; }
+};
 
 ```
 
@@ -1126,12 +1127,21 @@ Below is what client of library can expect. It is trivial and there is no surpri
 
 #include <catch/catch.hpp>
 
-TEST_CASE("ABI stable virtual function call across component boundary")
+void PerformTest(A* pA)
 {
-  A* pA = new B();
-
   CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
   CHECK(pA->A::VirtFunc() == 5);        // A regular call without use of virtual table.
+}
+
+TEST_CASE("ABI stable virtual function call across component boundary")
+{
+  // Test for object created by client on heap
+  PerformTest(new B());
+  // Test for object created by library
+  PerformTest(B::Create());
+  // Test for object created on stack
+  B b;
+  PerformTest(&b);
 }
 
 ```
@@ -1152,7 +1162,7 @@ Below I am showing the diff of new header with previous one.
 ```diff
 --- runtime-polymorphism/pub/example.h
 +++ virtual-function-and-abi-stability/pub/example.h
-@@ -1,19 +1,20 @@
+@@ -1,20 +1,21 @@
  #pragma once
  
  //! Example to see what cib does for classes with virtual methods.
@@ -1171,8 +1181,9 @@ Below I am showing the diff of new header with previous one.
  public:
    B();
    int VirtFunc() override { return 15; }
- };
  
+   static B* Create() { return new B; }
+ };
 
 ```
 
@@ -1183,18 +1194,27 @@ Below is the diff of client code from the previous example:
 ```diff
 --- runtime-polymorphism/src/example-client.cpp
 +++ virtual-function-and-abi-stability/src/example-client.cpp
-@@ -1,11 +1,12 @@
+@@ -1,20 +1,21 @@
  #include "example.h"
  
  #include <catch/catch.hpp>
  
- TEST_CASE("ABI stable virtual function call across component boundary")
+ void PerformTest(A* pA)
  {
-   A* pA = new B();
- 
    CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
    CHECK(pA->A::VirtFunc() == 5);        // A regular call without use of virtual table.
 +  CHECK(pA->AnotherVirtFunc() == 100);  // New function should be available to newer clients.
+ }
+ 
+ TEST_CASE("ABI stable virtual function call across component boundary")
+ {
+   // Test for object created by client on heap
+   PerformTest(new B());
+   // Test for object created by library
+   PerformTest(B::Create());
+   // Test for object created on stack
+   B b;
+   PerformTest(&b);
  }
 
 ```
@@ -1206,7 +1226,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 ```diff
 --- ../runtime-polymorphism/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -12,10 +12,13 @@
+@@ -19,10 +19,13 @@
    return new __zz_cib_Delegatee(*__zz_cib_obj);
  }
  static ::A* __zz_cib_decl __zz_cib_new_1() {
@@ -1220,7 +1240,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
  }
  static void __zz_cib_decl __zz_cib_delete_3(__zz_cib_Delegatee* __zz_cib_obj) {
    delete __zz_cib_obj;
-@@ -27,13 +30,14 @@
+@@ -34,13 +37,14 @@
  const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
    static const __zz_cib_MTableEntry methodArray[] = {
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
@@ -1237,6 +1257,35 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
  }}
  namespace __zz_cib_ { namespace B {
  namespace __zz_cib_Delegator {
+@@ -58,10 +62,13 @@
+   return __zz_cib_obj->::B::VirtFunc();
+ }
+ static ::B* __zz_cib_decl Create_4() {
+   return ::B::Create();
+ }
++static int __zz_cib_decl AnotherVirtFunc_7(__zz_cib_Delegatee* __zz_cib_obj) {
++  return __zz_cib_obj->::B::AnotherVirtFunc();
++}
+ static ::A* __zz_cib_decl __zz_cib_cast_to___A_5(::B* __zz_cib_obj) {
+   return __zz_cib_obj;
+ }
+ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_6(::B** __zz_cib_obj) {
+   static bool classIdRepoPopulated = false;
+@@ -84,11 +91,12 @@
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc_3),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Create_4),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to___A_5),
+-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_6)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_6),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherVirtFunc_7)
+   };
+-  static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
++  static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
+   return &methodTable;
+ }
+ }}
 
 ```
 
@@ -1251,7 +1300,7 @@ To make CIB ensure ABI stability we needed to run cib with additional parameter 
 cib -i pub -o exp -b cib -m Example -c ../runtime-polymorphism/cib/__zz_cib_Example-ids.h
 ```
 
-This makes cib understand that we want ABI stability with previous example and CIB generated glue code accordingly.
+This makes cib understand that we want ABI stability with previous example and CIB generates glue code accordingly.
 
 
 <a name="example-interfaceclasses"></a>
@@ -1302,7 +1351,7 @@ private:
 There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `Point2D` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
 1. Memory is saved as layout is shared between client and library.
 2. It is possible to share raw object array across commponent boundary which is not possible for isolated proxy objects.
-
+ 
 But library developer, when decide to use layout sharing proxy class for a particular class, must take care as they would, had it been a struct in a C library.
 
 # Limitations of CIB Architecture

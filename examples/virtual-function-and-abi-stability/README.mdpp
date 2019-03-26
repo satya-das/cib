@@ -28,5 +28,5 @@ To make CIB ensure ABI stability we needed to run cib with additional parameter 
 cib -i pub -o exp -b cib -m Example -c ../runtime-polymorphism/cib/__zz_cib_Example-ids.h
 ```
 
-This makes cib understand that we want ABI stability with previous example and CIB generated glue code accordingly.
+This makes cib understand that we want ABI stability with previous example and CIB generates glue code accordingly.
 
