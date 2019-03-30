@@ -25,7 +25,7 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 4\.  [Other Solutions](#othersolutions)  
 5\.  [What is ABI](#whatisabi)  
 6\.  [ABI Resilience](#abiresilience)  
-7\.  [Why C++ has ABI commpatibity and stability issues](#whyc++hasabicommpatibityandstabilityissues)  
+7\.  [Why C++ has ABI compatibity and stability issues](#whyc++hasabicompatibityandstabilityissues)  
 8\.  [CIB Architecture](#cibarchitecture)  
 8.1\.  [Core architecture concept](#corearchitectureconcept)  
 8.2\.  [High level architecture](#highlevelarchitecture)  
@@ -152,9 +152,9 @@ Some changes are conceptually unimportant for clients of a library but they brea
     - inheritance type is changed to/from `virtual` inheritance.
 - Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
 
-<a name="whyc++hasabicommpatibityandstabilityissues"></a>
+<a name="whyc++hasabicompatibityandstabilityissues"></a>
 
-# 7\. Why C++ has ABI commpatibity and stability issues
+# 7\. Why C++ has ABI compatibity and stability issues
 Actually even C has this problem, it's just another matter that it is relatively easier to achieve ABI compatibility and stability in C.
 Things that can cause ABI compatibility and stability issues in C++ are:
 1. Object layout.
