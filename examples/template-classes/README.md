@@ -1,4 +1,4 @@
-##C++ Template Classes
+## C++ Template Classes
 
 Supporting template classes by CIB in ABI compatible and stable way is very interesting because of the fact that an object can only be of concrete type. So, we only need to export concretized types of the template class. And that we can do in the same way as we export other non-template classes. So, let's consider an example:
 
