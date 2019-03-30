@@ -11,7 +11,7 @@ Component Interface Binder (CIB)
 **In a nutshell CIB is the answer to the problem for which C is used for exporting APIs of an application/library even when the application/library itself uses C++ for most of its implementation. C++ is great in expressing API but compiler generated ABI makes it difficult to use to publish compiler independent and ABI stable SDK.**
 
 # Abstract
-*C++ components are not ABI compatible and achieving ABI stability is very difficult. Programmers use C for exporting APIs that can be called from across component boundary. ABI compatibility and stability problem of C++ is what makes programmer resort to use of C when in comes to exporting API.
+*C++ components are not ABI compatible and achieving ABI stability is very difficult. Programmers use C for exporting APIs that can be called from across component boundary. ABI compatibility and stability problem of C++ is what makes programmer resort to use of C when it comes to exporting API.
 There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers and that does not change based on compiler switch, will make it possible to have ABI compatible C++ components. But that will still not make components ABI stable.*
 
 ## Jargon
@@ -280,26 +280,32 @@ For better understanding of what CIB architecture is we will consider examples t
 
 ## Example - Interface Classes
 
-**TODO**: Add documentation.
+Please see example `interface-classes` in `examples` folder.
+
+**TODO**: Add detail documentation.
 
 ## Example - Template Classes
 
-**TODO**: Add documentation.
+!INCLUDE "examples/template-classes/README.mdpp"
 
 ## Example - Facade Classes and RTTI
 
-**TODO**: Add documentation.
+Please see example `facade-classes-and-rtti` in `examples` folder.
+
+**TODO**: Add detail documentation.
 
 ## Example - Non public virtual functions.
 
-**TODO**: Add documentation.
+Please see example `private-virtuals` in `examples` folder.
+
+**TODO**: Add detail documentation.
 
 # Possible Optimization
 
 ## Layout Sharing Proxy Class
 In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
 
-```c++
+```
 class Point2D
 {
 public:

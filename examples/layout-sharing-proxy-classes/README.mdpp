@@ -1,5 +1,4 @@
-Layout Sharing Proxy
-====================
+## Layout Sharing Proxy
 
 For simple class with standard layout having isolated proxy class can be too much overhead and may be avoidable performance penalty.
 So, if the library author can guarantee that internal object layout will not change between releases then CIB can generate glue code to use same object layout for both original and proxy classes.

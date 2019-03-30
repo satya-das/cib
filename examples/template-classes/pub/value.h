@@ -1,7 +1,7 @@
 #pragma once
 
-namespace Example {
-
+namespace Example
+{
 template <typename _T>
 class Value
 {
@@ -18,9 +18,7 @@ public:
   {
     x_ = x;
   }
-
 private:
   _T x_;
 };
-
 }
