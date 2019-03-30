@@ -353,7 +353,7 @@ inline void Example::Value<int>::SetValue(int x) {
 
 ```
 
-Here we have specialization of `Value<int>`, if you notice the definition is very similar to what we see for other classes. Only thing is that the template class specialization present in somewhat _hidden_ file. But we need this specialization available to client code so that wherever client does `Value<int>` this specialization should be picked by compiler instead of convcretizing on it's own.
+Here we have specialization of `Value<int>`, if you notice the definition is very similar to what we see for other classes. Only thing is that the template class specialization present in somewhat _hidden_ file. But we need this specialization available to client code so that wherever client does `Value<int>` this specialization should be picked by compiler instead of concretizing on it's own.
 If you notice there is an inclusion of file `__zz_cib_internal/value-impl.h` at the end in the header file that contains definition of template `class Value`.
 
 Let's see what that `value-impl.h` contains:

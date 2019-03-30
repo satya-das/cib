@@ -1680,7 +1680,7 @@ inline void Example::Value<int>::SetValue(int x) {
 
 ```
 
-Here we have specialization of `Value<int>`, if you notice the definition is very similar to what we see for other classes. Only thing is that the template class specialization present in somewhat _hidden_ file. But we need this specialization available to client code so that wherever client does `Value<int>` this specialization should be picked by compiler instead of convcretizing on it's own.
+Here we have specialization of `Value<int>`, if you notice the definition is very similar to what we see for other classes. Only thing is that the template class specialization present in somewhat _hidden_ file. But we need this specialization available to client code so that wherever client does `Value<int>` this specialization should be picked by compiler instead of concretizing on it's own.
 If you notice there is an inclusion of file `__zz_cib_internal/value-impl.h` at the end in the header file that contains definition of template `class Value`.
 
 Let's see what that `value-impl.h` contains:
@@ -1764,7 +1764,7 @@ CIB Architecture is good for ensuring ABI compatibility and stability. But unfor
 | Increased binary size and memory usage                      | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                           | Use layout sharing proxy wherever applicable |
 | Impact on runtime performance                               | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer. | In practice these costs may not be significant. |
 | No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                           | Return a container object instead or use layout sharing proxy wherever applicable. |
-| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. [See More on explicit proxy cleanup](#more-on-explicit-proxy-cleanup) | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
+| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. [See more on explicit proxy cleanup](#more-on-explicit-proxy-cleanup), and [Possible Improvement](#possible-improvement. | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
 
 <a name="moreonexplicitproxycleanup"></a>
 
