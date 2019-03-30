@@ -1734,23 +1734,34 @@ Please see example `private-virtuals` in `examples` folder.
 ## 14.1\. Layout Sharing Proxy Class
 In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
 
-```
-class Point2D
+```c++
+#pragma once
+
+class CPoint
 {
 public:
-  Point(int32_t x = 0, int32_t y = 0);
+  CPoint(double _x = 0, double _y = 0, double _z = 0);
+  const CPoint& operator += (const CPoint& p) {
+    x += p.x;
+    y += p.y;
+    z += p.z;
 
-private:
-  int32_t mX;
-  int32_t mY;
+    return *this;
+  }
+
+public:
+  double x;
+  double y;
+  double z;
 };
+
 ```
 
-There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `Point2D` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
+There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `CPoint` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
 1. Memory is saved as layout is shared between client and library.
-2. It is possible to share raw object array across commponent boundary which is not possible for isolated proxy objects.
+2. It is possible to share raw object array across component boundary which is not possible for isolated proxy objects.
  
-But library developer, when decide to use layout sharing proxy class for a particular class, must take care as they would, had it been a struct in a C library.
+But library developer, when decide to use layout sharing proxy class for a particular class, must be careful as they would, had it been a struct in a C library.
 
 <a name="limitationsofcibarchitecture"></a>
 
