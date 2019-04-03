@@ -284,8 +284,6 @@ Please see example `interface-classes` in `examples` folder.
 
 **TODO**: Add detail documentation.
 
-## Example - Template Classes
-
 !INCLUDE "examples/template-classes/README.mdpp"
 
 ## Example - Facade Classes and RTTI
@@ -312,6 +310,8 @@ There is almost no chance that object layout of this class will change in future
 2. It is possible to share raw object array across component boundary which is not possible for isolated proxy objects.
  
 But library developer, when decide to use layout sharing proxy class for a particular class, must be careful as they would, had it been a struct in a C library.
+
+Please see example `layout-sharing-proxy-classes` for more detail.
 
 # Limitations of CIB Architecture
 CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:

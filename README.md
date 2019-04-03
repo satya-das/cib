@@ -70,10 +70,9 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 13.3\.  [Example - Virtual Function and ABI Stability](#example-virtualfunctionandabistability)  
 13.3.1\.  [Running CIB](#runningcib-1)  
 13.4\.  [Example - Interface Classes](#example-interfaceclasses)  
-13.5\.  [Example - Template Classes](#example-templateclasses)  
-13.6\.  [C++ Template Classes](#c++templateclasses)  
-13.7\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
-13.8\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
+13.5\.  [Example - C++ Template Classes](#example-c++templateclasses)  
+13.6\.  [Example - Facade Classes and RTTI](#example-facadeclassesandrtti)  
+13.7\.  [Example - Non public virtual functions.](#example-nonpublicvirtualfunctions.)  
 14\.  [Possible Optimization](#possibleoptimization)  
 14.1\.  [Layout Sharing Proxy Class](#layoutsharingproxyclass)  
 15\.  [Limitations of CIB Architecture](#limitationsofcibarchitecture)  
@@ -1319,13 +1318,9 @@ Please see example `interface-classes` in `examples` folder.
 
 **TODO**: Add detail documentation.
 
-<a name="example-templateclasses"></a>
+<a name="example-c++templateclasses"></a>
 
-## 13.5\. Example - Template Classes
-
-<a name="c++templateclasses"></a>
-
-## 13.6\. C++ Template Classes
+## 13.5\. Example - C++ Template Classes
 
 Supporting template classes by CIB in ABI compatible and stable way is very interesting because of the fact that an object can only be of concrete type. So, we only need to export concretized types of the template class. And that we can do in the same way as we export other non-template classes. So, let's consider an example:
 
@@ -1711,7 +1706,7 @@ complex case like template template parameters will be supported in future.
 
 <a name="example-facadeclassesandrtti"></a>
 
-## 13.7\. Example - Facade Classes and RTTI
+## 13.6\. Example - Facade Classes and RTTI
 
 Please see example `facade-classes-and-rtti` in `examples` folder.
 
@@ -1719,7 +1714,7 @@ Please see example `facade-classes-and-rtti` in `examples` folder.
 
 <a name="example-nonpublicvirtualfunctions."></a>
 
-## 13.8\. Example - Non public virtual functions.
+## 13.7\. Example - Non public virtual functions.
 
 Please see example `private-virtuals` in `examples` folder.
 
@@ -1762,6 +1757,8 @@ There is almost no chance that object layout of this class will change in future
 2. It is possible to share raw object array across component boundary which is not possible for isolated proxy objects.
  
 But library developer, when decide to use layout sharing proxy class for a particular class, must be careful as they would, had it been a struct in a C library.
+
+Please see example `layout-sharing-proxy-classes` for more detail.
 
 <a name="limitationsofcibarchitecture"></a>
 
