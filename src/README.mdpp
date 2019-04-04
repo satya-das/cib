@@ -66,6 +66,7 @@ Things that can cause ABI compatibility and stability issues in C++ are:
 7. Virtual function table.
 8. RTTI.
 9. Exceptions.
+10. Inheritance.
 
 **_If you are reading this and think there are more reasons for ABI problem then please create a pull request._**
 
@@ -182,15 +183,15 @@ ctest -R virtual-function-and-abi-stability
 Will give following output:
 
 ```
-Test project /home/dassat/github/cib/builds
-    Start 4: virtual-function-and-abi-stability_client
-1/2 Test #4: virtual-function-and-abi-stability_client ...   Passed    0.01 sec
-    Start 5: virtual-function-and-abi-stability
-2/2 Test #5: virtual-function-and-abi-stability ..........   Passed    0.01 sec
+Test project /home/dassat/github/cib/build
+    Start 5: virtual-function-and-abi-stability_client
+1/2 Test #5: virtual-function-and-abi-stability_client ....................   Passed    0.00 sec
+    Start 6: virtual-function-and-abi-stability-new-lib-with-old-client
+2/2 Test #6: virtual-function-and-abi-stability-new-lib-with-old-client ...   Passed    0.00 sec
 
 100% tests passed, 0 tests failed out of 2
 
-Total Test time (real) =   0.02 sec
+Total Test time (real) =   0.01 sec
 ```
 
 It ran 2 tests. First one tests that new client works as expected with new library. The second one tests that old client (without recompilation) works with newer library. For details about what change library made please have a look at corresponding `example.h` file.
@@ -223,9 +224,9 @@ For details please see [Virtual Function and ABI Stability example](examples/vir
 
 ## Example - Interface Classes
 
-Please see example `interface-classes` in `examples` folder.
+In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
 
-**TODO**: Add detail documentation.
+For details please see [Interface Class example](examples/interface-classes/README.md)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.

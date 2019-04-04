@@ -7,32 +7,32 @@ namespace __zz_cib_ { namespace A {
 
 namespace __zz_cib_ { namespace Interface1 {
   //#= FullClassName: ::Interface1
-  enum { __zz_cib_classid = 3 };
+  enum { __zz_cib_classid = 1 };
 }}
 
 namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::Interface1::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 7 };
+  enum { __zz_cib_classid = 5 };
 }}}
 
 namespace __zz_cib_ { namespace Interface2 {
   //#= FullClassName: ::Interface2
-  enum { __zz_cib_classid = 1 };
+  enum { __zz_cib_classid = 2 };
 }}
 
 namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::Interface2::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 5 };
+  enum { __zz_cib_classid = 6 };
 }}}
 
 namespace __zz_cib_ { namespace Interface3 {
   //#= FullClassName: ::Interface3
-  enum { __zz_cib_classid = 2 };
+  enum { __zz_cib_classid = 3 };
 }}
 
 namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::Interface3::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 6 };
+  enum { __zz_cib_classid = 7 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
