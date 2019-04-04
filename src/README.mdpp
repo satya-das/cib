@@ -228,6 +228,12 @@ In this example we explore what pieces of architecture should be there to ensure
 
 For details please see [Interface Class example](examples/interface-classes/README.md)
 
+## Example - Interface Classes and ABI Stability
+
+In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
+
+For details please see [Interface Class And ABI Sytability example](examples/interface-classes-and-abi-stability/README.md)
+
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
 
