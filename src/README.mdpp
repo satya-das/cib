@@ -19,8 +19,6 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 2. **API Stability**: Ability to compile client of a library with newer SDK headers without any change.
 3. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of plugin (in binary form) of an application to seemlessly work with newer application.
 
-!TOC
-
 # Overview
  CIB is an architecture to make it possible to publish compiler independent and ABI stable C++ library.
  This project is also about a tool that implements `cib architecture` for a given library headers.
@@ -41,8 +39,6 @@ _In this document the binary component that exposes its classes will be called *
 **CIB  allows client of a library to use all exported classes, as if those classes are part of the client code itself, without exposing the internals of classes.**
 
 # CIB Goals
-- To make it possible to publish ABI stable and compiler independent C++ library.
-- To make it possible to publish forward and backward compatible plugin SDK of an application.
 - Solution should be platform and compiler agnostic.
 - Client that is written using traditional linking with library can easily migrate to **CIB**. This requires that CIB should be designed in such a way that it should not have any footprint in the code of client as well as library. There will of course be a small boiler plate code on both side but that's about it, the rest of the code should remain aloof about existence of CIB.
 
@@ -57,17 +53,6 @@ I have come across some solutions that try to solve the same problem but none of
 
 # What is ABI
 It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading language feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
-
-# ABI Resilience
-Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
-- Any change in internal data member of a class.
-- Addition of new virtual methods anywhere in the class.
-- Change in order of virtual functions of a class.
-- Change in inheritance that doesn't violate previous is-a relationship. For example:
-    - if a class starts deriving from one more base class without removing previous base class.
-    - if a class changes it's base class to another derived class of it's previous base class.
-    - inheritance type is changed to/from `virtual` inheritance.
-- Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
 
 # Why C++ has ABI compatibity and stability issues
 Actually even C has this problem, it's just another matter that it is relatively easier to achieve ABI compatibility and stability in C.
@@ -87,6 +72,17 @@ Things that can cause ABI compatibility and stability issues in C++ are:
 As we can see first 5 can also be problems in C. But if we ensure same struct packing, same function calling convention across component boundary, use of same allocator and deallocator for both components, ensure same underlying integer type for enum, and ensure to use same size for integers that cross component boundary then that's all it takes to ensure ABI compatibility for C programs. Achieving ABI stability too is simpler in C. We just need to ensure that new members in struct should be only added at the end and there should be a way to detect different version of struct. The `size` or `version` member in many struct are just for that purpose. Of course that's not the only thing but the other things are damn easy, like not to remove existing function, or not change parameter type, etc. if we want to maintain ABI stability.
 For C++, problems start with name mangling, that's the first reason of misunderstanding that can happen between 2 components. Layout for C++ objects are far more complex than C. There can be different layout for virtual tables depending upon compiler. Same goes for RTTI and exception. So, ensuring ABI compatibility is hard in C++. Ensuring ABI stability is super hard in general.
 **One thing to note is that maintaining ABI compatibility and stability in C is largely a responsibility of library developers.** Unfortunately that is not going to change even when CIB is used. But goal of CIB is to make it an easy and achievable to ensure ABI stability in C++.
+
+# ABI Resilience
+Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
+- Any change in internal data member of a class.
+- Addition of new virtual methods anywhere in the class.
+- Change in order of virtual functions of a class.
+- Change in inheritance that doesn't violate previous is-a relationship. For example:
+    - if a class starts deriving from one more base class without removing previous base class.
+    - if a class changes it's base class to another derived class of it's previous base class.
+    - inheritance type is changed to/from `virtual` inheritance.
+- Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
 
 # CIB Architecture
 
@@ -128,62 +124,6 @@ Since only thing that is shared between client and library is MethodTable mainta
 - Implementation of all functions including methods, constructors, and destructors of proxy classes are provided by means of invoking function pointer from MethodTable.
 
 Above is only broad description of CIB architecture. For understanding each peice of CIB architecture please have a look at **examples** below. Each example tries to explain one peice of CIB architecture. Since this project is also about developing a tool that will automatically implement CIB architecture for a library the examples mentioned shows the code generated by CIB. Please be forewarned that little paitence will be required to analyse such code. :)
-
-# Feature Progress of CIB tool
-
-| Feature                                   | Description | Status |
-| ---------------------------------         | :---------- | :----- |
-| Basic                                     | CIB should work for a simple library that exports classes with non-virtual functions. | Done |
-| Virtual functions and inheritance         | CIB should make virtual function and inheritance available to clients. | Done |
-| Function overloading                      | Same named functions of a class should be seamlessly exported. | Done |
-| Function overridding                      | Allow library to use interface implemented by client. | Done |
-| Forward compatibility of client           | Older client works with newer library. | Done |
-| Forward compatibility of library          | Library should be ABI compatible with newer client. As of now library and client can catch exception when non existing function is called and should take corrective measures to work with newer component. | Done |
-| Backward compatibility of client          | When newer client invokes a method present only in new SDK then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. | Done |
-| Backward compatibility of library         | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
-| Create correct proxy class                | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
-| Operator overloading                      | It is common for C++ classes to have overloaded operators. | Done |
-| Typecast operator overloading             | Typecast operator overloading of user defined types is common in C++. | Done |
-| Simple Template class support             | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. | Done|
-| Return existing proxy class               | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. | Done|
-| Support protected methods                 | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
-| Support private pure virtual              | Private pure virtual is used in template method design pattern. | Done|
-| Rvalue reference parameter                | RValue references need to cross component boundary. | Done|
-| Support of free functions                 | Free functions in global and orher namespaces too should be supported. | Done |
-| **Goal**: Use CIB in real production SDK  | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
-| **Phase1**: For AutoCAD SDK subset        | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **DONE** |
-| **Phase2**: For complete AutoCAD SDK      | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
-| Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. ||
-| Enum and enum classes                     | Enums used as parameter or return type. |
-| STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
-| Support shared_ptr and unique_ptr         | Modern C++ programing expects these to be used more often. |
-| Exception support                         | Make exception object travel across component boundary in a compatible way. |
-| Function pointer as parameter             | Function pointers can be used as parameter or return type of another function. ||
-| Support std::function                     | std::function can be used as function parameter or return type. They too should be supported. ||
-| Support for intrusive pointer             | Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. |
-| Non-const pointer ref return type         | When a reference of pointer of non-POD is returned from a function a change in that should be propagated to the library.|
-| Support public data members               | Public data members of a class should be exported in ABI stable way. |
-
----
-
-# CIB Terminology
-## Inline Class
-A class that has all methods inline. *For example a template class is surely an inline class*.
-## Shared Class
-A C++ class whose intances cross component boundary: *When a class is not an inline class or there exists a public function that returns or takes an object/pointer/reference of a C++ class then such class is called a shared class*.
-## Facade Class
-A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
-## Interface Class
-A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
-*A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
-## Proxy Class
-For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
-  1. Isolated proxy class, aka bridge proxy class.
-  2. Layout sharing proxy class. Both original and proxy class share same object layout.
-
-**Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
-## Handle
-Each isolated proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 
 # Building CIB
 ## Get the source
@@ -260,17 +200,26 @@ Now we will delve into examples to know the details of CIB architecture.
 # CIB Architecture Detail
 For better understanding of what CIB architecture is we will consider examples to see what are the required glue code to publish SDK using CIB. We will start with trivial example and slowly build on that to understand what CIB architecture requires in more complex cases. We will learn about bits and peices of CIB architecture through code generated by `cib`. Most part of code generated by cib are solely for compilers. But we will look into generated code to understand CIB architecture.
 
-**Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and are actually part of automated tests of cib.
+**Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and are actually part of automated tests of cib:
+- Almost all examples contain a library and a client executable.
+- Library consists of a public header and a source file. CIB tool is used to cibify the public header and generate glue code for library and clients along with new cibified header that becomes part of the SDK.
+- Client is an executable that has code to show what we can expect from library and so is also an automated test.
 
 ## Example - A Simple Class
-This example explains the basic building block of CIB architecture and how CIB defines it's own ABI that is compatible and ensures ABI stability. This example doesn't demonstrate ABI stability, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
-For detail please see [A Simple Class example](examples/simple-class/README.md)
+This example explains the basic building blocks of CIB architecture and how CIB defines it's own ABI that ensures ABI stability. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
 
-**This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
+For details please see [A Simple Class example](examples/simple-class/README.md)
 
-!INCLUDE "examples/runtime-polymorphism/README.mdpp"
+## Example - Runtime polymorphism
+This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example too is just to explain required building blocks. In the next example we will consider the ABI stability.
 
-!INCLUDE "examples/virtual-function-and-abi-stability/README.mdpp"
+For details please see [Runtime polymorphism example](examples/runtime-polymorphism/README.md)
+
+## Example - Virtual Function and ABI Stability
+
+This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example). That demostrates that CIB ensures ABI stability when virtual table is disrupted.
+
+For details please see [Virtual Function and ABI Stability example](examples/virtual-function-and-abi-stability/README.md)
 
 ## Example - Interface Classes
 
@@ -344,6 +293,62 @@ Files in **graphics/cib** are meant for **graphics** library to compile with.
 Files in **graphics/exp** are part of SDK of library and meant for client of **graphics**, in this case **draw** project to compile with.
 
 Build **draw** and run it. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw_cibified**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
+
+# Feature Progress of CIB tool
+
+| Feature                                   | Description | Status |
+| ---------------------------------         | :---------- | :----- |
+| Basic                                     | CIB should work for a simple library that exports classes with non-virtual functions. | Done |
+| Virtual functions and inheritance         | CIB should make virtual function and inheritance available to clients. | Done |
+| Function overloading                      | Same named functions of a class should be seamlessly exported. | Done |
+| Function overridding                      | Allow library to use interface implemented by client. | Done |
+| Forward compatibility of client           | Older client works with newer library. | Done |
+| Forward compatibility of library          | Library should be ABI compatible with newer client. As of now library and client can catch exception when non existing function is called and should take corrective measures to work with newer component. | Done |
+| Backward compatibility of client          | When newer client invokes a method present only in new SDK then std::bad\_function\_call exception will be thrown. Clients that want to be backward compatible should handle this exception when invoking methods present only in newer SDK. | Done |
+| Backward compatibility of library         | When library invokes a method of interface implemented by only newer client then std::bad\_function\_call exception will be thrown. Library developer should be aware about this to remain backward compatible when invoking new methods of it's own public interface. | Done   |
+| Create correct proxy class                | A base class pointer returned by an API of library may actually be pointing to an object of a derived class. At client side we should create proxy class of exact same type to which the returned pointer is pointing to. It is needed so that dynamic_cast at client side should work as expected. | Done |
+| Operator overloading                      | It is common for C++ classes to have overloaded operators. | Done |
+| Typecast operator overloading             | Typecast operator overloading of user defined types is common in C++. | Done |
+| Simple Template class support             | Support for simple template classes when it crosses component boundary. Simple template means without template template argument, or any of other fancy stuff. | Done|
+| Return existing proxy class               | If a function returns pointer or reference of object for which proxy class already exists then existing proxy class should be returned. | Done|
+| Support protected methods                 | Protected methods are accessible to derived class and they should be exported so that client's derived class can call them. | Done|
+| Support private pure virtual              | Private pure virtual is used in template method design pattern. | Done|
+| Rvalue reference parameter                | RValue references need to cross component boundary. | Done|
+| Support of free functions                 | Free functions in global and orher namespaces too should be supported. | Done |
+| **Goal**: Use CIB in real production SDK  | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
+| **Phase1**: For AutoCAD SDK subset        | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **DONE** |
+| **Phase2**: For complete AutoCAD SDK      | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
+| Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. ||
+| Enum and enum classes                     | Enums used as parameter or return type. |
+| STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
+| Support shared_ptr and unique_ptr         | Modern C++ programing expects these to be used more often. |
+| Exception support                         | Make exception object travel across component boundary in a compatible way. |
+| Function pointer as parameter             | Function pointers can be used as parameter or return type of another function. ||
+| Support std::function                     | std::function can be used as function parameter or return type. They too should be supported. ||
+| Support for intrusive pointer             | Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. |
+| Non-const pointer ref return type         | When a reference of pointer of non-POD is returned from a function a change in that should be propagated to the library.|
+| Support public data members               | Public data members of a class should be exported in ABI stable way. |
+
+---
+
+# CIB Terminology
+## Inline Class
+A class that has all methods inline. *For example a template class is surely an inline class*.
+## Shared Class
+A C++ class whose intances cross component boundary: *When a class is not an inline class or there exists a public function that returns or takes an object/pointer/reference of a C++ class then such class is called a shared class*.
+## Facade Class
+A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
+## Interface Class
+A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
+*A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
+## Proxy Class
+For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
+  1. Isolated proxy class, aka bridge proxy class.
+  2. Layout sharing proxy class. Both original and proxy class share same object layout.
+
+**Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
+## Handle
+Each isolated proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
 
 # Implementation Details
 ## Parsing Technique
