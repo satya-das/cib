@@ -38,14 +38,6 @@ _In this document the binary component that exposes its classes will be called *
 - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
 - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
-**Some of these features are provided by COM. But CIB has other advantages over COM.**
-
-- Clients can define new classes by deriving from concrete classes provided by library (*note that it is made possible even when complete class definition is not available to client*).
-- No need to write interface definition files (.idl/.odl files).
-- No need to maintain order of virtual functions across releases.
-- No need to declare all functions as pure virtual. CIB allows a class to export all kind of methods like static, virtual, pure virtual, inline etc. Only thing is that an inline function will actually make a proper function call when called from across the component boundary.
-- CIB , unlike COM, works on all platforms.
-
 **CIB  allows client of a library to use all exported classes, as if those classes are part of the client code itself, without exposing the internals of classes.**
 
 # CIB Goals
@@ -270,7 +262,9 @@ For better understanding of what CIB architecture is we will consider examples t
 
 **Note**: All examples mentioned below are real programs, however tiny, they are working piece of code and are actually part of automated tests of cib.
 
-!INCLUDE "examples/simple-class/README.mdpp"
+## Example - A Simple Class
+This example explains the basic building block of CIB architecture and how CIB defines it's own ABI that is compatible and ensures ABI stability. This example doesn't demonstrate ABI stability, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
+For detail please see [A Simple Class example](examples/simple-class/README.md)
 
 **This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
 
