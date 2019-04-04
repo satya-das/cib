@@ -87,7 +87,7 @@ Some changes are conceptually unimportant for clients of a library but they brea
 # CIB Architecture
 
 ## Core architecture concept
-Because language feature implementations end up being ABI, see [What is ABI](#whatisabi), CIB provides different implementation of language features at component boundary. So, the core of CIB architecture is to implement C++ language features differently at componenet boundary in such a way that the ABI can be guaranteed to bo compatible and easier to ensure stability.
+Because language feature implementations end up being ABI, see [What is ABI](#what-is-abi), CIB provides different implementation of language features at component boundary. So, the core of CIB architecture is to implement C++ language features differently at componenet boundary in such a way that the ABI can be guaranteed to bo compatible and easier to ensure stability.
 
 ## High level architecture
 The high level architecture is that there will be thin layers added to both Library and Client. These layers will have code to ensure ABI compatible communication between the two layers. These layers will communicate with their corresponding component in usual way because they will always be compiled together and so no special things need to be done. Graphically it can be depicted as:
