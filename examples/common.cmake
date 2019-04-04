@@ -1,3 +1,6 @@
+cmake_policy(SET CMP0063 NEW)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+
 set(PUB_FILE_BASE_NAMES
     example # File name without extension
 )
@@ -58,6 +61,7 @@ add_library(${LIBNAME}
 set_target_properties(${LIBNAME} PROPERTIES
     SUFFIX ".so"
     PREFIX "lib"
+    CXX_VISIBILITY_PRESET hidden
 )
 
 target_include_directories(${LIBNAME}

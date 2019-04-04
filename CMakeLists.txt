@@ -20,6 +20,9 @@ add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)
 
 include_directories(../common/third_party)
 
+cmake_policy(SET CMP0063 NEW)
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+
 #############################################
 ## CIB
 
@@ -89,11 +92,12 @@ find_program(
 set(EXAMPLES
 	simple-class
 	runtime-polymorphism
+	interface-classes
 	virtual-function-and-abi-stability
 	inheritance-type-and-abi-stability
 	inheritance-change-and-abi-stability
+	interface-classes-and-abi-stability
 	facade-classes-and-rtti
-	interface-classes
 	template-classes
 	proxy-object-reuse
 	private-virtuals
