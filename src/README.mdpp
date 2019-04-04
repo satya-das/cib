@@ -22,7 +22,7 @@ There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://m
 # Overview
  CIB is an architecture to make it possible to publish compiler independent and ABI stable C++ library.
  This project is also about a tool that implements `cib architecture` for a given library headers.
- CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components unless previously published contract is broken. The cases for which the earlier contract gets broken is significantly fewer compared to the case when CIB is not used.
+ CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components
 CIB can also be used as plugin architecture of application.
 
 _In this document the binary component that exposes its classes will be called **Library**, a library can be an executable or a **DLL/SO**. The component that is compiled using SDK of the library will be called client of that library._
@@ -227,7 +227,10 @@ Please see example `interface-classes` in `examples` folder.
 
 **TODO**: Add detail documentation.
 
-!INCLUDE "examples/template-classes/README.mdpp"
+## Example - C++ Template Classes
+In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
+
+For details please see [C++ Template Classes example](examples/template-classes/README.md)
 
 ## Example - Facade Classes and RTTI
 

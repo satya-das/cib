@@ -7,7 +7,7 @@ set(NEW_LIBNAME  "${LIBRARY_PREFIX}${NEW_TEST_NAME}_lib.so")
 set(CLIENT      "${PREV_TEST_NAME}_client${SUFFIX}")
 
 add_custom_target(
-    ${example} ALL
+    ${example}-new-lib-with-old-client ALL
         ${CMAKE_COMMAND} -E make_directory ${EXAMPLES_BIN_DIR}/${example}
         COMMAND ${CMAKE_COMMAND} -E copy
             ${EXAMPLES_BIN_DIR}/${CLIENT} ${EXAMPLES_BIN_DIR}/${example}/${CLIENT}
@@ -16,6 +16,6 @@ add_custom_target(
         DEPENDS ${NEW_TEST_NAME}_lib ${PREV_TEST_NAME}_client
 )
 
-add_test(NAME ${NEW_TEST_NAME}
+add_test(NAME ${NEW_TEST_NAME}-new-lib-with-old-client
     COMMAND ${EXAMPLES_BIN_DIR}/${example}/${CLIENT}
 )
