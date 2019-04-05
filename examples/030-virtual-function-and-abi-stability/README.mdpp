@@ -1,7 +1,7 @@
 ## Example - Virtual Function and ABI Stability
 In previous examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability isn't demonstrated yet. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
 
-This example is next version of immediate previous one (i.e. *Virtual function and runtime polymorphism*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
+This example is next version of immediate previous one (i.e. *Virtual function*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
 
 Below I am showing the diff of new header with previous one.
 
@@ -13,7 +13,7 @@ Below is the diff of client code from the previous example:
 
 !INCLUDECODE "examples/030-virtual-function-and-abi-stability/readme-assets/client-diff.diff" (diff)
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `runtime polymorphism`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-abi-stability/` ensures the client of `runtime polymorphism` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-abi-stability/` ensures the client of `virtual-function` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
 

@@ -65,7 +65,7 @@ Below is the diff of client code from the previous example:
 
 ```
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `runtime polymorphism`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-abi-stability/` ensures the client of `runtime polymorphism` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-abi-stability/` ensures the client of `runtime polymorphism` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
 

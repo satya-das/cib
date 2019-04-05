@@ -11,10 +11,10 @@ This example explains the basic building blocks of CIB architecture and how CIB 
 
 For details please see [A Simple Class example](examples/010-simple-class/README.md)
 
-## Example - Runtime polymorphism
+## Example - Virtual Function
 This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example too is just to explain required building blocks. In the next example we will consider the ABI stability.
 
-For details please see [Runtime polymorphism example](examples/020-virtual-function/README.md)
+For details please see [Virtual Function example](examples/020-virtual-function/README.md)
 
 ## Example - Virtual Function and ABI Stability
 

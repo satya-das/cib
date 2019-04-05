@@ -1,4 +1,4 @@
-## Example - Runtime polymorphism
+## Example - Virtual Function
 
 In this example we will see what CIB does with virtual functions and how runtime polymorphism works across component boundary. Consider the following example:
 
