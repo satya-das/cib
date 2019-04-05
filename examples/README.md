@@ -14,30 +14,30 @@ For details please see [A Simple Class example](examples/010-simple-class)
 ## Example - Virtual Function
 This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example too is just to explain required building blocks. In the next example we will consider the ABI stability.
 
-For details please see [Virtual Function example](examples/020-virtual-function/README.md)
+For details please see [Virtual Function example](examples/020-virtual-function)
 
 ## Example - Virtual Function and ABI Stability
 
 This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example). That demostrates that CIB ensures ABI stability when virtual table is disrupted.
 
-For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-abi-stability/README.md)
+For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-abi-stability)
 
 ## Example - Interface Classes
 
 In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
 
-For details please see [Interface Class example](examples/060-simple-interface-class/README.md)
+For details please see [Interface Class example](examples/060-simple-interface-class)
 
 ## Example - Interface Classes and ABI Stability
 
 In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
 
-For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-abi-stability/README.md)
+For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-abi-stability)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
 
-For details please see [C++ Template Classes example](examples/100-template-classes/README.md)
+For details please see [C++ Template Classes example](examples/100-template-classes)
 
 ## Example - Facade Classes and RTTI
 
