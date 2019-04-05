@@ -4,16 +4,105 @@ In example `Interface Classes` we have only tackled the cases that are very much
 
 Below I am showing the diff of new header with previous one.
 
+```diff
+--- 060-simple-interface-class/pub/example.h
++++ 070-simple-interface-class-and-abi-stability/pub/example.h
+@@ -1,19 +1,20 @@
+ #pragma once
+ 
+ class Interface
+ {
+ public:
++  //! Just to disrupt vtable.
++  virtual int Gunc() { return 193; };
+   virtual int Func() = 0;
+   virtual ~Interface() {}
+ };
+ 
+ class A
+ {
+ public:
+   A();
+   int UseInterface(Interface* pInterface) const
+   {
+     return pInterface->Func();
+   }
+ };
+-
+
+```
 
 As it can be seen that only new virtual methods are added to an existing interfaces. But the new virtual method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
 
 Below is the diff of client code from the previous example:
 
+```diff
+17a18,23
+> TEST_CASE("Interface callback: new method should be available to new clients")
+> {
+>   A a;
+>   Implement i;
+>   CHECK(i.Gunc() == 193);
+> }
+
+```
 
 There is no surprises that this new client will work with new library. But the old client, the client of previous example `interface classes`, should continue working with new library without any change or recompilation. The automated test `interface-classes-and-abi-stability` ensures the client of `interface classes` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
 
+```diff
+--- ../060-simple-interface-class/cib/example.h.cpp
++++ cib/example.h.cpp
+@@ -20,10 +20,15 @@
+   Interface(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+     : ::Interface::Interface()
+     , __zz_cib_proxy(proxy)
+     , __zz_cib_mtbl_helper(mtbl)
+   {}
++  int Gunc() override {
++    using GuncProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
++    return __zz_cib_get_mtable_helper().invoke<GuncProc, __zz_cib_GenericProxy::__zz_cib_methodid::Gunc_2>(
++      __zz_cib_proxy);
++  }
+   int Func() override {
+     using FuncProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+     return __zz_cib_get_mtable_helper().invoke<FuncProc, __zz_cib_GenericProxy::__zz_cib_methodid::Func_0>(
+       __zz_cib_proxy);
+   }
+@@ -40,10 +45,13 @@
+ namespace __zz_cib_Delegator {
+ using __zz_cib_Delegatee = __zz_cib_::Interface::__zz_cib_GenericProxy::Interface;
+ static ::Interface* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
+   return new __zz_cib_::Interface::__zz_cib_GenericProxy::Interface(proxy, mtbl);
+ }
++static int __zz_cib_decl Gunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
++  return __zz_cib_obj->::Interface::Gunc();
++}
+ static int __zz_cib_decl Func_1(__zz_cib_Delegatee* __zz_cib_obj) {
+   return __zz_cib_obj->Func();
+ }
+ static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+   delete __zz_cib_obj;
+@@ -60,13 +68,14 @@
+ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+   static const __zz_cib_MTableEntry methodArray[] = {
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Func_1),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
+-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_3)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_3),
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Gunc_4)
+   };
+-  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
++  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+   return &methodTable;
+ }
+ }}
+ namespace __zz_cib_ { namespace A {
+ namespace __zz_cib_Delegator {
+
+```
 
 As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability**.
 
@@ -21,7 +110,7 @@ As it can be seen that the new method caused a new entry in method table and tha
 To make CIB ensure ABI stability we needed to run cib with additional parameter and supplied ID file of previous example:
 
 ```sh
-cib -i pub -o exp -b cib -m Example -c ../interface-classes/cib/__zz_cib_Example-ids.h
+cib -i pub -o exp -b cib -m Example -c ../060-simple-interface-class/cib/__zz_cib_Example-ids.h
 ```
 
 This makes cib understand that we want ABI stability with previous example and CIB generates glue code accordingly.
