@@ -47,7 +47,7 @@ Below is the diff of client code from the previous example:
 
 ```
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `interface classes`, should continue working with new library without any change or recompilation. The automated test `interface-classes-and-abi-stability` ensures the client of `interface classes` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `interface classes`, should continue working with new library without any change or recompilation. The automated test `simple-interface-class-and-abi-stability` ensures the client of `simple-interface-class` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
 
