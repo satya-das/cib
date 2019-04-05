@@ -90,22 +90,25 @@ find_program(
 )
 
 set(EXAMPLES
-	simple-class
-	runtime-polymorphism
-	interface-classes
-	virtual-function-and-abi-stability
-	inheritance-type-and-abi-stability
-	inheritance-change-and-abi-stability
-	interface-classes-and-abi-stability
-	facade-classes-and-rtti
-	template-classes
-	proxy-object-reuse
-	private-virtuals
-	rvalue-parameters
-	free-functions
-	reference-of-pointer
-	pod-struct
-	layout-sharing-proxy-classes
+	010-simple-class
+	020-virtual-function
+	030-virtual-function-and-abi-stability
+	040-inheritance-change-and-abi-stability
+	050-inheritance-type-and-abi-stability
+	060-simple-interface-class
+	070-simple-interface-class-and-abi-stability
+	080-complex-interface-classes
+	090-complex-interface-classes-and-abi-stability
+	100-template-classes
+	110-facade-classes-and-rtti
+	120-proxy-object-reuse
+	130-layout-sharing-proxy-classes
+	140-rvalue-parameters
+	150-reference-of-pointer
+	160-free-functions
+	170-private-virtuals
+	180-pod-struct
+	# 190-function-pointer
 )
 add_subdirectory(examples)
 

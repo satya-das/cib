@@ -1,0 +1,7 @@
+17a18,23
+> TEST_CASE("Interface callback: new method should be available to new clients")
+> {
+>   A a;
+>   Implement i;
+>   CHECK(i.Gunc() == 193);
+> }
