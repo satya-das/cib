@@ -10,19 +10,15 @@ Component Interface Binder (CIB)
 
 **In a nutshell CIB is the answer to the problem for which C is used for exporting APIs of an application/library even when the application/library itself uses C++ for most of its implementation. C++ is great in expressing API but compiler generated ABI makes it difficult to use to publish compiler independent and ABI stable SDK.**
 
-# Abstract
-*C++ components are not ABI compatible and achieving ABI stability is very difficult. Programmers use C for exporting APIs that can be called from across component boundary. ABI compatibility and stability problem of C++ is what makes programmer resort to use of C when it comes to exporting API.
-There are some proposals about standard C++ ABI, like [Itanium C++ ABI](http://mentorembedded.github.io/cxx-abi/), that if used by all compilers and that does not change based on compiler switch, will make it possible to have ABI compatible C++ components. But that will still not make components ABI stable.*
-
 ## Jargon
 1. **ABI Compatibility**: Compatibility of binary C++ components even when they are built with different compilers.
 2. **API Stability**: Ability to compile client of a library with newer SDK headers without any change.
 3. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of plugin (in binary form) of an application to seemlessly work with newer application.
+4. **Forward Compatibility**: It is specific ABI stability where older library can work with newer client.
 
 # Overview
- CIB is an architecture to make it possible to publish compiler independent and ABI stable C++ library.
- This project is also about a tool that implements `cib architecture` for a given library headers.
- CIB architecture allows one binary component to use classes and functions defined in another binary component that may be built using different compiler. CIB architecture also ensures ABI stability between binary components
+CIB is an architecture to publish compiler independent, ABI stable, and forward compatible C++ library.
+This project is also about a tool that implements `cib architecture` automatically for given library headers.
 CIB can also be used as plugin architecture of application.
 
 _In this document the binary component that exposes its classes will be called **Library**, a library can be an executable or a **DLL/SO**. The component that is compiled using SDK of the library will be called client of that library._
