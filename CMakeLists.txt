@@ -91,6 +91,8 @@ find_program(
 
 set(EXAMPLES
 	010-simple-class
+	015-simple-class-and-abi-stability
+	018-simple-class-and-fwd-compatibility
 	020-virtual-function
 	030-virtual-function-and-abi-stability
 	040-inheritance-change-and-abi-stability

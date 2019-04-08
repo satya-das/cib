@@ -8,8 +8,9 @@ namespace Example
   class A
   {
   public:
+    A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    int SomeFunc();
+    int SomeFunc() { return 1; }
   };
 }

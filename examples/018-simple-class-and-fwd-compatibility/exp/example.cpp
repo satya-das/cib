@@ -27,3 +27,7 @@ Example::A::A()
 int Example::A::SomeFunc() {
   return __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc_3(__zz_cib_h_);
 }
+
+int Example::A::AnotherFunction() {
+  return __zz_cib_::Example::A::__zz_cib_Helper::AnotherFunction_4(__zz_cib_h_);
+}

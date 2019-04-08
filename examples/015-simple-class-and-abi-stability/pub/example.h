@@ -1,6 +1,4 @@
-#pragma  once
-
-#include "__zz_cib_internal/example-predef.h"
+#pragma once
 
 //! Contains example definitions to explain cib's functioning
 namespace Example
@@ -10,18 +8,14 @@ namespace Example
   class A
   {
   public:
-    A(A&& rhs);
-  public:
-    A(A const & );
-    ~A();
     A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    int SomeFunc();
+    int SomeFunc() { return 1; }
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+    //! Just to ensure object layout gets disrupted.
+    //! Old clients built with previous header should keep working.
+    int x1, x2;
   };
 }
-
-#include "__zz_cib_internal/example-impl.h"

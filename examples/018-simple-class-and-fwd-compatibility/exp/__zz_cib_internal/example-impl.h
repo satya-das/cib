@@ -46,6 +46,12 @@ private:
       __zz_cib_obj
       );
   }
+  static int AnotherFunction_4(__zz_cib_TYPE* __zz_cib_obj) {
+    using AnotherFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<AnotherFunctionProc, __zz_cib_methodid::AnotherFunction_4>(
+      __zz_cib_obj
+      );
+  }
   static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::Example::A(h);
   }

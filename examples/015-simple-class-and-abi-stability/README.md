@@ -46,7 +46,7 @@ Example::A::A()
 TEST_CASE("Method call")
 {
   Example::A a;
-  CHECK(a.SomeFunc() == 5);
+  CHECK(a.SomeFunc() == 1);
 }
 
 ```
@@ -648,7 +648,7 @@ Let's see what happens when following code is executed by client program:
 TEST_CASE("Method call")
 {
   Example::A a;
-  CHECK(a.SomeFunc() == 5);
+  CHECK(a.SomeFunc() == 1);
 }
 
 ```
