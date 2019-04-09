@@ -5,19 +5,16 @@ This example is next version of immediate previous one (i.e. *Virtual function*)
 
 Below I am showing the diff of new header with previous one.
 
-!INCLUDECODE "examples/030-virtual-function-and-abi-stability/readme-assets/header-diff.diff" (diff)
 
 As it can be seen that only a new virtual method is added to an existing class. But the new virtual method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
 
 Below is the diff of client code from the previous example:
 
-!INCLUDECODE "examples/030-virtual-function-and-abi-stability/readme-assets/client-diff.diff" (diff)
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-abi-stability/` ensures the client of `virtual-function` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-bkwd-compatibility/` ensures the client of `virtual-function` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
 
-!INCLUDECODE "examples/030-virtual-function-and-abi-stability/readme-assets/cib.diff" (diff)
 
 As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the method table precisely how they expects it to be and that ensures ABI stability**.
 

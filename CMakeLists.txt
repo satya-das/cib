@@ -91,16 +91,16 @@ find_program(
 
 set(EXAMPLES
 	010-simple-class
-	015-simple-class-and-abi-stability
-	018-simple-class-and-fwd-compatibility
+	015-simple-class-and-bkwd-compatibility
+	018-simple-class-and-forwd-compatibility
 	020-virtual-function
-	030-virtual-function-and-abi-stability
-	040-inheritance-change-and-abi-stability
-	050-inheritance-type-and-abi-stability
+	030-virtual-function-and-bkwd-compatibility
+	040-inheritance-change-and-bkwd-compatibility
+	050-inheritance-type-and-bkwd-compatibility
 	060-simple-interface-class
-	070-simple-interface-class-and-abi-stability
+	070-simple-interface-class-and-bkwd-compatibility
 	080-complex-interface-classes
-	090-complex-interface-classes-and-abi-stability
+	090-complex-interface-classes-and-bkwd-compatibility
 	100-template-classes
 	110-facade-classes-and-rtti
 	120-proxy-object-reuse

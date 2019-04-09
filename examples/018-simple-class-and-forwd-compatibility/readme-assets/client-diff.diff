@@ -1,5 +1,5 @@
 --- 010-simple-class/src/example-client.cpp
-+++ 018-simple-class-and-fwd-compatibility/src/example-client.cpp
++++ 018-simple-class-and-forwd-compatibility/src/example-client.cpp
 @@ -1,9 +1,18 @@
  #include "example.h"
  

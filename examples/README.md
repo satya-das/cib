@@ -13,8 +13,8 @@
 ## Types of Examples:
 There are 3 types of examples:
 - Examples that tests basic C++ feature of cibified SDK.
-- Examples that tests cibified SDK offers **ABI stability**, such tests have `abi-stability` in it's name.
-- Examples that tests cibified SDK offers **forward compatibility**, tests that have `fwd-compatibility` in it's name.
+- Examples that tests cibified SDK offers **backward compatibility**, such tests have `bkwd-compatibility` in it's name.
+- Examples that tests cibified SDK offers **forward compatibility**, tests that have `forwd-compatibility` in it's name.
 
 ## Example - A Simple Class
 This example explains the basic building blocks of CIB architecture and how CIB defines it's own ABI that ensures ABI stability. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
@@ -30,7 +30,7 @@ For details please see [Virtual Function example](examples/020-virtual-function)
 
 This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example). That demostrates that CIB ensures ABI stability when virtual table is disrupted.
 
-For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-abi-stability)
+For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-bkwd-compatibility)
 
 ## Example - Interface Classes
 
@@ -42,7 +42,7 @@ For details please see [Interface Class example](examples/060-simple-interface-c
 
 In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
 
-For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-abi-stability)
+For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-bkwd-compatibility)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.

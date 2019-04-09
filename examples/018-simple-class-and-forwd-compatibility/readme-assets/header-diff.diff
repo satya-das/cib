@@ -1,5 +1,5 @@
 --- 010-simple-class/pub/example.h
-+++ 018-simple-class-and-fwd-compatibility/pub/example.h
++++ 018-simple-class-and-forwd-compatibility/pub/example.h
 @@ -1,16 +1,22 @@
  #pragma once
  

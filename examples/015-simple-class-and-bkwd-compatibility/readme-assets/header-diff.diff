@@ -1,5 +1,5 @@
 --- 010-simple-class/pub/example.h
-+++ 015-simple-class-and-abi-stability/pub/example.h
++++ 015-simple-class-and-bkwd-compatibility/pub/example.h
 @@ -1,16 +1,21 @@
  #pragma once
  

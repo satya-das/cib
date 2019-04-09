@@ -1,5 +1,5 @@
 --- 020-virtual-function/pub/example.h
-+++ 030-virtual-function-and-abi-stability/pub/example.h
++++ 030-virtual-function-and-bkwd-compatibility/pub/example.h
 @@ -1,20 +1,21 @@
  #pragma once
  

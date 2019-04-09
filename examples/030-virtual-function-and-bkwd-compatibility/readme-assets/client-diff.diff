@@ -1,5 +1,5 @@
 --- 020-virtual-function/src/example-client.cpp
-+++ 030-virtual-function-and-abi-stability/src/example-client.cpp
++++ 030-virtual-function-and-bkwd-compatibility/src/example-client.cpp
 @@ -1,20 +1,21 @@
  #include "example.h"
  

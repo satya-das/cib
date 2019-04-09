@@ -1,5 +1,5 @@
 --- 060-simple-interface-class/pub/example.h
-+++ 070-simple-interface-class-and-abi-stability/pub/example.h
++++ 070-simple-interface-class-and-bkwd-compatibility/pub/example.h
 @@ -1,19 +1,20 @@
  #pragma once
  

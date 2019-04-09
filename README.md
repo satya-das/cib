@@ -13,22 +13,23 @@ Component Interface Binder (CIB)
 ## Jargon
 1. **ABI Compatibility**: Compatibility of binary C++ components even when they are built with different compilers.
 2. **API Stability**: Ability to compile client of a library with newer SDK headers without any change.
-3. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of plugin (in binary form) of an application to seemlessly work with newer application.
+3. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of a plugin (in binary form) of an application to seemlessly work with newer application.
 4. **Forward Compatibility**: It is specific ABI stability where older library can work with newer client.
+5. **Backward Compatibility**: It is specific ABI stability where newer library can work with older client.
+
+**Note**: In this document when _ABI Stability_ is mentioned we will mean both forward and backward compatibility.
 
 # Overview
-CIB is an architecture to publish compiler independent, ABI stable, and forward compatible C++ library.
+CIB is an architecture to publish compiler independent and ABI stable C++ library.
 This project is also about a tool that implements `cib architecture` automatically for given library headers.
 CIB can also be used as plugin architecture of application.
 
-_In this document the binary component that exposes its classes will be called **Library**, a library can be an executable or a **DLL/SO**. The component that is compiled using SDK of the library will be called client of that library._
+# What is ABI
+We programmers do have some understanding about `ABI`. The wikipedia also has [a page for ABI](https://en.wikipedia.org/wiki/Application_binary_interface). But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading language feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
 
-**Please note that CIB is an architecture that can be implemented using hand written code. It is just that it can be tedious to do that for large scale project and so we may need a tool. This project is for describing what excatly is CIB architecture and also for developing a tool that implements it.**
- 
 # CIB Features
 - **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
-- **ABI Stability**: Clients don't need to recompile with new headers unless an existing function is removed.
-- **Forward Compatibility**: Newer clients can work with older library. _Some precautions is needed by both library and client for this._
+- **ABI Stability**: Both new library with old client and old library with new client should be binary compatible.
 - **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
 - **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
 
@@ -46,9 +47,6 @@ I have come across some solutions that try to solve the same problem but none of
 - **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
 
 **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
-
-# What is ABI
-It may appear, in this document, I am late in defining `what is ABI`. We programmers do have some understanding about `ABI`. The [wikipedia](https://en.wikipedia.org/wiki/Application_binary_interface) also has a page for ABI. But I want to add another perspective about what exactly is ABI. **An ABI of a component is implementation details of features of the language in which the component is developed.** And this implementation detail depends on the compiler. For example, for a C++ component, we see mangled function names at binary level. The reason for that is C++ allows function overloading and compilers use name mangling to implement function overloading language feature of C++. In the same way all the implementation detail of other features of C++, like inheritance, encapsulation, runtime polymorphism, etc. end up being the ABI itself.
 
 # Why C++ has ABI compatibity and stability issues
 Actually even C has this problem, it's just another matter that it is relatively easier to achieve ABI compatibility and stability in C.
@@ -173,17 +171,17 @@ Total Test time (real) =   0.01 sec
 There are examples that uses client of another example to show ABI stability when the library is changed. For example running:
 
 ```sh
-ctest -R virtual-function-and-abi-stability
+ctest -R virtual-function-and-bkwd-compatibility
 ```
 
 Will give following output:
 
 ```
 Test project /home/dassat/github/cib/build
-    Start 5: virtual-function-and-abi-stability_client
-1/2 Test #5: virtual-function-and-abi-stability_client ....................   Passed    0.00 sec
-    Start 6: virtual-function-and-abi-stability-new-lib-with-old-client
-2/2 Test #6: virtual-function-and-abi-stability-new-lib-with-old-client ...   Passed    0.00 sec
+    Start 5: virtual-function-and-bkwd-compatibility_client
+1/2 Test #5: virtual-function-and-bkwd-compatibility_client ....................   Passed    0.00 sec
+    Start 6: virtual-function-and-bkwd-compatibility-new-lib-with-old-client
+2/2 Test #6: virtual-function-and-bkwd-compatibility-new-lib-with-old-client ...   Passed    0.00 sec
 
 100% tests passed, 0 tests failed out of 2
 
@@ -209,8 +207,8 @@ Now we will delve into examples to know the details of CIB architecture.
 ## Types of Examples:
 There are 3 types of examples:
 - Examples that tests basic C++ feature of cibified SDK.
-- Examples that tests cibified SDK offers **ABI stability**, such tests have `abi-stability` in it's name.
-- Examples that tests cibified SDK offers **forward compatibility**, tests that have `fwd-compatibility` in it's name.
+- Examples that tests cibified SDK offers **backward compatibility**, such tests have `bkwd-compatibility` in it's name.
+- Examples that tests cibified SDK offers **forward compatibility**, tests that have `forwd-compatibility` in it's name.
 
 ## Example - A Simple Class
 This example explains the basic building blocks of CIB architecture and how CIB defines it's own ABI that ensures ABI stability. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
@@ -226,7 +224,7 @@ For details please see [Virtual Function example](examples/020-virtual-function)
 
 This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example). That demostrates that CIB ensures ABI stability when virtual table is disrupted.
 
-For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-abi-stability)
+For details please see [Virtual Function and ABI Stability example](examples/030-virtual-function-and-bkwd-compatibility)
 
 ## Example - Interface Classes
 
@@ -238,7 +236,7 @@ For details please see [Interface Class example](examples/060-simple-interface-c
 
 In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
 
-For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-abi-stability)
+For details please see [Interface Class And ABI Sytability example](examples/070-simple-interface-class-and-bkwd-compatibility)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
