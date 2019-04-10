@@ -43,7 +43,7 @@ script:
   - git clone https://github.com/satya-das/common.git
   - mkdir -p build_results
   - cd build_results
-  - cmake -DCMAKE_C_COMPILER=`which ${CC}` -DCMAKE_CXX_COMPILER=`which ${CXX}` ../../cib/
+  - cmake -DCMAKE_C_COMPILER=`which ${CC}` -DCMAKE_CXX_COMPILER=`which ${CXX}` ../cib/
   - make
   - make CibCoverage
 
