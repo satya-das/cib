@@ -16,6 +16,24 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 
+  include:
+    - branches:
+      only:
+        - develop
+    - os: osx
+      addons:
+        apt:
+          packages:
+#            - g++-5
+            - cmake-data
+            - cmake
+#            - lcov
+          sources: &sources
+#            - llvm-toolchain-precise-3.8
+#            - ubuntu-toolchain-r-test
+      env:
+        - MATRIX_EVAL="CC=clang && CXX=clang++"
+
 before_install:
   - eval "${MATRIX_EVAL}"
 
@@ -23,9 +41,9 @@ script:
   - git clone https://github.com/satya-das/cib.git
   - git clone https://github.com/satya-das/cppparser.git
   - git clone https://github.com/satya-das/common.git
-  - mkdir -p build_results/GNU
-  - cd build_results/GNU
-  - cmake -DCMAKE_C_COMPILER=`which gcc-5` -DCMAKE_CXX_COMPILER=`which g++-5` ../../cib/
+  - mkdir -p build_results
+  - cd build_results
+  - cmake -DCMAKE_C_COMPILER=`which ${CC}` -DCMAKE_CXX_COMPILER=`which ${CXX}` ../../cib/
   - make
   - make CibCoverage
 
