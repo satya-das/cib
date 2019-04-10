@@ -144,19 +144,6 @@ cmake -G Ninja ..
 ninja && ninja test
 ```
 
-# Demo Project
-For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
-
-**graphics** is the library that provides definition of various shape classes, like Circle, Rectangle, etc.
-**draw** is the client of **graphics** that uses it to draw various shapes.
-Folder **graphics/pub** contains files that graphics library wants to make public.
-
-When **cib** is run, which is done as pre-build step, it creates files in **graphics/cib** and **graphics/exp**. These generated files use files in **graphics/pub** as input.
-Files in **graphics/cib** are meant for **graphics** library to compile with.
-Files in **graphics/exp** are part of SDK of library and meant for client of **graphics**, in this case **draw** project to compile with.
-
-Build **draw** and run it. Make changes in headers of **graphics** and build just **graphics_cibified** and run **draw_cibified**. Observe that non-breaking changes listed above don't make **graphics_cibified** and **draw_cibified** incompatible. But those changes make **graphics** and **draw** (the binaries that don't use CIB) incompatible.
-
 # Feature Progress of CIB tool
 
 | Feature                                   | Description | Status |
