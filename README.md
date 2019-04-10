@@ -112,6 +112,9 @@ The code that forms client side layer is called **client side glue code**. This 
 
 [The rest of the details of CIB architecture can be understood with examples.](examples)
 
+## CIB Architecture Detail
+Details of CIB architecture is explained with various examples. Please see [Examples](examples) to know the details.
+
 # Building CIB
 ## Get the source
 
@@ -140,67 +143,6 @@ cd builds
 cmake -G Ninja ..
 ninja && ninja test
 ```
-
-# Possible Optimization
-
-## Layout Sharing Proxy Class
-In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
-
-```c++
-#pragma once
-
-class CPoint
-{
-public:
-  CPoint(double _x = 0, double _y = 0, double _z = 0);
-  const CPoint& operator += (const CPoint& p) {
-    x += p.x;
-    y += p.y;
-    z += p.z;
-
-    return *this;
-  }
-
-public:
-  double x;
-  double y;
-  double z;
-};
-
-```
-
-There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `CPoint` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
-1. Memory is saved as layout is shared between client and library.
-2. It is possible to share raw object array across component boundary which is not possible for isolated proxy objects.
- 
-But library developer, when decide to use layout sharing proxy class for a particular class, must be careful as they would, had it been a struct in a C library.
-
-Please see example `layout-sharing-proxy-classes` for more detail.
-
-# Limitations of CIB Architecture
-CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
-
-| Limitation                                                  | Reason       | Workaround, if any |
-| ---------------------------------                           | :----------  | :----------------- |
-| Mandatory creation of proxy objects                         | The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too.                                                             | Use layout sharing proxy wherever applicable |
-| Objects of library are always created on heap by the client | This is not true for layout sharing proxy classes but when client creates an object of isolated proxy object the corresponding object on library side is always created on heap.   | Use layout sharing proxy wherever applicable |
-| Increased binary size and memory usage                      | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                           | Use layout sharing proxy wherever applicable |
-| Impact on runtime performance                               | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer. | In practice these costs may not be significant. |
-| No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                           | Return a container object instead or use layout sharing proxy wherever applicable. |
-| In some cases explicit cleanup of proxy objects.            | Clients can only use library objects through proxies. And so when library returns an object which is not expected to be deleted then client will never delete the proxy object. Such object will be left without deletion and so they may need explicit cleanup. [See more on explicit proxy cleanup](#more-on-explicit-proxy-cleanup), and [Possible Improvement](#possible-improvement. | Use `shared_ptr`, or `unique_ptr`. Or, Use layout sharing proxy wherever applicable. |
-
-## More on explicit proxy cleanup
-
-The example of such cases can be 
-- Singleton object whose creation and deletion is handled by library.
-- Internal objects returned by library:
-- A parameter of a callback invoked by library.
-
-If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see [Possible Improvement](#possible-improvement).
-
-# Possible Improvement
-In the current implementation of CIB the association of library side object and proxy object is saved on the client side in a `map`. When a proxy object for a library side object is needed then unless there is no already existing proxy object available a new one is created. See example `proxy-object-reuse`.
-CIB uses this implementation because the goal of CIB is to be minimally invasive, i.e. it doesn't want to change the way developer wants to define their classes. But if we can relax this restriction a little bit then the association between library side object and it's proxy objects can be stored in the library side object itself. The main benefit of this change will be to avoid the limitation where there is a need to explicitly clean the proxy objects. When a library side object is deleted then all associated proxy objects, if any, can be deleted too.
 
 # Demo Project
 For working demo see projects **graphics** and **draw** in `demo/functionality` folder.
@@ -251,38 +193,4 @@ Build **draw** and run it. Make changes in headers of **graphics** and build jus
 | Support public data members               | Public data members of a class should be exported in ABI stable way. |
 
 ---
-
-# CIB Terminology
-## Inline Class
-A class that has all methods inline. *For example a template class is surely an inline class*.
-## Shared Class
-A C++ class whose intances cross component boundary: *When a class is not an inline class or there exists a public function that returns or takes an object/pointer/reference of a C++ class then such class is called a shared class*.
-## Facade Class
-A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
-## Interface Class
-A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
-*A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
-## Proxy Class
-For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
-  1. Isolated proxy class, aka bridge proxy class.
-  2. Layout sharing proxy class. Both original and proxy class share same object layout.
-
-**Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
-## Handle
-Each isolated proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
-
-# Implementation Details
-## Parsing Technique
-We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
-
-`
-void ExampleFunction(wxInt32 i);
-`
-
-cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
-
-## Creating proxy class from handle
-When a function returns pointer to base class then it is necessary to create instance of proxy class which represents exact same class that the returned pointer is pointing to. For example if a function return type is Shape* and when invoked it actually returns pointer to a Rectangle instance. On client side we will need to create instance of Rectangle proxy class instead of Shape proxy class. It is to be noted that it has to be done only for facade classes for other classes there is no need for this.
-
-**TODO**: Add more details.
 
