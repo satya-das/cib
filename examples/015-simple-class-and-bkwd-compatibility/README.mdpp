@@ -1,4 +1,4 @@
-## Example - A Simple Class
+## Example - Simple Class and Backward Compatibility
 This is very first example that explains basic building blocks of CIB. Being the first example it has to cover a vast ground and so my applogies for it's unusual length.
 
 Let's consider the following example:

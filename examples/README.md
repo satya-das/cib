@@ -12,9 +12,9 @@
 
 ## Types of Examples:
 There are 3 types of examples:
-- Examples that tests basic C++ feature of cibified SDK.
-- Examples that tests cibified SDK offers **backward compatibility**, such tests have `bkwd-compatibility` in it's name.
-- Examples that tests cibified SDK offers **forward compatibility**, tests that have `forwd-compatibility` in it's name.
+1. Examples that tests basic C++ feature of cibified SDK.
+2. Examples that tests cibified SDK offers **backward compatibility**, such tests have `bkwd-compatibility` in it's name.
+3. Examples that tests cibified SDK offers **forward compatibility**, tests that have `forwd-compatibility` in it's name.
 
 ## Example - A Simple Class
 This example explains the basic building blocks of CIB architecture and how CIB defines it's own ABI that ensures ABI stability. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
