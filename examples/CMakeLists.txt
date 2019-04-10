@@ -13,7 +13,7 @@ set(LCOV_TARGETS "")
 foreach(example ${EXAMPLES})
     set(example_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/${example})
     set(LIBNAME ${example}_lib)
-    set(CLIENTNAME ${example}_client)
+    set(CLIENTNAME ${example})
 
     include("${example}/lists.cmake")
 endforeach()

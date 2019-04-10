@@ -160,8 +160,8 @@ The output of above will be something like:
 
 ```
 Test project /home/dassat/github/cib/builds
-    Start 3: runtime-polymorphism_client
-1/1 Test #3: runtime-polymorphism_client ......   Passed    0.01 sec
+    Start 3: runtime-polymorphism
+1/1 Test #3: runtime-polymorphism ......   Passed    0.01 sec
 
 100% tests passed, 0 tests failed out of 1
 
@@ -178,8 +178,8 @@ Will give following output:
 
 ```
 Test project /home/dassat/github/cib/build
-    Start 5: virtual-function-and-bkwd-compatibility_client
-1/2 Test #5: virtual-function-and-bkwd-compatibility_client ....................   Passed    0.00 sec
+    Start 5: virtual-function-and-bkwd-compatibility
+1/2 Test #5: virtual-function-and-bkwd-compatibility ....................   Passed    0.00 sec
     Start 6: virtual-function-and-bkwd-compatibility-new-lib-with-old-client
 2/2 Test #6: virtual-function-and-bkwd-compatibility-new-lib-with-old-client ...   Passed    0.00 sec
 
