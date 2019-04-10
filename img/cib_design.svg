@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="cib_design.svg"
-   inkscape:export-filename="/home/dassat/github/cib/cib_design.png"
+   inkscape:export-filename="/home/dassat/github/cib/img/cib_design.png"
    inkscape:export-xdpi="100.72"
    inkscape:export-ydpi="100.72">
   <defs
@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.341"
-     inkscape:cx="490.91573"
+     inkscape:cx="364.51752"
      inkscape:cy="156.48482"
      inkscape:document-units="px"
      inkscape:current-layer="g4395"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -239,25 +239,15 @@
           <text
              sodipodi:linespacing="0%"
              id="text3930-1-6"
-             y="720.22693"
+             y="727.01099"
              x="496.22958"
              style="font-style:normal;font-weight:normal;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
              xml:space="preserve"><tspan
                style="font-size:17.5px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
-               y="720.22693"
-               x="496.22958"
-               id="tspan3932-4-1"
-               sodipodi:role="line">Function calls using fptr</tspan><tspan
-               id="tspan974"
-               style="font-size:17.5px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
-               y="742.10193"
-               x="496.22958"
-               sodipodi:role="line">Only PODs cross DLL boundary</tspan><tspan
-               style="font-size:17.5px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
                id="tspan3934-3-9"
-               y="763.97693"
+               y="727.01099"
                x="496.22958"
-               sodipodi:role="line" /></text>
+               sodipodi:role="line">Function calls using CIB ABI</tspan></text>
           <path
              sodipodi:nodetypes="cc"
              inkscape:connector-curvature="0"
