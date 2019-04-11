@@ -95,6 +95,7 @@ set(EXAMPLES
 	018-simple-class-and-forwd-compatibility
 	020-virtual-function
 	030-virtual-function-and-bkwd-compatibility
+	035-virtual-function-and-forwd-compatibility
 	040-inheritance-change-and-bkwd-compatibility
 	050-inheritance-type-and-bkwd-compatibility
 	060-simple-interface-class

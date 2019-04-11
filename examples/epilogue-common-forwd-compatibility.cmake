@@ -6,6 +6,7 @@ set(PREV_LIBNAME "${LIBRARY_PREFIX}${PREV_TEST_NAME}_lib.so")
 set(NEW_LIBNAME  "${LIBRARY_PREFIX}${example}_lib.so")
 set(CLIENT       "${example}${SUFFIX}")
 set(TEST_NAME    "${example}-new-client-with-old-lib")
+
 add_custom_target(
     ${TEST_NAME} ALL
         ${CMAKE_COMMAND} -E make_directory ${TEST_NAME}

@@ -6,7 +6,7 @@ class A
 public:
   A();
   //! This is to know what cib does with virtual functions.
-  virtual int VirtFunc() { return 5; }
+  virtual int VirtFunc() { return 1; }
   virtual ~A() {}
 };
 

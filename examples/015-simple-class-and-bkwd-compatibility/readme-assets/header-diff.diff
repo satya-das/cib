@@ -1,6 +1,6 @@
 --- 010-simple-class/pub/example.h
 +++ 015-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,16 +1,21 @@
+@@ -1,20 +1,21 @@
  #pragma once
  
  //! Contains example definitions to explain cib's functioning
@@ -14,11 +14,11 @@
      A();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
-     int SomeFunc() { return 1; }
-+
-+  private:
-+    //! Just to ensure object layout gets disrupted.
-+    //! Old clients built with previous header should keep working.
-+    int x1, x2;
+     int SomeFunc() { return x; }
+     
+   private:
++    double f {0.0};
+     int x {1};
    };
  }
+ 

@@ -11,11 +11,11 @@ namespace Example
     A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    int SomeFunc() { return 1; }
-
+    int SomeFunc() { return x; }
+    
   private:
-    //! Just to ensure object layout gets disrupted.
-    //! Old clients built with previous header should keep working.
-    int x1, x2;
+    double f {0.0};
+    int x {1};
   };
 }
+

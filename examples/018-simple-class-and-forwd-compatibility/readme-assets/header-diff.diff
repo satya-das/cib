@@ -1,6 +1,6 @@
 --- 010-simple-class/pub/example.h
 +++ 018-simple-class-and-forwd-compatibility/pub/example.h
-@@ -1,16 +1,22 @@
+@@ -1,20 +1,23 @@
  #pragma once
  
  //! Contains example definitions to explain cib's functioning
@@ -14,13 +14,15 @@
      A();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
--    int SomeFunc() { return 1; }
-+    int SomeFunc() { return 2; }
-+
+     int SomeFunc() { return x; }
+     
 +    //! Adde method in new version
 +    int AnotherFunction() { return 109; }
-+  private:
-+    //! Make sure object layout is changed
-+    float x, y;
++    
+   private:
+-    int x {1};
++    char c {0x1f};
++    int x {2};
    };
  }
+-

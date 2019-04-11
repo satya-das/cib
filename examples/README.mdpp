@@ -21,16 +21,21 @@ This example explains the basic building blocks of CIB architecture and how CIB 
 
 For details please see [A Simple Class example](010-simple-class)
 
+## Example - Simple Class and Backward Compatibility
+This example illustrates the fact that change in data member of a class doesn't affect ABI stability because CIB uses bridge pattern and that is known to isolate client and library from changes in data members.
+
+For details please see [Simple Class and Backward Compatibility](015-simple-class-and-bkwd-compatibility)
+
 ## Example - Virtual Function
-This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example too is just to explain required building blocks. In the next example we will consider the ABI stability.
+This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example is just to explain required building blocks. In the next example we will consider the ABI stability.
 
 For details please see [Virtual Function example](020-virtual-function)
 
-## Example - Virtual Function and ABI Stability
+## Example - Virtual Function and Backward Compatibility
 
-This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example). That demostrates that CIB ensures ABI stability when virtual table is disrupted.
+This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example) with the new library. Bothe clients should work as expected with the new library. That demostrates CIB ensures ABI stability when virtual table is disrupted.
 
-For details please see [Virtual Function and ABI Stability example](030-virtual-function-and-bkwd-compatibility)
+For details please see [Virtual Function and Backward Compatibility example](030-virtual-function-and-bkwd-compatibility)
 
 ## Example - Interface Classes
 

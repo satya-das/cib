@@ -62,8 +62,6 @@ Things that can cause ABI compatibility and stability issues in C++ are:
 9. Exceptions.
 10. Inheritance.
 
-**_If you are reading this and think there are more reasons for ABI problem then please create a pull request._**
-
 First 5 can be problems in C as well. But techniques are well known and used to cicumvent them to achieve ABI stability in C.
 For C++, problems start with name mangling, that's the first reason of misunderstanding that can happen between 2 components. Layout for C++ objects are far more complex than C. There can be different layout for virtual tables depending upon compiler. Same goes for RTTI and exception. So, ensuring ABI compatibility is hard in C++. Ensuring ABI stability is super hard in general.
 **One thing to note is that maintaining ABI compatibility and stability in C is largely a responsibility of library developers.** In C++, CIB can make ABI compatibility and stability achievable, but developers will have to be as reponsible as they need to be when pure C is used.

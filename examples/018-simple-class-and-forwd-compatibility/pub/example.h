@@ -11,12 +11,13 @@ namespace Example
     A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    int SomeFunc() { return 2; }
+    int SomeFunc() { return x; }
 
     //! Adde method in new version
     int AnotherFunction() { return 109; }
+    
   private:
-    //! Make sure object layout is changed
-    float x, y;
+    char c {0x1f};
+    int x {2};
   };
 }

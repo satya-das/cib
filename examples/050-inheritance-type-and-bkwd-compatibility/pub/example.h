@@ -5,7 +5,7 @@ class A
 public:
   A();
   virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
-  virtual int VirtFunc() { return 5; }
+  virtual int VirtFunc() { return 1; }
   int SomeFunc() { return 10; }
 
   virtual ~A() {}

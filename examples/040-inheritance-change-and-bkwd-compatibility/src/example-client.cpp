@@ -5,7 +5,7 @@
 void PerformTest(A* pA)
 {
   CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
-  CHECK(pA->A::VirtFunc() == 5);        // A regular call without use of virtual table.
+  CHECK(pA->A::VirtFunc() == 1);        // A regular call without use of virtual table.
   CHECK(pA->SomeFunc() == 10);          // Non-virtual call.
   CHECK(pA->AnotherVirtFunc() == 100);
 

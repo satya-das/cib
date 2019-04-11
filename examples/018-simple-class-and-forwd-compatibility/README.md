@@ -19,9 +19,13 @@ namespace Example
     A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
-    int SomeFunc() { return 1; }
+    int SomeFunc() { return x; }
+    
+  private:
+    int x {1};
   };
 }
+
 
 ```
 
@@ -435,7 +439,7 @@ You can notice certain differences between this class and the original class in 
 ```diff
 --- pub/example.h
 +++ exp/example.h
-@@ -1,16 +1,27 @@
+@@ -1,20 +1,27 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -455,14 +459,15 @@ You can notice certain differences between this class and the original class in 
      A();
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
--    int SomeFunc() { return 1; }
+-    int SomeFunc() { return x; }
 +    int SomeFunc();
-+
-+  private:
+     
+   private:
+-    int x {1};
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
    };
  }
-+
+ 
 +#include "__zz_cib_internal/example-impl.h"
 
 ```
