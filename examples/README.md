@@ -33,9 +33,15 @@ For details please see [Virtual Function example](020-virtual-function)
 
 ## Example - Virtual Function and Backward Compatibility
 
-This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also old the client (i.e. the client of previous example) with the new library. Bothe clients should work as expected with the new library. That demostrates CIB ensures ABI stability when virtual table is disrupted.
+This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also the old client (i.e. the client of previous example) with the new library. Both clients should work as expected with the new library. That demostrates CIB ensures ABI stability when virtual table is disrupted.
 
 For details please see [Virtual Function and Backward Compatibility example](030-virtual-function-and-bkwd-compatibility)
+
+## Example - Virtual Function and Forward Compatibility
+
+This example too demonstrates how CIB ensures ABI stability even when virtual table is disrupted. But in this one new client is run with old library. Also, forward compatibility of library means backward complatibility of client and so if newer client calls function that is available only in new library then new client will not work properly with old library unless it takes precautions.
+
+For details please see [Virtual Function and Forward Compatibility example](035-virtual-function-and-forwd-compatibility)
 
 ## Example - Interface Classes
 

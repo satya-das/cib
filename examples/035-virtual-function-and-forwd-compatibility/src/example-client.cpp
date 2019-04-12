@@ -6,7 +6,15 @@ void PerformTest(A* pA)
 {
   CHECK(pA->VirtFunc() == 15);          // Compiler generated instruction will effectively call `pA->B::VirtFunc()`
   if (pA->A::VirtFunc() == 2)
-    CHECK(pA->AnotherVirtFunc() == 100);  // New function should be available to newer clients.
+  {
+    // New function should be available to newer clients.
+    CHECK(pA->AnotherVirtFunc() == 100);
+  }
+  else
+  {
+    // When new function is called with old library exception should be thrown.
+    CHECK_THROWS_AS(pA->AnotherVirtFunc(), std::bad_function_call);
+  }
 }
 
 TEST_CASE("ABI stable virtual function call across component boundary")
