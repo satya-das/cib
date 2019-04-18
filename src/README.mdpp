@@ -48,7 +48,7 @@ I have come across some solutions that try to solve the same problem but none of
 
 **And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
 
-# Why C++ has ABI compatibity and stability issues
+# Why C++ has ABI stability issues
 Actually even C has this problem, it's just another matter that it is relatively easier to achieve ABI compatibility and stability in C.
 Things that can cause ABI compatibility and stability issues in C++ are:
 1. Object layout.
