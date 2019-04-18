@@ -33,7 +33,7 @@ endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
 	COMMAND echo Running cib...
-	COMMAND ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Illustration1 -c ${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Illustration1-ids.h
+	COMMAND ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Illustration1 -c ${CMAKE_CURRENT_SOURCE_DIR}/sdk/__zz_cib_Illustration1-ids.h
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
