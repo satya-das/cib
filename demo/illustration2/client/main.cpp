@@ -7,15 +7,15 @@ public:
   int F() override { return 100; }
 };
 
-void TestLibraryCallingClient()
+void TestLibraryCallingClient(C& c)
 {
   A a;
-  C c;
-  std::cout << "C::SetI() returns:" << c.SetI(&a) << std::endl;
+  std::cout << "C::UseInterface() returns:" << c.UseInterface(&a) << std::endl;
 }
 
 int main(int argc, char* argv[])
 {
-  TestLibraryCallingClient();
+  C c;
+  TestLibraryCallingClient(c);
   return 0;
 }
