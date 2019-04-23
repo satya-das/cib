@@ -211,8 +211,13 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     else
     {
       cibIdData = &itr->second;
-      if (isCppFile(compound) && compound->isNsNameEmpty())
-        compound->setNsName(cibParams.globalNsName());
+      if (compound->isNsNameEmpty())
+      {
+        if (isCppFile(compound))
+          compound->setNsName(cibParams.globalNsName());
+        else if (compound->isTemplateInstance())
+          compound->setNsName(cibIdData->getFullNsName());
+      }
     }
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
     auto        addMethod = [&](const CibFunctionHelper& func) {
