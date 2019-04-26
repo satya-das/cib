@@ -27,9 +27,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.341"
-     inkscape:cx="364.51752"
-     inkscape:cy="156.48482"
+     inkscape:zoom="1.0385761"
+     inkscape:cx="474.54724"
+     inkscape:cy="169.98155"
      inkscape:document-units="px"
      inkscape:current-layer="g4395"
      showgrid="false"
@@ -168,7 +168,7 @@
                id="tspan3934"
                y="627.51318"
                x="194.14211"
-               sodipodi:role="line">function calls</tspan></text>
+               sodipodi:role="line">communication</tspan></text>
           <g
              transform="matrix(-1,0,0,-1,234.29222,682.14261)"
              id="g3973-7">
@@ -215,7 +215,7 @@
                id="tspan3934-3"
                y="627.58179"
                x="798.50012"
-               sodipodi:role="line">function calls</tspan></text>
+               sodipodi:role="line">communication</tspan></text>
           <g
              transform="matrix(-1,0,0,-1,824.44744,682.14261)"
              id="g3973-7-2">
@@ -247,7 +247,7 @@
                id="tspan3934-3-9"
                y="727.01099"
                x="496.22958"
-               sodipodi:role="line">Function calls using CIB ABI</tspan></text>
+               sodipodi:role="line">Communication using CIB ABI</tspan></text>
           <path
              sodipodi:nodetypes="cc"
              inkscape:connector-curvature="0"
