@@ -1,0 +1,16 @@
+7a8,11
+>   int Gunc() override {
+>     mGuncCalled = true;
+>       return 193;
+>     }
+8a13,14
+> 
+>   bool mGuncCalled {false};
+15c21,25
+<   CHECK(a.UseInterface(&i) == 167);
+---
+>   auto ret = a.UseInterface(&i);
+>   if (i.mGuncCalled) // With new library
+>     CHECK(ret == 167 + 193);
+>   else // With old library
+>     CHECK(ret == 167);

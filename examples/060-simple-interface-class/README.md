@@ -25,7 +25,6 @@ public:
   }
 };
 
-
 ```
 
 This example is just to demonstrate how CIB architecture allows library to call functions implemented by client in an ABI compatible and stable way.

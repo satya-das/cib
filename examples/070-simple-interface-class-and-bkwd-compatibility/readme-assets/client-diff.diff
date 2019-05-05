@@ -1,4 +1,10 @@
-17a18,23
+7a8
+>   int Gunc() override { return 193; };
+15c16
+<   CHECK(a.UseInterface(&i) == 167);
+---
+>   CHECK(a.UseInterface(&i) == 167 + 193);
+17a19,24
 > TEST_CASE("Interface callback: new method should be available to new clients")
 > {
 >   A a;

@@ -5,20 +5,22 @@
 class Implement : public Interface
 {
 public:
-  int Gunc() override { return 193; };
+  int Gunc() override {
+    mGuncCalled = true;
+      return 193;
+    }
   int Func() override { return 167; }
+
+  bool mGuncCalled {false};
 };
 
 TEST_CASE("Interface callback: library should be able to call client implemented function")
 {
   A a;
   Implement i;
-  CHECK(a.UseInterface(&i) == 167 + 193);
-}
-
-TEST_CASE("Interface callback: new method should be available to new clients")
-{
-  A a;
-  Implement i;
-  CHECK(i.Gunc() == 193);
+  auto ret = a.UseInterface(&i);
+  if (i.mGuncCalled) // With new library
+    CHECK(ret == 167 + 193);
+  else // With old library
+    CHECK(ret == 167);
 }

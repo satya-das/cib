@@ -43,17 +43,17 @@ This example too demonstrates how CIB ensures ABI stability even when virtual ta
 
 For details please see [Virtual Function and Forward Compatibility example](035-virtual-function-and-forwd-compatibility)
 
-## Example - Interface Classes
+## Example - Simple Interface Class
 
 In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
 
-For details please see [Interface Class example](060-simple-interface-class)
+For details please see [Simple Interface Class example](060-simple-interface-class)
 
-## Example - Interface Classes and ABI Stability
+## Example - Interface Classes and Backward Compatibility
 
 In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
 
-For details please see [Interface Class And ABI Sytability example](070-simple-interface-class-and-bkwd-compatibility)
+For details please see [Interface Class And Backward Compatibility example](070-simple-interface-class-and-bkwd-compatibility)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.

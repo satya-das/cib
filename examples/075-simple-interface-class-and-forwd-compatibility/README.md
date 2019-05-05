@@ -1,10 +1,6 @@
-## Simple Interface Class and Backward Compatibility
+## Simple Interface Class and Forward Compatibility
 
-In example `Simple Interface Class` we have only tackled the cases that is very much expected from a C++ library/program. In this example we will see:
- 1. How CIB ensures ABI stability in the case when virtual table of it's interface class is disrupted, and
- 2. What precaution library must take when invoking new method on interface to ascertain backward compatibility.
- 
-This example is actually next version of previous, `Simple Interface Class`, example.
+In example `Simple Interface Class` we have only tackled the cases that is very much expected from a C++ library/program. In this example we will see how CIB ensures ABI stability in the case when virtual table of it's interface class is disrupted. This example is actually next version of previous, `Simple Interface Class`, example.
 
 Below I am showing the diff of new header with previous one.
 
@@ -54,7 +50,7 @@ Below I am showing the diff of new header with previous one.
 
 ```
 
-As it can be seen that a new pure virtual method is added to an existing interface. But the new virtual method is added before the existing one and that is the key change. CIB architecture ensures that order of virtual method in class does not matter and ABI stability in ensured even then. Also, use of new method is inside `try-catch` block because if library wants to be backward compatible then it must handle the case when old client is used with new library. Library should not call new method when run with old client, and if it does CIB has mechanism in place to throw `std::bad_function_call` exception. Notice that if CIB architecture is not used then such change will break the binary compatibility.
+As it can be seen that only new virtual methods are added to an existing interface. But the new virtual method is added before the existing one and that is the key change. If CIB architecture is not used then such change will break the binary compatibility.
 
 Below is the diff of client code from the previous example:
 
