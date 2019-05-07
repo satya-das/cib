@@ -15,11 +15,11 @@ using __zz_cib_MethodArray = const __zz_cib_MTableEntry*;
 extern "C" struct __zz_cib_MethodTable
 {
   const __zz_cib_MethodArray methods;
-  const std::uint32_t        numMethods; //!< Number of methods in method table.
+  const std::uint32_t        numMethods; //!< Number of methods in MethodTable.
 };
 
-//! Fetches method from a method table
-//! @param mtbl Method table from which to fetch the method.
+//! Fetches method from a MethodTable
+//! @param mtbl MethodTable from which to fetch the method.
 //! @param methodId Method-ID which is index in the array to fetch method from.
 //! @return __zz_cib_MTableEntry value which can be null.
 //! @warning returned value can be a nullptr.

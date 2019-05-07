@@ -63,5 +63,16 @@ TEST_CASE("ABI stable virtual function call across component boundary")
 ```
 
 I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
-I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**. The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only method table comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with other components.**
+
+We see that runtime polymorphism works across component bounary. I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**.
+The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only MethodTable comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with other components.**
+
+### Things to note about MethodTable
+1. MethodTable is NOT replacement of virtual table.
+2. MethodTable is just a mechanism to make cross commponent calls.
+3. MethodTable does NOT inherit.
+
+In making runtime polymorphism work we do need virtual table, MethodTable only ensures that cross component function call happens in ABI stable and compiler independent way. Another very immprotant point is that MethodTable does not inherit. MethodTable of a class is independent of MethodTable of any of it's parent class. That's way we ensure stability, otherwise MethodTable will suffer from same instability issue of virtual table.
+
+That's it about this example. We will see more detail and power of CIB in following examples.
 

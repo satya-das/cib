@@ -4,7 +4,7 @@ In this example we will see the case when library modifies it's class and how th
 
 !INCLUDECODE "examples/015-simple-class-and-bkwd-compatibility/readme-assets/header-diff.diff" (diff)
 
-As we can see that only change in the class is addition of new data members. If the library and client are linked together in traditional way then this is certain to cause ABI stability issue. But with CIB we achieve perfect isolation and old client will keep working with new library.
-If you see the diff of all the glue code of this example with the glue code of previous example, we are not going to see any difference. And since glue code defines and uses ABI at component boundary the ABI bound to remain stable.
+As we can see that only change in the class is addition of new data members. If the library and client are linked together in traditional way then this is certain to cause ABI stability issue. But with we CIB achieve perfect isolation and old client will keep working with new library.
 
+**If you see the diff of all the glue code of this example with the glue code of previous example, we are not going to see any difference. And since glue code defines and uses ABI at component boundary the ABI bound to remain stable.**
 

@@ -110,8 +110,8 @@ The code that forms client side layer is called **client side glue code**. This 
 
 [The rest of the details of CIB architecture can be understood with examples.](examples)
 
-## CIB Architecture Detail
-Details of CIB architecture is explained with various examples. Please see [Examples](examples) to know the details.
+# Examples aka CIB Architecture Detail
+**Details of CIB architecture is explained with various examples. Please see [Examples](examples) to know the details.**
 
 # Building CIB
 ## Get the source

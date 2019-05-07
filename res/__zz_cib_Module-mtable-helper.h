@@ -7,7 +7,7 @@
 
 namespace __zz_cib_ {
 
-//! Helps in using method table.
+//! Helps in using MethodTable.
 class __zz_cib_MethodTableHelper
 {
 public:
@@ -15,7 +15,7 @@ public:
     : mtbl(_mtbl)
   {
   }
-  //! @note Will throw std::bad_function_call() if method table doesn't contain
+  //! @note Will throw std::bad_function_call() if MethodTable doesn't contain
   //! method or the fetched method is null.
   template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
   auto invoke(_TArgs... args) const
@@ -27,7 +27,7 @@ public:
   }
 
 private:
-  //! Utility method to get method from method table.
+  //! Utility method to get method from MethodTable.
   //! @param methodId ID for which method has to be fetched.
   //! @return Method of type specified as template parameter.
   //! @warning returned value can be a nullptr.

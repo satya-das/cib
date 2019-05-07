@@ -1,7 +1,7 @@
-## Example - Virtual Function and ABI Stability
-In previous examples we have only tackled the cases that are very much expected from a C++ library/program. The way architecture is defined compiler independence is understood but ABI stability isn't demonstrated yet. Starting from this example we are going to experience the power of `CIB architecture`. So, please be ready for pleasant surprises. :)
+## Example - Virtual Function and backward compatibility
+In previous example we have seen how CIB allows runtime polymorphism to work across component boundary. In this example we will see how CIB ensures ABI stability when virtual table is disrupted.
 
-This example is next version of immediate previous one (i.e. *Virtual function*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know that such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
+This example is next version of immediate previous one (i.e. *virtual-function*). The Library exports the same class but with additional virtual function. The new virtual function is added before the existing one. As you know such changes will require the client program to recompile with new headers. **But fortunately that is not true when CIB architecture is used for publishing SDK.**
 
 Below I am showing the diff of new header with previous one.
 
@@ -65,9 +65,9 @@ Below is the diff of client code from the previous example:
 
 ```
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `/030-virtual-function-and-bkwd-compatibility/` ensures the client of `virtual-function` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `030-virtual-function-and-bkwd-compatibility` ensures the client of `virtual-function` works with library of this example.
 
-The reason of this **ABI stability** is that virtual tables are not shared across components. CIB shares **MethodTable** instead. Let's see the diff of method table of new library:
+The reason of this **ABI stability** is that virtual tables are not shared across components. In previous example we learnt how runtime polymorphism works across component boundary using MethodTable. Let's see the diff of MethodTable of new library:
 
 ```diff
 --- ../020-virtual-function/cib/example.h.cpp
@@ -135,7 +135,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 
 ```
 
-As it can be seen that the new method caused a new entry in method table and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the method table precisely how they expect it to be and that ensures ABI stability**.
+As it can be seen that the new method caused a new entry in MethodTable and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the MethodTable precisely how they expect it to be and that ensures ABI stability**.
 
 ### Running CIB
 To make CIB ensure ABI stability we needed to run cib with additional parameter and supply ID file of previous example:

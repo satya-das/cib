@@ -41,7 +41,7 @@ struct CibMethodInfo
 {
   CibMethodCAPIName     capiName;  //!< Name of C API function.
   CibMethodSignature    methodSig; //!< Exact signature that is used to declare the method
-  CibMethodAbiSignature abiSig;    //!< Signature cib uses for cross component method table.
+  CibMethodAbiSignature abiSig;    //!< Signature cib uses for cross component MethodTable.
 };
 
 /*!
