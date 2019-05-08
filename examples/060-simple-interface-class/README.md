@@ -28,7 +28,7 @@ public:
 ```
 
 This example is just to demonstrate how CIB architecture allows library to call functions implemented by client in an ABI compatible and stable way.
-When `A::UseInterface()` is called will receive an object defined by client that implements `Interface`.
+When `A::UseInterface()` is called it receives an object defined by client that implements `Interface`.
 When library calls virtual function of this object then function defined by client should be called. And that should happen in ABI compatible and stable way.
 
 Let's see what the client code is:

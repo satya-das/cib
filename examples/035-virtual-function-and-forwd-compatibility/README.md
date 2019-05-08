@@ -1,8 +1,8 @@
 ## Example - Virtual Function and Forward Compatibility
 
-**Please note that forward compatibility of library also means backward compatibility of client."
+**Please note that forward compatibility of library also means backward compatibility of client.**
 
-This example is next version of [Virtual Functions](020-virtual-function). In the new library there is one more virtual function added to an existing class:
+Like previous example the library of this too is next version of library of `virtual-function` example. In the new library there is one more virtual function added to an existing class:
 
 ```diff
 --- 020-virtual-function/pub/example.h
@@ -33,7 +33,7 @@ This example is next version of [Virtual Functions](020-virtual-function). In th
 
 ```
 
-In the previous example, i.e. in [Virtual Functions and Backward Compatibility](030-virtual-function-and-bkwd-compatibility), we saw that client remains compatible with newer library. But in this example we demonstrate that new client remains compatible with old library.
+In the previous example, i.e. in `virtual-function-and-bkwd-compatibility`, we saw that client remains compatible with newer library. But in this example we demonstrate that new client remains compatible with old library.
 
 Since, new library has an additional method and if new client calls this new method then it will not be compatible with old library. So, only thing that can be done is that the client should to not call new methods:
 
@@ -74,7 +74,7 @@ Since, new library has an additional method and if new client calls this new met
 
 ```
 
-As we can see that when client invokes new method with old library then an exception is raisedn which client can catch and take necessary steps. Client can still take precaution before calling the new method. So, basically if new client wants to be backward compatible then it has to be the responsibility of the client developer to ensure compatibility. CIB can assist in ensuring but it cannot enforce.
+As we can see that when client invokes new method with old library then an exception is raised which client can catch and take necessary steps. Client can still take precaution before calling the new method. So, basically if new client wants to be backward compatible then it has to be the responsibility of the client developer to ensure compatibility.
 
 ### Running CIB
 To make CIB ensure ABI stability we need to run cib with additional parameter to supply ID file of previous version of library:

@@ -1,1 +1,1 @@
-## Inheritance and ABI Stability
+## Inheritance change and backward compatibility

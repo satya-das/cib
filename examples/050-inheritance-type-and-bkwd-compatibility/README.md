@@ -1,1 +1,1 @@
-## Inheritance Types and ABI Stability
+## Inheritance type and backward compatibility
