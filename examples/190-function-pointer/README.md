@@ -1,4 +1,5 @@
 ## Function pointer support
 
-<it is not yet implemented>
+_It is not yet implemented yet_.
+
 
