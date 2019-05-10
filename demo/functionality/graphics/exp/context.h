@@ -26,4 +26,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/context-impl.h"
+#include "__zz_cib_internal/context-postdef.h"

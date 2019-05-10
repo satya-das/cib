@@ -14,4 +14,4 @@ public:
   double z;
 };
 
-#include "__zz_cib_internal/example-impl.h"
+#include "__zz_cib_internal/example-postdef.h"

@@ -29,4 +29,4 @@ private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(C, C);
 };
 
-#include "__zz_cib_internal/A-impl.h"
+#include "__zz_cib_internal/A-postdef.h"

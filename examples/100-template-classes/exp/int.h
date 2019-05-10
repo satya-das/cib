@@ -19,4 +19,4 @@ namespace Example
   };
 }
 
-#include "__zz_cib_internal/int-impl.h"
+#include "__zz_cib_internal/int-postdef.h"

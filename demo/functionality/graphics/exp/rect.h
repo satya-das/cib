@@ -27,4 +27,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/rect-impl.h"
+#include "__zz_cib_internal/rect-postdef.h"

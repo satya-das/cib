@@ -13,7 +13,7 @@ add_custom_command(
     # COMMAND diff -Bw -u --label ../010-simple-class/cib/__zz_cib_Example-ids.h ../010-simple-class/cib/__zz_cib_Example-ids.h --label cib/__zz_cib_Example-ids.h cib/__zz_cib_Example-ids.h >readme-assets/ids-diff.diff || echo "Ignore failure" >/dev/null
     # COMMAND diff -Bw -u --label ../010-simple-class/cib/example.h.cpp --label cib/example.h.cpp ../010-simple-class/cib/example.h.cpp cib/example.h.cpp >readme-assets/lib-glue-diff.diff || echo "Ignore failure" >/dev/null
     # COMMAND diff -Bw -U1000 --label ../010-simple-class/exp/example.h --label exp/example.h ../010-simple-class/exp/example.h exp/example.h >readme-assets/proxy-diff.diff || echo "Ignore failure" >/dev/null
-    # COMMAND diff -Bw -u --label ../010-simple-class/exp/__zz_cib_internal/example-impl.h --label exp/__zz_cib_internal/example-impl.h ../010-simple-class/exp/__zz_cib_internal/example-impl.h exp/__zz_cib_internal/example-impl.h >readme-assets/impl-diff.diff || echo "Ignore failure" >/dev/null
+    # COMMAND diff -Bw -u --label ../010-simple-class/exp/__zz_cib_internal/example-postdef.h --label exp/__zz_cib_internal/example-postdef.h ../010-simple-class/exp/__zz_cib_internal/example-postdef.h exp/__zz_cib_internal/example-postdef.h >readme-assets/impl-diff.diff || echo "Ignore failure" >/dev/null
     DEPENDS ${example_ROOT}/pub/example.h ${example_ROOT}/exp/example.h
     WORKING_DIRECTORY ${example_ROOT}
 )

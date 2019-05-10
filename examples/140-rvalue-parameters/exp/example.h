@@ -19,4 +19,4 @@ private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(RValueExample, RValueExample);
 };
 
-#include "__zz_cib_internal/example-impl.h"
+#include "__zz_cib_internal/example-postdef.h"

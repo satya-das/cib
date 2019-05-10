@@ -483,8 +483,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << "__zz_cib_obj->";
     if (!isCppFile(callingOwner) && !forProxy
         && (isStatic()
-            || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) &&
-                 !isPureVirtual() && (accessType() != CppAccessType::kPrivate))))
+            || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
+                && (accessType() != CppAccessType::kPrivate))))
     {
       stm << callingOwner->longName() << "::";
     }
@@ -890,12 +890,12 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   {
     const CppObj* mem = memItr->get();
     if (mem == headerGuardEndIf)
-      stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
+      stm << "\n#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
     emitDecl(mem, stm, helper, cibParams);
   }
 
   if (!headerGuardEndIf)
-    stm << "\n#include \"" << implIncludeName(cibParams) << "-impl.h\"\n";
+    stm << "\n#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
 }
 
 void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
@@ -979,7 +979,7 @@ void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibPa
   if (!isCppFile(this))
     return;
 
-  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-impl.h");
+  auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-postdef.h");
   std::ofstream stm(implPath.string(), std::ios_base::out);
   stm << "#pragma once\n\n";
   emitCommonExpHeaders(stm, cibParams);
@@ -1247,7 +1247,7 @@ void CibCompound::emitDecl(const CppObj*    obj,
     else if (func.isTemplated())
       gCppWriter.emit(obj, stm);
   }
-  else if (obj->objType_ == CppObjType::kCompound)
+  else if (isCompound(obj))
   {
     auto compound = static_cast<const CibCompound*>(obj);
     compound->emitDecl(stm, helper, cibParams, indentation);

@@ -37,4 +37,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/shape-impl.h"
+#include "__zz_cib_internal/shape-postdef.h"

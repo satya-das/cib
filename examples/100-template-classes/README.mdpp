@@ -33,18 +33,18 @@ But, what we want is that when client code uses something like `Value<int>` or `
 !INCLUDECODE "examples/100-template-classes/exp/__zz_cib_internal/__zz_cib_Class4.h" (c++)
 
 Here we have specialization of `Value<int>`, if you notice the definition is very similar to what we see for other classes. Only thing is that the template class specialization present in somewhat _hidden_ file. But we need this specialization available to client code so that wherever client does `Value<int>` this specialization should be picked by compiler instead of concretizing on it's own.
-If you notice there is an inclusion of file `__zz_cib_internal/value-impl.h` at the end in the header file that contains definition of template `class Value`.
+If you notice there is an inclusion of file `__zz_cib_internal/value-postdef.h` at the end in the header file that contains definition of template `class Value`.
 
-Let's see what that `value-impl.h` contains:
+Let's see what that `value-postdef.h` contains:
 
-**File**: examples/100-template-classes/exp/__zz_cib_internal/value-impl.h
-!INCLUDECODE "examples/100-template-classes/exp/__zz_cib_internal/value-impl.h" (c++)
+**File**: examples/100-template-classes/exp/__zz_cib_internal/value-postdef.h
+!INCLUDECODE "examples/100-template-classes/exp/__zz_cib_internal/value-postdef.h" (c++)
 
 There you go, this file has `#include "__zz_cib_Class4.h"` which brings the template specialization of type `Value<int>` to whoever includes `value.h`. So, whenever client code has something like `Value<int>` the library side instance of `Value<int>` is used in the same way as any other regular class is used.
 
 Now, we will look at what happens when client code uses another class as template parameter, for example what happens when client code has something like `Value<Int>`. In this case also we need to have a template specialization that uses library exported `MethodTable`. For sake of brevity I am not going to show code anymore, I will just outline how things are done.
 
-For this case also client side glue code has template specialization of `Value<Int>` in file `__zz_cib_internal/__zz_cib_Class3.h`, exactly in the same way it did for previous case. Here also, we want to make sure this specialization is avaliable to the client whenever client code has `Value<Int>`. The specialization gets delivered to the client whenever client code includes `int.h` file, because file `__zz_cib_internal/__zz_cib_Class3.h` is included in `__zz_cib_internal/int-impl.h` which is included in `exp/int.h`.
+For this case also client side glue code has template specialization of `Value<Int>` in file `__zz_cib_internal/__zz_cib_Class3.h`, exactly in the same way it did for previous case. Here also, we want to make sure this specialization is avaliable to the client whenever client code has `Value<Int>`. The specialization gets delivered to the client whenever client code includes `int.h` file, because file `__zz_cib_internal/__zz_cib_Class3.h` is included in `__zz_cib_internal/int-postdef.h` which is included in `exp/int.h`.
 
 So, whenever client code has something like `Value<Int>` the library side instance of `Value<Int>` is used in the same way as any other regular class is used.
 

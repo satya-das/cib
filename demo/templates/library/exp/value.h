@@ -18,4 +18,4 @@ private:
   _ValueType mValue;
 };
 
-#include "__zz_cib_internal/value-impl.h"
+#include "__zz_cib_internal/value-postdef.h"

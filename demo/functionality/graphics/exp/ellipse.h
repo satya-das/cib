@@ -29,4 +29,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/ellipse-impl.h"
+#include "__zz_cib_internal/ellipse-postdef.h"

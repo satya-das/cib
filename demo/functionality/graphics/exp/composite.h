@@ -39,4 +39,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/composite-impl.h"
+#include "__zz_cib_internal/composite-postdef.h"

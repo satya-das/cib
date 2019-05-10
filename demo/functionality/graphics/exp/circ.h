@@ -28,4 +28,4 @@ namespace Graphics
   };
 }
 
-#include "__zz_cib_internal/circ-impl.h"
+#include "__zz_cib_internal/circ-postdef.h"

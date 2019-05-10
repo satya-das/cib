@@ -185,9 +185,9 @@ Macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` adds a protected constructor, declares `__
 #### Helper class definition
 We will now move to see the content of file that was #include'd at the end of proxy class definition file.
 
-**File**: exp/__zz_cib_internal/example-impl.h. _Helper of proxy class_:
+**File**: exp/__zz_cib_internal/example-postdef.h. _Helper of proxy class_:
 
-!INCLUDECODE "examples/010-simple-class/exp/__zz_cib_internal/example-impl.h" (c++)
+!INCLUDECODE "examples/010-simple-class/exp/__zz_cib_internal/example-postdef.h" (c++)
 
 This file contains definition of `class __zz_cib_Helper`.
 

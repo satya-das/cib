@@ -8,4 +8,4 @@ namespace Example
   int Function2();
 }
 
-#include "__zz_cib_internal/example-file2-impl.h"
+#include "__zz_cib_internal/example-file2-postdef.h"

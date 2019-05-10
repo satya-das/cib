@@ -33,4 +33,4 @@ int GetNewB(A*& pA);
 int GetNewA(A const *& pA);
 int GetNewB(A const *& pA);
 
-#include "__zz_cib_internal/example-impl.h"
+#include "__zz_cib_internal/example-postdef.h"
