@@ -15,6 +15,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
 };
+
 class B : public ::A
 {
 public:
@@ -28,9 +29,9 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);
 };
+
 int GetNewA(A*& pA);
 int GetNewB(A*& pA);
 int GetNewA(A const *& pA);
 int GetNewB(A const *& pA);
-
 #include "__zz_cib_internal/example-postdef.h"

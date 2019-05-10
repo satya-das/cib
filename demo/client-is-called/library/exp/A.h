@@ -15,6 +15,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
 };
+
 class C
 {
 public:

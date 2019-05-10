@@ -9,9 +9,11 @@ struct Pod
   double d;
   Opaque* pObj;
 };
+
 class C
 {
 };
+
 struct NonPod1
 {
 public:
@@ -24,6 +26,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod1, NonPod1);
 };
+
 struct NonPod2
 {
 public:
@@ -36,6 +39,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod2, NonPod2);
 };
+
 struct NonPod3
 {
 public:
@@ -48,6 +52,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod3, NonPod3);
 };
+
 class A
 {
 public:

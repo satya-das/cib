@@ -890,12 +890,14 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   {
     const CppObj* mem = memItr->get();
     if (mem == headerGuardEndIf)
-      stm << "\n#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
+      stm << "#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
     emitDecl(mem, stm, helper, cibParams);
+    if (isCompound(mem))
+      stm << '\n';
   }
 
   if (!headerGuardEndIf)
-    stm << "\n#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
+    stm << "#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
 }
 
 void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const

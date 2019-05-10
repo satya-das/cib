@@ -17,6 +17,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
 };
+
 class I1
 {
 public:
@@ -30,6 +31,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I1, I1);
 };
+
 class I2
 {
 public:
@@ -43,6 +45,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I2, I2);
 };
+
 class B : public ::I1,public ::A,public ::I2
 {
 public:

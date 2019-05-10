@@ -17,6 +17,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
 };
+
 class B : public ::A
 {
 public:

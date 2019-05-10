@@ -18,6 +18,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Interface1, Interface1);
 };
+
 class Interface2
 {
 public:
@@ -31,6 +32,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Interface2, Interface2);
 };
+
 class Interface3
 {
 public:
@@ -44,6 +46,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Interface3, Interface3);
 };
+
 class A
 {
 public:

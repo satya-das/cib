@@ -18,6 +18,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Interface, Interface);
 };
+
 class A
 {
 public:

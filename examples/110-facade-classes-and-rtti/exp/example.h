@@ -13,6 +13,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Facade, Facade);
 };
+
 class PublicFacadeImpl : public ::Facade
 {
 public:
@@ -26,6 +27,7 @@ public:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(PublicFacadeImpl, PublicFacadeImpl);
 };
+
 class A
 {
 public:

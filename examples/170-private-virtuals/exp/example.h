@@ -25,6 +25,7 @@ protected:
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(IF, IF);
 };
+
 //! Class that has methods to make class IF interface and facade.
 class A
 {
