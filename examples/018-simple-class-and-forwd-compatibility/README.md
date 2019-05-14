@@ -1,7 +1,7 @@
 ## Example - A Simple Class and Forward Compatibility
 
 Forward compatiblity of library also means backward compatibility of client. If a new client uses new functions of library then there will an issue when the new client is used with old library. As long as that is not done CIB architecture ensures ABI stability. Even when client uses new function CIB has mechanism in place to throw exception at runtime that client can catch and mend it's ways. This example demonstrates 2 things:
- 1. **Forward compatibility**: New client is compatible with old library if it doesn't call functions only available in newer library,
+ 1. **Forward compatibility**: New client is compatible with old library if it doesn't call functions that are only available in newer library,
  2. **Robustness**: An exception is thrown when client calls newer API not available in old library.
 
 Consider the library of this example as next version of library of very first example. So, let's see the diff of library header:
@@ -74,10 +74,59 @@ Since, cross component calls happen using `MethodTable` CIB can check for existe
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h]:
 
+```c++
+#ifndef __zz_cib_MethodTableHelper_defined
+#define __zz_cib_MethodTableHelper_defined
+
+#include "__zz_cib_Example-mtable.h"
+
+#include <functional>
+
+namespace __zz_cib_ {
+
+//! Helps in using MethodTable.
+class __zz_cib_MethodTableHelper
+{
+public:
+  __zz_cib_MethodTableHelper(const __zz_cib_MethodTable* _mtbl)
+    : mtbl(_mtbl)
+  {
+  }
+  //! @note Will throw std::bad_function_call() if MethodTable doesn't contain
+  //! method or the fetched method is null.
+  template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
+  auto invoke(_TArgs... args) const
+  {
+    auto method = getMethod<_MethodType>(methodId);
+    if (method == nullptr)
+      throw std::bad_function_call();
+    return method(args...);
+  }
+
+private:
+  //! Utility method to get method from MethodTable.
+  //! @param methodId ID for which method has to be fetched.
+  //! @return Method of type specified as template parameter.
+  //! @warning returned value can be a nullptr.
+  template <typename _MethodType>
+  _MethodType getMethod(std::uint32_t methodId) const
+  {
+    return reinterpret_cast<_MethodType>(__zz_cib_GetMTableEntry(mtbl, methodId));
+  }
+
+private:
+  const __zz_cib_MethodTable* const mtbl;
+};
+
+} // namespace __zz_cib_
+
+#endif
+
+```
 
 We see that when the fetched method from MethodTable is `nullptr` then `std::bad_function_call` exception is thrown. That's the way CIB let the caller know if it calls non-existing function which can happen when a component is used with older version of component on which it depends upon.
 
-So, backward compatibility is also a responsibility of developer and CIB can help in a great way to achieve this goal by ensuring ABI stability.
+So, backward compatibility is also a responsibility of developer and CIB can help in a great way to achieve this goal by ensuring ABI stability at the component boundary.
 
 Below is the output when this test it run:
 

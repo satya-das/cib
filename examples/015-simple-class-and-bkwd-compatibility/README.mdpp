@@ -8,3 +8,22 @@ As we can see that only change in the class is addition of new data members. If 
 
 **If you see the diff of all the glue code of this example with the glue code of previous example, we are not going to see any difference. And since glue code defines and uses ABI at component boundary the ABI bound to remain stable.**
 
+Below is the output when this test it run:
+
+```sh
+dassat:~/github/cib/build$ ninja && ctest -R 015-simple-class-and-bkwd-compatibility
+Test project /home/dassat/github/cib/build
+    Start 4: 015-simple-class-and-bkwd-compatibility
+1/2 Test #4: 015-simple-class-and-bkwd-compatibility ...........................   Passed    0.00 sec
+    Start 5: 015-simple-class-and-bkwd-compatibility-new-lib-with-old-client
+2/2 Test #5: 015-simple-class-and-bkwd-compatibility-new-lib-with-old-client ...   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =   0.01 sec
+```
+
+We see total of 2 test runs, one of them has `new-lib-with-old-client` in it's name. This test runs the old client with new library and ensures it runs as expected.
+
+That's it about this example. Slowly we are understanding pieces of CIB architecture.
+

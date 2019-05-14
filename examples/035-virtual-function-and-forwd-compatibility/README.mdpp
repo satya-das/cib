@@ -21,5 +21,5 @@ To make CIB ensure ABI stability we need to run cib with additional parameter to
 cib -i pub -o exp -b cib -m Example -c ../020-virtual-function/cib/__zz_cib_Example-ids.h
 ```
 
-This makes cib understand that we want ABI stability and CIB generates glue code accordingly.
+This makes cib understand that we want ABI stability with binaries of `virtual-function` example and CIB generates glue code accordingly.
 
