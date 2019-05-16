@@ -84,8 +84,8 @@ As we know language feature implementations end up being ABI, see [What is ABI](
 
 ![Integration architecture produced by CIB](img/cib_design.png "Integration architecture produced by CIB")
 
-The CIB layers of each components act like proxy to another component and so each component "feels" like it is interacting directly with another component. The language feature detail is absorved within CIB layers and doesn't cross component boundary. So, each component can be compiled using different compilers and still they will work together.
-`CIB ABI` that is implemented in CIB layer is especially designed to ensure ABI stability. Later we will go into the detail with help of examples and then this will get clear.
+The CIB layers of each components act like proxy to another component and so each component "feels" like it is interacting directly with another component. The language feature implementation detail is absorved within CIB layers and doesn't cross component boundary. So, each component can be compiled using different compilers and still they will work together.
+`CIB ABI` that is implemented in CIB layer is especially designed to ensure ABI stability.
 
 ## CIB Architecture Elements
 
