@@ -1,10 +1,6 @@
-get_target_property(CLIENT_SUFFIX "${PREV_TEST_NAME}" SUFFIX)
-get_target_property(LIBRARY_SUFFIX "${PREV_TEST_NAME}_lib"   SUFFIX)
-get_target_property(LIBRARY_PREFIX "${PREV_TEST_NAME}_lib"   PREFIX)
-
-set(PREV_LIBNAME "${LIBRARY_PREFIX}${PREV_TEST_NAME}_lib.so")
-set(NEW_LIBNAME  "${LIBRARY_PREFIX}${example}_lib.so")
-set(CLIENT       "${example}${SUFFIX}")
+set(PREV_LIBNAME "${LIBRARY_PREFIX}${PREV_TEST_NAME}_lib${LIBRARY_SUFFIX}")
+set(NEW_LIBNAME  "${LIBRARY_PREFIX}${example}_lib${LIBRARY_SUFFIX}")
+set(CLIENT       "${example}${CLIENTSUFFIX}")
 set(TEST_NAME    "${example}-new-client-with-old-lib")
 
 add_custom_target(

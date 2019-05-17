@@ -1,6 +1,17 @@
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
+# These values are difficult to get using CMake and so hardcoding
+if (WIN32)
+	set(CLIENTSUFFIX ".exe")
+	set(LIBRARY_PREFIX "")
+	set(LIBRARY_SUFFIX ".dll")
+else ()
+	set(CLIENTSUFFIX "")
+	set(LIBRARY_PREFIX "lib")
+	set(LIBRARY_SUFFIX ".so")
+endif()
+
 set(PUB_FILE_BASE_NAMES
     example # File name without extension
 )
@@ -59,8 +70,6 @@ add_library(${LIBNAME}
         ${LIB_GLUE_SRCS}
 )
 set_target_properties(${LIBNAME} PROPERTIES
-    SUFFIX ".so"
-    PREFIX "lib"
     CXX_VISIBILITY_PRESET hidden
 )
 
@@ -74,7 +83,6 @@ add_executable(${CLIENTNAME}
     ${CLIENT_SOURCES}
     ${EXP_SOURCES}
 )
-set_target_properties(${CLIENTNAME} PROPERTIES SUFFIX "")
 
 add_test(NAME ${CLIENTNAME} COMMAND ${TEST_CMD})
 
