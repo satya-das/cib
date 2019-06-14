@@ -5,9 +5,9 @@
 - Almost all examples contain a library and a client executable.
 - Library consists of a public header and a source file.
 - Most functions simply return an `int`.
-- `cib` tool is used on public header that
-    - generates glue code for library and clients.
-    - generates cibified headers that becomes part of the SDK.
+- `cib` tool is used on public header that generates
+    - glue code for library and clients.
+    - cibified headers that becomes part of the SDK.
 - Client is an executable that tests correct behavior of library.
 
 ## Types of Examples:

@@ -7,10 +7,6 @@ Let's consider the following example:
 
 !INCLUDECODE "examples/010-simple-class/pub/example.h" (c++)
 
-[**File**: src/example-lib.cpp] _Class Implementation by library_:
-
-!INCLUDECODE "examples/010-simple-class/src/example-lib.cpp" (c++)
-
 [**File**: src/example-client.cpp] _Client's expectation from library_:
 
 !INCLUDECODE "examples/010-simple-class/src/example-client.cpp" (c++)
@@ -31,7 +27,7 @@ cib -i pub/ -o exp/ -b cib/ -m Example
 ```
 
 After above command we will see quite a good number of files created in folder cib/ and exp/.
-We will go into the details of these files. Broadly there will be 2 sets of files. One set is for library (files in folder `cib/`) that it will have to compile when it builds itself and other set (files in folder `exp/`) is for clients of the library to use.
+We will go into the details of these files. Broadly there are 2 sets of files. One set is for library (files in folder `cib/`) that it will have to compile when it builds itself and other set (files in folder `exp/`) is for clients of the library to use.
 Undoudtedly in this example we have a vividly simple class, but we do see lots of code getting generated. These codes are required for CIB to guarentee compiler independence and ABI stability. They are not complex but there are few pieces that we will look closer. Please brace yourself for a deep dive. :)
 
 Let's first look at some of the fundamental types and definitions CIB uses in generated code.
@@ -41,13 +37,13 @@ We are going to see CIB generate code that will contain lots of symbols that wil
 
   - Genearted code doesn't pollute global namespace.
   - Generated code doesn't clash with any possible name used in library or client code.
-  - Since the name starts with double underscore it is expected that developers will stay away from directly using it.
+  - Since the name starts with double underscore it is expected that developers will stay away from directly using it. There are safeguards in place to not allow that even when developer wants to use them, but still it is better to not let developer think these symbols can be accessed.
   - In an ordered listing of symbols `__zz_cib_` should appear towards the end and so intellisense suggestions of IDE will possibly not contain it before some more meaningful symbols.
-  - Symbol `__zz_cib_` is expected to be unique because no one in his/her right mind will use this symbol for other purpose. :)
+  - Uniqueness is not required but it is better not to pollute namespace used by core program. So, CIB puts all it's generated symbols inside an umbrella namespace `__zz_cib_` which is very unlikely to be the name used by core programs.
 
 ### MethodTable
 
-CIB's basic functioning is that it doesn't let compiler generated problematic stuff cross component boundary. Compiler generates many things and among them are mangled function names and virtual tables. CIB bypasses the use of mangled function name and virtual table by having it's own table of functions that in cib's terminology is called MethodTable. So, CIB uses mechanism to use MethodTable instead of mangled function name and virtual function table. Let's look at what this MethodTable is exactly:
+CIB's basic functioning is that it doesn't let compiler generated ABI of C++ features of one component being used by another. CIB uses it's own simple ABI that only facilitates function call across component boundary. This ABI ensures compiler independence and also guarentees stability. Basically CIB uses MethodTable to facilitate function call across component. We will go into the detail of how it solves ABI compatibility and stability issues of C++ but let's first see the definition of MethodTable:
 
 **MethodTable and helper function**:
 
@@ -55,9 +51,9 @@ CIB's basic functioning is that it doesn't let compiler generated problematic st
 
 !INCLUDECODE "examples/010-simple-class/cib/__zz_cib_Example-mtable.h" (c++)
 
-Above we have definition of MethodTable and helper function to fetch method from method-table. So, basically MethodTable is an array of function pointers. This is the table that crosses component boundary instead of mangled function name or virtual table. We will see how but as of now it is enough to know what exactly is MethodTable.
+Above we have definition of MethodTable and helper function to fetch method from method-table. So, basically MethodTable is an array of function pointers. This is the table that crosses component boundary instead of any other compiler generated ABI elements. We will see how but as of now it is enough to know what exactly is MethodTable.
 
-#### Design choice of MethodTable
+#### Design choice of MethodTable (can be skipped in first reading)
 MethodTable can have alternate design choice of being a `struct` of function pointers instead of array of function pointers. And that too can serve the purpose and in some cases be better. But CIB uses array for following reasons:
 - Array helps in reducing total number of constructs. In case MethodTable is a struct of function pointers we will need many structs.
 - Using array we can fetch function pointer by an index. Those index can be treated as function ID. If those ID is changed or removed it will be easy to detect and warn the library author of breaking the compatibility.

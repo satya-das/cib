@@ -3,7 +3,6 @@
 
 #include "__zz_cib_$Module$-decl.h"
 
-#include <cassert>
 #include <cstdint>
 
 namespace __zz_cib_ {
