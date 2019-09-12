@@ -1244,7 +1244,7 @@ void CibCompound::emitDecl(const CppObj*    obj,
   if (isFunctionLike(obj))
   {
     CibFunctionHelper func = obj;
-    if (objNeedingBridge_.count(obj))
+    if (objNeedingBridge_.count(obj) || func.isDeleted())
       func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
     else if (func.isTemplated())
       gCppWriter.emit(obj, stm);

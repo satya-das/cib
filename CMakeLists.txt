@@ -113,6 +113,7 @@ set(EXAMPLES
 	170-private-virtuals
 	180-pod-struct
 	# 190-function-pointer
+	200-deleted-members
 )
 add_subdirectory(examples)
 
