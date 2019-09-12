@@ -10,7 +10,7 @@ public:
 public:
   A();
   A(A const & );
-  ~A();
+  virtual ~A();
   virtual int setValue(Value<int> const & intVal) const;
   virtual float setValue(Value<float> const & floatVal) const;
   virtual Value<int> getIntValue() const;

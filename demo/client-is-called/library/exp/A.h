@@ -24,7 +24,7 @@ public:
   C();
   C(C const & );
   ~C();
-  virtual int UseInterface(I* pI);
+  int UseInterface(I* pI);
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(C, C);

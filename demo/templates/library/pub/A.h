@@ -6,7 +6,7 @@ class LIBRARYAPI A {
 public:
   A();
   A(const A&);
-  ~A();
+  virtual ~A();
 
   virtual int setValue(const Value<int>& intVal) const {
     return 2 * intVal.get();

@@ -12,7 +12,7 @@ public:
   C(const C&);
   ~C();
 
-  virtual int UseInterface(I* pI) {
+  int UseInterface(I* pI) {
     return pI->F();
   }
 };
