@@ -192,7 +192,7 @@ ninja && ninja test
 | **Goal**: Use CIB in real production SDK  | To demonstrably prove viability of this architecture and tool it will be better to use it for at least one large production quality software. My plan is to use CIB for ObjectARX SDK of AutoCAD to demonstrate it's viability. | **IN PROGRESS** |
 | **Phase1**: For AutoCAD SDK subset        | Make CIB work for ObjectARX SDK even when it requires changing of SDK headers to avoid problems of SDK and/or the tool. | **DONE** |
 | **Phase2**: For complete AutoCAD SDK      | Improve tool so that only minimal change in ObjectARX SDK is required and that too only to avoid problems of SDK and not of tool. | **IN PROGRESS** |
-| Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. ||
+| Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. | Done |
 | Enum and enum classes                     | Enums used as parameter or return type. |
 | STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
 | Support shared_ptr and unique_ptr         | Modern C++ programing expects these to be used more often. |

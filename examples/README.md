@@ -5,9 +5,9 @@
 - Almost all examples contain a library and a client executable.
 - Library consists of a public header and a source file.
 - Most functions simply return an `int`.
-- `cib` tool is used on public header that generates
-    - glue code for library and clients.
-    - cibified headers that becomes part of the SDK.
+- `cib` tool is used on public header that
+    - generates glue code for library and clients.
+    - generates cibified headers that becomes part of the SDK.
 - Client is an executable that tests correct behavior of library.
 
 ## Types of Examples:
@@ -22,9 +22,14 @@ This example explains the basic building blocks of CIB architecture and how CIB 
 For details please see [A Simple Class example](010-simple-class)
 
 ## Example - Simple Class and Backward Compatibility
-This example illustrates the fact that change in data member of a class doesn't affect ABI stability because CIB uses bridge pattern and that is known to isolate client and library from changes in data members.
+This example illustrates the fact that change in data member of a class doesn't affect ABI stability because CIB uses bridge pattern and that is known to isolate client and library from changes in object layout.
 
 For details please see [Simple Class and Backward Compatibility](015-simple-class-and-bkwd-compatibility)
+
+## Example - Simple Class and Forward Compatibility
+This example illustrates how library can be forward compatible with newer clients. This example also demonstrates how a client can work with older library even when it calls new functions that is not available in old library.
+
+For details please see [Simple Class and Forward Compatibility](018-simple-class-and-forwd-compatibility)
 
 ## Example - Virtual Function
 This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example is just to explain required building blocks. In the next example we will consider the ABI stability.

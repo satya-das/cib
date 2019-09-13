@@ -1,6 +1,6 @@
 ## Example - A Simple Class and Forward Compatibility
 
-Forward compatiblity of library also means backward compatibility of client. If a new client uses new functions of library then there will an issue when the new client is used with old library. As long as that is not done CIB architecture ensures ABI stability. Even when client uses new function CIB has mechanism in place to throw exception at runtime that client can catch and mend it's ways. This example demonstrates 2 things:
+Forward compatiblity of library also means backward compatibility of client. If a new client uses new functions of library then there will be an issue when the new client is used with old library. As long as that is not done CIB architecture ensures ABI stability. Even when client uses new function CIB has mechanism in place to throw exception at runtime that client can catch and mend it's ways. This example demonstrates 2 things:
  1. **Forward compatibility**: New client is compatible with old library if it doesn't call functions that are only available in newer library,
  2. **Robustness**: An exception is thrown when client calls newer API not available in old library.
 
