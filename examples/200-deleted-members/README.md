@@ -1,4 +1,3 @@
-## Function pointer support
+## Deleted members support
 
-<it is not yet implemented>
-
+Documentation will be added later
