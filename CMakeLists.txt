@@ -114,6 +114,7 @@ set(EXAMPLES
 	180-pod-struct
 	# 190-function-pointer
 	200-deleted-members
+	210-enum-parameters
 )
 add_subdirectory(examples)
 

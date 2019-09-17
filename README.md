@@ -190,7 +190,7 @@ ninja && ninja test
 | Rvalue reference parameter                | RValue references need to cross component boundary. | Done|
 | Support of free functions                 | Free functions in global and orher namespaces too should be supported. | Done |
 | Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. | Done |
-| Enum and enum classes                     | Enums used as parameter or return type. |
+| Enum and enum classes                     | Enums used as parameter or return type. | Done|
 | Support unique_ptr with default deleter   | It's a Modern C++ programing paradigm and must be supported. |
 | Support unique_ptr with custom deleter    | It's a Modern C++ programing paradigm and must be supported. |
 | STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
