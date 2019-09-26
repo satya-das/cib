@@ -98,6 +98,7 @@ set(EXAMPLES
 	035-virtual-function-and-forwd-compatibility
 	040-inheritance-change-and-bkwd-compatibility
 	050-inheritance-type-and-bkwd-compatibility
+	055-abstract-class
 	060-simple-interface-class
 	070-simple-interface-class-and-bkwd-compatibility
 	075-simple-interface-class-and-forwd-compatibility
@@ -115,6 +116,7 @@ set(EXAMPLES
 	# 190-function-pointer
 	200-deleted-members
 	210-enum-parameters
+	220-unique-ptr
 )
 add_subdirectory(examples)
 

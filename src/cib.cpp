@@ -79,6 +79,14 @@ static void emitStars(std::ostream& stm, std::uint8_t numStars)
     stm << '*';
 }
 
+static std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType*  typeObj)
+{
+  const std::string& baseType = typeObj->baseType();
+  auto newName = baseType.substr(16, baseType.size() - 17);
+
+  return std::make_unique<CppVarType>(newName, typeObj->typeModifier());
+}
+
 static void emitType(std::ostream&      stm,
                      const CppVarType*  typeObj,
                      const CibCompound* typeResolver,
@@ -87,6 +95,11 @@ static void emitType(std::ostream&      stm,
 {
   if (typeObj == nullptr)
     return;
+  if ((purpose & kPurposeAbiLayer) && isUniquePtr(typeObj))
+  {
+    return emitType(stm, convertUniquePtr(typeObj).get(), typeResolver, helper, purpose);
+  }
+
   // FIXME: We are assuming that all types will be of some sort of compound object.
   // This will break when there will be some typedefed or enum type is used.
   auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : nullptr);
@@ -504,7 +517,10 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << ")";
       --indentation;
     }
-    stm << ");\n";
+    stm << ")";
+    if (!forProxy && isUniquePtr(returnType()))
+      stm << ".get()";
+    stm << ";\n";
   }
   stm << --indentation << "}\n";
 }
@@ -597,15 +613,23 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
 
     stm << indentation;
     const CibCompound* retType = nullptr;
+    bool isRetUniquePtr = false;
     if (returnType() && !isVoid(returnType()))
     {
       stm << "return ";
+      isRetUniquePtr = isUniquePtr(returnType());
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
+      if (!resolvedCppObj && isRetUniquePtr)
+      {
+        resolvedCppObj = callingOwner->resolveTypeName(convertUniquePtr(returnType())->baseType(), helper);
+      }
       retType =
         resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
       if (retType && retType->needsNoProxy())
         retType = nullptr;
-      if (retType && isByValue(returnType()))
+      if (isRetUniquePtr)
+        stm << returnType()->baseType() << "(";
+      if (retType && isByValue(returnType()) && !isRetUniquePtr)
       {
         stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
       }
@@ -620,7 +644,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
         {
           stm << "__zz_cib_" << retType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(\n";
           stm << ++indentation;
-          emitStars(stm, effectivePtrLevel(returnType()) - 1);
+          if (!isRetUniquePtr)
+            emitStars(stm, effectivePtrLevel(returnType()) - 1);
         }
       }
     }
@@ -641,7 +666,11 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     emitArgsForCall(stm, helper, cibParams, ParamConversion::kToHandle);
     stm << ')';
     if (retType)
+    {
+      if (isRetUniquePtr)
+        stm << ")";
       stm << '\n' << --indentation << ")";
+    }
     stm << ";\n";
     stm << --indentation << "}\n";
   }

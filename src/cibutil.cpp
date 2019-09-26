@@ -122,3 +122,49 @@ std::string closingNs(std::string::const_iterator beg, std::string::const_iterat
   else
     return closingBraces + closingNs(itr + 2, end);
 }
+
+TemplateArgs CollectTemplateArgs(const std::string& s)
+{
+  auto b = s.find('<');
+  auto e = s.length();
+  assert(b < e);
+  auto jumpToArgStart = [&]() {
+    while ((++b < e) && isspace(s[b]))
+      ;
+    return b;
+  };
+  auto extractArg = [&s](size_t b, size_t e) {
+    while (isspace(s[--e]))
+      ;
+    ++e;
+    return s.substr(b, e - b);
+  };
+  TemplateArgs ret;
+  for (size_t argStart = jumpToArgStart(), nestedTemplateArg = 0; ++b < e;)
+  {
+    if (s[b] == '<')
+    {
+      ++nestedTemplateArg;
+    }
+    else if (s[b] == '>')
+    {
+      if (nestedTemplateArg)
+      {
+        --nestedTemplateArg;
+      }
+      else
+      {
+        ret.push_back(extractArg(argStart, b));
+        return ret;
+      }
+    }
+    else if ((nestedTemplateArg == 0) && s[b] == ',')
+    {
+      ret.push_back(extractArg(argStart, b));
+      argStart = jumpToArgStart();
+    }
+  }
+
+  assert(false && "We should never ever be here.");
+  return ret;
+}

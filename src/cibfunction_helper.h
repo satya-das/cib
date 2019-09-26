@@ -52,7 +52,11 @@ class CibIdData;
 enum FuncProtoPurpose
 {
   kPurposeBaseLine             = __LINE__, //!< This is unusable const, don't use it.
+  
   kPurposeGlueCode             = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeAbiLayer             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeLibraryAbi           = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
+  kPurposeClientAbi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
   kPurposeLibGlueCode          = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeClientGlueCode       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeSignature            = (1 << (__LINE__ - kPurposeBaseLine)),
