@@ -121,12 +121,6 @@ public:
     return __zz_cib_get_mtable_helper().invoke<PublicVirtualProc, __zz_cib_methodid::PublicVirtual_5>(
       __zz_cib_h_);
   }
-  ~IF() override {
-    if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_7>(
-      __zz_cib_h_);
-  }
 };
 }}}
 ::IF* __zz_cib_::IF::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {

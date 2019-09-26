@@ -9,4 +9,6 @@ TEST_CASE("Enum parameters should be supported")
   A a;
   auto p = a.f();
   CHECK(p->f() == 909);
+
+  delete p;
 }

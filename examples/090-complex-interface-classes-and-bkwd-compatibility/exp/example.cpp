@@ -172,12 +172,6 @@ public:
     return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f_1>(
       __zz_cib_h_);
   }
-  ~Interface2() override {
-    if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
-      __zz_cib_h_);
-  }
 };
 }}}
 ::Interface2* __zz_cib_::Interface2::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
@@ -242,12 +236,6 @@ public:
   int g() override {
     using gProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<gProc, __zz_cib_methodid::g_1>(
-      __zz_cib_h_);
-  }
-  ~Interface3() override {
-    if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_2>(
       __zz_cib_h_);
   }
 };

@@ -59,7 +59,7 @@ static ::A* __zz_cib_decl __zz_cib_new_2() {
   return new __zz_cib_Delegatee();
 }
 static ::I* __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::A::f().get();
+  return __zz_cib_obj->::A::f().release();
 }
 static ::I* __zz_cib_decl g_4(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();

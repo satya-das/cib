@@ -519,7 +519,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     stm << ")";
     if (!forProxy && isUniquePtr(returnType()))
-      stm << ".get()";
+      stm << ".release()";
     stm << ";\n";
   }
   stm << --indentation << "}\n";
@@ -713,6 +713,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
 {
   if (!isVirtual())
     return;
+  if ((purpose == kPurposeGeneric) && isDestructor())
+    return; // base class dtor takes care of everything.
 
   stm << indentation;
   emitSignature(stm, helper, kPurposeGenericProxy);

@@ -108,12 +108,6 @@ public:
     return __zz_cib_get_mtable_helper().invoke<FProc, __zz_cib_methodid::F_0>(
       __zz_cib_h_);
   }
-  ~Facade() override {
-    if (!__zz_cib_h_) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
-      __zz_cib_h_);
-  }
 };
 }}}
 ::Facade* __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
