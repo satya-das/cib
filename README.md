@@ -192,10 +192,11 @@ ninja && ninja test
 | Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. | Done |
 | Enum and enum classes                     | Enums used as parameter or return type. | Done|
 | Support unique_ptr with default deleter   | It's a Modern C++ programing paradigm and must be supported. | Done|
-| Support unique_ptr with custom deleter    | It's a Modern C++ programing paradigm and must be supported. |
+| proxy object management by library        | Library manages proxy objects deletion when original object is deleted. ||
 | STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
 | Exception support                         | Make exception object travel across component boundary in a compatible way. |
 | Support shared_ptr                        | Modern C++ libraries use shared_ptr. |
+| Support unique_ptr with custom deleter    | Sometimes unique_ptr is used with custom deleter. |
 | Function pointer as parameter             | Function pointers can be used as parameter or return type of another function. ||
 | Support std::function                     | std::function can be used as function parameter or return type. They too should be supported. ||
 | Support for intrusive pointer             | Many libraries use intrusive pointer to manage object life cyle and functions can return smart pointer for intrusively managed reference count of object. |
