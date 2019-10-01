@@ -117,6 +117,7 @@ set(EXAMPLES
 	200-deleted-members
 	210-enum-parameters
 	220-unique-ptr
+	230-lib-deletes-proxy
 )
 add_subdirectory(examples)
 
