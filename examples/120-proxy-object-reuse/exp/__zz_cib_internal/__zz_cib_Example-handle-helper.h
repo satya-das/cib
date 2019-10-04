@@ -107,18 +107,18 @@ public:
   {
     return *__zz_cib_from_handle(&h);
   }
-  static const _ProxyClass*& __zz_cib_from_handle(const __zz_cib_HANDLE* h)
+  static const _ProxyClass* __zz_cib_from_handle(const __zz_cib_HANDLE* h)
   {
-    return const_cast<const _ProxyClass*&>(__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h)));
+    return const_cast<const _ProxyClass*>(__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(h)));
   }
   static const _ProxyClass& __zz_cib_from_handle(const __zz_cib_HANDLE& h)
   {
     return *__zz_cib_from_handle(const_cast<__zz_cib_HANDLE*>(&h));
   }
-  static _ProxyClass*& __zz_cib_from_handle(__zz_cib_HANDLE* h)
+  static _ProxyClass* __zz_cib_from_handle(__zz_cib_HANDLE* h)
   {
     auto&  dis   = _Helper::instance();
-    auto*& proxy = dis.proxyMgr.findProxy(h);
+    auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy)
       return proxy;
     _Helper::__zz_cib_create_proxy(h);

@@ -97,85 +97,6 @@ private:
 Since, there are 2 concretized types of template `class Value` that crosses component boundary, we basically have 2 new classes instead of 1 templated class. So, we need to export those 2 classes instead of exporting `class Value`. Those classes will have exactly same members as the `class Value` but obviously without any template parameter. But CIB's way of exporting classes is to export their `MethodTable` which is then used to reconstruct classes back on the client side. So, below is the library side glue code to export `MethodTable`s of concretized types of template class:
 
 **File**: examples/100-template-classes/cib/value.h.cpp
-```c++
-#include "int.h"
-#include "value.h"
-
-#include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-proxy.h"
-
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class3 {
-namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
-static ::Example::Value<::Example::Int>* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_Delegatee(*__zz_cib_obj);
-}
-static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static ::Example::Value<::Example::Int>* __zz_cib_decl __zz_cib_new_2(::Example::Int* x) {
-  return new __zz_cib_Delegatee(*x);
-}
-static ::Example::Int* __zz_cib_decl GetValue_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new ::Example::Int(__zz_cib_obj->::Example::Value<::Example::Int>::GetValue());
-}
-static void __zz_cib_decl SetValue_4(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Int* x) {
-  __zz_cib_obj->::Example::Value<::Example::Int>::SetValue(*x);
-}
-}
-}}}
-
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class3 {
-const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-  static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetValue_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetValue_4)
-  };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
-  return &methodTable;
-}
-}}}
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
-namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = ::Example::Value<int>;
-static ::Example::Value<int>* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_Delegatee(*__zz_cib_obj);
-}
-static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static ::Example::Value<int>* __zz_cib_decl __zz_cib_new_2(int x) {
-  return new __zz_cib_Delegatee(x);
-}
-static int __zz_cib_decl GetValue_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::Value<int>::GetValue();
-}
-static void __zz_cib_decl SetValue_4(__zz_cib_Delegatee* __zz_cib_obj, int x) {
-  __zz_cib_obj->::Example::Value<int>::SetValue(x);
-}
-}
-}}}
-
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
-const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-  static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetValue_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetValue_4)
-  };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
-  return &methodTable;
-}
-}}}
-
-```
 
 The library side code is very familiar to what we have seen in other cases like `simple-class` example. Only thing new are the name of namespaces `__zz_cib_Class3` and `__zz_cib_Class4`. For regular classes the name of these namespaces are same as class name but the name of concretized type of template class is unsuitable to be used as namespace name. For instance names of concretized types in this example are `Value<int>`, and `Value<Int>`, these cannot be used as namespace name. So, CIB makes up unique names of these classes. It doesn't matter as long as developers don't need to use these names and they are only used in glue code.
 
@@ -249,15 +170,15 @@ private:
 }
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
-  , public __zz_cib_::__zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
+  , public __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::Example::Value<int>;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
@@ -364,6 +285,8 @@ Let's see what that `value-postdef.h` contains:
 
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
+#include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-null-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 #include "__zz_cib_Class4.h"

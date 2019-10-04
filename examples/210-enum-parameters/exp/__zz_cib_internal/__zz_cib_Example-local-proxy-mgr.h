@@ -34,11 +34,10 @@ template <typename _ProxyClass>
 class __zz_cib_local_proxy_mgr
 {
 public:
-  _ProxyClass*& findProxy(__zz_cib_HANDLE* h)
+  _ProxyClass* findProxy(__zz_cib_HANDLE* h)
   {
-    static _ProxyClass* nullProxy = nullptr;
     auto                itr       = proxyRepo.find(h);
-    return (itr == proxyRepo.end()) ? nullProxy : itr->second;
+    return (itr == proxyRepo.end()) ? nullptr : itr->second;
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {

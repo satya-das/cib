@@ -38,19 +38,15 @@ template <typename _ProxyClass>
 class __zz_cib_null_proxy_mgr
 {
 public:
-  _ProxyClass*& findProxy(__zz_cib_HANDLE*)
+  _ProxyClass* findProxy(__zz_cib_HANDLE*)
   {
-    // assert(false && "This should never be called.");
-    static _ProxyClass* nullProxy = nullptr;
-    return nullProxy;
+    return nullptr;
   }
   void addProxy(_ProxyClass*, __zz_cib_HANDLE*)
   {
-    // assert(false && "This should never be called.");
   }
   void removeProxy(__zz_cib_HANDLE*)
   {
-    // assert(false && "This should never be called.");
   }
 };
 
