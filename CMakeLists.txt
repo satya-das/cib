@@ -49,6 +49,7 @@ set(RESFILES
 	__zz_cib_Module-handle-helper.h
 	__zz_cib_Module-import.h
 	__zz_cib_Module-local-proxy-mgr.h
+	__zz_cib_Module-null-proxy-mgr.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
 	__zz_cib_Module-delegate-helper.h
