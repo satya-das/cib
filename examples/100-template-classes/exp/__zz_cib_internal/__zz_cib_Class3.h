@@ -27,7 +27,7 @@ private:
 }
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class3 {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Example::Value<::Example::Int>, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -35,7 +35,7 @@ private:
   friend class ::Example::Value<::Example::Int>;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {

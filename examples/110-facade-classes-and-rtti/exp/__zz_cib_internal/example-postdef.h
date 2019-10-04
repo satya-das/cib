@@ -7,7 +7,7 @@
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace Facade {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Facade, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -15,7 +15,7 @@ private:
   friend class ::Facade;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
@@ -53,7 +53,7 @@ public:
 }}
 
 namespace __zz_cib_ { namespace PublicFacadeImpl {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::PublicFacadeImpl, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -61,7 +61,7 @@ private:
   friend class ::PublicFacadeImpl;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
@@ -120,7 +120,7 @@ public:
 }}
 
 namespace __zz_cib_ { namespace A {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::A, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -128,7 +128,7 @@ private:
   friend class ::A;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {

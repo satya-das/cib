@@ -7,7 +7,7 @@
 #include "__zz_cib_internal/__zz_cib_Demo-handle-helper.h"
 
 namespace __zz_cib_ { namespace I {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::I, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -16,7 +16,7 @@ private:
   friend class ::I;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Demo_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
@@ -62,7 +62,7 @@ public:
 }}
 
 namespace __zz_cib_ { namespace C {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::C, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -70,7 +70,7 @@ private:
   friend class ::C;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Demo_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {

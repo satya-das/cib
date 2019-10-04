@@ -7,13 +7,13 @@
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
 namespace __zz_cib_ { namespace CPoint {
-class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper {
+class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
 private:
   using __zz_cib_TYPE = ::CPoint;
   friend class ::CPoint;
 
   __zz_cib_Helper()
-    : __zz_cib_::__zz_cib_MethodTableHelper(
+    : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {

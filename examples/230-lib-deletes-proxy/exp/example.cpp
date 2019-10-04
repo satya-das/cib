@@ -73,8 +73,8 @@ class I : public ::I {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
-    static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
+  static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
+    static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_classid));
     return mtableHelper;
   }

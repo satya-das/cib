@@ -1692,7 +1692,7 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
                                       CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-  stm << indentation << "class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper";
+  stm << indentation << "class __zz_cib_Helper : public __zz_cib_MethodTableHelper";
   if (!isClassLike(this))
   {
     stm << " {\n";
@@ -1722,7 +1722,7 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
   }
 
   stm << indentation << "__zz_cib_Helper()\n";
-  stm << ++indentation << ": __zz_cib_::__zz_cib_MethodTableHelper(\n";
+  stm << ++indentation << ": __zz_cib_MethodTableHelper(\n";
   stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "_GetMethodTable(__zz_cib_classid))\n";
   --indentation;
   stm << --indentation << "{}\n";
@@ -2011,8 +2011,8 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_HANDLE* __zz_cib_h_;\n\n";
   stm << indentation << "using __zz_cib_TYPE = __zz_cib_HANDLE;\n";
-  stm << indentation << "static __zz_cib_::__zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
-  stm << ++indentation << "static __zz_cib_::__zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
+  stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
+  stm << ++indentation << "static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
       << "_GetMethodTable(\n";
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
