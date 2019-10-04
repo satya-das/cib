@@ -27,8 +27,7 @@
 
 #include <map>
 
-namespace __zz_cib_
-{
+namespace __zz_cib_ { namespace Example {
 
 /**
  * Only for the purpose of simplicity.
@@ -50,5 +49,4 @@ public:
   }
 };
 
-}
-
+}}

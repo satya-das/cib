@@ -1705,9 +1705,9 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
     {
       std::string proxyMgr;
       if (isClassLike(this) && isShared())
-        proxyMgr = "__zz_cib_local_proxy_mgr";
+        proxyMgr = cibParams.moduleName + "::__zz_cib_local_proxy_mgr";
       else
-        proxyMgr = "__zz_cib_null_proxy_mgr";
+        proxyMgr = cibParams.moduleName + "::__zz_cib_null_proxy_mgr";
 
       std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", " + proxyMgr + ", __zz_cib_Helper>";
       stm << '\n' << ++indentation << ", public " << handleHelperParentName << " {\n";

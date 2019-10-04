@@ -9,10 +9,10 @@
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Example::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Example::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Example::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Example::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper>;
   friend class ::Example::A;
 
   __zz_cib_Helper()

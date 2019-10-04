@@ -27,8 +27,7 @@
 
 #include <map>
 
-namespace __zz_cib_
-{
+namespace __zz_cib_ { namespace $Module$ {
 
 template <typename _ProxyClass>
 class __zz_cib_local_proxy_mgr
@@ -53,5 +52,4 @@ private:
   ProxyRepo proxyRepo;
 };
 
-}
-
+}}

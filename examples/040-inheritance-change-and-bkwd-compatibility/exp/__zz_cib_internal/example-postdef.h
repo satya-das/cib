@@ -9,10 +9,10 @@
 
 namespace __zz_cib_ { namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::A, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::A, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::A, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::A, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::A;
 
   __zz_cib_Helper()
@@ -84,10 +84,10 @@ public:
 
 namespace __zz_cib_ { namespace I1 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::I1, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::I1, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::I1, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::I1, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::I1;
 
   __zz_cib_Helper()
@@ -147,10 +147,10 @@ public:
 
 namespace __zz_cib_ { namespace I2 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::I2, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::I2, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::I2, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::I2, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::I2;
 
   __zz_cib_Helper()
@@ -210,10 +210,10 @@ public:
 
 namespace __zz_cib_ { namespace B {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::B, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::B, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::B, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::B, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::B;
 
   __zz_cib_Helper()

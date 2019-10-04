@@ -9,10 +9,10 @@
 
 namespace __zz_cib_ { namespace Facade {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Facade, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Facade, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Facade, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Facade, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::Facade;
 
   __zz_cib_Helper()
@@ -55,10 +55,10 @@ public:
 
 namespace __zz_cib_ { namespace PublicFacadeImpl {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::PublicFacadeImpl, __zz_cib_null_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::PublicFacadeImpl, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::PublicFacadeImpl, __zz_cib_null_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::PublicFacadeImpl, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper>;
   friend class ::PublicFacadeImpl;
 
   __zz_cib_Helper()
@@ -122,10 +122,10 @@ public:
 
 namespace __zz_cib_ { namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper>;
   friend class ::A;
 
   __zz_cib_Helper()

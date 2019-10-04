@@ -26,10 +26,10 @@ private:
 
 namespace __zz_cib_ { namespace __zz_cib_Class3 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Value<float>, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Value<float>, templates::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Value<float>, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Value<float>, templates::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::Value<float>;
 
   __zz_cib_Helper()
