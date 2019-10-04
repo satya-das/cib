@@ -1032,6 +1032,7 @@ void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibPa
 {
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-local-proxy-mgr.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 }
@@ -1701,7 +1702,7 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
   {
     if (!needsNoProxy())
     {
-      std::string handleHelperParentName = "__zz_cib_::__zz_cib_HandleHelper<" + longName() + ", __zz_cib_Helper>";
+      std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", __zz_cib_local_proxy_mgr, __zz_cib_Helper>";
       stm << '\n' << ++indentation << ", public " << handleHelperParentName << " {\n";
       stm << --indentation << "private:\n";
       stm << ++indentation << "using __zz_cib_TYPE = __zz_cib_HANDLE;\n";

@@ -2,15 +2,16 @@
 
 #include "__zz_cib_internal/__zz_cib_templates-def.h"
 #include "__zz_cib_internal/__zz_cib_templates-ids.h"
+#include "__zz_cib_internal/__zz_cib_templates-local-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_templates-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_templates-handle-helper.h"
 
 namespace __zz_cib_ { namespace A {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
-  , public __zz_cib_::__zz_cib_HandleHelper<::A, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::A, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_::__zz_cib_HandleHelper<::A, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::A, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::A;
 

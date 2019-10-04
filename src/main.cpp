@@ -233,6 +233,7 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
                                            "__zz_cib_Module-handle-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-import.h",
+                                           "__zz_cib_Module-local-proxy-mgr.h",
                                            "__zz_cib_Module-class-internal-def.h",
                                            nullptr};
   for (int i = 0; filesToProcessForClient[i] != nullptr; ++i)

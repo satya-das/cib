@@ -27,10 +27,10 @@ private:
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
 class __zz_cib_Helper : public __zz_cib_::__zz_cib_MethodTableHelper
-  , public __zz_cib_::__zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_local_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_::__zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_local_proxy_mgr, __zz_cib_Helper>;
   friend class ::Example::Value<int>;
 
   __zz_cib_Helper()
