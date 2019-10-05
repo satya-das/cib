@@ -57,8 +57,8 @@ public:
       using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy_4>(
       __zz_cib_obj->__zz_cib_h_);
+    }
   }
-}
 };
 }}
 
@@ -117,8 +117,8 @@ public:
       using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy_4>(
       __zz_cib_obj->__zz_cib_h_);
+    }
   }
-}
 };
 }}
 
@@ -177,8 +177,8 @@ public:
       using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
       return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy_4>(
       __zz_cib_obj->__zz_cib_h_);
+    }
   }
-}
 };
 }}
 

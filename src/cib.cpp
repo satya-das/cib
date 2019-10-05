@@ -1823,7 +1823,6 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << indentation << "return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::"
         << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ">(\n";
     stm << indentation << "__zz_cib_obj->__zz_cib_h_);\n";
-    --indentation;
     stm << --indentation << "}\n";
     stm << --indentation << "}\n";
   }
