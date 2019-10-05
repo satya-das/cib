@@ -98,7 +98,6 @@ public:
 };
 
 //! Helps converting proxy to handle and vice versa.
-//! This actually a variant of CRTP.
 template <typename _ProxyClass, template<typename> class _ProxyMgr, typename _Helper>
 class __zz_cib_HandleHelper
 {
@@ -121,8 +120,7 @@ public:
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy)
       return proxy;
-    _Helper::__zz_cib_create_proxy(h);
-    return dis.proxyMgr.findProxy(h);
+    return _Helper::__zz_cib_create_proxy(h);
   }
   static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {

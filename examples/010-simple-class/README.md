@@ -335,10 +335,10 @@ We will now move to see the content of file that was #include'd at the end of pr
 
 namespace __zz_cib_ { namespace Example { namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Example::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Example::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Example::A, __zz_cib_null_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Example::A, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper>;
   friend class ::Example::A;
 
   __zz_cib_Helper()
@@ -350,27 +350,27 @@ private:
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_1(__zz_cib_TYPE* __zz_cib_obj) {
+  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new_2() {
+  static __zz_cib_TYPE* __zz_cib_new() {
     using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int SomeFunc_3(__zz_cib_TYPE* __zz_cib_obj) {
+  static int SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
     using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc_3>(
+    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc>(
       __zz_cib_obj
       );
   }
@@ -378,20 +378,20 @@ private:
     return new ::Example::A(h);
   }
 public:
-    static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::Example::A(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::Example::A(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}}
 
