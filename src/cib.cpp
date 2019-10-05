@@ -1783,14 +1783,14 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     return;
   emitFromHandleDecl(stm, cibParams, indentation);
   stm << --indentation << "public:\n";
-  ++indentation;
   if (!isAbstract())
   {
     stm << ++indentation << "static " << longName() << " __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {\n";
     stm << ++indentation << "return " << longName() << "(h);\n";
     stm << --indentation << "}\n";
+    --indentation;
   }
-  stm << indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
+  stm << ++indentation << "static __zz_cib_HANDLE*& __zz_cib_get_handle(" << longName() << "* __zz_cib_obj) {\n";
   stm << ++indentation << "return __zz_cib_obj->__zz_cib_h_;\n";
   stm << --indentation << "}\n";
   stm << indentation << "static __zz_cib_HANDLE* const& __zz_cib_get_handle(const " << longName()

@@ -77,21 +77,21 @@ private:
     return new ::Example::Value<::Example::Int>(h);
   }
 public:
-    static ::Example::Value<::Example::Int> __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::Example::Value<::Example::Int>(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::Value<::Example::Int>* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::Value<::Example::Int>* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Value<::Example::Int>* __zz_cib_obj) {
-      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::Example::Value<::Example::Int> __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::Example::Value<::Example::Int>(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::Value<::Example::Int>* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::Value<::Example::Int>* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Value<::Example::Int>* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}}
 

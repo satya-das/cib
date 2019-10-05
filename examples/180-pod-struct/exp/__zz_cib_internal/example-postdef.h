@@ -46,21 +46,21 @@ private:
     return new ::NonPod1(h);
   }
 public:
-    static ::NonPod1 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::NonPod1(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod1* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod1* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod1* __zz_cib_obj) {
-      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::NonPod1 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::NonPod1(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod1* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod1* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod1* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}
 
@@ -103,21 +103,21 @@ private:
     return new ::NonPod2(h);
   }
 public:
-    static ::NonPod2 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::NonPod2(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod2* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod2* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod2* __zz_cib_obj) {
-      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::NonPod2 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::NonPod2(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod2* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod2* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod2* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}
 
@@ -160,21 +160,21 @@ private:
     return new ::NonPod3(h);
   }
 public:
-    static ::NonPod3 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::NonPod3(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod3* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod3* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod3* __zz_cib_obj) {
-      __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::NonPod3 __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::NonPod3(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::NonPod3* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::NonPod3* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::NonPod3* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}
 
@@ -247,19 +247,19 @@ private:
     return new ::A(h);
   }
 public:
-    static ::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-      return ::A(h);
-    }
-    static __zz_cib_HANDLE*& __zz_cib_get_handle(::A* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::A* __zz_cib_obj) {
-      return __zz_cib_obj->__zz_cib_h_;
-    }
-    static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
-      auto h = __zz_cib_obj->__zz_cib_h_;
-      __zz_cib_obj->__zz_cib_h_ = nullptr;
-      return h;
-    }
+  static ::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::A(h);
+  }
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::A* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::A* __zz_cib_obj) {
+    return __zz_cib_obj->__zz_cib_h_;
+  }
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
+    auto h = __zz_cib_obj->__zz_cib_h_;
+    __zz_cib_obj->__zz_cib_h_ = nullptr;
+    return h;
+  }
 };
 }}
