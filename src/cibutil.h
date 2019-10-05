@@ -125,3 +125,8 @@ std::string expandNs(std::string::const_iterator beg, std::string::const_iterato
  * @sa expandNs.
  */
 std::string closingNs(std::string::const_iterator beg, std::string::const_iterator end);
+
+using StringVector = std::vector<std::string>;
+using TemplateArgs = StringVector;
+
+TemplateArgs CollectTemplateArgs(const std::string& s);
