@@ -27,9 +27,9 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_methodid {
   enum {
     //#= int GetNewA(::A*&);
-    GetNewA_0 = 0,
+    GetNewA = 0,
     //#= int GetNewB(::A*&);
-    GetNewB_1 = 1,
+    GetNewB = 1,
     //#= int GetNewA(::A const *&);
     GetNewA_2 = 2,
     //#= int GetNewB(::A const *&);
@@ -41,17 +41,17 @@ namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_met
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
   enum {
     //#= A();
-    __zz_cib_new_0 = 0,
+    __zz_cib_new = 0,
     //#= A(::A const &);
-    __zz_cib_copy_1 = 1,
+    __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
-    VirtualFunction_2 = 2,
+    VirtualFunction = 2,
     //#= ~A();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete = 3,
     //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id_4 = 4,
+    __zz_cib_get_class_id = 4,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy_5 = 5,
+    __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -59,9 +59,9 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int VirtualFunction() const;
-    VirtualFunction_0 = 0,
+    VirtualFunction = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
 }}}}
@@ -69,15 +69,15 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace 
 namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
   enum {
     //#= B();
-    __zz_cib_new_0 = 0,
+    __zz_cib_new = 0,
     //#= B(::B const &);
-    __zz_cib_copy_1 = 1,
+    __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
-    VirtualFunction_2 = 2,
+    VirtualFunction = 2,
     //#= ~B();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete = 3,
     //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A_4 = 4,
+    __zz_cib_cast_to___A = 4,
     __zz_cib_next_method_id = 5
   };
 }}}

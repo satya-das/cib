@@ -22,13 +22,13 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
   enum {
     //#= A(::A const &);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_copy = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_delete = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_new = 2,
     //#= int UseInterface(::Interface*) const;
-    UseInterface_3 = 3,
+    UseInterface = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -36,15 +36,15 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Interface { namespace __zz_cib_methodid {
   enum {
     //#= Interface();
-    __zz_cib_new_0 = 0,
+    __zz_cib_new = 0,
     //#= int Func();
-    Func_1 = 1,
+    Func = 1,
     //#= ~Interface();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_delete = 2,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy_3 = 3,
+    __zz_cib_release_proxy = 3,
     //#= int Gunc();
-    Gunc_4 = 4,
+    Gunc = 4,
     __zz_cib_next_method_id = 5
   };
 }}}
@@ -52,11 +52,11 @@ namespace __zz_cib_ { namespace Interface { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Interface { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int Func();
-    Func_0 = 0,
+    Func = 0,
     //#= ~Interface();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_delete = 1,
     //#= int Gunc();
-    Gunc_2 = 2,
+    Gunc = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}

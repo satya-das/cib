@@ -27,17 +27,17 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
   enum {
     //#= A(::A const &);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_copy = 0,
     //#= A();
-    __zz_cib_new_1 = 1,
+    __zz_cib_new = 1,
     //#= int VirtFunc();
-    VirtFunc_2 = 2,
+    VirtFunc = 2,
     //#= ~A();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete = 3,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc_4 = 4,
+    AnotherVirtFunc = 4,
     //#= int SomeFunc();
-    SomeFunc_5 = 5,
+    SomeFunc = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -45,29 +45,29 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
   enum {
     //#= B(::B const &);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_copy = 0,
     //#= ~B();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_delete = 1,
     //#= B();
-    __zz_cib_new_2 = 2,
+    __zz_cib_new = 2,
     //#= int VirtFunc();
-    VirtFunc_3 = 3,
+    VirtFunc = 3,
     //#= ::B* Create();
-    Create_4 = 4,
+    Create = 4,
     //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A_5 = 5,
+    __zz_cib_cast_to___A = 5,
     //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id_6 = 6,
+    __zz_cib_get_class_id = 6,
     //#= int F();
-    F_7 = 7,
+    F = 7,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc_8 = 8,
+    AnotherVirtFunc = 8,
     //#= int G();
-    G_9 = 9,
+    G = 9,
     //#= __zz_cib_cast_to___I1
-    __zz_cib_cast_to___I1_10 = 10,
+    __zz_cib_cast_to___I1 = 10,
     //#= __zz_cib_cast_to___I2
-    __zz_cib_cast_to___I2_11 = 11,
+    __zz_cib_cast_to___I2 = 11,
     __zz_cib_next_method_id = 12
   };
 }}}
@@ -75,13 +75,13 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace I1 { namespace __zz_cib_methodid {
   enum {
     //#= I1();
-    __zz_cib_new_0 = 0,
+    __zz_cib_new = 0,
     //#= I1(::I1 const &);
-    __zz_cib_copy_1 = 1,
+    __zz_cib_copy = 1,
     //#= int F();
-    F_2 = 2,
+    F = 2,
     //#= ~I1();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -89,13 +89,13 @@ namespace __zz_cib_ { namespace I1 { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace I2 { namespace __zz_cib_methodid {
   enum {
     //#= I2();
-    __zz_cib_new_0 = 0,
+    __zz_cib_new = 0,
     //#= I2(::I2 const &);
-    __zz_cib_copy_1 = 1,
+    __zz_cib_copy = 1,
     //#= int G();
-    G_2 = 2,
+    G = 2,
     //#= ~I2();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete = 3,
     __zz_cib_next_method_id = 4
   };
 }}}

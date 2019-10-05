@@ -16,13 +16,13 @@ A::A(A&& rhs)
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_0(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_1())
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::f() {
-  return __zz_cib_::A::__zz_cib_Helper::f_2(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_);
 }

@@ -15,28 +15,28 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_1())
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::AnotherVirtFunc() {
-  return __zz_cib_::A::__zz_cib_Helper::AnotherVirtFunc_4(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::AnotherVirtFunc(__zz_cib_h_);
 }
 
 int A::VirtFunc() {
-  return __zz_cib_::A::__zz_cib_Helper::VirtFunc_2(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::VirtFunc(__zz_cib_h_);
 }
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_3(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___A_5(h))
+  : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___A(h))
   , __zz_cib_h_(h)
 {
   __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
@@ -51,25 +51,25 @@ B::B(B&& rhs)
 }
 
 B::B(::B const & __zz_cib_param0)
-  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 B::~B() {
   auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 B::B()
-  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_new_2())
+  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_new())
 {}
 
 int B::VirtFunc() {
-  return __zz_cib_::B::__zz_cib_Helper::VirtFunc_3(__zz_cib_h_);
+  return __zz_cib_::B::__zz_cib_Helper::VirtFunc(__zz_cib_h_);
 }
 
 ::B* B::Create() {
   return __zz_cib_::B::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::B::__zz_cib_Helper::Create_4()
+    __zz_cib_::B::__zz_cib_Helper::Create()
   );
 }
 namespace __zz_cib_ { namespace B { namespace __zz_cib_Generic {
@@ -89,12 +89,12 @@ public:
   }
   int AnotherVirtFunc() override {
     using AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc_7>(
+    return __zz_cib_get_mtable_helper().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc>(
       __zz_cib_h_);
   }
   int VirtFunc() override {
     using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc_3>(
+    return __zz_cib_get_mtable_helper().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc>(
       __zz_cib_h_);
   }
 };

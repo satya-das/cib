@@ -12,20 +12,20 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_2())
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::fE(::E e) const {
-  return __zz_cib_::A::__zz_cib_Helper::fE_3(__zz_cib_h_, e);
+  return __zz_cib_::A::__zz_cib_Helper::fE(__zz_cib_h_, e);
 }
 
 int A::fE(::EC e) const {

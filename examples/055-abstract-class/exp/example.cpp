@@ -16,7 +16,7 @@ I::I(I&& rhs)
 
 I::~I() {
   auto h = __zz_cib_::I::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::I::__zz_cib_Helper::__zz_cib_delete_0(h);
+  __zz_cib_::I::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
@@ -30,27 +30,27 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_2())
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
 {}
 
 ::I* A::f() const {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::f_3(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_)
   );
 }
 
 ::I* A::g() {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::g_4(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::g(__zz_cib_h_)
   );
 }
 namespace __zz_cib_ { namespace I { namespace __zz_cib_Generic {
@@ -70,7 +70,7 @@ public:
   }
   int f() const override {
     using fProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f_1>(
+    return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f>(
       __zz_cib_h_);
   }
 };

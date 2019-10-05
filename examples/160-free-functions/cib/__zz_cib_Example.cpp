@@ -9,7 +9,7 @@
 namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_Delegator {
 namespace __zz_cib_Delegatee = ::Example;
-static int __zz_cib_decl Function1_0() {
+static int __zz_cib_decl Function1() {
   return ::Example::Function1();
 }
 }
@@ -18,7 +18,7 @@ static int __zz_cib_decl Function1_0() {
 namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_Delegator {
 namespace __zz_cib_Delegatee = ::Example;
-static int __zz_cib_decl Function2_1() {
+static int __zz_cib_decl Function2() {
   return ::Example::Function2();
 }
 }
@@ -27,8 +27,8 @@ static int __zz_cib_decl Function2_1() {
 namespace __zz_cib_ { namespace Example {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Function1_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Function2_1)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Function1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Function2)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;

@@ -12,13 +12,13 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
   enum {
     //#= A(::Example::A const &);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_copy = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_delete = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_new = 2,
     //#= int SomeFunc();
-    SomeFunc_3 = 3,
+    SomeFunc = 3,
     __zz_cib_next_method_id = 4
   };
 }}}}

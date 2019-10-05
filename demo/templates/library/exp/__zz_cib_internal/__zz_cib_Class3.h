@@ -41,27 +41,27 @@ private:
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_1(__zz_cib_TYPE* __zz_cib_obj) {
+  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new_2(float value) {
+  static __zz_cib_TYPE* __zz_cib_new(float value) {
     using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (float value);
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       value);
   }
-  static float get_3(const __zz_cib_TYPE* __zz_cib_obj) {
+  static float get(const __zz_cib_TYPE* __zz_cib_obj) {
     using getProc = float (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<getProc, __zz_cib_methodid::get_3>(
+    return instance().invoke<getProc, __zz_cib_methodid::get>(
       __zz_cib_obj
       );
   }
@@ -101,18 +101,18 @@ inline Value<float>::Value(Value<float>&& rhs)
 }
 
 inline Value<float>::Value(::Value<float> const & __zz_cib_param0)
-  : Value<float>(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_copy_0(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Value<float>(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Value<float>::~Value() {
   auto h = __zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_delete_1(h);
+  __zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline Value<float>::Value(float value)
-  : Value<float>(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_new_2(value))
+  : Value<float>(__zz_cib_::__zz_cib_Class3::__zz_cib_Helper::__zz_cib_new(value))
 {}
 
 inline float Value<float>::get() const {
-  return __zz_cib_::__zz_cib_Class3::__zz_cib_Helper::get_3(__zz_cib_h_);
+  return __zz_cib_::__zz_cib_Class3::__zz_cib_Helper::get(__zz_cib_h_);
 }

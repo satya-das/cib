@@ -106,6 +106,7 @@ set(EXAMPLES
 	010-simple-class
 	015-simple-class-and-bkwd-compatibility
 	018-simple-class-and-forwd-compatibility
+	019-function-overloading
 	020-virtual-function
 	030-virtual-function-and-bkwd-compatibility
 	035-virtual-function-and-forwd-compatibility

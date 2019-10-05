@@ -30,7 +30,7 @@ public:
   {}
   int setValue(::Value<int> const & intVal) const override {
     using setValueProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<int> const * intVal);
-    return __zz_cib_get_mtable_helper().invoke<setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue_0>(
+    return __zz_cib_get_mtable_helper().invoke<setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue>(
       __zz_cib_proxy,
       &intVal);
   }
@@ -42,18 +42,18 @@ public:
   }
   ::Value<int> getIntValue() const override {
     using getIntValueProc = ::Value<int>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<getIntValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue_2>(
+    return *__zz_cib_get_mtable_helper().invoke<getIntValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue>(
       __zz_cib_proxy);
   }
   ::Value<float> getFloatValue() const override {
     using getFloatValueProc = ::Value<float>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<getFloatValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue_3>(
+    return *__zz_cib_get_mtable_helper().invoke<getFloatValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue>(
       __zz_cib_proxy);
   }
   ~A() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_4>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -62,28 +62,28 @@ public:
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::A::__zz_cib_GenericProxy::A;
-static ::A* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
+static ::A* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
   return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl);
 }
-static ::A* __zz_cib_decl __zz_cib_copy_1(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::A* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl, *__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static int __zz_cib_decl setValue_3(const __zz_cib_Delegatee* __zz_cib_obj, ::Value<int> const * intVal) {
+static int __zz_cib_decl setValue(const __zz_cib_Delegatee* __zz_cib_obj, ::Value<int> const * intVal) {
   return __zz_cib_obj->::A::setValue(*intVal);
 }
 static float __zz_cib_decl setValue_4(const __zz_cib_Delegatee* __zz_cib_obj, ::Value<float> const * floatVal) {
   return __zz_cib_obj->::A::setValue(*floatVal);
 }
-static ::Value<int>* __zz_cib_decl getIntValue_5(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::Value<int>* __zz_cib_decl getIntValue(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new ::Value<int>(__zz_cib_obj->::A::getIntValue());
 }
-static ::Value<float>* __zz_cib_decl getFloatValue_6(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::Value<float>* __zz_cib_decl getFloatValue(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new ::Value<float>(__zz_cib_obj->::A::getFloatValue());
 }
-static void __zz_cib_decl __zz_cib_release_proxy_7(::A* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_release_proxy(::A* __zz_cib_obj) {
   auto unknownProxy = dynamic_cast<__zz_cib_::A::__zz_cib_GenericProxy::A*>(__zz_cib_obj);
   if (unknownProxy)
     unknownProxy->__zz_cib_release_proxy();
@@ -94,14 +94,14 @@ static void __zz_cib_decl __zz_cib_release_proxy_7(::A* __zz_cib_obj) {
 namespace __zz_cib_ { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue_3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getIntValue_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getFloatValue_6),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_7)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getIntValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getFloatValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
   return &methodTable;

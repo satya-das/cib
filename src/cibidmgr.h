@@ -32,6 +32,7 @@
 
 #include <cstdint>
 #include <map>
+#include <unordered_set>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -42,12 +43,15 @@ using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, Cib
  */
 class CibIdData
 {
-  using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
+  using CibMethodIdToMethodMap  = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
+  using CibMethodsSet           = std::unordered_set<CibMethodCAPIName>;
+
   CibClassId             classId;
   CibFullClassNsName     fullNsName;
   CibMethodIdTable       methodIdTable;
   CibMethodIdToMethodMap methodIdToMethodMap;
   CibMethodId            nextMethodId{0};
+  CibMethodsSet          allCApiNames;
 
 public:
   CibIdData(CibClassId cId, CibFullClassNsName fullClassNsName)
@@ -86,8 +90,11 @@ public:
     if (methodId == kInvalidMethodId)
     {
       methodId = nextMethodId;
-      methodName += "_" + std::to_string(methodId);
+      if (allCApiNames.count(methodName) != 0)
+        methodName += "_" + std::to_string(methodId);
+      assert(allCApiNames.count(methodName) == 0);
     }
+    allCApiNames.insert(methodName);
     methodIdToMethodMap.emplace(methodId, std::make_pair(methodName, signature));
     methodIdTable.emplace(std::move(signature), std::make_pair(methodId, std::move(methodName)));
     ++nextMethodId;

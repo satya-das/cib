@@ -8,13 +8,13 @@
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
-static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static ::A* __zz_cib_decl __zz_cib_new_2(int i) {
+static ::A* __zz_cib_decl __zz_cib_new(int i) {
   return new __zz_cib_Delegatee(i);
 }
 }
@@ -23,9 +23,9 @@ static ::A* __zz_cib_decl __zz_cib_new_2(int i) {
 namespace __zz_cib_ { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
   return &methodTable;
@@ -34,19 +34,19 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace B {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::B;
-static ::B* __zz_cib_decl __zz_cib_new_0() {
+static ::B* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static ::B* __zz_cib_decl __zz_cib_copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::B* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static void __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, ::A* pA) {
+static void __zz_cib_decl SetA(__zz_cib_Delegatee* __zz_cib_obj, ::A* pA) {
   __zz_cib_obj->::B::SetA(pA);
 }
-static ::A* __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::A* __zz_cib_decl GetA(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::B::GetA();
 }
 }
@@ -55,11 +55,11 @@ static ::A* __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
 namespace __zz_cib_ { namespace B {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetA_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetA_4)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetA),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetA)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

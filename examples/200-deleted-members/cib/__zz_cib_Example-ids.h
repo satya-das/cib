@@ -12,11 +12,11 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
   enum {
     //#= ~A();
-    __zz_cib_delete_0 = 0,
+    __zz_cib_delete = 0,
     //#= A();
-    __zz_cib_new_1 = 1,
+    __zz_cib_new = 1,
     //#= int f();
-    f_2 = 2,
+    f = 2,
     __zz_cib_next_method_id = 3
   };
 }}}

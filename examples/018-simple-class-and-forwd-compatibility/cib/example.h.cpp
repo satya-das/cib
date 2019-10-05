@@ -8,19 +8,19 @@
 namespace __zz_cib_ { namespace Example { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::A;
-static ::Example::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static ::Example::A* __zz_cib_decl __zz_cib_new_2() {
+static ::Example::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static int __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::Example::A::SomeFunc();
 }
-static int __zz_cib_decl AnotherFunction_4(__zz_cib_Delegatee* __zz_cib_obj) {
+static int __zz_cib_decl AnotherFunction(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::Example::A::AnotherFunction();
 }
 }
@@ -29,11 +29,11 @@ static int __zz_cib_decl AnotherFunction_4(__zz_cib_Delegatee* __zz_cib_obj) {
 namespace __zz_cib_ { namespace Example { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherFunction_4)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherFunction)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

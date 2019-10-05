@@ -15,21 +15,21 @@ A::A(A&& rhs)
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new_0(this))
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy_1(this, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete_2(h);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 int A::F() {
-  return __zz_cib_::A::__zz_cib_Helper::F_3(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::F(__zz_cib_h_);
 }
 
 int A::F(int __zz_cib_param0) {
@@ -37,15 +37,15 @@ int A::F(int __zz_cib_param0) {
 }
 
 int A::V() {
-  return __zz_cib_::A::__zz_cib_Helper::V_5(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::V(__zz_cib_h_);
 }
 namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
-  static int __zz_cib_decl V_0(::A* __zz_cib_obj) {
+  static int __zz_cib_decl V(::A* __zz_cib_obj) {
     return __zz_cib_obj->V();
   }
-  static void __zz_cib_decl __zz_cib_delete_1(::A* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
 };
@@ -54,8 +54,8 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace A {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::V_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::V),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;

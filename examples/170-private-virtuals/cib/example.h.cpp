@@ -13,6 +13,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace IF {
+struct __zz_cib_Delegator;
 namespace __zz_cib_GenericProxy {
 class IF : public ::IF {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -21,6 +22,7 @@ class IF : public ::IF {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+friend struct __zz_cib_::IF::__zz_cib_Delegator;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(IF, ::IF)
 
@@ -31,80 +33,77 @@ public:
   {}
   int PrivatePureVirtual() override {
     using PrivatePureVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<PrivatePureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivatePureVirtual_0>(
+    return __zz_cib_get_mtable_helper().invoke<PrivatePureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivatePureVirtual>(
       __zz_cib_proxy);
   }
   int PrivateVirtual() override {
     using PrivateVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<PrivateVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivateVirtual_1>(
+    return __zz_cib_get_mtable_helper().invoke<PrivateVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivateVirtual>(
       __zz_cib_proxy);
   }
   int ProtectedPureVirtual() override {
     using ProtectedPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<ProtectedPureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedPureVirtual_2>(
+    return __zz_cib_get_mtable_helper().invoke<ProtectedPureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedPureVirtual>(
       __zz_cib_proxy);
   }
   int ProtectedVirtual() override {
     using ProtectedVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<ProtectedVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedVirtual_3>(
+    return __zz_cib_get_mtable_helper().invoke<ProtectedVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedVirtual>(
       __zz_cib_proxy);
   }
   int PublicPureVirtual() override {
     using PublicPureVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<PublicPureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicPureVirtual_4>(
+    return __zz_cib_get_mtable_helper().invoke<PublicPureVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicPureVirtual>(
       __zz_cib_proxy);
   }
   int PublicVirtual() override {
     using PublicVirtualProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<PublicVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicVirtual_5>(
+    return __zz_cib_get_mtable_helper().invoke<PublicVirtualProc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicVirtual>(
       __zz_cib_proxy);
   }
   ~IF() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete_6>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}
 namespace __zz_cib_ { namespace IF {
-struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
-  using __zz_cib_ParentClass = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
-  using __zz_cib_ParentClass::__zz_cib_ParentClass;
-  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)
-  using __zz_cib_Delegatee = __zz_cib_Delegator;
-  static ::IF* __zz_cib_decl __zz_cib_new_0(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
+struct __zz_cib_Delegator {
+  using __zz_cib_Delegatee = __zz_cib_::IF::__zz_cib_GenericProxy::IF;
+  static ::IF* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::IF::__zz_cib_GenericProxy::IF(proxy, mtbl);
   }
-  static int __zz_cib_decl ProtectedPureVirtual_1(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl ProtectedPureVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->ProtectedPureVirtual();
   }
-  static int __zz_cib_decl ProtectedVirtual_2(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl ProtectedVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->::IF::ProtectedVirtual();
   }
-  static int __zz_cib_decl ProtectedNonVirtual_3(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl ProtectedNonVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->::IF::ProtectedNonVirtual();
   }
-  static int __zz_cib_decl PublicPureVirtual_4(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl PublicPureVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->PublicPureVirtual();
   }
-  static int __zz_cib_decl PublicVirtual_5(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl PublicVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->::IF::PublicVirtual();
   }
-  static int __zz_cib_decl PublicNonVirtual_6(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl PublicNonVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->::IF::PublicNonVirtual();
   }
-  static void __zz_cib_decl __zz_cib_delete_7(__zz_cib_Delegatee* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
     delete __zz_cib_obj;
   }
-  static int __zz_cib_decl PrivatePureVirtual_8(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl PrivatePureVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->PrivatePureVirtual();
   }
-  static int __zz_cib_decl PrivateVirtual_9(__zz_cib_Delegatee* __zz_cib_obj) {
+  static int __zz_cib_decl PrivateVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->PrivateVirtual();
   }
-  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id_10(::IF** __zz_cib_obj) {
+  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::IF** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
       __zz_cib_gClassIdRepo[std::type_index(typeid(::IF))] = __zz_cib_::IF::__zz_cib_classid;
@@ -115,7 +114,7 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
     return __zz_cib_::IF::__zz_cib_classid;
   }
-  static void __zz_cib_decl __zz_cib_release_proxy_11(::IF* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_release_proxy(::IF* __zz_cib_obj) {
     auto unknownProxy = dynamic_cast<__zz_cib_::IF::__zz_cib_GenericProxy::IF*>(__zz_cib_obj);
     if (unknownProxy)
       unknownProxy->__zz_cib_release_proxy();
@@ -126,18 +125,18 @@ struct __zz_cib_Delegator : public __zz_cib_::IF::__zz_cib_GenericProxy::IF {
 namespace __zz_cib_ { namespace IF {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedPureVirtual_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedVirtual_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedNonVirtual_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicPureVirtual_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicVirtual_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicNonVirtual_6),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_7),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual_8),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivateVirtual_9),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id_10),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy_11)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedPureVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::ProtectedNonVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicPureVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicNonVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivateVirtual),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 12 };
   return &methodTable;
@@ -146,19 +145,19 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
-static ::A* __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
-static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static ::A* __zz_cib_decl __zz_cib_new_2() {
+static ::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static int __zz_cib_decl SetIF_3(__zz_cib_Delegatee* __zz_cib_obj, ::IF* pIF) {
+static int __zz_cib_decl SetIF(__zz_cib_Delegatee* __zz_cib_obj, ::IF* pIF) {
   return __zz_cib_obj->::A::SetIF(pIF);
 }
-static ::IF* __zz_cib_decl GetIF_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::IF* __zz_cib_decl GetIF(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::GetIF();
 }
 }
@@ -167,11 +166,11 @@ static ::IF* __zz_cib_decl GetIF_4(const __zz_cib_Delegatee* __zz_cib_obj) {
 namespace __zz_cib_ { namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetIF_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetIF_4)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetIF),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetIF)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

@@ -494,7 +494,11 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     if (isClassLike(callingOwner) && !isStatic())
       stm << "__zz_cib_obj->";
-    if (!isCppFile(callingOwner) && !forProxy
+    if (isCppFile(callingOwner))
+    {
+      stm << "::";
+    }
+    else if (!forProxy
         && (isStatic()
             || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
                 && (accessType() != CppAccessType::kPrivate))))
@@ -1971,6 +1975,8 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
     return;
 
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
+  if (needsDelagatorClass())
+    stm << "struct __zz_cib_Delegator;\n";
   stm << "namespace __zz_cib_GenericProxy {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
@@ -1978,7 +1984,8 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {\n";
   stm << ++indentation << "return __zz_cib_mtbl_helper;\n";
   stm << --indentation << "}\n";
-
+  if (needsDelagatorClass())
+    stm << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
   --indentation;
   stm << indentation << "public:\n";
   stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(" << name() << ", " << longName() << ")\n\n";
@@ -2144,22 +2151,14 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   if (needsGenericProxyDefinition())
     emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-  auto parentClass =
+  auto delegatee =
     needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
-  std::string delegatee;
+
   if (needsDelagatorClass())
-  {
-    stm << indentation++ << "struct __zz_cib_Delegator : public " << parentClass << " {\n";
-    stm << indentation << "using __zz_cib_ParentClass = " << parentClass << ";\n";
-    stm << indentation << "using __zz_cib_ParentClass::__zz_cib_ParentClass;\n";
-    stm << indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Delegator, __zz_cib_ParentClass)\n";
-    delegatee = "__zz_cib_Delegator";
-  }
+    stm << indentation++ << "struct __zz_cib_Delegator {\n";
   else
-  {
     stm << indentation << "namespace __zz_cib_Delegator {\n";
-    delegatee = parentClass;
-  }
+
   if (isClassLike(this))
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
   else if (isNamespace(this))

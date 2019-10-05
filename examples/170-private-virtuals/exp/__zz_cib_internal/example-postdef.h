@@ -25,53 +25,53 @@ private:
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_new_0(::IF* __zz_cib_proxy) {
+  static __zz_cib_TYPE* __zz_cib_new(::IF* __zz_cib_proxy) {
     using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (::IF*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_0>(
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       __zz_cib_proxy, __zz_cib_get_proxy_method_table()
       );
   }
-  static int ProtectedVirtual_2(__zz_cib_TYPE* __zz_cib_obj) {
+  static int ProtectedVirtual(__zz_cib_TYPE* __zz_cib_obj) {
     using ProtectedVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<ProtectedVirtualProc, __zz_cib_methodid::ProtectedVirtual_2>(
+    return instance().invoke<ProtectedVirtualProc, __zz_cib_methodid::ProtectedVirtual>(
       __zz_cib_obj
       );
   }
-  static int ProtectedNonVirtual_3(__zz_cib_TYPE* __zz_cib_obj) {
+  static int ProtectedNonVirtual(__zz_cib_TYPE* __zz_cib_obj) {
     using ProtectedNonVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<ProtectedNonVirtualProc, __zz_cib_methodid::ProtectedNonVirtual_3>(
+    return instance().invoke<ProtectedNonVirtualProc, __zz_cib_methodid::ProtectedNonVirtual>(
       __zz_cib_obj
       );
   }
-  static int PublicVirtual_5(__zz_cib_TYPE* __zz_cib_obj) {
+  static int PublicVirtual(__zz_cib_TYPE* __zz_cib_obj) {
     using PublicVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PublicVirtualProc, __zz_cib_methodid::PublicVirtual_5>(
+    return instance().invoke<PublicVirtualProc, __zz_cib_methodid::PublicVirtual>(
       __zz_cib_obj
       );
   }
-  static int PublicNonVirtual_6(__zz_cib_TYPE* __zz_cib_obj) {
+  static int PublicNonVirtual(__zz_cib_TYPE* __zz_cib_obj) {
     using PublicNonVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PublicNonVirtualProc, __zz_cib_methodid::PublicNonVirtual_6>(
+    return instance().invoke<PublicNonVirtualProc, __zz_cib_methodid::PublicNonVirtual>(
       __zz_cib_obj
       );
   }
-  static void __zz_cib_delete_7(__zz_cib_TYPE* __zz_cib_obj) {
+  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_7>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static int PrivateVirtual_9(__zz_cib_TYPE* __zz_cib_obj) {
+  static int PrivateVirtual(__zz_cib_TYPE* __zz_cib_obj) {
     using PrivateVirtualProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PrivateVirtualProc, __zz_cib_methodid::PrivateVirtual_9>(
+    return instance().invoke<PrivateVirtualProc, __zz_cib_methodid::PrivateVirtual>(
       __zz_cib_obj
       );
   }
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
-    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id_10>(__zz_cib_obj);
+    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
   }
   static ::IF* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
 public:
@@ -90,7 +90,7 @@ public:
   static void __zz_cib_release_proxy(::IF* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_) {
       using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
-      return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy_11>(
+      return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy>(
       __zz_cib_obj->__zz_cib_h_);
     }
   }
@@ -114,33 +114,33 @@ private:
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy_0(__zz_cib_HANDLE const * __zz_cib_param0) {
+  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy_0>(
+    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
-  static void __zz_cib_delete_1(__zz_cib_TYPE* __zz_cib_obj) {
+  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete_1>(
+      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new_2() {
+  static __zz_cib_TYPE* __zz_cib_new() {
     using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int SetIF_3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pIF) {
+  static int SetIF(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pIF) {
     using SetIFProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pIF);
-    return instance().invoke<SetIFProc, __zz_cib_methodid::SetIF_3>(
+    return instance().invoke<SetIFProc, __zz_cib_methodid::SetIF>(
       __zz_cib_obj,
       pIF);
   }
-  static __zz_cib_HANDLE* GetIF_4(const __zz_cib_TYPE* __zz_cib_obj) {
+  static __zz_cib_HANDLE* GetIF(const __zz_cib_TYPE* __zz_cib_obj) {
     using GetIFProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetIFProc, __zz_cib_methodid::GetIF_4>(
+    return instance().invoke<GetIFProc, __zz_cib_methodid::GetIF>(
       __zz_cib_obj
       );
   }

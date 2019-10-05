@@ -20,23 +20,23 @@ public:
     return helper;
   }
 
-  static int GlobalFunction1_0() {
+  static int GlobalFunction1() {
     using GlobalFunction1Proc = int (__zz_cib_decl *) ();
-    return instance().invoke<GlobalFunction1Proc, __zz_cib_methodid::GlobalFunction1_0>(
+    return instance().invoke<GlobalFunction1Proc, __zz_cib_methodid::GlobalFunction1>(
       );
   }
-  static int GlobalFunction2_1() {
+  static int GlobalFunction2() {
     using GlobalFunction2Proc = int (__zz_cib_decl *) ();
-    return instance().invoke<GlobalFunction2Proc, __zz_cib_methodid::GlobalFunction2_1>(
+    return instance().invoke<GlobalFunction2Proc, __zz_cib_methodid::GlobalFunction2>(
       );
   }
 };
 }}
 
 int GlobalFunction1() {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1_0();
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1();
 }
 
 int GlobalFunction2() {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2_1();
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2();
 }

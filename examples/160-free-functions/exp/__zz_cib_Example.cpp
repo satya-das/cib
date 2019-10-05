@@ -20,23 +20,23 @@ public:
     return helper;
   }
 
-  static int Function1_0() {
+  static int Function1() {
     using Function1Proc = int (__zz_cib_decl *) ();
-    return instance().invoke<Function1Proc, __zz_cib_methodid::Function1_0>(
+    return instance().invoke<Function1Proc, __zz_cib_methodid::Function1>(
       );
   }
-  static int Function2_1() {
+  static int Function2() {
     using Function2Proc = int (__zz_cib_decl *) ();
-    return instance().invoke<Function2Proc, __zz_cib_methodid::Function2_1>(
+    return instance().invoke<Function2Proc, __zz_cib_methodid::Function2>(
       );
   }
 };
 }}
 
 int Example::Function1() {
-  return __zz_cib_::Example::__zz_cib_Helper::Function1_0();
+  return __zz_cib_::Example::__zz_cib_Helper::Function1();
 }
 
 int Example::Function2() {
-  return __zz_cib_::Example::__zz_cib_Helper::Function2_1();
+  return __zz_cib_::Example::__zz_cib_Helper::Function2();
 }
