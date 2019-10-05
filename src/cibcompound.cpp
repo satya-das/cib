@@ -23,6 +23,7 @@
 
 #include "cibcompound.h"
 #include "cibidmgr.h"
+#include "cibutil.h"
 
 #include <map>
 

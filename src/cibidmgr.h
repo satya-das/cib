@@ -37,13 +37,6 @@
 
 using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
 
-struct CibMethodInfo
-{
-  CibMethodCAPIName     capiName;  //!< Name of C API function.
-  CibMethodSignature    methodSig; //!< Exact signature that is used to declare the method
-  CibMethodAbiSignature abiSig;    //!< Signature cib uses for cross component MethodTable.
-};
-
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
  */

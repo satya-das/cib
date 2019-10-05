@@ -193,7 +193,7 @@ ninja && ninja test
 | Enum and enum classes                     | Enums used as parameter or return type. | Done|
 | Support unique_ptr with default deleter   | It's a Modern C++ programing paradigm and must be supported. | Done|
 | proxy object management by library        | Library manages proxy objects deletion when original object is deleted. ||
-| STL classes                               | It is common for a C++ programs to use stl classes. CIB should make it possible to export STL classes in the same way it does for every other classes. |
+| std::string                               | Support of std::string will be good as string is like a basic data type in many libraries. ||
 | Exception support                         | Make exception object travel across component boundary in a compatible way. |
 | Support shared_ptr                        | Modern C++ libraries use shared_ptr. |
 | Support unique_ptr with custom deleter    | Sometimes unique_ptr is used with custom deleter. |

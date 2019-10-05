@@ -38,6 +38,16 @@ set(CIB_SOURCES
 	src/ciboptionparser.cpp
 )
 
+set(CIB_HEADERS
+	src/cibhelper.h
+	src/cibidmgr.h
+	src/cibobjfactory.h
+	src/cibfunction_helper.h
+	src/cibutil.h
+	src/cibcompound.h
+	src/ciboptionparser.h
+)
+
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
 set(RESFILES
 	__zz_cib_Module-classId-repo.cpp
@@ -72,6 +82,7 @@ add_custom_target(CibResources DEPENDS ${RESPATHS})
 
 add_executable(cib
 	${CIB_SOURCES}
+	${CIB_HEADERS}
 )
 target_link_libraries(cib
 	PRIVATE
