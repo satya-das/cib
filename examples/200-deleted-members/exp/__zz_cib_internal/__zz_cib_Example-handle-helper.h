@@ -1,6 +1,5 @@
 #pragma once
 
-#include "__zz_cib_Example-local-proxy-mgr.h"
 #include "__zz_cib_Example-handle.h"
 
 namespace __zz_cib_ {
@@ -98,7 +97,7 @@ public:
 };
 
 //! Helps converting proxy to handle and vice versa.
-template <typename _ProxyClass, template<typename> class _ProxyMgr, typename _Helper>
+template <typename _ProxyClass, typename _Helper>
 class __zz_cib_HandleHelper
 {
 public:
@@ -116,21 +115,7 @@ public:
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_HANDLE* h)
   {
-    auto&  dis   = _Helper::instance();
-    auto* proxy = dis.proxyMgr.findProxy(h);
-    if (proxy)
-      return proxy;
-    return _Helper::__zz_cib_create_proxy(h);
-  }
-  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
-  {
-    auto& dis = _Helper::instance();
-    dis.proxyMgr.addProxy(__zz_cib_obj, h);
-  }
-  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h)
-  {
-    auto& dis = _Helper::instance();
-    dis.proxyMgr.removeProxy(h);
+    return _Helper::__zz_cib_get_or_create_proxy(h);
   }
   template <typename T>
   static __zz_cib_ObjectCompanion<const T&, _Helper> __zz_cib_handle(const T& __zz_cib_obj)
@@ -142,9 +127,6 @@ public:
   {
     return __zz_cib_ObjectCompanion<T*, _Helper>(__zz_cib_obj);
   }
-
-private:
-  _ProxyMgr<_ProxyClass> proxyMgr;
 };
 
 } // namespace __zz_cib_

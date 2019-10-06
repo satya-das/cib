@@ -1427,9 +1427,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
 
 void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const
 {
-  if (!isFacadeLike() && isAbstract())
-    return;
-  if (needsNoProxy())
+  if (!needsProxyManager())
     return;
   stm << indentation << "static " << longName() << "* __zz_cib_create_proxy(__zz_cib_HANDLE* h)";
   if (isFacadeLike())
@@ -1705,15 +1703,15 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
   }
   else
   {
+    std::string proxyMgr;
     if (!needsNoProxy())
     {
-      std::string proxyMgr;
       if (isClassLike(this) && isShared())
-        proxyMgr = cibParams.moduleName + "::__zz_cib_local_proxy_mgr";
+        proxyMgr = cibParams.moduleName + "::__zz_cib_local_proxy_mgr<_ProxyClass>";
       else
-        proxyMgr = cibParams.moduleName + "::__zz_cib_null_proxy_mgr";
+        proxyMgr = cibParams.moduleName + "::__zz_cib_null_proxy_mgr<_ProxyClass>";
 
-      std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", " + proxyMgr + ", __zz_cib_Helper>";
+      std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", __zz_cib_Helper>";
       stm << '\n' << ++indentation << ", public " << handleHelperParentName << " {\n";
       stm << --indentation << "private:\n";
       stm << ++indentation << "using __zz_cib_TYPE = __zz_cib_HANDLE;\n";
@@ -1728,7 +1726,10 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
       stm << indentation << "using __zz_cib_TYPE = " << longName() << ";\n";
     }
 
+    stm << indentation << "using _ProxyClass = " << longName() << ";\n";
     stm << indentation << "friend " << compoundType() << ' ' << longName() << ";\n";
+    if (!proxyMgr.empty())
+      stm << indentation << proxyMgr << " proxyMgr;\n";
     stm << '\n'; // Start in new line.
   }
 
@@ -1803,7 +1804,7 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
   stm << --indentation << "}\n";
   stm << indentation << "static __zz_cib_HANDLE* __zz_cib_release_handle(" << longName() << "* __zz_cib_obj) {\n";
   ++indentation;
-  if (isShared())
+  if (needsProxyManager())
     stm << indentation << "__zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);\n";
   stm << indentation << "auto h = __zz_cib_obj->__zz_cib_h_;\n";
   stm << indentation << "__zz_cib_obj->__zz_cib_h_ = nullptr;\n";
@@ -1828,6 +1829,25 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
         << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << ">(\n";
     stm << indentation << "__zz_cib_obj->__zz_cib_h_);\n";
     stm << --indentation << "}\n";
+    stm << --indentation << "}\n";
+  }
+
+  if (needsProxyManager())
+  {
+    stm << indentation << "static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {\n";
+    stm << ++indentation << "auto&  dis   = instance();\n";
+    stm << indentation << "auto* proxy = dis.proxyMgr.findProxy(h);\n";
+    stm << indentation << "if (proxy)\n";
+    stm << ++indentation << "return proxy;\n";
+    stm << --indentation << "return __zz_cib_create_proxy(h);\n";
+    stm << --indentation << "}\n";
+    stm << indentation << "static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {\n";
+    stm << ++indentation << "auto& dis = instance();\n";
+    stm << indentation << "dis.proxyMgr.addProxy(__zz_cib_obj, h);\n";
+    stm << --indentation << "}\n";
+    stm << indentation << "static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {\n";
+    stm << ++indentation << "auto& dis = instance();\n";
+    stm << indentation << "  dis.proxyMgr.removeProxy(h);\n";
     stm << --indentation << "}\n";
   }
 }
@@ -1890,7 +1910,7 @@ void CibCompound::emitHandleConstructorDefn(std::ostream&    stm,
   });
   stm << indentation << sep << " __zz_cib_h_(h)\n";
   stm << --indentation << '{';
-  if (isShared())
+  if (needsProxyManager())
   {
     stm << '\n'
         << ++indentation << "__zz_cib_" << longNsName()
@@ -1934,7 +1954,7 @@ void CibCompound::emitMoveConstructorDefn(std::ostream&    stm,
   stm << indentation << sep << " __zz_cib_h_(rhs.__zz_cib_h_)";
   stm << --indentation << "\n{\n";
   stm << ++indentation << "rhs.__zz_cib_h_ = nullptr;\n";
-  if (isShared())
+  if (needsProxyManager())
   {
     stm << indentation << "__zz_cib_" << longNsName() << "::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);\n";
   }

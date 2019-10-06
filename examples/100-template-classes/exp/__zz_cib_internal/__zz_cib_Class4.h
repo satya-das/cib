@@ -27,11 +27,13 @@ private:
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class4 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Example::Value<int>, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Example::Value<int>, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper>;
+  using _ProxyClass = ::Example::Value<int>;
   friend class ::Example::Value<int>;
+  Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -90,6 +92,21 @@ public:
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
+  }
+  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+    auto&  dis   = instance();
+    auto* proxy = dis.proxyMgr.findProxy(h);
+    if (proxy)
+      return proxy;
+    return __zz_cib_create_proxy(h);
+  }
+  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
+    auto& dis = instance();
+    dis.proxyMgr.addProxy(__zz_cib_obj, h);
+  }
+  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
+    auto& dis = instance();
+      dis.proxyMgr.removeProxy(h);
   }
 };
 }}}

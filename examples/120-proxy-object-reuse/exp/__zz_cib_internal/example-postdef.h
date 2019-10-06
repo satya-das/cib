@@ -9,11 +9,13 @@
 
 namespace __zz_cib_ { namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::A, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::A, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::A, Example::__zz_cib_local_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::A, __zz_cib_Helper>;
+  using _ProxyClass = ::A;
   friend class ::A;
+  Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -61,16 +63,33 @@ public:
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
+  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+    auto&  dis   = instance();
+    auto* proxy = dis.proxyMgr.findProxy(h);
+    if (proxy)
+      return proxy;
+    return __zz_cib_create_proxy(h);
+  }
+  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
+    auto& dis = instance();
+    dis.proxyMgr.addProxy(__zz_cib_obj, h);
+  }
+  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
+    auto& dis = instance();
+      dis.proxyMgr.removeProxy(h);
+  }
 };
 }}
 
 namespace __zz_cib_ { namespace B {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::B, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::B, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::B, Example::__zz_cib_null_proxy_mgr, __zz_cib_Helper>;
+  friend class __zz_cib_HandleHelper<::B, __zz_cib_Helper>;
+  using _ProxyClass = ::B;
   friend class ::B;
+  Example::__zz_cib_null_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -125,9 +144,25 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::B* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
+  }
+  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+    auto&  dis   = instance();
+    auto* proxy = dis.proxyMgr.findProxy(h);
+    if (proxy)
+      return proxy;
+    return __zz_cib_create_proxy(h);
+  }
+  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
+    auto& dis = instance();
+    dis.proxyMgr.addProxy(__zz_cib_obj, h);
+  }
+  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
+    auto& dis = instance();
+      dis.proxyMgr.removeProxy(h);
   }
 };
 }}

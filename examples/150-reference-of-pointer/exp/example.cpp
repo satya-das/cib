@@ -35,13 +35,16 @@ A::~A() {
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___A(h))
   , __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 B::B(B&& rhs)
   : ::A(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 B::B()

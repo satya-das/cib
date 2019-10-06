@@ -29,12 +29,15 @@ A::A(int i)
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
-{}
+{
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+}
 
 B::B(B&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 B::B()

@@ -11,6 +11,7 @@ namespace __zz_cib_ { namespace CPoint {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
 private:
   using __zz_cib_TYPE = ::CPoint;
+  using _ProxyClass = ::CPoint;
   friend class ::CPoint;
 
   __zz_cib_Helper()

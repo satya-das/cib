@@ -541,6 +541,13 @@ private:
   {
     props_ |= kClassPropHasPrivateVirtual;
   }
+
+  bool needsProxyManager() const
+  {
+    if (!isFacadeLike() && isAbstract())
+      return false;
+    return !needsNoProxy();
+  }
 };
 
 using CibCompoundEPtr      = CppEasyPtr<CibCompound>;
