@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../cib/__zz_cib_Example-proxy-mgr.h"
+
 #include <memory>
 
-class I
+class I : public __zz_cib_::__zz_cib_proxy_manager
 {
 public:
   virtual ~I() {}

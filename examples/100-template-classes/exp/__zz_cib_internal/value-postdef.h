@@ -6,4 +6,4 @@
 #include "__zz_cib_internal/__zz_cib_Example-null-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_Class4.h"
+#include "__zz_cib_Class259.h"

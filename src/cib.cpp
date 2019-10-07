@@ -913,8 +913,17 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   auto memItr                 = members().begin();
   if (lastPreProcessorRevItr != members().rend())
   {
-    std::for_each(
-      memItr, lastPreProcessorRevItr.base(), [&stm](const CppObjPtr& mem) { gCppWriter.emit(mem.get(), stm); });
+    std::for_each(memItr, lastPreProcessorRevItr.base(),
+      [&stm](const CppObjPtr& mem) {
+        // Emit everything other than cib-hooks in library code
+        if (mem->objType_ == CppObjType::kHashInclude)
+        {
+          auto* inc = static_cast<const CppInclude*>(mem.get());
+          if (strstr(inc->name_.c_str(), "__zz_cib_") != nullptr)
+            return;
+        }
+        gCppWriter.emit(mem.get(), stm);
+      });
     memItr = lastPreProcessorRevItr.base();
 
     stm << "\n";

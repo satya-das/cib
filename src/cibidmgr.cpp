@@ -61,10 +61,11 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
       auto* enumObj = static_cast<const CppEnum*>(cppObj);
       if (!enumObj->itemList_)
         return false;
-      static const std::string kClassIdName     = "__zz_cib_classid";
-      static const std::string kMethodIdName    = "__zz_cib_methodid";
-      static const std::string kNextClsIdName   = "__zz_cib_next_class_id";
-      auto                     extractClassName = [](const CppCompound* classObj) -> std::string {
+      static const std::string kClassIdName       = "__zz_cib_classid";
+      static const std::string kMethodIdName      = "__zz_cib_methodid";
+      static const std::string kNextClsIdName     = "__zz_cib_next_class_id";
+      static const std::string kInternalClsIdName = "__zz_cib_internal_class_id";
+      auto                     extractClassName   = [](const CppCompound* classObj) -> std::string {
         if (!classObj->members().empty() && (classObj->members().front()->objType_ == CppObjType::kDocComment))
         {
           static const std::string kClsNameCommentStart = "//#= FullClassName: ";
@@ -100,6 +101,10 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
         auto nextClsId = parseIdExpression(enumObj->itemList_->front()->val_);
         if (nextClassId_ < nextClsId)
           nextClassId_ = nextClsId;
+      }
+      else if (enumObj->itemList_->front()->name_ == kInternalClsIdName)
+      {
+        internalClassId_ = parseIdExpression(enumObj->itemList_->front()->val_);
       }
     }
     return false;
@@ -292,6 +297,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
   }
   stm << indentation << "namespace __zz_cib_ { namespace " << cibParams.moduleName << " {\n";
   stm << ++indentation << "enum { __zz_cib_next_class_id = " << nextClassId_ << " };\n";
+  stm << indentation << "enum { __zz_cib_internal_class_id = " << internalClassId_ << " };\n";
   --indentation;
   stm << --indentation << "}}\n\n";
 

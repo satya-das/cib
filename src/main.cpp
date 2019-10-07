@@ -216,6 +216,9 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStr
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-export.h",
                                            "__zz_cib_Module-proxy.h",
+                                           "__zz_cib_Module-proxy-mgr.h",
+                                           "__zz_cib_Module-proxy-mgr.cpp",
+                                           "__zz_cib_Module-internal.h",
                                            "__zz_cib_Module-classId-repo.cpp",
                                            nullptr};
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
@@ -235,6 +238,7 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
                                            "__zz_cib_Module-import.h",
                                            "__zz_cib_Module-local-proxy-mgr.h",
                                            "__zz_cib_Module-null-proxy-mgr.h",
+                                           "__zz_cib_Module-internal-proxy.h",
                                            "__zz_cib_Module-class-internal-def.h",
                                            nullptr};
   for (int i = 0; filesToProcessForClient[i] != nullptr; ++i)

@@ -16,6 +16,7 @@ set(PUB_FILE_BASE_NAMES
     example # File name without extension
 )
 set(LIB_GLUE_SRCS
+    ${LIB_GLUE_SRCS_EXTRA}
     ${example_ROOT}/cib/__zz_cib_Example-gateway.cpp
     ${example_ROOT}/cib/__zz_cib_Example-classId-repo.cpp
     ${example_ROOT}/cib/__zz_cib_Example-decl.h

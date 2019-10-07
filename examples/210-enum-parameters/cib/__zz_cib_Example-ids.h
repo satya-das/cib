@@ -2,11 +2,12 @@
 
 namespace __zz_cib_ { namespace A {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 1 };
+  enum { __zz_cib_classid = 256 };
 }}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 2 };
+  enum { __zz_cib_next_class_id = 257 };
+  enum { __zz_cib_internal_class_id = 1 };
 }}
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {

@@ -180,7 +180,8 @@ private:
 private:
   CibIdTable       cibIdTable_;
   const CibParams& cibParams_;
-  CibClassId       nextClassId_{1};
+  CibClassId       nextClassId_{256};
+  CibClassId       internalClassId_{1};
 };
 
 inline CibIdData* CibIdMgr::addClass(CibFullClassName   className,

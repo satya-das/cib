@@ -2,16 +2,17 @@
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
   //#= FullClassName: ::
-  enum { __zz_cib_classid = 1 };
+  enum { __zz_cib_classid = 256 };
 }}
 
 namespace __zz_cib_ { namespace Example {
   //#= FullClassName: ::Example
-  enum { __zz_cib_classid = 2 };
+  enum { __zz_cib_classid = 257 };
 }}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 3 };
+  enum { __zz_cib_next_class_id = 258 };
+  enum { __zz_cib_internal_class_id = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_methodid {

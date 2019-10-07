@@ -2,26 +2,27 @@
 
 namespace __zz_cib_ { namespace A {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 1 };
+  enum { __zz_cib_classid = 256 };
 }}
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 2 };
+  enum { __zz_cib_classid = 257 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class3 {
+namespace __zz_cib_ { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Value<float>
-  enum { __zz_cib_classid = 3 };
+  enum { __zz_cib_classid = 258 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class4 {
+namespace __zz_cib_ { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Value<int>
-  enum { __zz_cib_classid = 4 };
+  enum { __zz_cib_classid = 259 };
 }}
 
 namespace __zz_cib_ { namespace templates {
-  enum { __zz_cib_next_class_id = 5 };
+  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_internal_class_id = 1 };
 }}
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
@@ -62,7 +63,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace 
   };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class3 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
   enum {
     //#= Value(::Value<float> const &);
     __zz_cib_copy = 0,
@@ -76,7 +77,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class3 { namespace __zz_cib_methodid {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class4 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
   enum {
     //#= Value(::Value<int> const &);
     __zz_cib_copy = 0,
