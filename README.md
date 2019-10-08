@@ -192,7 +192,7 @@ ninja && ninja test
 | Support deleted members                   | Constructors and operators marked as `delete` should be deleted for proxy classes as well. | Done |
 | Enum and enum classes                     | Enums used as parameter or return type. | Done|
 | Support unique_ptr with default deleter   | It's a Modern C++ programing paradigm and must be supported. | Done|
-| proxy object management by library        | Library manages proxy objects deletion when original object is deleted. ||
+| proxy object management by library        | Library manages proxy objects deletion when original object is deleted. | Done|
 | std::string                               | Support of std::string will be good as string is like a basic data type in many libraries. ||
 | Exception support                         | Make exception object travel across component boundary in a compatible way. |
 | Support shared_ptr                        | Modern C++ libraries use shared_ptr. |
