@@ -56,7 +56,10 @@ public:
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {
-    _Helper::__zz_cib_register_proxy(h, clientId_, __zz_cib_obj, [](_ProxyClass* obj) { delete obj; });
+    _Helper::__zz_cib_register_proxy(h, clientId_, __zz_cib_obj,
+      [](_ProxyClass* obj) {
+        _Helper::__zz_cib_delete_only_proxy(obj);
+      });
   }
   void removeProxy(__zz_cib_HANDLE* h)
   {

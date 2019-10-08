@@ -7,13 +7,11 @@
 
 #include <type_traits>
 
-DeleteListener gDeleteListener;
-
 TEST_CASE("Proxy should get deleted when original lib object is deleted")
 {
   bool isDeleted = false;
   const void* addrExpectedToBeDeleted = nullptr;
-  gDeleteListener = [&addrExpectedToBeDeleted, &isDeleted](void* p) {
+  DeleteListenerAccessor::getDeleteListener() = [&addrExpectedToBeDeleted, &isDeleted](void* p) {
     if (p == addrExpectedToBeDeleted)
       isDeleted = true;
   };
@@ -23,6 +21,7 @@ TEST_CASE("Proxy should get deleted when original lib object is deleted")
     const auto& i = a.f();
     addrExpectedToBeDeleted = &i;
   }
+  DeleteListenerAccessor::getDeleteListener() = nullptr;
 
   REQUIRE(isDeleted == true);
 }

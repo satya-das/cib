@@ -84,6 +84,7 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::IF* __zz_cib_obj) {
+    if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
@@ -176,6 +177,7 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
+    if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
