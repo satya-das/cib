@@ -1436,7 +1436,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
 
 void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const
 {
-  if (!needsProxyManager())
+  if (!isFacadeLike() && isAbstract())
     return;
   stm << indentation << "static " << longName() << "* __zz_cib_create_proxy(__zz_cib_HANDLE* h)";
   if (isFacadeLike())
@@ -1846,9 +1846,13 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << indentation << "static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {\n";
     stm << ++indentation << "auto&  dis   = instance();\n";
     stm << indentation << "auto* proxy = dis.proxyMgr.findProxy(h);\n";
-    stm << indentation << "if (proxy)\n";
-    stm << ++indentation << "return proxy;\n";
-    stm << --indentation << "return __zz_cib_create_proxy(h);\n";
+    if (!isAbstract() || isFacadeLike())
+    {
+      stm << indentation << "if (proxy == nullptr)\n";
+      stm << ++indentation << "proxy = __zz_cib_create_proxy(h);\n";
+      --indentation;
+    }
+    stm << indentation << "return proxy;\n";
     stm << --indentation << "}\n";
     stm << indentation << "static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {\n";
     stm << ++indentation << "auto& dis = instance();\n";
@@ -1857,6 +1861,12 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << indentation << "static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {\n";
     stm << ++indentation << "auto& dis = instance();\n";
     stm << indentation << "  dis.proxyMgr.removeProxy(h);\n";
+    stm << --indentation << "}\n";
+  }
+  else if (isFacadeLike() || !isAbstract())
+  {
+    stm << indentation << "static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {\n";
+    stm << ++indentation << "return __zz_cib_create_proxy(h);\n";
     stm << --indentation << "}\n";
   }
 }
@@ -2164,7 +2174,27 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
+  if (cibParams.libraryManagedProxies)
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
   stm << '\n';
+}
+
+void CibCompound::emitProxyMgrDelegators(std::ostream& stm, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
+{
+  if (!cibParams.libraryManagedProxies || !needsProxyManager())
+    return;
+
+  stm << indentation << "static __zz_cib_PROXY* __zz_cib_decl __zz_cib_find_proxy(" << longName() << "* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "  return __zz_cib_proxy_manager_delegator::__zz_cib_find_proxy(obj, clientId);\n";
+  stm << indentation << "}\n";
+
+  stm << indentation << "static void __zz_cib_decl __zz_cib_register_proxy(" << longName() << "* obj, __zz_cib_client_id clientId, __zz_cib_PROXY* proxy, __zz_cib_proxy_deleter deleter) {\n";
+  stm << indentation << "  __zz_cib_proxy_manager_delegator::__zz_cib_register_proxy(obj, clientId, proxy, deleter);\n";
+  stm << indentation << "}\n";
+
+  stm << indentation << "static void __zz_cib_decl __zz_cib_unregister_proxy(" << longName() << "* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "  __zz_cib_proxy_manager_delegator::__zz_cib_unregister_proxy(obj, clientId);\n";
+  stm << indentation << "}\n";
 }
 
 void CibCompound::emitDelegators(std::ostream&    stm,
@@ -2200,6 +2230,8 @@ void CibCompound::emitDelegators(std::ostream&    stm,
       func.emitCAPIDefn(
         stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
   }
+
+  emitProxyMgrDelegators(stm, cibParams, indentation);
 
   forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* pubParent) {
     if (pubParent->isShared() || !pubParent->isEmpty())

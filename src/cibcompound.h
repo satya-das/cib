@@ -434,6 +434,8 @@ public:
                              const CibParams& cibParams,
                              const CibIdMgr&  cibIdMgr,
                              CppIndent        indentation = CppIndent()) const;
+  void        emitProxyMgrDelegators(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+
   static void emitCommonCibHeaders(std::ostream& stm, const CibParams& cibParams);
   static void emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams);
 
@@ -457,6 +459,20 @@ public:
   bool needsDelagatorClass() const
   {
     return hasProtectedMethods() && isOverridable();
+  }
+
+  bool needsProxyManager() const
+  {
+    if (isShared())
+      return true;
+    if (!needsNoProxy())
+      return false;
+    auto isAncestorSharedFacade = forEachAncestor(CppAccessType::kPublic,
+                           [](const CibCompound* ancestor) -> bool { return ancestor->isFacadeLike() && ancestor->isShared(); });
+    if (isAncestorSharedFacade)
+      return true;
+    // if (!isFacadeLike() && isAbstract())
+      return false;
   }
 
 public:
@@ -540,13 +556,6 @@ private:
   void setHasPrivateVirtuals()
   {
     props_ |= kClassPropHasPrivateVirtual;
-  }
-
-  bool needsProxyManager() const
-  {
-    if (!isFacadeLike() && isAbstract())
-      return false;
-    return !needsNoProxy();
   }
 };
 

@@ -46,6 +46,7 @@ private:
   std::string  resourcePath;
   std::string  cibIdFile;
   bool         noExactDelegation {false};
+  bool         libraryManagedProxies {false};
   StringVector noProxyClassNames;
   // C++ parser options.
   StringVector knownMacros;
@@ -66,5 +67,6 @@ inline CibParams CibOptionParser::getCibParams()
           std::move(resourcePath),
           std::move(cibIdFile),
           noExactDelegation,
+          libraryManagedProxies,
           noProxyClassNames};
 }

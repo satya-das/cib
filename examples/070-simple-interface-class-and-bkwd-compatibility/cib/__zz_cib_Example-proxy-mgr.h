@@ -107,7 +107,7 @@ public:
     {
         mgr->__zz_cib_unregister_proxy(clientId);
     }
-
+/*
     template<typename T>
     static __zz_cib_PROXY* __zz_cib_find_proxy(T* obj, __zz_cib_client_id clientId)
     {
@@ -128,6 +128,7 @@ public:
         __zz_cib_proxy_manager* mgr = obj->__zz_cib_get_proxy_mgr();
         mgr->__zz_cib_unregister_proxy(clientId);
     }
+*/
 };
 
 }

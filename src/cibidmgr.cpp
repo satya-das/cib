@@ -38,6 +38,14 @@
 
 //////////////////////////////////////////////////////////////////////////
 
+namespace {
+
+  std::string kProxyMgrMethods[3] = {
+    "__zz_cib_find_proxy",
+    "__zz_cib_register_proxy",
+    "__zz_cib_unregister_proxy"
+  };
+
 static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
 {
   if (enumItemVal->expr1_.type == CppExprAtom::kAtom && enumItemVal->expr1_.atom != nullptr)
@@ -46,6 +54,8 @@ static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
     return atoi(enumItemVal->expr1_.atom->c_str());
   }
   return 0;
+}
+
 }
 
 bool CibIdMgr::loadIds(const std::string& idsFilePath)
@@ -254,6 +264,15 @@ void CibIdMgr::assignIds(CibCompound*     compound,
       {
         if (!cibIdData->hasMethod("__zz_cib_release_proxy"))
           cibIdData->addMethod("__zz_cib_release_proxy", "__zz_cib_release_proxy");
+      }
+
+      if (cibParams.libraryManagedProxies && compound->needsProxyManager())
+      {
+        for (int i = 0; i < 3; ++i)
+        {
+          if (!cibIdData->hasMethod(kProxyMgrMethods[i]))
+            cibIdData->addMethod(kProxyMgrMethods[i], kProxyMgrMethods[i]);
+        }
       }
     }
   } while (false);

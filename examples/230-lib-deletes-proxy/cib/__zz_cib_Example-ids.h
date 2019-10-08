@@ -52,7 +52,13 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
     __zz_cib_get_class_id = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
-    __zz_cib_next_method_id = 5
+    //#= __zz_cib_find_proxy
+    __zz_cib_find_proxy = 5,
+    //#= __zz_cib_register_proxy
+    __zz_cib_register_proxy = 6,
+    //#= __zz_cib_unregister_proxy
+    __zz_cib_unregister_proxy = 7,
+    __zz_cib_next_method_id = 8
   };
 }}}
 

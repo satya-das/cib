@@ -49,6 +49,7 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::Interface* __zz_cib_obj) {
+    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
@@ -59,6 +60,19 @@ public:
       return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy>(
       __zz_cib_obj->__zz_cib_h_);
     }
+  }
+  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+    auto&  dis   = instance();
+    auto* proxy = dis.proxyMgr.findProxy(h);
+    return proxy;
+  }
+  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
+    auto& dis = instance();
+    dis.proxyMgr.addProxy(__zz_cib_obj, h);
+  }
+  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
+    auto& dis = instance();
+      dis.proxyMgr.removeProxy(h);
   }
 };
 }}
@@ -120,25 +134,12 @@ public:
     return __zz_cib_obj->__zz_cib_h_;
   }
   static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
-    __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
   static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
-    auto&  dis   = instance();
-    auto* proxy = dis.proxyMgr.findProxy(h);
-    if (proxy)
-      return proxy;
     return __zz_cib_create_proxy(h);
-  }
-  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
-    auto& dis = instance();
-    dis.proxyMgr.addProxy(__zz_cib_obj, h);
-  }
-  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
-    auto& dis = instance();
-      dis.proxyMgr.removeProxy(h);
   }
 };
 }}

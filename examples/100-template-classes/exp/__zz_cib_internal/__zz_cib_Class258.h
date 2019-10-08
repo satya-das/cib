@@ -97,9 +97,9 @@ public:
   static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
     auto&  dis   = instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
-    if (proxy)
-      return proxy;
-    return __zz_cib_create_proxy(h);
+    if (proxy == nullptr)
+      proxy = __zz_cib_create_proxy(h);
+    return proxy;
   }
   static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
     auto& dis = instance();

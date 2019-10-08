@@ -54,6 +54,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   addOption("bind-folder,b", binderPath, true, "Folder where binding code will be emitted for library.");
   addOption("module,m", moduleName, true, "Name of module/library.");
   addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
+  addOption("library-managed-proxy,p", libraryManagedProxies, false, "Library should not manage proxy object lifecycle.");
   addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
   addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
   addOption("no-exact-delegation,d",
