@@ -3,7 +3,7 @@
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
-#include "__zz_cib_internal/__zz_cib_Example-null-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
@@ -107,7 +107,6 @@ private:
   friend class __zz_cib_HandleHelper<::B, __zz_cib_Helper>;
   using _ProxyClass = ::B;
   friend class ::B;
-  Example::__zz_cib_null_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(

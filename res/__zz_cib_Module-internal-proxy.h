@@ -25,6 +25,7 @@
 
 #include "__zz_cib_$Module$-mtable-helper.h"
 #include "__zz_cib_$Module$-def.h"
+#include "__zz_cib_$Module$-ids.h"
 
 #include <cstdint>
 
@@ -38,7 +39,7 @@ public:
     static __zz_cib_client_id __zz_cib_get_client_id()
     {
         using __zz_cib_get_next_client_id_proc = __zz_cib_client_id (* __zz_cib_decl)();
-        static const __zz_cib_client_id clientId = internal_mtable().invoke<__zz_cib_get_next_client_id_proc>();
+        static const __zz_cib_client_id clientId = internal_mtable().invoke<__zz_cib_get_next_client_id_proc, 0>();
         return clientId;
     }
 
@@ -51,4 +52,5 @@ private:
     }
 };
 
+}
 }

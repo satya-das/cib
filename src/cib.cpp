@@ -1046,7 +1046,7 @@ void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-local-proxy-mgr.h\"\n";
-  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-null-proxy-mgr.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-remote-proxy-mgr.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
 }
@@ -1699,6 +1699,26 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
   stm << --indentation << "}\n";
 }
 
+void CibCompound::emitRemoteProxyMethods(std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation << "using __zz_cib_proxy_deleter    = void (__zz_cib_decl *) (_ProxyClass* proxy);\n";
+
+  stm << indentation << "static _ProxyClass* __zz_cib_find_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "  using __zz_cib_find_proxyProc = _ProxyClass* (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
+  stm << indentation << "  return instance().invoke<__zz_cib_find_proxyProc, __zz_cib_methodid::__zz_cib_find_proxy>(obj, clientId);\n";
+  stm << indentation << "}\n";
+
+  stm << indentation << "static void __zz_cib_register_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId, _ProxyClass* proxy, __zz_cib_proxy_deleter deleter) {\n";
+  stm << indentation << "  using __zz_cib_register_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id, _ProxyClass*, __zz_cib_proxy_deleter);\n";
+  stm << indentation << "  return instance().invoke<__zz_cib_register_proxyProc, __zz_cib_methodid::__zz_cib_register_proxy>(obj, clientId, proxy, deleter);\n";
+  stm << indentation << "}\n";
+
+  stm << indentation << "static void __zz_cib_unregister_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "  using __zz_cib_unregister_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
+  stm << indentation << "  return instance().invoke<__zz_cib_unregister_proxyProc, __zz_cib_methodid::__zz_cib_unregister_proxy>(obj, clientId);\n";
+  stm << indentation << "}\n";
+}
+
 void CibCompound::emitHelperDefnStart(std::ostream&    stm,
                                       const CibParams& cibParams,
                                       CppIndent        indentation /* = CppIndent */) const
@@ -1716,9 +1736,10 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
     if (!needsNoProxy())
     {
       if (isClassLike(this) && isShared())
-        proxyMgr = cibParams.moduleName + "::__zz_cib_local_proxy_mgr<_ProxyClass>";
-      else
-        proxyMgr = cibParams.moduleName + "::__zz_cib_null_proxy_mgr<_ProxyClass>";
+        proxyMgr = cibParams.moduleName
+          + (cibParams.libraryManagedProxies
+              ? "::__zz_cib_remote_proxy_mgr<_ProxyClass, __zz_cib_Helper>"
+              : "::__zz_cib_local_proxy_mgr<_ProxyClass>");
 
       std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", __zz_cib_Helper>";
       stm << '\n' << ++indentation << ", public " << handleHelperParentName << " {\n";
@@ -1892,6 +1913,8 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
 
   if (isClassLike(this) && (isShared() || !isEmpty()))
     emitHandleHelpers(stm, cibParams, cibIdData, indentation);
+  if (isShared() && cibParams.libraryManagedProxies)
+    emitRemoteProxyMethods(stm, indentation);
   emitHelperDefnEnd(stm, indentation);
 }
 

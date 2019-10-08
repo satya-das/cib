@@ -3,7 +3,7 @@
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
-#include "__zz_cib_internal/__zz_cib_Example-null-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
@@ -16,7 +16,7 @@ private:
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   using _ProxyClass = ::I;
   friend class ::I;
-  Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
+  Example::__zz_cib_remote_proxy_mgr<_ProxyClass, __zz_cib_Helper> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -81,6 +81,19 @@ public:
     auto& dis = instance();
       dis.proxyMgr.removeProxy(h);
   }
+  using __zz_cib_proxy_deleter    = void (__zz_cib_decl *) (_ProxyClass* proxy);
+  static _ProxyClass* __zz_cib_find_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {
+    using __zz_cib_find_proxyProc = _ProxyClass* (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);
+    return instance().invoke<__zz_cib_find_proxyProc, __zz_cib_methodid::__zz_cib_find_proxy>(obj, clientId);
+  }
+  static void __zz_cib_register_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId, _ProxyClass* proxy, __zz_cib_proxy_deleter deleter) {
+    using __zz_cib_register_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id, _ProxyClass*, __zz_cib_proxy_deleter);
+    return instance().invoke<__zz_cib_register_proxyProc, __zz_cib_methodid::__zz_cib_register_proxy>(obj, clientId, proxy, deleter);
+  }
+  static void __zz_cib_unregister_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {
+    using __zz_cib_unregister_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);
+    return instance().invoke<__zz_cib_unregister_proxyProc, __zz_cib_methodid::__zz_cib_unregister_proxy>(obj, clientId);
+  }
 };
 }}
 
@@ -92,7 +105,6 @@ private:
   friend class __zz_cib_HandleHelper<::A, __zz_cib_Helper>;
   using _ProxyClass = ::A;
   friend class ::A;
-  Example::__zz_cib_null_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(

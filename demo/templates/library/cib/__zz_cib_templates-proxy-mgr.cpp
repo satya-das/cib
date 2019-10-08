@@ -70,7 +70,11 @@ void __zz_cib_proxy_manager::__zz_cib_unregister_proxy(__zz_cib_client_id client
 
 __zz_cib_proxy_manager::~__zz_cib_proxy_manager()
 {
-    __zz_cib_proxyRepo.erase(this);
+    auto itr = __zz_cib_proxyRepo.find(this);
+    if (itr == __zz_cib_proxyRepo.end())
+        return;
+    auto repo = std::move(itr->second);
+    __zz_cib_proxyRepo.erase(itr);
 }
 
 }

@@ -12,13 +12,16 @@ DeleteListener gDeleteListener;
 TEST_CASE("Proxy should get deleted when original lib object is deleted")
 {
   bool isDeleted = false;
+  const void* addrExpectedToBeDeleted = nullptr;
+  gDeleteListener = [&addrExpectedToBeDeleted, &isDeleted](void* p) {
+    if (p == addrExpectedToBeDeleted)
+      isDeleted = true;
+  };
+
   {
     A a;
     const auto& i = a.f();
-    gDeleteListener = [&i, &isDeleted](void* p) {
-      if (p == &i)
-        isDeleted = true;
-    };
+    addrExpectedToBeDeleted = &i;
   }
 
   REQUIRE(isDeleted == true);

@@ -418,6 +418,7 @@ public:
                                 const CibIdData*         cibIdData,
                                 CppIndent                indentation) const;
   void emitHelperDefnStart(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const;
+  void emitRemoteProxyMethods(std::ostream& stm, CppIndent indentation) const;
   void emitCastingHelpers(std::ostream&    stm,
                           const CibParams& cibParams,
                           const CibIdData* cibIdData,

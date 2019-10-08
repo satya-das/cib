@@ -25,17 +25,28 @@
 
 #include "__zz_cib_$Module$-handle.h"
 #include "__zz_cib_$Module$-mtable-helper.h"
+#include "__zz_cib_$Module$-internal-proxy.h"
 #include "__zz_cib_$Module$-ids.h"
 #include "__zz_cib_$Module$-def.h"
 
-namespace __zz_cib_ { namespace $Module$ {
+namespace __zz_cib_ {
+
+using __zz_cib_client_id        = std::uint32_t;
+
+namespace $Module$ {
+
+using __zz_cib_client_id = std::uint32_t;
 
 template <typename _ProxyClass, typename _Helper>
 class __zz_cib_remote_proxy_mgr
 {
 public:
-  __zz_cib_remote_proxy_mgr(std::uint32_t clientId)
-    : clientId_     (clientId)
+  __zz_cib_remote_proxy_mgr()
+    /*/ TODO: Remove this comment
+    : clientId_(__zz_cib_internal_proxy::__zz_cib_get_client_id())
+    /*/
+    : clientId_(0)
+    //*/
   {}
 
 public:
