@@ -181,7 +181,7 @@ public:
   }
   bool isVirtual() const
   {
-    return (func_->attr() & kVirtual) == kVirtual;
+    return (func_->attr() & (kVirtual | kOverride)) != 0;
   }
   bool isPureVirtual() const
   {

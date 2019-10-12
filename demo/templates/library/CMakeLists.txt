@@ -24,6 +24,8 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-local-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-classId-repo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy-mgr.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/__zz_cib_templates-ids.h
 )
 set(LIBRARY_PUB_FILES "")
 foreach(PUBFILE ${LIBRARY_PUB_FILE_NAMES})
