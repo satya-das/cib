@@ -328,17 +328,17 @@ private:
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___I1(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___I1Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___I1Proc, __zz_cib_methodid::__zz_cib_cast_to___I1>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to_I1(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to_I1Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to_I1Proc, __zz_cib_methodid::__zz_cib_cast_to_I1>(__zz_cib_obj);
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___A(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___AProc, __zz_cib_methodid::__zz_cib_cast_to___A>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to_A(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to_AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to_AProc, __zz_cib_methodid::__zz_cib_cast_to_A>(__zz_cib_obj);
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___I2(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___I2Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___I2Proc, __zz_cib_methodid::__zz_cib_cast_to___I2>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to_I2(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to_I2Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to_I2Proc, __zz_cib_methodid::__zz_cib_cast_to_I2>(__zz_cib_obj);
   }
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);

@@ -164,7 +164,7 @@ public:
   /// @return Name of function that casts to object of parent class
   std::string castToBaseName(const CibCompound* base, const CibParams& cibParams) const
   {
-    return cibParams.castToBasePrefix + base->uniqName();
+    return cibParams.castToBasePrefix + base->nsName();
   }
   /// @return string that represents a sequence of all wrapping Ns namespaces
   std::string wrappingNsNamespaceDeclarations(const CibParams& cibParams) const

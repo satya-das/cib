@@ -36,7 +36,7 @@ A::~A() {
 }
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___A(h))
+  : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_A(h))
   , __zz_cib_h_(h)
 {
   __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);

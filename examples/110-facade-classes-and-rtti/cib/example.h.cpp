@@ -69,7 +69,7 @@ static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_new() {
 static void __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
   __zz_cib_obj->::PublicFacadeImpl::F();
 }
-static ::Facade* __zz_cib_decl __zz_cib_cast_to___Facade(::PublicFacadeImpl* __zz_cib_obj) {
+static ::Facade* __zz_cib_decl __zz_cib_cast_to_Facade(::PublicFacadeImpl* __zz_cib_obj) {
   return __zz_cib_obj;
 }
 }
@@ -82,7 +82,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::F),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to___Facade)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to_Facade)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

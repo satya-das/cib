@@ -20,7 +20,7 @@ Facade::~Facade() {
 }
 
 PublicFacadeImpl::PublicFacadeImpl(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Facade(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_cast_to___Facade(h))
+  : ::Facade(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_cast_to_Facade(h))
   , __zz_cib_h_(h)
 {}
 

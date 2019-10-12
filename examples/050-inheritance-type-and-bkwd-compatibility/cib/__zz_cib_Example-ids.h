@@ -45,8 +45,8 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     VirtFunc = 3,
     //#= ::B* Create();
     Create = 4,
-    //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A = 5,
+    //#= __zz_cib_cast_to_A
+    __zz_cib_cast_to_A = 5,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 6,
     //#= int AnotherVirtFunc();

@@ -191,6 +191,10 @@ void CibIdMgr::assignIds(CibCompound*     compound,
                          const CibParams& cibParams,
                          bool             forGenericProxy)
 {
+  if (idsAssigned_.count({compound, forGenericProxy}))
+    return;
+  idsAssigned_.insert({compound, forGenericProxy});
+
   // if (!compound->isShared())
   //  return;
   if (compound->isTemplated())
@@ -246,7 +250,8 @@ void CibIdMgr::assignIds(CibCompound*     compound,
       addMethod(compound->dtor());
     if (!forGenericProxy)
     {
-      compound->forEachAncestor(CppAccessType::kPublic, [compound, &cibIdData, &cibParams](const CibCompound* parent) {
+      compound->forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* parent) {
+        this->assignIds(const_cast<CibCompound*>(parent), helper, cibParams, forGenericProxy);
         if (parent->isShared() || !parent->isEmpty())
         {
           auto castMethodName = compound->castToBaseName(parent, cibParams);
@@ -278,7 +283,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
   } while (false);
   for (auto& mem : compound->members())
   {
-    if (isPublic(mem) && isNamespaceLike(mem))
+    if (!isPrivate(mem) && isNamespaceLike(mem))
     {
       assignIds(CibCompoundEPtr(mem), helper, cibParams, forGenericProxy);
     }

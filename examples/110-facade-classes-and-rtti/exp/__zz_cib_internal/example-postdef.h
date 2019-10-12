@@ -113,9 +113,9 @@ private:
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___Facade(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___FacadeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___FacadeProc, __zz_cib_methodid::__zz_cib_cast_to___Facade>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to_Facade(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to_FacadeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to_FacadeProc, __zz_cib_methodid::__zz_cib_cast_to_Facade>(__zz_cib_obj);
   }
   static ::PublicFacadeImpl* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::PublicFacadeImpl(h);

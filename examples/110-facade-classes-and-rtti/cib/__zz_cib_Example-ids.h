@@ -60,8 +60,8 @@ namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_methodid {
     __zz_cib_new = 2,
     //#= void F();
     F = 3,
-    //#= __zz_cib_cast_to___Facade
-    __zz_cib_cast_to___Facade = 4,
+    //#= __zz_cib_cast_to_Facade
+    __zz_cib_cast_to_Facade = 4,
     __zz_cib_next_method_id = 5
   };
 }}}

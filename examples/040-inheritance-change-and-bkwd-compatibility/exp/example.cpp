@@ -100,9 +100,9 @@ I2::~I2() {
 }
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::I1(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___I1(h))
-  , ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___A(h))
-  , ::I2(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to___I2(h))
+  : ::I1(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_I1(h))
+  , ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_A(h))
+  , ::I2(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_I2(h))
   , __zz_cib_h_(h)
 {
   __zz_cib_::B::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);

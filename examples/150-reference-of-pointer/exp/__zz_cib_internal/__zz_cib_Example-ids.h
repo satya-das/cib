@@ -77,8 +77,8 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     VirtualFunction = 2,
     //#= ~B();
     __zz_cib_delete = 3,
-    //#= __zz_cib_cast_to___A
-    __zz_cib_cast_to___A = 4,
+    //#= __zz_cib_cast_to_A
+    __zz_cib_cast_to_A = 4,
     __zz_cib_next_method_id = 5
   };
 }}}

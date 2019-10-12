@@ -71,7 +71,7 @@ static ::B* __zz_cib_decl Create() {
 static int __zz_cib_decl AnotherVirtFunc(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::B::AnotherVirtFunc();
 }
-static ::A* __zz_cib_decl __zz_cib_cast_to___A(::B* __zz_cib_obj) {
+static ::A* __zz_cib_decl __zz_cib_cast_to_A(::B* __zz_cib_obj) {
   return __zz_cib_obj;
 }
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::B** __zz_cib_obj) {
@@ -96,7 +96,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Create),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to___A),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to_A),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherVirtFunc)
   };

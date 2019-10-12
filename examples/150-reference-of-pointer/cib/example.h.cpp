@@ -119,7 +119,7 @@ static int __zz_cib_decl VirtualFunction(const __zz_cib_Delegatee* __zz_cib_obj)
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static ::A* __zz_cib_decl __zz_cib_cast_to___A(::B* __zz_cib_obj) {
+static ::A* __zz_cib_decl __zz_cib_cast_to_A(::B* __zz_cib_obj) {
   return __zz_cib_obj;
 }
 }
@@ -132,7 +132,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtualFunction),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to___A)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to_A)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

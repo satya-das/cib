@@ -142,9 +142,9 @@ private:
         );
     }
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___A(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___AProc, __zz_cib_methodid::__zz_cib_cast_to___A>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to_A(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to_AProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to_AProc, __zz_cib_methodid::__zz_cib_cast_to_A>(__zz_cib_obj);
   }
   static ::B* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::B(h);
