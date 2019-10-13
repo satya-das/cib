@@ -28,4 +28,12 @@ public:
   I* g() {
     return nullptr;
   }
+
+  int h(std::unique_ptr<I> p) const {
+    return p->f();
+  }
+
+  int i(I* p) const {
+    return p->f();
+  }
 };

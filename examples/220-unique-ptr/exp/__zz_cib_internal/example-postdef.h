@@ -13,6 +13,7 @@ class __zz_cib_Helper : public __zz_cib_MethodTableHelper
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
   friend class __zz_cib_HandleHelper<::I, __zz_cib_Helper>;
+  static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   using _ProxyClass = ::I;
   friend class ::I;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
@@ -26,6 +27,12 @@ private:
     return helper;
   }
 
+  static __zz_cib_TYPE* __zz_cib_new(::I* __zz_cib_proxy) {
+    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*);
+    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table()
+      );
+  }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -52,6 +59,13 @@ public:
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
+  }
+  static void __zz_cib_release_proxy(::I* __zz_cib_obj) {
+    if (__zz_cib_obj->__zz_cib_h_) {
+      using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy>(
+      __zz_cib_obj->__zz_cib_h_);
+    }
   }
   static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
     auto&  dis   = instance();
@@ -118,6 +132,18 @@ private:
     return instance().invoke<gProc, __zz_cib_methodid::g>(
       __zz_cib_obj
       );
+  }
+  static int h(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
+    using hProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+    return instance().invoke<hProc, __zz_cib_methodid::h>(
+      __zz_cib_obj,
+      p);
+  }
+  static int i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
+    using iProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+    return instance().invoke<iProc, __zz_cib_methodid::i>(
+      __zz_cib_obj,
+      p);
   }
   static ::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::A(h);

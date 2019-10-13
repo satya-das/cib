@@ -10,6 +10,8 @@ public:
 public:
   virtual ~I();
   virtual int f() const = 0;
+protected:
+  I();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
@@ -25,6 +27,8 @@ public:
   A();
   std::unique_ptr<I> f() const;
   I* g();
+  int h(std::unique_ptr<I> p) const;
+  int i(I* p) const;
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);

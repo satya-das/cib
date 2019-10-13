@@ -25,6 +25,7 @@
 #include "cibfunction_helper.h"
 #include "cibhelper.h"
 #include "cibidmgr.h"
+#include "cibsmartptr_helper.h"
 #include "cibutil.h"
 
 #include "cppcompound-accessor.h"
@@ -77,14 +78,6 @@ static void emitStars(std::ostream& stm, std::uint8_t numStars)
 {
   while (numStars--)
     stm << '*';
-}
-
-static std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType*  typeObj)
-{
-  const std::string& baseType = typeObj->baseType();
-  auto newName = baseType.substr(16, baseType.size() - 17);
-
-  return std::make_unique<CppVarType>(newName, typeObj->typeModifier());
 }
 
 static void emitType(std::ostream&      stm,
@@ -239,6 +232,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     CppConstVarEPtr var   = param;
     // FIXME for enum and other non compound types.
     auto* resolvedCppObj = getOwner()->resolveTypeName(baseType(var), helper);
+    if ((resolvedCppObj == nullptr) && isUniquePtr(var.get()))
+    {
+       resolvedCppObj = getOwner()->resolveTypeName(convertUniquePtr(baseType(var)), helper);
+    }
     auto* resolvedType =
       resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
     if (resolvedType && resolvedType->needsNoProxy())
@@ -272,10 +269,22 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         }
         emitParamName(stm, var, i);
         if (resolvedType)
+        {
+          if (isUniquePtr(var.get()))
+            stm << ".release()";
           stm << ")";
+        }
         break;
       case kPurposeCApi:
-        if (resolvedType && isByValue(var))
+        if (isUniquePtr(var.get()))
+        {
+          if (resolvedType)
+            stm << "std::unique_ptr<" << resolvedType->longName() << ">(" << var->name() << ")";
+          else
+            stm << var->varType()->baseType() << "(" << var->name() << ")";
+          break;
+        }
+        else if (resolvedType && isByValue(var))
         {
           stm << '*';
         }
@@ -857,6 +866,7 @@ const CppObj* CibCompound::resolveTypeName(const std::string& typeName, const Ci
   auto itr = typeNameToCibCppObj_.find(typeName);
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
+
   const CppObj* resolvedType = helper.getCppObjFromTypeName(typeName, this);
   if (resolvedType == nullptr)
   {
