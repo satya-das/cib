@@ -317,6 +317,10 @@ public:
   {
     return (props_ & kClassPropCompositeTmpl);
   }
+  size_t numTemplateInstances() const
+  {
+    return templateInstances_.size();
+  }
   bool isOverridable() const
   {
     if (compoundType() == CppCompoundType::kUnion)

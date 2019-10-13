@@ -49,6 +49,9 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
   program_->addCompound(compound, parent);
   auto* pThis = const_cast<CibHelper*>(this); // TODO: Fix const_cast.
   pThis->markClassType(compound);
+  pThis->identifyAbstract(compound);
+  pThis->identifyPobableFacades(compound);
+  pThis->markNeedsGenericProxyDefinition(compound);
 }
 
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
@@ -322,6 +325,17 @@ void CibHelper::markNeedsGenericProxyDefinition(CibCompound* cppCompound)
 
 void CibHelper::identifyAbstract(CibCompound* cppCompound)
 {
+  if (cppCompound->isTemplateInstance())
+  {
+    auto* templClass = cppCompound->templateClass();
+    if (templClass->numTemplateInstances() == 1)
+      templClass->identifyAbstract(*this);
+    if (templClass->isAbstract())
+      cppCompound->setAbstract();
+
+    return;
+  }
+
   for (auto& mem : cppCompound->members())
   {
     if (CibCompoundEPtr compound = mem)

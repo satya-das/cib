@@ -1501,6 +1501,16 @@ void CibCompound::identifyAbstract(const CibHelper& helper)
     setAbstract();
 }
 
+static bool shallAddCopyCtor(CibCompound* compound)
+{
+  for (const auto& ctor : compound->ctors())
+  {
+    if (!isPublic(ctor))
+      return false;
+  }
+  return (!compound->hasCopyCtor() && !compound->hasMoveCtor() && !compound->isAbstract() && compound->isCopyCtorCallable());
+}
+
 void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
   if (isTemplated())
@@ -1585,7 +1595,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(defaultDtor);
   }
-  if (!hasCopyCtor() && !hasMoveCtor() && !isAbstract() && isCopyCtorCallable())
+  if (shallAddCopyCtor(this))
   {
     auto ctorProtection = CppAccessType::kPublic;
     auto paramType      = new CppVarType(name(), CppTypeModifier{CppRefType::kByRef});
