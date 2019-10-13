@@ -34,15 +34,15 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= void setPod(::Pod&);
-    __zz_cib_setPod = 3,
+    setPod = 3,
     //#= void setPod(::Pod*);
-    __zz_cib_setPod_4 = 4,
+    setPod_4 = 4,
     //#= void setNonPod1(::NonPod1&);
-    __zz_cib_setNonPod1 = 5,
+    setNonPod1 = 5,
     //#= void setNonPod2(::NonPod2&);
-    __zz_cib_setNonPod2 = 6,
+    setNonPod2 = 6,
     //#= void setNonPod3(::NonPod3&);
-    __zz_cib_setNonPod3 = 7,
+    setNonPod3 = 7,
     __zz_cib_next_method_id = 8
   };
 }}}

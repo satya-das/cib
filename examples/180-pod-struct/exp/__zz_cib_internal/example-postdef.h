@@ -27,19 +27,19 @@ private:
   }
 
   static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
@@ -102,19 +102,19 @@ private:
   }
 
   static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
@@ -177,19 +177,19 @@ private:
   }
 
   static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
@@ -251,50 +251,50 @@ private:
   }
 
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
   static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static void __zz_cib_setPod(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
-    using __zz_cib_setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
-    return instance().invoke<__zz_cib_setPodProc, __zz_cib_methodid::__zz_cib_setPod>(
+  static void setPod(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setPod>(
       __zz_cib_obj,
       p);
   }
-  static void __zz_cib_setPod_4(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
-    using __zz_cib_setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
-    return instance().invoke<__zz_cib_setPodProc, __zz_cib_methodid::__zz_cib_setPod_4>(
+  static void setPod_4(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setPod_4>(
       __zz_cib_obj,
       p);
   }
-  static void __zz_cib_setNonPod1(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using __zz_cib_setNonPod1Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<__zz_cib_setNonPod1Proc, __zz_cib_methodid::__zz_cib_setNonPod1>(
+  static void setNonPod1(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setNonPod1>(
       __zz_cib_obj,
       n);
   }
-  static void __zz_cib_setNonPod2(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using __zz_cib_setNonPod2Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<__zz_cib_setNonPod2Proc, __zz_cib_methodid::__zz_cib_setNonPod2>(
+  static void setNonPod2(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setNonPod2>(
       __zz_cib_obj,
       n);
   }
-  static void __zz_cib_setNonPod3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using __zz_cib_setNonPod3Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<__zz_cib_setNonPod3Proc, __zz_cib_methodid::__zz_cib_setNonPod3>(
+  static void setNonPod3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setNonPod3>(
       __zz_cib_obj,
       n);
   }

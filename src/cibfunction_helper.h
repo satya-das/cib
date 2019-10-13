@@ -251,12 +251,6 @@ public:
     return func_->name_;
   }
 
-  /// ProcType that is used by client side glue code to define function pointer variable.
-  std::string procType() const
-  {
-    return procName() + "Proc";
-  }
-
   /// ProcName that is used to name the variable that holds the function pointer.
   std::string procName() const
   {

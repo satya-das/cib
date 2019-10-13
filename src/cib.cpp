@@ -772,7 +772,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   if (byValueObj || (returnType() && isByRef(returnType())))
     stm << "*";
 
-  stm << "__zz_cib_get_mtable_helper().invoke<" << procType() << ", ";
+  stm << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, ";
   if (genericProxy)
   {
     stm << "__zz_cib_GenericProxy::__zz_cib_methodid::";
@@ -806,7 +806,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
                                      CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
-  stm << "using " << procType() << " = ";
+  stm << "using __zz_cib_proc = ";
   emitCAPIReturnType(stm, helper, forGenericProxy);
   stm << " (__zz_cib_decl *) (";
   if (!isStatic() && (isDestructor() || isMethod() || isTypeConverter()))
@@ -1701,8 +1701,8 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
     ++indentation;
   }
   func.emitProcType(stm, helper, cibParams, false, indentation);
-  stm << indentation++ << "return instance().invoke<" << func.procType()
-      << ", __zz_cib_methodid::" << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
+  stm << indentation++ << "return instance().invoke<__zz_cib_proc, __zz_cib_methodid::"
+      << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
   if (isClassLike(this) && !func.isStatic() && (!func.isConstructor() || needsNoProxy()))
   {
     stm << '\n' << indentation << "__zz_cib_obj";

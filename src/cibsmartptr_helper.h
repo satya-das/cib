@@ -54,5 +54,7 @@ inline std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType*  typeObj)
   const std::string& baseType = typeObj->baseType();
   auto newName = convertUniquePtr(baseType);
 
-  return std::make_unique<CppVarType>(newName, typeObj->typeModifier());
+  CppTypeModifier typeModifier = typeObj->typeModifier();
+  typeModifier.ptrLevel_ += 1;
+  return std::make_unique<CppVarType>(newName, typeModifier);
 }

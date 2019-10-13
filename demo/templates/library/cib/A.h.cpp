@@ -29,31 +29,31 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int setValue(::Value<int> const & intVal) const override {
-    using __zz_cib_setValueProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<int> const * intVal);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue>(
+    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<int> const * intVal);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue>(
       __zz_cib_proxy,
       &intVal);
   }
   float setValue(::Value<float> const & floatVal) const override {
-    using __zz_cib_setValueProc = float (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<float> const * floatVal);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue_1>(
+    using __zz_cib_proc = float (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<float> const * floatVal);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue_1>(
       __zz_cib_proxy,
       &floatVal);
   }
   ::Value<int> getIntValue() const override {
-    using __zz_cib_getIntValueProc = ::Value<int>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_getIntValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue>(
+    using __zz_cib_proc = ::Value<int>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue>(
       __zz_cib_proxy);
   }
   ::Value<float> getFloatValue() const override {
-    using __zz_cib_getFloatValueProc = ::Value<float>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_getFloatValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue>(
+    using __zz_cib_proc = ::Value<float>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue>(
       __zz_cib_proxy);
   }
   ~A() override {
     if (!__zz_cib_proxy) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }

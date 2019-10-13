@@ -19,13 +19,13 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= int fE(::E) const;
-    __zz_cib_fE = 3,
+    fE = 3,
     //#= int fE(::EC) const;
-    __zz_cib_fE_4 = 4,
+    fE_4 = 4,
     //#= int fE(::E8) const;
-    __zz_cib_fE_5 = 5,
+    fE_5 = 5,
     //#= int fE(::EC16) const;
-    __zz_cib_fE_6 = 6,
+    fE_6 = 6,
     __zz_cib_next_method_id = 7
   };
 }}}

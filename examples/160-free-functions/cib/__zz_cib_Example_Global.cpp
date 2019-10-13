@@ -8,7 +8,7 @@
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
 namespace __zz_cib_Delegator {
-static int __zz_cib_decl __zz_cib_GlobalFunction1() {
+static int __zz_cib_decl GlobalFunction1() {
   return ::GlobalFunction1();
 }
 }
@@ -16,7 +16,7 @@ static int __zz_cib_decl __zz_cib_GlobalFunction1() {
 
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
 namespace __zz_cib_Delegator {
-static int __zz_cib_decl __zz_cib_GlobalFunction2() {
+static int __zz_cib_decl GlobalFunction2() {
   return ::GlobalFunction2();
 }
 }
@@ -25,8 +25,8 @@ static int __zz_cib_decl __zz_cib_GlobalFunction2() {
 namespace __zz_cib_ { namespace __zz_cib_Example_Global {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_GlobalFunction1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_GlobalFunction2)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GlobalFunction1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GlobalFunction2)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;

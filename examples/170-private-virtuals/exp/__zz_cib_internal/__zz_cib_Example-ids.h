@@ -29,9 +29,9 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= int SetIF(::IF*);
-    __zz_cib_SetIF = 3,
+    SetIF = 3,
     //#= ::IF* GetIF() const;
-    __zz_cib_GetIF = 4,
+    GetIF = 4,
     __zz_cib_next_method_id = 5
   };
 }}}
@@ -41,23 +41,23 @@ namespace __zz_cib_ { namespace IF { namespace __zz_cib_methodid {
     //#= IF();
     __zz_cib_new = 0,
     //#= int ProtectedPureVirtual();
-    __zz_cib_ProtectedPureVirtual = 1,
+    ProtectedPureVirtual = 1,
     //#= int ProtectedVirtual();
-    __zz_cib_ProtectedVirtual = 2,
+    ProtectedVirtual = 2,
     //#= int ProtectedNonVirtual();
-    __zz_cib_ProtectedNonVirtual = 3,
+    ProtectedNonVirtual = 3,
     //#= int PublicPureVirtual();
-    __zz_cib_PublicPureVirtual = 4,
+    PublicPureVirtual = 4,
     //#= int PublicVirtual();
-    __zz_cib_PublicVirtual = 5,
+    PublicVirtual = 5,
     //#= int PublicNonVirtual();
-    __zz_cib_PublicNonVirtual = 6,
+    PublicNonVirtual = 6,
     //#= ~IF();
     __zz_cib_delete = 7,
     //#= int PrivatePureVirtual();
-    __zz_cib_PrivatePureVirtual = 8,
+    PrivatePureVirtual = 8,
     //#= int PrivateVirtual();
-    __zz_cib_PrivateVirtual = 9,
+    PrivateVirtual = 9,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 10,
     //#= __zz_cib_release_proxy
@@ -69,17 +69,17 @@ namespace __zz_cib_ { namespace IF { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace IF { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int PrivatePureVirtual();
-    __zz_cib_PrivatePureVirtual = 0,
+    PrivatePureVirtual = 0,
     //#= int PrivateVirtual();
-    __zz_cib_PrivateVirtual = 1,
+    PrivateVirtual = 1,
     //#= int ProtectedPureVirtual();
-    __zz_cib_ProtectedPureVirtual = 2,
+    ProtectedPureVirtual = 2,
     //#= int ProtectedVirtual();
-    __zz_cib_ProtectedVirtual = 3,
+    ProtectedVirtual = 3,
     //#= int PublicPureVirtual();
-    __zz_cib_PublicPureVirtual = 4,
+    PublicPureVirtual = 4,
     //#= int PublicVirtual();
-    __zz_cib_PublicVirtual = 5,
+    PublicVirtual = 5,
     //#= ~IF();
     __zz_cib_delete = 6,
     __zz_cib_next_method_id = 7

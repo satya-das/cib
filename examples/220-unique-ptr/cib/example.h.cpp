@@ -30,14 +30,14 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int f() const override {
-    using __zz_cib_fProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_fProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_f>(
+    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
       __zz_cib_proxy);
   }
   ~I() override {
     if (!__zz_cib_proxy) return;
-    using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_deleteProc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -52,7 +52,7 @@ static ::I* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_Met
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static int __zz_cib_decl __zz_cib_f(const __zz_cib_Delegatee* __zz_cib_obj) {
+static int __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->f();
 }
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::I** __zz_cib_obj) {
@@ -79,7 +79,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_f),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
@@ -99,16 +99,16 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 static ::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static ::I* __zz_cib_decl __zz_cib_f(const __zz_cib_Delegatee* __zz_cib_obj) {
+static ::I* __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::f().release();
 }
-static ::I* __zz_cib_decl __zz_cib_g(__zz_cib_Delegatee* __zz_cib_obj) {
+static ::I* __zz_cib_decl g(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();
 }
-static int __zz_cib_decl __zz_cib_h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
+static int __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::h(std::unique_ptr<::I>(p));
 }
-static int __zz_cib_decl __zz_cib_i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
+static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);
 }
 }
@@ -120,10 +120,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_f),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_g),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_h),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_i)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::g),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::h),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::i)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
   return &methodTable;

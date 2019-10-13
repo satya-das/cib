@@ -17,16 +17,16 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 static ::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static int __zz_cib_decl __zz_cib_fE(const __zz_cib_Delegatee* __zz_cib_obj, ::E e) {
+static int __zz_cib_decl fE(const __zz_cib_Delegatee* __zz_cib_obj, ::E e) {
   return __zz_cib_obj->::A::fE(e);
 }
-static int __zz_cib_decl __zz_cib_fE_4(const __zz_cib_Delegatee* __zz_cib_obj, ::EC e) {
+static int __zz_cib_decl fE_4(const __zz_cib_Delegatee* __zz_cib_obj, ::EC e) {
   return __zz_cib_obj->::A::fE(e);
 }
-static int __zz_cib_decl __zz_cib_fE_5(const __zz_cib_Delegatee* __zz_cib_obj, ::E8 e) {
+static int __zz_cib_decl fE_5(const __zz_cib_Delegatee* __zz_cib_obj, ::E8 e) {
   return __zz_cib_obj->::A::fE(e);
 }
-static int __zz_cib_decl __zz_cib_fE_6(const __zz_cib_Delegatee* __zz_cib_obj, ::EC16 e) {
+static int __zz_cib_decl fE_6(const __zz_cib_Delegatee* __zz_cib_obj, ::EC16 e) {
   return __zz_cib_obj->::A::fE(e);
 }
 }
@@ -38,10 +38,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_fE),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_fE_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_fE_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_fE_6)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::fE),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::fE_4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::fE_5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::fE_6)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
   return &methodTable;

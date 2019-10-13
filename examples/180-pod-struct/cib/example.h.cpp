@@ -95,19 +95,19 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 static ::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
-static void __zz_cib_decl __zz_cib_setPod(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
+static void __zz_cib_decl setPod(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
   __zz_cib_obj->::A::setPod(*p);
 }
-static void __zz_cib_decl __zz_cib_setPod_4(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
+static void __zz_cib_decl setPod_4(__zz_cib_Delegatee* __zz_cib_obj, ::Pod* p) {
   __zz_cib_obj->::A::setPod(p);
 }
-static void __zz_cib_decl __zz_cib_setNonPod1(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod1* n) {
+static void __zz_cib_decl setNonPod1(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod1* n) {
   __zz_cib_obj->::A::setNonPod1(*n);
 }
-static void __zz_cib_decl __zz_cib_setNonPod2(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod2* n) {
+static void __zz_cib_decl setNonPod2(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod2* n) {
   __zz_cib_obj->::A::setNonPod2(*n);
 }
-static void __zz_cib_decl __zz_cib_setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod3* n) {
+static void __zz_cib_decl setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod3* n) {
   __zz_cib_obj->::A::setNonPod3(*n);
 }
 }
@@ -119,11 +119,11 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_setPod),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_setPod_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_setNonPod1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_setNonPod2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_setNonPod3)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setPod),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setPod_4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setNonPod1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setNonPod2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setNonPod3)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
   return &methodTable;

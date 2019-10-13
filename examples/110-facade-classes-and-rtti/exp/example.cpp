@@ -45,7 +45,7 @@ PublicFacadeImpl::PublicFacadeImpl()
 {}
 
 void PublicFacadeImpl::F() {
-  __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_F(__zz_cib_h_);
+  __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::F(__zz_cib_h_);
 }
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
@@ -73,19 +73,19 @@ A::A()
 
 ::Facade* A::PublicFacade() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::__zz_cib_PublicFacade(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::PublicFacade(__zz_cib_h_)
   );
 }
 
 ::Facade* A::PrivateFacade1() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::__zz_cib_PrivateFacade1(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::PrivateFacade1(__zz_cib_h_)
   );
 }
 
 ::Facade* A::PrivateFacade2() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::__zz_cib_PrivateFacade2(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::PrivateFacade2(__zz_cib_h_)
   );
 }
 namespace __zz_cib_ { namespace Facade { namespace __zz_cib_Generic {
@@ -104,8 +104,8 @@ public:
     return new Facade(h);
   }
   void F() override {
-    using __zz_cib_FProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_FProc, __zz_cib_methodid::__zz_cib_F>(
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
       __zz_cib_h_);
   }
 };

@@ -18,9 +18,9 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_methodid {
   enum {
     //#= int GlobalFunction1();
-    __zz_cib_GlobalFunction1 = 0,
+    GlobalFunction1 = 0,
     //#= int GlobalFunction2();
-    __zz_cib_GlobalFunction2 = 1,
+    GlobalFunction2 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}
@@ -28,9 +28,9 @@ namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_met
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_methodid {
   enum {
     //#= int Function1();
-    __zz_cib_Function1 = 0,
+    Function1 = 0,
     //#= int Function2();
-    __zz_cib_Function2 = 1,
+    Function2 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}

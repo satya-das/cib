@@ -28,13 +28,13 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_methodid {
   enum {
     //#= int GetNewA(::A*&);
-    __zz_cib_GetNewA = 0,
+    GetNewA = 0,
     //#= int GetNewB(::A*&);
-    __zz_cib_GetNewB = 1,
+    GetNewB = 1,
     //#= int GetNewA(::A const *&);
-    __zz_cib_GetNewA_2 = 2,
+    GetNewA_2 = 2,
     //#= int GetNewB(::A const *&);
-    __zz_cib_GetNewB_3 = 3,
+    GetNewB_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -46,7 +46,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
-    __zz_cib_VirtualFunction = 2,
+    VirtualFunction = 2,
     //#= ~A();
     __zz_cib_delete = 3,
     //#= __zz_cib_get_class_id
@@ -60,7 +60,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int VirtualFunction() const;
-    __zz_cib_VirtualFunction = 0,
+    VirtualFunction = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
@@ -74,7 +74,7 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     //#= B(::B const &);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
-    __zz_cib_VirtualFunction = 2,
+    VirtualFunction = 2,
     //#= ~B();
     __zz_cib_delete = 3,
     //#= __zz_cib_cast_to_A

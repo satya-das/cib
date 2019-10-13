@@ -29,11 +29,11 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= ::Facade* PublicFacade();
-    __zz_cib_PublicFacade = 3,
+    PublicFacade = 3,
     //#= ::Facade* PrivateFacade1();
-    __zz_cib_PrivateFacade1 = 4,
+    PrivateFacade1 = 4,
     //#= ::Facade* PrivateFacade2();
-    __zz_cib_PrivateFacade2 = 5,
+    PrivateFacade2 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -41,7 +41,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Facade { namespace __zz_cib_methodid {
   enum {
     //#= void F();
-    __zz_cib_F = 0,
+    F = 0,
     //#= ~Facade();
     __zz_cib_delete = 1,
     //#= __zz_cib_get_class_id
@@ -59,7 +59,7 @@ namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_methodid {
     //#= PublicFacadeImpl();
     __zz_cib_new = 2,
     //#= void F();
-    __zz_cib_F = 3,
+    F = 3,
     //#= __zz_cib_cast_to_Facade
     __zz_cib_cast_to_Facade = 4,
     __zz_cib_next_method_id = 5

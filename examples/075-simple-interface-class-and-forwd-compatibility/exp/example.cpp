@@ -48,15 +48,15 @@ A::A()
 {}
 
 int A::UseInterface(::Interface* pInterface) const {
-  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_UseInterface(__zz_cib_h_, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(pInterface));
+  return __zz_cib_::A::__zz_cib_Helper::UseInterface(__zz_cib_h_, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(pInterface));
 }
 namespace __zz_cib_ { namespace Interface {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface;
-  static int __zz_cib_decl __zz_cib_Gunc(::Interface* __zz_cib_obj) {
+  static int __zz_cib_decl Gunc(::Interface* __zz_cib_obj) {
     return __zz_cib_obj->Gunc();
   }
-  static int __zz_cib_decl __zz_cib_Func(::Interface* __zz_cib_obj) {
+  static int __zz_cib_decl Func(::Interface* __zz_cib_obj) {
     return __zz_cib_obj->Func();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface* __zz_cib_obj) {
@@ -68,9 +68,9 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace Interface {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_Func),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Func),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_Gunc)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Gunc)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
   return &methodTable;

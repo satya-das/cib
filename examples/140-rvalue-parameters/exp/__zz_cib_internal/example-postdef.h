@@ -28,48 +28,48 @@ private:
 
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_deleteProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-      return instance().invoke<__zz_cib_deleteProc, __zz_cib_methodid::__zz_cib_delete>(
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
   static __zz_cib_TYPE* __zz_cib_new(std::int32_t val) {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (std::int32_t val);
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (std::int32_t val);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       val);
   }
   static __zz_cib_TYPE* __zz_cib_new_2(__zz_cib_HANDLE* __zz_cib_param0) {
-    using __zz_cib_newProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE* __zz_cib_param0);
-    return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new_2>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE* __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
       __zz_cib_param0);
   }
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_copyProc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
-    return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
   static __zz_cib_HANDLE* __zz_cib_OperatorEqual(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* rhs) {
-    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* rhs);
-    return instance().invoke<__zz_cib_OperatorEqualProc, __zz_cib_methodid::__zz_cib_OperatorEqual>(
+    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* rhs);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual>(
       __zz_cib_obj,
       rhs);
   }
   static __zz_cib_HANDLE* __zz_cib_OperatorEqual_5(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * rhs) {
-    using __zz_cib_OperatorEqualProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * rhs);
-    return instance().invoke<__zz_cib_OperatorEqualProc, __zz_cib_methodid::__zz_cib_OperatorEqual_5>(
+    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * rhs);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual_5>(
       __zz_cib_obj,
       rhs);
   }
-  static std::int32_t __zz_cib_Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* x) {
-    using __zz_cib_SetProc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
-    return instance().invoke<__zz_cib_SetProc, __zz_cib_methodid::__zz_cib_Set>(
+  static std::int32_t Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* x) {
+    using __zz_cib_proc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Set>(
       __zz_cib_obj,
       x);
   }
-  static std::int32_t __zz_cib_GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_GetValueProc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<__zz_cib_GetValueProc, __zz_cib_methodid::__zz_cib_GetValue>(
+  static std::int32_t GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue>(
       __zz_cib_obj
       );
   }

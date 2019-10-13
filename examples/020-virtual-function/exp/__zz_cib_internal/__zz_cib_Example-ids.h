@@ -22,7 +22,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 1,
     //#= int VirtFunc();
-    __zz_cib_VirtFunc = 2,
+    VirtFunc = 2,
     //#= ~A();
     __zz_cib_delete = 3,
     __zz_cib_next_method_id = 4
@@ -38,9 +38,9 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 2,
     //#= int VirtFunc();
-    __zz_cib_VirtFunc = 3,
+    VirtFunc = 3,
     //#= ::B* Create();
-    __zz_cib_Create = 4,
+    Create = 4,
     //#= __zz_cib_cast_to_A
     __zz_cib_cast_to_A = 5,
     //#= __zz_cib_get_class_id

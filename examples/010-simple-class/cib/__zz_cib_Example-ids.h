@@ -19,7 +19,7 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     //#= A();
     __zz_cib_new = 2,
     //#= int SomeFunc();
-    __zz_cib_SomeFunc = 3,
+    SomeFunc = 3,
     __zz_cib_next_method_id = 4
   };
 }}}}

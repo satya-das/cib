@@ -25,9 +25,9 @@ Example::A::A()
 {}
 
 int Example::A::Func() {
-  return __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_Func(__zz_cib_h_);
+  return __zz_cib_::Example::A::__zz_cib_Helper::Func(__zz_cib_h_);
 }
 
 int Example::A::Func(float __zz_cib_param0) {
-  return __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_Func_4(__zz_cib_h_, __zz_cib_param0);
+  return __zz_cib_::Example::A::__zz_cib_Helper::Func_4(__zz_cib_h_, __zz_cib_param0);
 }
