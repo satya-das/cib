@@ -23,11 +23,11 @@ A::A()
 {}
 
 int A::AnotherVirtFunc() {
-  return __zz_cib_::A::__zz_cib_Helper::AnotherVirtFunc(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_AnotherVirtFunc(__zz_cib_h_);
 }
 
 int A::VirtFunc() {
-  return __zz_cib_::A::__zz_cib_Helper::VirtFunc(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_VirtFunc(__zz_cib_h_);
 }
 
 A::~A() {
@@ -64,12 +64,12 @@ B::B()
 {}
 
 int B::VirtFunc() {
-  return __zz_cib_::B::__zz_cib_Helper::VirtFunc(__zz_cib_h_);
+  return __zz_cib_::B::__zz_cib_Helper::__zz_cib_VirtFunc(__zz_cib_h_);
 }
 
 ::B* B::Create() {
   return __zz_cib_::B::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::B::__zz_cib_Helper::Create()
+    __zz_cib_::B::__zz_cib_Helper::__zz_cib_Create()
   );
 }
 namespace __zz_cib_ { namespace B { namespace __zz_cib_Generic {
@@ -88,13 +88,13 @@ public:
     return new B(h);
   }
   int AnotherVirtFunc() override {
-    using AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc>(
+    using __zz_cib_AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_AnotherVirtFuncProc, __zz_cib_methodid::__zz_cib_AnotherVirtFunc>(
       __zz_cib_h_);
   }
   int VirtFunc() override {
-    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc>(
+    using __zz_cib_VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_VirtFuncProc, __zz_cib_methodid::__zz_cib_VirtFunc>(
       __zz_cib_h_);
   }
 };

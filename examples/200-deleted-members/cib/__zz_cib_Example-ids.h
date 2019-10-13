@@ -17,7 +17,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 1,
     //#= int f();
-    f = 2,
+    __zz_cib_f = 2,
     __zz_cib_next_method_id = 3
   };
 }}}

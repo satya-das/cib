@@ -121,27 +121,27 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static __zz_cib_HANDLE* f(const __zz_cib_TYPE* __zz_cib_obj) {
-    using fProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<fProc, __zz_cib_methodid::f>(
+  static __zz_cib_HANDLE* __zz_cib_f(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_fProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* g(__zz_cib_TYPE* __zz_cib_obj) {
-    using gProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<gProc, __zz_cib_methodid::g>(
+  static __zz_cib_HANDLE* __zz_cib_g(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_gProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_gProc, __zz_cib_methodid::__zz_cib_g>(
       __zz_cib_obj
       );
   }
-  static int h(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
-    using hProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
-    return instance().invoke<hProc, __zz_cib_methodid::h>(
+  static int __zz_cib_h(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
+    using __zz_cib_hProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+    return instance().invoke<__zz_cib_hProc, __zz_cib_methodid::__zz_cib_h>(
       __zz_cib_obj,
       p);
   }
-  static int i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
-    using iProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
-    return instance().invoke<iProc, __zz_cib_methodid::i>(
+  static int __zz_cib_i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
+    using __zz_cib_iProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+    return instance().invoke<__zz_cib_iProc, __zz_cib_methodid::__zz_cib_i>(
       __zz_cib_obj,
       p);
   }

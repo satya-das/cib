@@ -36,9 +36,9 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     //#= ~B();
     __zz_cib_delete = 2,
     //#= void SetA(::A*);
-    SetA = 3,
+    __zz_cib_SetA = 3,
     //#= ::A* GetA() const;
-    GetA = 4,
+    __zz_cib_GetA = 4,
     __zz_cib_next_method_id = 5
   };
 }}}

@@ -43,15 +43,15 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int Func(__zz_cib_TYPE* __zz_cib_obj) {
-    using FuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<FuncProc, __zz_cib_methodid::Func>(
+  static int __zz_cib_Func(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_FuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_FuncProc, __zz_cib_methodid::__zz_cib_Func>(
       __zz_cib_obj
       );
   }
-  static int Func_4(__zz_cib_TYPE* __zz_cib_obj, float __zz_cib_param0) {
-    using FuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, float __zz_cib_param0);
-    return instance().invoke<FuncProc, __zz_cib_methodid::Func_4>(
+  static int __zz_cib_Func_4(__zz_cib_TYPE* __zz_cib_obj, float __zz_cib_param0) {
+    using __zz_cib_FuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, float __zz_cib_param0);
+    return instance().invoke<__zz_cib_FuncProc, __zz_cib_methodid::__zz_cib_Func_4>(
       __zz_cib_obj,
       __zz_cib_param0);
   }

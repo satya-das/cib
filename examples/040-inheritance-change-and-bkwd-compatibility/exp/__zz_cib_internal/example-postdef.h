@@ -36,21 +36,21 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int AnotherVirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc>(
+  static int __zz_cib_AnotherVirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_AnotherVirtFuncProc, __zz_cib_methodid::__zz_cib_AnotherVirtFunc>(
       __zz_cib_obj
       );
   }
-  static int VirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc>(
+  static int __zz_cib_VirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_VirtFuncProc, __zz_cib_methodid::__zz_cib_VirtFunc>(
       __zz_cib_obj
       );
   }
-  static int SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc>(
+  static int __zz_cib_SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_SomeFuncProc, __zz_cib_methodid::__zz_cib_SomeFunc>(
       __zz_cib_obj
       );
   }
@@ -129,9 +129,9 @@ private:
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
-  static int F(__zz_cib_TYPE* __zz_cib_obj) {
-    using FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<FProc, __zz_cib_methodid::F>(
+  static int __zz_cib_F(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_FProc, __zz_cib_methodid::__zz_cib_F>(
       __zz_cib_obj
       );
   }
@@ -210,9 +210,9 @@ private:
     return instance().invoke<__zz_cib_copyProc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_param0);
   }
-  static int G(__zz_cib_TYPE* __zz_cib_obj) {
-    using GProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<GProc, __zz_cib_methodid::G>(
+  static int __zz_cib_G(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GProc, __zz_cib_methodid::__zz_cib_G>(
       __zz_cib_obj
       );
   }
@@ -299,32 +299,32 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int VirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<VirtFuncProc, __zz_cib_methodid::VirtFunc>(
+  static int __zz_cib_VirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_VirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_VirtFuncProc, __zz_cib_methodid::__zz_cib_VirtFunc>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* Create() {
-    using CreateProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
-    return instance().invoke<CreateProc, __zz_cib_methodid::Create>(
+  static __zz_cib_HANDLE* __zz_cib_Create() {
+    using __zz_cib_CreateProc = __zz_cib_HANDLE* (__zz_cib_decl *) ();
+    return instance().invoke<__zz_cib_CreateProc, __zz_cib_methodid::__zz_cib_Create>(
       );
   }
-  static int F(__zz_cib_TYPE* __zz_cib_obj) {
-    using FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<FProc, __zz_cib_methodid::F>(
+  static int __zz_cib_F(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_FProc, __zz_cib_methodid::__zz_cib_F>(
       __zz_cib_obj
       );
   }
-  static int AnotherVirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<AnotherVirtFuncProc, __zz_cib_methodid::AnotherVirtFunc>(
+  static int __zz_cib_AnotherVirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_AnotherVirtFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_AnotherVirtFuncProc, __zz_cib_methodid::__zz_cib_AnotherVirtFunc>(
       __zz_cib_obj
       );
   }
-  static int G(__zz_cib_TYPE* __zz_cib_obj) {
-    using GProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<GProc, __zz_cib_methodid::G>(
+  static int __zz_cib_G(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GProc, __zz_cib_methodid::__zz_cib_G>(
       __zz_cib_obj
       );
   }

@@ -25,5 +25,5 @@ Example::A::A()
 {}
 
 int Example::A::SomeFunc() {
-  return __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc(__zz_cib_h_);
+  return __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_SomeFunc(__zz_cib_h_);
 }

@@ -118,15 +118,15 @@ private:
         );
     }
   }
-  static void SetA(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pA) {
-    using SetAProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pA);
-    return instance().invoke<SetAProc, __zz_cib_methodid::SetA>(
+  static void __zz_cib_SetA(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pA) {
+    using __zz_cib_SetAProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pA);
+    return instance().invoke<__zz_cib_SetAProc, __zz_cib_methodid::__zz_cib_SetA>(
       __zz_cib_obj,
       pA);
   }
-  static __zz_cib_HANDLE* GetA(const __zz_cib_TYPE* __zz_cib_obj) {
-    using GetAProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetAProc, __zz_cib_methodid::GetA>(
+  static __zz_cib_HANDLE* __zz_cib_GetA(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GetAProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GetAProc, __zz_cib_methodid::__zz_cib_GetA>(
       __zz_cib_obj
       );
   }

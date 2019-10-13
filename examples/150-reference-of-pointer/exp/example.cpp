@@ -23,7 +23,7 @@ A::A(::A const & __zz_cib_param0)
 {}
 
 int A::VirtualFunction() const {
-  return __zz_cib_::A::__zz_cib_Helper::VirtualFunction(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_VirtualFunction(__zz_cib_h_);
 }
 
 A::~A() {
@@ -53,7 +53,7 @@ B::B(::B const & __zz_cib_param0)
 {}
 
 int B::VirtualFunction() const {
-  return __zz_cib_::B::__zz_cib_Helper::VirtualFunction(__zz_cib_h_);
+  return __zz_cib_::B::__zz_cib_Helper::__zz_cib_VirtualFunction(__zz_cib_h_);
 }
 
 B::~B() {
@@ -76,8 +76,8 @@ public:
     return new A(h);
   }
   int VirtualFunction() const override {
-    using VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<VirtualFunctionProc, __zz_cib_methodid::VirtualFunction>(
+    using __zz_cib_VirtualFunctionProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_VirtualFunctionProc, __zz_cib_methodid::__zz_cib_VirtualFunction>(
       __zz_cib_h_);
   }
 };
@@ -95,7 +95,7 @@ public:
 namespace __zz_cib_ { namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
-  static int __zz_cib_decl VirtualFunction(const ::A* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_VirtualFunction(const ::A* __zz_cib_obj) {
     return __zz_cib_obj->VirtualFunction();
   }
   static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
@@ -107,7 +107,7 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace A {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtualFunction),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_VirtualFunction),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };

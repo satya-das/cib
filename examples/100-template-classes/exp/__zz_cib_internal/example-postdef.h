@@ -43,27 +43,27 @@ private:
         );
     }
   }
-  static void Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * x) {
-    using SetProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * x);
-    return instance().invoke<SetProc, __zz_cib_methodid::Set>(
+  static void __zz_cib_Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * x) {
+    using __zz_cib_SetProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * x);
+    return instance().invoke<__zz_cib_SetProc, __zz_cib_methodid::__zz_cib_Set>(
       __zz_cib_obj,
       x);
   }
-  static __zz_cib_HANDLE* Get(const __zz_cib_TYPE* __zz_cib_obj) {
-    using GetProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetProc, __zz_cib_methodid::Get>(
+  static __zz_cib_HANDLE* __zz_cib_Get(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GetProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GetProc, __zz_cib_methodid::__zz_cib_Get>(
       __zz_cib_obj
       );
   }
-  static void SetInt(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * y) {
-    using SetIntProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * y);
-    return instance().invoke<SetIntProc, __zz_cib_methodid::SetInt>(
+  static void __zz_cib_SetInt(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * y) {
+    using __zz_cib_SetIntProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * y);
+    return instance().invoke<__zz_cib_SetIntProc, __zz_cib_methodid::__zz_cib_SetInt>(
       __zz_cib_obj,
       y);
   }
-  static __zz_cib_HANDLE* GetInt(const __zz_cib_TYPE* __zz_cib_obj) {
-    using GetIntProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetIntProc, __zz_cib_methodid::GetInt>(
+  static __zz_cib_HANDLE* __zz_cib_GetInt(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GetIntProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GetIntProc, __zz_cib_methodid::__zz_cib_GetInt>(
       __zz_cib_obj
       );
   }

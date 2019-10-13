@@ -15,7 +15,7 @@ Interface1::Interface1(Interface1&& rhs)
 }
 
 int Interface1::disruptVTable() {
-  return __zz_cib_::Interface1::__zz_cib_Helper::disruptVTable(__zz_cib_h_);
+  return __zz_cib_::Interface1::__zz_cib_Helper::__zz_cib_disruptVTable(__zz_cib_h_);
 }
 
 Interface1::~Interface1() {
@@ -42,7 +42,7 @@ Interface2::Interface2(Interface2&& rhs)
 }
 
 int Interface2::disruptVTable() {
-  return __zz_cib_::Interface2::__zz_cib_Helper::disruptVTable(__zz_cib_h_);
+  return __zz_cib_::Interface2::__zz_cib_Helper::__zz_cib_disruptVTable(__zz_cib_h_);
 }
 
 Interface2::~Interface2() {
@@ -69,7 +69,7 @@ Interface3::Interface3(Interface3&& rhs)
 }
 
 int Interface3::disruptVTable() {
-  return __zz_cib_::Interface3::__zz_cib_Helper::disruptVTable(__zz_cib_h_);
+  return __zz_cib_::Interface3::__zz_cib_Helper::__zz_cib_disruptVTable(__zz_cib_h_);
 }
 
 Interface3::~Interface3() {
@@ -106,19 +106,19 @@ A::A()
 {}
 
 int A::SetInterface(::Interface1* pInterface1) const {
-  return __zz_cib_::A::__zz_cib_Helper::SetInterface(__zz_cib_h_, __zz_cib_::Interface1::__zz_cib_Helper::__zz_cib_handle(pInterface1));
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_SetInterface(__zz_cib_h_, __zz_cib_::Interface1::__zz_cib_Helper::__zz_cib_handle(pInterface1));
 }
 namespace __zz_cib_ { namespace Interface1 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface1;
-  static int __zz_cib_decl disruptVTable(::Interface1* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_disruptVTable(::Interface1* __zz_cib_obj) {
     return __zz_cib_obj->disruptVTable();
   }
-  static __zz_cib_HANDLE* __zz_cib_decl p(::Interface1* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_decl __zz_cib_p(::Interface1* __zz_cib_obj) {
     return __zz_cib_::Interface2::__zz_cib_Helper::__zz_cib_handle(
       __zz_cib_obj->p());
   }
-  static __zz_cib_HANDLE* __zz_cib_decl r(::Interface1* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_decl __zz_cib_r(::Interface1* __zz_cib_obj) {
     return __zz_cib_::Interface3::__zz_cib_Helper::__zz_cib_handle(
       &__zz_cib_obj->r());
   }
@@ -131,10 +131,10 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace Interface1 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::p),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::r),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_p),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_r),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::disruptVTable)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_disruptVTable)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
   return &methodTable;
@@ -163,13 +163,13 @@ public:
     return new Interface2(h);
   }
   int disruptVTable() override {
-    using disruptVTableProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<disruptVTableProc, __zz_cib_methodid::disruptVTable>(
+    using __zz_cib_disruptVTableProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_disruptVTableProc, __zz_cib_methodid::__zz_cib_disruptVTable>(
       __zz_cib_h_);
   }
   int f() override {
-    using fProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f>(
+    using __zz_cib_fProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_h_);
   }
 };
@@ -183,10 +183,10 @@ public:
 namespace __zz_cib_ { namespace Interface2 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface2;
-  static int __zz_cib_decl disruptVTable(::Interface2* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_disruptVTable(::Interface2* __zz_cib_obj) {
     return __zz_cib_obj->disruptVTable();
   }
-  static int __zz_cib_decl f(::Interface2* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_f(::Interface2* __zz_cib_obj) {
     return __zz_cib_obj->f();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface2* __zz_cib_obj) {
@@ -198,9 +198,9 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace Interface2 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_f),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::disruptVTable)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_disruptVTable)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
   return &methodTable;
@@ -229,13 +229,13 @@ public:
     return new Interface3(h);
   }
   int disruptVTable() override {
-    using disruptVTableProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<disruptVTableProc, __zz_cib_methodid::disruptVTable>(
+    using __zz_cib_disruptVTableProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_disruptVTableProc, __zz_cib_methodid::__zz_cib_disruptVTable>(
       __zz_cib_h_);
   }
   int g() override {
-    using gProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<gProc, __zz_cib_methodid::g>(
+    using __zz_cib_gProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_gProc, __zz_cib_methodid::__zz_cib_g>(
       __zz_cib_h_);
   }
 };
@@ -249,10 +249,10 @@ public:
 namespace __zz_cib_ { namespace Interface3 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface3;
-  static int __zz_cib_decl disruptVTable(::Interface3* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_disruptVTable(::Interface3* __zz_cib_obj) {
     return __zz_cib_obj->disruptVTable();
   }
-  static int __zz_cib_decl g(::Interface3* __zz_cib_obj) {
+  static int __zz_cib_decl __zz_cib_g(::Interface3* __zz_cib_obj) {
     return __zz_cib_obj->g();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface3* __zz_cib_obj) {
@@ -264,9 +264,9 @@ struct __zz_cib_Delegator {
 namespace __zz_cib_ { namespace Interface3 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::g),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_g),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::disruptVTable)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_disruptVTable)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
   return &methodTable;

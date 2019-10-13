@@ -22,13 +22,13 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 1,
     //#= int VirtFunc();
-    VirtFunc = 2,
+    __zz_cib_VirtFunc = 2,
     //#= ~A();
     __zz_cib_delete = 3,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 4,
+    __zz_cib_AnotherVirtFunc = 4,
     //#= int SomeFunc();
-    SomeFunc = 5,
+    __zz_cib_SomeFunc = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -42,15 +42,15 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 2,
     //#= int VirtFunc();
-    VirtFunc = 3,
+    __zz_cib_VirtFunc = 3,
     //#= ::B* Create();
-    Create = 4,
+    __zz_cib_Create = 4,
     //#= __zz_cib_cast_to_A
     __zz_cib_cast_to_A = 5,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 6,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 7,
+    __zz_cib_AnotherVirtFunc = 7,
     __zz_cib_next_method_id = 8
   };
 }}}

@@ -28,8 +28,8 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int V() override {
-    using VProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<VProc, __zz_cib_GenericProxy::__zz_cib_methodid::V>(
+    using __zz_cib_VProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_VProc, __zz_cib_GenericProxy::__zz_cib_methodid::V>(
       __zz_cib_proxy);
   }
   ~A() override {

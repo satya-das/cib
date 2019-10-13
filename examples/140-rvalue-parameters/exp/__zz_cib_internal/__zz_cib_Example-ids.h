@@ -25,9 +25,9 @@ namespace __zz_cib_ { namespace RValueExample { namespace __zz_cib_methodid {
     //#= ::RValueExample& operator=(::RValueExample const &);
     __zz_cib_OperatorEqual_5 = 5,
     //#= std::int32_t Set(::RValueExample&&);
-    Set = 6,
+    __zz_cib_Set = 6,
     //#= std::int32_t GetValue() const;
-    GetValue = 7,
+    __zz_cib_GetValue = 7,
     __zz_cib_next_method_id = 8
   };
 }}}

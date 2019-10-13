@@ -29,25 +29,25 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int setValue(::Value<int> const & intVal) const override {
-    using setValueProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<int> const * intVal);
-    return __zz_cib_get_mtable_helper().invoke<setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue>(
+    using __zz_cib_setValueProc = int (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<int> const * intVal);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue>(
       __zz_cib_proxy,
       &intVal);
   }
   float setValue(::Value<float> const & floatVal) const override {
-    using setValueProc = float (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<float> const * floatVal);
-    return __zz_cib_get_mtable_helper().invoke<setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue_1>(
+    using __zz_cib_setValueProc = float (__zz_cib_decl *) (const __zz_cib_PROXY*, ::Value<float> const * floatVal);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_setValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::setValue_1>(
       __zz_cib_proxy,
       &floatVal);
   }
   ::Value<int> getIntValue() const override {
-    using getIntValueProc = ::Value<int>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<getIntValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue>(
+    using __zz_cib_getIntValueProc = ::Value<int>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_getIntValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getIntValue>(
       __zz_cib_proxy);
   }
   ::Value<float> getFloatValue() const override {
-    using getFloatValueProc = ::Value<float>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<getFloatValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue>(
+    using __zz_cib_getFloatValueProc = ::Value<float>* (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_getFloatValueProc, __zz_cib_GenericProxy::__zz_cib_methodid::getFloatValue>(
       __zz_cib_proxy);
   }
   ~A() override {

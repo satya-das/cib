@@ -62,15 +62,15 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       x);
   }
-  static int GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
-    using GetValueProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue>(
+  static int __zz_cib_GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GetValueProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GetValueProc, __zz_cib_methodid::__zz_cib_GetValue>(
       __zz_cib_obj
       );
   }
-  static void SetValue(__zz_cib_TYPE* __zz_cib_obj, int x) {
-    using SetValueProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, int x);
-    return instance().invoke<SetValueProc, __zz_cib_methodid::SetValue>(
+  static void __zz_cib_SetValue(__zz_cib_TYPE* __zz_cib_obj, int x) {
+    using __zz_cib_SetValueProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, int x);
+    return instance().invoke<__zz_cib_SetValueProc, __zz_cib_methodid::__zz_cib_SetValue>(
       __zz_cib_obj,
       x);
   }
@@ -139,9 +139,9 @@ inline Example::Value<int>::Value(int x)
 {}
 
 inline int Example::Value<int>::GetValue() const {
-  return __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::GetValue(__zz_cib_h_);
+  return __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_GetValue(__zz_cib_h_);
 }
 
 inline void Example::Value<int>::SetValue(int x) {
-  __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::SetValue(__zz_cib_h_, x);
+  __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_SetValue(__zz_cib_h_, x);
 }

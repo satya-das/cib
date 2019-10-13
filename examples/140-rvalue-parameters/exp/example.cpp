@@ -37,9 +37,9 @@ RValueExample::RValueExample(::RValueExample const & __zz_cib_param0)
 }
 
 std::int32_t RValueExample::Set(::RValueExample&& x) {
-  return __zz_cib_::RValueExample::__zz_cib_Helper::Set(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(x));
+  return __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_Set(__zz_cib_h_, __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_handle(x));
 }
 
 std::int32_t RValueExample::GetValue() const {
-  return __zz_cib_::RValueExample::__zz_cib_Helper::GetValue(__zz_cib_h_);
+  return __zz_cib_::RValueExample::__zz_cib_Helper::__zz_cib_GetValue(__zz_cib_h_);
 }

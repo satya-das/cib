@@ -29,13 +29,13 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= ::I const & f() const;
-    f = 3,
+    __zz_cib_f = 3,
     //#= ::I const * g() const;
-    g = 4,
+    __zz_cib_g = 4,
     //#= ::I* c() const;
-    c = 5,
+    __zz_cib_c = 5,
     //#= void d(::I const *) const;
-    d = 6,
+    __zz_cib_d = 6,
     __zz_cib_next_method_id = 7
   };
 }}}
@@ -47,7 +47,7 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
     //#= ~I();
     __zz_cib_delete = 1,
     //#= int f() const;
-    f = 2,
+    __zz_cib_f = 2,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 3,
     //#= __zz_cib_release_proxy
@@ -65,7 +65,7 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int f() const;
-    f = 0,
+    __zz_cib_f = 0,
     //#= ~I();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2

@@ -48,20 +48,20 @@ private:
     }
   }
   static int F(__zz_cib_TYPE* __zz_cib_obj) {
-    using FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<FProc, __zz_cib_methodid::F>(
+    using __zz_cib_FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_FProc, __zz_cib_methodid::F>(
       __zz_cib_obj
       );
   }
   static int F_4(__zz_cib_TYPE* __zz_cib_obj, int __zz_cib_param0) {
-    using FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, int __zz_cib_param0);
-    return instance().invoke<FProc, __zz_cib_methodid::F_4>(
+    using __zz_cib_FProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, int __zz_cib_param0);
+    return instance().invoke<__zz_cib_FProc, __zz_cib_methodid::F_4>(
       __zz_cib_obj,
       __zz_cib_param0);
   }
   static int V(__zz_cib_TYPE* __zz_cib_obj) {
-    using VProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<VProc, __zz_cib_methodid::V>(
+    using __zz_cib_VProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_VProc, __zz_cib_methodid::V>(
       __zz_cib_obj
       );
   }

@@ -2076,7 +2076,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << ++indentation << "return __zz_cib_mtbl_helper;\n";
   stm << --indentation << "}\n";
   if (needsDelagatorClass())
-    stm << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
+    stm << indentation << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
   --indentation;
   stm << indentation << "public:\n";
   stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(" << name() << ", " << longName() << ")\n\n";
@@ -2098,6 +2098,26 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";
   --indentation;
   stm << indentation << "};\n";
+  stm << indentation << closingBracesForWrappingNsNamespaces() << "}}\n";
+}
+
+void CibCompound::emitProtectedAccessor(std::ostream&    stm,
+                                       const CibHelper& helper,
+                                       const CibParams& cibParams,
+                                       const CibIdMgr&  cibIdMgr,
+                                       CppIndent        indentation) const
+{
+  if (!needsDelagatorClass())
+    return;
+
+  stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
+  stm << "struct __zz_cib_Delegator;\n";
+  stm << "namespace __zz_cib_ProtectedAccessor {\n";
+  stm << indentation << "class " << name() << " : public " << longName() << " {\n";
+  stm << ++indentation << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
+  stm << --indentation << "public:\n";
+  stm << ++ indentation << "using " << longName() << "::" << name() << ";\n";
+  stm << --indentation << "};\n";
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}}\n";
 }
 
@@ -2261,9 +2281,17 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   auto cibIdData = cibIdMgr.getCibIdData(longName());
   if (needsGenericProxyDefinition())
     emitGenericProxyDefn(stm, helper, cibParams, cibIdMgr, indentation);
+  else if (needsDelagatorClass())
+    emitProtectedAccessor(stm, helper, cibParams, cibIdMgr, indentation);
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-  auto delegatee =
-    needsGenericProxyDefinition() ? "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name() : longName();
+  auto delegatee = [&]() {
+    if (needsGenericProxyDefinition())
+      return "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name();
+    else if (needsDelagatorClass())
+      return "__zz_cib_ProtectedAccessor::" + name();
+    else
+      return longName();
+  }();
 
   if (needsDelagatorClass())
     stm << indentation++ << "struct __zz_cib_Delegator {\n";

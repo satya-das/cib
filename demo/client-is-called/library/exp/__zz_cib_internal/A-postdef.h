@@ -116,8 +116,8 @@ private:
     }
   }
   static int UseInterface(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pI) {
-    using UseInterfaceProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pI);
-    return instance().invoke<UseInterfaceProc, __zz_cib_methodid::UseInterface>(
+    using __zz_cib_UseInterfaceProc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* pI);
+    return instance().invoke<__zz_cib_UseInterfaceProc, __zz_cib_methodid::UseInterface>(
       __zz_cib_obj,
       pI);
   }

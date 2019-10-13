@@ -49,7 +49,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 2,
     //#= int SetInterface(::Interface1*) const;
-    SetInterface = 3,
+    __zz_cib_SetInterface = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -59,9 +59,9 @@ namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_methodid {
     //#= Interface1();
     __zz_cib_new = 0,
     //#= ::Interface2* p();
-    p = 1,
+    __zz_cib_p = 1,
     //#= ::Interface3& r();
-    r = 2,
+    __zz_cib_r = 2,
     //#= ~Interface1();
     __zz_cib_delete = 3,
     //#= __zz_cib_release_proxy
@@ -73,9 +73,9 @@ namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= ::Interface2* p();
-    p = 0,
+    __zz_cib_p = 0,
     //#= ::Interface3& r();
-    r = 1,
+    __zz_cib_r = 1,
     //#= ~Interface1();
     __zz_cib_delete = 2,
     __zz_cib_next_method_id = 3
@@ -87,7 +87,7 @@ namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_methodid {
     //#= Interface2();
     __zz_cib_new = 0,
     //#= int f();
-    f = 1,
+    __zz_cib_f = 1,
     //#= ~Interface2();
     __zz_cib_delete = 2,
     //#= __zz_cib_get_class_id
@@ -101,7 +101,7 @@ namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int f();
-    f = 0,
+    __zz_cib_f = 0,
     //#= ~Interface2();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
@@ -113,7 +113,7 @@ namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_methodid {
     //#= Interface3();
     __zz_cib_new = 0,
     //#= int g();
-    g = 1,
+    __zz_cib_g = 1,
     //#= ~Interface3();
     __zz_cib_delete = 2,
     //#= __zz_cib_get_class_id
@@ -127,7 +127,7 @@ namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_methodid {
 namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int g();
-    g = 0,
+    __zz_cib_g = 0,
     //#= ~Interface3();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2

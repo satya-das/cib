@@ -123,6 +123,7 @@ set(EXAMPLES
 	090-complex-interface-classes-and-bkwd-compatibility
 	100-template-classes
 	110-facade-classes-and-rtti
+	115-protected-methods
 	120-proxy-object-reuse
 	130-layout-sharing-proxy-classes
 	140-rvalue-parameters

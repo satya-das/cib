@@ -44,13 +44,13 @@ A::A()
 
 ::I* A::f() const {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::__zz_cib_f(__zz_cib_h_)
   );
 }
 
 ::I* A::g() {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::g(__zz_cib_h_)
+    __zz_cib_::A::__zz_cib_Helper::__zz_cib_g(__zz_cib_h_)
   );
 }
 namespace __zz_cib_ { namespace I { namespace __zz_cib_Generic {
@@ -69,8 +69,8 @@ public:
     return new I(h);
   }
   int f() const override {
-    using fProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<fProc, __zz_cib_methodid::f>(
+    using __zz_cib_fProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_h_);
   }
 };

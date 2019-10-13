@@ -24,5 +24,5 @@ A::A()
 {}
 
 int A::f() {
-  return __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_f(__zz_cib_h_);
 }

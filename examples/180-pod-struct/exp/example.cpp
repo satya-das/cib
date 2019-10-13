@@ -103,21 +103,21 @@ A::A()
 {}
 
 void A::setPod(::Pod& p) {
-  __zz_cib_::A::__zz_cib_Helper::setPod(__zz_cib_h_, &p);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_setPod(__zz_cib_h_, &p);
 }
 
 void A::setPod(::Pod* p) {
-  __zz_cib_::A::__zz_cib_Helper::setPod_4(__zz_cib_h_, p);
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_setPod_4(__zz_cib_h_, p);
 }
 
 void A::setNonPod1(::NonPod1& n) {
-  __zz_cib_::A::__zz_cib_Helper::setNonPod1(__zz_cib_h_, __zz_cib_::NonPod1::__zz_cib_Helper::__zz_cib_handle(n));
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_setNonPod1(__zz_cib_h_, __zz_cib_::NonPod1::__zz_cib_Helper::__zz_cib_handle(n));
 }
 
 void A::setNonPod2(::NonPod2& n) {
-  __zz_cib_::A::__zz_cib_Helper::setNonPod2(__zz_cib_h_, __zz_cib_::NonPod2::__zz_cib_Helper::__zz_cib_handle(n));
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_setNonPod2(__zz_cib_h_, __zz_cib_::NonPod2::__zz_cib_Helper::__zz_cib_handle(n));
 }
 
 void A::setNonPod3(::NonPod3& n) {
-  __zz_cib_::A::__zz_cib_Helper::setNonPod3(__zz_cib_h_, __zz_cib_::NonPod3::__zz_cib_Helper::__zz_cib_handle(n));
+  __zz_cib_::A::__zz_cib_Helper::__zz_cib_setNonPod3(__zz_cib_h_, __zz_cib_::NonPod3::__zz_cib_Helper::__zz_cib_handle(n));
 }

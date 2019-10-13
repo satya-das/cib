@@ -23,8 +23,8 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int F() override {
-    using FProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<FProc, __zz_cib_GenericProxy::__zz_cib_methodid::F>(
+    using __zz_cib_FProc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_FProc, __zz_cib_GenericProxy::__zz_cib_methodid::F>(
       __zz_cib_proxy);
   }
   ~I() override {

@@ -39,9 +39,9 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int f(__zz_cib_TYPE* __zz_cib_obj) {
-    using fProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<fProc, __zz_cib_methodid::f>(
+  static int __zz_cib_f(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_fProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_obj
       );
   }

@@ -25,17 +25,17 @@ A::A()
 {}
 
 int A::fE(::E e) const {
-  return __zz_cib_::A::__zz_cib_Helper::fE(__zz_cib_h_, e);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_fE(__zz_cib_h_, e);
 }
 
 int A::fE(::EC e) const {
-  return __zz_cib_::A::__zz_cib_Helper::fE_4(__zz_cib_h_, e);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_fE_4(__zz_cib_h_, e);
 }
 
 int A::fE(::E8 e) const {
-  return __zz_cib_::A::__zz_cib_Helper::fE_5(__zz_cib_h_, e);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_fE_5(__zz_cib_h_, e);
 }
 
 int A::fE(::EC16 e) const {
-  return __zz_cib_::A::__zz_cib_Helper::fE_6(__zz_cib_h_, e);
+  return __zz_cib_::A::__zz_cib_Helper::__zz_cib_fE_6(__zz_cib_h_, e);
 }

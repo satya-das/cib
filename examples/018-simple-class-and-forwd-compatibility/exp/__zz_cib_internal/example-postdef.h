@@ -43,15 +43,15 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<SomeFuncProc, __zz_cib_methodid::SomeFunc>(
+  static int __zz_cib_SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_SomeFuncProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_SomeFuncProc, __zz_cib_methodid::__zz_cib_SomeFunc>(
       __zz_cib_obj
       );
   }
-  static int AnotherFunction(__zz_cib_TYPE* __zz_cib_obj) {
-    using AnotherFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<AnotherFunctionProc, __zz_cib_methodid::AnotherFunction>(
+  static int __zz_cib_AnotherFunction(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_AnotherFunctionProc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_AnotherFunctionProc, __zz_cib_methodid::__zz_cib_AnotherFunction>(
       __zz_cib_obj
       );
   }

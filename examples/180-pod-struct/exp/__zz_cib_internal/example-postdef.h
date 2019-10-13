@@ -268,33 +268,33 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static void setPod(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
-    using setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
-    return instance().invoke<setPodProc, __zz_cib_methodid::setPod>(
+  static void __zz_cib_setPod(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
+    using __zz_cib_setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
+    return instance().invoke<__zz_cib_setPodProc, __zz_cib_methodid::__zz_cib_setPod>(
       __zz_cib_obj,
       p);
   }
-  static void setPod_4(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
-    using setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
-    return instance().invoke<setPodProc, __zz_cib_methodid::setPod_4>(
+  static void __zz_cib_setPod_4(__zz_cib_TYPE* __zz_cib_obj, ::Pod* p) {
+    using __zz_cib_setPodProc = void (__zz_cib_decl *) (__zz_cib_TYPE*, ::Pod* p);
+    return instance().invoke<__zz_cib_setPodProc, __zz_cib_methodid::__zz_cib_setPod_4>(
       __zz_cib_obj,
       p);
   }
-  static void setNonPod1(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using setNonPod1Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<setNonPod1Proc, __zz_cib_methodid::setNonPod1>(
+  static void __zz_cib_setNonPod1(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_setNonPod1Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_setNonPod1Proc, __zz_cib_methodid::__zz_cib_setNonPod1>(
       __zz_cib_obj,
       n);
   }
-  static void setNonPod2(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using setNonPod2Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<setNonPod2Proc, __zz_cib_methodid::setNonPod2>(
+  static void __zz_cib_setNonPod2(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_setNonPod2Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_setNonPod2Proc, __zz_cib_methodid::__zz_cib_setNonPod2>(
       __zz_cib_obj,
       n);
   }
-  static void setNonPod3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
-    using setNonPod3Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
-    return instance().invoke<setNonPod3Proc, __zz_cib_methodid::setNonPod3>(
+  static void __zz_cib_setNonPod3(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* n) {
+    using __zz_cib_setNonPod3Proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* n);
+    return instance().invoke<__zz_cib_setNonPod3Proc, __zz_cib_methodid::__zz_cib_setNonPod3>(
       __zz_cib_obj,
       n);
   }

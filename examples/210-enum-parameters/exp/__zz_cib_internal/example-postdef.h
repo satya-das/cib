@@ -43,27 +43,27 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int fE(const __zz_cib_TYPE* __zz_cib_obj, ::E e) {
-    using fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::E e);
-    return instance().invoke<fEProc, __zz_cib_methodid::fE>(
+  static int __zz_cib_fE(const __zz_cib_TYPE* __zz_cib_obj, ::E e) {
+    using __zz_cib_fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::E e);
+    return instance().invoke<__zz_cib_fEProc, __zz_cib_methodid::__zz_cib_fE>(
       __zz_cib_obj,
       e);
   }
-  static int fE_4(const __zz_cib_TYPE* __zz_cib_obj, ::EC e) {
-    using fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::EC e);
-    return instance().invoke<fEProc, __zz_cib_methodid::fE_4>(
+  static int __zz_cib_fE_4(const __zz_cib_TYPE* __zz_cib_obj, ::EC e) {
+    using __zz_cib_fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::EC e);
+    return instance().invoke<__zz_cib_fEProc, __zz_cib_methodid::__zz_cib_fE_4>(
       __zz_cib_obj,
       e);
   }
-  static int fE_5(const __zz_cib_TYPE* __zz_cib_obj, ::E8 e) {
-    using fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::E8 e);
-    return instance().invoke<fEProc, __zz_cib_methodid::fE_5>(
+  static int __zz_cib_fE_5(const __zz_cib_TYPE* __zz_cib_obj, ::E8 e) {
+    using __zz_cib_fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::E8 e);
+    return instance().invoke<__zz_cib_fEProc, __zz_cib_methodid::__zz_cib_fE_5>(
       __zz_cib_obj,
       e);
   }
-  static int fE_6(const __zz_cib_TYPE* __zz_cib_obj, ::EC16 e) {
-    using fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::EC16 e);
-    return instance().invoke<fEProc, __zz_cib_methodid::fE_6>(
+  static int __zz_cib_fE_6(const __zz_cib_TYPE* __zz_cib_obj, ::EC16 e) {
+    using __zz_cib_fEProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, ::EC16 e);
+    return instance().invoke<__zz_cib_fEProc, __zz_cib_methodid::__zz_cib_fE_6>(
       __zz_cib_obj,
       e);
   }

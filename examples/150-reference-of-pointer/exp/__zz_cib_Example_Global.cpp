@@ -19,41 +19,41 @@ public:
     return helper;
   }
 
-  static int GetNewA(__zz_cib_HANDLE** pA) {
-    using GetNewAProc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
-    return instance().invoke<GetNewAProc, __zz_cib_methodid::GetNewA>(
+  static int __zz_cib_GetNewA(__zz_cib_HANDLE** pA) {
+    using __zz_cib_GetNewAProc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
+    return instance().invoke<__zz_cib_GetNewAProc, __zz_cib_methodid::__zz_cib_GetNewA>(
       pA);
   }
-  static int GetNewB(__zz_cib_HANDLE** pA) {
-    using GetNewBProc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
-    return instance().invoke<GetNewBProc, __zz_cib_methodid::GetNewB>(
+  static int __zz_cib_GetNewB(__zz_cib_HANDLE** pA) {
+    using __zz_cib_GetNewBProc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
+    return instance().invoke<__zz_cib_GetNewBProc, __zz_cib_methodid::__zz_cib_GetNewB>(
       pA);
   }
-  static int GetNewA_2(__zz_cib_HANDLE const ** pA) {
-    using GetNewAProc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
-    return instance().invoke<GetNewAProc, __zz_cib_methodid::GetNewA_2>(
+  static int __zz_cib_GetNewA_2(__zz_cib_HANDLE const ** pA) {
+    using __zz_cib_GetNewAProc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
+    return instance().invoke<__zz_cib_GetNewAProc, __zz_cib_methodid::__zz_cib_GetNewA_2>(
       pA);
   }
-  static int GetNewB_3(__zz_cib_HANDLE const ** pA) {
-    using GetNewBProc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
-    return instance().invoke<GetNewBProc, __zz_cib_methodid::GetNewB_3>(
+  static int __zz_cib_GetNewB_3(__zz_cib_HANDLE const ** pA) {
+    using __zz_cib_GetNewBProc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
+    return instance().invoke<__zz_cib_GetNewBProc, __zz_cib_methodid::__zz_cib_GetNewB_3>(
       pA);
   }
 };
 }}
 
 int GetNewA(::A*& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::__zz_cib_GetNewA(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
 }
 
 int GetNewB(::A*& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::__zz_cib_GetNewB(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
 }
 
 int GetNewA(::A const *& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::__zz_cib_GetNewA_2(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
 }
 
 int GetNewB(::A const *& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::__zz_cib_GetNewB_3(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
 }

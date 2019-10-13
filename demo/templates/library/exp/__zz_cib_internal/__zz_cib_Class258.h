@@ -62,8 +62,8 @@ private:
       value);
   }
   static float get(const __zz_cib_TYPE* __zz_cib_obj) {
-    using getProc = float (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<getProc, __zz_cib_methodid::get>(
+    using __zz_cib_getProc = float (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_getProc, __zz_cib_methodid::get>(
       __zz_cib_obj
       );
   }

@@ -114,9 +114,9 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int UseInterface(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pInterface) {
-    using UseInterfaceProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* pInterface);
-    return instance().invoke<UseInterfaceProc, __zz_cib_methodid::UseInterface>(
+  static int __zz_cib_UseInterface(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* pInterface) {
+    using __zz_cib_UseInterfaceProc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* pInterface);
+    return instance().invoke<__zz_cib_UseInterfaceProc, __zz_cib_methodid::__zz_cib_UseInterface>(
       __zz_cib_obj,
       pInterface);
   }

@@ -19,9 +19,9 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     //#= A();
     __zz_cib_new = 2,
     //#= int Func();
-    Func = 3,
+    __zz_cib_Func = 3,
     //#= int Func(float);
-    Func_4 = 4,
+    __zz_cib_Func_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}

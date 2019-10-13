@@ -61,15 +61,15 @@ private:
       __zz_cib_obj,
       rhs);
   }
-  static std::int32_t Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* x) {
-    using SetProc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
-    return instance().invoke<SetProc, __zz_cib_methodid::Set>(
+  static std::int32_t __zz_cib_Set(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* x) {
+    using __zz_cib_SetProc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
+    return instance().invoke<__zz_cib_SetProc, __zz_cib_methodid::__zz_cib_Set>(
       __zz_cib_obj,
       x);
   }
-  static std::int32_t GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
-    using GetValueProc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<GetValueProc, __zz_cib_methodid::GetValue>(
+  static std::int32_t __zz_cib_GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_GetValueProc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_GetValueProc, __zz_cib_methodid::__zz_cib_GetValue>(
       __zz_cib_obj
       );
   }

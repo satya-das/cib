@@ -51,11 +51,11 @@ B::~B() {
 }
 
 void B::SetA(::A* pA) {
-  __zz_cib_::B::__zz_cib_Helper::SetA(__zz_cib_h_, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(pA));
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_SetA(__zz_cib_h_, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(pA));
 }
 
 ::A* B::GetA() const {
   return __zz_cib_::A::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::B::__zz_cib_Helper::GetA(__zz_cib_h_)
+    __zz_cib_::B::__zz_cib_Helper::__zz_cib_GetA(__zz_cib_h_)
   );
 }

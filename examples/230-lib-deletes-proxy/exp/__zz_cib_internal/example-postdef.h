@@ -138,27 +138,27 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static __zz_cib_HANDLE const * f(const __zz_cib_TYPE* __zz_cib_obj) {
-    using fProc = __zz_cib_HANDLE const * (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<fProc, __zz_cib_methodid::f>(
+  static __zz_cib_HANDLE const * __zz_cib_f(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_fProc = __zz_cib_HANDLE const * (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE const * g(const __zz_cib_TYPE* __zz_cib_obj) {
-    using gProc = __zz_cib_HANDLE const * (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<gProc, __zz_cib_methodid::g>(
+  static __zz_cib_HANDLE const * __zz_cib_g(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_gProc = __zz_cib_HANDLE const * (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_gProc, __zz_cib_methodid::__zz_cib_g>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* c(const __zz_cib_TYPE* __zz_cib_obj) {
-    using cProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<cProc, __zz_cib_methodid::c>(
+  static __zz_cib_HANDLE* __zz_cib_c(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_cProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_cProc, __zz_cib_methodid::__zz_cib_c>(
       __zz_cib_obj
       );
   }
-  static void d(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * p) {
-    using dProc = void (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE const * p);
-    return instance().invoke<dProc, __zz_cib_methodid::d>(
+  static void __zz_cib_d(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * p) {
+    using __zz_cib_dProc = void (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE const * p);
+    return instance().invoke<__zz_cib_dProc, __zz_cib_methodid::__zz_cib_d>(
       __zz_cib_obj,
       p);
   }

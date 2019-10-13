@@ -107,15 +107,15 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static __zz_cib_HANDLE* f(const __zz_cib_TYPE* __zz_cib_obj) {
-    using fProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
-    return instance().invoke<fProc, __zz_cib_methodid::f>(
+  static __zz_cib_HANDLE* __zz_cib_f(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_fProc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_fProc, __zz_cib_methodid::__zz_cib_f>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* g(__zz_cib_TYPE* __zz_cib_obj) {
-    using gProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<gProc, __zz_cib_methodid::g>(
+  static __zz_cib_HANDLE* __zz_cib_g(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_gProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_gProc, __zz_cib_methodid::__zz_cib_g>(
       __zz_cib_obj
       );
   }

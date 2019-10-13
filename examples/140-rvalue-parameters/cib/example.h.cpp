@@ -26,10 +26,10 @@ static ::RValueExample* __zz_cib_decl __zz_cib_OperatorEqual(__zz_cib_Delegatee*
 static ::RValueExample* __zz_cib_decl __zz_cib_OperatorEqual_5(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample const * rhs) {
   return &__zz_cib_obj->::RValueExample::operator=(*rhs);
 }
-static std::int32_t __zz_cib_decl Set(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample* x) {
+static std::int32_t __zz_cib_decl __zz_cib_Set(__zz_cib_Delegatee* __zz_cib_obj, ::RValueExample* x) {
   return __zz_cib_obj->::RValueExample::Set(std::move(*x));
 }
-static std::int32_t __zz_cib_decl GetValue(const __zz_cib_Delegatee* __zz_cib_obj) {
+static std::int32_t __zz_cib_decl __zz_cib_GetValue(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::RValueExample::GetValue();
 }
 }
@@ -44,8 +44,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_OperatorEqual),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_OperatorEqual_5),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Set),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetValue)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_Set),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_GetValue)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
   return &methodTable;

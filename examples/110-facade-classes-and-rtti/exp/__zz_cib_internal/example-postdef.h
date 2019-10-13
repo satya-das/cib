@@ -107,9 +107,9 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static void F(__zz_cib_TYPE* __zz_cib_obj) {
-    using FProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<FProc, __zz_cib_methodid::F>(
+  static void __zz_cib_F(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_FProc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_FProc, __zz_cib_methodid::__zz_cib_F>(
       __zz_cib_obj
       );
   }
@@ -179,21 +179,21 @@ private:
     return instance().invoke<__zz_cib_newProc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static __zz_cib_HANDLE* PublicFacade(__zz_cib_TYPE* __zz_cib_obj) {
-    using PublicFacadeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PublicFacadeProc, __zz_cib_methodid::PublicFacade>(
+  static __zz_cib_HANDLE* __zz_cib_PublicFacade(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_PublicFacadeProc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_PublicFacadeProc, __zz_cib_methodid::__zz_cib_PublicFacade>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* PrivateFacade1(__zz_cib_TYPE* __zz_cib_obj) {
-    using PrivateFacade1Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PrivateFacade1Proc, __zz_cib_methodid::PrivateFacade1>(
+  static __zz_cib_HANDLE* __zz_cib_PrivateFacade1(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_PrivateFacade1Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_PrivateFacade1Proc, __zz_cib_methodid::__zz_cib_PrivateFacade1>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* PrivateFacade2(__zz_cib_TYPE* __zz_cib_obj) {
-    using PrivateFacade2Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<PrivateFacade2Proc, __zz_cib_methodid::PrivateFacade2>(
+  static __zz_cib_HANDLE* __zz_cib_PrivateFacade2(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_PrivateFacade2Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_PrivateFacade2Proc, __zz_cib_methodid::__zz_cib_PrivateFacade2>(
       __zz_cib_obj
       );
   }

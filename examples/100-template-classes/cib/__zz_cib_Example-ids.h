@@ -34,13 +34,13 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     //#= ~A();
     __zz_cib_delete = 2,
     //#= void Set(::Example::Value<int> const &);
-    Set = 3,
+    __zz_cib_Set = 3,
     //#= ::Example::Value<int> Get() const;
-    Get = 4,
+    __zz_cib_Get = 4,
     //#= void SetInt(::Example::Value<::Example::Int> const &);
-    SetInt = 5,
+    __zz_cib_SetInt = 5,
     //#= ::Example::Value<::Example::Int> GetInt() const;
-    GetInt = 6,
+    __zz_cib_GetInt = 6,
     __zz_cib_next_method_id = 7
   };
 }}}}
@@ -68,9 +68,9 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 { namespac
     //#= Value(::Example::Int);
     __zz_cib_new = 2,
     //#= ::Example::Int GetValue() const;
-    GetValue = 3,
+    __zz_cib_GetValue = 3,
     //#= void SetValue(::Example::Int);
-    SetValue = 4,
+    __zz_cib_SetValue = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}
@@ -84,9 +84,9 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespac
     //#= Value(int);
     __zz_cib_new = 2,
     //#= int GetValue() const;
-    GetValue = 3,
+    __zz_cib_GetValue = 3,
     //#= void SetValue(int);
-    SetValue = 4,
+    __zz_cib_SetValue = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}
