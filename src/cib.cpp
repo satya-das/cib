@@ -406,9 +406,11 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
                                      const CibParams&   cibParams,
                                      const CibCompound* callingOwner,
                                      const std::string& capiName,
-                                     bool               forProxy,
+                                     FuncProtoPurpose   purpose,
                                      CppIndent          indentation /* = CppIndent */) const
 {
+  bool forProxy = ((purpose & kPurposeProxyCApi) == kPurposeProxyCApi);
+
   if (forProxy && !isVirtual() && !isDestructor())
     return;
   if (!forProxy)
@@ -418,7 +420,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   }
   auto callType = forProxy ? ParamConversion::kFromHandle : ParamConversion::kDerefIfByVal;
   stm << indentation << "static ";
-  emitCAPIDecl(stm, helper, cibParams, callingOwner, capiName, forProxy ? kPurposeProxyCApi : kPurposeCApi);
+  emitCAPIDecl(stm, helper, cibParams, callingOwner, capiName, purpose);
   stm << " {\n";
   stm << ++indentation;
   if (isConstructor())
@@ -1080,10 +1082,10 @@ void CibCompound::emitImplSource(std::ostream&    stm,
 
     for (auto func : allVirtuals_)
       func.emitCAPIDefn(
-        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
+        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeProxyCApi, indentation);
     CibFunctionHelper func = dtor();
     func.emitCAPIDefn(
-      stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), true, indentation);
+      stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeProxyCApi, indentation);
     stm << --indentation << "};\n";
     stm << indentation << "}" << closingBracesForWrappingNsNamespaces() << "\n\n";
     emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, true, indentation);
@@ -2266,7 +2268,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   {
     if (funcSignatures.insert(func.signature(helper)).second)
       func.emitCAPIDefn(
-        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), false, indentation);
+        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeCApi, indentation);
   }
 
   emitProxyMgrDelegators(stm, cibParams, indentation);

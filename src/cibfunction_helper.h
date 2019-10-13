@@ -323,7 +323,7 @@ public:
                     const CibParams&   cibParams,
                     const CibCompound* callingOwner,
                     const std::string& capiName,
-                    bool               forProxy,
+                    FuncProtoPurpose   purpose,
                     CppIndent          indentation = CppIndent()) const;
   void emitDefn(std::ostream&      stm,
                 bool               asInline,
