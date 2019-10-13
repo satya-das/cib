@@ -197,8 +197,12 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream&    stm,
         // FIXME: Emit error if the parameter type is not of basic types
         // for (const auto& idx : var->varDecl_.arraySizes_)
         {
-          // FIXME use index values.
-          stm << "[]";
+          for (const auto& arSize : var->varDecl().arraySizes())
+          {
+            stm << "[";
+            gCppWriter.emitExpr(arSize.get(), stm);
+            stm << ']';
+          }
         }
       }
     }
