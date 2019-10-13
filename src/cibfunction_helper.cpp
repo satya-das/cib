@@ -65,11 +65,11 @@ static OperNameMap kOperNameMap = {
   {"delete", "Delete"}, {"new[]", "NewArray"}, {"delete[]", "DeleteArray"}};
 // clang-format on
 
-std::string CibFunctionHelper::modifyIfOperator(const std::string& funcname)
+std::string CibFunctionHelper::modifyName(const std::string& funcname)
 {
   static const std::string kOper = "operator";
   if (funcname.compare(0, kOper.length(), kOper) != 0)
-    return funcname;
+    return "__zz_cib_" + funcname;
 
   auto name = funcname.c_str() + kOper.length();
   // skip whitechars

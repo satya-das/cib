@@ -268,7 +268,7 @@ public:
     else if (isDestructor())
       pname = "__zz_cib_delete";
     else
-      pname = modifyIfOperator(funcName());
+      pname = modifyName(funcName());
 
     return pname;
   }
@@ -334,5 +334,5 @@ public:
                           CppIndent        indentation = CppIndent()) const;
 
 private:
-  static std::string modifyIfOperator(const std::string& funcname);
+  static std::string modifyName(const std::string& funcname);
 };
