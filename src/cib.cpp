@@ -447,7 +447,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     if (callingOwner->needsGenericProxyDefinition())
     {
-      stm << "__zz_cib_" << callingOwner->longName() << "::__zz_cib_GenericProxy::" << callingOwner->name()
+      stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_GenericProxy::" << callingOwner->name()
           << "(proxy, mtbl";
       if (hasParams())
         stm << ", ";
@@ -1398,7 +1398,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
       // Everything below this is for glue code
       stm << '\n';
       stm << --indentation << "private:\n";
-      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << ctorName() << ", " << fullNsName() << ");\n";
+      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << fullNsName() << ");\n";
     }
     stm << --indentation << "};\n";
     if (isTemplateInstance())
@@ -1419,7 +1419,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
 {
   if (!isShared() || isEmpty() || needsNoProxy())
     return;
-  stm << indentation << longName() << "* __zz_cib_" << longName()
+  stm << indentation << longName() << "* __zz_cib_" << longNsName()
       << "::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {\n";
   ++indentation;
   stm << indentation << "switch(__zz_cib_get_class_id(&h)) {\n";
@@ -1428,7 +1428,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
     if (cibIdData)
     {
       stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
-      stm << ++indentation << "return __zz_cib_" << compound->longName()
+      stm << ++indentation << "return __zz_cib_" << compound->longNsName()
           << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
       --indentation;
     }
@@ -1445,7 +1445,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
     }
   }
   stm << indentation << "default:\n";
-  stm << ++indentation << "return ::__zz_cib_" << longName() << "::__zz_cib_Generic::" << name()
+  stm << ++indentation << "return ::__zz_cib_" << longNsName() << "::__zz_cib_Generic::" << name()
       << "::__zz_cib_from_handle(h);\n";
   stm << --indentation << "}\n";
 
@@ -1977,7 +1977,7 @@ void CibCompound::emitHandleConstructorDefn(std::ostream&    stm,
     if (pubParent->isShared() || !pubParent->isEmpty())
     {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << " ::" << fullName(pubParent) << "(__zz_cib_" << longName()
+      stm << indentation << sep << " ::" << fullName(pubParent) << "(__zz_cib_" << longNsName()
           << "::__zz_cib_Helper::" << capiName << "(h))\n";
       sep = ',';
     }
@@ -2080,7 +2080,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << ++indentation << "return __zz_cib_mtbl_helper;\n";
   stm << --indentation << "}\n";
   if (needsDelagatorClass())
-    stm << indentation << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
+    stm << indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   --indentation;
   stm << indentation << "public:\n";
   stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(" << name() << ", " << longName() << ")\n\n";
@@ -2118,7 +2118,7 @@ void CibCompound::emitProtectedAccessor(std::ostream&    stm,
   stm << "struct __zz_cib_Delegator;\n";
   stm << "namespace __zz_cib_ProtectedAccessor {\n";
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
-  stm << ++indentation << "friend struct __zz_cib_" << longName() << "::__zz_cib_Delegator;\n";
+  stm << ++indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   stm << --indentation << "public:\n";
   stm << ++ indentation << "using " << longName() << "::" << name() << ";\n";
   stm << --indentation << "};\n";
@@ -2145,7 +2145,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longNsName()
+  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longName()
       << "(h), __zz_cib_h_(h) {}\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "static " << longName() << "* __zz_cib_from_handle(__zz_cib_HANDLE* h) {\n";
@@ -2290,7 +2290,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
   auto delegatee = [&]() {
     if (needsGenericProxyDefinition())
-      return "__zz_cib_" + longName() + "::__zz_cib_GenericProxy::" + name();
+      return "__zz_cib_" + longNsName() + "::__zz_cib_GenericProxy::" + name();
     else if (needsDelagatorClass())
       return "__zz_cib_ProtectedAccessor::" + name();
     else
@@ -2357,7 +2357,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
       if (!isPublic(compound))
         return;
       stm << indentation++ << "{\n";
-      stm << indentation << "auto* obj = dynamic_cast<" << compound->longNsName() << "*>(*__zz_cib_obj);\n";
+      stm << indentation << "auto* obj = dynamic_cast<" << compound->longName() << "*>(*__zz_cib_obj);\n";
       stm << indentation << "if (obj) {\n";
       stm << ++indentation << "*__zz_cib_obj = obj;\n";
       stm << indentation << "return __zz_cib_gClassIdRepo[tdx] = "
@@ -2374,7 +2374,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "("
         << longName() << "* __zz_cib_obj) {\n";
     ++indentation;
-    stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longName()
+    stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longNsName()
         << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
     stm << indentation << "if (unknownProxy)\n";
     ++indentation;

@@ -60,6 +60,7 @@ public:
   std::string  castToBasePrefix;
   bool         noExactDelegation{false};
   bool         libraryManagedProxies;
+  bool         alwaysUseNsName{false};
   StringVector noProxyClasses;
 
 public:

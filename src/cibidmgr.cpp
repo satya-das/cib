@@ -219,10 +219,13 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     if (itr == cibIdTable_.end())
     {
       auto clsId = nextClassId_++;
-      if (compound->isTemplateInstance())
-        compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
-      else if (isCppFile(compound))
-        compound->setNsName(cibParams.globalNsName());
+      if (compound->isNsNameEmpty())
+      {
+        if (isCppFile(compound))
+          compound->setNsName(cibParams.globalNsName());
+        else if (cibParams.alwaysUseNsName || compound->isTemplateInstance())
+          compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
+      }
       const auto classNsName =
         forGenericProxy ? compound->fullNsName() + "::__zz_cib_GenericProxy" : compound->fullNsName();
       cibIdData = addClass(className, classNsName, clsId);
@@ -232,10 +235,11 @@ void CibIdMgr::assignIds(CibCompound*     compound,
       cibIdData = &itr->second;
       if (compound->isNsNameEmpty())
       {
+        auto clsId = cibIdData->getId();
         if (isCppFile(compound))
           compound->setNsName(cibParams.globalNsName());
-        else if (compound->isTemplateInstance())
-          compound->setNsName(cibIdData->getFullNsName());
+        else if (cibParams.alwaysUseNsName || compound->isTemplateInstance())
+          compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
       }
     }
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();

@@ -25,6 +25,9 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/__zz_cib_Demo-ids.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/A-postdef.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/A-predef.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/A.h
 )
 set(LIBRARY_PUB_FILES "")
 foreach(PUBFILE ${LIBRARY_PUB_FILE_NAMES})
