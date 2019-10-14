@@ -21,7 +21,7 @@ public:
   void SetValue(int x);
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Value, Example::__zz_cib_Class259);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(Value<int>, Example::__zz_cib_Class259);
 };
 }
 

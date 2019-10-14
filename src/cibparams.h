@@ -64,7 +64,7 @@ public:
   StringVector noProxyClasses;
 
 public:
-  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d, bool p, StringVector n)
+  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d, bool p, bool u, StringVector n)
     : moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
@@ -78,6 +78,7 @@ public:
     , castToBasePrefix(CIBPREFIX "cast_to_")
     , noExactDelegation(d)
     , libraryManagedProxies(p)
+    , alwaysUseNsName(u)
     , noProxyClasses(std::move(n))
   {
   }

@@ -61,6 +61,13 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             noExactDelegation,
             false,
             "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation");
+  addOption("always-use-unique-namespace,u",
+            alwaysUseNsName,
+            false,
+            "CIB generated glue code are placed in multi layer namespace. "
+            "Name of some namespaces are exactly same as class names unless "
+            "the class is an instantiation of a template class. "
+            "Use this option to always use unique names for namespaces rather than same as class names.");
   addOption(
     "no-proxy,N",
     noProxyClassNames,

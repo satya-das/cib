@@ -22,7 +22,7 @@ public:
   void SetValue(::Example::Int x);
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Value, Example::__zz_cib_Class258);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(Value<::Example::Int>, Example::__zz_cib_Class258);
 };
 }
 
