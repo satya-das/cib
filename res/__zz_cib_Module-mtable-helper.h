@@ -3,6 +3,7 @@
 
 #include "__zz_cib_$Module$-mtable.h"
 
+#include <cassert>
 #include <functional>
 
 namespace __zz_cib_ {
@@ -22,7 +23,11 @@ public:
   {
     auto method = getMethod<_MethodType>(methodId);
     if (method == nullptr)
+  # ifndef __ZZ_CIB_NO_EXCEPTION
       throw std::bad_function_call();
+  # else
+      assert(false && "Bad function call");
+  # endif
     return method(args...);
   }
 
