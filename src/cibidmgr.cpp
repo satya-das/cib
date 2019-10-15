@@ -264,7 +264,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
         }
         return false;
       });
-      if (compound->isFacadeLike())
+      if (compound->isFacadeLike() && !cibParams_.noRtti)
       {
         if (!cibIdData->hasMethod("__zz_cib_get_class_id"))
           cibIdData->addMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");

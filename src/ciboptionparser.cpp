@@ -68,6 +68,18 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             "Name of some namespaces are exactly same as class names unless "
             "the class is an instantiation of a template class. "
             "Use this option to always use unique names for namespaces rather than same as class names.");
+  addOption("no-rtti,t",
+            noRtti,
+            false,
+            "If library is compiled with no rtti option then CIB needs to know if"
+            " it needs to avoid generating code that uses RTTI."
+            );
+  addOption("no-exception,e",
+            noException,
+            false,
+            "If library is compiled with no exception option then CIB needs to know if"
+            " it needs to avoid generating code to throw exception."
+            );
   addOption(
     "no-proxy,N",
     noProxyClassNames,

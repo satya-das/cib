@@ -77,7 +77,7 @@ public:
 }}}
 ::I* __zz_cib_::I::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(&h)) {
-  default:
-    return ::__zz_cib_::I::__zz_cib_Generic::I::__zz_cib_from_handle(h);
+  default: break;
   }
+  return ::__zz_cib_::I::__zz_cib_Generic::I::__zz_cib_from_handle(h);
 }

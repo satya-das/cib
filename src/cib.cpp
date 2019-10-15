@@ -1422,33 +1422,36 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
   stm << indentation << longName() << "* __zz_cib_" << longNsName()
       << "::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {\n";
   ++indentation;
-  stm << indentation << "switch(__zz_cib_get_class_id(&h)) {\n";
-  auto emitCaseStmt = [&](const CibCompound* compound) {
-    auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
-    if (cibIdData)
-    {
-      stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
-      stm << ++indentation << "return __zz_cib_" << compound->longNsName()
-          << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
-      --indentation;
-    }
-  };
-  forEachDescendent(CppAccessType::kPublic, [&](const CibCompound* derived) { emitCaseStmt(derived); });
-  if (!isAbstract())
+  if (!cibParams.noRtti)
   {
-    auto cibIdData = cibIdMgr.getCibIdData(longName());
-    if (cibIdData)
+    stm << indentation << "switch(__zz_cib_get_class_id(&h)) {\n";
+    auto emitCaseStmt = [&](const CibCompound* compound) {
+      auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
+      if (cibIdData)
+      {
+        stm << indentation << "case __zz_cib_::" << compound->fullNsName() << "::__zz_cib_classid:\n";
+        stm << ++indentation << "return __zz_cib_" << compound->longNsName()
+            << "::__zz_cib_Helper::__zz_cib_from_handle(h);\n";
+        --indentation;
+      }
+    };
+    forEachDescendent(CppAccessType::kPublic, [&](const CibCompound* derived) { emitCaseStmt(derived); });
+    if (!isAbstract())
     {
-      stm << indentation << "case __zz_cib_::" << fullNsName() << "::__zz_cib_classid:\n";
-      stm << ++indentation << "return new " << longName() << "(h);\n";
-      --indentation;
+      auto cibIdData = cibIdMgr.getCibIdData(longName());
+      if (cibIdData)
+      {
+        stm << indentation << "case __zz_cib_::" << fullNsName() << "::__zz_cib_classid:\n";
+        stm << ++indentation << "return new " << longName() << "(h);\n";
+        --indentation;
+      }
     }
+    stm << indentation << "default: break;\n";
+    stm << indentation << "}\n";
   }
-  stm << indentation << "default:\n";
-  stm << ++indentation << "return ::__zz_cib_" << longNsName() << "::__zz_cib_Generic::" << name()
-      << "::__zz_cib_from_handle(h);\n";
-  stm << --indentation << "}\n";
 
+  stm << indentation << "return ::__zz_cib_" << longNsName() << "::__zz_cib_Generic::" << name()
+      << "::__zz_cib_from_handle(h);\n";
   stm << --indentation << "}\n";
 }
 
@@ -1941,7 +1944,7 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
     emitFunctionInvokeHelper(stm, func, helper, cibParams, cibIdData, indentation);
   emitCastingHelpers(stm, cibParams, cibIdData, indentation);
 
-  if (isFacadeLike())
+  if (isFacadeLike() && !cibParams.noRtti)
     emitFacadeHelpers(stm, cibIdData, indentation);
 
   if (isClassLike(this) && (isShared() || !isEmpty()))
@@ -2191,7 +2194,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
       stm << indentation << "#include \"" << header << "\"\n";
   }
   stm << '\n'; // Start in new line.
-  if (!facades.empty() && !forProxy)
+  if (!facades.empty() && !forProxy && !cibParams.noRtti)
   {
     // Assuming there is a facade like class in this file
     stm << "#include <typeinfo>\n";
@@ -2329,7 +2332,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     return false;
   });
 
-  if (isFacadeLike())
+  if (isFacadeLike() && !cibParams.noRtti)
   {
     stm << indentation << "static std::uint32_t __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_get_class_id")
         << "(" << longName() << "** __zz_cib_obj) {\n";

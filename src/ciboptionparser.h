@@ -48,6 +48,8 @@ private:
   bool         noExactDelegation {false};
   bool         libraryManagedProxies {false};
   bool         alwaysUseNsName {false};
+  bool         noRtti {false};
+  bool         noException {false};
   StringVector noProxyClassNames;
   // C++ parser options.
   StringVector knownMacros;
@@ -70,5 +72,7 @@ inline CibParams CibOptionParser::getCibParams()
           noExactDelegation,
           libraryManagedProxies,
           alwaysUseNsName,
+          noRtti,
+          noException,
           noProxyClassNames};
 }

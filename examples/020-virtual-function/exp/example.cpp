@@ -94,7 +94,7 @@ public:
   switch(__zz_cib_get_class_id(&h)) {
   case __zz_cib_::B::__zz_cib_classid:
     return new ::B(h);
-  default:
-    return ::__zz_cib_::B::__zz_cib_Generic::B::__zz_cib_from_handle(h);
+  default: break;
   }
+  return ::__zz_cib_::B::__zz_cib_Generic::B::__zz_cib_from_handle(h);
 }

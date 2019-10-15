@@ -61,10 +61,12 @@ public:
   bool         noExactDelegation{false};
   bool         libraryManagedProxies;
   bool         alwaysUseNsName{false};
+  bool         noRtti {false};
+  bool         noException {false};
   StringVector noProxyClasses;
 
 public:
-  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d, bool p, bool u, StringVector n)
+  CibParams(std::string m, bfs::path i, bfs::path o, bfs::path b, bfs::path r, bfs::path c, bool d, bool p, bool u, bool t, bool e, StringVector n)
     : moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
@@ -79,6 +81,8 @@ public:
     , noExactDelegation(d)
     , libraryManagedProxies(p)
     , alwaysUseNsName(u)
+    , noRtti(t)
+    , noException(e)
     , noProxyClasses(std::move(n))
   {
   }

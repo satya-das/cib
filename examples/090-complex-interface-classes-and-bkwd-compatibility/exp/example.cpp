@@ -176,9 +176,9 @@ public:
 }}}
 ::Interface2* __zz_cib_::Interface2::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(&h)) {
-  default:
-    return ::__zz_cib_::Interface2::__zz_cib_Generic::Interface2::__zz_cib_from_handle(h);
+  default: break;
   }
+  return ::__zz_cib_::Interface2::__zz_cib_Generic::Interface2::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ { namespace Interface2 {
 struct __zz_cib_Delegator {
@@ -242,9 +242,9 @@ public:
 }}}
 ::Interface3* __zz_cib_::Interface3::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(&h)) {
-  default:
-    return ::__zz_cib_::Interface3::__zz_cib_Generic::Interface3::__zz_cib_from_handle(h);
+  default: break;
   }
+  return ::__zz_cib_::Interface3::__zz_cib_Generic::Interface3::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ { namespace Interface3 {
 struct __zz_cib_Delegator {
