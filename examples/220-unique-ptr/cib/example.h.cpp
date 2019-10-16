@@ -34,6 +34,11 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
       __zz_cib_proxy);
   }
+  std::unique_ptr<int> g() const override {
+    using __zz_cib_proc = int* (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return std::unique_ptr<int>(__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::g>(
+      __zz_cib_proxy));
+  }
   ~I() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
@@ -54,6 +59,9 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 static int __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->f();
+}
+static int* __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->g().release();
 }
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::I** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
@@ -80,10 +88,11 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::g),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;
 }
 }}

@@ -1,4 +1,5 @@
 #pragma  once
+#include <cassert>
 #include <memory>
 
 #include "__zz_cib_internal/example-predef.h"
@@ -10,6 +11,7 @@ public:
 public:
   virtual ~I();
   virtual int f() const = 0;
+  virtual std::unique_ptr<int> g() const = 0;
 protected:
   I();
 

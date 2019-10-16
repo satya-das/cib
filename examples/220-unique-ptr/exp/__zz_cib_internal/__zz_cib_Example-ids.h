@@ -48,11 +48,13 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
     __zz_cib_delete = 1,
     //#= int f() const;
     f = 2,
+    //#= std::unique_ptr<int> g() const;
+    g = 3,
     //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 3,
+    __zz_cib_get_class_id = 4,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_release_proxy = 5,
+    __zz_cib_next_method_id = 6
   };
 }}}
 
@@ -60,9 +62,11 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy { namespace 
   enum {
     //#= int f() const;
     f = 0,
+    //#= std::unique_ptr<int> g() const;
+    g = 1,
     //#= ~I();
-    __zz_cib_delete = 1,
-    __zz_cib_next_method_id = 2
+    __zz_cib_delete = 2,
+    __zz_cib_next_method_id = 3
   };
 }}}}
 

@@ -17,6 +17,10 @@ TEST_CASE("Client passes unique_ptr to library")
     int f() const override {
       return 1023;
     }
+
+    std::unique_ptr<int> g() const override {
+      return std::make_unique<int>(5);
+    }
   };
 
   auto p = std::make_unique<N>();

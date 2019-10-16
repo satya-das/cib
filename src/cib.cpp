@@ -88,7 +88,7 @@ static void emitType(std::ostream&      stm,
 {
   if (typeObj == nullptr)
     return;
-  if ((purpose & kPurposeAbiLayer) && isUniquePtr(typeObj))
+  if ((purpose & kPurposeAbiLayer) && (purpose != kPurposeGeneric) && (purpose != kPurposeGenericProxy) && isUniquePtr(typeObj))
   {
     return emitType(stm, convertUniquePtr(typeObj).get(), typeResolver, helper, purpose);
   }
@@ -539,7 +539,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       --indentation;
     }
     stm << ")";
-    if (!forProxy && isUniquePtr(returnType()))
+    if (isUniquePtr(returnType()))
       stm << ".release()";
     stm << ";\n";
   }
@@ -738,7 +738,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     return; // base class dtor takes care of everything.
 
   stm << indentation;
-  emitSignature(stm, helper, kPurposeGenericProxy);
+  emitSignature(stm, helper, purpose);
   stm << " override";
   stm << " {\n";
   ++indentation;
@@ -754,24 +754,44 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   stm << indentation;
   if (!isDestructor())
     stm << "return ";
-  auto* resolvedCppObj =
-    (getOwner() && returnType() ? getOwner()->resolveTypeName(returnType()->baseType(), helper) : nullptr);
-  auto* resolvedType =
-    (resolvedCppObj && isClassLike(resolvedCppObj)) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
-  if (resolvedType && resolvedType->needsNoProxy())
-    resolvedType = nullptr;
-  if (resolvedType && !genericProxy)
+
+  auto retTypeIsUniquePtr = false;
+  const CibCompound* resolvedType = nullptr;
+  if (returnType())
   {
-    if (isByValue(returnType()))
-      stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
-    else
-      stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
+    const auto& retTypeBaseName = returnType()->baseType();
+    auto* resolvedCppObj =
+      (getOwner() && returnType() ? getOwner()->resolveTypeName(retTypeBaseName, helper) : nullptr);
+    if ((resolvedCppObj == nullptr) && isUniquePtr(retTypeBaseName))
+    {
+      retTypeIsUniquePtr = true;
+      resolvedCppObj =
+        (getOwner() && returnType() ? getOwner()->resolveTypeName(convertUniquePtr(retTypeBaseName), helper) : nullptr);
+    }
+    resolvedType =
+      (resolvedCppObj && isClassLike(resolvedCppObj)) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
+    if (resolvedType && resolvedType->needsNoProxy())
+      resolvedType = nullptr;
+    if (retTypeIsUniquePtr)
+    {
+      if (resolvedType)
+        stm << "std::unique_ptr<" << resolvedType->longName() << '>';
+      else
+        stm << retTypeBaseName;
+      stm << '(';
+    }
+    if (resolvedType && !genericProxy)
+    {
+      if (isByValue(returnType()))
+        stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_obj_from_handle(\n";
+      else
+        stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
+    }
+
+    bool byValueObj = (genericProxy && resolvedType && returnType() && isByValue(returnType()));
+    if (byValueObj || (returnType() && isByRef(returnType())))
+      stm << "*";
   }
-
-  bool byValueObj = (genericProxy && resolvedType && returnType() && isByValue(returnType()));
-  if (byValueObj || (returnType() && isByRef(returnType())))
-    stm << "*";
-
   stm << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, ";
   if (genericProxy)
   {
@@ -793,6 +813,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     emitArgsForCall(stm, helper, cibParams, genericProxy ? kPurposeGenericProxy : kPurposeGeneric);
   }
   if (resolvedType && !genericProxy)
+    stm << ')';
+  if (retTypeIsUniquePtr)
     stm << ')';
   stm << ");\n";
   --indentation;
