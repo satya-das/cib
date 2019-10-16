@@ -142,6 +142,10 @@ static void emitType(std::ostream&      stm,
         stm << '*';
     }
   }
+  else if (isConst(typeObj))
+  {
+    stm << " const ";
+  }
   if (typeModifier.refType_ == CppRefType::kByRef)
   {
     stm << '&';
