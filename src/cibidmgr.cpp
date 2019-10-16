@@ -40,11 +40,7 @@
 
 namespace {
 
-  std::string kProxyMgrMethods[3] = {
-    "__zz_cib_find_proxy",
-    "__zz_cib_register_proxy",
-    "__zz_cib_unregister_proxy"
-  };
+std::string kProxyMgrMethods[3] = {"__zz_cib_find_proxy", "__zz_cib_register_proxy", "__zz_cib_unregister_proxy"};
 
 static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
 {
@@ -56,7 +52,7 @@ static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
   return 0;
 }
 
-}
+} // namespace
 
 bool CibIdMgr::loadIds(const std::string& idsFilePath)
 {

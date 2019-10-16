@@ -23,15 +23,15 @@
 
 #pragma once
 
-#include "__zz_cib_Demo-handle.h"
-#include "__zz_cib_Demo-mtable-helper.h"
-#include "__zz_cib_Demo-internal-proxy.h"
-#include "__zz_cib_Demo-ids.h"
 #include "__zz_cib_Demo-def.h"
+#include "__zz_cib_Demo-handle.h"
+#include "__zz_cib_Demo-ids.h"
+#include "__zz_cib_Demo-internal-proxy.h"
+#include "__zz_cib_Demo-mtable-helper.h"
 
 namespace __zz_cib_ {
 
-using __zz_cib_client_id        = std::uint32_t;
+using __zz_cib_client_id = std::uint32_t;
 
 namespace Demo {
 
@@ -46,8 +46,9 @@ public:
     : clientId_(__zz_cib_internal_proxy::__zz_cib_get_client_id())
     /*/
     : clientId_(0)
-    //*/
-  {}
+  //*/
+  {
+  }
 
 public:
   _ProxyClass* findProxy(__zz_cib_HANDLE* h)
@@ -56,10 +57,8 @@ public:
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
   {
-    _Helper::__zz_cib_register_proxy(h, clientId_, __zz_cib_obj,
-      [](_ProxyClass* obj) {
-        _Helper::__zz_cib_delete_only_proxy(obj);
-      });
+    _Helper::__zz_cib_register_proxy(
+      h, clientId_, __zz_cib_obj, [](_ProxyClass* obj) { _Helper::__zz_cib_delete_only_proxy(obj); });
   }
   void removeProxy(__zz_cib_HANDLE* h)
   {
@@ -70,4 +69,5 @@ private:
   const std::uint32_t clientId_;
 };
 
-}}
+} // namespace Demo
+} // namespace __zz_cib_

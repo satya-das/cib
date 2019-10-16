@@ -51,8 +51,8 @@ class CibIdData;
  */
 enum FuncProtoPurpose
 {
-  kPurposeBaseLine             = __LINE__, //!< This is unusable const, don't use it.
-  
+  kPurposeBaseLine = __LINE__, //!< This is unusable const, don't use it.
+
   kPurposeGlueCode             = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeAbiLayer             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeLibraryAbi           = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,

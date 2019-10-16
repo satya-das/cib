@@ -45,11 +45,11 @@ private:
   std::string  binderPath;
   std::string  resourcePath;
   std::string  cibIdFile;
-  bool         noExactDelegation {false};
-  bool         libraryManagedProxies {false};
-  bool         alwaysUseNsName {false};
-  bool         noRtti {false};
-  bool         noException {false};
+  bool         noExactDelegation{false};
+  bool         libraryManagedProxies{false};
+  bool         alwaysUseNsName{false};
+  bool         noRtti{false};
+  bool         noException{false};
   StringVector noProxyClassNames;
   // C++ parser options.
   StringVector knownMacros;

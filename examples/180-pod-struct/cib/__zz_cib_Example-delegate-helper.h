@@ -1,10 +1,11 @@
 #pragma once
 
-#define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)                       \
-  template <typename _T>                                                        \
-  parentName& operator=(const _T& rhs) {                                        \
-    const auto& ret = this->parentName::operator=(rhs);                         \
-    return const_cast<parentName&>(static_cast<const parentName&>(ret));        \
+#define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)                                                              \
+  template <typename _T>                                                                                               \
+  parentName& operator=(const _T& rhs)                                                                                 \
+  {                                                                                                                    \
+    const auto& ret = this->parentName::operator=(rhs);                                                                \
+    return const_cast<parentName&>(static_cast<const parentName&>(ret));                                               \
   }
 
 /*

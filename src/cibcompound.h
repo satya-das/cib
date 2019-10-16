@@ -396,10 +396,10 @@ public:
                             const CibIdMgr&  cibIdMgr,
                             CppIndent        indentation = CppIndent()) const;
   void emitProtectedAccessor(std::ostream&    stm,
-                            const CibHelper& helper,
-                            const CibParams& cibParams,
-                            const CibIdMgr&  cibIdMgr,
-                            CppIndent        indentation = CppIndent()) const;
+                             const CibHelper& helper,
+                             const CibParams& cibParams,
+                             const CibIdMgr&  cibIdMgr,
+                             CppIndent        indentation = CppIndent()) const;
   void emitGenericDefn(std::ostream&    stm,
                        const CibHelper& helper,
                        const CibParams& cibParams,
@@ -438,13 +438,13 @@ public:
                          const CibIdData* cibIdData,
                          CppIndent        indentation) const;
 
-  void        emitHelperDefnEnd(std::ostream& stm, CppIndent indentation) const;
-  void        emitDelegators(std::ostream&    stm,
-                             const CibHelper& helper,
-                             const CibParams& cibParams,
-                             const CibIdMgr&  cibIdMgr,
-                             CppIndent        indentation = CppIndent()) const;
-  void        emitProxyMgrDelegators(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
+  void emitHelperDefnEnd(std::ostream& stm, CppIndent indentation) const;
+  void emitDelegators(std::ostream&    stm,
+                      const CibHelper& helper,
+                      const CibParams& cibParams,
+                      const CibIdMgr&  cibIdMgr,
+                      CppIndent        indentation = CppIndent()) const;
+  void emitProxyMgrDelegators(std::ostream& stm, const CibParams& cibParams, CppIndent indentation = CppIndent()) const;
 
   static void emitCommonCibHeaders(std::ostream& stm, const CibParams& cibParams);
   static void emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams);
@@ -477,12 +477,13 @@ public:
       return true;
     if (!needsNoProxy())
       return false;
-    auto isAncestorSharedFacade = forEachAncestor(CppAccessType::kPublic,
-                           [](const CibCompound* ancestor) -> bool { return ancestor->isFacadeLike() && ancestor->isShared(); });
+    auto isAncestorSharedFacade = forEachAncestor(CppAccessType::kPublic, [](const CibCompound* ancestor) -> bool {
+      return ancestor->isFacadeLike() && ancestor->isShared();
+    });
     if (isAncestorSharedFacade)
       return true;
     // if (!isFacadeLike() && isAbstract())
-      return false;
+    return false;
   }
 
 public:

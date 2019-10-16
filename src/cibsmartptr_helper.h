@@ -25,8 +25,8 @@
 
 #include "cppast.h"
 
-#include <string>
 #include <memory>
+#include <string>
 
 inline bool isUniquePtr(const std::string& typeName)
 {
@@ -49,10 +49,10 @@ inline std::string convertUniquePtr(const std::string& typeName)
   return newName;
 }
 
-inline std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType*  typeObj)
+inline std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType* typeObj)
 {
   const std::string& baseType = typeObj->baseType();
-  auto newName = convertUniquePtr(baseType);
+  auto               newName  = convertUniquePtr(baseType);
 
   CppTypeModifier typeModifier = typeObj->typeModifier();
   typeModifier.ptrLevel_ += 1;

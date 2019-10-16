@@ -1,7 +1,7 @@
 #include "__zz_cib_Example-handle-helper.h"
 
 #ifdef __ZZ_CIB_CLASS_INTERNAL_DEF
-#undef __ZZ_CIB_CLASS_INTERNAL_DEF
+#  undef __ZZ_CIB_CLASS_INTERNAL_DEF
 #endif
 
 //! @def __ZZ_CIB_CLASS_INTERNAL_DEF

@@ -54,7 +54,8 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   addOption("bind-folder,b", binderPath, true, "Folder where binding code will be emitted for library.");
   addOption("module,m", moduleName, true, "Name of module/library.");
   addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
-  addOption("library-managed-proxy,p", libraryManagedProxies, false, "Library should not manage proxy object lifecycle.");
+  addOption(
+    "library-managed-proxy,p", libraryManagedProxies, false, "Library should not manage proxy object lifecycle.");
   addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
   addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
   addOption("no-exact-delegation,d",
@@ -72,14 +73,12 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             noRtti,
             false,
             "If library is compiled with no rtti option then CIB needs to know if"
-            " it needs to avoid generating code that uses RTTI."
-            );
+            " it needs to avoid generating code that uses RTTI.");
   addOption("no-exception,e",
             noException,
             false,
             "If library is compiled with no exception option then CIB needs to know if"
-            " it needs to avoid generating code to throw exception."
-            );
+            " it needs to avoid generating code to throw exception.");
   addOption(
     "no-proxy,N",
     noProxyClassNames,

@@ -27,7 +27,8 @@
 
 #include <map>
 
-namespace __zz_cib_ { namespace Demo {
+namespace __zz_cib_ {
+namespace Demo {
 
 template <typename _ProxyClass>
 class __zz_cib_local_proxy_mgr
@@ -35,7 +36,7 @@ class __zz_cib_local_proxy_mgr
 public:
   _ProxyClass* findProxy(__zz_cib_HANDLE* h)
   {
-    auto                itr       = proxyRepo.find(h);
+    auto itr = proxyRepo.find(h);
     return (itr == proxyRepo.end()) ? nullptr : itr->second;
   }
   void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
@@ -52,4 +53,5 @@ private:
   ProxyRepo proxyRepo;
 };
 
-}}
+} // namespace Demo
+} // namespace __zz_cib_

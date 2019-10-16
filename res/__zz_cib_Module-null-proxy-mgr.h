@@ -27,7 +27,8 @@
 
 #include <map>
 
-namespace __zz_cib_ { namespace $Module$ {
+namespace __zz_cib_ {
+namespace $Module$ {
 
 /**
  * Only for the purpose of simplicity.
@@ -41,12 +42,9 @@ public:
   {
     return nullptr;
   }
-  void addProxy(_ProxyClass*, __zz_cib_HANDLE*)
-  {
-  }
-  void removeProxy(__zz_cib_HANDLE*)
-  {
-  }
+  void addProxy(_ProxyClass*, __zz_cib_HANDLE*) {}
+  void removeProxy(__zz_cib_HANDLE*) {}
 };
 
-}}
+} // namespace $Module$
+} // namespace __zz_cib_

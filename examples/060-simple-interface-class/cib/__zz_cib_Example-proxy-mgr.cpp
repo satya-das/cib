@@ -30,51 +30,53 @@ namespace __zz_cib_ {
 
 namespace {
 
-using __zz_cib_proxy_ptr    = std::unique_ptr<__zz_cib_PROXY, __zz_cib_proxy_deleter>;
-using __zz_cib_proxy_info   = std::map<__zz_cib_client_id, __zz_cib_proxy_ptr>;
-using __zz_cib_proxy_repo   = std::map<const __zz_cib_proxy_manager*, __zz_cib_proxy_info>;
+using __zz_cib_proxy_ptr  = std::unique_ptr<__zz_cib_PROXY, __zz_cib_proxy_deleter>;
+using __zz_cib_proxy_info = std::map<__zz_cib_client_id, __zz_cib_proxy_ptr>;
+using __zz_cib_proxy_repo = std::map<const __zz_cib_proxy_manager*, __zz_cib_proxy_info>;
 
 static __zz_cib_proxy_repo __zz_cib_proxyRepo;
 
-}
+} // namespace
 
 __zz_cib_PROXY* __zz_cib_proxy_manager::__zz_cib_find_proxy(__zz_cib_client_id clientId) const
 {
-    auto repoItr = __zz_cib_proxyRepo.find(this);
-    if (repoItr == __zz_cib_proxyRepo.end())
-        return nullptr;
-    const auto& repoItem = repoItr->second;
-    auto infoItr = repoItem.find(clientId);
-    if (infoItr == repoItem.end())
-        return nullptr;
-    return infoItr->second.get();
+  auto repoItr = __zz_cib_proxyRepo.find(this);
+  if (repoItr == __zz_cib_proxyRepo.end())
+    return nullptr;
+  const auto& repoItem = repoItr->second;
+  auto        infoItr  = repoItem.find(clientId);
+  if (infoItr == repoItem.end())
+    return nullptr;
+  return infoItr->second.get();
 }
 
-void __zz_cib_proxy_manager::__zz_cib_register_proxy(__zz_cib_client_id clientId, __zz_cib_PROXY* proxy, __zz_cib_proxy_deleter deleter)
+void __zz_cib_proxy_manager::__zz_cib_register_proxy(__zz_cib_client_id     clientId,
+                                                     __zz_cib_PROXY*        proxy,
+                                                     __zz_cib_proxy_deleter deleter)
 {
-    __zz_cib_proxyRepo[this].emplace(clientId, __zz_cib_proxy_ptr(proxy, deleter));
+  __zz_cib_proxyRepo[this].emplace(clientId, __zz_cib_proxy_ptr(proxy, deleter));
 }
 
 void __zz_cib_proxy_manager::__zz_cib_unregister_proxy(__zz_cib_client_id clientId)
 {
-    auto repoItr = __zz_cib_proxyRepo.find(this);
-    if (repoItr == __zz_cib_proxyRepo.end())
-        return;
-    auto& repoItem = repoItr->second;
-    auto infoItr = repoItem.find(clientId);
-    if (infoItr == repoItem.end())
-        return;
-    infoItr->second.release();
-    repoItem.erase(infoItr);
+  auto repoItr = __zz_cib_proxyRepo.find(this);
+  if (repoItr == __zz_cib_proxyRepo.end())
+    return;
+  auto& repoItem = repoItr->second;
+  auto  infoItr  = repoItem.find(clientId);
+  if (infoItr == repoItem.end())
+    return;
+  infoItr->second.release();
+  repoItem.erase(infoItr);
 }
 
 __zz_cib_proxy_manager::~__zz_cib_proxy_manager()
 {
-    auto itr = __zz_cib_proxyRepo.find(this);
-    if (itr == __zz_cib_proxyRepo.end())
-        return;
-    auto repo = std::move(itr->second);
-    __zz_cib_proxyRepo.erase(itr);
+  auto itr = __zz_cib_proxyRepo.find(this);
+  if (itr == __zz_cib_proxyRepo.end())
+    return;
+  auto repo = std::move(itr->second);
+  __zz_cib_proxyRepo.erase(itr);
 }
 
-}
+} // namespace __zz_cib_

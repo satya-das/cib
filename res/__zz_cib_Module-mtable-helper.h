@@ -23,11 +23,11 @@ public:
   {
     auto method = getMethod<_MethodType>(methodId);
     if (method == nullptr)
-  # ifndef __ZZ_CIB_NO_EXCEPTION
+#ifndef __ZZ_CIB_NO_EXCEPTION
       throw std::bad_function_call();
-  # else
+#else
       assert(false && "Bad function call");
-  # endif
+#endif
     return method(args...);
   }
 

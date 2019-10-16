@@ -43,8 +43,8 @@ using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, Cib
  */
 class CibIdData
 {
-  using CibMethodIdToMethodMap  = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
-  using CibMethodsSet           = std::unordered_set<CibMethodCAPIName>;
+  using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
+  using CibMethodsSet          = std::unordered_set<CibMethodCAPIName>;
 
   CibClassId             classId;
   CibFullClassNsName     fullNsName;
@@ -178,10 +178,10 @@ private:
   CibIdData* addClass(CibFullClassName className, CibFullClassNsName fullClassNsName, const std::string& classId);
 
 private:
-  CibIdTable       cibIdTable_;
-  const CibParams& cibParams_;
-  CibClassId       nextClassId_{256};
-  CibClassId       internalClassId_{1};
+  CibIdTable                                    cibIdTable_;
+  const CibParams&                              cibParams_;
+  CibClassId                                    nextClassId_{256};
+  CibClassId                                    internalClassId_{1};
   std::set<std::pair<const CibCompound*, bool>> idsAssigned_;
 };
 

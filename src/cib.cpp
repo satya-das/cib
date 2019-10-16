@@ -88,7 +88,8 @@ static void emitType(std::ostream&      stm,
 {
   if (typeObj == nullptr)
     return;
-  if ((purpose & kPurposeAbiLayer) && (purpose != kPurposeGeneric) && (purpose != kPurposeGenericProxy) && isUniquePtr(typeObj))
+  if ((purpose & kPurposeAbiLayer) && (purpose != kPurposeGeneric) && (purpose != kPurposeGenericProxy)
+      && isUniquePtr(typeObj))
   {
     return emitType(stm, convertUniquePtr(typeObj).get(), typeResolver, helper, purpose);
   }
@@ -242,7 +243,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     auto* resolvedCppObj = getOwner()->resolveTypeName(baseType(var), helper);
     if ((resolvedCppObj == nullptr) && isUniquePtr(var.get()))
     {
-       resolvedCppObj = getOwner()->resolveTypeName(convertUniquePtr(baseType(var)), helper);
+      resolvedCppObj = getOwner()->resolveTypeName(convertUniquePtr(baseType(var)), helper);
     }
     auto* resolvedType =
       resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
@@ -264,7 +265,8 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         if (resolvedType)
           stm << ")";
         break;
-      case kPurposeGeneric: case kPurposeProxyDefn:
+      case kPurposeGeneric:
+      case kPurposeProxyDefn:
         if (resolvedType)
         {
           stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
@@ -312,7 +314,8 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << '&';
         emitParamName(stm, var, i);
         break;
-      case kPurposeInvokeHelper: case kPurposeGenericProxyCtorInit:
+      case kPurposeInvokeHelper:
+      case kPurposeGenericProxyCtorInit:
         emitParamName(stm, var, i);
         break;
 
@@ -520,9 +523,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << "::";
     }
     else if (!forProxy
-        && (isStatic()
-            || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
-                && (accessType() != CppAccessType::kPrivate))))
+             && (isStatic()
+                 || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
+                     && (accessType() != CppAccessType::kPrivate))))
     {
       stm << callingOwner->longName() << "::";
     }
@@ -637,12 +640,12 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     }
 
     stm << indentation;
-    const CibCompound* retType = nullptr;
-    bool isRetUniquePtr = false;
+    const CibCompound* retType        = nullptr;
+    bool               isRetUniquePtr = false;
     if (returnType() && !isVoid(returnType()))
     {
       stm << "return ";
-      isRetUniquePtr = isUniquePtr(returnType());
+      isRetUniquePtr       = isUniquePtr(returnType());
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       if (!resolvedCppObj && isRetUniquePtr)
       {
@@ -759,12 +762,12 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   if (!isDestructor())
     stm << "return ";
 
-  auto retTypeIsUniquePtr = false;
-  const CibCompound* resolvedType = nullptr;
+  auto               retTypeIsUniquePtr = false;
+  const CibCompound* resolvedType       = nullptr;
   if (returnType())
   {
     const auto& retTypeBaseName = returnType()->baseType();
-    auto* resolvedCppObj =
+    auto*       resolvedCppObj =
       (getOwner() && returnType() ? getOwner()->resolveTypeName(retTypeBaseName, helper) : nullptr);
     if ((resolvedCppObj == nullptr) && isUniquePtr(retTypeBaseName))
     {
@@ -957,17 +960,16 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   auto memItr                 = members().begin();
   if (lastPreProcessorRevItr != members().rend())
   {
-    std::for_each(memItr, lastPreProcessorRevItr.base(),
-      [&stm](const CppObjPtr& mem) {
-        // Emit everything other than cib-hooks in library code
-        if (mem->objType_ == CppObjType::kHashInclude)
-        {
-          auto* inc = static_cast<const CppInclude*>(mem.get());
-          if (strstr(inc->name_.c_str(), "__zz_cib_") != nullptr)
-            return;
-        }
-        gCppWriter.emit(mem.get(), stm);
-      });
+    std::for_each(memItr, lastPreProcessorRevItr.base(), [&stm](const CppObjPtr& mem) {
+      // Emit everything other than cib-hooks in library code
+      if (mem->objType_ == CppObjType::kHashInclude)
+      {
+        auto* inc = static_cast<const CppInclude*>(mem.get());
+        if (strstr(inc->name_.c_str(), "__zz_cib_") != nullptr)
+          return;
+      }
+      gCppWriter.emit(mem.get(), stm);
+    });
     memItr = lastPreProcessorRevItr.base();
 
     stm << "\n";
@@ -1123,11 +1125,21 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     stm << indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
 
     for (auto func : allVirtuals_)
-      func.emitCAPIDefn(
-        stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeProxyCApi, indentation);
+      func.emitCAPIDefn(stm,
+                        helper,
+                        cibParams,
+                        this,
+                        cibIdData->getMethodCApiName(func.signature(helper)),
+                        kPurposeProxyCApi,
+                        indentation);
     CibFunctionHelper func = dtor();
-    func.emitCAPIDefn(
-      stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeProxyCApi, indentation);
+    func.emitCAPIDefn(stm,
+                      helper,
+                      cibParams,
+                      this,
+                      cibIdData->getMethodCApiName(func.signature(helper)),
+                      kPurposeProxyCApi,
+                      indentation);
     stm << --indentation << "};\n";
     stm << indentation << "}" << closingBracesForWrappingNsNamespaces() << "\n\n";
     emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, true, indentation);
@@ -1555,7 +1567,8 @@ static bool shallAddCopyCtor(CibCompound* compound)
     if (!isPublic(ctor))
       return false;
   }
-  return (!compound->hasCopyCtor() && !compound->hasMoveCtor() && !compound->isAbstract() && compound->isCopyCtorCallable());
+  return (!compound->hasCopyCtor() && !compound->hasMoveCtor() && !compound->isAbstract()
+          && compound->isCopyCtorCallable());
 }
 
 void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
@@ -1760,19 +1773,32 @@ void CibCompound::emitRemoteProxyMethods(std::ostream& stm, CppIndent indentatio
 {
   stm << indentation << "using __zz_cib_proxy_deleter    = void (__zz_cib_decl *) (_ProxyClass* proxy);\n";
 
-  stm << indentation << "static _ProxyClass* __zz_cib_find_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {\n";
-  stm << indentation << "  using __zz_cib_find_proxyProc = _ProxyClass* (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
-  stm << indentation << "  return instance().invoke<__zz_cib_find_proxyProc, __zz_cib_methodid::__zz_cib_find_proxy>(obj, clientId);\n";
+  stm << indentation
+      << "static _ProxyClass* __zz_cib_find_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation
+      << "  using __zz_cib_find_proxyProc = _ProxyClass* (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
+  stm
+    << indentation
+    << "  return instance().invoke<__zz_cib_find_proxyProc, __zz_cib_methodid::__zz_cib_find_proxy>(obj, clientId);\n";
   stm << indentation << "}\n";
 
-  stm << indentation << "static void __zz_cib_register_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId, _ProxyClass* proxy, __zz_cib_proxy_deleter deleter) {\n";
-  stm << indentation << "  using __zz_cib_register_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id, _ProxyClass*, __zz_cib_proxy_deleter);\n";
-  stm << indentation << "  return instance().invoke<__zz_cib_register_proxyProc, __zz_cib_methodid::__zz_cib_register_proxy>(obj, clientId, proxy, deleter);\n";
+  stm << indentation
+      << "static void __zz_cib_register_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId, _ProxyClass* proxy, "
+         "__zz_cib_proxy_deleter deleter) {\n";
+  stm << indentation
+      << "  using __zz_cib_register_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id, "
+         "_ProxyClass*, __zz_cib_proxy_deleter);\n";
+  stm << indentation
+      << "  return instance().invoke<__zz_cib_register_proxyProc, __zz_cib_methodid::__zz_cib_register_proxy>(obj, "
+         "clientId, proxy, deleter);\n";
   stm << indentation << "}\n";
 
   stm << indentation << "static void __zz_cib_unregister_proxy(__zz_cib_HANDLE* obj, __zz_cib_client_id clientId) {\n";
-  stm << indentation << "  using __zz_cib_unregister_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
-  stm << indentation << "  return instance().invoke<__zz_cib_unregister_proxyProc, __zz_cib_methodid::__zz_cib_unregister_proxy>(obj, clientId);\n";
+  stm << indentation
+      << "  using __zz_cib_unregister_proxyProc = void (__zz_cib_decl *)(__zz_cib_HANDLE*, __zz_cib_client_id);\n";
+  stm << indentation
+      << "  return instance().invoke<__zz_cib_unregister_proxyProc, __zz_cib_methodid::__zz_cib_unregister_proxy>(obj, "
+         "clientId);\n";
   stm << indentation << "}\n";
 
   stm << indentation << "static void __zz_cib_delete_only_proxy(_ProxyClass* obj) {\n";
@@ -1799,9 +1825,8 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
     {
       if (isClassLike(this) && isShared())
         proxyMgr = cibParams.moduleName
-          + (cibParams.libraryManagedProxies
-              ? "::__zz_cib_remote_proxy_mgr<_ProxyClass, __zz_cib_Helper>"
-              : "::__zz_cib_local_proxy_mgr<_ProxyClass>");
+                   + (cibParams.libraryManagedProxies ? "::__zz_cib_remote_proxy_mgr<_ProxyClass, __zz_cib_Helper>"
+                                                      : "::__zz_cib_local_proxy_mgr<_ProxyClass>");
 
       std::string handleHelperParentName = "__zz_cib_HandleHelper<" + longName() + ", __zz_cib_Helper>";
       stm << '\n' << ++indentation << ", public " << handleHelperParentName << " {\n";
@@ -2135,10 +2160,10 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
 }
 
 void CibCompound::emitProtectedAccessor(std::ostream&    stm,
-                                       const CibHelper& helper,
-                                       const CibParams& cibParams,
-                                       const CibIdMgr&  cibIdMgr,
-                                       CppIndent        indentation) const
+                                        const CibHelper& helper,
+                                        const CibParams& cibParams,
+                                        const CibIdMgr&  cibIdMgr,
+                                        CppIndent        indentation) const
 {
   if (!needsDelagatorClass())
     return;
@@ -2149,7 +2174,7 @@ void CibCompound::emitProtectedAccessor(std::ostream&    stm,
   stm << indentation << "class " << name() << " : public " << longName() << " {\n";
   stm << ++indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   stm << --indentation << "public:\n";
-  stm << ++ indentation << "using " << longName() << "::" << name() << ";\n";
+  stm << ++indentation << "using " << longName() << "::" << name() << ";\n";
   stm << --indentation << "};\n";
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}}\n";
 }
@@ -2174,8 +2199,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longName()
-      << "(h), __zz_cib_h_(h) {}\n";
+  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longName() << "(h), __zz_cib_h_(h) {}\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "static " << longName() << "* __zz_cib_from_handle(__zz_cib_HANDLE* h) {\n";
   stm << ++indentation << "return new " << name() << "(h);\n";
@@ -2284,20 +2308,25 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << '\n';
 }
 
-void CibCompound::emitProxyMgrDelegators(std::ostream& stm, const CibParams& cibParams, CppIndent indentation /* = CppIndent */) const
+void CibCompound::emitProxyMgrDelegators(std::ostream&    stm,
+                                         const CibParams& cibParams,
+                                         CppIndent        indentation /* = CppIndent */) const
 {
   if (!cibParams.libraryManagedProxies || !needsProxyManager())
     return;
 
-  stm << indentation << "static __zz_cib_PROXY* __zz_cib_decl __zz_cib_find_proxy(" << longName() << "* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "static __zz_cib_PROXY* __zz_cib_decl __zz_cib_find_proxy(" << longName()
+      << "* obj, __zz_cib_client_id clientId) {\n";
   stm << indentation << "  return __zz_cib_proxy_manager_delegator::__zz_cib_find_proxy(obj, clientId);\n";
   stm << indentation << "}\n";
 
-  stm << indentation << "static void __zz_cib_decl __zz_cib_register_proxy(" << longName() << "* obj, __zz_cib_client_id clientId, __zz_cib_PROXY* proxy, __zz_cib_proxy_deleter deleter) {\n";
+  stm << indentation << "static void __zz_cib_decl __zz_cib_register_proxy(" << longName()
+      << "* obj, __zz_cib_client_id clientId, __zz_cib_PROXY* proxy, __zz_cib_proxy_deleter deleter) {\n";
   stm << indentation << "  __zz_cib_proxy_manager_delegator::__zz_cib_register_proxy(obj, clientId, proxy, deleter);\n";
   stm << indentation << "}\n";
 
-  stm << indentation << "static void __zz_cib_decl __zz_cib_unregister_proxy(" << longName() << "* obj, __zz_cib_client_id clientId) {\n";
+  stm << indentation << "static void __zz_cib_decl __zz_cib_unregister_proxy(" << longName()
+      << "* obj, __zz_cib_client_id clientId) {\n";
   stm << indentation << "  __zz_cib_proxy_manager_delegator::__zz_cib_unregister_proxy(obj, clientId);\n";
   stm << indentation << "}\n";
 }
