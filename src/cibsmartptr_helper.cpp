@@ -23,33 +23,30 @@
 
 #pragma once
 
-#include "cppast.h"
+#include "cibhelper.h"
 
-#include <memory>
-#include <string>
-
-inline bool isUniquePtr(const std::string& typeName)
+bool CibHelper::isUniquePtr(const std::string& typeName) const
 {
   return (typeName.compare(0, 15, "std::unique_ptr") == 0);
 }
 
-inline bool isUniquePtr(const CppVarType* varType)
+bool CibHelper::isUniquePtr(const CppVarType* varType) const
 {
   return isUniquePtr(varType->baseType());
 }
 
-inline bool isUniquePtr(const CppVar* var)
+bool CibHelper::isUniquePtr(const CppVar* var) const
 {
   return isUniquePtr(var->varType());
 }
 
-inline std::string convertUniquePtr(const std::string& typeName)
+std::string CibHelper::convertUniquePtr(const std::string& typeName) const
 {
   auto newName = typeName.substr(16, typeName.size() - 17);
   return newName;
 }
 
-inline std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType* typeObj)
+std::unique_ptr<CppVarType> CibHelper::convertUniquePtr(const CppVarType* typeObj) const
 {
   const std::string& baseType = typeObj->baseType();
   auto               newName  = convertUniquePtr(baseType);

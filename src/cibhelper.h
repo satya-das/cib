@@ -26,7 +26,9 @@
 #include "cppprog.h"
 
 #include <map>
+#include <memory>
 #include <set>
+#include <string>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -86,6 +88,12 @@ public:
 
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
   CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
+
+  bool                        isUniquePtr(const std::string& typeName) const;
+  bool                        isUniquePtr(const CppVarType* varType) const;
+  bool                        isUniquePtr(const CppVar* var) const;
+  std::string                 convertUniquePtr(const std::string& typeName) const;
+  std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType* typeObj) const;
 
 private:
   void resolveInheritance(CibCompound* cppCompound);

@@ -25,7 +25,6 @@
 #include "cibfunction_helper.h"
 #include "cibhelper.h"
 #include "cibidmgr.h"
-#include "cibsmartptr_helper.h"
 #include "cibutil.h"
 
 #include "cppcompound-accessor.h"
@@ -89,9 +88,9 @@ static void emitType(std::ostream&      stm,
   if (typeObj == nullptr)
     return;
   if ((purpose & kPurposeAbiLayer) && (purpose != kPurposeGeneric) && (purpose != kPurposeGenericProxy)
-      && isUniquePtr(typeObj))
+      && helper.isUniquePtr(typeObj))
   {
-    return emitType(stm, convertUniquePtr(typeObj).get(), typeResolver, helper, purpose);
+    return emitType(stm, helper.convertUniquePtr(typeObj).get(), typeResolver, helper, purpose);
   }
 
   // FIXME: We are assuming that all types will be of some sort of compound object.
@@ -241,9 +240,9 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     CppConstVarEPtr var   = param;
     // FIXME for enum and other non compound types.
     auto* resolvedCppObj = getOwner()->resolveTypeName(baseType(var), helper);
-    if ((resolvedCppObj == nullptr) && isUniquePtr(var.get()))
+    if ((resolvedCppObj == nullptr) && helper.isUniquePtr(var.get()))
     {
-      resolvedCppObj = getOwner()->resolveTypeName(convertUniquePtr(baseType(var)), helper);
+      resolvedCppObj = getOwner()->resolveTypeName(helper.convertUniquePtr(baseType(var)), helper);
     }
     auto* resolvedType =
       resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
@@ -280,13 +279,13 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         emitParamName(stm, var, i);
         if (resolvedType)
         {
-          if (isUniquePtr(var.get()))
+          if (helper.isUniquePtr(var.get()))
             stm << ".release()";
           stm << ")";
         }
         break;
       case kPurposeCApi:
-        if (isUniquePtr(var.get()))
+        if (helper.isUniquePtr(var.get()))
         {
           if (resolvedType)
             stm << "std::unique_ptr<" << resolvedType->longName() << ">(" << var->name() << ")";
@@ -546,7 +545,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       --indentation;
     }
     stm << ")";
-    if (isUniquePtr(returnType()))
+    if (helper.isUniquePtr(returnType()))
       stm << ".release()";
     stm << ";\n";
   }
@@ -645,11 +644,11 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     if (returnType() && !isVoid(returnType()))
     {
       stm << "return ";
-      isRetUniquePtr       = isUniquePtr(returnType());
+      isRetUniquePtr       = helper.isUniquePtr(returnType());
       auto* resolvedCppObj = callingOwner->resolveTypeName(returnType()->baseType(), helper);
       if (!resolvedCppObj && isRetUniquePtr)
       {
-        resolvedCppObj = callingOwner->resolveTypeName(convertUniquePtr(returnType())->baseType(), helper);
+        resolvedCppObj = callingOwner->resolveTypeName(helper.convertUniquePtr(returnType())->baseType(), helper);
       }
       retType =
         resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
@@ -769,11 +768,12 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     const auto& retTypeBaseName = returnType()->baseType();
     auto*       resolvedCppObj =
       (getOwner() && returnType() ? getOwner()->resolveTypeName(retTypeBaseName, helper) : nullptr);
-    if ((resolvedCppObj == nullptr) && isUniquePtr(retTypeBaseName))
+    if ((resolvedCppObj == nullptr) && helper.isUniquePtr(retTypeBaseName))
     {
       retTypeIsUniquePtr = true;
       resolvedCppObj =
-        (getOwner() && returnType() ? getOwner()->resolveTypeName(convertUniquePtr(retTypeBaseName), helper) : nullptr);
+        (getOwner() && returnType() ? getOwner()->resolveTypeName(helper.convertUniquePtr(retTypeBaseName), helper)
+                                    : nullptr);
     }
     resolvedType =
       (resolvedCppObj && isClassLike(resolvedCppObj)) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;

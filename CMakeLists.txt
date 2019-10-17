@@ -36,6 +36,7 @@ set(CIB_SOURCES
 	src/cibutil.cpp
 	src/cibcompound.cpp
 	src/ciboptionparser.cpp
+	src/cibsmartptr_helper.cpp
 )
 
 set(CIB_HEADERS
