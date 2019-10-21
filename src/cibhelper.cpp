@@ -124,7 +124,7 @@ void CibHelper::markNoProxyClasses()
 CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
 {
   auto templateArgStart = name.find('<');
-  auto typeNode         = [&]() {
+  auto typeNode         = [&]() -> const CppTypeTreeNode* {
     if (templateArgStart == name.npos)
     {
       return program_->findTypeNode(name, startNode);
@@ -135,7 +135,10 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
       while (isspace(name[--classNameEnd]))
         ;
       ++classNameEnd;
-      return program_->findTypeNode(name.substr(0, classNameEnd), startNode);
+      auto templateClassName = name.substr(0, classNameEnd);
+      if (isSmartPtr(templateClassName))
+        return nullptr;
+      return program_->findTypeNode(templateClassName, startNode);
     }
   }();
 
@@ -236,9 +239,9 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
       if (returnObj->hasPublicVirtualMethod())
       {
         returnObj->setFacadeLike();
-        if (func.getOwner()->isInterfaceLike() ||
-          func.isPureVirtual() // TODO: It's a hack to just make AcGiSubEntityTraits get detected as interface
-          )
+        if (func.getOwner()->isInterfaceLike()
+            || func.isPureVirtual() // TODO: It's a hack to just make AcGiSubEntityTraits get detected as interface
+        )
           returnObj->setInterfaceLike();
       }
     }

@@ -89,6 +89,8 @@ public:
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
   CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
 
+  bool                        isSmartPtr(const std::string& typeName) const;
+  bool                        isSmartPtr(const CibCompound* compound) const;
   bool                        isUniquePtr(const std::string& typeName) const;
   bool                        isUniquePtr(const CppVarType* varType) const;
   bool                        isUniquePtr(const CppVar* var) const;

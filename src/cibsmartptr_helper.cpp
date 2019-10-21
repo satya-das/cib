@@ -21,9 +21,22 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#pragma once
-
+#include "cibcompound.h"
 #include "cibhelper.h"
+
+bool CibHelper::isSmartPtr(const std::string& typeName) const
+{
+  if (typeName == "sk_sp")
+    return true;
+  return false;
+}
+
+bool CibHelper::isSmartPtr(const CibCompound* compound) const
+{
+  if (!isClassLike(compound))
+    return false;
+  return isSmartPtr(compound->name());
+}
 
 bool CibHelper::isUniquePtr(const std::string& typeName) const
 {
