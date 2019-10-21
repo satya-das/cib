@@ -1,16 +1,16 @@
 #pragma once
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_Class257 {
   //#= FullClassName: ::A
   enum { __zz_cib_classid = 257 };
 }}
 
-namespace __zz_cib_ { namespace I {
+namespace __zz_cib_ { namespace __zz_cib_Class256 {
   //#= FullClassName: ::I
   enum { __zz_cib_classid = 256 };
 }}
 
-namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::I::__zz_cib_GenericProxy
   enum { __zz_cib_classid = 258 };
 }}}
@@ -20,7 +20,7 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
   enum {
     //#= A(::A const &);
     __zz_cib_copy = 0,
@@ -40,7 +40,7 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
   };
 }}}
 
-namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid {
   enum {
     //#= I();
     __zz_cib_new = 0,
@@ -58,7 +58,7 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
   };
 }}}
 
-namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int f() const;
     f = 0,
