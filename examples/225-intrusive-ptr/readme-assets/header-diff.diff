@@ -1,0 +1,75 @@
+--- pub/example.h
++++ exp/example.h
+@@ -1,50 +1,39 @@
+ #pragma once
+-
+ #include "SkRefCnt.h"
+-
+ #include <cassert>
+ #include <memory>
+ 
+-class I : public SkRefCntBase
++#include "__zz_cib_internal/example-predef.h"
++
++class I : public ::SkRefCntBase
+ {
+ public:
+-  virtual ~I() {}
++  I(I&& rhs);
+ public:
++  virtual ~I();
+   virtual int f() const = 0;
+-  /* For time being
+-  virtual sk_sp<I> g() const = 0;
+-  */
++protected:
++  I();
++
++private:
++  __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
+ };
+ 
+ class A
+ {
+ public:
+-  A();
++  A(A&& rhs);
+ public:
+-  sk_sp<I> f() const {
+-    class M : public I {
+-      int f() const override {
+-        return 909;
+-      }
+-
+-      // sk_sp<I> g() const override {
+-      //   return sk_sp<I>(new M);
+-      // }
+-    };
+-    return sk_sp<I>(new M);
+-  }
++  A(A const & );
++  ~A();
++  A();
++  sk_sp<I> f() const;
++  I* g();
++  int h(sk_sp<I> p) const;
++  int i(I* p) const;
+ 
+-  I* g() {
+-    return nullptr;
+-  }
+-
+-  int h(sk_sp<I> p) const {
+-    // auto g = p->g();
+-    // return g->f();
+-    return 3820;
+-  }
+-
+-  int i(I* p) const {
+-    return p->f();
+-  }
++private:
++  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+ };
++
++#include "__zz_cib_internal/example-postdef.h"

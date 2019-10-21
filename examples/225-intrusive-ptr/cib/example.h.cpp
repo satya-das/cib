@@ -29,15 +29,15 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
+  void internal_dispose() const override {
+    using __zz_cib_proc = void (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::internal_dispose>(
+      __zz_cib_proxy);
+  }
   int f() const override {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
       __zz_cib_proxy);
-  }
-  std::unique_ptr<int> g() const override {
-    using __zz_cib_proc = int* (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return std::unique_ptr<int>(__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::g>(
-      __zz_cib_proxy));
   }
   ~I() override {
     if (!__zz_cib_proxy) return;
@@ -60,8 +60,11 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 static int __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->f();
 }
-static int* __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->g().release();
+static void __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->internal_dispose();
+}
+static ::SkRefCntBase* __zz_cib_decl __zz_cib_cast_to_SkRefCntBase(::I* __zz_cib_obj) {
+  return __zz_cib_obj;
 }
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::I** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
@@ -88,11 +91,12 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::g),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::internal_dispose),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_cast_to_SkRefCntBase),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
   return &methodTable;
 }
 }}
@@ -115,7 +119,7 @@ static ::I* __zz_cib_decl g(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();
 }
 static int __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
-  return __zz_cib_obj->::A::h(std::unique_ptr<I>(p));
+  return __zz_cib_obj->::A::h(std::unique_ptr<::I>(p));
 }
 static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);
