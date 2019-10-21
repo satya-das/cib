@@ -36,6 +36,7 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   : cibCppObjTreeCreated_(false)
   , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
+  , smartPtrNames_({"sk_sp", "std::unique_ptr"})
 {
   CppParser parser(std::make_unique<CibObjFactory>());
   parser.addKnownMacros(parserOptions.knownMacros);

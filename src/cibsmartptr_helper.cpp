@@ -24,11 +24,16 @@
 #include "cibcompound.h"
 #include "cibhelper.h"
 
+#include <algorithm>
+
 bool CibHelper::isSmartPtr(const std::string& typeName) const
 {
-  if (typeName == "sk_sp")
+  if (smartPtrNames_.count(typeName))
     return true;
-  return false;
+  auto nameEndPos = typeName.find('<');
+  if (nameEndPos == typeName.npos)
+    return false;
+  return isSmartPtr(typeName.substr(0, nameEndPos));
 }
 
 bool CibHelper::isSmartPtr(const CibCompound* compound) const
@@ -38,31 +43,28 @@ bool CibHelper::isSmartPtr(const CibCompound* compound) const
   return isSmartPtr(compound->name());
 }
 
-bool CibHelper::isUniquePtr(const std::string& typeName) const
+bool CibHelper::isSmartPtr(const CppVarType* varType) const
 {
-  return (typeName.compare(0, 15, "std::unique_ptr") == 0);
+  return isSmartPtr(varType->baseType());
 }
 
-bool CibHelper::isUniquePtr(const CppVarType* varType) const
+bool CibHelper::isSmartPtr(const CppVar* var) const
 {
-  return isUniquePtr(varType->baseType());
+  return isSmartPtr(var->varType());
 }
 
-bool CibHelper::isUniquePtr(const CppVar* var) const
+std::string CibHelper::convertSmartPtr(const std::string& typeName) const
 {
-  return isUniquePtr(var->varType());
+  auto nameStartPos = typeName.find('<') + 1;
+  auto nameEndPos   = typeName.find_last_of('>');
+
+  return typeName.substr(nameStartPos, nameEndPos - nameStartPos);
 }
 
-std::string CibHelper::convertUniquePtr(const std::string& typeName) const
-{
-  auto newName = typeName.substr(16, typeName.size() - 17);
-  return newName;
-}
-
-std::unique_ptr<CppVarType> CibHelper::convertUniquePtr(const CppVarType* typeObj) const
+std::unique_ptr<CppVarType> CibHelper::convertSmartPtr(const CppVarType* typeObj) const
 {
   const std::string& baseType = typeObj->baseType();
-  auto               newName  = convertUniquePtr(baseType);
+  auto               newName  = convertSmartPtr(baseType);
 
   CppTypeModifier typeModifier = typeObj->typeModifier();
   typeModifier.ptrLevel_ += 1;

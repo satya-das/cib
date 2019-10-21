@@ -29,6 +29,7 @@
 #include <memory>
 #include <set>
 #include <string>
+#include <unordered_set>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,11 +92,10 @@ public:
 
   bool                        isSmartPtr(const std::string& typeName) const;
   bool                        isSmartPtr(const CibCompound* compound) const;
-  bool                        isUniquePtr(const std::string& typeName) const;
-  bool                        isUniquePtr(const CppVarType* varType) const;
-  bool                        isUniquePtr(const CppVar* var) const;
-  std::string                 convertUniquePtr(const std::string& typeName) const;
-  std::unique_ptr<CppVarType> convertUniquePtr(const CppVarType* typeObj) const;
+  bool                        isSmartPtr(const CppVarType* varType) const;
+  bool                        isSmartPtr(const CppVar* var) const;
+  std::string                 convertSmartPtr(const std::string& typeName) const;
+  std::unique_ptr<CppVarType> convertSmartPtr(const CppVarType* typeObj) const;
 
 private:
   void resolveInheritance(CibCompound* cppCompound);
@@ -132,6 +132,7 @@ private:
   std::unique_ptr<CppProgram> program_;
   const CibParams&            cibParams_;
   CibIdMgr&                   cibIdMgr_;
+  std::set<std::string>       smartPtrNames_;
 };
 
 //////////////////////////////////////////////////////////////////////////
