@@ -8,6 +8,7 @@
 namespace __zz_cib_ { namespace __zz_cib_Class258 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Value<float>;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Value<float>* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
@@ -38,6 +39,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace __zz_cib_Class259 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Value<int>;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Value<int>* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

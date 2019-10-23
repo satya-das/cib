@@ -56,6 +56,7 @@ public:
 namespace __zz_cib_ { namespace Interface1 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface1::__zz_cib_GenericProxy::Interface1;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Interface1* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
   return new __zz_cib_::Interface1::__zz_cib_GenericProxy::Interface1(proxy, mtbl);
 }
@@ -132,6 +133,7 @@ public:
 namespace __zz_cib_ { namespace Interface2 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface2::__zz_cib_GenericProxy::Interface2;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Interface2* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
   return new __zz_cib_::Interface2::__zz_cib_GenericProxy::Interface2(proxy, mtbl);
 }
@@ -216,6 +218,7 @@ public:
 namespace __zz_cib_ { namespace Interface3 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface3::__zz_cib_GenericProxy::Interface3;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Interface3* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
   return new __zz_cib_::Interface3::__zz_cib_GenericProxy::Interface3(proxy, mtbl);
 }
@@ -264,6 +267,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

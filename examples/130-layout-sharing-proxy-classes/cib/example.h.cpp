@@ -8,6 +8,7 @@
 namespace __zz_cib_ { namespace CPoint {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::CPoint;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::CPoint* __zz_cib_decl __zz_cib_copy(::CPoint* __zz_cib_this, const __zz_cib_Delegatee* __zz_cib_obj) {
   return new (__zz_cib_this) __zz_cib_Delegatee(*__zz_cib_obj);
 }

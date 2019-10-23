@@ -8,6 +8,7 @@
 namespace __zz_cib_ { namespace RValueExample {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::RValueExample;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }

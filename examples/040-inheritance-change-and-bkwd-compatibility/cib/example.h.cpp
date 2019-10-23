@@ -15,6 +15,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
@@ -53,6 +54,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace I1 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::I1;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I1* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
@@ -83,6 +85,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace I2 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::I2;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I2* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
@@ -113,6 +116,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace B {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::B;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::B* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

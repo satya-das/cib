@@ -9,6 +9,7 @@
 namespace __zz_cib_ { namespace Example { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::Example::A* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }

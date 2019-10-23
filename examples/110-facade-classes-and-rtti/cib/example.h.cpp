@@ -15,6 +15,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 namespace __zz_cib_ { namespace Facade {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Facade;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static void __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
   __zz_cib_obj->F();
 }
@@ -57,6 +58,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace PublicFacadeImpl {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::PublicFacadeImpl;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }
@@ -91,6 +93,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

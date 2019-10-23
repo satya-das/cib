@@ -112,6 +112,10 @@ static void emitType(std::ostream&      stm,
     {
       stm << "__zz_cib_HANDLE";
     }
+    else if (resolvedType->isTemplated() && (purpose != kPurposeProxyDecl))
+    {
+      stm << "__zz_cib_ThisClass";
+    }
     else if (!(purpose & kPurposeProxyDecl))
     {
       stm << resolvedType->longName();
@@ -269,7 +273,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeProxyDefn:
         if (resolvedType)
         {
-          stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
+          if (resolvedType->isTemplated())
+            stm << "__zz_cib_" << getOwner()->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
+          else
+            stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
           if ((effectivePtrLevel(var->varType()) > 1) && (refType(var) != CppRefType::kNoRef))
             stm << '&';
         }
@@ -505,7 +512,10 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << "return ";
       if (resolvedType && forProxy)
       {
-        stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(\n";
+        if (resolvedType->isTemplated())
+          stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(";
+        else
+          stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_handle(\n";
         stm << ++indentation;
       }
       if (isByValue(returnType()))
@@ -513,8 +523,11 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
         convertFromValue = (resolvedType != nullptr);
         if (convertFromValue)
         {
-          auto retTypeCompound = static_cast<const CppCompound*>(resolvedType);
-          stm << "new ::" << fullName(retTypeCompound) << '(';
+          auto retTypeCompound = static_cast<const CibCompound*>(resolvedType);
+          if (retTypeCompound->isTemplated())
+            stm << "new __zz_cib_ThisClass(";
+          else
+            stm << "new ::" << fullName(retTypeCompound) << '(';
         }
       }
       else if (isByRef(returnType()))
@@ -2365,9 +2378,14 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "namespace __zz_cib_Delegator {\n";
 
   if (isClassLike(this))
+  {
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
+    stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
+  }
   else if (isNamespace(this))
+  {
     stm << indentation << "namespace __zz_cib_Delegatee = " << delegatee << ";\n";
+  }
 
   std::unordered_set<std::string> funcSignatures;
   for (auto func : needsBridging_)

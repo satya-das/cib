@@ -51,6 +51,7 @@ public:
 namespace __zz_cib_ { namespace __zz_cib_Class256 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::I;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
   return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::I(proxy, mtbl);
 }
@@ -99,6 +100,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace __zz_cib_Class257 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

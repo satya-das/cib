@@ -18,6 +18,12 @@ public:
   {
     x_ = x;
   }
+
+  bool operator == (const Value& rhs) const
+  {
+    return x_ == rhs.x_;
+  }
+
 private:
   _T x_;
 };

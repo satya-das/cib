@@ -15,4 +15,5 @@ protected:                                                                      
 private:                                                                                                               \
   friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
   friend struct __zz_cib_::fullName::__zz_cib_Delegator;                                                               \
+  using __zz_cib_ThisClass = className;                                                                                \
   __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_

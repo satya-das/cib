@@ -20,6 +20,7 @@ public:
   Value(::Example::Int x);
   ::Example::Int GetValue() const;
   void SetValue(::Example::Int x);
+  bool operator ==(Value const & rhs) const;
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Value<::Example::Int>, Example::__zz_cib_Class258);
@@ -74,6 +75,12 @@ private:
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SetValue>(
       __zz_cib_obj,
       x);
+  }
+  static bool __zz_cib_OperatorCmpEq(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * rhs) {
+    using __zz_cib_proc = bool (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE const * rhs);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorCmpEq>(
+      __zz_cib_obj,
+      rhs);
   }
   static ::Example::Value<::Example::Int>* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::Example::Value<::Example::Int>(h);
@@ -147,4 +154,8 @@ __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::GetValue(__zz_cib_h_)
 
 inline void Example::Value<::Example::Int>::SetValue(::Example::Int x) {
   __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::SetValue(__zz_cib_h_, __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_handle(x));
+}
+
+inline bool Example::Value<::Example::Int>::operator ==(__zz_cib_ThisClass const & rhs) const {
+  return __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(rhs));
 }

@@ -20,6 +20,10 @@ namespace Example
     {
       x_ = x;
     }
+    bool operator ==(Value const& rhs) const
+    {
+      return x_ == rhs.x_;
+    }
   private:
     _T x_;
   };

@@ -8,6 +8,7 @@
 namespace __zz_cib_ { namespace NonPod1 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod1;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::NonPod1* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
@@ -34,6 +35,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace NonPod2 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod2;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::NonPod2* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
@@ -60,6 +62,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace NonPod3 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod3;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::NonPod3* __zz_cib_decl __zz_cib_new() {
   return new __zz_cib_Delegatee();
 }
@@ -86,6 +89,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ { namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new __zz_cib_Delegatee(*__zz_cib_obj);
 }

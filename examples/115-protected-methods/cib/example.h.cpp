@@ -17,6 +17,7 @@ public:
 namespace __zz_cib_ { namespace Example { namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = __zz_cib_ProtectedAccessor::A;
+  using __zz_cib_ThisClass = __zz_cib_Delegatee;
   static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
