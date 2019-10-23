@@ -242,6 +242,7 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   if (ret)
     return ret;
   ret                 = new CibCompound(clsName, compoundType());
+  ret->props_ = props_;
   ret->templateClass_ = this;
   ret->owner(owner());
   ret->setShared();
