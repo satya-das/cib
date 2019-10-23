@@ -1375,7 +1375,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
                            const CibParams& cibParams,
                            CppIndent        indentation /* = CppIndent */) const
 {
-  if (isInline() && !isShared())
+  if (isInline() && (!isShared() || isTemplated()))
   {
     gCppWriter.emit(this, stm, indentation);
     return;
