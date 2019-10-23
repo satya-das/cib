@@ -16,7 +16,7 @@ protected:
   I();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(I, __zz_cib_Class258);
 };
 
 class A
@@ -33,7 +33,7 @@ public:
   int i(I* p) const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class259);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

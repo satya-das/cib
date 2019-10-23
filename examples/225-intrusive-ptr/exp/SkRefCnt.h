@@ -33,10 +33,13 @@ public:
       the object needs to have been allocated via new, and not on the stack.
   */
   void unref() const;
-private:
+  /**
+   *  Called when the ref count goes to 0.
+   */
+  virtual void internal_dispose() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(SkRefCntBase, SkRefCntBase);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(SkRefCntBase, __zz_cib_Class256);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

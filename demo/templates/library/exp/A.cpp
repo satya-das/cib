@@ -66,6 +66,7 @@ struct __zz_cib_Delegator {
       new ::Value<float>(__zz_cib_obj->getFloatValue()));
   }
   static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
+    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

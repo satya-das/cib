@@ -302,21 +302,30 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-proxy.h"
 
 namespace __zz_cib_ { namespace Example { namespace A {
-namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = ::Example::A;
-static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_Delegatee(*__zz_cib_obj);
-}
-static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static ::Example::A* __zz_cib_decl __zz_cib_new() {
-  return new __zz_cib_Delegatee();
-}
-static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::A::SomeFunc();
-}
-}
+struct __zz_cib_Delegator;
+namespace __zz_cib_ProtectedAccessor {
+class A : public ::Example::A {
+  friend struct __zz_cib_::Example::A::__zz_cib_Delegator;
+public:
+  using ::Example::A::A;
+};
+}}}}
+namespace __zz_cib_ { namespace Example { namespace A {
+struct __zz_cib_Delegator {
+  using __zz_cib_Delegatee = __zz_cib_ProtectedAccessor::A;
+  static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(*__zz_cib_obj);
+  }
+  static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+    delete __zz_cib_obj;
+  }
+  static ::Example::A* __zz_cib_decl __zz_cib_new() {
+    return new __zz_cib_Delegatee();
+  }
+  static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_obj->::Example::A::SomeFunc();
+  }
+};
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace A {

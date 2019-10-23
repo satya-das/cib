@@ -60,6 +60,7 @@ struct __zz_cib_Delegator {
     return __zz_cib_obj->Func();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface* __zz_cib_obj) {
+    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

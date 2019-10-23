@@ -123,6 +123,7 @@ struct __zz_cib_Delegator {
       &__zz_cib_obj->r());
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface1* __zz_cib_obj) {
+    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
@@ -190,6 +191,7 @@ struct __zz_cib_Delegator {
     return __zz_cib_obj->f();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface2* __zz_cib_obj) {
+    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
@@ -256,6 +258,7 @@ struct __zz_cib_Delegator {
     return __zz_cib_obj->g();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface3* __zz_cib_obj) {
+    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

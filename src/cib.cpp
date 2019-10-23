@@ -480,9 +480,15 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   else if (isDestructor())
   {
     if (callingOwner->needsNoProxy())
+    {
       stm << "__zz_cib_obj->~" << callingOwner->name() << "();\n";
+    }
     else
+    {
+      if (forProxy)
+        stm << "__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);\n" << indentation;
       stm << "delete __zz_cib_obj;\n";
+    }
   }
   else
   {

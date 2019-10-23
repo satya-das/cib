@@ -48,7 +48,6 @@ public:
         }
     }
 
-private:
     /**
      *  Called when the ref count goes to 0.
      */
@@ -56,6 +55,7 @@ private:
         delete this;
     }
 
+private:
     mutable std::atomic<int32_t> fRefCnt;
 
     SkRefCntBase(SkRefCntBase&&) = delete;
