@@ -1218,6 +1218,8 @@ void CibCompound::collectTemplateInstanceTypeDependencies(const CibHelper&      
   // Remove duplication, may be by having dependecy collector as another class.
   auto addDependency = [&](const std::string& typeName) {
     auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    if (!resolvedCppObj && helper.isSmartPtr(typeName))
+      resolvedCppObj = resolveTypeName(helper.convertSmartPtr(typeName), helper);
     if (resolvedCppObj)
       cppObjs.insert(resolvedCppObj);
   };
@@ -1244,6 +1246,8 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
 
   auto addDependency = [&](const std::string& typeName) {
     auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    if (!resolvedCppObj && helper.isSmartPtr(typeName))
+      resolvedCppObj = resolveTypeName(helper.convertSmartPtr(typeName), helper);
     if (resolvedCppObj)
       cppObjs.insert(resolvedCppObj);
   };
