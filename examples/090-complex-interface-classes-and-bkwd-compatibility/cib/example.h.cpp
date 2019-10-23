@@ -72,10 +72,8 @@ static ::Interface3* __zz_cib_decl r(__zz_cib_Delegatee* __zz_cib_obj) {
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::Interface1* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::Interface1::__zz_cib_GenericProxy::Interface1*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}
@@ -157,10 +155,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Interface2** __zz_cib
   if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
   return __zz_cib_::Interface2::__zz_cib_classid;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::Interface2* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::Interface2::__zz_cib_GenericProxy::Interface2*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}
@@ -242,10 +238,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Interface3** __zz_cib
   if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
   return __zz_cib_::Interface3::__zz_cib_classid;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::Interface3* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::Interface3::__zz_cib_GenericProxy::Interface3*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}

@@ -788,7 +788,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     const auto& retTypeBaseName = returnType()->baseType();
     auto*       resolvedCppObj =
       (getOwner() && returnType() ? getOwner()->resolveTypeName(retTypeBaseName, helper) : nullptr);
-    if ((resolvedCppObj == nullptr) && helper.isSmartPtr(retTypeBaseName))
+    auto isRetSmartPtr = helper.isSmartPtr(retTypeBaseName);
+    if ((resolvedCppObj == nullptr) && isRetSmartPtr)
     {
       retTypeIsUniquePtr = true;
       resolvedCppObj =
@@ -812,7 +813,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
         stm << "__zz_cib_" << resolvedType->longNsName() << "::__zz_cib_Helper::__zz_cib_from_handle(";
     }
 
-    bool byValueObj = (genericProxy && resolvedType && returnType() && isByValue(returnType()));
+    bool byValueObj = (genericProxy && resolvedType && returnType() && !isRetSmartPtr && isByValue(returnType()));
     if (byValueObj || (returnType() && isByRef(returnType())))
       stm << "*";
   }
@@ -2452,13 +2453,13 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   if (needsGenericProxyDefinition())
   {
     stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "("
-        << longName() << "* __zz_cib_obj) {\n";
+        << "__zz_cib_Delegatee* __zz_cib_obj) {\n";
     ++indentation;
-    stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longNsName()
-        << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
-    stm << indentation << "if (unknownProxy)\n";
-    ++indentation;
-    stm << indentation << "unknownProxy->__zz_cib_release_proxy();\n";
+    // stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longNsName()
+    //     << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
+    // stm << indentation << "if (unknownProxy)\n";
+    // ++indentation;
+    stm << indentation << "__zz_cib_obj->__zz_cib_release_proxy();\n";
     --indentation;
     --indentation;
     stm << indentation << "}\n";

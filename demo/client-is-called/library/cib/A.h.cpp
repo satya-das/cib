@@ -49,10 +49,8 @@ static int __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::I* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::I::__zz_cib_GenericProxy::I*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}

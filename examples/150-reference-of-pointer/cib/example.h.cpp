@@ -83,10 +83,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::A** __zz_cib_obj) {
   }
   return __zz_cib_::A::__zz_cib_classid;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::A* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::A::__zz_cib_GenericProxy::A*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}

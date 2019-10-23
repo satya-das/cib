@@ -82,10 +82,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_c
   }
   return __zz_cib_::__zz_cib_Class256::__zz_cib_classid;
 }
-static void __zz_cib_decl __zz_cib_release_proxy(::SkRefCntBase* __zz_cib_obj) {
-  auto unknownProxy = dynamic_cast<__zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::SkRefCntBase*>(__zz_cib_obj);
-  if (unknownProxy)
-    unknownProxy->__zz_cib_release_proxy();
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
 }
 }
 }}
