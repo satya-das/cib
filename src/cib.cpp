@@ -1560,7 +1560,7 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
 
 void CibCompound::identifyAbstract(const CibHelper& helper)
 {
-  if (!isInline() && isClassLike(this) && collectAllVirtuals(helper, allVirtuals_))
+  if (isClassLike(this) && collectAllVirtuals(helper, allVirtuals_))
     setAbstract();
 }
 

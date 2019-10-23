@@ -41,7 +41,7 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&         template
   auto                                 argItr = templateArgs.begin();
   for (const auto& templParam : *templSpec)
   {
-    if (!templParam->paramType_)
+    // if (!templParam->paramType_)
     {
       CppVarTypePtr substituteVar;
       if (argItr != templateArgs.end())
@@ -62,10 +62,10 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&         template
 
       templArgSubstitution[templParam->paramName_] = std::move(substituteVar);
     }
-    else
-    {
-      assert(false && "TODO: provide implementation");
-    }
+    // else
+    // {
+    //   assert(false && "TODO: provide implementation");
+    // }
   }
 
   return templArgSubstitution;
@@ -202,16 +202,16 @@ static std::string canonicalName(const CibCompound*          compound,
   for (const auto& templParam : *templSpec)
   {
     name += sep;
-    if (!templParam->paramType_)
+    // if (!templParam->paramType_)
     {
       auto* arg = getArg(templParam->paramName_);
       assert(arg);
       name += stringify(arg);
     }
-    else
-    {
-      assert(false && "TODO: provide implementation");
-    }
+    // else
+    // {
+    //   assert(false && "TODO: provide implementation");
+    // }
     sep = ", ";
   }
   name += ">";
