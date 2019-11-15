@@ -329,7 +329,7 @@ public:
   }
   bool hasProtectedMethods() const
   {
-    return props_ & kClassPropHasProtectedMethod;
+    return isTemplateInstance() ? templateClass_->hasProtectedMethods() : props_ & kClassPropHasProtectedMethod;
   }
   bool hasPrivateVirtuals() const
   {
