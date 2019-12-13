@@ -24,8 +24,7 @@
      x_ = x;
    }
 -
--  bool operator == (const Value& rhs) const
-+    bool operator ==(Value const& rhs) const
+   bool operator == (const Value& rhs) const
    {
      return x_ == rhs.x_;
    }

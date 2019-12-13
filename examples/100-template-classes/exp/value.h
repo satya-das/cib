@@ -20,7 +20,7 @@ namespace Example
     {
       x_ = x;
     }
-    bool operator ==(Value const& rhs) const
+    bool operator ==(const Value& rhs) const
     {
       return x_ == rhs.x_;
     }
