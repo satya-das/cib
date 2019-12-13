@@ -57,7 +57,6 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
 
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
 {
-  normalizeConst(varType);
   auto* cppObj = resolveTypename(baseType(varType), typeNode);
   if (cppObj == nullptr)
     return nullptr;
@@ -245,10 +244,6 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
         )
           returnObj->setInterfaceLike();
       }
-    }
-    else
-    {
-      normalizeConst(func.returnType());
     }
   }
 }

@@ -27,21 +27,19 @@
 
 #include <map>
 
-using TemplateArgValueMap = std::map<std::string, CppVarTypePtr>;
+static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const TemplateArgValues& argValues);
 
-static CppVarTypePtr instantiateVarType(CppVarTypeEPtr varType, const TemplateArgValueMap& argValues);
-
-static TemplateArgValueMap resolveArguments(const TemplateArgs&         templateArgs,
-                                            const CppTemplateParamList* templSpec,
-                                            const CibCompound*          instantiationScope,
-                                            const CibHelper&            helper)
+static TemplateArgValues resolveArguments(const TemplateArgs&         templateArgs,
+                                          const CppTemplateParamList* templSpec,
+                                          const CibCompound*          instantiationScope,
+                                          const CibHelper&            helper)
 {
   assert(templSpec);
-  std::map<std::string, CppVarTypePtr> templArgSubstitution;
-  auto                                 argItr = templateArgs.begin();
+  TemplateArgValues templArgSubstitution;
+  auto              argItr = templateArgs.begin();
   for (const auto& templParam : *templSpec)
   {
-    // if (!templParam->paramType_)
+    if (!templParam->paramType_)
     {
       CppVarTypePtr substituteVar;
       if (argItr != templateArgs.end())
@@ -57,15 +55,16 @@ static TemplateArgValueMap resolveArguments(const TemplateArgs&         template
       }
       else
       {
-        substituteVar = instantiateVarType(templParam->defaultParam(), templArgSubstitution);
+        const auto* templArg = templParam->defaultArg();
+        substituteVar        = instantiateVarType(templArg, templArgSubstitution);
       }
 
-      templArgSubstitution[templParam->paramName_] = std::move(substituteVar);
+      templArgSubstitution[templParam->paramName_].reset(substituteVar.release());
     }
-    // else
-    // {
-    //   assert(false && "TODO: provide implementation");
-    // }
+    else
+    {
+      assert(false && "TODO: provide implementation");
+    }
   }
 
   return templArgSubstitution;
@@ -89,15 +88,15 @@ static std::string stringify(const CppVarType* varType)
   return ret;
 }
 
-static std::string stringify(const CppVarTypePtr& varType)
+static std::string stringify(const TemplateArgPtr& templArg)
 {
-  return stringify(varType.get());
+  if (templArg->objType_ != CppExpr::kObjectType)
+    return stringify(static_cast<const CppVarType*>(templArg.get()));
+  else
+    return "TODO-stringify";
 }
 
-std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
-                                          size_t                     b,
-                                          size_t                     e,
-                                          const TemplateArgValueMap& argValues)
+std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t e, const TemplateArgValues& argValues)
 {
   assert((b < e) && (b < s.length()) && (s[b] == '<'));
   auto jumpToArgStart = [&]() {
@@ -151,12 +150,21 @@ std::string ReplaceTemplateParamsWithArgs(const std::string&         s,
   return ret;
 }
 
-static CppVarTypePtr instantiateVarType(CppVarTypeEPtr varType, const TemplateArgValueMap& argValues)
+const CppVarType* getSubstitutedVar(const TemplateArgValues& argValues, const std::string& type)
 {
-  normalizeConst(varType);
-  auto type = baseType(varType);
-  auto itr  = argValues.find(type);
-  if (itr == argValues.end())
+  const auto  itr            = argValues.find(type);
+  const auto* substitutedVar = ((itr == argValues.end()) || (itr->second->objType_ == CppExpr::kObjectType))
+                                 ? static_cast<const CppVarType*>(nullptr)
+                                 : static_cast<const CppVarType*>(itr->second.get());
+
+  return substitutedVar;
+}
+
+static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const TemplateArgValues& argValues)
+{
+  auto        type           = baseType(varType);
+  const auto* substitutedVar = getSubstitutedVar(argValues, type);
+  if (substitutedVar == nullptr)
   {
     auto templStart = type.find('<');
     if (templStart != type.npos)
@@ -165,16 +173,18 @@ static CppVarTypePtr instantiateVarType(CppVarTypeEPtr varType, const TemplateAr
   }
   else
   {
-    type = baseType(itr->second);
+    type = baseType(substitutedVar);
   }
 
-  auto typeModifier = resolveTypeModifier(varType->typeModifier(), itr->second->typeModifier());
-  auto ret          = new CppVarType(type, typeModifier);
-  ret->typeAttr(varType->typeAttr() | itr->second->typeAttr());
+  const auto substitutedVarTypeModifier = substitutedVar ? substitutedVar->typeModifier() : CppTypeModifier();
+  const auto typeModifier               = resolveTypeModifier(varType->typeModifier(), substitutedVarTypeModifier);
+  auto       ret                        = new CppVarType(type, typeModifier);
+  const auto substitutedVarTypeAttr     = substitutedVar ? substitutedVar->typeAttr() : 0;
+  ret->typeAttr(varType->typeAttr() | substitutedVarTypeAttr);
   return CppVarTypePtr(ret);
 }
 
-static CppParamVector* instantiateParams(const CppParamVector* params, const TemplateArgValueMap& argValues)
+static CppParamVector* instantiateParams(const CppParamVector* params, const TemplateArgValues& argValues)
 {
   if (!params)
     return nullptr;
@@ -191,27 +201,26 @@ static CppParamVector* instantiateParams(const CppParamVector* params, const Tem
 
 static std::string canonicalName(const CibCompound*          compound,
                                  const CppTemplateParamList* templSpec,
-                                 const TemplateArgValueMap&  argValues)
+                                 const TemplateArgValues&    argValues)
 {
   auto getArg = [&argValues](const std::string& argName) -> const CppVarType* {
-    auto itr = argValues.find(argName);
-    return (itr != argValues.end()) ? itr->second.get() : nullptr;
+    return getSubstitutedVar(argValues, argName);
   };
   std::string name = compound->name() + '<';
   const char* sep  = "";
   for (const auto& templParam : *templSpec)
   {
     name += sep;
-    // if (!templParam->paramType_)
+    if (!templParam->paramType_)
     {
       auto* arg = getArg(templParam->paramName_);
       assert(arg);
       name += stringify(arg);
     }
-    // else
-    // {
-    //   assert(false && "TODO: provide implementation");
-    // }
+    else
+    {
+      assert(false && "TODO: provide implementation");
+    }
     sep = ", ";
   }
   name += ">";
@@ -278,7 +287,7 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   return ret;
 }
 
-bool CibCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper)
+bool CibCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper) const
 {
   bool  compositeTemplate = false;
   auto* resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
@@ -312,7 +321,10 @@ void CibCompound::setupTemplateDependencies(const CibHelper& helper)
   bool compositeTemplate = false;
   for (auto& arg : templateArgValues_)
   {
-    compositeTemplate = setupTemplateDependencies(baseType(arg.second), helper) || compositeTemplate;
+    if (arg.second->objType_ != CppVarType::kObjectType)
+      continue;
+    const auto* varType = static_cast<CppVarType*>(arg.second.get());
+    compositeTemplate   = setupTemplateDependencies(baseType(varType), helper) || compositeTemplate;
   }
 
   if (compositeTemplate)

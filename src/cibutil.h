@@ -108,14 +108,6 @@ inline CppTypeModifier resolveTypeModifier(const CppTypeModifier& paramModifier,
     static_cast<uint8_t>(templateArg.constBits_ | (paramModifier.constBits_ << templateArg.ptrLevel_))};
 }
 
-inline void normalizeConst(CppVarType* varType)
-{
-  if (varType->typeAttr() & kConst)
-  {
-    varType->typeModifier().constBits_ |= 1;
-    varType->removeAttr(kConst);
-  }
-}
 /*!
  * @return "namespace X { namespace Y {" for X::Y as input.
  */

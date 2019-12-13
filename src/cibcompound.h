@@ -51,12 +51,32 @@ typedef std::vector<CibCompound*>                 CibCompoundArray;
 typedef std::map<CppAccessType, CibCompoundArray> CibCppInheritInfo;
 typedef std::map<std::string, const CppObj*>      TypeNameToCppObj;
 
+/**
+ * Teplate args for creating template instances are unfortunately a bit complex.
+ * Template arg can be a typename or an expression.
+ * To handle both case template arg is of CppObj* type but in case it is an expression
+ * we use existing expression object supplied by the usage or default value.
+ * For the case it is typename we need to resolve it and so a new CppVarType object is created which will need deletion.
+ * We can also simply clone CppExpr for other case too and not need special deletion but that brings it's own
+ * implementation cost. So, this hack. :)
+ */
+struct TemplateArgDeleter
+{
+  void operator()(CppObj* obj) const
+  {
+    if (obj->objType_ != CppExpr::kObjectType)
+      delete obj;
+  }
+};
+
+using TemplateArgPtr = std::unique_ptr<CppObj, TemplateArgDeleter>;
+
 using StringVector = std::vector<std::string>;
 using TemplateArgs = StringVector;
 // A set is sufficient but for having order we need map.
 using TemplateInstances = std::map<std::string, CibCompound*>;
 using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
-using TemplateArgValues = std::map<std::string, CppVarTypePtr>;
+using TemplateArgValues = std::map<std::string, TemplateArgPtr>;
 
 enum CibClassPropFlags
 {
@@ -561,8 +581,10 @@ private:
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance = nullptr);
-  void                              setupTemplateDependencies(const CibHelper& helper);
-  bool                              setupTemplateDependencies(const std::string& typeName, const CibHelper& helper);
+
+  //! Makes itself aware about templates where this class is used as template argument
+  void setupTemplateDependencies(const CibHelper& helper);
+  bool setupTemplateDependencies(const std::string& typeName, const CibHelper& helper) const;
 
   void setHasProtectedMethods()
   {

@@ -1226,7 +1226,12 @@ void CibCompound::collectTemplateInstanceTypeDependencies(const CibHelper&      
 
   collectTypeDependencies(helper, cppObjs);
   for (auto& arg : templateArgValues_)
-    addDependency(baseType(arg.second));
+  {
+    if (arg.second->objType_ == CppExpr::kObjectType)
+      continue;
+    const auto* cppVarType = static_cast<const CppVarType*>(arg.second.get());
+    addDependency(baseType(cppVarType));
+  }
 }
 
 void CibCompound::collectTemplateInstancesTypeDependencies(const CibHelper&         helper,

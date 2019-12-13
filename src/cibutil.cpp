@@ -50,7 +50,6 @@ CppVarTypePtr parseType(std::string s)
     if (var)
     {
       CppVarTypePtr ret(new CppVarType(*var->varType()));
-      normalizeConst(ret.get());
       return ret;
     }
   } while (false);
