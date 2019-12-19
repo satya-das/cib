@@ -63,7 +63,26 @@ static TemplateArgValues resolveArguments(const TemplateArgs&         templateAr
     }
     else
     {
-      assert(false && "TODO: provide implementation");
+      if (argItr != templateArgs.end())
+      {
+        auto expr = parseExpr(*argItr);
+        templArgSubstitution[templParam->paramName_].reset(expr.release());
+        ++argItr;
+      }
+      else
+      {
+        auto* templArg = templParam->defaultArg();
+        if (templArg)
+        {
+          templArgSubstitution[templParam->paramName_].reset(templArg);
+        }
+        else
+        {
+          assert(
+            false
+            && "This can't happen. Template argument is missing and also there is no default parameter specified.");
+        }
+      }
     }
   }
 
@@ -203,26 +222,17 @@ static std::string canonicalName(const CibCompound*          compound,
                                  const CppTemplateParamList* templSpec,
                                  const TemplateArgValues&    argValues)
 {
-  auto getArg = [&argValues](const std::string& argName) -> const CppVarType* {
-    return getSubstitutedVar(argValues, argName);
-  };
   std::string name = compound->name() + '<';
   const char* sep  = "";
   for (const auto& templParam : *templSpec)
   {
     name += sep;
-    if (!templParam->paramType_)
-    {
-      auto* arg = getArg(templParam->paramName_);
-      assert(arg);
-      name += stringify(arg);
-    }
-    else
-    {
-      assert(false && "TODO: provide implementation");
-    }
-    sep = ", ";
+    const auto itr = argValues.find(templParam->paramName_);
+    assert(itr != argValues.end());
+    name += stringify(itr->second);
   }
+
+  sep = ", ";
   name += ">";
 
   return name;

@@ -57,6 +57,32 @@ CppVarTypePtr parseType(std::string s)
   return nullptr;
 }
 
+CppExprPtr parseExpr(std::string s)
+{
+  do
+  {
+    CppParser parser;
+    s += ";";
+    s += '\0';
+    s += '\0';
+    auto compound = parser.parseStream(&s[0], s.size());
+    if (compound == nullptr)
+      break;
+    if (compound->members().empty())
+      break;
+    if (compound->members().front()->objType_ != CppObjType::kExpression)
+      break;
+    auto obj = compound->deassocMemberAt(0);
+    if (obj->objType_ == CppExpr::kObjectType)
+    {
+      auto* ret = static_cast<CppExpr*>(obj.release());
+      return CppExprPtr(ret);
+    }
+  } while (false);
+
+  return nullptr;
+}
+
 std::string longName(const CibCompound* compound)
 {
   return compound->longName();
