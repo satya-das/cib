@@ -25,7 +25,10 @@
 #include "cibidmgr.h"
 #include "cibutil.h"
 
+#include "cppwriter.h"
+
 #include <map>
+#include <sstream>
 
 static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const TemplateArgValues& argValues);
 
@@ -112,7 +115,13 @@ static std::string stringify(const TemplateArgPtr& templArg)
   if (templArg->objType_ != CppExpr::kObjectType)
     return stringify(static_cast<const CppVarType*>(templArg.get()));
   else
-    return "TODO-stringify";
+  {
+    CppWriter         writer;
+    std::stringstream stm;
+    const auto*       expr = static_cast<const CppExpr*>(templArg.get());
+    writer.emitExpr(expr, stm);
+    return stm.str();
+  }
 }
 
 std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t e, const TemplateArgValues& argValues)
