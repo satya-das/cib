@@ -138,6 +138,7 @@ set(EXAMPLES
 	220-unique-ptr
 	225-intrusive-ptr
 	230-lib-deletes-proxy
+	240-operator-overloading
 )
 add_subdirectory(examples)
 

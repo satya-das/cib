@@ -15,6 +15,7 @@ foreach(example ${EXAMPLES})
     set(LIBNAME ${example}_lib)
     set(CLIENTNAME ${example})
 
+    set(LIB_GLUE_SRCS_EXTRA "")
     include("${example}/lists.cmake")
 endforeach()
 
