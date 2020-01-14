@@ -239,6 +239,7 @@ static std::string canonicalName(const CibCompound*          compound,
     const auto itr = argValues.find(templParam->paramName_);
     assert(itr != argValues.end());
     name += stringify(itr->second);
+    sep = ", ";
   }
 
   sep = ", ";
