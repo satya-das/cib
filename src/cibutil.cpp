@@ -107,7 +107,7 @@ std::string longName(const CppObj* typeObj)
     case CppObjType::kUsingDecl:
       return longName(static_cast<const CppUsingDecl*>(typeObj));
     case CppObjType::kFunctionPtr:
-      return longName(static_cast<const CppFunctionPtr*>(typeObj));
+      return longName(static_cast<const CppFunctionPointer*>(typeObj));
     case CppObjType::kCompound:
       return longName(static_cast<const CibCompound*>(typeObj));
     case CppObjType::kFwdClsDecl:

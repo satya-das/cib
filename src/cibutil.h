@@ -76,7 +76,7 @@ inline std::string longName(const CppUsingDecl* usingDecl)
   return ret;
 }
 
-inline std::string longName(const CppFunctionPtr* fptr)
+inline std::string longName(const CppFunctionPointer* fptr)
 {
   std::string ret = "::" + fptr->name_;
   if (fptr->owner())
