@@ -12,6 +12,9 @@ public:
 public:
   virtual ~I();
   virtual int f() const = 0;
+  /* For time being
+  virtual sk_sp<I> g() const = 0;
+  */
 protected:
   I();
 

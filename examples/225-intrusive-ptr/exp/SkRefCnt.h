@@ -1,3 +1,5 @@
+// This file is almost a copy from skia project.
+
 /*
  * Copyright 2006 The Android Open Source Project
  *
@@ -201,6 +203,9 @@ public:
      */
   void reset(T* ptr = nullptr)
   {
+        // Calling fPtr->unref() may call this->~() or this->reset(T*).
+        // http://wg21.cmeerw.net/lwg/issue998
+        // http://wg21.cmeerw.net/lwg/issue2262
     T* oldPtr = fPtr;
     fPtr = ptr;
     SkSafeUnref(oldPtr);
@@ -261,7 +266,7 @@ inline bool operator!=(std::nullptr_t, const sk_sp<T>& b)
   return static_cast<bool>(b);
 }
 template <typename C, typename CT, typename T>
-auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp)
+auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp) -> decltype(os << sp.get())
 {
   return os << sp.get();
 }
