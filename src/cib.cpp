@@ -1135,13 +1135,13 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     emitGenericDefn(stm, helper, cibParams, cibIdMgr, indentation);
     emitFromHandleDefn(stm, cibParams, cibIdMgr, indentation);
   }
-  if (needsGenericProxyDefinition())
+  auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
+  if (needsGenericProxyDefinition() && cibIdData)
   {
     stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     stm << indentation++ << "struct __zz_cib_Delegator {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
 
-    auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
     for (auto func : allVirtuals_)
       func.emitCAPIDefn(stm,
                         helper,
@@ -2151,7 +2151,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
                                        const CibIdMgr&  cibIdMgr,
                                        CppIndent        indentation) const
 {
-  if (!needsGenericProxyDefinition())
+  if (!needsGenericProxyDefinition() || getAllVirtualMethods().empty())
     return;
 
   stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
