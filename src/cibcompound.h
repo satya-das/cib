@@ -516,6 +516,7 @@ public:
   bool forEachAncestor(std::function<bool(const CibCompound*)> callable) const;
   void forEachDerived(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachDescendent(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
+  void forEachNested(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCompound*)> callable) const;
   void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
 
@@ -661,6 +662,20 @@ inline void CibCompound::forEachDescendent(CppAccessType                        
   {
     child->forEachDescendent(accessType, callable);
     callable(child);
+  }
+}
+
+inline void CibCompound::forEachNested(CppAccessType                           memAccessType,
+                                       std::function<void(const CibCompound*)> callable) const
+{
+  for (const auto& mem : members())
+  {
+    if ((accessType(mem) == memAccessType) && isNamespaceLike(mem))
+    {
+      CibCompoundEPtr nested = mem;
+      callable(nested);
+      nested->forEachNested(memAccessType, callable);
+    }
   }
 }
 

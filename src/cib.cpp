@@ -1041,7 +1041,7 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
                                                       const CibParams& cibParams,
                                                       const CibIdMgr&  cibIdMgr) const
 {
-  forEachNested([&](const CibCompound* compound) {
+  forEachNested(CppAccessType::kPublic, [&](const CibCompound* compound) {
     if (!compound->isTemplated() || compound->templateInstances_.empty())
       return;
     compound->forEachTemplateInstance([&](CibCompound* templCompound) {
@@ -1094,14 +1094,15 @@ void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibPa
   stm << "#pragma once\n\n";
   emitCommonExpHeaders(stm, cibParams);
 
-  forEachNested([&](const CibCompound* nested) {
+  forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
     if (isClassLike(nested))
       nested->emitHelperDefn(stm, helper, cibParams, cibIdMgr);
   });
 
   emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
 
-  forEachNested([&](const CibCompound* compound) { compound->emitDependentTemplateSpecilizationHeaders(stm); });
+  forEachNested(CppAccessType::kPublic,
+                [&](const CibCompound* compound) { compound->emitDependentTemplateSpecilizationHeaders(stm); });
   emitDependentTemplateSpecilizationHeaders(stm);
 }
 
@@ -1183,7 +1184,7 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
   {
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
-    forEachNested([&](const CibCompound* compound) {
+    forEachNested(CppAccessType::kPublic, [&](const CibCompound* compound) {
       if (!compound->isTemplated() && (!compound->isInline() || compound->isShared()))
         compound->emitDefn(stm, false, helper, cibParams, cibIdMgr);
     });
@@ -2312,7 +2313,7 @@ void CibCompound::emitLibGlueCode(std::ostream&    stm,
     }
   };
 
-  forEachNested([&](const CibCompound* nested) {
+  forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
     if (isClassLike(nested))
       processCompoundForDelegators(nested);
   });
