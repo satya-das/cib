@@ -46,8 +46,8 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
 {
   if (typeModifier.refType_ == CppRefType::kNoRef)
     return typeModifier;
-  auto ret = resolveTypeModifier(CppTypeModifier {CppRefType::kNoRef, 1, 0},
-                                 CppTypeModifier {CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
+  auto ret = resolveTypeModifier(CppTypeModifier{CppRefType::kNoRef, 1, 0},
+                                 CppTypeModifier{CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
 
   if ((ret.ptrLevel_ > 1) && (typeModifier.constBits_ & 0x1))
   {
@@ -1121,7 +1121,6 @@ void CibCompound::emitImplSource(std::ostream&    stm,
                                  const CibIdMgr&  cibIdMgr,
                                  CppIndent        indentation) const
 {
-  auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
   for (const auto& mem : members())
   {
     if (isNamespaceLike(mem) && (accessType(mem) == CppAccessType::kPublic))
@@ -1142,6 +1141,7 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     stm << indentation++ << "struct __zz_cib_Delegator {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
 
+    auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
     for (auto func : allVirtuals_)
       func.emitCAPIDefn(stm,
                         helper,
@@ -1689,9 +1689,9 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (shallAddCopyCtor(this))
   {
     auto ctorProtection = CppAccessType::kPublic;
-    auto paramType      = new CppVarType(name(), CppTypeModifier {CppRefType::kByRef});
+    auto paramType      = new CppVarType(name(), CppTypeModifier{CppRefType::kByRef});
     paramType->typeModifier().constBits_ |= 1;
-    auto param     = new CppVar(paramType, CppVarDecl {std::string()});
+    auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamVector;
     paramList->emplace_back(param);
     auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, 0);
