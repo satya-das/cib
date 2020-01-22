@@ -2,24 +2,20 @@
 
 #include "__zz_cib_internal/example-predef.h"
 
-enum E
-{
+enum E {
   kFirst,
   kSecond
 };
-enum class EC
-{
+enum class EC {
   kECItem1,
   kECItem2
 };
-enum E8 : char
-{
+enum E8 : char {
   kE8Item1,
   kE8Item2,
   kE8Item3
 };
-enum EC16 : short
-{
+enum EC16 : short {
   kE16Item1,
   kE16Item2,
   kE16Item3

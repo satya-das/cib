@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,50 +1,39 @@
+@@ -1,50 +1,42 @@
  #pragma once
 -
  #include "SkRefCnt.h"
@@ -19,9 +19,9 @@
  public:
 +  virtual ~I();
    virtual int f() const = 0;
--  /* For time being
--  virtual sk_sp<I> g() const = 0;
--  */
+   /* For time being
+   virtual sk_sp<I> g() const = 0;
+   */
 +protected:
 +  I();
 +
