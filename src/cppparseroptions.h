@@ -29,4 +29,5 @@ struct CppParserOptions
 {
   const StringVector knownMacros;
   const StringVector knownApiDecor;
+  const StringVector ignorableMacros;
 };

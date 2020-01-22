@@ -58,6 +58,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
     "library-managed-proxy,p", libraryManagedProxies, false, "Library should not manage proxy object lifecycle.");
   addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
   addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
+  addOption("ignorable-macros,I", ignorableMacros, false, "Ignorable macros.");
   addOption("no-exact-delegation,d",
             noExactDelegation,
             false,

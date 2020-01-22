@@ -1,4 +1,4 @@
-Make cibarx public and explain the case study in README.md
+Make skia-cibification public and explain the case study in README.md
 
 Add a detail page for building on Windows, Linux, and Mac.
 
@@ -7,3 +7,5 @@ Add a detail page for illustrating cib tool and it's command line option.
 Better type safety for __zz_cib_HANDLE and __zz_cib_PROXY.
 	Needed for safe object creation from facade handle.
 
+Add support for parsing function body as a blob.
+	This will avoid getting into parsing error.

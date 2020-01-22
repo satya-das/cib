@@ -39,8 +39,10 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   , smartPtrNames_({"sk_sp", "std::unique_ptr"})
 {
   CppParser parser(std::make_unique<CibObjFactory>());
+  parser.parseEnumBodyAsBlob();
   parser.addKnownMacros(parserOptions.knownMacros);
   parser.addKnownApiDecors(parserOptions.knownApiDecor);
+  parser.addIgnorableMacros(parserOptions.ignorableMacros);
   program_.reset(new CppProgram(cibParams.inputPath.string(), std::move(parser)));
   buildCibCppObjTree();
 }
