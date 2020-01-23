@@ -2268,11 +2268,14 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
   std::set<const CppObj*> dependencies;
   collectTypeDependencies(helper, dependencies);
   dependencies.insert(this);
-  for (auto facade : facades)
+  if (!cibParams.noRtti)
   {
-    dependencies.insert(facade);
-    facade->forEachDescendent(CppAccessType::kPublic,
-                              [&dependencies](const CibCompound* obj) { dependencies.insert(obj); });
+    for (auto facade : facades)
+    {
+      dependencies.insert(facade);
+      facade->forEachDescendent(CppAccessType::kPublic,
+                                [&dependencies](const CibCompound* obj) { dependencies.insert(obj); });
+    }
   }
   if (!dependencies.empty())
   {
