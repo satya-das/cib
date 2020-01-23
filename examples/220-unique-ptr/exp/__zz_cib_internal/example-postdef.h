@@ -27,11 +27,11 @@ private:
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_new(::I* __zz_cib_proxy) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*);
+  static __zz_cib_TYPE* __zz_cib_new(::I* __zz_cib_proxy, int* pi) {
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*, int* pi);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table()
-      );
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
+      std::move(pi));
   }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
@@ -137,7 +137,7 @@ private:
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::h>(
       __zz_cib_obj,
-      p);
+      std::move(p));
   }
   static int i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);

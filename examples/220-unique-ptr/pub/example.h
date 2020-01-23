@@ -6,6 +6,7 @@
 class I
 {
 public:
+  I(std::unique_ptr<int> pi) {}
   virtual ~I() {}
 public:
   virtual int f() const = 0;
@@ -26,8 +27,11 @@ public:
       std::unique_ptr<int> g() const override {
         return nullptr;
       }
+
+      public:
+        using I::I;
     };
-    return std::make_unique<M>();
+    return std::make_unique<M>(std::make_unique<int>(5));
   }
 
   I* g() {

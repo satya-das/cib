@@ -14,15 +14,15 @@ I::I(I&& rhs)
   __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
+I::I(std::unique_ptr<int> pi)
+  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this, pi.release()))
+{}
+
 I::~I() {
   __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_delete(h);
 }
-
-I::I()
-  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this))
-{}
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)

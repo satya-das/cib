@@ -148,7 +148,7 @@ private:
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::h>(
       __zz_cib_obj,
-      p);
+      std::move(p));
   }
   static int i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);

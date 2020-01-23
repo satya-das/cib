@@ -14,6 +14,8 @@ TEST_CASE("Client receives unique_ptr from library")
 TEST_CASE("Client passes unique_ptr to library")
 {
   class N : public I {
+  public:
+    using I::I;
     int f() const override {
       return 1023;
     }
@@ -23,7 +25,7 @@ TEST_CASE("Client passes unique_ptr to library")
     }
   };
 
-  auto p = std::make_unique<N>();
+  auto p = std::make_unique<N>(std::make_unique<int>(10));
   A a;
   CHECK(a.h(std::move(p)) == 1023);
 }

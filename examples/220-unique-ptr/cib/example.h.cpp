@@ -24,8 +24,8 @@ class I : public ::I {
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(I, ::I)
 
-  I(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
-    : ::I::I()
+  I(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, std::unique_ptr<int> pi)
+    : ::I::I(std::move(pi))
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
@@ -52,8 +52,8 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::I;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
-static ::I* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::I(proxy, mtbl);
+static ::I* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, int* pi) {
+  return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::I(proxy, mtbl, std::unique_ptr<int>(pi));
 }
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;

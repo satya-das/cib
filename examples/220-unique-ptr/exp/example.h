@@ -9,11 +9,10 @@ class I
 public:
   I(I&& rhs);
 public:
+  I(std::unique_ptr<int> pi);
   virtual ~I();
   virtual int f() const = 0;
   virtual std::unique_ptr<int> g() const = 0;
-protected:
-  I();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I, __zz_cib_Class256);

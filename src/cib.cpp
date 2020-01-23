@@ -285,12 +285,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << '&';
         }
         emitParamName(stm, var, i);
+        if (helper.isSmartPtr(var.get()))
+          stm << ".release()";
         if (resolvedType)
-        {
-          if (helper.isSmartPtr(var.get()))
-            stm << ".release()";
-          stm << ")";
-        }
+          stm << ')';
         break;
       case kPurposeCApi:
         if (helper.isSmartPtr(var.get()))
@@ -317,13 +315,21 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ')';
         break;
       case kPurposeGenericProxy:
-        if ((resolvedType && isByValue(var)) || isByRef(var))
+        if (helper.isSmartPtr(var.get()))
+          stm << "std::move(";
+        else if ((resolvedType && isByValue(var)) || isByRef(var))
           stm << '&';
         emitParamName(stm, var, i);
+        if (helper.isSmartPtr(var.get()))
+          stm << ')';
         break;
       case kPurposeInvokeHelper:
       case kPurposeGenericProxyCtorInit:
+        if (helper.isSmartPtr(var.get()))
+          stm << "std::move(";
         emitParamName(stm, var, i);
+        if (helper.isSmartPtr(var.get()))
+          stm << ')';
         break;
 
       default:

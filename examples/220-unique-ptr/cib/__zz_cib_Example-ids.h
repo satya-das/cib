@@ -42,7 +42,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
 
 namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid {
   enum {
-    //#= I();
+    //#= I(std::unique_ptr<int>);
     __zz_cib_new = 0,
     //#= ~I();
     __zz_cib_delete = 1,
