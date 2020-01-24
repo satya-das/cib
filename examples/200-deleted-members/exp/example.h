@@ -17,4 +17,17 @@ private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
 };
 
+class B
+{
+public:
+  B(B&& rhs);
+public:
+  ~B();
+  B();
+  int g();
+
+private:
+  __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);
+};
+
 #include "__zz_cib_internal/example-postdef.h"

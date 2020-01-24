@@ -10,3 +10,12 @@ public:
     return 9;
   }
 };
+
+class B : A
+{
+public:
+  B();
+  int g() {
+    return 19;
+  }
+};

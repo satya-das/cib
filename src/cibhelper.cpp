@@ -170,9 +170,6 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritanceList()))
     {
-      // TODO: We will have to consider protected inheritance too.
-      if (inh.inhType != CppAccessType::kPublic)
-        continue;
       auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode);
       auto* parentObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
