@@ -139,6 +139,7 @@ set(EXAMPLES
 	225-intrusive-ptr
 	230-lib-deletes-proxy
 	240-operator-overloading
+	250-namespace
 )
 add_subdirectory(examples)
 

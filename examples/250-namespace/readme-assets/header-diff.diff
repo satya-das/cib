@@ -1,0 +1,45 @@
+--- pub/example.h
++++ exp/example.h
+@@ -1,31 +1,31 @@
+ #pragma once
+ 
++#include "__zz_cib_internal/example-predef.h"
++
+ namespace Example
+ {
+   using Int = int;
+   namespace Outer
+   {
+     namespace Inner
+     {
+       using Float = float;
+-
+       class A
+       {
+       public:
++        A(A&& rhs);
++      public:
++        A(A const & );
++        ~A();
+         A();
+-
+-        Int i() const {
+-          return m;
+-        }
+-
+-        Float f() const {
+-          return x;
+-        }
++        ::Example::Int i() const;
++        ::Example::Outer::Inner::Float f() const;
+ 
+       private:
+-        Int m {16};
+-        Float x {2.0};
++        __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::Outer::Inner::A);
+       };
+     }
+   }
+ }
++
++#include "__zz_cib_internal/example-postdef.h"
