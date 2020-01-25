@@ -400,7 +400,7 @@ public:
   }
   bool needsGenericProxyDefinition() const
   {
-    return needsGenericProxyDefinition_;
+    return needsGenericProxyDefinition_ && isCtorCallable();
   }
   void setNeedsGenericProxyDefinition()
   {
@@ -413,6 +413,22 @@ public:
     if (!forEachAncestor([](const CibCompound* ancestor) { return ancestor->isCopyCtorCallable(); }))
       return false;
     return true;
+  }
+  bool isCtorCallable() const
+  {
+    bool ret = true;
+    for (auto ctor : ctors())
+    {
+      CibFunctionHelper func = ctor;
+      if (!func.isConstructor())
+        continue;
+      if (isPrivate(ctor))
+        ret = false;
+      else
+        return true;
+    }
+
+    return ret;
   }
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
