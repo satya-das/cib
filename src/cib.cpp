@@ -315,7 +315,9 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ')';
         break;
       case kPurposeGenericProxy:
-        if (helper.isSmartPtr(var.get()))
+        if (isByRValueRef(var))
+          stm << "&";
+        else if (helper.isSmartPtr(var.get()))
           stm << "std::move(";
         else if ((resolvedType && isByValue(var)) || isByRef(var))
           stm << '&';
