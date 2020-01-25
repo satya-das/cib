@@ -270,8 +270,15 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     else if (CibFunctionHelper func = mem)
     {
       isPodStruct = false;
-      if (!func.hasDefinition() || func.isVirtual())
+      if (func.isVirtual())
+      {
+        cppCompound->setInterfaceLike();
         isInline = false;
+      }
+      else if (!func.hasDefinition())
+      {
+        isInline = false;
+      }
       evaluateArgs(mem);
       evaluateReturnType(mem);
       if (!(func.getAttr() & kStatic))
