@@ -201,6 +201,10 @@ public:
       return "}";
     return outer()->closingBracesForWrappingNsNamespaces() + '}';
   }
+
+  std::ostream& emitWrappingNsNamespacesForGlueCode(std::ostream& stm, const CibParams& cibParams) const;
+  std::ostream& emitClosingBracesForWrappingNsNamespacesForGlueCode(std::ostream& stm) const;
+
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
   {
@@ -254,6 +258,10 @@ public:
   {
     return static_cast<CibCompound*>(owner());
   }
+  CibCompound* outer()
+  {
+    return static_cast<CibCompound*>(owner());
+  }
   void setShared()
   {
     if (!isShared())
@@ -261,6 +269,8 @@ public:
       props_ |= kClassPropShared;
       for (auto parent : parents_[CppAccessType::kPublic])
         parent->setShared();
+      if (outer() && !isCppFile(outer()))
+        outer()->setShared();
     }
   }
   /**
@@ -518,6 +528,8 @@ public:
   void forEachDescendent(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachNested(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCompound*)> callable) const;
+  bool forEachOuter(std::function<bool(const CibCompound*)> callable) const;
+  bool forEachOuter(std::function<bool(CibCompound*)> callable);
   void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
 
   static const CibCompound* getFileAstObj(const CppObj* obj);
@@ -690,6 +702,30 @@ inline void CibCompound::forEachNested(std::function<void(const CibCompound*)> c
       nested->forEachNested(callable);
     }
   }
+}
+
+inline bool CibCompound::forEachOuter(std::function<bool(const CibCompound*)> callable) const
+{
+  if (this->outer())
+  {
+    if (!callable(outer()))
+      return false;
+    outer()->forEachOuter(callable);
+  }
+
+  return true;
+}
+
+inline bool CibCompound::forEachOuter(std::function<bool(CibCompound*)> callable)
+{
+  if (this->outer())
+  {
+    if (!callable(outer()))
+      return false;
+    outer()->forEachOuter(callable);
+  }
+
+  return true;
 }
 
 inline void CibCompound::forEachTemplateInstance(std::function<void(CibCompound*)> callable) const

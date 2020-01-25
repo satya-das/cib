@@ -192,7 +192,7 @@ Let's begin to look at client side with the part that imports library gateway fu
 #include "__zz_cib_Example-mtable.h"
 
 extern "C" __zz_cib_import const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl
-                                                           __zz_cib_Example_GetMethodTable(std::uint32_t classId);
+                                                                  __zz_cib_Example_GetMethodTable(std::uint32_t classId);
 
 ```
 
@@ -298,7 +298,7 @@ We see a #include and forward declarations of `class __zz_cib_Helper`, and `stru
 #include "__zz_cib_Example-handle-helper.h"
 
 #ifdef __ZZ_CIB_CLASS_INTERNAL_DEF
-#undef __ZZ_CIB_CLASS_INTERNAL_DEF
+#  undef __ZZ_CIB_CLASS_INTERNAL_DEF
 #endif
 
 //! @def __ZZ_CIB_CLASS_INTERNAL_DEF
@@ -312,6 +312,7 @@ protected:                                                                      
 private:                                                                                                               \
   friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
   friend struct __zz_cib_::fullName::__zz_cib_Delegator;                                                               \
+  using __zz_cib_ThisClass = className;                                                                                \
   __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
 
 ```

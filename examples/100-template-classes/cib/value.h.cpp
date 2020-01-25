@@ -6,7 +6,7 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -31,7 +31,7 @@ static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_
 }
 }}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -45,7 +45,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}}
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -70,7 +70,7 @@ static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_
 }
 }}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

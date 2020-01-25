@@ -1616,10 +1616,6 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     forEachTemplateInstance([&](CibCompound* templateInstace) { templateInstace->identifyMethodsToBridge(helper); });
     return;
   }
-  // A class that is inline and not shared don't need any bridging.
-  // An inline class that is shared should be treated same as non-inline class.
-  if (isInline() && !isShared())
-    return;
   if (needsNoProxy())
     return;
   if (name().empty())
@@ -1660,6 +1656,10 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
       compound->identifyMethodsToBridge(helper);
     }
   };
+  // A class that is inline and not shared don't need any bridging.
+  // An inline class that is shared should be treated same as non-inline class.
+  if (isInline() && !isShared())
+    return;
   if (!isClassLike(this) || (isEmpty() && !isShared()))
     return;
   if (isFacadeLike())

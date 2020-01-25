@@ -24,6 +24,12 @@ public:
   {
     x_ = x;
   }
+
+  bool operator == (const Value& rhs) const
+  {
+    return x_ == rhs.x_;
+  }
+
 private:
   _T x_;
 };
@@ -105,7 +111,7 @@ Now we need to look what does client side glue code contain to make these types 
 ```diff
 --- pub/value.h
 +++ exp/value.h
-@@ -1,24 +1,28 @@
+@@ -1,30 +1,32 @@
  #pragma once
  
 +#include "__zz_cib_internal/value-predef.h"
@@ -128,6 +134,12 @@ Now we need to look what does client side glue code contain to make these types 
    {
      x_ = x;
    }
+-
+   bool operator == (const Value& rhs) const
+   {
+     return x_ == rhs.x_;
+   }
+-
  private:
    _T x_;
  };
@@ -306,7 +318,7 @@ Let's see what that `value-postdef.h` contains:
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_Class259.h"
+#include "__zz_cib_Class260.h"
 
 ```
 

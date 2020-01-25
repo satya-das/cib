@@ -7,21 +7,21 @@ namespace __zz_cib_ { namespace Example { namespace A {
 
 namespace __zz_cib_ { namespace Example { namespace Int {
   //#= FullClassName: ::Example::Int
-  enum { __zz_cib_classid = 257 };
-}}}
-
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::Example::Value<::Example::Int>
   enum { __zz_cib_classid = 258 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::Example::Value<int>
+  //#= FullClassName: ::Example::Value<::Example::Int>
   enum { __zz_cib_classid = 259 };
 }}}
 
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 {
+  //#= FullClassName: ::Example::Value<int>
+  enum { __zz_cib_classid = 260 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
@@ -59,7 +59,7 @@ namespace __zz_cib_ { namespace Example { namespace Int { namespace __zz_cib_met
   };
 }}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
   enum {
     //#= Value(::Example::Value<::Example::Int> const &);
     __zz_cib_copy = 0,
@@ -77,7 +77,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 { namespac
   };
 }}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 { namespace __zz_cib_methodid {
   enum {
     //#= Value(::Example::Value<int> const &);
     __zz_cib_copy = 0,
