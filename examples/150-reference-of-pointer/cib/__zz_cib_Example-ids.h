@@ -20,8 +20,13 @@ namespace __zz_cib_ { namespace B {
   enum { __zz_cib_classid = 258 };
 }}
 
+namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
+  //#= FullClassName: ::B::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 260 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
@@ -79,7 +84,19 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_delete = 3,
     //#= __zz_cib_cast_to_A
     __zz_cib_cast_to_A = 4,
-    __zz_cib_next_method_id = 5
+    //#= __zz_cib_release_proxy
+    __zz_cib_release_proxy = 5,
+    __zz_cib_next_method_id = 6
   };
 }}}
+
+namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
+  enum {
+    //#= int VirtualFunction() const;
+    VirtualFunction = 0,
+    //#= ~B();
+    __zz_cib_delete = 1,
+    __zz_cib_next_method_id = 2
+  };
+}}}}
 

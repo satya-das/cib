@@ -9,6 +9,8 @@ public:
 public:
   virtual void F() = 0;
   virtual ~Facade();
+protected:
+  Facade();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(Facade, Facade);

@@ -9,6 +9,8 @@ public:
 public:
   virtual ~I();
   virtual int f() const = 0;
+protected:
+  I();
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
