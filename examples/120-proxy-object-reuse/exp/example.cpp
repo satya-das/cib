@@ -27,6 +27,7 @@ A::A(int i)
   : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new(i))
 {}
 
+
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -59,3 +60,4 @@ void B::SetA(::A* pA) {
     __zz_cib_::B::__zz_cib_Helper::GetA(__zz_cib_h_)
   );
 }
+

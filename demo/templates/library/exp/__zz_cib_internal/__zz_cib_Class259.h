@@ -24,7 +24,8 @@ private:
 };
 
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class259 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Value<int>, __zz_cib_Helper> {
 private:
@@ -134,3 +135,4 @@ inline Value<int>::Value(int value)
 inline int Value<int>::get() const {
   return __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::get(__zz_cib_h_);
 }
+

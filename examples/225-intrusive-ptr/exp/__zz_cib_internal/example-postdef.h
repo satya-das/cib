@@ -7,7 +7,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::I, __zz_cib_Helper> {
 private:
@@ -96,7 +97,8 @@ public:
 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class259 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::A, __zz_cib_Helper> {
 private:

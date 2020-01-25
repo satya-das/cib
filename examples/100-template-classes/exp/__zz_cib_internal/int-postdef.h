@@ -7,7 +7,10 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace Example { namespace Int {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace Int {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Example::Int, __zz_cib_Helper> {
 private:

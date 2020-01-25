@@ -35,6 +35,7 @@ A::~A() {
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : ::A(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_A(h))
   , __zz_cib_h_(h)
@@ -72,7 +73,10 @@ int B::VirtFunc() {
     __zz_cib_::B::__zz_cib_Helper::Create()
   );
 }
-namespace __zz_cib_ { namespace B { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace B {
+namespace __zz_cib_Generic {
 class B : public ::B {
   __zz_cib_HANDLE* __zz_cib_h_;
 

@@ -12,7 +12,8 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace Interface1 {
+namespace __zz_cib_ {
+namespace Interface1 {
 namespace __zz_cib_GenericProxy {
 class Interface1 : public ::Interface1 {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -48,7 +49,8 @@ public:
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}
-namespace __zz_cib_ { namespace Interface1 {
+namespace __zz_cib_ {
+namespace Interface1 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface1::__zz_cib_GenericProxy::Interface1;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -70,7 +72,8 @@ static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_ob
 }
 }}
 
-namespace __zz_cib_ { namespace Interface1 {
+namespace __zz_cib_ {
+namespace Interface1 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -83,7 +86,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 namespace __zz_cib_GenericProxy {
 class Interface2 : public ::Interface2 {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -114,7 +118,8 @@ public:
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface2::__zz_cib_GenericProxy::Interface2;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -144,7 +149,8 @@ static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_ob
 }
 }}
 
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -157,7 +163,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 namespace __zz_cib_GenericProxy {
 class Interface3 : public ::Interface3 {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -188,7 +195,8 @@ public:
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::Interface3::__zz_cib_GenericProxy::Interface3;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -218,7 +226,8 @@ static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_ob
 }
 }}
 
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -231,7 +240,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -250,7 +260,8 @@ static int __zz_cib_decl SetInterface(const __zz_cib_Delegatee* __zz_cib_obj, ::
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

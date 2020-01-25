@@ -39,6 +39,7 @@ A::~A() {
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 I1::I1(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -69,6 +70,7 @@ I1::~I1() {
   __zz_cib_::I1::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 I2::I2(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -98,6 +100,7 @@ I2::~I2() {
   auto h = __zz_cib_::I2::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::I2::__zz_cib_Helper::__zz_cib_delete(h);
 }
+
 
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : ::I1(__zz_cib_::B::__zz_cib_Helper::__zz_cib_cast_to_I1(h))
@@ -140,7 +143,10 @@ int B::VirtFunc() {
     __zz_cib_::B::__zz_cib_Helper::Create()
   );
 }
-namespace __zz_cib_ { namespace B { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace B {
+namespace __zz_cib_Generic {
 class B : public ::B {
   __zz_cib_HANDLE* __zz_cib_h_;
 

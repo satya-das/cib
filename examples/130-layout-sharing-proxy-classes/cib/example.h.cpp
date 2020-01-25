@@ -5,7 +5,8 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace CPoint {
+namespace __zz_cib_ {
+namespace CPoint {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::CPoint;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -24,7 +25,8 @@ static ::CPoint const * __zz_cib_decl __zz_cib_OperatorPlusEq(__zz_cib_Delegatee
 }
 }}
 
-namespace __zz_cib_ { namespace CPoint {
+namespace __zz_cib_ {
+namespace CPoint {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

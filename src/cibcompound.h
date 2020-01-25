@@ -202,8 +202,16 @@ public:
     return outer()->closingBracesForWrappingNsNamespaces() + '}';
   }
 
-  std::ostream& emitWrappingNsNamespacesForGlueCode(std::ostream& stm, const CibParams& cibParams) const;
+  std::ostream& emitWrappingNsNamespacesForGlueCode(std::ostream&    stm,
+                                                    const CibParams& cibParams,
+                                                    CppIndent        indentation) const;
   std::ostream& emitClosingBracesForWrappingNsNamespacesForGlueCode(std::ostream& stm) const;
+  std::ostream& emitWrappingNamespacesForProxyDefn(std::ostream&    stm,
+                                                   const CibParams& cibParams,
+                                                   CppIndent        indentation) const;
+  std::ostream& emitWrappingNamespacesClosingBracesForProxyDefn(std::ostream&    stm,
+                                                                const CibParams& cibParams,
+                                                                CppIndent        indentation) const;
 
   /// @return string that represents a sequence of all wrapping namespaces
   std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const

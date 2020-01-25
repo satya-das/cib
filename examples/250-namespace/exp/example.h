@@ -1,4 +1,5 @@
 #pragma  once
+#include <memory>
 
 #include "__zz_cib_internal/example-predef.h"
 
@@ -20,6 +21,7 @@ namespace Example
         A();
         ::Example::Int i() const;
         ::Example::Outer::Inner::Float f() const;
+        std::unique_ptr<Int> pi() const;
 
       private:
         __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::Outer::Inner::A);

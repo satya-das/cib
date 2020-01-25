@@ -22,7 +22,9 @@ namespace __zz_cib_ { namespace Example { namespace Outer { namespace Inner { na
     i = 3,
     //#= ::Example::Outer::Inner::Float f() const;
     f = 4,
-    __zz_cib_next_method_id = 5
+    //#= std::unique_ptr<Int> pi() const;
+    pi = 5,
+    __zz_cib_next_method_id = 6
   };
 }}}}}}
 

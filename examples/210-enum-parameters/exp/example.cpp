@@ -39,3 +39,4 @@ int A::fE(::E8 e) const {
 int A::fE(::EC16 e) const {
   return __zz_cib_::A::__zz_cib_Helper::fE_6(__zz_cib_h_, e);
 }
+

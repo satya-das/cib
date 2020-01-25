@@ -7,7 +7,14 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace Example { namespace Outer { namespace Inner { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace Outer {
+using namespace ::Example::Outer;
+namespace Inner {
+using namespace ::Example::Outer::Inner;
+namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Example::Outer::Inner::A, __zz_cib_Helper> {
 private:
@@ -52,6 +59,12 @@ private:
   static ::Example::Outer::Inner::Float f(const __zz_cib_TYPE* __zz_cib_obj) {
     using __zz_cib_proc = ::Example::Outer::Inner::Float (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
+      __zz_cib_obj
+      );
+  }
+  static ::Example::Int* pi(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = ::Example::Int* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::pi>(
       __zz_cib_obj
       );
   }

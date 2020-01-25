@@ -1,6 +1,9 @@
 #include "example.h"
 #include "value.h"
 
+namespace Example {
+}
+namespace Example {
 
 Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -43,4 +46,5 @@ void Example::A::SetInt(::Example::Value<::Example::Int> const & y) {
   return __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_obj_from_handle(
 __zz_cib_::Example::A::__zz_cib_Helper::GetInt(__zz_cib_h_)
 );
+}
 }

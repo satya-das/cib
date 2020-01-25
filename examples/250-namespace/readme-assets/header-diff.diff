@@ -1,7 +1,9 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,31 +1,31 @@
+@@ -1,37 +1,33 @@
  #pragma once
+-
+ #include <memory>
  
 +#include "__zz_cib_internal/example-predef.h"
 +
@@ -30,8 +32,13 @@
 -        Float f() const {
 -          return x;
 -        }
+-
+-        std::unique_ptr<Int> pi() const {
+-          return std::make_unique<Int>(152);
+-        }
 +        ::Example::Int i() const;
 +        ::Example::Outer::Inner::Float f() const;
++        std::unique_ptr<Int> pi() const;
  
        private:
 -        Int m {16};

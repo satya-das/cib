@@ -24,6 +24,7 @@ I::~I() {
   __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -66,7 +67,10 @@ int A::h(std::unique_ptr<I> p) const {
 int A::i(::I* p) const {
   return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::i(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(p));
 }
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
+namespace __zz_cib_Generic {
 class I : public ::I {
   __zz_cib_HANDLE* __zz_cib_h_;
 
@@ -99,7 +103,8 @@ public:
   }
   return ::__zz_cib_::__zz_cib_Class256::__zz_cib_Generic::I::__zz_cib_from_handle(h);
 }
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::I;
   static int __zz_cib_decl f(const ::I* __zz_cib_obj) {
@@ -115,7 +120,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
@@ -127,7 +133,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

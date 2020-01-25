@@ -12,7 +12,8 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -34,7 +35,8 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -47,7 +49,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ {
+namespace B {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::B;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -86,7 +89,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::B** __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ {
+namespace B {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

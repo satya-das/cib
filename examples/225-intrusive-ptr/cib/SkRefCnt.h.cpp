@@ -13,7 +13,8 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 namespace __zz_cib_GenericProxy {
 class SkRefCntBase : public ::SkRefCntBase {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -44,7 +45,8 @@ public:
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
 };
 }}}
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::SkRefCntBase;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -88,7 +90,8 @@ static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_ob
 }
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),

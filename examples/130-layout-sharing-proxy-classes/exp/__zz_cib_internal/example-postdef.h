@@ -7,7 +7,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace CPoint {
+namespace __zz_cib_ {
+namespace CPoint {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
 private:
   using __zz_cib_TYPE = ::CPoint;

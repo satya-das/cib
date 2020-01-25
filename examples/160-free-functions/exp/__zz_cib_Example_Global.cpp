@@ -8,7 +8,8 @@
 #include "example-file1.h"
 #include "example-file2.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+namespace __zz_cib_ {
+namespace __zz_cib_Example_Global {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
 public:
   __zz_cib_Helper()

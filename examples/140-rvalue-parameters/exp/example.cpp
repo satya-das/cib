@@ -43,3 +43,4 @@ std::int32_t RValueExample::Set(::RValueExample&& x) {
 std::int32_t RValueExample::GetValue() const {
   return __zz_cib_::RValueExample::__zz_cib_Helper::GetValue(__zz_cib_h_);
 }
+

@@ -29,7 +29,10 @@ void SkRefCntBase::unref() const {
 void SkRefCntBase::internal_dispose() const {
   __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::internal_dispose(__zz_cib_h_);
 }
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
+namespace __zz_cib_Generic {
 class SkRefCntBase : public ::SkRefCntBase {
   __zz_cib_HANDLE* __zz_cib_h_;
 
@@ -61,7 +64,8 @@ public:
   }
   return ::__zz_cib_::__zz_cib_Class256::__zz_cib_Generic::SkRefCntBase::__zz_cib_from_handle(h);
 }
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::SkRefCntBase;
   static void __zz_cib_decl internal_dispose(const ::SkRefCntBase* __zz_cib_obj) {
@@ -74,7 +78,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::internal_dispose),
@@ -85,7 +90,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

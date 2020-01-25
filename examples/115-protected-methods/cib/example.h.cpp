@@ -5,7 +5,10 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 struct __zz_cib_Delegator;
 namespace __zz_cib_ProtectedAccessor {
 class A : public ::Example::A {
@@ -14,7 +17,10 @@ public:
   using ::Example::A::A;
 };
 }}}}
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = __zz_cib_ProtectedAccessor::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -33,7 +39,10 @@ struct __zz_cib_Delegator {
 };
 }}}
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

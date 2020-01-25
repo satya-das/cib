@@ -7,7 +7,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class256 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::SkRefCntBase, __zz_cib_Helper> {
 private:

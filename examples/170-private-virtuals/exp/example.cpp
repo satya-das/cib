@@ -44,6 +44,7 @@ IF::IF()
   : IF(__zz_cib_::IF::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
+
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -76,7 +77,10 @@ int A::SetIF(::IF* pIF) {
     __zz_cib_::A::__zz_cib_Helper::GetIF(__zz_cib_h_)
   );
 }
-namespace __zz_cib_ { namespace IF { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace IF {
+namespace __zz_cib_Generic {
 class IF : public ::IF {
   __zz_cib_HANDLE* __zz_cib_h_;
 
@@ -129,7 +133,8 @@ public:
   }
   return ::__zz_cib_::IF::__zz_cib_Generic::IF::__zz_cib_from_handle(h);
 }
-namespace __zz_cib_ { namespace IF {
+namespace __zz_cib_ {
+namespace IF {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::IF;
   static int __zz_cib_decl PrivatePureVirtual(::IF* __zz_cib_obj) {
@@ -157,7 +162,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace IF {
+namespace __zz_cib_ {
+namespace IF {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual),
@@ -173,7 +179,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace IF {
+namespace __zz_cib_ {
+namespace IF {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

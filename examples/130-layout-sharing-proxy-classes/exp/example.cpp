@@ -18,3 +18,4 @@ CPoint::CPoint(double _x, double _y, double _z)
 ::CPoint const & CPoint::operator +=(::CPoint const & p) {
   return *__zz_cib_::CPoint::__zz_cib_Helper::__zz_cib_OperatorPlusEq(this, &p);
 }
+

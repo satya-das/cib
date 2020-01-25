@@ -5,7 +5,8 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -33,7 +34,8 @@ static int __zz_cib_decl fE_6(const __zz_cib_Delegatee* __zz_cib_obj, ::EC16 e) 
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

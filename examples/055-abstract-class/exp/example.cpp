@@ -19,6 +19,7 @@ I::~I() {
   __zz_cib_::I::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -53,7 +54,10 @@ A::A()
     __zz_cib_::A::__zz_cib_Helper::g(__zz_cib_h_)
   );
 }
-namespace __zz_cib_ { namespace I { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace I {
+namespace __zz_cib_Generic {
 class I : public ::I {
   __zz_cib_HANDLE* __zz_cib_h_;
 

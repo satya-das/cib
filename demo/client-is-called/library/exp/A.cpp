@@ -24,6 +24,7 @@ I::I()
   : I(__zz_cib_::I::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
+
 C::C(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -53,7 +54,9 @@ C::~C() {
 int C::UseInterface(::I* pI) {
   return __zz_cib_::C::__zz_cib_Helper::UseInterface(__zz_cib_h_, __zz_cib_::I::__zz_cib_Helper::__zz_cib_handle(pI));
 }
-namespace __zz_cib_ { namespace I {
+
+namespace __zz_cib_ {
+namespace I {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::I;
   static int __zz_cib_decl F(::I* __zz_cib_obj) {
@@ -66,7 +69,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace I {
+namespace __zz_cib_ {
+namespace I {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::F),
@@ -77,7 +81,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace I {
+namespace __zz_cib_ {
+namespace I {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

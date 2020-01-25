@@ -12,7 +12,8 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace Facade {
+namespace __zz_cib_ {
+namespace Facade {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Facade;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -44,7 +45,8 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Facade** __zz_cib_obj
 }
 }}
 
-namespace __zz_cib_ { namespace Facade {
+namespace __zz_cib_ {
+namespace Facade {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::F),
@@ -55,7 +57,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace PublicFacadeImpl {
+namespace __zz_cib_ {
+namespace PublicFacadeImpl {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::PublicFacadeImpl;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -77,7 +80,8 @@ static ::Facade* __zz_cib_decl __zz_cib_cast_to_Facade(::PublicFacadeImpl* __zz_
 }
 }}
 
-namespace __zz_cib_ { namespace PublicFacadeImpl {
+namespace __zz_cib_ {
+namespace PublicFacadeImpl {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -90,7 +94,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -115,7 +120,8 @@ static ::Facade* __zz_cib_decl PrivateFacade2(__zz_cib_Delegatee* __zz_cib_obj) 
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

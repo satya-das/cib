@@ -5,7 +5,8 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace RValueExample {
+namespace __zz_cib_ {
+namespace RValueExample {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::RValueExample;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -36,7 +37,8 @@ static std::int32_t __zz_cib_decl GetValue(const __zz_cib_Delegatee* __zz_cib_ob
 }
 }}
 
-namespace __zz_cib_ { namespace RValueExample {
+namespace __zz_cib_ {
+namespace RValueExample {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),

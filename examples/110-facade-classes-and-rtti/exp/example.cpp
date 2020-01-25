@@ -19,6 +19,7 @@ Facade::~Facade() {
   __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 PublicFacadeImpl::PublicFacadeImpl(__zz_cib_::__zz_cib_HANDLE* h)
   : ::Facade(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_cast_to_Facade(h))
   , __zz_cib_h_(h)
@@ -47,6 +48,7 @@ PublicFacadeImpl::PublicFacadeImpl()
 void PublicFacadeImpl::F() {
   __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::F(__zz_cib_h_);
 }
+
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -88,7 +90,10 @@ A::A()
     __zz_cib_::A::__zz_cib_Helper::PrivateFacade2(__zz_cib_h_)
   );
 }
-namespace __zz_cib_ { namespace Facade { namespace __zz_cib_Generic {
+
+namespace __zz_cib_ {
+namespace Facade {
+namespace __zz_cib_Generic {
 class Facade : public ::Facade {
   __zz_cib_HANDLE* __zz_cib_h_;
 

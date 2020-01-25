@@ -27,6 +27,7 @@ int A::f() {
   return __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_);
 }
 
+
 B::B(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -49,3 +50,4 @@ B::B()
 int B::g() {
   return __zz_cib_::B::__zz_cib_Helper::g(__zz_cib_h_);
 }
+

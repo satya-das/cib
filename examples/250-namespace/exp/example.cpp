@@ -1,5 +1,17 @@
 #include "example.h"
 
+namespace Example {
+}
+namespace Example {
+namespace Outer {
+}}
+namespace Example {
+namespace Outer {
+namespace Inner {
+}}}
+namespace Example {
+namespace Outer {
+namespace Inner {
 
 Example::Outer::Inner::A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -31,3 +43,8 @@ Example::Outer::Inner::A::A()
 ::Example::Outer::Inner::Float Example::Outer::Inner::A::f() const {
   return __zz_cib_::Example::Outer::Inner::A::__zz_cib_Helper::f(__zz_cib_h_);
 }
+
+std::unique_ptr<Int> Example::Outer::Inner::A::pi() const {
+  return std::unique_ptr<Int>(__zz_cib_::Example::Outer::Inner::A::__zz_cib_Helper::pi(__zz_cib_h_));
+}
+}}}

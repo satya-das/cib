@@ -5,7 +5,8 @@
 #include "__zz_cib_templates-delegate-helper.h"
 #include "__zz_cib_templates-proxy.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Value<float>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -24,7 +25,8 @@ static float __zz_cib_decl get(const __zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -36,7 +38,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace __zz_cib_Class259 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class259 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Value<int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -55,7 +58,8 @@ static int __zz_cib_decl get(const __zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 {
+namespace __zz_cib_ {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

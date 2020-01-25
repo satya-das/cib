@@ -1,5 +1,8 @@
 #include "int.h"
 
+namespace Example {
+}
+namespace Example {
 
 Example::Int::Int(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -29,4 +32,5 @@ Example::Int::Int(int x)
 
 Example::Int::operator int() const {
   return __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_Operator(__zz_cib_h_);
+}
 }

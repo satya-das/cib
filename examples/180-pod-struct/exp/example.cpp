@@ -1,6 +1,7 @@
 #include "example.h"
 
 
+
 NonPod1::NonPod1(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -26,6 +27,7 @@ NonPod1::~NonPod1() {
   auto h = __zz_cib_::NonPod1::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::NonPod1::__zz_cib_Helper::__zz_cib_delete(h);
 }
+
 
 NonPod2::NonPod2(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -53,6 +55,7 @@ NonPod2::~NonPod2() {
   __zz_cib_::NonPod2::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
+
 NonPod3::NonPod3(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -78,6 +81,7 @@ NonPod3::~NonPod3() {
   auto h = __zz_cib_::NonPod3::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::NonPod3::__zz_cib_Helper::__zz_cib_delete(h);
 }
+
 
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -121,3 +125,4 @@ void A::setNonPod2(::NonPod2& n) {
 void A::setNonPod3(::NonPod3& n) {
   __zz_cib_::A::__zz_cib_Helper::setNonPod3(__zz_cib_h_, __zz_cib_::NonPod3::__zz_cib_Helper::__zz_cib_handle(n));
 }
+

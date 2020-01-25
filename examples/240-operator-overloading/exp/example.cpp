@@ -1,5 +1,8 @@
 #include "example.h"
 
+namespace Example {
+}
+namespace Example {
 
 Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -37,4 +40,5 @@ Example::A::A()
   return *__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_from_handle(
     __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_OperatorRShift(__zz_cib_h_, &x)
   );
+}
 }

@@ -26,7 +26,10 @@ private:
 };
 }
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace __zz_cib_Class260 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
 private:
@@ -118,6 +121,7 @@ public:
   }
 };
 }}}
+namespace Example {
 
 inline Example::Value<int>::Value(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -155,4 +159,5 @@ inline void Example::Value<int>::SetValue(int x) {
 
 inline bool Example::Value<int>::operator ==(__zz_cib_ThisClass const & rhs) const {
   return __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_handle(rhs));
+}
 }

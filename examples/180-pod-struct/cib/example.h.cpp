@@ -5,7 +5,8 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace NonPod1 {
+namespace __zz_cib_ {
+namespace NonPod1 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod1;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -21,7 +22,8 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace NonPod1 {
+namespace __zz_cib_ {
+namespace NonPod1 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -32,7 +34,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace NonPod2 {
+namespace __zz_cib_ {
+namespace NonPod2 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod2;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -48,7 +51,8 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace NonPod2 {
+namespace __zz_cib_ {
+namespace NonPod2 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -59,7 +63,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace NonPod3 {
+namespace __zz_cib_ {
+namespace NonPod3 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::NonPod3;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -75,7 +80,8 @@ static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}
 
-namespace __zz_cib_ { namespace NonPod3 {
+namespace __zz_cib_ {
+namespace NonPod3 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
@@ -86,7 +92,8 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -117,7 +124,8 @@ static void __zz_cib_decl setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, ::NonPod3
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

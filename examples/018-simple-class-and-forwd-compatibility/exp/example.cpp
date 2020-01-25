@@ -1,5 +1,8 @@
 #include "example.h"
 
+namespace Example {
+}
+namespace Example {
 
 Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -30,4 +33,5 @@ int Example::A::SomeFunc() {
 
 int Example::A::AnotherFunction() {
   return __zz_cib_::Example::A::__zz_cib_Helper::AnotherFunction(__zz_cib_h_);
+}
 }

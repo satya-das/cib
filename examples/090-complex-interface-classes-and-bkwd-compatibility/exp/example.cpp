@@ -28,6 +28,7 @@ Interface1::Interface1()
   : Interface1(__zz_cib_::Interface1::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
+
 Interface2::Interface2(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
@@ -54,6 +55,7 @@ Interface2::~Interface2() {
 Interface2::Interface2()
   : Interface2(__zz_cib_::Interface2::__zz_cib_Helper::__zz_cib_new(this))
 {}
+
 
 Interface3::Interface3(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -82,6 +84,7 @@ Interface3::Interface3()
   : Interface3(__zz_cib_::Interface3::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
+
 A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {}
@@ -108,7 +111,9 @@ A::A()
 int A::SetInterface(::Interface1* pInterface1) const {
   return __zz_cib_::A::__zz_cib_Helper::SetInterface(__zz_cib_h_, __zz_cib_::Interface1::__zz_cib_Helper::__zz_cib_handle(pInterface1));
 }
-namespace __zz_cib_ { namespace Interface1 {
+
+namespace __zz_cib_ {
+namespace Interface1 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface1;
   static int __zz_cib_decl disruptVTable(::Interface1* __zz_cib_obj) {
@@ -129,7 +134,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace Interface1 {
+namespace __zz_cib_ {
+namespace Interface1 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::p),
@@ -142,13 +148,16 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace Interface1 {
+namespace __zz_cib_ {
+namespace Interface1 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }
 }}
 
-namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_Generic {
+namespace __zz_cib_ {
+namespace Interface2 {
+namespace __zz_cib_Generic {
 class Interface2 : public ::Interface2 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
@@ -181,7 +190,8 @@ public:
   }
   return ::__zz_cib_::Interface2::__zz_cib_Generic::Interface2::__zz_cib_from_handle(h);
 }
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface2;
   static int __zz_cib_decl disruptVTable(::Interface2* __zz_cib_obj) {
@@ -197,7 +207,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
@@ -209,13 +220,16 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace Interface2 {
+namespace __zz_cib_ {
+namespace Interface2 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }
 }}
 
-namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_Generic {
+namespace __zz_cib_ {
+namespace Interface3 {
+namespace __zz_cib_Generic {
 class Interface3 : public ::Interface3 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
@@ -248,7 +262,8 @@ public:
   }
   return ::__zz_cib_::Interface3::__zz_cib_Generic::Interface3::__zz_cib_from_handle(h);
 }
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface3;
   static int __zz_cib_decl disruptVTable(::Interface3* __zz_cib_obj) {
@@ -264,7 +279,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::g),
@@ -276,7 +292,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace Interface3 {
+namespace __zz_cib_ {
+namespace Interface3 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

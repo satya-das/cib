@@ -39,7 +39,9 @@ int A::F(int __zz_cib_param0) {
 int A::V() {
   return __zz_cib_::A::__zz_cib_Helper::V(__zz_cib_h_);
 }
-namespace __zz_cib_ { namespace A {
+
+namespace __zz_cib_ {
+namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
   static int __zz_cib_decl V(::A* __zz_cib_obj) {
@@ -52,7 +54,8 @@ struct __zz_cib_Delegator {
 };
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::V),
@@ -63,7 +66,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ {
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }
