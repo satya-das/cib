@@ -309,7 +309,7 @@ void CibHelper::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
 {
   // TODO: Considers private ctors too.
   // Also for protected ctor/dtor things will be slightly less trivial.
-  if (!cppCompound->hasDtor() || !isPrivate(cppCompound->dtor()))
+  if (cppCompound->isOverridable())
     cppCompound->setNeedsGenericProxyDefinition();
 }
 

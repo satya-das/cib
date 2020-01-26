@@ -363,7 +363,7 @@ public:
   {
     if (compoundType() == CppCompoundType::kUnion)
       return false;
-    return !hasDtor() || !isPrivate(dtor());
+    return (!hasDtor() || !isPrivate(dtor())) && !hasAttr(kFinal);
   }
   bool hasProtectedMethods() const
   {

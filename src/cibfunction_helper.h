@@ -160,7 +160,7 @@ public:
   }
   bool isVirtual() const
   {
-    return (func_->attr() & (kVirtual | kOverride)) != 0;
+    return (func_->attr() & (kVirtual | kOverride | kFinal)) != 0;
   }
   bool isPureVirtual() const
   {

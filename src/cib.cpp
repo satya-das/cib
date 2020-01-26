@@ -36,6 +36,7 @@
 
 #include "boost-helper/bfs.h"
 
+#include <unordered_map>
 #include <unordered_set>
 
 //////////////////////////////////////////////////////////////////////////
@@ -1597,8 +1598,8 @@ void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibPara
 
 bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const
 {
-  std::unordered_set<std::string> allVirtSigs;
-  std::unordered_set<std::string> unresolvedPureVirtSigs;
+  std::unordered_map<std::string, CibFunctionHelper> virtSigToFunc;
+  std::unordered_set<std::string>                    unresolvedPureVirtSigs;
 
   auto processClass = [&](const CibCompound* ancestor) {
     for (auto& mem : ancestor->members())
@@ -1616,16 +1617,15 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
           // A class is abstract even when it's dtor is pure virtual.
           // But the pure virtual dtor of parent class doesn't affect abstractness of a class.
           unresolvedPureVirtSigs.insert(sig);
-          if (allVirtSigs.insert(sig).second)
-            allVirtuals.push_back(func);
+          virtSigToFunc.insert(std::make_pair(std::move(sig), func));
         }
       }
-      else if (!unresolvedPureVirtSigs.erase(sig) && func.isOveriddable() && !func.isDestructor()
-               && !allVirtSigs.count(sig))
+      else if (!func.isDestructor())
       {
-        allVirtSigs.insert(sig);
-        if (!func.hasAttr(kOverride))
-          allVirtuals.push_back(func);
+        unresolvedPureVirtSigs.erase(sig);
+        auto itr = virtSigToFunc.insert(std::make_pair(std::move(sig), func));
+        if (itr.second == false)
+          itr.first->second = func;
       }
     }
 
@@ -1634,6 +1634,8 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
   forEachAncestor(CppAccessType::kPublic, processClass);
   processClass(this);
 
+  for (const auto& virtItr : virtSigToFunc)
+    allVirtuals.push_back(virtItr.second);
   return !unresolvedPureVirtSigs.empty();
 }
 
@@ -1721,7 +1723,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     }
     for (auto func : allVirtuals_)
     {
-      if (objNeedingBridge_.count(func) == 0)
+      if ((objNeedingBridge_.count(func) == 0))
       {
         if (virtSigs.count(func.signature(helper)) == 0)
         {
@@ -2242,8 +2244,13 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
     }
   }
   for (auto func : allVirtuals_)
-    func.emitGenericProxyDefn(
-      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+  {
+    if (!func.isFinal())
+    {
+      func.emitGenericProxyDefn(
+        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+    }
+  }
   CibFunctionHelper func = dtor();
   func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";
@@ -2302,8 +2309,11 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
 
   auto* cibIdData = cibIdMgr.getCibIdData(longName());
   for (auto func : allVirtuals_)
-    func.emitGenericDefn(
-      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+  {
+    if (!func.isFinal())
+      func.emitGenericDefn(
+        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+  }
   CibFunctionHelper func = dtor();
   func.emitGenericDefn(
     stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
