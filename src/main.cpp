@@ -272,10 +272,12 @@ int main(int argc, const char* argv[])
     cibCppCompound->emitUserHeader(helper, cibParams);
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
-    bfs::path usrSrcPath = cibParams.outputPath / cppAst->name().substr(cibParams.inputPath.string().length());
-    usrSrcPath.replace_extension(usrSrcPath.extension().string() + ".cpp");
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
-    bfs::path bndSrcPath = cibParams.binderPath / usrSrcPath.filename().string();
+    const bfs::path bndSrcPath = [&]() {
+      bfs::path relPath = cppAst->name().substr(cibParams.inputPath.string().length());
+      relPath.replace_extension(relPath.extension().string() + ".cpp");
+      return cibParams.binderPath / relPath.string();
+    }();
     bfs::create_directories(bndSrcPath.parent_path());
     std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
     cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
