@@ -318,20 +318,18 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeGenericProxy:
         if (isByRValueRef(var))
           stm << "&";
-        else if (helper.isSmartPtr(var.get()))
-          stm << "std::move(";
-        else if ((resolvedType && isByValue(var)) || isByRef(var))
+        else if (!helper.isSmartPtr(var.get()) && ((resolvedType && isByValue(var)) || isByRef(var)))
           stm << '&';
         emitParamName(stm, var, i);
         if (helper.isSmartPtr(var.get()))
-          stm << ')';
+          stm << ".release()";
         break;
       case kPurposeInvokeHelper:
       case kPurposeGenericProxyCtorInit:
-        if (helper.isSmartPtr(var.get()))
+        if (helper.isSmartPtr(var.get()) || isByRValueRef(var))
           stm << "std::move(";
         emitParamName(stm, var, i);
-        if (helper.isSmartPtr(var.get()))
+        if (helper.isSmartPtr(var.get()) || isByRValueRef(var))
           stm << ')';
         break;
 
@@ -1654,8 +1652,17 @@ static bool shallAddCopyCtor(CibCompound* compound)
     if (!isPublic(ctor))
       return false;
   }
-  return (!compound->hasCopyCtor() && !compound->hasMoveCtor() && !compound->isAbstract()
-          && compound->isCopyCtorCallable());
+  return (!compound->cantHaveDefaultCopyCtor() && !compound->hasCopyCtor() && !compound->hasMoveCtor()
+          && !compound->isAbstract() && compound->isCopyCtorCallable());
+}
+
+static bool shallAddDefaultCtor(CibCompound* compound)
+{
+  if (compound->isTemplateInstance())
+    return shallAddDefaultCtor(compound->templateClass());
+
+  return !compound->cantHaveDefaultCtor() && !compound->hasCtor()
+         && (!compound->isAbstract() || compound->needsGenericProxyDefinition());
 }
 
 void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
@@ -1757,7 +1764,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     needsBridging_.insert(needsBridging_.begin(), func);
     objNeedingBridge_.insert(copyCtor);
   }
-  if (!hasCtor() && (!isAbstract() || needsGenericProxyDefinition()))
+  if (shallAddDefaultCtor(this))
   {
     auto ctorProtection = isAbstract() ? CppAccessType::kProtected : CppAccessType::kPublic;
     auto defaultCtor    = new CppConstructor(ctorProtection, ctorName(), nullptr, nullptr, 0);

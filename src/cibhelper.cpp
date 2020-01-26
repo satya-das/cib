@@ -294,6 +294,11 @@ void CibHelper::markClassType(CibCompound* cppCompound)
         if (cppObj && isClassLike(cppObj))
           isPodStruct = false;
       }
+      if (isByRValueRef(var))
+      {
+        cppCompound->setCantHaveDefaultCtor();
+        cppCompound->setCantHaveDefaultCopyCtor();
+      }
     }
   }
   isInline = isInline || (cppCompound->templateParamList() != nullptr);

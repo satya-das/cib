@@ -80,18 +80,20 @@ using TemplateArgValues = std::map<std::string, TemplateArgPtr>;
 
 enum CibClassPropFlags
 {
-  kClassPropBaseLine           = (__LINE__ + 1), //< Unusable const
-  kClassPropPodStruct          = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropInline             = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropShared             = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropAbstract           = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropHasProtectedMethod = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropHasPrivateVirtual  = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropEmpty              = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropInterface          = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropFacade             = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
-  kClassPropCompositeTmpl      = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropNeedNoProxy        = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropBaseLine                = (__LINE__ + 1), //< Unusable const
+  kClassPropPodStruct               = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInline                  = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropShared                  = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropAbstract                = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasProtectedMethod      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasPrivateVirtual       = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropEmpty                   = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropInterface               = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropFacade                  = (1 << (__LINE__ - kClassPropBaseLine)) | kClassPropShared,
+  kClassPropCompositeTmpl           = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropNeedNoProxy             = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropCantHaveDefaultCtor     = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropCantHaveDefaultCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 
 /**
@@ -346,6 +348,22 @@ public:
   bool needsNoProxy() const
   {
     return (props_ & kClassPropNeedNoProxy) || isPodStruct();
+  }
+  void setCantHaveDefaultCtor()
+  {
+    props_ |= kClassPropCantHaveDefaultCtor;
+  }
+  bool cantHaveDefaultCtor() const
+  {
+    return ((props_ & kClassPropCantHaveDefaultCtor) == kClassPropCantHaveDefaultCtor);
+  }
+  void setCantHaveDefaultCopyCtor()
+  {
+    props_ |= kClassPropCantHaveDefaultCopyCtor;
+  }
+  bool cantHaveDefaultCopyCtor() const
+  {
+    return ((props_ & kClassPropCantHaveDefaultCopyCtor) == kClassPropCantHaveDefaultCopyCtor);
   }
   bool isEmpty() const
   {
