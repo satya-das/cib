@@ -347,6 +347,12 @@ private:
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Create>(
       );
   }
+  static int G(__zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::G>(
+      __zz_cib_obj
+      );
+  }
   static int F(__zz_cib_TYPE* __zz_cib_obj) {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
@@ -356,12 +362,6 @@ private:
   static int AnotherVirtFunc(__zz_cib_TYPE* __zz_cib_obj) {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_obj
-      );
-  }
-  static int G(__zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::G>(
       __zz_cib_obj
       );
   }

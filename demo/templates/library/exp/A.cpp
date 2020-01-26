@@ -53,12 +53,6 @@ namespace __zz_cib_ {
 namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
-  static int __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * intVal) {
-    return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_from_handle(*intVal));
-  }
-  static float __zz_cib_decl setValue_1(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * floatVal) {
-    return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_from_handle(*floatVal));
-  }
   static __zz_cib_HANDLE* __zz_cib_decl getIntValue(const ::A* __zz_cib_obj) {
     return __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(
       new ::Value<int>(__zz_cib_obj->getIntValue()));
@@ -66,6 +60,12 @@ struct __zz_cib_Delegator {
   static __zz_cib_HANDLE* __zz_cib_decl getFloatValue(const ::A* __zz_cib_obj) {
     return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(
       new ::Value<float>(__zz_cib_obj->getFloatValue()));
+  }
+  static int __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * intVal) {
+    return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_from_handle(*intVal));
+  }
+  static float __zz_cib_decl setValue_1(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * floatVal) {
+    return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_from_handle(*floatVal));
   }
   static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
     __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);

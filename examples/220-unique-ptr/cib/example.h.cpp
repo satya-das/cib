@@ -30,15 +30,15 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  int f() const override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
-      __zz_cib_proxy);
-  }
   std::unique_ptr<int> g() const override {
     using __zz_cib_proc = int* (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return std::unique_ptr<int>(__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::g>(
       __zz_cib_proxy));
+  }
+  int f() const override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
+      __zz_cib_proxy);
   }
   ~I() override {
     if (!__zz_cib_proxy) return;

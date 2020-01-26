@@ -68,18 +68,18 @@ namespace __zz_cib_ { namespace IF { namespace __zz_cib_methodid {
 
 namespace __zz_cib_ { namespace IF { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= int PrivatePureVirtual();
-    PrivatePureVirtual = 0,
-    //#= int PrivateVirtual();
-    PrivateVirtual = 1,
+    //#= int ProtectedVirtual();
+    ProtectedVirtual = 0,
+    //#= int PublicPureVirtual();
+    PublicPureVirtual = 1,
     //#= int ProtectedPureVirtual();
     ProtectedPureVirtual = 2,
-    //#= int ProtectedVirtual();
-    ProtectedVirtual = 3,
-    //#= int PublicPureVirtual();
-    PublicPureVirtual = 4,
     //#= int PublicVirtual();
-    PublicVirtual = 5,
+    PublicVirtual = 3,
+    //#= int PrivatePureVirtual();
+    PrivatePureVirtual = 4,
+    //#= int PrivateVirtual();
+    PrivateVirtual = 5,
     //#= ~IF();
     __zz_cib_delete = 6,
     __zz_cib_next_method_id = 7

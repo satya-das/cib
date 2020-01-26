@@ -72,10 +72,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid 
 
 namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= void internal_dispose() const;
-    internal_dispose = 0,
     //#= int f() const;
-    f = 1,
+    f = 0,
+    //#= void internal_dispose() const;
+    internal_dispose = 1,
     //#= ~I();
     __zz_cib_delete = 2,
     __zz_cib_next_method_id = 3

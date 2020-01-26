@@ -152,11 +152,11 @@ namespace __zz_cib_ {
 namespace A {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::A;
-  static int __zz_cib_decl AnotherVirtFunc(::A* __zz_cib_obj) {
-    return __zz_cib_obj->AnotherVirtFunc();
-  }
   static int __zz_cib_decl VirtFunc(::A* __zz_cib_obj) {
     return __zz_cib_obj->VirtFunc();
+  }
+  static int __zz_cib_decl AnotherVirtFunc(::A* __zz_cib_obj) {
+    return __zz_cib_obj->AnotherVirtFunc();
   }
   static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
     __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
@@ -268,16 +268,6 @@ public:
   static ::B* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
     return new B(h);
   }
-  int F() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
-      __zz_cib_h_);
-  }
-  int AnotherVirtFunc() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_h_);
-  }
   int VirtFunc() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc>(
@@ -286,6 +276,16 @@ public:
   int G() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::G>(
+      __zz_cib_h_);
+  }
+  int F() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+      __zz_cib_h_);
+  }
+  int AnotherVirtFunc() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
       __zz_cib_h_);
   }
 };
@@ -302,17 +302,17 @@ namespace __zz_cib_ {
 namespace B {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::B;
-  static int __zz_cib_decl F(::B* __zz_cib_obj) {
-    return __zz_cib_obj->F();
-  }
-  static int __zz_cib_decl AnotherVirtFunc(::B* __zz_cib_obj) {
-    return __zz_cib_obj->AnotherVirtFunc();
-  }
   static int __zz_cib_decl VirtFunc(::B* __zz_cib_obj) {
     return __zz_cib_obj->VirtFunc();
   }
   static int __zz_cib_decl G(::B* __zz_cib_obj) {
     return __zz_cib_obj->G();
+  }
+  static int __zz_cib_decl F(::B* __zz_cib_obj) {
+    return __zz_cib_obj->F();
+  }
+  static int __zz_cib_decl AnotherVirtFunc(::B* __zz_cib_obj) {
+    return __zz_cib_obj->AnotherVirtFunc();
   }
   static void __zz_cib_decl __zz_cib_delete(::B* __zz_cib_obj) {
     __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
@@ -327,9 +327,9 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::VirtFunc),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::G),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::F),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherVirtFunc),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::G)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::AnotherVirtFunc)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;

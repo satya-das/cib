@@ -74,10 +74,10 @@ namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_methodid {
 
 namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= ::Interface2* p();
-    p = 0,
     //#= ::Interface3& r();
-    r = 1,
+    r = 0,
+    //#= ::Interface2* p();
+    p = 1,
     //#= ~Interface1();
     __zz_cib_delete = 2,
     //#= int disruptVTable();

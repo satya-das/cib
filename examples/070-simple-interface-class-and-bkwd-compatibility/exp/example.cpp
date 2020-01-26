@@ -56,11 +56,11 @@ namespace __zz_cib_ {
 namespace Interface {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::Interface;
-  static int __zz_cib_decl Gunc(::Interface* __zz_cib_obj) {
-    return __zz_cib_obj->Gunc();
-  }
   static int __zz_cib_decl Func(::Interface* __zz_cib_obj) {
     return __zz_cib_obj->Func();
+  }
+  static int __zz_cib_decl Gunc(::Interface* __zz_cib_obj) {
+    return __zz_cib_obj->Gunc();
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface* __zz_cib_obj) {
     __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);

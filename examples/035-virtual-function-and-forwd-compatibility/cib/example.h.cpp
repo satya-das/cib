@@ -35,14 +35,14 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  int AnotherVirtFunc() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_proxy);
-  }
   int VirtFunc() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::VirtFunc>(
+      __zz_cib_proxy);
+  }
+  int AnotherVirtFunc() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::AnotherVirtFunc>(
       __zz_cib_proxy);
   }
   ~A() override {
@@ -118,14 +118,14 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  int AnotherVirtFunc() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_proxy);
-  }
   int VirtFunc() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::VirtFunc>(
+      __zz_cib_proxy);
+  }
+  int AnotherVirtFunc() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::AnotherVirtFunc>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }

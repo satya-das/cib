@@ -32,21 +32,6 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  int PrivatePureVirtual() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivatePureVirtual>(
-      __zz_cib_proxy);
-  }
-  int PrivateVirtual() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivateVirtual>(
-      __zz_cib_proxy);
-  }
-  int ProtectedPureVirtual() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedPureVirtual>(
-      __zz_cib_proxy);
-  }
   int ProtectedVirtual() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedVirtual>(
@@ -57,9 +42,24 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicPureVirtual>(
       __zz_cib_proxy);
   }
+  int ProtectedPureVirtual() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::ProtectedPureVirtual>(
+      __zz_cib_proxy);
+  }
   int PublicVirtual() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PublicVirtual>(
+      __zz_cib_proxy);
+  }
+  int PrivatePureVirtual() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivatePureVirtual>(
+      __zz_cib_proxy);
+  }
+  int PrivateVirtual() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivateVirtual>(
       __zz_cib_proxy);
   }
   ~IF() override {

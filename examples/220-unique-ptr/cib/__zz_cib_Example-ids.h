@@ -60,10 +60,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid 
 
 namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
-    //#= int f() const;
-    f = 0,
     //#= std::unique_ptr<int> g() const;
-    g = 1,
+    g = 0,
+    //#= int f() const;
+    f = 1,
     //#= ~I();
     __zz_cib_delete = 2,
     __zz_cib_next_method_id = 3

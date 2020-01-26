@@ -30,14 +30,14 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  void internal_dispose() const override {
-    using __zz_cib_proc = void (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::internal_dispose>(
-      __zz_cib_proxy);
-  }
   int f() const override {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
+      __zz_cib_proxy);
+  }
+  void internal_dispose() const override {
+    using __zz_cib_proc = void (__zz_cib_decl *) (const __zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::internal_dispose>(
       __zz_cib_proxy);
   }
   ~I() override {

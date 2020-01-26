@@ -23,14 +23,14 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  int Gunc() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Gunc>(
-      __zz_cib_proxy);
-  }
   int Func() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Func>(
+      __zz_cib_proxy);
+  }
+  int Gunc() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Gunc>(
       __zz_cib_proxy);
   }
   ~Interface() override {

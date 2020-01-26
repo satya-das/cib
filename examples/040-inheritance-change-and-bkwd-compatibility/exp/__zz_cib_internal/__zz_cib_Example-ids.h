@@ -95,12 +95,12 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_get_class_id = 6,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 7,
-    //#= int F();
-    F = 8,
-    //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 9,
     //#= int G();
-    G = 10,
+    G = 8,
+    //#= int F();
+    F = 9,
+    //#= int AnotherVirtFunc();
+    AnotherVirtFunc = 10,
     //#= __zz_cib_cast_to_I1
     __zz_cib_cast_to_I1 = 11,
     //#= __zz_cib_cast_to_I2
@@ -115,12 +115,12 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy { namespace 
     VirtFunc = 0,
     //#= ~B();
     __zz_cib_delete = 1,
-    //#= int F();
-    F = 2,
-    //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 3,
     //#= int G();
-    G = 4,
+    G = 2,
+    //#= int F();
+    F = 3,
+    //#= int AnotherVirtFunc();
+    AnotherVirtFunc = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}

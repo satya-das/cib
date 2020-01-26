@@ -30,14 +30,14 @@ public:
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  ::Interface2* p() override {
-    using __zz_cib_proc = ::Interface2* (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::p>(
-      __zz_cib_proxy);
-  }
   ::Interface3& r() override {
     using __zz_cib_proc = ::Interface3* (__zz_cib_decl *) (__zz_cib_PROXY*);
     return *__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::r>(
+      __zz_cib_proxy);
+  }
+  ::Interface2* p() override {
+    using __zz_cib_proc = ::Interface2* (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::p>(
       __zz_cib_proxy);
   }
   ~Interface1() override {
