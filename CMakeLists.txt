@@ -118,6 +118,7 @@ set(EXAMPLES
 	050-inheritance-type-and-bkwd-compatibility
 	055-abstract-class
 	060-simple-interface-class
+	065-trivial-interface-class
 	070-simple-interface-class-and-bkwd-compatibility
 	075-simple-interface-class-and-forwd-compatibility
 	080-complex-interface-classes
