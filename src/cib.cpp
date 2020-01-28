@@ -1484,8 +1484,11 @@ void CibCompound::emitDecl(std::ostream&    stm,
   CppAccessType lastProt = CppAccessType::kUnknown;
   if (!isClassLike(this) || needsBridging() || needsNoProxy())
   {
+    const CppHashIf* lastUsedConditional = nullptr;
     for (auto& mem : members())
     {
+      const auto* conditional = getMemConditional(mem.get());
+
       if (!needsNoProxy() && (isVar(mem) || isVarList(mem)))
         continue;
       if (!needsNoProxy() && isPrivate(mem))
@@ -1496,6 +1499,12 @@ void CibCompound::emitDecl(std::ostream&    stm,
         if (!func.isOveriddable())
           continue;
       }
+      if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+        gCppWriter.emitEndIf(stm);
+      if (conditional)
+        gCppWriter.emit(conditional, stm);
+      lastUsedConditional = conditional;
+
       if (isClassLike(this) && lastProt != mem->accessType_)
       {
         if (mem->accessType_ != CppAccessType::kUnknown)
@@ -1507,6 +1516,8 @@ void CibCompound::emitDecl(std::ostream&    stm,
       if (isFunctionLike(mem) && objNeedingBridge_.count(mem.get()))
         needsClientDefinition_.emplace_back(mem);
     }
+    if (lastUsedConditional)
+      gCppWriter.emitEndIf(stm);
   }
 
   if (isClassLike(this))
@@ -1600,8 +1611,16 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
   std::unordered_set<std::string>                    unresolvedPureVirtSigs;
 
   auto processClass = [&](const CibCompound* ancestor) {
+    const CppHashIf* lastUsedConditional = nullptr;
     for (auto& mem : ancestor->members())
     {
+      if (mem->objType_ == CppObjType::kHashIf)
+      {
+        lastUsedConditional = static_cast<const CppHashIf*>(mem.get());
+        if (lastUsedConditional->condType_ == CppHashIf::kEndIf)
+          lastUsedConditional = nullptr;
+        continue;
+      }
       if (!isFunctionLike(mem))
         continue;
       CibFunctionHelper func(mem);
@@ -1625,6 +1644,9 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
         if (itr.second == false)
           itr.first->second = func;
       }
+
+      if (lastUsedConditional)
+        this->memberConditionalMap_[mem.get()] = lastUsedConditional;
     }
 
     return false;
@@ -1680,8 +1702,16 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     return;
   if (name().empty())
     return;
+  const CppHashIf* lastUsedConditional = nullptr;
   for (auto& mem : members())
   {
+    if (mem->objType_ == CppObjType::kHashIf)
+    {
+      lastUsedConditional = static_cast<const CppHashIf*>(mem.get());
+      if (lastUsedConditional->condType_ == CppHashIf::kEndIf)
+        lastUsedConditional = nullptr;
+      continue;
+    }
     if (isPrivate(mem))
       continue;
     if (isFunctionLike(mem))
@@ -1708,6 +1738,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         setHasProtectedMethods();
 
       needsBridging_.push_back(func);
+      if (lastUsedConditional)
+        memberConditionalMap_[func] = lastUsedConditional;
       objNeedingBridge_.insert(mem.get());
     }
     else if (isNamespaceLike(mem))
@@ -1815,6 +1847,7 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
 {
   if (func.isPureVirtual() && !func.isDestructor())
     return;
+
   stm << indentation << "static ";
   func.emitCAPIReturnType(stm, helper, false);
   stm << ' ' << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
@@ -2089,9 +2122,22 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
 
   stm << '\n';
   emitHelperDefnStart(stm, cibParams, indentation++);
-  auto cibIdData = cibIdMgr.getCibIdData(longName());
+  auto             cibIdData           = cibIdMgr.getCibIdData(longName());
+  const CppHashIf* lastUsedConditional = nullptr;
   for (auto func : needsBridging_)
+  {
+    const auto* conditional = getMemConditional(func);
+    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      gCppWriter.emitEndIf(stm);
+
+    if (conditional)
+      gCppWriter.emit(conditional, stm);
+    lastUsedConditional = conditional;
     emitFunctionInvokeHelper(stm, func, helper, cibParams, cibIdData, indentation);
+  }
+  if (lastUsedConditional)
+    gCppWriter.emitEndIf(stm);
+
   emitCastingHelpers(stm, cibParams, cibIdData, indentation);
 
   if (isFacadeLike() && !cibParams.noRtti)
@@ -2205,13 +2251,26 @@ void CibCompound::emitDefn(std::ostream&    stm,
     if (!moveCtor())
       emitMoveConstructorDefn(stm, asInline, helper, cibParams, cibIdMgr, indentation);
   }
+
+  const CppHashIf* lastUsedConditional = nullptr;
   for (auto func : needsClientDefinition_)
   {
     if (func.isPureVirtual() && !func.isDestructor())
       continue;
+    const auto* conditional = getMemConditional(func);
+    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      gCppWriter.emitEndIf(stm);
+
     stm << '\n'; // Start in new line.
+
+    if (conditional)
+      gCppWriter.emit(conditional, stm);
+    lastUsedConditional = conditional;
     func.emitDefn(stm, asInline, helper, cibParams, this, cibIdData, indentation);
   }
+  if (lastUsedConditional)
+    gCppWriter.emitEndIf(stm);
+
   emitWrappingNamespacesClosingBracesForProxyDefn(stm, cibParams, indentation) << '\n';
 }
 
@@ -2487,12 +2546,22 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   }
 
   std::unordered_set<std::string> funcSignatures;
+  const CppHashIf*                lastUsedConditional = nullptr;
   for (auto func : needsBridging_)
   {
+    const auto* conditional = getMemConditional(func);
+    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      gCppWriter.emitEndIf(stm);
+
+    if (conditional)
+      gCppWriter.emit(conditional, stm);
+    lastUsedConditional = conditional;
     if (funcSignatures.insert(func.signature(helper)).second)
       func.emitCAPIDefn(
         stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeCApi, indentation);
   }
+  if (lastUsedConditional)
+    gCppWriter.emitEndIf(stm);
 
   emitProxyMgrDelegators(stm, cibParams, indentation);
 
@@ -2569,6 +2638,49 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
 }
 
+struct MethodTableEntryInfo
+{
+  MethodTableEntryInfo(const CppHashIf* _cond, CibMethodCAPIName _name)
+    : cond(_cond)
+    , name(std::move(_name))
+  {
+  }
+  const CppHashIf*        cond{nullptr};
+  const CibMethodCAPIName name;
+};
+
+class MethodTableBuilder
+{
+public:
+  MethodTableBuilder(const CibCompound* compound, const CibIdData* idData)
+  {
+    if (idData == nullptr)
+      return;
+
+    CibMethodId nextMethodId = 0;
+    nextMethodId             = idData->forEachMethod([&](const CibMethodIdTableEntry& methodIdEntry) {
+      if (methodIdEntry.id == nextMethodId++)
+        data.emplace_back(compound->getMemConditional(methodIdEntry.obj), methodIdEntry.name);
+      else
+        data.emplace_back(nullptr, CibMethodCAPIName());
+    });
+  }
+
+public:
+  size_t numEntry() const
+  {
+    return data.size();
+  }
+
+  const MethodTableEntryInfo& getEntry(size_t i) const
+  {
+    return data[i];
+  }
+
+private:
+  std::vector<MethodTableEntryInfo> data;
+};
+
 void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
                                             const CibHelper& helper,
                                             const CibParams& cibParams,
@@ -2598,22 +2710,37 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
     const auto& className = forProxy ? longName() + "::__zz_cib_GenericProxy" : longName();
     stm << ++indentation << "static const __zz_cib_MTableEntry methodArray[] = {\n";
     ++indentation;
-    CibMethodId nextMethodId = 0;
-    const char* sep          = "";
-    nextMethodId             = cibIdMgr.forEachMethod(
-      className, [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
-        if (methodId == nextMethodId++)
-        {
-          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&";
-          stm << "__zz_cib_Delegator::";
-          stm << methodName << ')';
-        }
-        else
-        {
-          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
-        }
-        sep = ",\n";
-      });
+
+    const char*        sep = "";
+    MethodTableBuilder methodTableBuilder(this, cibIdMgr.getCibIdData(className));
+    const CppHashIf*   lastUsedConditional = nullptr;
+    CibMethodId        groupStartId        = 0;
+    for (size_t i = 0; i < methodTableBuilder.numEntry(); ++i)
+    {
+      const auto& mtableEntry = methodTableBuilder.getEntry(i);
+      const auto* conditional = mtableEntry.cond;
+      if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+        gCppWriter.emitEndIf(stm);
+
+      if (conditional)
+        gCppWriter.emit(conditional, stm);
+      lastUsedConditional = conditional;
+
+      if (!mtableEntry.name.empty())
+      {
+        stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&";
+        stm << "__zz_cib_Delegator::";
+        stm << mtableEntry.name << ')';
+      }
+      else
+      {
+        stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
+      }
+      sep = ",\n";
+    }
+    if (lastUsedConditional)
+      gCppWriter.emitEndIf(stm);
+
     stm << '\n';
     stm << --indentation << "};\n";
     stm << indentation << "static const __zz_cib_MethodTable methodTable = { "

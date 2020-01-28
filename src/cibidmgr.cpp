@@ -166,7 +166,7 @@ void CibIdMgr::loadMethodIds(std::string className, const CppEnum* methodIdEnum)
   const auto& enumItemInfos    = methodIdEnumData.first;
   auto        nextMethodId     = methodIdEnumData.second;
   for (const auto& item : enumItemInfos)
-    methodIdTable.addMethod(std::get<0>(item), std::get<1>(item), std::get<2>(item));
+    methodIdTable.addOrUpdateMethod(std::get<0>(item), std::get<1>(item), nullptr, std::get<2>(item));
   if (methodIdTable.getNextMethodId() < nextMethodId)
     methodIdTable.setNextMethodId(nextMethodId);
 }
@@ -240,9 +240,9 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     }
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
     auto        addMethod = [&](const CibFunctionHelper& func) {
-      auto&& sig = func.signature(helper);
-      if (!cibIdData->hasMethod(func.signature(helper)))
-        cibIdData->addMethod(sig, func.procName());
+      auto sig = func.signature(helper);
+      if (!cibIdData->hasMethod(sig))
+        cibIdData->addOrUpdateMethod(std::move(sig), func.procName(), func);
     };
     for (auto& func : methods)
       addMethod(func);
@@ -256,19 +256,19 @@ void CibIdMgr::assignIds(CibCompound*     compound,
         {
           auto castMethodName = compound->castToBaseName(parent, cibParams);
           if (!cibIdData->hasMethod(castMethodName))
-            cibIdData->addMethod(castMethodName, castMethodName);
+            cibIdData->addOrUpdateMethod(castMethodName, castMethodName);
         }
         return false;
       });
       if (compound->isFacadeLike() && !cibParams_.noRtti)
       {
         if (!cibIdData->hasMethod("__zz_cib_get_class_id"))
-          cibIdData->addMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");
+          cibIdData->addOrUpdateMethod("__zz_cib_get_class_id", "__zz_cib_get_class_id");
       }
       if (compound->needsGenericProxyDefinition())
       {
         if (!cibIdData->hasMethod("__zz_cib_release_proxy"))
-          cibIdData->addMethod("__zz_cib_release_proxy", "__zz_cib_release_proxy");
+          cibIdData->addOrUpdateMethod("__zz_cib_release_proxy", "__zz_cib_release_proxy");
       }
 
       if (cibParams.libraryManagedProxies && compound->needsProxyManager())
@@ -276,7 +276,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
         for (int i = 0; i < 3; ++i)
         {
           if (!cibIdData->hasMethod(kProxyMgrMethods[i]))
-            cibIdData->addMethod(kProxyMgrMethods[i], kProxyMgrMethods[i]);
+            cibIdData->addOrUpdateMethod(kProxyMgrMethods[i], kProxyMgrMethods[i]);
         }
       }
     }
@@ -335,11 +335,10 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
         << " namespace __zz_cib_methodid {\n";
     stm << ++indentation << "enum {\n";
     ++indentation;
-    auto nextMethodId = cibIdData.forEachMethod(
-      [&](CibMethodId methodId, const CibMethodCAPIName& methodName, const CibMethodSignature& methodSig) {
-        stm << indentation << "//#= " << methodSig << '\n';
-        stm << indentation << methodName << " = " << methodId << ",\n";
-      });
+    auto nextMethodId = cibIdData.forEachMethod([&](const CibMethodIdTableEntry& methodIdEntry) {
+      stm << indentation << "//#= " << methodIdEntry.sig << '\n';
+      stm << indentation << methodIdEntry.name << " = " << methodIdEntry.id << ",\n";
+    });
     stm << indentation << "__zz_cib_next_method_id = " << nextMethodId << '\n';
     stm << --indentation << "};\n";
     stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";

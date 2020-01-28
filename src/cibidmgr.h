@@ -36,22 +36,100 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-using CibMethodIdTable = std::map<CibMethodSignature, std::pair<CibMethodId, CibMethodCAPIName>>;
+struct CibMethodIdTableEntry
+{
+  CibMethodIdTableEntry(CibMethodId _id, CibMethodSignature _sig, CibMethodCAPIName _name, const CppObj* _obj)
+    : id(_id)
+    , sig(std::move(_sig))
+    , name(std::move(_name))
+    , obj(_obj)
+  {
+  }
+
+  CibMethodId        id{kInvalidMethodId};
+  CibMethodSignature sig;
+  CibMethodCAPIName  name;
+  const CppObj*      obj{nullptr};
+};
+
+using MethodIdVisitor = std::function<void(const CibMethodIdTableEntry&)>;
+
+class CibMethodIdTable
+{
+public:
+  const CibMethodIdTableEntry& addOrUpdateMethod(CibMethodId        methodId,
+                                                 const CppObj*      obj,
+                                                 CibMethodSignature signature,
+                                                 std::string        methodName)
+  {
+    auto       idItr              = idIndex.find(methodId);
+    const auto entryAlreadyExists = (idItr != idIndex.end());
+
+    if (entryAlreadyExists)
+    {
+      auto& entry = data[idItr->second];
+      entry.obj   = obj;
+      return entry;
+    }
+    else
+    {
+      const auto allDataValid = (!signature.empty() && !methodName.empty());
+      assert(allDataValid);
+      const auto entryId  = data.size();
+      idIndex[methodId]   = entryId;
+      sigIndex[signature] = entryId;
+      data.emplace_back(methodId, std::move(signature), std::move(methodName), obj);
+      return data[entryId];
+    }
+  }
+
+  size_t numMethods() const
+  {
+    return data.empty() ? 0 : 1 + idIndex.rbegin()->first;
+  }
+
+  bool hasMethod(const CibMethodSignature& uniqName) const
+  {
+    return sigIndex.count(uniqName) > 0;
+  }
+
+  const CibMethodIdTableEntry* find(const CibMethodSignature& uniqName) const
+  {
+    const auto sigItr = sigIndex.find(uniqName);
+    if (sigItr == sigIndex.end())
+      return nullptr;
+    return &data[sigItr->second];
+  }
+
+  void forEachMethod(MethodIdVisitor methodIdVisitor) const
+  {
+    for (const auto& item : idIndex)
+      methodIdVisitor(data[item.second]);
+  }
+
+private:
+  using MethodIdTableData  = std::vector<CibMethodIdTableEntry>;
+  using MethodIdTableRowId = MethodIdTableData::size_type;
+  using MethodIdIndex      = std::map<CibMethodId, MethodIdTableRowId>;
+  using MethodSigIndex     = std::map<CibMethodSignature, MethodIdTableRowId>;
+
+  MethodIdTableData data;
+  MethodIdIndex     idIndex;
+  MethodSigIndex    sigIndex;
+};
 
 /*!
  * Represents an item in ClassId enum and all method-ids of corresponding class.
  */
 class CibIdData
 {
-  using CibMethodIdToMethodMap = std::map<CibMethodId, std::pair<CibMethodCAPIName, CibMethodSignature>>;
-  using CibMethodsSet          = std::unordered_set<CibMethodCAPIName>;
+  using CibMethodsSet = std::unordered_set<CibMethodCAPIName>;
 
-  CibClassId             classId;
-  CibFullClassNsName     fullNsName;
-  CibMethodIdTable       methodIdTable;
-  CibMethodIdToMethodMap methodIdToMethodMap;
-  CibMethodId            nextMethodId{0};
-  CibMethodsSet          allCApiNames;
+  CibClassId         classId;
+  CibFullClassNsName fullNsName;
+  CibMethodIdTable   methodIdTable;
+  CibMethodId        nextMethodId{0};
+  CibMethodsSet      allCApiNames;
 
 public:
   CibIdData(CibClassId cId, CibFullClassNsName fullClassNsName)
@@ -74,18 +152,21 @@ public:
     return nextMethodId;
   }
 
-  bool hasMethod(const CibMethodSignature& uniqName)
+  bool hasMethod(const CibMethodSignature& uniqName) const
   {
-    return methodIdTable.count(uniqName) > 0;
+    return methodIdTable.hasMethod(uniqName);
   }
 
   CibMethodCAPIName getMethodCApiName(const CibMethodSignature& uniqName) const
   {
-    auto itr = methodIdTable.find(uniqName);
-    return (itr == methodIdTable.end()) ? CibMethodCAPIName() : itr->second.second;
+    const auto* entry = methodIdTable.find(uniqName);
+    return (entry == nullptr) ? CibMethodCAPIName() : entry->name;
   }
 
-  void addMethod(CibMethodSignature signature, std::string methodName, CibMethodId methodId = kInvalidMethodId)
+  void addOrUpdateMethod(CibMethodSignature signature,
+                         std::string        methodName,
+                         const CppObj*      obj      = nullptr,
+                         CibMethodId        methodId = kInvalidMethodId)
   {
     if (methodId == kInvalidMethodId)
     {
@@ -95,8 +176,7 @@ public:
       assert(allCApiNames.count(methodName) == 0);
     }
     allCApiNames.insert(methodName);
-    methodIdToMethodMap.emplace(methodId, std::make_pair(methodName, signature));
-    methodIdTable.emplace(std::move(signature), std::make_pair(methodId, std::move(methodName)));
+    methodIdTable.addOrUpdateMethod(methodId, obj, std::move(signature), std::move(methodName));
     ++nextMethodId;
   }
 
@@ -107,12 +187,11 @@ public:
   }
 
 public:
-  using MethodVisitor = std::function<void(CibMethodId, const CibMethodCAPIName&, const CibMethodSignature&)>;
   /*!
    * Visits each methods in ascending order of their id.
    * @return Id of next method if that gets added.
    */
-  CibMethodId forEachMethod(MethodVisitor methodVisitor) const;
+  CibMethodId forEachMethod(MethodIdVisitor methodVisitor) const;
   size_t      numMethods() const;
 };
 
@@ -160,7 +239,7 @@ public:
    * Visits each method of a class.
    * @return Id of next method if that gets added.
    */
-  CibMethodId forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const;
+  CibMethodId forEachMethod(const std::string& className, MethodIdVisitor methodVisitor) const;
   size_t      numMethods(const std::string& className) const;
 
 private:
@@ -192,19 +271,18 @@ inline CibIdData* CibIdMgr::addClass(CibFullClassName   className,
   return addClass(fullClassNsName, className, atoi(classId.c_str()));
 }
 
-inline CibMethodId CibIdData::forEachMethod(MethodVisitor methodVisitor) const
+inline CibMethodId CibIdData::forEachMethod(MethodIdVisitor methodVisitor) const
 {
-  for (const auto& item : methodIdToMethodMap)
-    methodVisitor(item.first, item.second.first, item.second.second);
+  methodIdTable.forEachMethod(methodVisitor);
   return nextMethodId;
 }
 
 inline size_t CibIdData::numMethods() const
 {
-  return methodIdToMethodMap.empty() ? 0 : 1 + methodIdToMethodMap.rbegin()->first;
+  return methodIdTable.numMethods();
 }
 
-inline CibMethodId CibIdMgr::forEachMethod(const std::string& className, CibIdData::MethodVisitor methodVisitor) const
+inline CibMethodId CibIdMgr::forEachMethod(const std::string& className, MethodIdVisitor methodVisitor) const
 {
   auto itr = cibIdTable_.find(className);
   if (itr == cibIdTable_.end())

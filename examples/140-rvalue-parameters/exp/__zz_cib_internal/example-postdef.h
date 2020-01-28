@@ -43,7 +43,7 @@ private:
   static __zz_cib_TYPE* __zz_cib_new_2(__zz_cib_HANDLE* __zz_cib_param0) {
     using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE* __zz_cib_param0);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
-      __zz_cib_param0);
+      std::move(__zz_cib_param0));
   }
   static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
     using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
@@ -54,7 +54,7 @@ private:
     using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* rhs);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual>(
       __zz_cib_obj,
-      rhs);
+      std::move(rhs));
   }
   static __zz_cib_HANDLE* __zz_cib_OperatorEqual_5(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * rhs) {
     using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * rhs);
@@ -66,7 +66,7 @@ private:
     using __zz_cib_proc = std::int32_t (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE* x);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Set>(
       __zz_cib_obj,
-      x);
+      std::move(x));
   }
   static std::int32_t GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
     using __zz_cib_proc = std::int32_t (__zz_cib_decl *) (const __zz_cib_TYPE*);

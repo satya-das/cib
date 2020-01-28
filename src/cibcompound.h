@@ -109,11 +109,14 @@ public:
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
 
 private:
+  using MemberConditionalMap = std::map<const CppObj*, const CppHashIf*>;
+
+private:
   std::uint32_t props_{0};
   bool          needsGenericProxyDefinition_{false};
 
-  CibFunctionHelperArray needsBridging_;       // Array of all functions that require bridging for
-                                               // implementation at client side.
+  CibFunctionHelperArray         needsBridging_;
+  mutable MemberConditionalMap   memberConditionalMap_;
   CibFunctionHelperArray         allVirtuals_; // All virtual methods including that of parent classes.
   mutable CibFunctionHelperArray needsClientDefinition_;
   std::set<const CppObj*>        objNeedingBridge_;
@@ -126,6 +129,11 @@ private:
   std::string                  nsName_;
 
 public:
+  const CppHashIf* getMemConditional(const CppObj* mem) const
+  {
+    auto itr = memberConditionalMap_.find(mem);
+    return (itr == memberConditionalMap_.end() ? nullptr : itr->second);
+  }
   bool isNsNameEmpty() const
   {
     return nsName_.empty();
