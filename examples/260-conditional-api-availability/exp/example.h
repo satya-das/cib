@@ -30,4 +30,39 @@ private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
 };
 
+class B
+{
+public:
+  B(B&& rhs);
+public:
+  B(B const & );
+  B();
+  ~B();
+#if  COND // Start of a conditional group, also start of 1st subgroup
+  int f1();
+  int f2();
+#endif
+
+private:
+  __ZZ_CIB_CLASS_INTERNAL_DEF(B, B);
+};
+
+class C
+{
+public:
+  C(C&& rhs);
+public:
+  C(C const & );
+  C();
+  ~C();
+#if  COND // Start of a conditional group, also start of 1st subgroup
+  int f1();
+  int f2();
+#endif
+  int f3();
+
+private:
+  __ZZ_CIB_CLASS_INTERNAL_DEF(C, C);
+};
+
 #include "__zz_cib_internal/example-postdef.h"

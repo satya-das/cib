@@ -72,6 +72,78 @@ int A::DoFunc() const {
   return __zz_cib_::A::__zz_cib_Helper::DoFunc(__zz_cib_h_);
 }
 
+
+B::B(__zz_cib_::__zz_cib_HANDLE* h)
+  : __zz_cib_h_(h)
+{}
+
+B::B(B&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+}
+
+B::B(::B const & __zz_cib_param0)
+  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
+
+B::B()
+  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_new())
+{}
+
+B::~B() {
+  auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete(h);
+}
+
+#if  COND // Start of a conditional group, also start of 1st subgroup
+int B::f1() {
+  return __zz_cib_::B::__zz_cib_Helper::f1(__zz_cib_h_);
+}
+
+int B::f2() {
+  return __zz_cib_::B::__zz_cib_Helper::f2(__zz_cib_h_);
+}
+#endif
+
+
+C::C(__zz_cib_::__zz_cib_HANDLE* h)
+  : __zz_cib_h_(h)
+{}
+
+C::C(C&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+}
+
+C::C(::C const & __zz_cib_param0)
+  : C(__zz_cib_::C::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::C::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+{}
+
+C::C()
+  : C(__zz_cib_::C::__zz_cib_Helper::__zz_cib_new())
+{}
+
+C::~C() {
+  auto h = __zz_cib_::C::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::C::__zz_cib_Helper::__zz_cib_delete(h);
+}
+
+#if  COND // Start of a conditional group, also start of 1st subgroup
+int C::f1() {
+  return __zz_cib_::C::__zz_cib_Helper::f1(__zz_cib_h_);
+}
+
+int C::f2() {
+  return __zz_cib_::C::__zz_cib_Helper::f2(__zz_cib_h_);
+}
+#endif
+
+int C::f3() {
+  return __zz_cib_::C::__zz_cib_Helper::f3(__zz_cib_h_);
+}
+
 namespace __zz_cib_ {
 namespace A {
 struct __zz_cib_Delegator {

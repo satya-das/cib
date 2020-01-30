@@ -2756,14 +2756,17 @@ public:
   }
 
 private:
+  const CppHashIf* getConditionalAt(size_t i) const
+  {
+    return (i < data.size()) ? getEntry(i).cond : nullptr;
+  }
   void computeOffsetAndPadding()
   {
     const CppHashIf*    lastUsedConditional = nullptr;
     std::vector<size_t> subgroupStartIndices;
-    for (size_t i = 0; i < numEntry(); ++i)
+    for (size_t i = 0; i < numEntry() + 1; ++i)
     {
-      const auto& mtableEntry = getEntry(i);
-      const auto* conditional = mtableEntry.cond;
+      const auto* conditional = getConditionalAt(i);
       const auto  nextGroupStarts =
         (conditional && (conditional != lastUsedConditional) && (conditional->condType_ < CppHashIf::kElse));
       const auto nextSubGroupStarts =
@@ -2771,23 +2774,22 @@ private:
       const auto prevGroupEnded = (lastUsedConditional && !conditional);
       if (lastUsedConditional && (nextGroupStarts || prevGroupEnded))
       {
-        if (lastUsedConditional && (lastUsedConditional->condType_ != CppHashIf::kElse))
-        {
-          missingHashElses.emplace_back(std::make_unique<CppHashIf>(CppHashIf::kElse));
-          data.emplace(data.begin() + i, missingHashElses.back().get(), std::string());
-          subgroupStartIndices.push_back(i);
-          ++i;
-        }
         const auto currentGroupNumMembers  = i - subgroupStartIndices.front();
         auto       prevSubgroupsNumMembers = 0;
-        subgroupStartIndices.push_back(i); // Only to cater for last subgroup
-        for (size_t j = 0; j < subgroupStartIndices.size() - 1; ++j)
+        for (size_t j = 0; j < subgroupStartIndices.size(); ++j)
         {
-          const auto currentSubgroupNumMember               = (subgroupStartIndices[j + 1] - subgroupStartIndices[j]);
+          const auto subgroupEndIndex = ((j == (subgroupStartIndices.size() - 1)) ? i : subgroupStartIndices[j + 1]);
+          const auto currentSubgroupNumMember               = (subgroupEndIndex - subgroupStartIndices[j]);
           data[subgroupStartIndices[j]].subGroupStartOffset = prevSubgroupsNumMembers;
           data[subgroupStartIndices[j]].subGroupEndPadding =
             currentGroupNumMembers - currentSubgroupNumMember - data[subgroupStartIndices[j]].subGroupStartOffset;
           prevSubgroupsNumMembers += currentSubgroupNumMember;
+        }
+        const auto groupHasOnlyOneSubgroup = (subgroupStartIndices.size() == 1);
+        if (groupHasOnlyOneSubgroup)
+        {
+          missingHashElses.emplace_back(std::make_unique<CppHashIf>(CppHashIf::kElse));
+          data.emplace(data.begin() + i++, missingHashElses.back().get(), "", prevSubgroupsNumMembers - 1);
         }
 
         subgroupStartIndices.clear();
@@ -2846,7 +2848,7 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
       if (lastUsedConditional != conditional)
       {
         for (size_t j = 0; j < prevSubgroupEndPadding; ++j)
-          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (0)";
         prevSubgroupEndPadding = mtableEntry.subGroupEndPadding;
       }
       stm << sep;
@@ -2880,7 +2882,10 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
       sep = ",\n";
     }
     if (lastUsedConditional)
+    {
+      stm << '\n';
       gCppWriter.emitEndIf(stm);
+    }
 
     stm << '\n';
     stm << --indentation << "};\n";
