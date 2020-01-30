@@ -1499,9 +1499,10 @@ void CibCompound::emitDecl(std::ostream&    stm,
         if (!func.isOveriddable())
           continue;
       }
-      if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      if (lastUsedConditional && (lastUsedConditional != conditional)
+          && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
         gCppWriter.emitEndIf(stm);
-      if (conditional)
+      if (conditional && (conditional != lastUsedConditional))
         gCppWriter.emit(conditional, stm);
       lastUsedConditional = conditional;
 
@@ -2127,10 +2128,11 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
   for (auto func : needsBridging_)
   {
     const auto* conditional = getMemConditional(func);
-    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+    if (lastUsedConditional && (lastUsedConditional != conditional)
+        && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
       gCppWriter.emitEndIf(stm);
 
-    if (conditional)
+    if (conditional && (conditional != lastUsedConditional))
       gCppWriter.emit(conditional, stm);
     lastUsedConditional = conditional;
     emitFunctionInvokeHelper(stm, func, helper, cibParams, cibIdData, indentation);
@@ -2258,12 +2260,13 @@ void CibCompound::emitDefn(std::ostream&    stm,
     if (func.isPureVirtual() && !func.isDestructor())
       continue;
     const auto* conditional = getMemConditional(func);
-    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+    if (lastUsedConditional && (lastUsedConditional != conditional)
+        && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
       gCppWriter.emitEndIf(stm);
 
     stm << '\n'; // Start in new line.
 
-    if (conditional)
+    if (conditional && (conditional != lastUsedConditional))
       gCppWriter.emit(conditional, stm);
     lastUsedConditional = conditional;
     func.emitDefn(stm, asInline, helper, cibParams, this, cibIdData, indentation);
@@ -2550,10 +2553,11 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   for (auto func : needsBridging_)
   {
     const auto* conditional = getMemConditional(func);
-    if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+    if (lastUsedConditional && (lastUsedConditional != conditional)
+        && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
       gCppWriter.emitEndIf(stm);
 
-    if (conditional)
+    if (conditional && (conditional != lastUsedConditional))
       gCppWriter.emit(conditional, stm);
     lastUsedConditional = conditional;
     if (funcSignatures.insert(func.signature(helper)).second)
@@ -2638,15 +2642,87 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}\n\n";
 }
 
+/**
+For conditional APIs declared like below:
+<code>
+int f0();
+#if COND // Start of a conditional group, also start of 1st subgroup
+int f1();
+int f2();
+...
+#elif COND2 // OPTIONAL. Start of 2nd subgroup
+int f3();
+...
+#else // OPTIONAL. Start of 3rd subgroup
+int f4();
+int f5();
+int f6();
+...
+#endif // REQUIRED
+int f7();
+</code>
+
+We would like to create a method table like:
+<code>
+  static const __zz_cib_MTableEntry methodArray[] = {
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f0),
+#if COND
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f2),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+#elif COND2
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f3),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+#else
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (nullptr),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f6),
+#endif
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f7)
+  };
+</code>
+
+The aim is that each method will have unique method-id, irrespective of the fact
+whether they are part of enabled code or not.
+
+So, to make method table like above we need to know total number of methods in such a conditional group
+and also number of methods in each subgroup.
+For example below are the statistics of above mentioned conditional API group:
+Total number of group member     = 6.
+Number of members in subgroup #1 = 2.
+Number of members in subgroup #2 = 1.
+Number of members in subgroup #3 = 3.
+
+@Note: If there is no #else part then an #else with zero number of methods will be assumed.
+*/
 struct MethodTableEntryInfo
 {
-  MethodTableEntryInfo(const CppHashIf* _cond, CibMethodCAPIName _name)
+  MethodTableEntryInfo(const CppHashIf*  _cond,
+                       CibMethodCAPIName _name,
+                       size_t            _subGroupStartOffset = 0,
+                       size_t            _prevSubGroupPadding = 0)
     : cond(_cond)
     , name(std::move(_name))
+    , subGroupStartOffset(_subGroupStartOffset)
+    , subGroupEndPadding(_prevSubGroupPadding)
   {
   }
-  const CppHashIf*        cond{nullptr};
-  const CibMethodCAPIName name;
+
+  const CppHashIf*  cond{nullptr};
+  CibMethodCAPIName name;
+
+  size_t subGroupStartOffset{0};
+  size_t subGroupEndPadding{0};
 };
 
 class MethodTableBuilder
@@ -2664,6 +2740,8 @@ public:
       else
         data.emplace_back(nullptr, CibMethodCAPIName());
     });
+
+    computeOffsetAndPadding();
   }
 
 public:
@@ -2678,7 +2756,53 @@ public:
   }
 
 private:
-  std::vector<MethodTableEntryInfo> data;
+  void computeOffsetAndPadding()
+  {
+    const CppHashIf*    lastUsedConditional = nullptr;
+    std::vector<size_t> subgroupStartIndices;
+    for (size_t i = 0; i < numEntry(); ++i)
+    {
+      const auto& mtableEntry = getEntry(i);
+      const auto* conditional = mtableEntry.cond;
+      const auto  nextGroupStarts =
+        (conditional && (conditional != lastUsedConditional) && (conditional->condType_ < CppHashIf::kElse));
+      const auto nextSubGroupStarts =
+        (conditional != lastUsedConditional) && (conditional && (conditional->condType_ != CppHashIf::kEndIf));
+      const auto prevGroupEnded = (lastUsedConditional && !conditional);
+      if (lastUsedConditional && (nextGroupStarts || prevGroupEnded))
+      {
+        if (lastUsedConditional && (lastUsedConditional->condType_ != CppHashIf::kElse))
+        {
+          missingHashElses.emplace_back(std::make_unique<CppHashIf>(CppHashIf::kElse));
+          data.emplace(data.begin() + i, missingHashElses.back().get(), std::string());
+          subgroupStartIndices.push_back(i);
+          ++i;
+        }
+        const auto currentGroupNumMembers  = i - subgroupStartIndices.front();
+        auto       prevSubgroupsNumMembers = 0;
+        subgroupStartIndices.push_back(i); // Only to cater for last subgroup
+        for (size_t j = 0; j < subgroupStartIndices.size() - 1; ++j)
+        {
+          const auto currentSubgroupNumMember               = (subgroupStartIndices[j + 1] - subgroupStartIndices[j]);
+          data[subgroupStartIndices[j]].subGroupStartOffset = prevSubgroupsNumMembers;
+          data[subgroupStartIndices[j]].subGroupEndPadding =
+            currentGroupNumMembers - currentSubgroupNumMember - data[subgroupStartIndices[j]].subGroupStartOffset;
+          prevSubgroupsNumMembers += currentSubgroupNumMember;
+        }
+
+        subgroupStartIndices.clear();
+      }
+
+      if (nextSubGroupStarts)
+        subgroupStartIndices.push_back(i);
+
+      lastUsedConditional = conditional;
+    }
+  }
+
+private:
+  std::vector<MethodTableEntryInfo>       data;
+  std::vector<std::unique_ptr<CppHashIf>> missingHashElses;
 };
 
 void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
@@ -2713,28 +2837,45 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
 
     const char*        sep = "";
     MethodTableBuilder methodTableBuilder(this, cibIdMgr.getCibIdData(className));
-    const CppHashIf*   lastUsedConditional = nullptr;
-    CibMethodId        groupStartId        = 0;
+    const CppHashIf*   lastUsedConditional    = nullptr;
+    size_t             prevSubgroupEndPadding = 0;
     for (size_t i = 0; i < methodTableBuilder.numEntry(); ++i)
     {
       const auto& mtableEntry = methodTableBuilder.getEntry(i);
       const auto* conditional = mtableEntry.cond;
-      if (lastUsedConditional && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      if (lastUsedConditional != conditional)
+      {
+        for (size_t j = 0; j < prevSubgroupEndPadding; ++j)
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
+        prevSubgroupEndPadding = mtableEntry.subGroupEndPadding;
+      }
+      stm << sep;
+      if (lastUsedConditional && (lastUsedConditional != conditional)
+          && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
         gCppWriter.emitEndIf(stm);
 
-      if (conditional)
+      if (conditional && (conditional != lastUsedConditional))
+      {
         gCppWriter.emit(conditional, stm);
+        sep = "";
+        for (size_t j = 0; j < mtableEntry.subGroupStartOffset; ++j)
+        {
+          stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (0)";
+          sep = ",\n";
+        }
+        stm << sep;
+      }
       lastUsedConditional = conditional;
 
       if (!mtableEntry.name.empty())
       {
-        stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&";
+        stm << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (&";
         stm << "__zz_cib_Delegator::";
         stm << mtableEntry.name << ')';
       }
       else
       {
-        stm << sep << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (nullptr)";
+        stm << indentation << "reinterpret_cast<__zz_cib_MTableEntry> (0)";
       }
       sep = ",\n";
     }

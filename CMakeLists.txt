@@ -141,6 +141,7 @@ set(EXAMPLES
 	230-lib-deletes-proxy
 	240-operator-overloading
 	250-namespace
+	260-conditional-api-availability
 )
 add_subdirectory(examples)
 
