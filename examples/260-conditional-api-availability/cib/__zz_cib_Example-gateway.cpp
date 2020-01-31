@@ -6,6 +6,7 @@
 namespace __zz_cib_ { namespace A { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}
 namespace __zz_cib_ { namespace B { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}
 namespace __zz_cib_ { namespace C { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}
+namespace __zz_cib_ { namespace P { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}
 
 extern "C" __zz_cib_export
 const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Example_GetMethodTable(std::uint32_t classId)
@@ -17,6 +18,8 @@ const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Example_GetMethodT
     return __zz_cib_::B::__zz_cib_GetMethodTable();
   case __zz_cib_::C::__zz_cib_classid:
     return __zz_cib_::C::__zz_cib_GetMethodTable();
+  case __zz_cib_::P::__zz_cib_classid:
+    return __zz_cib_::P::__zz_cib_GetMethodTable();
   default:
     return nullptr;
   }

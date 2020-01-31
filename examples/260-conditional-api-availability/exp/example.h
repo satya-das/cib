@@ -65,4 +65,22 @@ private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(C, C);
 };
 
+class P
+{
+public:
+  P(P&& rhs);
+public:
+  P(P const & );
+  P();
+  virtual ~P();
+#if  COND // Start of a conditional group, also start of 1st subgroup
+  virtual int f1();
+  virtual int f2();
+#endif
+  virtual int f3();
+
+private:
+  __ZZ_CIB_CLASS_INTERNAL_DEF(P, P);
+};
+
 #include "__zz_cib_internal/example-postdef.h"

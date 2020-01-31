@@ -1194,7 +1194,20 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     stm << indentation++ << "struct __zz_cib_Delegator {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
 
+    const CppHashIf* lastUsedConditional = nullptr;
     for (auto func : allVirtuals_)
+    {
+      if (func.isFinal())
+        continue;
+
+      const auto* conditional = getMemConditional(func);
+      if (lastUsedConditional && (lastUsedConditional != conditional)
+          && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+        gCppWriter.emitEndIf(stm);
+
+      if (conditional && (conditional != lastUsedConditional))
+        gCppWriter.emit(conditional, stm);
+      lastUsedConditional = conditional;
       func.emitCAPIDefn(stm,
                         helper,
                         cibParams,
@@ -1202,6 +1215,10 @@ void CibCompound::emitImplSource(std::ostream&    stm,
                         cibIdData->getMethodCApiName(func.signature(helper)),
                         kPurposeProxyCApi,
                         indentation);
+    }
+    if (lastUsedConditional)
+      gCppWriter.emitEndIf(stm);
+
     CibFunctionHelper func = dtor();
     func.emitCAPIDefn(stm,
                       helper,
@@ -2312,14 +2329,27 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
         stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
     }
   }
+
+  const CppHashIf* lastUsedConditional = nullptr;
   for (auto func : allVirtuals_)
   {
-    if (!func.isFinal())
-    {
-      func.emitGenericProxyDefn(
-        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
-    }
+    if (func.isFinal())
+      continue;
+
+    const auto* conditional = getMemConditional(func);
+    if (lastUsedConditional && (lastUsedConditional != conditional)
+        && (!conditional || (conditional->condType_ < CppHashIf::kElse)))
+      gCppWriter.emitEndIf(stm);
+
+    if (conditional && (conditional != lastUsedConditional))
+      gCppWriter.emit(conditional, stm);
+    lastUsedConditional = conditional;
+    func.emitGenericProxyDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   }
+  if (lastUsedConditional)
+    gCppWriter.emitEndIf(stm);
+
   CibFunctionHelper func = dtor();
   func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }\n";

@@ -55,3 +55,16 @@ public:
 #endif // REQUIRED
   int f3() { return 3; }
 };
+
+class P
+{
+public:
+  P();
+  virtual ~P() {}
+
+#if COND // Start of a conditional group, also start of 1st subgroup
+  virtual int f1() { return 1; }
+  virtual int f2() { return 2; }
+#endif // REQUIRED
+  virtual int f3() { return 3; }
+};

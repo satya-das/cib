@@ -230,3 +230,104 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   return &methodTable;
 }
 }}
+namespace __zz_cib_ {
+namespace P {
+namespace __zz_cib_GenericProxy {
+class P : public ::P {
+  __zz_cib_PROXY* __zz_cib_proxy;
+  const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
+
+  const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+    return __zz_cib_mtbl_helper;
+  }
+public:
+  __ZZ_CIB_DELEGATOR_MEMBERS(P, ::P)
+
+  P(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+    : ::P::P()
+    , __zz_cib_proxy(proxy)
+    , __zz_cib_mtbl_helper(mtbl)
+  {}
+  P(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::P const & __zz_cib_param0)
+    : ::P::P(__zz_cib_param0)
+    , __zz_cib_proxy(proxy)
+    , __zz_cib_mtbl_helper(mtbl)
+  {}
+  int f3() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f3>(
+      __zz_cib_proxy);
+  }
+#if  COND // Start of a conditional group, also start of 1st subgroup
+  int f1() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f1>(
+      __zz_cib_proxy);
+  }
+  int f2() override {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f2>(
+      __zz_cib_proxy);
+  }
+#endif
+  ~P() override {
+    if (!__zz_cib_proxy) return;
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+      __zz_cib_proxy);
+  }
+  void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
+};
+}}}
+namespace __zz_cib_ {
+namespace P {
+namespace __zz_cib_Delegator {
+using __zz_cib_Delegatee = __zz_cib_::P::__zz_cib_GenericProxy::P;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
+static ::P* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new __zz_cib_::P::__zz_cib_GenericProxy::P(proxy, mtbl, *__zz_cib_obj);
+}
+static ::P* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
+  return new __zz_cib_::P::__zz_cib_GenericProxy::P(proxy, mtbl);
+}
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+  delete __zz_cib_obj;
+}
+#if  COND // Start of a conditional group, also start of 1st subgroup
+static int __zz_cib_decl f1(__zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->::P::f1();
+}
+static int __zz_cib_decl f2(__zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->::P::f2();
+}
+#endif
+static int __zz_cib_decl f3(__zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->::P::f3();
+}
+static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
+  __zz_cib_obj->__zz_cib_release_proxy();
+}
+}
+}}
+
+namespace __zz_cib_ {
+namespace P {
+const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+  static const __zz_cib_MTableEntry methodArray[] = {
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+#if  COND // Start of a conditional group, also start of 1st subgroup
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f2),
+#else 
+    reinterpret_cast<__zz_cib_MTableEntry> (0),
+    reinterpret_cast<__zz_cib_MTableEntry> (0),
+#endif
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
+  };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
+  return &methodTable;
+}
+}}

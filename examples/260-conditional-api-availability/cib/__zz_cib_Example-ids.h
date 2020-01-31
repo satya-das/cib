@@ -7,7 +7,7 @@ namespace __zz_cib_ { namespace A {
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 260 };
 }}}
 
 namespace __zz_cib_ { namespace B {
@@ -20,8 +20,18 @@ namespace __zz_cib_ { namespace C {
   enum { __zz_cib_classid = 258 };
 }}
 
+namespace __zz_cib_ { namespace P {
+  //#= FullClassName: ::P
+  enum { __zz_cib_classid = 259 };
+}}
+
+namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
+  //#= FullClassName: ::P::__zz_cib_GenericProxy
+  enum { __zz_cib_classid = 261 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 262 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
@@ -102,4 +112,38 @@ namespace __zz_cib_ { namespace C { namespace __zz_cib_methodid {
     __zz_cib_next_method_id = 6
   };
 }}}
+
+namespace __zz_cib_ { namespace P { namespace __zz_cib_methodid {
+  enum {
+    //#= P(::P const &);
+    __zz_cib_copy = 0,
+    //#= P();
+    __zz_cib_new = 1,
+    //#= ~P();
+    __zz_cib_delete = 2,
+    //#= int f1();
+    f1 = 3,
+    //#= int f2();
+    f2 = 4,
+    //#= int f3();
+    f3 = 5,
+    //#= __zz_cib_release_proxy
+    __zz_cib_release_proxy = 6,
+    __zz_cib_next_method_id = 7
+  };
+}}}
+
+namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
+  enum {
+    //#= int f3();
+    f3 = 0,
+    //#= int f1();
+    f1 = 1,
+    //#= int f2();
+    f2 = 2,
+    //#= ~P();
+    __zz_cib_delete = 3,
+    __zz_cib_next_method_id = 4
+  };
+}}}}
 
