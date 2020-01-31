@@ -1780,6 +1780,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     }
     for (auto func : allVirtuals_)
     {
+      if (!isPublic(func) && !isOverridable())
+        continue;
       if ((objNeedingBridge_.count(func) == 0))
       {
         if (virtSigs.count(func.signature(helper)) == 0)
