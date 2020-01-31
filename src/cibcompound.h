@@ -387,6 +387,8 @@ public:
   }
   bool isOverridable() const
   {
+    if (!isClassLike(this))
+      return false;
     if (compoundType() == CppCompoundType::kUnion)
       return false;
     return (!hasDtor() || !isPrivate(dtor())) && !hasAttr(kFinal);
