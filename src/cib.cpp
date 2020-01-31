@@ -295,9 +295,12 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         if (helper.isSmartPtr(var.get()))
         {
           if (resolvedType)
-            stm << varBaseType << "(" << var->name() << ")";
+            stm << varBaseType;
           else
-            stm << var->varType()->baseType() << "(" << var->name() << ")";
+            stm << var->varType()->baseType();
+          stm << "(";
+          emitParamName(stm, var, i);
+          stm << ")";
           break;
         }
         else if (resolvedType && isByValue(var))
@@ -2566,7 +2569,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   }();
 
   if (needsDelagatorClass())
-    stm << indentation++ << "struct __zz_cib_Delegator {\n";
+    stm << indentation++ << "struct __zz_cib_Delegator : public " << longName() << " {\n";
   else
     stm << indentation << "namespace __zz_cib_Delegator {\n";
 
