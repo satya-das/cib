@@ -76,6 +76,43 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
+namespace __zz_cib_Delegator {
+using __zz_cib_Delegatee = ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>;
+using __zz_cib_ThisClass = __zz_cib_Delegatee;
+static ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new __zz_cib_Delegatee(*__zz_cib_obj);
+}
+static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+  delete __zz_cib_obj;
+}
+static ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>* __zz_cib_decl __zz_cib_new(int _a1, int _a2) {
+  return new __zz_cib_Delegatee(_a1, _a2);
+}
+static int __zz_cib_decl get1(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->::TemplateClassWithTwoParamsAndDefaultParameter<int, int>::get1();
+}
+static int __zz_cib_decl get2(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return __zz_cib_obj->::TemplateClassWithTwoParamsAndDefaultParameter<int, int>::get2();
+}
+}
+}}
+
+namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
+const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+  static const __zz_cib_MTableEntry methodArray[] = {
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::get1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::get2)
+  };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+  return &methodTable;
+}
+}}
+namespace __zz_cib_ {
 namespace TemplateTest {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::TemplateTest;
@@ -95,6 +132,9 @@ static ::TemplateClassWithOneParam<int>* __zz_cib_decl getTemplateClassWithOnePa
 static ::TemplateClassWithTwoParams<int, float>* __zz_cib_decl getTemplateClassWithTwoParams(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new ::TemplateClassWithTwoParams<int, float>(__zz_cib_obj->::TemplateTest::getTemplateClassWithTwoParams());
 }
+static ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>* __zz_cib_decl getTemplateClassWithTwoParamsAndDefaultParameter(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>(__zz_cib_obj->::TemplateTest::getTemplateClassWithTwoParamsAndDefaultParameter());
+}
 }
 }}
 
@@ -106,9 +146,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getTemplateClassWithOneParam),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getTemplateClassWithTwoParams)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getTemplateClassWithTwoParams),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getTemplateClassWithTwoParamsAndDefaultParameter)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;
 }
 }}
