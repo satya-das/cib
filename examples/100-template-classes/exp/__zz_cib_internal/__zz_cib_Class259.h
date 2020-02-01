@@ -23,7 +23,7 @@ public:
   bool operator ==(Value const & rhs) const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Value<::Example::Int>, Example::__zz_cib_Class259);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(__ZZ_CIB_CLASS_NAME(Value<::Example::Int>), __ZZ_CIB_CLASS_NAME(Example::__zz_cib_Class259));
 };
 }
 

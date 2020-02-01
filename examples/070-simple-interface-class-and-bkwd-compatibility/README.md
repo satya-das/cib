@@ -80,8 +80,8 @@ There is no surprise that this new client will work with new library. But the ol
 The reason of this **ABI stability** is that virtual tables are not shared across components. As you know from many previous examples that CIB uses **MethodTable** to make cross component calls. Let's see the diff of MethodTable of new library:
 
 ```diff
---- ../060-simple-interface-class/cib/example.h.cpp
-+++ cib/example.h.cpp
+--- 060-simple-interface-class/cib/example.h.cpp
++++ 070-simple-interface-class-and-bkwd-compatibility/cib/example.h.cpp
 @@ -26,10 +26,15 @@
    int Func() override {
      using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);

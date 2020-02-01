@@ -4,6 +4,10 @@
 #  undef __ZZ_CIB_CLASS_INTERNAL_DEF
 #endif
 
+//! @def __ZZ_CIB_CLASS_NAME
+//! Macro that helps passing template class name as parameter to anoher macro.
+#define __ZZ_CIB_CLASS_NAME(...) __VA_ARGS__
+
 //! @def __ZZ_CIB_CLASS_INTERNAL_DEF
 //! Macro that allows cib to add it's hook in proxy classes
 //! in a minimally invasive way.

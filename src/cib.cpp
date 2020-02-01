@@ -1548,7 +1548,12 @@ void CibCompound::emitDecl(std::ostream&    stm,
       // Everything below this is for glue code
       stm << '\n';
       stm << --indentation << "private:\n";
-      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(" << name() << ", " << fullNsName() << ");\n";
+      stm << ++indentation << "__ZZ_CIB_CLASS_INTERNAL_DEF(";
+      if (isTemplateInstance())
+        stm << "__ZZ_CIB_CLASS_NAME(" << name() << "), __ZZ_CIB_CLASS_NAME(" << fullNsName() << ")";
+      else
+        stm << name() << ", " << fullNsName();
+      stm << ");\n";
     }
     stm << --indentation << "};\n";
     if (isTemplateInstance())

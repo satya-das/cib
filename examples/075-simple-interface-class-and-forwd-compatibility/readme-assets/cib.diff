@@ -1,5 +1,5 @@
---- ../060-simple-interface-class/cib/example.h.cpp
-+++ cib/example.h.cpp
+--- 060-simple-interface-class/cib/example.h.cpp
++++ 075-simple-interface-class-and-forwd-compatibility/cib/example.h.cpp
 @@ -26,10 +26,15 @@
    int Func() override {
      using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);

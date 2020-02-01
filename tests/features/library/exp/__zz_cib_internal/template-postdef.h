@@ -50,6 +50,12 @@ private:
       __zz_cib_obj
       );
   }
+  static __zz_cib_HANDLE* getTemplateClassWithTwoParams(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getTemplateClassWithTwoParams>(
+      __zz_cib_obj
+      );
+  }
   static ::TemplateTest* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::TemplateTest(h);
   }
@@ -75,3 +81,4 @@ public:
 };
 }}
 #include "__zz_cib_Class256.h"
+#include "__zz_cib_Class257.h"

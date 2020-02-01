@@ -30,3 +30,9 @@ __zz_cib_::TemplateTest::__zz_cib_Helper::getTemplateClassWithOneParam(__zz_cib_
 );
 }
 
+::TemplateClassWithTwoParams<int, float> TemplateTest::getTemplateClassWithTwoParams() const {
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_obj_from_handle(
+__zz_cib_::TemplateTest::__zz_cib_Helper::getTemplateClassWithTwoParams(__zz_cib_h_)
+);
+}
+

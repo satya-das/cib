@@ -77,7 +77,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 
 ```diff
 --- ../060-simple-interface-class/cib/example.h.cpp
-+++ cib/example.h.cpp
++++ 070-simple-interface-class-and-bkwd-compatibility/cib/example.h.cpp
 @@ -26,10 +26,15 @@
    int Func() override {
      using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);

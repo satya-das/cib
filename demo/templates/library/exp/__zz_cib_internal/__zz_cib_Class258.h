@@ -20,7 +20,7 @@ public:
   float get() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Value<float>, __zz_cib_Class258);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(__ZZ_CIB_CLASS_NAME(Value<float>), __ZZ_CIB_CLASS_NAME(__zz_cib_Class258));
 };
 
 

@@ -20,7 +20,7 @@ public:
   int get() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(TemplateClassWithOneParam<int>, __zz_cib_Class256);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(__ZZ_CIB_CLASS_NAME(TemplateClassWithOneParam<int>), __ZZ_CIB_CLASS_NAME(__zz_cib_Class256));
 };
 
 

@@ -88,7 +88,7 @@ add_executable(${CLIENTNAME}
 add_test(NAME ${CLIENTNAME} COMMAND ${TEST_CMD})
 
 add_custom_command(
-    OUTPUT ${LIB_GLUE_SRCS}
+    OUTPUT ${LIB_GLUE_SRCS} ${EXP_SOURCES}
     COMMAND echo Running cib...
     COMMAND ${CIBCMD}
     COMMAND echo Generated files: ${LIB_GLUE_SRCS}
