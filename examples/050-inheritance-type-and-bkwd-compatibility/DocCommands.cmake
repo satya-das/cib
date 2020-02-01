@@ -1,5 +1,5 @@
 
-set(${example}DiffFilesForReadMe ${example_ROOT}/header-diff.diff)
+set(${example}DiffFilesForReadMe ${example_ROOT}/readme-assets/header-diff.diff)
 add_custom_command(
     OUTPUT ${${example}DiffFilesForReadMe}
     # COMMAND mkdir -p ${example_ROOT}/readme-assets/

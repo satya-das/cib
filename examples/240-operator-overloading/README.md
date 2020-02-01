@@ -301,7 +301,10 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::A;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -320,7 +323,10 @@ static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
 }
 }}}
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -528,7 +534,10 @@ We will now move to see the content of file that was #include'd at the end of pr
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ {
+namespace Example {
+using namespace ::Example;
+namespace A {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
 private:
@@ -610,6 +619,9 @@ We will next see use of this class in implementation of methods.
 ```c++
 #include "example.h"
 
+namespace Example {
+}
+namespace Example {
 
 Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
@@ -636,6 +648,7 @@ Example::A::A()
 
 int Example::A::SomeFunc() {
   return __zz_cib_::Example::A::__zz_cib_Helper::SomeFunc(__zz_cib_h_);
+}
 }
 
 ```
