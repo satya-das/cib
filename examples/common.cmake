@@ -92,12 +92,10 @@ add_custom_command(
     COMMAND echo Running cib...
     COMMAND ${CIBCMD}
     COMMAND echo Generated files: ${LIB_GLUE_SRCS}
-    DEPENDS cib CibResources ${PUB_FILES} ${RESPATHS} ${DEPENDS}
+    DEPENDS cib CibResources ${PUB_FILES} ${DEPENDS}
     WORKING_DIRECTORY ${example_ROOT}
 )
 add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
-
-list(APPEND LCOV_TARGETS ${CLIENTNAME})
 
 target_include_directories(${CLIENTNAME}
     PRIVATE

@@ -19,8 +19,6 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-ids.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-mtable-helper.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-null-proxy-mgr.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-local-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-classId-repo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-proxy-mgr.h

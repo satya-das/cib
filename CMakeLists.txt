@@ -143,6 +143,7 @@ set(EXAMPLES
 	250-namespace
 	260-conditional-api-availability
 )
+
 add_subdirectory(examples)
 
 add_subdirectory(demo)
@@ -178,3 +179,14 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 else()
   message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
+
+# It is expected that cib is run for all targets already
+add_custom_target(CibCoverage echo "Running lcov ..."
+    COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o cib.info || echo "Ignore" >/dev/null
+    COMMAND lcov --remove cib.info '*cppparser*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '*boost/*' --output-file cib.info
+    COMMAND lcov --remove cib.info '/usr/*' --output-file cib.info
+    COMMAND genhtml cib.info
+)

@@ -23,8 +23,6 @@ set(LIBRARY_CIB_FILES
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-ids.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-mtable-helper.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-null-proxy-mgr.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-local-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-classId-repo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_FeatureTests-proxy-mgr.h
@@ -47,7 +45,7 @@ add_custom_command(
 	COMMAND echo Running cib...
 	COMMAND ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m FeatureTests
 	COMMAND echo Generated files: ${CIB_OUTPUT}
-	DEPENDS cib ${LIBRARY_PUB_FILES}
+	DEPENDS cib CibResources ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

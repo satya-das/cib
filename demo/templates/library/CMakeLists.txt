@@ -20,8 +20,6 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-ids.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-mtable-helper.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-null-proxy-mgr.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-local-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-classId-repo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy-mgr.h
