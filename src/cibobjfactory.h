@@ -29,8 +29,8 @@
 class CibObjFactory : public CppObjFactory
 {
 public:
-  CppCompound* CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const override;
+  // CppCompound* CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const override;
   CppCompound* CreateCompound(CppAccessType accessType, CppCompoundType type) const override;
-  CppCompound* CreateCompound(std::string name, CppCompoundType type) const override;
-  CppCompound* CreateCompound(CppCompoundType type) const override;
+  // CppCompound* CreateCompound(std::string name, CppCompoundType type) const override;
+  // CppCompound* CreateCompound(CppCompoundType type) const override;
 };

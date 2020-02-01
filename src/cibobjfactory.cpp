@@ -24,22 +24,22 @@
 #include "cibobjfactory.h"
 #include "cibcompound.h"
 
-CppCompound* CibObjFactory::CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const
-{
-  return new CibCompound(std::move(name), accessType, type);
-}
+// CppCompound* CibObjFactory::CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const
+// {
+//   return new CibCompound(std::move(name), accessType, type);
+// }
 
 CppCompound* CibObjFactory::CreateCompound(CppAccessType accessType, CppCompoundType type) const
 {
   return new CibCompound(accessType, type);
 }
 
-CppCompound* CibObjFactory::CreateCompound(std::string name, CppCompoundType type) const
-{
-  return new CibCompound(std::move(name), type);
-}
+// CppCompound* CibObjFactory::CreateCompound(std::string name, CppCompoundType type) const
+// {
+//   return new CibCompound(std::move(name), type);
+// }
 
-CppCompound* CibObjFactory::CreateCompound(CppCompoundType type) const
-{
-  return new CibCompound(type);
-}
+// CppCompound* CibObjFactory::CreateCompound(CppCompoundType type) const
+// {
+//   return new CibCompound(type);
+// }
