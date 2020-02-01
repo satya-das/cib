@@ -1200,7 +1200,7 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     const CppHashIf* lastUsedConditional = nullptr;
     for (auto func : allVirtuals_)
     {
-      if (func.isFinal())
+      if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
         continue;
 
       const auto* conditional = getMemConditional(func);
@@ -1783,6 +1783,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     }
     for (auto func : allVirtuals_)
     {
+      if (isPrivate(func) && !func.isPureVirtual())
+        continue;
       if (!isPublic(func) && !isOverridable())
         continue;
       if ((objNeedingBridge_.count(func) == 0))
@@ -2338,7 +2340,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   const CppHashIf* lastUsedConditional = nullptr;
   for (auto func : allVirtuals_)
   {
-    if (func.isFinal())
+    if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
       continue;
 
     const auto* conditional = getMemConditional(func);
@@ -2414,9 +2416,10 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   auto* cibIdData = cibIdMgr.getCibIdData(longName());
   for (auto func : allVirtuals_)
   {
-    if (!func.isFinal())
-      func.emitGenericDefn(
-        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+    if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
+      continue;
+    func.emitGenericDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
   }
   CibFunctionHelper func = dtor();
   func.emitGenericDefn(

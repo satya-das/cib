@@ -57,11 +57,6 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivatePureVirtual>(
       __zz_cib_proxy);
   }
-  int PrivateVirtual() override {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::PrivateVirtual>(
-      __zz_cib_proxy);
-  }
   ~IF() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
@@ -103,9 +98,6 @@ struct __zz_cib_Delegator : public ::IF {
   static int __zz_cib_decl PrivatePureVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_obj->PrivatePureVirtual();
   }
-  static int __zz_cib_decl PrivateVirtual(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_obj->PrivateVirtual();
-  }
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::IF** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
@@ -136,11 +128,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PublicNonVirtual),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivatePureVirtual),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::PrivateVirtual),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 12 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 11 };
   return &methodTable;
 }
 }}

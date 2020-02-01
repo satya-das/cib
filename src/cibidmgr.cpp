@@ -245,7 +245,11 @@ void CibIdMgr::assignIds(CibCompound*     compound,
         cibIdData->addOrUpdateMethod(std::move(sig), func.procName(), func);
     };
     for (auto& func : methods)
+    {
+      if (isPrivate(func) && !func.isPureVirtual())
+        continue;
       addMethod(func);
+    }
     if (forGenericProxy)
       addMethod(compound->dtor());
     if (!forGenericProxy)

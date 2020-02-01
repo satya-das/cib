@@ -36,7 +36,6 @@ class OverriddenIF : public IF
 {
 private:
   int PrivatePureVirtual() override { return 1000; }
-  int PrivateVirtual() override     { return 2000; }
 
 protected:
   int ProtectedPureVirtual() override
@@ -63,7 +62,7 @@ TEST_CASE("Virtual methods of all access type should be exported.")
 
   IF* pIF = &ifObj;
 
-  CHECK(pIF->PublicNonVirtual() == 3000 + 4000 + 400 + 400 + 400 + 1000 + 2000 + 200);
+  CHECK(pIF->PublicNonVirtual() == 3000 + 4000 + 400 + 400 + 400 + 1000 + 100 + 200);
 
   CHECK(pIF->IF::PublicVirtual() == 500);
   CHECK(pIF->PublicVirtual() == 4000);

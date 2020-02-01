@@ -66,12 +66,6 @@ private:
         );
     }
   }
-  static int PrivateVirtual(__zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PrivateVirtual>(
-      __zz_cib_obj
-      );
-  }
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
     return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
