@@ -73,7 +73,7 @@ void A::d(::I const * p) const {
 namespace __zz_cib_ {
 namespace I {
 namespace __zz_cib_Generic {
-class I : public ::I {
+class __zz_cib : public ::I {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -82,10 +82,10 @@ class I : public ::I {
       __zz_cib_classid));
     return mtableHelper;
   }
-  explicit I(__zz_cib_HANDLE* h) : ::I(h), __zz_cib_h_(h) {}
+  explicit __zz_cib(__zz_cib_HANDLE* h) : ::I(h), __zz_cib_h_(h) {}
 public:
   static ::I* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
-    return new I(h);
+    return new __zz_cib(h);
   }
   int f() const override {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
@@ -98,7 +98,7 @@ public:
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
   }
-  return ::__zz_cib_::I::__zz_cib_Generic::I::__zz_cib_from_handle(h);
+  return ::__zz_cib_::I::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
 namespace I {

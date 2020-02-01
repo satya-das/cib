@@ -103,7 +103,7 @@ A::A()
 namespace __zz_cib_ {
 namespace Facade {
 namespace __zz_cib_Generic {
-class Facade : public ::Facade {
+class __zz_cib : public ::Facade {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -112,10 +112,10 @@ class Facade : public ::Facade {
       __zz_cib_classid));
     return mtableHelper;
   }
-  explicit Facade(__zz_cib_HANDLE* h) : ::Facade(h), __zz_cib_h_(h) {}
+  explicit __zz_cib(__zz_cib_HANDLE* h) : ::Facade(h), __zz_cib_h_(h) {}
 public:
   static ::Facade* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
-    return new Facade(h);
+    return new __zz_cib(h);
   }
   void F() override {
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -130,7 +130,7 @@ public:
     return __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_from_handle(h);
   default: break;
   }
-  return ::__zz_cib_::Facade::__zz_cib_Generic::Facade::__zz_cib_from_handle(h);
+  return ::__zz_cib_::Facade::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
 namespace Facade {

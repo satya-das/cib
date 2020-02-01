@@ -11,7 +11,7 @@ using namespace ::Example;
 namespace A {
 struct __zz_cib_Delegator;
 namespace __zz_cib_ProtectedAccessor {
-class A : public ::Example::A {
+class __zz_cib : public ::Example::A {
   friend struct __zz_cib_::Example::A::__zz_cib_Delegator;
 public:
   using ::Example::A::A;
@@ -22,7 +22,7 @@ namespace Example {
 using namespace ::Example;
 namespace A {
 struct __zz_cib_Delegator : public ::Example::A {
-  using __zz_cib_Delegatee = __zz_cib_ProtectedAccessor::A;
+  using __zz_cib_Delegatee = __zz_cib_ProtectedAccessor::__zz_cib;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);

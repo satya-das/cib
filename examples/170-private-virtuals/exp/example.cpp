@@ -77,7 +77,7 @@ int A::SetIF(::IF* pIF) {
 namespace __zz_cib_ {
 namespace IF {
 namespace __zz_cib_Generic {
-class IF : public ::IF {
+class __zz_cib : public ::IF {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -86,10 +86,10 @@ class IF : public ::IF {
       __zz_cib_classid));
     return mtableHelper;
   }
-  explicit IF(__zz_cib_HANDLE* h) : ::IF(h), __zz_cib_h_(h) {}
+  explicit __zz_cib(__zz_cib_HANDLE* h) : ::IF(h), __zz_cib_h_(h) {}
 public:
   static ::IF* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
-    return new IF(h);
+    return new __zz_cib(h);
   }
   int ProtectedVirtual() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -122,7 +122,7 @@ public:
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
   }
-  return ::__zz_cib_::IF::__zz_cib_Generic::IF::__zz_cib_from_handle(h);
+  return ::__zz_cib_::IF::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
 namespace IF {

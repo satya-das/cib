@@ -9,7 +9,7 @@
 namespace __zz_cib_ {
 namespace A {
 namespace __zz_cib_GenericProxy {
-class A : public ::A {
+class __zz_cib : public ::A {
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -17,14 +17,14 @@ class A : public ::A {
     return __zz_cib_mtbl_helper;
   }
 public:
-  __ZZ_CIB_DELEGATOR_MEMBERS(A, ::A)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::A)
 
-  A(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::A::A()
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  A(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::A const & __zz_cib_param0)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::A const & __zz_cib_param0)
     : ::A::A(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -51,7 +51,7 @@ public:
       __zz_cib_proxy,
       &floatVal);
   }
-  ~A() override {
+  ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
@@ -63,13 +63,13 @@ public:
 namespace __zz_cib_ {
 namespace A {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::A::__zz_cib_GenericProxy::A;
+using __zz_cib_Delegatee = __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl);
+  return new __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static ::A* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl, *__zz_cib_obj);
+  return new __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, *__zz_cib_obj);
 }
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;

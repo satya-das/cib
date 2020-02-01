@@ -142,7 +142,7 @@ const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 namespace __zz_cib_ {
 namespace Interface2 {
 namespace __zz_cib_Generic {
-class Interface2 : public ::Interface2 {
+class __zz_cib : public ::Interface2 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -151,10 +151,10 @@ class Interface2 : public ::Interface2 {
       __zz_cib_classid));
     return mtableHelper;
   }
-  explicit Interface2(__zz_cib_HANDLE* h) : ::Interface2(h), __zz_cib_h_(h) {}
+  explicit __zz_cib(__zz_cib_HANDLE* h) : ::Interface2(h), __zz_cib_h_(h) {}
 public:
   static ::Interface2* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
-    return new Interface2(h);
+    return new __zz_cib(h);
   }
   int f() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -167,7 +167,7 @@ public:
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
   }
-  return ::__zz_cib_::Interface2::__zz_cib_Generic::Interface2::__zz_cib_from_handle(h);
+  return ::__zz_cib_::Interface2::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
 namespace Interface2 {
@@ -205,7 +205,7 @@ const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
 namespace __zz_cib_ {
 namespace Interface3 {
 namespace __zz_cib_Generic {
-class Interface3 : public ::Interface3 {
+class __zz_cib : public ::Interface3 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
   using __zz_cib_TYPE = __zz_cib_HANDLE;
@@ -214,10 +214,10 @@ class Interface3 : public ::Interface3 {
       __zz_cib_classid));
     return mtableHelper;
   }
-  explicit Interface3(__zz_cib_HANDLE* h) : ::Interface3(h), __zz_cib_h_(h) {}
+  explicit __zz_cib(__zz_cib_HANDLE* h) : ::Interface3(h), __zz_cib_h_(h) {}
 public:
   static ::Interface3* __zz_cib_from_handle(__zz_cib_HANDLE* h) {
-    return new Interface3(h);
+    return new __zz_cib(h);
   }
   int g() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -230,7 +230,7 @@ public:
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
   }
-  return ::__zz_cib_::Interface3::__zz_cib_Generic::Interface3::__zz_cib_from_handle(h);
+  return ::__zz_cib_::Interface3::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
 namespace Interface3 {

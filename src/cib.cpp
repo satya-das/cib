@@ -471,7 +471,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     if (callingOwner->needsGenericProxyDefinition())
     {
-      stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_GenericProxy::" << callingOwner->name()
+      stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_GenericProxy::__zz_cib"
           << "(proxy, mtbl";
       if (hasParams())
         stm << ", ";
@@ -743,7 +743,7 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
   }
   else if (isConstructor() && (!isCopyConstructor() || getOwner()->isCopyCtorCallable()))
   {
-    stm << indentation << funcName() << "(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl";
+    stm << indentation << "__zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl";
     if (hasParams())
       stm << ", ";
     emitArgsForDecl(stm, helper, true, kPurposeGenericProxy);
@@ -772,7 +772,10 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     return; // base class dtor takes care of everything.
 
   stm << indentation;
-  emitSignature(stm, helper, purpose);
+  if (isDestructor())
+    stm << "~__zz_cib()";
+  else
+    emitSignature(stm, helper, purpose);
   stm << " override";
   stm << " {\n";
   ++indentation;
@@ -1193,7 +1196,6 @@ void CibCompound::emitImplSource(std::ostream&    stm,
   if (needsGenericProxyDefinition() && cibIdData)
   {
     emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-    // stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     stm << indentation++ << "struct __zz_cib_Delegator {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << longName() << ";\n";
 
@@ -1605,7 +1607,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
     stm << indentation << "}\n";
   }
 
-  stm << indentation << "return ::__zz_cib_" << longNsName() << "::__zz_cib_Generic::" << name()
+  stm << indentation << "return ::__zz_cib_" << longNsName() << "::__zz_cib_Generic::__zz_cib"
       << "::__zz_cib_from_handle(h);\n";
   stm << --indentation << "}\n";
 }
@@ -2320,7 +2322,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   if (needsDelagatorClass())
     stm << "struct __zz_cib_Delegator;\n";
   stm << "namespace __zz_cib_GenericProxy {\n";
-  stm << indentation << "class " << name() << " : public " << longName() << " {\n";
+  stm << indentation << "class __zz_cib : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_PROXY* __zz_cib_proxy;\n";
   stm << indentation << "const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;\n\n";
   stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {\n";
@@ -2330,15 +2332,14 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
     stm << indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   --indentation;
   stm << indentation << "public:\n";
-  stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(" << name() << ", " << longName() << ")\n\n";
+  stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, " << longName() << ")\n\n";
   auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
   for (auto ctor : ctors())
   {
     CibFunctionHelper func = ctor;
     if (!isPrivate(ctor))
     {
-      func.emitGenericProxyDefn(
-        stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+      func.emitGenericProxyDefn(stm, helper, cibParams, "__zz_cib", indentation);
     }
   }
 
@@ -2383,7 +2384,7 @@ void CibCompound::emitProtectedAccessor(std::ostream&    stm,
   // stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
   stm << "struct __zz_cib_Delegator;\n";
   stm << "namespace __zz_cib_ProtectedAccessor {\n";
-  stm << indentation << "class " << name() << " : public " << longName() << " {\n";
+  stm << indentation << "class __zz_cib : public " << longName() << " {\n";
   stm << ++indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "using " << longName() << "::" << name() << ";\n";
@@ -2401,9 +2402,8 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
     return;
 
   emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-  // stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName()
   stm << "namespace __zz_cib_Generic {\n";
-  stm << indentation << "class " << name() << " : public " << longName() << " {\n";
+  stm << indentation << "class __zz_cib : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_HANDLE* __zz_cib_h_;\n\n";
   stm << indentation << "using __zz_cib_TYPE = __zz_cib_HANDLE;\n";
   stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
@@ -2412,10 +2412,10 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "explicit " << name() << "(__zz_cib_HANDLE* h) : " << longName() << "(h), __zz_cib_h_(h) {}\n";
+  stm << indentation << "explicit __zz_cib(__zz_cib_HANDLE* h) : " << longName() << "(h), __zz_cib_h_(h) {}\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "static " << longName() << "* __zz_cib_from_handle(__zz_cib_HANDLE* h) {\n";
-  stm << ++indentation << "return new " << name() << "(h);\n";
+  stm << ++indentation << "return new __zz_cib(h);\n";
   stm << --indentation << "}\n";
 
   auto* cibIdData = cibIdMgr.getCibIdData(longName());
@@ -2566,12 +2566,11 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   else if (needsDelagatorClass())
     emitProtectedAccessor(stm, helper, cibParams, cibIdMgr, indentation);
   emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-  // stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
-  auto delegatee = [&]() {
+  auto delegatee = [&]() -> std::string {
     if (needsGenericProxyDefinition())
-      return "__zz_cib_" + longNsName() + "::__zz_cib_GenericProxy::" + name();
+      return "__zz_cib_" + longNsName() + "::__zz_cib_GenericProxy::__zz_cib";
     else if (needsDelagatorClass())
-      return "__zz_cib_ProtectedAccessor::" + name();
+      return "__zz_cib_ProtectedAccessor::__zz_cib";
     else
       return longName();
   }();
@@ -2669,10 +2668,6 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "static void __zz_cib_decl " << cibIdData->getMethodCApiName("__zz_cib_release_proxy") << "("
         << "__zz_cib_Delegatee* __zz_cib_obj) {\n";
     ++indentation;
-    // stm << indentation << "auto unknownProxy = dynamic_cast<__zz_cib_" << longNsName()
-    //     << "::__zz_cib_GenericProxy::" << name() << "*>(__zz_cib_obj);\n";
-    // stm << indentation << "if (unknownProxy)\n";
-    // ++indentation;
     stm << indentation << "__zz_cib_obj->__zz_cib_release_proxy();\n";
     --indentation;
     --indentation;
@@ -2872,7 +2867,6 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
   if (needsBridging())
   {
     emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-    // stm << indentation << wrappingNsNamespaceDeclarations(cibParams) << " namespace " << nsName() << " {\n";
     if (forProxy)
       stm << "static ";
     stm << "const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {\n";

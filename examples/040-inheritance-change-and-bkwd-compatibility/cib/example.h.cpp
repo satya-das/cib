@@ -15,7 +15,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 namespace __zz_cib_ {
 namespace A {
 namespace __zz_cib_GenericProxy {
-class A : public ::A {
+class __zz_cib : public ::A {
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -23,14 +23,14 @@ class A : public ::A {
     return __zz_cib_mtbl_helper;
   }
 public:
-  __ZZ_CIB_DELEGATOR_MEMBERS(A, ::A)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::A)
 
-  A(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::A::A()
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  A(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::A const & __zz_cib_param0)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::A const & __zz_cib_param0)
     : ::A::A(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -45,7 +45,7 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::AnotherVirtFunc>(
       __zz_cib_proxy);
   }
-  ~A() override {
+  ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
@@ -57,13 +57,13 @@ public:
 namespace __zz_cib_ {
 namespace A {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::A::__zz_cib_GenericProxy::A;
+using __zz_cib_Delegatee = __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::A* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl, *__zz_cib_obj);
+  return new __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, *__zz_cib_obj);
 }
 static ::A* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::A::__zz_cib_GenericProxy::A(proxy, mtbl);
+  return new __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static int __zz_cib_decl AnotherVirtFunc(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::AnotherVirtFunc();
@@ -102,7 +102,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 namespace I1 {
 namespace __zz_cib_GenericProxy {
-class I1 : public ::I1 {
+class __zz_cib : public ::I1 {
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -110,14 +110,14 @@ class I1 : public ::I1 {
     return __zz_cib_mtbl_helper;
   }
 public:
-  __ZZ_CIB_DELEGATOR_MEMBERS(I1, ::I1)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::I1)
 
-  I1(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::I1 const & __zz_cib_param0)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::I1 const & __zz_cib_param0)
     : ::I1::I1(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  I1(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::I1::I1()
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -127,7 +127,7 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::F>(
       __zz_cib_proxy);
   }
-  ~I1() override {
+  ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
@@ -139,13 +139,13 @@ public:
 namespace __zz_cib_ {
 namespace I1 {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::I1::__zz_cib_GenericProxy::I1;
+using __zz_cib_Delegatee = __zz_cib_::I1::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I1* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::I1::__zz_cib_GenericProxy::I1(proxy, mtbl);
+  return new __zz_cib_::I1::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static ::I1* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_::I1::__zz_cib_GenericProxy::I1(proxy, mtbl, *__zz_cib_obj);
+  return new __zz_cib_::I1::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, *__zz_cib_obj);
 }
 static int __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::I1::F();
@@ -176,7 +176,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 namespace I2 {
 namespace __zz_cib_GenericProxy {
-class I2 : public ::I2 {
+class __zz_cib : public ::I2 {
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -184,14 +184,14 @@ class I2 : public ::I2 {
     return __zz_cib_mtbl_helper;
   }
 public:
-  __ZZ_CIB_DELEGATOR_MEMBERS(I2, ::I2)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::I2)
 
-  I2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::I2 const & __zz_cib_param0)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::I2 const & __zz_cib_param0)
     : ::I2::I2(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  I2(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::I2::I2()
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -201,7 +201,7 @@ public:
     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::G>(
       __zz_cib_proxy);
   }
-  ~I2() override {
+  ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
@@ -213,13 +213,13 @@ public:
 namespace __zz_cib_ {
 namespace I2 {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::I2::__zz_cib_GenericProxy::I2;
+using __zz_cib_Delegatee = __zz_cib_::I2::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I2* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::I2::__zz_cib_GenericProxy::I2(proxy, mtbl);
+  return new __zz_cib_::I2::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static ::I2* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_::I2::__zz_cib_GenericProxy::I2(proxy, mtbl, *__zz_cib_obj);
+  return new __zz_cib_::I2::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, *__zz_cib_obj);
 }
 static int __zz_cib_decl G(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::I2::G();
@@ -250,7 +250,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 namespace B {
 namespace __zz_cib_GenericProxy {
-class B : public ::B {
+class __zz_cib : public ::B {
   __zz_cib_PROXY* __zz_cib_proxy;
   const __zz_cib_MethodTableHelper __zz_cib_mtbl_helper;
 
@@ -258,14 +258,14 @@ class B : public ::B {
     return __zz_cib_mtbl_helper;
   }
 public:
-  __ZZ_CIB_DELEGATOR_MEMBERS(B, ::B)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::B)
 
-  B(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl)
     : ::B::B()
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  B(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::B const & __zz_cib_param0)
+  __zz_cib(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, ::B const & __zz_cib_param0)
     : ::B::B(__zz_cib_param0)
     , __zz_cib_proxy(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -296,16 +296,16 @@ public:
 namespace __zz_cib_ {
 namespace B {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::B::__zz_cib_GenericProxy::B;
+using __zz_cib_Delegatee = __zz_cib_::B::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::B* __zz_cib_decl __zz_cib_copy(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_::B::__zz_cib_GenericProxy::B(proxy, mtbl, *__zz_cib_obj);
+  return new __zz_cib_::B::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, *__zz_cib_obj);
 }
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
 }
 static ::B* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::B::__zz_cib_GenericProxy::B(proxy, mtbl);
+  return new __zz_cib_::B::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static int __zz_cib_decl VirtFunc(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::B::VirtFunc();
