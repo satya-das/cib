@@ -147,6 +147,8 @@ add_subdirectory(examples)
 
 add_subdirectory(demo)
 
+add_subdirectory(tests)
+
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 	add_custom_command(
 		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.md
