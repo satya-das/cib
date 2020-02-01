@@ -96,12 +96,8 @@ add_custom_command(
     WORKING_DIRECTORY ${example_ROOT}
 )
 add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
-add_custom_target(${example}_lcov ${CMAKE_BINARY_DIR}/examples/${example}
-    COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o ${example}.info || echo "Ignore" >/dev/null
-    DEPENDS ${CLIENTNAME}
-)
-string(CONCAT FINAL_LCOV_CMD ${FINAL_LCOV_CMD} " -a ${example}.info")
-list(APPEND LCOV_TARGETS ${example}_lcov)
+
+list(APPEND LCOV_TARGETS ${CLIENTNAME})
 
 target_include_directories(${CLIENTNAME}
     PRIVATE

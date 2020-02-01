@@ -20,9 +20,7 @@ foreach(example ${EXAMPLES})
 endforeach()
 
 add_custom_target(CibCoverage echo "Running lcov to create final cib.info ..."
-    COMMAND echo "${FINAL_LCOV_CMD}" >run-lcov.sh
-    COMMAND chmod +x run-lcov.sh
-    COMMAND "./run-lcov.sh"
+    COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o cib.info || echo "Ignore" >/dev/null
     COMMAND lcov --remove cib.info '*cppparser*' --output-file cib.info
     COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
     COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
