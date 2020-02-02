@@ -36,7 +36,9 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
     h = 5,
     //#= int i(::I*) const;
     i = 6,
-    __zz_cib_next_method_id = 7
+    //#= int j(std::unique_ptr<I>*);
+    j = 7,
+    __zz_cib_next_method_id = 8
   };
 }}}
 
@@ -44,17 +46,19 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid 
   enum {
     //#= I(std::unique_ptr<int>);
     __zz_cib_new = 0,
+    //#= I();
+    __zz_cib_new_1 = 1,
     //#= ~I();
-    __zz_cib_delete = 1,
+    __zz_cib_delete = 2,
     //#= int f() const;
-    f = 2,
+    f = 3,
     //#= std::unique_ptr<int> g() const;
-    g = 3,
+    g = 4,
     //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 4,
+    __zz_cib_get_class_id = 5,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_release_proxy = 6,
+    __zz_cib_next_method_id = 7
   };
 }}}
 

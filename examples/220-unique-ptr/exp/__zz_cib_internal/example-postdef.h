@@ -35,6 +35,12 @@ private:
       __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
       std::move(pi));
   }
+  static __zz_cib_TYPE* __zz_cib_new_1(::I* __zz_cib_proxy) {
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_1>(
+      __zz_cib_proxy, __zz_cib_get_proxy_method_table()
+      );
+  }
   static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
@@ -147,6 +153,12 @@ private:
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::i>(
       __zz_cib_obj,
       p);
+  }
+  static int j(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE** pp) {
+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE** pp);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::j>(
+      __zz_cib_obj,
+      std::move(pp));
   }
   static ::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::A(h);

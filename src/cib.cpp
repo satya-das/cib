@@ -287,13 +287,13 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         }
         if (helper.isSmartPtr(var.get()))
         {
-          stm << "__zz_cib_::__zz_cib_to_raw_ptr(";
+          stm << "__zz_cib_::__zz_cib_make_smart_ptr_helper(";
           if (isByRef(var) || isByRValueRef(var))
             stm << '&';
         }
         emitParamName(stm, var, i);
         if (helper.isSmartPtr(var.get()))
-          stm << ')';
+          stm << ").convert()";
         if (resolvedType)
           stm << ')';
         break;

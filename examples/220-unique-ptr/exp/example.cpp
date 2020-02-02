@@ -15,7 +15,11 @@ I::I(I&& rhs)
 }
 
 I::I(std::unique_ptr<int> pi)
-  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this, __zz_cib_::__zz_cib_to_raw_ptr(pi)))
+  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this, __zz_cib_::__zz_cib_make_smart_ptr_helper(pi).convert()))
+{}
+
+I::I()
+  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new_1(this))
 {}
 
 I::~I() {
@@ -61,11 +65,15 @@ std::unique_ptr<I> A::f() const {
 }
 
 int A::h(std::unique_ptr<I> p) const {
-  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_to_raw_ptr(p)));
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_make_smart_ptr_helper(p).convert()));
 }
 
 int A::i(::I* p) const {
   return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::i(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(p));
+}
+
+int A::j(std::unique_ptr<I>* pp) {
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::j(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_make_smart_ptr_helper(pp).convert()));
 }
 
 namespace __zz_cib_ {

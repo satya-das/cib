@@ -7,6 +7,7 @@ class I
 {
 public:
   I(std::unique_ptr<int> pi) {}
+  I() {}
   virtual ~I() {}
 public:
   virtual int f() const = 0;
@@ -15,22 +16,26 @@ public:
 
 class A
 {
+  class M : public I {
+    std::unique_ptr<int> pi_;
+
+    int f() const override {
+      return *pi_;
+    }
+
+    std::unique_ptr<int> g() const override {
+      return nullptr;
+    }
+
+  public:
+    M(std::unique_ptr<int> pi) : pi_(std::move(pi)) {
+    }
+  };
+
 public:
   A();
 public:
   std::unique_ptr<I> f() const {
-    class M : public I {
-      int f() const override {
-        return 909;
-      }
-
-      std::unique_ptr<int> g() const override {
-        return nullptr;
-      }
-
-      public:
-        using I::I;
-    };
     return std::make_unique<M>(std::make_unique<int>(5));
   }
 
@@ -46,5 +51,11 @@ public:
 
   int i(I* p) const {
     return p->f();
+  }
+
+  int j(std::unique_ptr<I>* pp) {
+    *pp = std::make_unique<M>(std::make_unique<int>(909));
+
+    return 25;
   }
 };

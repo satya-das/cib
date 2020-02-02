@@ -8,7 +8,7 @@ TEST_CASE("Client receives unique_ptr from library")
 {
   A a;
   auto p = a.f();
-  CHECK(p->f() == 909);
+  CHECK(p->f() == 5);
 }
 
 TEST_CASE("Client passes unique_ptr to library")
@@ -28,4 +28,13 @@ TEST_CASE("Client passes unique_ptr to library")
   auto p = std::make_unique<N>(std::make_unique<int>(10));
   A a;
   CHECK(a.h(std::move(p)) == 1023);
+}
+
+TEST_CASE("Client passes pointer to unique ptr")
+{
+  std::unique_ptr<I> p;
+  A a;
+  CHECK(a.j(&p) == 25);
+  CHECK(p->f() == 909);
+
 }

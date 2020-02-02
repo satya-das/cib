@@ -183,7 +183,7 @@ auto __zz_cib_make_smart_ptr_helper(SmartPtrT& smartPtr)
 template <typename SmartPtrT, typename RawPtrBaseT>
 auto __zz_cib_make_smart_ptr_helper(SmartPtrT* smartPtr)
 {
-  return __zz_cib_smart_to_raw_helper<SmartPtrT, typename std::decay<RawPtrBaseT>::type>(smartPtr);
+  return __zz_cib_smart_to_raw_helper<SmartPtrT*, typename std::decay<RawPtrBaseT>::type>(smartPtr);
 }
 
 template <typename SmartPtrT>
@@ -196,18 +196,6 @@ template <typename SmartPtrT>
 auto __zz_cib_make_smart_ptr_helper(SmartPtrT* smartPtr)
 {
   return __zz_cib_make_smart_ptr_helper<SmartPtrT, decltype(*__zz_cib_::release(*smartPtr))>(smartPtr);
-}
-
-template <typename SmartPtrT>
-auto __zz_cib_to_raw_ptr(SmartPtrT& smartPtr)
-{
-  return (__zz_cib_make_smart_ptr_helper<SmartPtrT, decltype(*__zz_cib_::release(smartPtr))>(smartPtr)).convert();
-}
-
-template <typename SmartPtrT>
-auto __zz_cib_to_raw_ptr(SmartPtrT* smartPtr)
-{
-  return (__zz_cib_make_smart_ptr_helper<SmartPtrT, decltype(*__zz_cib_::release(*smartPtr))>(smartPtr)).convert();
 }
 
 template <typename SmartPtrT, typename RawPtrBaseT>

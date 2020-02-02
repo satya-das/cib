@@ -10,6 +10,7 @@ public:
   I(I&& rhs);
 public:
   I(std::unique_ptr<int> pi);
+  I();
   virtual ~I();
   virtual int f() const = 0;
   virtual std::unique_ptr<int> g() const = 0;
@@ -30,6 +31,7 @@ public:
   I* g();
   int h(std::unique_ptr<I> p) const;
   int i(I* p) const;
+  int j(std::unique_ptr<I>* pp);
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class257);

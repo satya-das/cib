@@ -63,7 +63,7 @@ sk_sp<I> A::f() const {
 }
 
 int A::h(sk_sp<I> p) const {
-  return __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_to_raw_ptr(p)));
+  return __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_make_smart_ptr_helper(p).convert()));
 }
 
 int A::i(::I* p) const {
