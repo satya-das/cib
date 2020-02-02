@@ -64,6 +64,7 @@ set(RESFILES
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
 	__zz_cib_Module-delegate-helper.h
+	__zz_cib_Module-smart-ptr-helper.h
 	__zz_cib_Module-proxy.h
 	__zz_cib_Module-proxy-mgr.h
 	__zz_cib_Module-proxy-mgr.cpp

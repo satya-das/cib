@@ -300,6 +300,7 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace Example {
@@ -537,6 +538,7 @@ We will now move to see the content of file that was #include'd at the end of pr
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace Example {

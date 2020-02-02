@@ -285,20 +285,27 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         {
           stm << '&';
         }
+        if (helper.isSmartPtr(var.get()))
+        {
+          stm << "__zz_cib_::__zz_cib_to_raw_ptr(";
+          if (isByRef(var) || isByRValueRef(var))
+            stm << '&';
+        }
         emitParamName(stm, var, i);
         if (helper.isSmartPtr(var.get()))
-          stm << ".release()";
+          stm << ')';
         if (resolvedType)
           stm << ')';
         break;
       case kPurposeCApi:
         if (helper.isSmartPtr(var.get()))
         {
+          stm << "__zz_cib_to_smart_ptr<";
           if (resolvedType)
             stm << varBaseType;
           else
             stm << var->varType()->baseType();
-          stm << "(";
+          stm << ">(";
           emitParamName(stm, var, i);
           stm << ")";
           break;
@@ -1125,6 +1132,7 @@ void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-remote-proxy-mgr.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-smart-ptr-helper.h\"\n";
 }
 
 std::ostream& CibCompound::emitWrappingNsNamespacesForGlueCode(std::ostream&    stm,
@@ -2523,6 +2531,7 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-smart-ptr-helper.h\"\n";
   if (cibParams.libraryManagedProxies)
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
   stm << '\n';

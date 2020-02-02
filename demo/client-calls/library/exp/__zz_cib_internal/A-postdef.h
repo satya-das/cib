@@ -6,6 +6,7 @@
 #include "__zz_cib_internal/__zz_cib_Demo-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Demo-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Demo-handle-helper.h"
+#include "__zz_cib_internal/__zz_cib_Demo-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace A {

@@ -4,6 +4,7 @@
 #include "__zz_cib_FeatureTests-mtable-helper.h"
 #include "__zz_cib_FeatureTests-delegate-helper.h"
 #include "__zz_cib_FeatureTests-proxy.h"
+#include "__zz_cib_FeatureTests-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class256 {

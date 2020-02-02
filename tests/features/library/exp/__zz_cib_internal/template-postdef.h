@@ -6,6 +6,7 @@
 #include "__zz_cib_internal/__zz_cib_FeatureTests-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-handle-helper.h"
+#include "__zz_cib_internal/__zz_cib_FeatureTests-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace TemplateTest {

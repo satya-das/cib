@@ -11,6 +11,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-smart-ptr-helper.h"
 #include "__zz_cib_Example-proxy-mgr.h"
 
 namespace __zz_cib_ {

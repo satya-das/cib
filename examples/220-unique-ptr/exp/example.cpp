@@ -15,7 +15,7 @@ I::I(I&& rhs)
 }
 
 I::I(std::unique_ptr<int> pi)
-  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this, pi.release()))
+  : I(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this, __zz_cib_::__zz_cib_to_raw_ptr(pi)))
 {}
 
 I::~I() {
@@ -61,7 +61,7 @@ std::unique_ptr<I> A::f() const {
 }
 
 int A::h(std::unique_ptr<I> p) const {
-  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(p.release()));
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::h(__zz_cib_h_, __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_handle(__zz_cib_::__zz_cib_to_raw_ptr(p)));
 }
 
 int A::i(::I* p) const {

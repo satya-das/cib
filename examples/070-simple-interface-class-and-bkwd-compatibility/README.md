@@ -80,55 +80,6 @@ There is no surprise that this new client will work with new library. But the ol
 The reason of this **ABI stability** is that virtual tables are not shared across components. As you know from many previous examples that CIB uses **MethodTable** to make cross component calls. Let's see the diff of MethodTable of new library:
 
 ```diff
---- 060-simple-interface-class/cib/example.h.cpp
-+++ 070-simple-interface-class-and-bkwd-compatibility/cib/example.h.cpp
-@@ -26,10 +26,15 @@
-   int Func() override {
-     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-     return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Func>(
-       __zz_cib_proxy);
-   }
-+  int Gunc() override {
-+    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Gunc>(
-+      __zz_cib_proxy);
-+  }
-   ~Interface() override {
-     if (!__zz_cib_proxy) return;
-     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
-       __zz_cib_proxy);
-@@ -43,10 +48,13 @@
- using __zz_cib_Delegatee = __zz_cib_::Interface::__zz_cib_GenericProxy::Interface;
- using __zz_cib_ThisClass = __zz_cib_Delegatee;
- static ::Interface* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-   return new __zz_cib_::Interface::__zz_cib_GenericProxy::Interface(proxy, mtbl);
- }
-+static int __zz_cib_decl Gunc(__zz_cib_Delegatee* __zz_cib_obj) {
-+  return __zz_cib_obj->Gunc();
-+}
- static int __zz_cib_decl Func(__zz_cib_Delegatee* __zz_cib_obj) {
-   return __zz_cib_obj->Func();
- }
- static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
-   delete __zz_cib_obj;
-@@ -62,13 +70,14 @@
- const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-   static const __zz_cib_MTableEntry methodArray[] = {
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Func),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
--    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy)
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_release_proxy),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Gunc)
-   };
--  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
-+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
-   return &methodTable;
- }
- }}
- namespace __zz_cib_ {
- namespace A {
 
 ```
 

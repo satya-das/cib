@@ -4,6 +4,7 @@
 #include "__zz_cib_templates-mtable-helper.h"
 #include "__zz_cib_templates-delegate-helper.h"
 #include "__zz_cib_templates-proxy.h"
+#include "__zz_cib_templates-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class258 {

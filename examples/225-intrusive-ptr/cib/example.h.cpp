@@ -11,6 +11,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
@@ -123,7 +124,7 @@ static ::I* __zz_cib_decl g(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();
 }
 static int __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
-  return __zz_cib_obj->::A::h(sk_sp<I>(p));
+  return __zz_cib_obj->::A::h(__zz_cib_to_smart_ptr<sk_sp<I>>(p));
 }
 static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);

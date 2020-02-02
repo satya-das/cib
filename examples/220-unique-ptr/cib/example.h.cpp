@@ -11,6 +11,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class256 {
@@ -55,7 +56,7 @@ namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::I* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl, int* pi) {
-  return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, std::unique_ptr<int>(pi));
+  return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl, __zz_cib_to_smart_ptr<std::unique_ptr<int>>(pi));
 }
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -119,7 +120,7 @@ static ::I* __zz_cib_decl g(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();
 }
 static int __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
-  return __zz_cib_obj->::A::h(std::unique_ptr<I>(p));
+  return __zz_cib_obj->::A::h(__zz_cib_to_smart_ptr<std::unique_ptr<I>>(p));
 }
 static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);

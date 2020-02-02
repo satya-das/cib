@@ -111,6 +111,7 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-proxy.h"
+#include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
 namespace Example {
@@ -419,6 +420,7 @@ Let's see what that `value-postdef.h` contains:
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
 #include "__zz_cib_Class260.h"
 
 ```
