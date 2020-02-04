@@ -936,7 +936,7 @@ const CppObj* CibCompound::resolveTypeName(const std::string& typeName, const Ci
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
 
-  const CppObj* resolvedType = helper.getCppObjFromTypeName(typeName, this);
+  const CppObj* resolvedType = helper.resolveTypename(typeName, this);
   if (resolvedType == nullptr)
   {
     forEachParent(CppAccessType::kPublic, [&](const CibCompound* parent) {

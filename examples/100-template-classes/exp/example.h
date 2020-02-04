@@ -19,6 +19,9 @@ namespace Example
     Value<int> Get() const;
     void SetInt(Value<Int> const & y);
     Value<Int> GetInt() const;
+    using FloatValue = Value<float>;
+    void SetFloat(FloatValue const  f);
+    FloatValue GetFloat() const;
 
   private:
     __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);

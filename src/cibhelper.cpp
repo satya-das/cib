@@ -123,6 +123,43 @@ void CibHelper::markNoProxyClasses()
   }
 }
 
+CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
+{
+    const auto getName = [](const CppObj* typeAliasObj) -> std::string {
+      if (typeAliasObj->objType_ == CppObjType::kTypedefName)
+      {
+        const auto* typedefObj = static_cast<const CppTypedefName*>(typeAliasObj);
+        return baseType(typedefObj->var_);
+      }
+      else if (typeAliasObj->objType_ == CppObjType::kUsingDecl)
+      {
+        const auto* usingDecl = static_cast<const CppUsingDecl*>(typeAliasObj);
+        if (usingDecl->cppObj_->objType_ == CppVarType::kObjectType)
+        {
+          const auto* varType = static_cast<const CppVarType*>(usingDecl->cppObj_.get());
+          return baseType(varType);
+        }
+      }
+
+      return std::string();
+    };
+
+  auto* cppObj = typeAliasObj;
+  for (; isTypedefLike(cppObj); )
+  {
+    const auto name = getName(cppObj);
+    if (name.empty())
+      return cppObj;
+    auto* nextResolvedObj = resolveTypename(name, cppObj->owner());
+    if (nextResolvedObj)
+      cppObj = nextResolvedObj;
+    else
+      return cppObj;
+  }
+
+  return cppObj;
+}
+
 CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
 {
   auto templateArgStart = name.find('<');
@@ -149,6 +186,12 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     typeNode && !typeNode->cppObjSet.empty() ? const_cast<CppObj*>(*(typeNode->cppObjSet.begin())) : nullptr;
   if (cppObj)
   {
+    if (isTypedefLike(cppObj))
+    {
+      auto* resolvedTypeAlias = resolveTypeAlias(cppObj);
+      if (resolvedTypeAlias)
+        cppObj = resolvedTypeAlias;
+    }
     if (isClassLike(cppObj))
     {
       if (templateArgStart != name.npos)

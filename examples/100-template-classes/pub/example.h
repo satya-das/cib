@@ -20,9 +20,17 @@ public:
     return y_;
   }
 
+  using FloatValue = Value<float>;
+  void       SetFloat(const FloatValue f);
+  FloatValue GetFloat() const
+  {
+    return f_;
+  }
+
 private:
   Value<int> x_;
   Value<Int> y_;
+  FloatValue f_;
 };
 
 }

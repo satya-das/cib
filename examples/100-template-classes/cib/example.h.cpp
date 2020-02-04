@@ -35,6 +35,12 @@ static void __zz_cib_decl SetInt(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Va
 static ::Example::Value<::Example::Int>* __zz_cib_decl GetInt(const __zz_cib_Delegatee* __zz_cib_obj) {
   return new ::Example::Value<::Example::Int>(__zz_cib_obj->::Example::A::GetInt());
 }
+static void __zz_cib_decl SetFloat(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<float> const * f) {
+  __zz_cib_obj->::Example::A::SetFloat(*f);
+}
+static ::Example::Value<float>* __zz_cib_decl GetFloat(const __zz_cib_Delegatee* __zz_cib_obj) {
+  return new ::Example::Value<float>(__zz_cib_obj->::Example::A::GetFloat());
+}
 }
 }}}
 
@@ -50,9 +56,11 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Set),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Get),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetInt),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetInt)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetInt),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SetFloat),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::GetFloat)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 9 };
   return &methodTable;
 }
 }}}

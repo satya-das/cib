@@ -88,8 +88,8 @@ static void SkSafeUnref(T* obj)
 template <typename T>
 class sk_sp
 {
-  using element_type = T;
 public:
+  using element_type = T;
   sk_sp()
     : fPtr(nullptr)
   {

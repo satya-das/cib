@@ -69,6 +69,7 @@ public:
   {
     return resolveTypename(name, typeNode);
   }
+  CppObj* resolveTypename(const std::string& name, const CppCompound* begScope) const;
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain zero or more scope resolution operators.
@@ -116,7 +117,7 @@ private:
   void evaluateReturnType(const CibFunctionHelper& func);
 
   CppObj* resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode) const;
-  CppObj* resolveTypename(const std::string& name, const CppCompound* begScope) const;
+  CppObj* resolveTypeAlias(CppObj* typeAliasObj) const;
 
   /**
    * Itmay happen a class is not directly identifiable as facades.

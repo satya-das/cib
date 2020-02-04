@@ -9,20 +9,20 @@ struct __zz_cib_Delegator;
 }}}
  namespace Example {
 template<>
-class Value<int>
+class Value<float>
 {
 public:
-  Value(Value<int>&& rhs);
+  Value(Value<float>&& rhs);
 public:
-  Value(Value<int> const & );
+  Value(Value<float> const & );
   ~Value();
-  Value(int x);
-  int GetValue() const;
-  void SetValue(int x);
+  Value(float x);
+  float GetValue() const;
+  void SetValue(float x);
   bool operator ==(Value const & rhs) const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(__ZZ_CIB_CLASS_NAME(Value<int>), __ZZ_CIB_CLASS_NAME(Example::__zz_cib_Class260));
+  __ZZ_CIB_CLASS_INTERNAL_DEF(__ZZ_CIB_CLASS_NAME(Value<float>), __ZZ_CIB_CLASS_NAME(Example::__zz_cib_Class260));
 };
 }
 
@@ -31,12 +31,12 @@ namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class260 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper> {
+  , public __zz_cib_HandleHelper<::Example::Value<float>, __zz_cib_Helper> {
 private:
   using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Example::Value<int>, __zz_cib_Helper>;
-  using _ProxyClass = ::Example::Value<int>;
-  friend class ::Example::Value<int>;
+  friend class __zz_cib_HandleHelper<::Example::Value<float>, __zz_cib_Helper>;
+  using _ProxyClass = ::Example::Value<float>;
+  friend class ::Example::Value<float>;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
 
   __zz_cib_Helper()
@@ -61,19 +61,19 @@ private:
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new(int x) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (int x);
+  static __zz_cib_TYPE* __zz_cib_new(float x) {
+    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (float x);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       x);
   }
-  static int GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*);
+  static float GetValue(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = float (__zz_cib_decl *) (const __zz_cib_TYPE*);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue>(
       __zz_cib_obj
       );
   }
-  static void SetValue(__zz_cib_TYPE* __zz_cib_obj, int x) {
-    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, int x);
+  static void SetValue(__zz_cib_TYPE* __zz_cib_obj, float x) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, float x);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SetValue>(
       __zz_cib_obj,
       x);
@@ -84,20 +84,20 @@ private:
       __zz_cib_obj,
       rhs);
   }
-  static ::Example::Value<int>* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
-    return new ::Example::Value<int>(h);
+  static ::Example::Value<float>* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+    return new ::Example::Value<float>(h);
   }
 public:
-  static ::Example::Value<int> __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
-    return ::Example::Value<int>(h);
+  static ::Example::Value<float> __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+    return ::Example::Value<float>(h);
   }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::Value<int>* __zz_cib_obj) {
+  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::Value<float>* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::Value<int>* __zz_cib_obj) {
+  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::Value<float>* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Value<int>* __zz_cib_obj) {
+  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::Value<float>* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -123,41 +123,41 @@ public:
 }}}
 namespace Example {
 
-inline Example::Value<int>::Value(__zz_cib_::__zz_cib_HANDLE* h)
+inline Example::Value<float>::Value(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
   __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline Example::Value<int>::Value(Value<int>&& rhs)
+inline Example::Value<float>::Value(Value<float>&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
   __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline Example::Value<int>::Value(::Example::Value<int> const & __zz_cib_param0)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+inline Example::Value<float>::Value(::Example::Value<float> const & __zz_cib_param0)
+  : Example::Value<float>(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
-inline Example::Value<int>::~Value() {
+inline Example::Value<float>::~Value() {
   auto h = __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_release_handle(this);
   __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
-inline Example::Value<int>::Value(int x)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_new(x))
+inline Example::Value<float>::Value(float x)
+  : Example::Value<float>(__zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_new(x))
 {}
 
-inline int Example::Value<int>::GetValue() const {
+inline float Example::Value<float>::GetValue() const {
   return __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::GetValue(__zz_cib_h_);
 }
 
-inline void Example::Value<int>::SetValue(int x) {
+inline void Example::Value<float>::SetValue(float x) {
   __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::SetValue(__zz_cib_h_, x);
 }
 
-inline bool Example::Value<int>::operator ==(__zz_cib_ThisClass const & rhs) const {
+inline bool Example::Value<float>::operator ==(__zz_cib_ThisClass const & rhs) const {
   return __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class260::__zz_cib_Helper::__zz_cib_handle(rhs));
 }
 }

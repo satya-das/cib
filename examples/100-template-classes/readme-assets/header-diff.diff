@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,28 +1,28 @@
+@@ -1,36 +1,31 @@
  #pragma once
 -
  #include "int.h"
@@ -26,6 +26,7 @@
 -  {
 -    return y_;
 -  }
+-
 +    A(A&& rhs);
 +  public:
 +    A();
@@ -35,10 +36,19 @@
 +    Value<int> Get() const;
 +    void SetInt(Value<Int> const & y);
 +    Value<Int> GetInt() const;
+   using FloatValue = Value<float>;
+-  void       SetFloat(const FloatValue f);
+-  FloatValue GetFloat() const
+-  {
+-    return f_;
+-  }
++    void SetFloat(FloatValue const  f);
++    FloatValue GetFloat() const;
  
  private:
 -  Value<int> x_;
 -  Value<Int> y_;
+-  FloatValue f_;
 +    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
  };
 -

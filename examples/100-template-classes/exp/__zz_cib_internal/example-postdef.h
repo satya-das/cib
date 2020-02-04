@@ -71,6 +71,18 @@ private:
       __zz_cib_obj
       );
   }
+  static void SetFloat(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE const * f) {
+    using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE const * f);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SetFloat>(
+      __zz_cib_obj,
+      f);
+  }
+  static __zz_cib_HANDLE* GetFloat(const __zz_cib_TYPE* __zz_cib_obj) {
+    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetFloat>(
+      __zz_cib_obj
+      );
+  }
   static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
     return new ::Example::A(h);
   }

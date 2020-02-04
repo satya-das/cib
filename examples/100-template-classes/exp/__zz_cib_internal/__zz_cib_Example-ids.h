@@ -16,12 +16,17 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 {
-  //#= FullClassName: ::Example::Value<int>
+  //#= FullClassName: ::Example::Value<float>
   enum { __zz_cib_classid = 260 };
 }}}
 
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class261 {
+  //#= FullClassName: ::Example::Value<int>
+  enum { __zz_cib_classid = 261 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 261 };
+  enum { __zz_cib_next_class_id = 262 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
@@ -41,7 +46,11 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     SetInt = 5,
     //#= ::Example::Value<::Example::Int> GetInt() const;
     GetInt = 6,
-    __zz_cib_next_method_id = 7
+    //#= void SetFloat(::Example::Value<float> const );
+    SetFloat = 7,
+    //#= ::Example::Value<float> GetFloat() const;
+    GetFloat = 8,
+    __zz_cib_next_method_id = 9
   };
 }}}}
 
@@ -78,6 +87,24 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespac
 }}}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class260 { namespace __zz_cib_methodid {
+  enum {
+    //#= Value(::Example::Value<float> const &);
+    __zz_cib_copy = 0,
+    //#= ~Value();
+    __zz_cib_delete = 1,
+    //#= Value(float);
+    __zz_cib_new = 2,
+    //#= float GetValue() const;
+    GetValue = 3,
+    //#= void SetValue(float);
+    SetValue = 4,
+    //#= bool operator ==(__zz_cib_ThisClass const &) const;
+    __zz_cib_OperatorCmpEq = 5,
+    __zz_cib_next_method_id = 6
+  };
+}}}}
+
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class261 { namespace __zz_cib_methodid {
   enum {
     //#= Value(::Example::Value<int> const &);
     __zz_cib_copy = 0,
