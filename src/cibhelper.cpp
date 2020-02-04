@@ -223,6 +223,8 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
       CppAccessType inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType());
       cppCompound->parents_[inhType].push_back(parentObj);
       parentObj->children_[inhType].push_back(cppCompound);
+      if (inh.isVirtual)
+        cppCompound->setHasVirtualParent();
     }
   }
   for (const auto& mem : cppCompound->members())
@@ -298,6 +300,8 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     cppCompound->setIsInline();
     return;
   }
+  if (cppCompound->hasVirtualParent())
+    cppCompound->setHasVirtualAncestor();
   auto isInline    = true;
   auto isEmpty     = true;
   auto isPodStruct = (isStruct(cppCompound) || isUnion(cppCompound));

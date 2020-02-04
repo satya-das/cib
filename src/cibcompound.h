@@ -94,6 +94,8 @@ enum CibClassPropFlags
   kClassPropNeedNoProxy             = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropCantHaveDefaultCtor     = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropCantHaveDefaultCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasVirtualParent        = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropHasVirtualAncestor      = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 
 /**
@@ -373,6 +375,39 @@ public:
   {
     return ((props_ & kClassPropCantHaveDefaultCopyCtor) == kClassPropCantHaveDefaultCopyCtor);
   }
+  bool hasDefaultCtor() const
+  {
+    for (const auto& ctor : ctors())
+    {
+      if (!ctor->hasParams())
+        return true;
+    }
+
+    return false;
+  }
+  bool defaultConstructable() const
+  {
+    return !hasCtor() || hasDefaultCtor();
+  }
+  void setHasVirtualParent()
+  {
+    props_ |= kClassPropHasVirtualParent;
+  }
+  bool hasVirtualParent() const
+  {
+    return ((props_ & kClassPropHasVirtualParent) == kClassPropHasVirtualParent);
+  }
+  void setHasVirtualAncestor()
+  {
+    props_ |= kClassPropHasVirtualAncestor;
+    forEachDescendent([](CibCompound* compound) {
+      compound->props_ |= kClassPropHasVirtualAncestor;
+    });
+  }
+  bool hasVirtualAncestor() const
+  {
+    return ((props_ & kClassPropHasVirtualAncestor) == kClassPropHasVirtualAncestor);
+  }
   bool isEmpty() const
   {
     return (props_ & kClassPropEmpty);
@@ -428,7 +463,7 @@ public:
   }
   bool needsGenericProxyDefinition() const
   {
-    return needsGenericProxyDefinition_ && isCtorCallable();
+    return needsGenericProxyDefinition_ && (!hasVirtualAncestor() || defaultConstructable()) && isCtorCallable();
   }
   void setNeedsGenericProxyDefinition()
   {
@@ -578,6 +613,7 @@ public:
   bool forEachAncestor(std::function<bool(const CibCompound*)> callable) const;
   void forEachDerived(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachDescendent(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
+  void forEachDescendent(std::function<void(CibCompound*)> callable);
   void forEachNested(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCompound*)> callable) const;
   bool forEachOuter(std::function<bool(const CibCompound*)> callable) const;
@@ -726,6 +762,18 @@ inline void CibCompound::forEachDescendent(CppAccessType                        
   {
     child->forEachDescendent(accessType, callable);
     callable(child);
+  }
+}
+
+inline void CibCompound::forEachDescendent(std::function<void(CibCompound*)> callable)
+{
+  for (auto& childInhItr : children_)
+  {
+    for (auto& child : childInhItr.second)
+    {
+      child->forEachDescendent(callable);
+      callable(child);
+    }
   }
 }
 
