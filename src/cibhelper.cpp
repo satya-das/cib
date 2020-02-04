@@ -51,6 +51,7 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
 {
   program_->addCompound(compound, parent);
   auto* pThis = const_cast<CibHelper*>(this); // TODO: Fix const_cast.
+  pThis->resolveInheritance(static_cast<CibCompound*>(compound));
   pThis->markClassType(compound);
   pThis->identifyAbstract(compound);
   pThis->identifyPobableFacades(compound);
@@ -227,7 +228,7 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
   for (const auto& mem : cppCompound->members())
   {
     CibCompoundEPtr nested = mem;
-    if (nested)
+    if (nested && !nested->isTemplated())
       resolveInheritance(nested);
   }
 }

@@ -1703,8 +1703,8 @@ void CibCompound::identifyAbstract(const CibHelper& helper)
 
 static bool shallAddCopyCtor(CibCompound* compound)
 {
-  if (compound->isTemplateInstance())
-    return shallAddCopyCtor(compound->templateClass());
+  if (compound->isTemplateInstance() && !shallAddCopyCtor(compound->templateClass()))
+    return false;
   for (const auto& ctor : compound->ctors())
   {
     if (!isPublic(ctor))

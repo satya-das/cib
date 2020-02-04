@@ -212,7 +212,7 @@ public:
       return false;
     const auto* params = getParams();
     CppVarEPtr  var    = params->back();
-    return var && (baseType(var) == "...");
+    return var && (var->varType()->paramPack_ || (baseType(var) == "..."));
   }
   CibCompound*  getOwner() const;
   std::uint32_t getAttr() const

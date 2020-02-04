@@ -278,6 +278,8 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
     if (isFunctionLike(mem))
     {
       CibFunctionHelper func(mem);
+      if (func.hasVariadicParam())
+        return false;
       CppFunctionBase*  newMem = nullptr;
       if (func.isConstructorLike())
         newMem = new CppConstructor(CppAccessType::kPublic,
