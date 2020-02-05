@@ -1771,7 +1771,11 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
       if (func.hasVariadicParam())
         continue;
       if (isProtected(mem))
+      {
         setHasProtectedMethods();
+        if (hasNonDefaultConstructableVirtualAncestor() && !defaultConstructable())
+          continue;
+      }
 
       needsBridging_.push_back(func);
       if (lastUsedConditional)
@@ -2039,8 +2043,9 @@ void CibCompound::emitCastingHelpers(std::ostream&    stm,
                                      const CibIdData* cibIdData,
                                      CppIndent        indentation /* = CppIndent */) const
 {
+  std::set<const CibCompound*> processedAncestor;
   forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* pubParent) {
-    if (pubParent->isShared() || !pubParent->isEmpty())
+    if ((pubParent->isShared() || !pubParent->isEmpty()) && !processedAncestor.count(pubParent))
     {
       auto castProcName = castToBaseName(pubParent, cibParams);
       auto capiName     = cibIdData->getMethodCApiName(castProcName);
@@ -2050,6 +2055,8 @@ void CibCompound::emitCastingHelpers(std::ostream&    stm,
       stm << indentation << "return instance().invoke<" << castProcName << "Proc, __zz_cib_methodid::" << capiName
           << ">(__zz_cib_obj);\n";
       stm << --indentation << "}\n";
+
+      processedAncestor.insert(pubParent);
     }
     return false;
   });
@@ -2575,6 +2582,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   else if (needsDelagatorClass())
     emitProtectedAccessor(stm, helper, cibParams, cibIdMgr, indentation);
   emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
+
   auto delegatee = [&]() -> std::string {
     if (needsGenericProxyDefinition())
       return "__zz_cib_" + longNsName() + "::__zz_cib_GenericProxy::__zz_cib";
@@ -2620,14 +2628,17 @@ void CibCompound::emitDelegators(std::ostream&    stm,
 
   emitProxyMgrDelegators(stm, cibParams, indentation);
 
+  std::set<const CibCompound*> processedAncestor;
   forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* pubParent) {
-    if (pubParent->isShared() || !pubParent->isEmpty())
+    if ((pubParent->isShared() || !pubParent->isEmpty()) && !processedAncestor.count(pubParent))
     {
       auto castApiName = castToBaseName(pubParent, cibParams);
       stm << indentation << "static " << pubParent->longName() << "* __zz_cib_decl "
           << cibIdData->getMethodCApiName(castApiName) << "(" << longName() << "* __zz_cib_obj) {\n";
       stm << ++indentation << "return __zz_cib_obj;\n";
       stm << --indentation << "}\n";
+
+      processedAncestor.insert(pubParent);
     }
     return false;
   });

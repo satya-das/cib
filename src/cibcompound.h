@@ -389,22 +389,22 @@ public:
   {
     return !hasCtor() || hasDefaultCtor();
   }
-  void setHasVirtualParent()
+  void setHasNonDefaultConstructableVirtualParent()
   {
     props_ |= kClassPropHasVirtualParent;
   }
-  bool hasVirtualParent() const
+  bool hasNonDefaultConstructableVirtualParent() const
   {
     return ((props_ & kClassPropHasVirtualParent) == kClassPropHasVirtualParent);
   }
-  void setHasVirtualAncestor()
+  void setHasNonDefaultConstructableVirtualAncestor()
   {
     props_ |= kClassPropHasVirtualAncestor;
     forEachDescendent([](CibCompound* compound) {
       compound->props_ |= kClassPropHasVirtualAncestor;
     });
   }
-  bool hasVirtualAncestor() const
+  bool hasNonDefaultConstructableVirtualAncestor() const
   {
     return ((props_ & kClassPropHasVirtualAncestor) == kClassPropHasVirtualAncestor);
   }
@@ -463,7 +463,7 @@ public:
   }
   bool needsGenericProxyDefinition() const
   {
-    return needsGenericProxyDefinition_ && (!hasVirtualAncestor() || defaultConstructable()) && isCtorCallable();
+    return needsGenericProxyDefinition_ && (!hasNonDefaultConstructableVirtualAncestor() || defaultConstructable()) && isCtorCallable() && !getAllVirtualMethods().empty();
   }
   void setNeedsGenericProxyDefinition()
   {
@@ -586,7 +586,7 @@ public:
 
   bool needsDelagatorClass() const
   {
-    return hasProtectedMethods() && isOverridable();
+    return hasProtectedMethods() && isOverridable() && !hasNonDefaultConstructableVirtualAncestor();
   }
 
   bool needsProxyManager() const
