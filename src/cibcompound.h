@@ -114,8 +114,8 @@ private:
   using MemberConditionalMap = std::map<const CppObj*, const CppHashIf*>;
 
 private:
-  std::uint32_t props_{0};
-  bool          needsGenericProxyDefinition_{false};
+  std::uint32_t props_ {0};
+  bool          needsGenericProxyDefinition_ {false};
 
   CibFunctionHelperArray         needsBridging_;
   mutable MemberConditionalMap   memberConditionalMap_;
@@ -125,7 +125,7 @@ private:
   mutable TypeNameToCppObj       typeNameToCibCppObj_;
   TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
   TmplInstanceCache              tmplInstanceCache_;
-  CibCompound*      templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  CibCompound*      templateClass_ {nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues templateArgValues_;
   std::set<const CibCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
   std::string                  nsName_;
@@ -400,9 +400,7 @@ public:
   void setHasNonDefaultConstructableVirtualAncestor()
   {
     props_ |= kClassPropHasVirtualAncestor;
-    forEachDescendent([](CibCompound* compound) {
-      compound->props_ |= kClassPropHasVirtualAncestor;
-    });
+    forEachDescendent([](CibCompound* compound) { compound->props_ |= kClassPropHasVirtualAncestor; });
   }
   bool hasNonDefaultConstructableVirtualAncestor() const
   {
@@ -463,7 +461,8 @@ public:
   }
   bool needsGenericProxyDefinition() const
   {
-    return needsGenericProxyDefinition_ && (!hasNonDefaultConstructableVirtualAncestor() || defaultConstructable()) && isCtorCallable() && !getAllVirtualMethods().empty();
+    return needsGenericProxyDefinition_ && (!hasNonDefaultConstructableVirtualAncestor() || defaultConstructable())
+           && isCtorCallable() && !getAllVirtualMethods().empty();
   }
   void setNeedsGenericProxyDefinition()
   {
@@ -471,11 +470,14 @@ public:
   }
   bool isCopyCtorCallable() const
   {
-    if (copyCtor() && (isDeleted(copyCtor()) || isPrivate(copyCtor())))
+    if (isTemplateInstance() && !templateClass()->isCopyCtorCallable())
       return false;
-    if (!forEachAncestor([](const CibCompound* ancestor) { return ancestor->isCopyCtorCallable(); }))
-      return false;
-    return true;
+    if (copyCtor())
+    {
+      if (isDeleted(copyCtor()) || isPrivate(copyCtor()))
+        return false;
+    }
+    return !cantHaveDefaultCopyCtor();
   }
   bool isCtorCallable() const
   {

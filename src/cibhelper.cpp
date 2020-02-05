@@ -126,27 +126,27 @@ void CibHelper::markNoProxyClasses()
 
 CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
 {
-    const auto getName = [](const CppObj* typeAliasObj) -> std::string {
-      if (typeAliasObj->objType_ == CppObjType::kTypedefName)
+  const auto getName = [](const CppObj* typeAliasObj) -> std::string {
+    if (typeAliasObj->objType_ == CppObjType::kTypedefName)
+    {
+      const auto* typedefObj = static_cast<const CppTypedefName*>(typeAliasObj);
+      return baseType(typedefObj->var_);
+    }
+    else if (typeAliasObj->objType_ == CppObjType::kUsingDecl)
+    {
+      const auto* usingDecl = static_cast<const CppUsingDecl*>(typeAliasObj);
+      if (usingDecl->cppObj_->objType_ == CppVarType::kObjectType)
       {
-        const auto* typedefObj = static_cast<const CppTypedefName*>(typeAliasObj);
-        return baseType(typedefObj->var_);
+        const auto* varType = static_cast<const CppVarType*>(usingDecl->cppObj_.get());
+        return baseType(varType);
       }
-      else if (typeAliasObj->objType_ == CppObjType::kUsingDecl)
-      {
-        const auto* usingDecl = static_cast<const CppUsingDecl*>(typeAliasObj);
-        if (usingDecl->cppObj_->objType_ == CppVarType::kObjectType)
-        {
-          const auto* varType = static_cast<const CppVarType*>(usingDecl->cppObj_.get());
-          return baseType(varType);
-        }
-      }
+    }
 
-      return std::string();
-    };
+    return std::string();
+  };
 
   auto* cppObj = typeAliasObj;
-  for (; isTypedefLike(cppObj); )
+  for (; isTypedefLike(cppObj);)
   {
     const auto name = getName(cppObj);
     if (name.empty())
@@ -300,8 +300,6 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     cppCompound->setIsInline();
     return;
   }
-  if (cppCompound->hasNonDefaultConstructableVirtualParent())
-    cppCompound->setHasNonDefaultConstructableVirtualAncestor();
   auto isInline    = true;
   auto isEmpty     = true;
   auto isPodStruct = (isStruct(cppCompound) || isUnion(cppCompound));
@@ -347,6 +345,16 @@ void CibHelper::markClassType(CibCompound* cppCompound)
         cppCompound->setCantHaveDefaultCtor();
         cppCompound->setCantHaveDefaultCopyCtor();
       }
+      else
+      {
+        const auto* memType = resolveVarType(var->varType(), cppCompound);
+        if (memType && (memType->objType_ == CppCompound::kObjectType))
+        {
+          const auto* memObj = static_cast<const CibCompound*>(memType);
+          if (!memObj->isCopyCtorCallable())
+            cppCompound->setCantHaveDefaultCopyCtor();
+        }
+      }
     }
   }
   isInline = isInline || (cppCompound->templateParamList() != nullptr);
@@ -356,6 +364,17 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     cppCompound->setEmpty();
   if (isPodStruct && cppCompound->templateParamList() == nullptr)
     cppCompound->setPodStruct();
+  if (cppCompound->hasNonDefaultConstructableVirtualParent())
+    cppCompound->setHasNonDefaultConstructableVirtualAncestor();
+  if (cppCompound->copyCtor() && (isPrivate(cppCompound->copyCtor()) || isDeleted(cppCompound->copyCtor())))
+  {
+    cppCompound->forEachDescendent([](CibCompound* descended) {
+      if (!descended->copyCtor() || !isPublic(descended->copyCtor()))
+      {
+        descended->setCantHaveDefaultCopyCtor();
+      }
+    });
+  }
 }
 
 void CibHelper::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
