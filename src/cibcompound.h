@@ -482,9 +482,6 @@ public:
     bool ret = true;
     for (auto ctor : ctors())
     {
-      CibFunctionHelper func = ctor;
-      if (!func.isConstructor())
-        continue;
       if (isPrivate(ctor))
         ret = false;
       else
