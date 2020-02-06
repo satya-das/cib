@@ -461,8 +461,8 @@ public:
   }
   bool needsGenericProxyDefinition() const
   {
-    return needsGenericProxyDefinition_ && (!hasNonDefaultConstructableVirtualAncestor() || defaultConstructable())
-           && isCtorCallable() && !getAllVirtualMethods().empty();
+    return needsGenericProxyDefinition_ && !hasNonDefaultConstructableVirtualAncestor() && isCtorCallable()
+           && !getAllVirtualMethods().empty();
   }
   void setNeedsGenericProxyDefinition()
   {

@@ -47,8 +47,8 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
 {
   if (typeModifier.refType_ == CppRefType::kNoRef)
     return typeModifier;
-  auto ret = resolveTypeModifier(CppTypeModifier{CppRefType::kNoRef, 1, 0},
-                                 CppTypeModifier{CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
+  auto ret = resolveTypeModifier(CppTypeModifier {CppRefType::kNoRef, 1, 0},
+                                 CppTypeModifier {CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
 
   if ((ret.ptrLevel_ > 1) && (typeModifier.constBits_ & 0x1))
   {
@@ -1705,13 +1705,8 @@ static bool shallAddCopyCtor(CibCompound* compound)
 {
   if (compound->isTemplateInstance() && !shallAddCopyCtor(compound->templateClass()))
     return false;
-  for (const auto& ctor : compound->ctors())
-  {
-    if (!isPublic(ctor))
-      return false;
-  }
-  return (!compound->cantHaveDefaultCopyCtor() && !compound->hasCopyCtor() && !compound->hasMoveCtor()
-          && !compound->isAbstract() && compound->isCopyCtorCallable());
+  return compound->isCopyCtorCallable() && !compound->hasCopyCtor() && !compound->hasMoveCtor()
+         && !compound->isAbstract();
 }
 
 static bool shallAddDefaultCtor(CibCompound* compound)
@@ -1829,9 +1824,9 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (shallAddCopyCtor(this))
   {
     auto ctorProtection = CppAccessType::kPublic;
-    auto paramType      = new CppVarType(name(), CppTypeModifier{CppRefType::kByRef});
+    auto paramType      = new CppVarType(name(), CppTypeModifier {CppRefType::kByRef});
     paramType->typeModifier().constBits_ |= 1;
-    auto param     = new CppVar(paramType, CppVarDecl{std::string()});
+    auto param     = new CppVar(paramType, CppVarDecl {std::string()});
     auto paramList = new CppParamVector;
     paramList->emplace_back(param);
     auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, 0);
@@ -2776,11 +2771,11 @@ struct MethodTableEntryInfo
   {
   }
 
-  const CppHashIf*  cond{nullptr};
+  const CppHashIf*  cond {nullptr};
   CibMethodCAPIName name;
 
-  size_t subGroupStartOffset{0};
-  size_t subGroupEndPadding{0};
+  size_t subGroupStartOffset {0};
+  size_t subGroupEndPadding {0};
 };
 
 class MethodTableBuilder

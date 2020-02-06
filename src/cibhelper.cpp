@@ -223,7 +223,7 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
       CppAccessType inhType = resolveInheritanceType(inh.inhType, cppCompound->compoundType());
       cppCompound->parents_[inhType].push_back(parentObj);
       parentObj->children_[inhType].push_back(cppCompound);
-      if (inh.isVirtual && !cppCompound->defaultConstructable())
+      if (inh.isVirtual && !parentObj->defaultConstructable())
         cppCompound->setHasNonDefaultConstructableVirtualParent();
     }
   }
@@ -366,7 +366,18 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     cppCompound->setPodStruct();
   if (cppCompound->hasNonDefaultConstructableVirtualParent())
     cppCompound->setHasNonDefaultConstructableVirtualAncestor();
-  if (cppCompound->copyCtor() && (isPrivate(cppCompound->copyCtor()) || isDeleted(cppCompound->copyCtor())))
+  if (cppCompound->isTemplateInstance() && !cppCompound->hasCopyCtor())
+  {
+    cppCompound->forEachAncestor([cppCompound](const CibCompound* ancestor) {
+      if (!ancestor->isCopyCtorCallable())
+      {
+        cppCompound->setCantHaveDefaultCopyCtor();
+        return true;
+      }
+      return false;
+    });
+  }
+  if (!cppCompound->isCopyCtorCallable())
   {
     cppCompound->forEachDescendent([](CibCompound* descended) {
       if (!descended->copyCtor() || !isPublic(descended->copyCtor()))
