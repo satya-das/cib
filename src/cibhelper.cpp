@@ -225,6 +225,8 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
       parentObj->children_[inhType].push_back(cppCompound);
       if (inh.isVirtual && !parentObj->defaultConstructable())
         cppCompound->setHasNonDefaultConstructableVirtualParent();
+      if (!parentObj->isCopyCtorCallable() && !cppCompound->hasCopyCtor())
+        cppCompound->setCantHaveDefaultCopyCtor();
     }
   }
   for (const auto& mem : cppCompound->members())

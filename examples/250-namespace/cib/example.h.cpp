@@ -7,10 +7,11 @@
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
-namespace Example {
 using namespace ::Example;
-namespace Outer {
+namespace Example {
 using namespace ::Example::Outer;
+namespace Outer {
+using namespace ::Example::Outer::Inner;
 namespace Inner {
 using namespace ::Example::Outer::Inner;
 namespace A {
@@ -39,10 +40,11 @@ static ::Example::Int* __zz_cib_decl pi(const __zz_cib_Delegatee* __zz_cib_obj) 
 }}}}}
 
 namespace __zz_cib_ {
-namespace Example {
 using namespace ::Example;
-namespace Outer {
+namespace Example {
 using namespace ::Example::Outer;
+namespace Outer {
+using namespace ::Example::Outer::Inner;
 namespace Inner {
 using namespace ::Example::Outer::Inner;
 namespace A {

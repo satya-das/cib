@@ -10,6 +10,7 @@
 #include "example-file2.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
 public:

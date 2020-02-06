@@ -7,6 +7,7 @@
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace Int {
@@ -29,6 +30,7 @@ static int __zz_cib_decl __zz_cib_Operator(const __zz_cib_Delegatee* __zz_cib_ob
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace Int {

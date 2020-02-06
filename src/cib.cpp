@@ -1142,13 +1142,24 @@ std::ostream& CibCompound::emitWrappingNsNamespacesForGlueCode(std::ostream&    
   if (outer() == nullptr || isCppFile(outer()))
   {
     stm << "namespace __zz_cib_ {\n";
+    if (isNamespace(this))
+    {
+      stm << "using namespace " << longName() << ";\n";
+    }
   }
   else
   {
     outer()->emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-    if (isNamespace(outer()))
+    if (isClassLike(this))
     {
-      stm << "using namespace " << outer()->longName() << ";\n";
+      if (isNamespace(outer()))
+      {
+        stm << "using namespace " << outer()->longName() << ";\n";
+      }
+    }
+    else if (isNamespace(this))
+    {
+      stm << "using namespace " << longName() << ";\n";
     }
   }
   stm << "namespace " << nsName() << " {\n";

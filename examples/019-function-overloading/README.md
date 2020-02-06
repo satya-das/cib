@@ -303,6 +303,7 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {
@@ -325,6 +326,7 @@ static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {
@@ -541,6 +543,7 @@ We will now move to see the content of file that was #include'd at the end of pr
 #include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {

@@ -7,6 +7,7 @@
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {
@@ -32,6 +33,7 @@ static ::Example::A* __zz_cib_decl __zz_cib_OperatorRShift(__zz_cib_Delegatee* _
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {

@@ -9,6 +9,7 @@
 #include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace A {

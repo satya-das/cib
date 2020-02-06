@@ -8,6 +8,7 @@
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class259 {
@@ -36,6 +37,7 @@ static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class259 {
@@ -53,6 +55,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}}
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class260 {
@@ -81,6 +84,7 @@ static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class260 {
@@ -98,6 +102,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}}
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class261 {
@@ -126,6 +131,7 @@ static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_
 }}}
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class261 {

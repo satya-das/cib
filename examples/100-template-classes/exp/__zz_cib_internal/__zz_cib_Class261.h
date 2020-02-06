@@ -27,6 +27,7 @@ private:
 }
 
 namespace __zz_cib_ {
+using namespace ::Example;
 namespace Example {
 using namespace ::Example;
 namespace __zz_cib_Class261 {
