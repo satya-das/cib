@@ -1778,6 +1778,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if (isProtected(mem))
       {
+        if (!isOverridable())
+          continue;
         setHasProtectedMethods();
         if (hasNonDefaultConstructableVirtualAncestor() && !defaultConstructable())
           continue;

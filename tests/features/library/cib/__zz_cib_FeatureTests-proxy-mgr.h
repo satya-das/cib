@@ -26,6 +26,8 @@
 #include "__zz_cib_FeatureTests-decl.h"
 #include "__zz_cib_FeatureTests-proxy.h"
 
+#include <cstdint>
+
 /**
  * IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
  *

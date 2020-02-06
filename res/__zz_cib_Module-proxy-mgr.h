@@ -26,6 +26,8 @@
 #include "__zz_cib_$Module$-decl.h"
 #include "__zz_cib_$Module$-proxy.h"
 
+#include <cstdint>
+
 /**
  * IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
  *

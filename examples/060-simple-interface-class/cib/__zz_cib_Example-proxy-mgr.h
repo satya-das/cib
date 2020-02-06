@@ -26,6 +26,8 @@
 #include "__zz_cib_Example-decl.h"
 #include "__zz_cib_Example-proxy.h"
 
+#include <cstdint>
+
 /**
  * IMPORTANT IMPORTANT IMPORTANT IMPORTANT IMPORTANT
  *
