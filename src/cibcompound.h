@@ -133,6 +133,13 @@ private:
 public:
   const CppHashIf* getMemConditional(const CppObj* mem) const
   {
+    if (mem == nullptr)
+      return nullptr;
+
+    auto* cmp = static_cast<const CibCompound*>(mem->owner());
+    if (cmp != this)
+      return cmp->getMemConditional(mem);
+
     auto itr = memberConditionalMap_.find(mem);
     return (itr == memberConditionalMap_.end() ? nullptr : itr->second);
   }
