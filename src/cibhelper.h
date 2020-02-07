@@ -97,6 +97,8 @@ public:
   bool                        isSmartPtr(const CppVar* var) const;
   std::string                 convertSmartPtr(const std::string& typeName) const;
   std::unique_ptr<CppVarType> convertSmartPtr(const CppVarType* typeObj) const;
+  std::string                 smartPtrName(const std::string& typeName) const;
+  std::string                 smartPtrName(const CppVar* var) const;
 
 private:
   void resolveInheritance(CibCompound* cppCompound);

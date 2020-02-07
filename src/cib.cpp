@@ -302,9 +302,14 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         {
           stm << "__zz_cib_to_smart_ptr<";
           if (resolvedType)
-            stm << varBaseType;
+          {
+            stm << helper.smartPtrName(var.get()) << '<';
+            stm << longName(resolvedType) << '>';
+          }
           else
+          {
             stm << var->varType()->baseType();
+          }
           stm << ">(";
           emitParamName(stm, var, i);
           stm << ")";
@@ -1353,9 +1358,6 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
 
   for (const auto& mem : members())
   {
-    if (!isPublic(mem))
-      continue;
-
     if (CibCompoundEPtr compound = mem)
     {
       compound->collectTypeDependencies(helper, cppObjs);
@@ -2410,7 +2412,7 @@ void CibCompound::emitProtectedAccessor(std::ostream&    stm,
   stm << indentation << "class __zz_cib : public " << longName() << " {\n";
   stm << ++indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
   stm << --indentation << "public:\n";
-  stm << ++indentation << "using " << longName() << "::" << name() << ";\n";
+  stm << ++indentation << "using " << longName() << "::" << justName() << ";\n";
   stm << --indentation << "};\n";
   stm << indentation << closingBracesForWrappingNsNamespaces() << "}}\n";
 }

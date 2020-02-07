@@ -70,3 +70,14 @@ std::unique_ptr<CppVarType> CibHelper::convertSmartPtr(const CppVarType* typeObj
   typeModifier.ptrLevel_ += 1;
   return std::make_unique<CppVarType>(newName, typeModifier);
 }
+
+std::string CibHelper::smartPtrName(const std::string& typeName) const
+{
+  auto smartPtrNameEnd = typeName.find('<');
+  return typeName.substr(0, smartPtrNameEnd);
+}
+
+std::string CibHelper::smartPtrName(const CppVar* var) const
+{
+  return smartPtrName(var->varType()->baseType());
+}
