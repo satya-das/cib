@@ -157,6 +157,7 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     for (auto* compound : compounds)
     {
       auto* ast = root(compound);
+      compound->emitFacadeAndInterfaceDependecyHeaders(bindSrcStm, helper, cibParams, cibIdMgr, false, CppIndent());
       bindSrcStm << "#include \"" << bfs::relative(ast->name(), cibParams.inputPath).string() << "\"\n";
     }
     bindSrcStm << '\n';

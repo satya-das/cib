@@ -628,6 +628,13 @@ public:
 
   static const CibCompound* getFileAstObj(const CppObj* obj);
 
+  void emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
+                                              const CibHelper& helper,
+                                              const CibParams& cibParams,
+                                              const CibIdMgr&  cibIdMgr,
+                                              bool             forProxy,
+                                              CppIndent        indentation) const;
+
 private:
   void emitDecl(const CppObj*,
                 std::ostream&    stm,
@@ -652,12 +659,6 @@ private:
                           const CibParams& cibParams,
                           const CibIdMgr&  cibIdMgr,
                           CppIndent        indentation = CppIndent()) const;
-  void emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
-                                              const CibHelper& helper,
-                                              const CibParams& cibParams,
-                                              const CibIdMgr&  cibIdMgr,
-                                              bool             forProxy,
-                                              CppIndent        indentation) const;
   void emitHandleConstructorDefn(std::ostream&    stm,
                                  bool             asInline,
                                  const CibHelper& helper,
