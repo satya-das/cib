@@ -333,11 +333,11 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeGenericProxy:
         if (helper.isSmartPtr(var.get()))
           stm << "__zz_cib_make_smart_ptr_helper(";
-        if (isByRValueRef(var) || (resolvedType && isByValue(var)) || isByRef(var))
+        if (isByRValueRef(var) || (resolvedType && isByValue(var) && !helper.isSmartPtr(var.get())) || isByRef(var))
           stm << '&';
         emitParamName(stm, var, i);
         if (helper.isSmartPtr(var.get()))
-          stm << ')';
+          stm << ").convert()";
         break;
       case kPurposeInvokeHelper:
       case kPurposeGenericProxyCtorInit:
@@ -1381,6 +1381,10 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
           }
         }
       }
+    }
+    else if (CppVarEPtr var = mem)
+    {
+      addDependency(baseType(var));
     }
   }
 }
