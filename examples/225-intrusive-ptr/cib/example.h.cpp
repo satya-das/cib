@@ -124,7 +124,7 @@ static ::I* __zz_cib_decl g(__zz_cib_Delegatee* __zz_cib_obj) {
   return __zz_cib_obj->::A::g();
 }
 static int __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
-  return __zz_cib_obj->::A::h(__zz_cib_to_smart_ptr<sk_sp<I>>(p));
+  return __zz_cib_obj->::A::h(__zz_cib_to_smart_ptr<sk_sp<::I>>(p));
 }
 static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);

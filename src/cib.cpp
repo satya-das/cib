@@ -331,13 +331,13 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ')';
         break;
       case kPurposeGenericProxy:
-        if (isByRValueRef(var))
-          stm << "&";
-        else if (!helper.isSmartPtr(var.get()) && ((resolvedType && isByValue(var)) || isByRef(var)))
+        if (helper.isSmartPtr(var.get()))
+          stm << "__zz_cib_make_smart_ptr_helper(";
+        if (isByRValueRef(var) || (resolvedType && isByValue(var)) || isByRef(var))
           stm << '&';
         emitParamName(stm, var, i);
         if (helper.isSmartPtr(var.get()))
-          stm << ".release()";
+          stm << ')';
         break;
       case kPurposeInvokeHelper:
       case kPurposeGenericProxyCtorInit:

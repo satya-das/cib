@@ -67,7 +67,15 @@ std::unique_ptr<CppVarType> CibHelper::convertSmartPtr(const CppVarType* typeObj
   auto               newName  = convertSmartPtr(baseType);
 
   CppTypeModifier typeModifier = typeObj->typeModifier();
-  typeModifier.ptrLevel_ += 1;
+  if (typeModifier.constBits_ & 1)
+  {
+    typeModifier.refType_ = CppRefType::kNoRef;
+    typeModifier.constBits_ &= ~1;
+  }
+  else
+  {
+    typeModifier.ptrLevel_ += 1;
+  }
   return std::make_unique<CppVarType>(newName, typeModifier);
 }
 
