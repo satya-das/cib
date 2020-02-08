@@ -1,31 +1,31 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 {
-  //#= FullClassName: ::TemplateClassWithOneParam<int>
-  enum { __zz_cib_classid = 260 };
-}}
-
 namespace __zz_cib_ { namespace __zz_cib_Class257 {
-  //#= FullClassName: ::TemplateClassWithTwoParams<int, float>
-  enum { __zz_cib_classid = 261 };
+  //#= FullClassName: ::TemplateClassWithOneParam<int>
+  enum { __zz_cib_classid = 257 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Class258 {
+  //#= FullClassName: ::TemplateClassWithTwoParams<int, float>
+  enum { __zz_cib_classid = 258 };
+}}
+
+namespace __zz_cib_ { namespace __zz_cib_Class259 {
   //#= FullClassName: ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classid = 259 };
 }}
 
 namespace __zz_cib_ { namespace TemplateTest {
   //#= FullClassName: ::TemplateTest
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classid = 256 };
 }}
 
 namespace __zz_cib_ { namespace FeatureTests {
-  enum { __zz_cib_next_class_id = 264 };
+  enum { __zz_cib_next_class_id = 260 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
   enum {
     //#= TemplateClassWithOneParam(::TemplateClassWithOneParam<int> const &);
     __zz_cib_copy = 0,
@@ -39,7 +39,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid 
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
   enum {
     //#= TemplateClassWithTwoParams(::TemplateClassWithTwoParams<int, float> const &);
     __zz_cib_copy = 0,
@@ -55,7 +55,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
   enum {
     //#= TemplateClassWithTwoParamsAndDefaultParameter(::TemplateClassWithTwoParamsAndDefaultParameter<int, int> const &);
     __zz_cib_copy = 0,

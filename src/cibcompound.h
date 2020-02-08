@@ -149,6 +149,8 @@ public:
   }
   const std::string& nsName() const
   {
+    if (isNsNameEmpty())
+      return name();
     return !nsName_.empty() ? nsName_ : name();
   }
   void setNsName(std::string nsName)
@@ -815,9 +817,8 @@ inline bool CibCompound::forEachOuter(std::function<bool(const CibCompound*)> ca
 {
   if (this->outer())
   {
-    if (!callable(outer()))
+    if (outer()->forEachOuter(callable) || callable(outer()))
       return true;
-    outer()->forEachOuter(callable);
   }
 
   return false;
@@ -827,9 +828,8 @@ inline bool CibCompound::forEachOuter(std::function<bool(CibCompound*)> callable
 {
   if (this->outer())
   {
-    if (!callable(outer()))
+    if (outer()->forEachOuter(callable) || callable(outer()))
       return true;
-    outer()->forEachOuter(callable);
   }
 
   return false;

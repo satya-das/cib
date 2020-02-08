@@ -263,6 +263,7 @@ private:
   CibClassId                                    nextClassId_ {256};
   CibClassId                                    internalClassId_ {1};
   std::set<std::pair<const CibCompound*, bool>> idsAssigned_;
+  std::set<const CibCompound*>                  nsNameAssigned_;
 };
 
 inline CibIdData* CibIdMgr::addClass(CibFullClassName   className,

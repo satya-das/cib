@@ -125,7 +125,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -154,7 +154,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -172,7 +172,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<float>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -201,7 +201,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -219,7 +219,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -248,7 +248,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -480,8 +480,8 @@ Let's see what that `value-postdef.h` contains:
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
-#include "__zz_cib_Class258.h"
-#include "__zz_cib_Class256.h"
+#include "__zz_cib_Class259.h"
+#include "__zz_cib_Class257.h"
 
 ```
 

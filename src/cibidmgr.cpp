@@ -194,6 +194,17 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
     return;
   }
 
+  if (nsNameAssigned_.count(compound))
+    return;
+  nsNameAssigned_.insert(compound);
+  if (compound->isTemplateInstance())
+  {
+    compound->forEachOuter([&](CibCompound* outer) {
+      this->assignNsName(outer, helper, cibParams);
+      return false;
+    });
+  }
+
   if (compound->isNsNameEmpty())
   {
     if (isCppFile(compound))
@@ -202,21 +213,23 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
     }
     else
     {
-      const auto className = compound->longName();
-      const auto clsId     = [&]() {
+      auto className                = compound->longName();
+      const auto [clsId, cibIdData] = [&]() {
         const auto itr = cibIdTable_.find(className);
-        if (itr == cibIdTable_.end())
-        {
-          return nextClassId_++;
-        }
-        else
+        if (itr != cibIdTable_.end())
         {
           const CibIdData* cibIdData = &itr->second;
-          return cibIdData->getId();
+          return std::make_pair(cibIdData->getId(), cibIdData);
         }
+        return std::make_pair(nextClassId_++, (const CibIdData*) nullptr);
       }();
       if (cibParams.alwaysUseNsName || compound->isTemplateInstance())
         compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
+      if (cibIdData == nullptr)
+      {
+        auto classNsName = compound->fullNsName();
+        addClass(std::move(className), std::move(classNsName), clsId);
+      }
     }
   }
 

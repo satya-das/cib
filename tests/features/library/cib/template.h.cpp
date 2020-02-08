@@ -7,7 +7,7 @@
 #include "__zz_cib_FeatureTests-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::TemplateClassWithOneParam<int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -27,7 +27,7 @@ static int __zz_cib_decl get(const __zz_cib_Delegatee* __zz_cib_obj) {
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -40,7 +40,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::TemplateClassWithTwoParams<int, float>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -63,7 +63,7 @@ static float __zz_cib_decl get2(const __zz_cib_Delegatee* __zz_cib_obj) {
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -77,7 +77,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }
 }}
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -100,7 +100,7 @@ static int __zz_cib_decl get2(const __zz_cib_Delegatee* __zz_cib_obj) {
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
