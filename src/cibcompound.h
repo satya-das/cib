@@ -816,11 +816,11 @@ inline bool CibCompound::forEachOuter(std::function<bool(const CibCompound*)> ca
   if (this->outer())
   {
     if (!callable(outer()))
-      return false;
+      return true;
     outer()->forEachOuter(callable);
   }
 
-  return true;
+  return false;
 }
 
 inline bool CibCompound::forEachOuter(std::function<bool(CibCompound*)> callable)
@@ -828,11 +828,11 @@ inline bool CibCompound::forEachOuter(std::function<bool(CibCompound*)> callable
   if (this->outer())
   {
     if (!callable(outer()))
-      return false;
+      return true;
     outer()->forEachOuter(callable);
   }
 
-  return true;
+  return false;
 }
 
 inline void CibCompound::forEachTemplateInstance(std::function<void(CibCompound*)> callable) const

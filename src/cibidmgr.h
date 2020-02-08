@@ -46,10 +46,10 @@ struct CibMethodIdTableEntry
   {
   }
 
-  CibMethodId        id{kInvalidMethodId};
+  CibMethodId        id {kInvalidMethodId};
   CibMethodSignature sig;
   CibMethodCAPIName  name;
-  const CppObj*      obj{nullptr};
+  const CppObj*      obj {nullptr};
 };
 
 using MethodIdVisitor = std::function<void(const CibMethodIdTableEntry&)>;
@@ -128,7 +128,7 @@ class CibIdData
   CibClassId         classId;
   CibFullClassNsName fullNsName;
   CibMethodIdTable   methodIdTable;
-  CibMethodId        nextMethodId{0};
+  CibMethodId        nextMethodId {0};
   CibMethodsSet      allCApiNames;
 
 public:
@@ -221,6 +221,7 @@ public:
 
 public:
   void              assignIds(const CibHelper& helper, const CibParams& cibParams);
+  void              assignNsName(CibCompound* compound, const CibHelper& helper, const CibParams& cibParams);
   bool              saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
   const CibIdTable& getCibIdTable() const
   {
@@ -259,8 +260,8 @@ private:
 private:
   CibIdTable                                    cibIdTable_;
   const CibParams&                              cibParams_;
-  CibClassId                                    nextClassId_{256};
-  CibClassId                                    internalClassId_{1};
+  CibClassId                                    nextClassId_ {256};
+  CibClassId                                    internalClassId_ {1};
   std::set<std::pair<const CibCompound*, bool>> idsAssigned_;
 };
 

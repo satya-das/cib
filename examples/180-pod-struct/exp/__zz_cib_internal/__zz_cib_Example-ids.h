@@ -2,26 +2,26 @@
 
 namespace __zz_cib_ { namespace A {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 266 };
 }}
 
 namespace __zz_cib_ { namespace NonPod1 {
   //#= FullClassName: ::NonPod1
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 263 };
 }}
 
 namespace __zz_cib_ { namespace NonPod2 {
   //#= FullClassName: ::NonPod2
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 264 };
 }}
 
 namespace __zz_cib_ { namespace NonPod3 {
   //#= FullClassName: ::NonPod3
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 265 };
 }}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 261 };
+  enum { __zz_cib_next_class_id = 267 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

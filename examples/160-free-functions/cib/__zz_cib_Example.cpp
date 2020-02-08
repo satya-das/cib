@@ -5,6 +5,10 @@
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 #include "example-file1.h"
+
+#include "example-file1.h"
+#include "example-file2.h"
+
 #include "example-file2.h"
 
 namespace __zz_cib_ {

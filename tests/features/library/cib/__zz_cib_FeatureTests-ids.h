@@ -2,26 +2,26 @@
 
 namespace __zz_cib_ { namespace __zz_cib_Class256 {
   //#= FullClassName: ::TemplateClassWithOneParam<int>
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classid = 260 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Class257 {
   //#= FullClassName: ::TemplateClassWithTwoParams<int, float>
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 261 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Class258 {
   //#= FullClassName: ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 262 };
 }}
 
 namespace __zz_cib_ { namespace TemplateTest {
   //#= FullClassName: ::TemplateTest
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 263 };
 }}
 
 namespace __zz_cib_ { namespace FeatureTests {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 264 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

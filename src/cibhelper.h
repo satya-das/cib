@@ -91,10 +91,15 @@ public:
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
   CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
 
-  bool                        isSmartPtr(const std::string& typeName) const;
-  bool                        isSmartPtr(const CibCompound* compound) const;
-  bool                        isSmartPtr(const CppVarType* varType) const;
-  bool                        isSmartPtr(const CppVar* var) const;
+  bool isSmartPtr(const std::string& typeName) const;
+  bool isSmartPtr(const CibCompound* compound) const;
+  bool isSmartPtr(const CppVarType* varType) const;
+  bool isSmartPtr(const CppVar* var) const;
+
+  bool isUniquePtr(const std::string& typeName) const;
+  bool isUniquePtr(const CppVarType* varType) const;
+  bool isUniquePtr(const CppVar* var) const;
+
   std::string                 convertSmartPtr(const std::string& typeName) const;
   std::unique_ptr<CppVarType> convertSmartPtr(const CppVarType* typeObj) const;
   std::string                 smartPtrName(const std::string& typeName) const;
@@ -136,6 +141,7 @@ private:
   const CibParams&            cibParams_;
   CibIdMgr&                   cibIdMgr_;
   std::set<std::string>       smartPtrNames_;
+  std::set<std::string>       uniquePtrNames_;
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -37,6 +37,7 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
   , smartPtrNames_({"sk_sp", "std::unique_ptr"})
+  , uniquePtrNames_({"std::unique_ptr"})
 {
   CppParser parser(std::make_unique<CibObjFactory>());
   parser.parseEnumBodyAsBlob();
@@ -56,6 +57,7 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
   pThis->identifyAbstract(compound);
   pThis->identifyPobableFacades(compound);
   pThis->markNeedsGenericProxyDefinition(compound);
+  cibIdMgr_.assignNsName(compound, *this, cibParams_);
 }
 
 CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
@@ -345,6 +347,10 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       if (isByRValueRef(var))
       {
         cppCompound->setCantHaveDefaultCtor();
+        cppCompound->setCantHaveDefaultCopyCtor();
+      }
+      else if (isUniquePtr(var.get()))
+      {
         cppCompound->setCantHaveDefaultCopyCtor();
       }
       else

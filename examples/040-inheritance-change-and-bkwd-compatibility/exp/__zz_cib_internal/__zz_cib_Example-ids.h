@@ -2,46 +2,46 @@
 
 namespace __zz_cib_ { namespace A {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classid = 258 };
 }}
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 260 };
 }}}
 
 namespace __zz_cib_ { namespace B {
   //#= FullClassName: ::B
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 259 };
 }}
 
 namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::B::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 261 };
 }}}
 
 namespace __zz_cib_ { namespace I1 {
   //#= FullClassName: ::I1
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 264 };
 }}
 
 namespace __zz_cib_ { namespace I1 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::I1::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classid = 266 };
 }}}
 
 namespace __zz_cib_ { namespace I2 {
   //#= FullClassName: ::I2
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classid = 265 };
 }}
 
 namespace __zz_cib_ { namespace I2 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::I2::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classid = 267 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 264 };
+  enum { __zz_cib_next_class_id = 268 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

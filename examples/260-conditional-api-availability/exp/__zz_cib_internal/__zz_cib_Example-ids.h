@@ -2,36 +2,36 @@
 
 namespace __zz_cib_ { namespace A {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classid = 260 };
 }}
 
 namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 264 };
 }}}
 
 namespace __zz_cib_ { namespace B {
   //#= FullClassName: ::B
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 261 };
 }}
 
 namespace __zz_cib_ { namespace C {
   //#= FullClassName: ::C
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 262 };
 }}
 
 namespace __zz_cib_ { namespace P {
   //#= FullClassName: ::P
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 263 };
 }}
 
 namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::P::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classid = 265 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 262 };
+  enum { __zz_cib_next_class_id = 266 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

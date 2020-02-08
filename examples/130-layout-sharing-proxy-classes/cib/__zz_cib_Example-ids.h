@@ -2,11 +2,11 @@
 
 namespace __zz_cib_ { namespace CPoint {
   //#= FullClassName: ::CPoint
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classid = 257 };
 }}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 257 };
+  enum { __zz_cib_next_class_id = 258 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

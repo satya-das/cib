@@ -69,7 +69,7 @@ static void __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_ob
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
   if (!classIdRepoPopulated) {
-    __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_Class258::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
     __zz_cib_gClassIdRepo[std::type_index(typeid(::SkRefCntBase))] = __zz_cib_::__zz_cib_Class256::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
@@ -80,7 +80,7 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_c
     auto* obj = dynamic_cast<::I*>(*__zz_cib_obj);
     if (obj) {
       *__zz_cib_obj = obj;
-      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_Class258::__zz_cib_classid;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
     }
   }
   return __zz_cib_::__zz_cib_Class256::__zz_cib_classid;

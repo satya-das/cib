@@ -11,7 +11,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -40,7 +40,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class257 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -58,7 +58,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class260 {
+namespace __zz_cib_Class258 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<float>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -87,7 +87,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class260 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
@@ -105,7 +105,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class261 {
+namespace __zz_cib_Class256 {
 namespace __zz_cib_Delegator {
 using __zz_cib_Delegatee = ::Example::Value<int>;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
@@ -134,7 +134,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 namespace Example {
 using namespace ::Example;
-namespace __zz_cib_Class261 {
+namespace __zz_cib_Class256 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),

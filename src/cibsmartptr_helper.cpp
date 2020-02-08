@@ -36,6 +36,16 @@ bool CibHelper::isSmartPtr(const std::string& typeName) const
   return isSmartPtr(typeName.substr(0, nameEndPos));
 }
 
+bool CibHelper::isUniquePtr(const std::string& typeName) const
+{
+  if (uniquePtrNames_.count(typeName))
+    return true;
+  auto nameEndPos = typeName.find('<');
+  if (nameEndPos == typeName.npos)
+    return false;
+  return isSmartPtr(typeName.substr(0, nameEndPos));
+}
+
 bool CibHelper::isSmartPtr(const CibCompound* compound) const
 {
   if (!isClassLike(compound))
@@ -51,6 +61,16 @@ bool CibHelper::isSmartPtr(const CppVarType* varType) const
 bool CibHelper::isSmartPtr(const CppVar* var) const
 {
   return isSmartPtr(var->varType());
+}
+
+bool CibHelper::isUniquePtr(const CppVarType* varType) const
+{
+  return isUniquePtr(varType->baseType());
+}
+
+bool CibHelper::isUniquePtr(const CppVar* var) const
+{
+  return isUniquePtr(var->varType());
 }
 
 std::string CibHelper::convertSmartPtr(const std::string& typeName) const

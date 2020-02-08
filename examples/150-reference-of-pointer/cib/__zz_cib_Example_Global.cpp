@@ -6,6 +6,15 @@
 
 #include "example.h"
 
+#include <typeinfo>
+#include <typeindex>
+#include <cstdint>
+#include <unordered_map>
+
+extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
+
+#include "example.h"
+
 namespace __zz_cib_ {
 namespace __zz_cib_Example_Global {
 namespace __zz_cib_Delegator {

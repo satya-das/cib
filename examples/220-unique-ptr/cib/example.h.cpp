@@ -135,7 +135,7 @@ static int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, ::I* p) {
   return __zz_cib_obj->::A::i(p);
 }
 static int __zz_cib_decl j(__zz_cib_Delegatee* __zz_cib_obj, ::I** pp) {
-  return __zz_cib_obj->::A::j(__zz_cib_to_smart_ptr<std::unique_ptr<::I>>(pp));
+  return __zz_cib_obj->::A::j(__zz_cib_to_smart_ptr<std::unique_ptr<::I>>(pp).ptr());
 }
 }
 }}

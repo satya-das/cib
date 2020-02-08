@@ -313,6 +313,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
           stm << ">(";
           emitParamName(stm, var, i);
           stm << ")";
+          if (isByRef(var))
+            stm << ".ref()";
+          else if (var->varType()->typeModifier().ptrLevel_)
+            stm << ".ptr()";
           break;
         }
         else if (resolvedType && isByValue(var))
@@ -552,9 +556,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
             stm << "new ::" << fullName(retTypeCompound) << '(';
         }
       }
-      else if (isByRef(returnType()))
+      else if (isByRef(returnType()) && !helper.isSmartPtr(returnType()))
       {
-        stm << '&';
+        stm << "&";
       }
     }
     if (isClassLike(callingOwner) && !isStatic())
@@ -588,7 +592,12 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     stm << ")";
     if (helper.isSmartPtr(returnType()))
-      stm << ".release()";
+    {
+      if (::isConst(returnType()))
+        stm << ".get()";
+      else
+        stm << ".release()";
+    }
     stm << ";\n";
   }
   stm << --indentation << "}\n";
@@ -1385,6 +1394,10 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
     else if (CppVarEPtr var = mem)
     {
       addDependency(baseType(var));
+    }
+    else if (CppFwdClsDeclEPtr fwdDecl = mem)
+    {
+      addDependency(fwdDecl->name_);
     }
   }
 }

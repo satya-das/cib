@@ -56,8 +56,8 @@ public:
 }}}
 ::SkRefCntBase* __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(&h)) {
-  case __zz_cib_::__zz_cib_Class258::__zz_cib_classid:
-    return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_from_handle(h);
+  case __zz_cib_::__zz_cib_Class257::__zz_cib_classid:
+    return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_from_handle(h);
   case __zz_cib_::__zz_cib_Class256::__zz_cib_classid:
     return new ::SkRefCntBase(h);
   default: break;

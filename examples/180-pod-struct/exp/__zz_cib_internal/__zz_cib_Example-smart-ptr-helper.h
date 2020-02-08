@@ -23,8 +23,7 @@
 
 #pragma once
 
-namespace __zz_cib_
-{
+namespace __zz_cib_ {
 
 template <typename SmartPtrT, typename RawPtrBaseT>
 SmartPtrT attach(RawPtrBaseT* rawPtr)
@@ -53,13 +52,13 @@ auto* release(SmartPtrT& smartPtr)
 template <typename SmartPtrT, typename RawPtrBaseT>
 class __zz_cib_smart_to_raw_helper
 {
-  SmartPtrT*    smartPtr;
-  RawPtrBaseT*  rawPtr;
+  SmartPtrT*   smartPtr;
+  RawPtrBaseT* rawPtr;
 
 public:
   __zz_cib_smart_to_raw_helper(__zz_cib_smart_to_raw_helper&& rhs)
     : smartPtr(rhs.smartPtr)
-    , rawPtr  (rhs.rawPtr)
+    , rawPtr(rhs.rawPtr)
   {
     smartPtr = nullptr;
     rawPtr   = nullptr;
@@ -68,7 +67,7 @@ public:
 public:
   __zz_cib_smart_to_raw_helper(SmartPtrT& _smartPtr)
     : smartPtr(&_smartPtr)
-    , rawPtr  (nullptr)
+    , rawPtr(nullptr)
   {
   }
 
@@ -77,7 +76,7 @@ public:
     if (!smartPtr)
       return nullptr;
     auto* ret = release(*smartPtr);
-    smartPtr = nullptr;
+    smartPtr  = nullptr;
     return ret;
   }
 };
@@ -85,13 +84,13 @@ public:
 template <typename SmartPtrT, typename RawPtrBaseT>
 class __zz_cib_smart_to_raw_helper<SmartPtrT*, RawPtrBaseT>
 {
-  SmartPtrT*    smartPtr;
-  RawPtrBaseT*  rawPtr;
+  SmartPtrT*   smartPtr;
+  RawPtrBaseT* rawPtr;
 
 public:
   __zz_cib_smart_to_raw_helper(__zz_cib_smart_to_raw_helper&& rhs)
     : smartPtr(rhs.smartPtr)
-    , rawPtr  (rhs.rawPtr)
+    , rawPtr(rhs.rawPtr)
   {
     smartPtr = nullptr;
     rawPtr   = nullptr;
@@ -100,7 +99,7 @@ public:
 public:
   __zz_cib_smart_to_raw_helper(SmartPtrT* _smartPtr)
     : smartPtr(_smartPtr)
-    , rawPtr  (nullptr)
+    , rawPtr(nullptr)
   {
   }
 
@@ -131,10 +130,16 @@ class __zz_cib_raw_to_smart_helper
   SmartPtrT     smartPtr;
   RawPtrBaseT** rawPtr;
 
+  void attachPtr()
+  {
+    if (rawPtr != nullptr)
+      attach(smartPtr, *rawPtr);
+  }
+
 public:
   __zz_cib_raw_to_smart_helper(__zz_cib_raw_to_smart_helper&& rhs)
     : smartPtr(std::move(rhs.smartPtr))
-    , rawPtr  (rhs.rawPtr)
+    , rawPtr(rhs.rawPtr)
   {
     rhs.rawPtr = nullptr;
   }
@@ -148,8 +153,14 @@ public:
   operator SmartPtrT()
   {
     auto* ret = rawPtr ? *rawPtr : nullptr;
-    rawPtr = nullptr;
+    rawPtr    = nullptr;
     return attach<SmartPtrT, RawPtrBaseT>(ret);
+  }
+
+  SmartPtrT& ref()
+  {
+    attachPtr();
+    return smartPtr;
   }
 
 public:
@@ -158,11 +169,9 @@ public:
   {
   }
 
-  operator SmartPtrT*()
+  SmartPtrT* ptr()
   {
-    if (rawPtr == nullptr)
-      return nullptr;
-    attach(smartPtr, *rawPtr);
+    attachPtr();
     return &smartPtr;
   }
 
@@ -172,7 +181,6 @@ public:
       *rawPtr = release(smartPtr);
   }
 };
-
 
 template <typename SmartPtrT, typename RawPtrBaseT>
 auto __zz_cib_make_smart_ptr_helper(SmartPtrT& smartPtr)
@@ -210,4 +218,4 @@ auto __zz_cib_to_smart_ptr(RawPtrBaseT** rawPtr)
   return __zz_cib_raw_to_smart_helper<SmartPtrT, RawPtrBaseT>(rawPtr);
 }
 
-}
+} // namespace __zz_cib_

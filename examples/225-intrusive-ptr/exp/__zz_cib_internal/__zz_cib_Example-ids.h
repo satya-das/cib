@@ -1,36 +1,36 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::A
-  enum { __zz_cib_classid = 259 };
-}}
-
 namespace __zz_cib_ { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::I
-  enum { __zz_cib_classid = 258 };
+  //#= FullClassName: ::A
+  enum { __zz_cib_classid = 262 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::I
+  enum { __zz_cib_classid = 261 };
+}}
+
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::I::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 263 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_Class256 {
   //#= FullClassName: ::SkRefCntBase
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classid = 259 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy {
   //#= FullClassName: ::SkRefCntBase::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 260 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 261 };
+  enum { __zz_cib_next_class_id = 264 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
   enum {
     //#= A(::A const &);
     __zz_cib_copy = 0,
@@ -50,7 +50,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid 
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
   enum {
     //#= I();
     __zz_cib_new = 0,
@@ -70,7 +70,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid 
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
   enum {
     //#= int f() const;
     f = 0,
