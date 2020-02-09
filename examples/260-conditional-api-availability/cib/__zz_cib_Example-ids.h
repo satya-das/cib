@@ -35,8 +35,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= A();
@@ -67,20 +67,20 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 13,
     __zz_cib_next_method_id = 14
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int DoFunc() const;
     DoFunc = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B {
+  enum __zz_cib_methodid {
     //#= B(::B const &);
     __zz_cib_copy = 0,
     //#= B();
@@ -93,10 +93,10 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     f2 = 4,
     __zz_cib_next_method_id = 5
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace C { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace C {
+  enum __zz_cib_methodid {
     //#= C(::C const &);
     __zz_cib_copy = 0,
     //#= C();
@@ -111,10 +111,10 @@ namespace __zz_cib_ { namespace C { namespace __zz_cib_methodid {
     f3 = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace P { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace P {
+  enum __zz_cib_methodid {
     //#= P(::P const &);
     __zz_cib_copy = 0,
     //#= P();
@@ -131,10 +131,10 @@ namespace __zz_cib_ { namespace P { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int f3();
     f3 = 0,
     //#= int f1();
@@ -145,5 +145,5 @@ namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy { namespace 
     __zz_cib_delete = 3,
     __zz_cib_next_method_id = 4
   };
-}}}}
+}}}
 

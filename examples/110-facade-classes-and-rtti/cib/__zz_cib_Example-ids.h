@@ -30,8 +30,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= ~A();
@@ -46,10 +46,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     PrivateFacade2 = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Facade { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Facade {
+  enum __zz_cib_methodid {
     //#= Facade();
     __zz_cib_new = 0,
     //#= void F();
@@ -62,20 +62,20 @@ namespace __zz_cib_ { namespace Facade { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 4,
     __zz_cib_next_method_id = 5
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Facade { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Facade { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= void F();
     F = 0,
     //#= ~Facade();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace PublicFacadeImpl {
+  enum __zz_cib_methodid {
     //#= PublicFacadeImpl(::PublicFacadeImpl const &);
     __zz_cib_copy = 0,
     //#= ~PublicFacadeImpl();
@@ -90,15 +90,15 @@ namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace PublicFacadeImpl { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= void F();
     F = 0,
     //#= ~PublicFacadeImpl();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 

@@ -64,7 +64,7 @@ struct __zz_cib_Delegator {
   static int __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * intVal) {
     return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_from_handle(*intVal));
   }
-  static float __zz_cib_decl setValue_1(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * floatVal) {
+  static float __zz_cib_decl setValue_3(const ::A* __zz_cib_obj, __zz_cib_HANDLE const * floatVal) {
     return __zz_cib_obj->setValue(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_from_handle(*floatVal));
   }
   static void __zz_cib_decl __zz_cib_delete(::A* __zz_cib_obj) {
@@ -78,10 +78,10 @@ namespace __zz_cib_ {
 namespace A {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getIntValue),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::getFloatValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::setValue_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 5 };

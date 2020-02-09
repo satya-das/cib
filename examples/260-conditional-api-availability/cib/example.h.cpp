@@ -18,6 +18,7 @@ class __zz_cib : public ::A {
     return __zz_cib_mtbl_helper;
   }
   friend struct __zz_cib_::A::__zz_cib_Delegator;
+  using __zz_cib_methodid = __zz_cib_::A::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::A)
 
@@ -33,13 +34,13 @@ public:
   {}
   int DoFunc() const override {
     using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::DoFunc>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::DoFunc>(
       __zz_cib_proxy);
   }
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -241,6 +242,7 @@ class __zz_cib : public ::P {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+  using __zz_cib_methodid = __zz_cib_::P::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::P)
 
@@ -256,25 +258,25 @@ public:
   {}
   int f3() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f3>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f3>(
       __zz_cib_proxy);
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
   int f1() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f1>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f1>(
       __zz_cib_proxy);
   }
   int f2() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f2>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f2>(
       __zz_cib_proxy);
   }
 #endif
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }

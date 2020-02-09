@@ -849,15 +849,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     if (byValueObj || (returnType() && isByRef(returnType())))
       stm << "*";
   }
-  stm << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, ";
-  if (genericProxy)
-  {
-    stm << "__zz_cib_GenericProxy::__zz_cib_methodid::";
-  }
-  else
-  {
-    stm << "__zz_cib_methodid::";
-  }
+  stm << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::";
   stm << capiName << ">(\n";
   if (genericProxy)
     stm << ++indentation << "__zz_cib_proxy";
@@ -2372,8 +2364,9 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << --indentation << "}\n";
   if (needsDelagatorClass())
     stm << indentation << "friend struct __zz_cib_" << longNsName() << "::__zz_cib_Delegator;\n";
-  --indentation;
-  stm << indentation << "public:\n";
+  stm << indentation << "using __zz_cib_methodid = __zz_cib_::" << fullNsName()
+      << "::__zz_cib_GenericProxy::__zz_cib_methodid;\n";
+  stm << --indentation << "public:\n";
   stm << ++indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, " << longName() << ")\n\n";
   auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_GenericProxy");
   for (auto ctor : ctors())
@@ -2447,6 +2440,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << "namespace __zz_cib_Generic {\n";
   stm << indentation << "class __zz_cib : public " << longName() << " {\n";
   stm << ++indentation << "__zz_cib_HANDLE* __zz_cib_h_;\n\n";
+  stm << indentation << "using __zz_cib_methodid = __zz_cib_::" << fullNsName() << "::__zz_cib_methodid;\n";
   stm << indentation << "using __zz_cib_TYPE = __zz_cib_HANDLE;\n";
   stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
   stm << ++indentation << "static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName

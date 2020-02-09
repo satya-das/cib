@@ -10,8 +10,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace RValueExample { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace RValueExample {
+  enum __zz_cib_methodid {
     //#= ~RValueExample();
     __zz_cib_delete = 0,
     //#= RValueExample(std::int32_t);
@@ -30,5 +30,5 @@ namespace __zz_cib_ { namespace RValueExample { namespace __zz_cib_methodid {
     GetValue = 7,
     __zz_cib_next_method_id = 8
   };
-}}}
+}}
 

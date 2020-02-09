@@ -20,8 +20,8 @@ namespace __zz_cib_ { namespace Demo {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace C { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace C {
+  enum __zz_cib_methodid {
     //#= C();
     __zz_cib_new = 0,
     //#= C(::C const &);
@@ -32,10 +32,10 @@ namespace __zz_cib_ { namespace C { namespace __zz_cib_methodid {
     UseInterface = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace I {
+  enum __zz_cib_methodid {
     //#= I();
     __zz_cib_new = 0,
     //#= int F();
@@ -46,15 +46,15 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int F();
     F = 0,
     //#= ~I();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 

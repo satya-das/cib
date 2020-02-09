@@ -15,8 +15,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= ~A();
     __zz_cib_delete = 0,
     //#= A();
@@ -25,10 +25,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     f = 2,
     __zz_cib_next_method_id = 3
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B {
+  enum __zz_cib_methodid {
     //#= ~B();
     __zz_cib_delete = 0,
     //#= B();
@@ -37,5 +37,5 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     g = 2,
     __zz_cib_next_method_id = 3
   };
-}}}
+}}
 

@@ -40,8 +40,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= ~A();
@@ -52,10 +52,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     SetInterface = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface1 {
+  enum __zz_cib_methodid {
     //#= Interface1();
     __zz_cib_new = 0,
     //#= ::Interface2* p();
@@ -70,10 +70,10 @@ namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_methodid {
     disruptVTable = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= ::Interface3& r();
     r = 0,
     //#= ::Interface2* p();
@@ -84,10 +84,10 @@ namespace __zz_cib_ { namespace Interface1 { namespace __zz_cib_GenericProxy { n
     disruptVTable = 3,
     __zz_cib_next_method_id = 4
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface2 {
+  enum __zz_cib_methodid {
     //#= Interface2();
     __zz_cib_new = 0,
     //#= int f();
@@ -102,10 +102,10 @@ namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_methodid {
     disruptVTable = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int f();
     f = 0,
     //#= ~Interface2();
@@ -114,10 +114,10 @@ namespace __zz_cib_ { namespace Interface2 { namespace __zz_cib_GenericProxy { n
     disruptVTable = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface3 {
+  enum __zz_cib_methodid {
     //#= Interface3();
     __zz_cib_new = 0,
     //#= int g();
@@ -132,10 +132,10 @@ namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_methodid {
     disruptVTable = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int g();
     g = 0,
     //#= ~Interface3();
@@ -144,5 +144,5 @@ namespace __zz_cib_ { namespace Interface3 { namespace __zz_cib_GenericProxy { n
     disruptVTable = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 

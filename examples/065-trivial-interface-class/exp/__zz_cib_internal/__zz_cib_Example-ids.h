@@ -15,8 +15,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace Interface { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface {
+  enum __zz_cib_methodid {
     //#= Interface(::Interface const &);
     __zz_cib_copy = 0,
     //#= Interface();
@@ -31,15 +31,15 @@ namespace __zz_cib_ { namespace Interface { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace Interface { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Interface { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int DoFunc() const;
     DoFunc = 0,
     //#= ~Interface();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 

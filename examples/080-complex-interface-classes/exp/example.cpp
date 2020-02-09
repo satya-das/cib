@@ -145,6 +145,7 @@ namespace __zz_cib_Generic {
 class __zz_cib : public ::Interface2 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_methodid = __zz_cib_::Interface2::__zz_cib_methodid;
   using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
@@ -208,6 +209,7 @@ namespace __zz_cib_Generic {
 class __zz_cib : public ::Interface3 {
   __zz_cib_HANDLE* __zz_cib_h_;
 
+  using __zz_cib_methodid = __zz_cib_::Interface3::__zz_cib_methodid;
   using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(

@@ -85,9 +85,9 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
       auto extractClassNsName = [](const CppCompound* classObj) -> std::string {
         return fullName(classObj).substr(11); // skip "__zz_cib_::"
       };
-      if (cppObj->owner()->name() == kMethodIdName)
+      if (enumObj->name_ == kMethodIdName)
       {
-        auto classNsName = extractClassNsName(cppObj->owner()->owner());
+        auto classNsName = extractClassNsName(enumObj->owner());
         auto itr         = nsNameToNameMap.find(classNsName);
         if (itr != nsNameToNameMap.end())
           loadMethodIds(itr->second, static_cast<const CppEnum*>(cppObj));
@@ -381,9 +381,8 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
       continue;
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cibIdData.getFullNsName();
-    stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end())
-        << " namespace __zz_cib_methodid {\n";
-    stm << ++indentation << "enum {\n";
+    stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end()) << '\n'
+        << ++indentation << "enum __zz_cib_methodid {\n";
     ++indentation;
     auto nextMethodId = cibIdData.forEachMethod([&](const CibMethodIdTableEntry& methodIdEntry) {
       stm << indentation << "//#= " << methodIdEntry.sig << '\n';
@@ -391,7 +390,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     });
     stm << indentation << "__zz_cib_next_method_id = " << nextMethodId << '\n';
     stm << --indentation << "};\n";
-    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
+    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}\n\n";
   }
   return true;
 }

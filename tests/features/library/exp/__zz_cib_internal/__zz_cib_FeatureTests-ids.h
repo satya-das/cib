@@ -25,8 +25,8 @@ namespace __zz_cib_ { namespace FeatureTests {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class257 {
+  enum __zz_cib_methodid {
     //#= TemplateClassWithOneParam(::TemplateClassWithOneParam<int> const &);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithOneParam();
@@ -37,10 +37,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
     get = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class258 {
+  enum __zz_cib_methodid {
     //#= TemplateClassWithTwoParams(::TemplateClassWithTwoParams<int, float> const &);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithTwoParams();
@@ -53,10 +53,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid 
     get2 = 4,
     __zz_cib_next_method_id = 5
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class259 {
+  enum __zz_cib_methodid {
     //#= TemplateClassWithTwoParamsAndDefaultParameter(::TemplateClassWithTwoParamsAndDefaultParameter<int, int> const &);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithTwoParamsAndDefaultParameter();
@@ -69,10 +69,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class259 { namespace __zz_cib_methodid 
     get2 = 4,
     __zz_cib_next_method_id = 5
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace TemplateTest { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace TemplateTest {
+  enum __zz_cib_methodid {
     //#= TemplateTest(::TemplateTest const &);
     __zz_cib_copy = 0,
     //#= ~TemplateTest();
@@ -87,5 +87,5 @@ namespace __zz_cib_ { namespace TemplateTest { namespace __zz_cib_methodid {
     getTemplateClassWithTwoParamsAndDefaultParameter = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 

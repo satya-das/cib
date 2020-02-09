@@ -30,8 +30,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+  enum __zz_cib_methodid {
     //#= int GetNewA(::A*&);
     GetNewA = 0,
     //#= int GetNewB(::A*&);
@@ -42,10 +42,10 @@ namespace __zz_cib_ { namespace __zz_cib_Example_Global { namespace __zz_cib_met
     GetNewB_3 = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
     //#= A(::A const &);
@@ -60,20 +60,20 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int VirtualFunction() const;
     VirtualFunction = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B {
+  enum __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 0,
     //#= B(::B const &);
@@ -88,15 +88,15 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int VirtualFunction() const;
     VirtualFunction = 0,
     //#= ~B();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 

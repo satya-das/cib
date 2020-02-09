@@ -30,8 +30,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class258 {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= ~A();
@@ -48,10 +48,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_methodid 
     i = 6,
     __zz_cib_next_method_id = 7
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class257 {
+  enum __zz_cib_methodid {
     //#= I();
     __zz_cib_new = 0,
     //#= ~I();
@@ -68,10 +68,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int f() const;
     f = 0,
     //#= void internal_dispose() const;
@@ -80,10 +80,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_GenericPr
     __zz_cib_delete = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class256 {
+  enum __zz_cib_methodid {
     //#= SkRefCntBase();
     __zz_cib_new = 0,
     //#= ~SkRefCntBase();
@@ -100,15 +100,15 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid 
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= void internal_dispose() const;
     internal_dispose = 0,
     //#= ~SkRefCntBase();
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}}
+}}}
 

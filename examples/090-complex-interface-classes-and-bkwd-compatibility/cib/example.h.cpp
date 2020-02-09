@@ -23,6 +23,7 @@ class __zz_cib : public ::Interface1 {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+  using __zz_cib_methodid = __zz_cib_::Interface1::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::Interface1)
 
@@ -33,23 +34,23 @@ public:
   {}
   ::Interface3& r() override {
     using __zz_cib_proc = ::Interface3* (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::r>(
+    return *__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::r>(
       __zz_cib_proxy);
   }
   int disruptVTable() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::disruptVTable>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable>(
       __zz_cib_proxy);
   }
   ::Interface2* p() override {
     using __zz_cib_proc = ::Interface2* (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::p>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::p>(
       __zz_cib_proxy);
   }
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -106,6 +107,7 @@ class __zz_cib : public ::Interface2 {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+  using __zz_cib_methodid = __zz_cib_::Interface2::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::Interface2)
 
@@ -116,18 +118,18 @@ public:
   {}
   int f() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::f>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
       __zz_cib_proxy);
   }
   int disruptVTable() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::disruptVTable>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable>(
       __zz_cib_proxy);
   }
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
@@ -192,6 +194,7 @@ class __zz_cib : public ::Interface3 {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+  using __zz_cib_methodid = __zz_cib_::Interface3::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::Interface3)
 
@@ -202,18 +205,18 @@ public:
   {}
   int g() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::g>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g>(
       __zz_cib_proxy);
   }
   int disruptVTable() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::disruptVTable>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable>(
       __zz_cib_proxy);
   }
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }

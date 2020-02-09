@@ -20,8 +20,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class257 {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= ~A();
@@ -40,10 +40,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_methodid 
     j = 7,
     __zz_cib_next_method_id = 8
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class256 {
+  enum __zz_cib_methodid {
     //#= I(std::unique_ptr<int>);
     __zz_cib_new = 0,
     //#= I();
@@ -60,10 +60,10 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_methodid 
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= std::unique_ptr<int> g() const;
     g = 0,
     //#= int f() const;
@@ -72,5 +72,5 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_GenericPr
     __zz_cib_delete = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 

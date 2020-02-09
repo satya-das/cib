@@ -25,8 +25,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A {
+  enum __zz_cib_methodid {
     //#= A(::A const &);
     __zz_cib_copy = 0,
     //#= A();
@@ -41,10 +41,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_methodid {
     AnotherVirtFunc = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int VirtFunc();
     VirtFunc = 0,
     //#= ~A();
@@ -53,10 +53,10 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy { namespace 
     AnotherVirtFunc = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B {
+  enum __zz_cib_methodid {
     //#= B(::B const &);
     __zz_cib_copy = 0,
     //#= ~B();
@@ -77,10 +77,10 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_methodid {
     AnotherVirtFunc = 8,
     __zz_cib_next_method_id = 9
   };
-}}}
+}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
+  enum __zz_cib_methodid {
     //#= int VirtFunc();
     VirtFunc = 0,
     //#= ~B();
@@ -89,5 +89,5 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy { namespace 
     AnotherVirtFunc = 2,
     __zz_cib_next_method_id = 3
   };
-}}}}
+}}}
 

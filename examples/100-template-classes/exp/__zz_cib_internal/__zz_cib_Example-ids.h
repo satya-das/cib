@@ -30,8 +30,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Example { namespace A {
+  enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
     //#= A(::Example::A const &);
@@ -52,10 +52,10 @@ namespace __zz_cib_ { namespace Example { namespace A { namespace __zz_cib_metho
     GetFloat = 8,
     __zz_cib_next_method_id = 9
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Example { namespace Int { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Example { namespace Int {
+  enum __zz_cib_methodid {
     //#= Int(::Example::Int const &);
     __zz_cib_copy = 0,
     //#= ~Int();
@@ -66,10 +66,10 @@ namespace __zz_cib_ { namespace Example { namespace Int { namespace __zz_cib_met
     __zz_cib_Operator = 3,
     __zz_cib_next_method_id = 4
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
+  enum __zz_cib_methodid {
     //#= Value(::Example::Value<::Example::Int> const &);
     __zz_cib_copy = 0,
     //#= ~Value();
@@ -84,10 +84,10 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 { namespac
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
+  enum __zz_cib_methodid {
     //#= Value(::Example::Value<float> const &);
     __zz_cib_copy = 0,
     //#= ~Value();
@@ -102,10 +102,10 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 { namespac
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}}
+}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 { namespace __zz_cib_methodid {
-  enum {
+namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
+  enum __zz_cib_methodid {
     //#= Value(::Example::Value<int> const &);
     __zz_cib_copy = 0,
     //#= ~Value();
@@ -120,5 +120,5 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 { namespac
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}}
+}}}
 

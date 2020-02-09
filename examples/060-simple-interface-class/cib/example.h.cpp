@@ -16,6 +16,7 @@ class __zz_cib : public ::Interface {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
+  using __zz_cib_methodid = __zz_cib_::Interface::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::Interface)
 
@@ -26,13 +27,13 @@ public:
   {}
   int Func() override {
     using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_PROXY*);
-    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::Func>(
+    return __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::Func>(
       __zz_cib_proxy);
   }
   ~__zz_cib() override {
     if (!__zz_cib_proxy) return;
     using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_PROXY*);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_GenericProxy::__zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
       __zz_cib_proxy);
   }
   void __zz_cib_release_proxy() { __zz_cib_proxy = nullptr; }
