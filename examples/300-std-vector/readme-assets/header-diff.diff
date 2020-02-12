@@ -1,0 +1,58 @@
+--- pub/example.h
++++ exp/example.h
+@@ -1,38 +1,37 @@
+ #pragma once
+ #include <vector>
+ 
++#include "__zz_cib_internal/example-predef.h"
++
+ class C
+ {
+ public:
+-  C(int x);
+-  virtual ~C() = default;
+-
++  C(C&& rhs);
+ public:
+-  virtual int f() const {
+-    return m;
+-  }
++  C(C const & );
++  C(int x);
++  virtual ~C();
++  virtual int f() const;
+ 
+ private:
+-  char disturbSize[11];
+-  int m;
++  __ZZ_CIB_CLASS_INTERNAL_DEF(C, __zz_cib_Class258);
+ };
+ 
+ class A
+ {
+ public:
+-  A();
+-  
++  A(A&& rhs);
+ public:
++  A(A const & );
++  ~A();
++  A();
+   // std::vector<int> f() const {
+   //   return {2, 3, 9};
+   // }
++  std::vector<C> g() const;
+ 
+-
+-public:
+-  std::vector<C> g() const {
+-    std::vector<C> ret;
+-    ret.emplace_back(11);
+-    ret.emplace_back(101);
+-    return ret;
+-  }
++private:
++  __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class259);
+ };
++
++#include "__zz_cib_internal/example-postdef.h"

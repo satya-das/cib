@@ -78,6 +78,7 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
   auto* cppObj = resolveTypename(baseType(varType), typeNode);
   if (cppObj == nullptr)
     return nullptr;
+
   if (cppObj->objType_ == CppObjType::kTypedefName)
   {
     // TODO: We need to resolve typedefs fully only if it resolves to conpound object uniquely.
