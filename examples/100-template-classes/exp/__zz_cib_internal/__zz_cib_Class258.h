@@ -161,7 +161,7 @@ inline void Example::Value<::Example::Int>::SetValue(::Example::Int x) {
   __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::SetValue(__zz_cib_h_, __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_handle(x));
 }
 
-inline bool Example::Value<::Example::Int>::operator ==(__zz_cib_ThisClass const & rhs) const {
+inline bool Example::Value<::Example::Int>::operator ==(::Example::Value<::Example::Int> const & rhs) const {
   return __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(rhs));
 }
 }

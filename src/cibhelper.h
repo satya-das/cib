@@ -69,27 +69,27 @@ public:
   {
     return resolveTypename(name, typeNode);
   }
-  CppObj* resolveTypename(const std::string& name, const CppCompound* begScope) const;
+  CppObj* resolveTypename(const std::string& name, const CibCompound* begScope) const;
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain zero or more scope resolution operators.
    * @param begScope Compound object from where the search should begin.
    * @return CppObj corresponding to the name given.
    */
-  CppObj* getCppObjFromTypeName(const std::string& name, const CppCompound* begScope) const
+  CppObj* getCppObjFromTypeName(const std::string& name, const CibCompound* begScope) const
   {
     return resolveTypename(name, begScope);
   }
 
   CppObj* getCppObjFromTypeName(const std::string& name) const
   {
-    return resolveTypename(name, (CppCompound*) nullptr);
+    return resolveTypename(name, (CibCompound*) nullptr);
   }
 
   void onNewCompound(CibCompound* compound, const CibCompound* parent) const;
 
   CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
-  CppObj* resolveVarType(CppVarType* varType, const CppCompound* begScope);
+  CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope);
 
   bool isSmartPtr(const std::string& typeName) const;
   bool isSmartPtr(const CibCompound* compound) const;

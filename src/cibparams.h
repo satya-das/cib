@@ -52,17 +52,18 @@ public:
   bfs::path    outputPath;
   bfs::path    binderPath;
   bfs::path    resDir;
+  bfs::path    stlInterfacePath;
   bfs::path    inputCibIdFile;
   std::string  cibInternalDirName;
   std::string  copyCtorCAPIPrefix;
   std::string  ctorCAPIPrefix;
   std::string  dtorCAPIPrefix;
   std::string  castToBasePrefix;
-  bool         noExactDelegation{false};
+  bool         noExactDelegation {false};
   bool         libraryManagedProxies;
-  bool         alwaysUseNsName{false};
-  bool         noRtti{false};
-  bool         noException{false};
+  bool         alwaysUseNsName {false};
+  bool         noRtti {false};
+  bool         noException {false};
   StringVector noProxyClasses;
 
 public:
@@ -83,6 +84,7 @@ public:
     , outputPath(std::move(o))
     , binderPath(std::move(b))
     , resDir(std::move(r))
+    , stlInterfacePath(resDir / "cib-stl-interface")
     , inputCibIdFile(std::move(c))
     , cibInternalDirName(CIBPREFIX "internal")
     , copyCtorCAPIPrefix(CIBPREFIX "copy")

@@ -61,8 +61,8 @@ public:
   A(A const & );
   ~A();
   A();
-  void setPod(::Pod& p);
-  void setPod(::Pod* p);
+  void setPod(Pod& p);
+  void setPod(Pod* p);
   void setNonPod1(NonPod1& n);
   void setNonPod2(NonPod2& n);
   void setNonPod3(NonPod3& n);

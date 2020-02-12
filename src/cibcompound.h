@@ -26,7 +26,6 @@
 #include "cibparams.h"
 
 #include "cibfunction_helper.h"
-#include "cibutil.h"
 #include "cppast.h"
 #include "cppindent.h"
 
@@ -49,7 +48,7 @@ struct CibCompound;
 typedef std::vector<CibFunctionHelper>            CibFunctionHelperArray;
 typedef std::vector<CibCompound*>                 CibCompoundArray;
 typedef std::map<CppAccessType, CibCompoundArray> CibCppInheritInfo;
-typedef std::map<std::string, const CppObj*>      TypeNameToCppObj;
+typedef std::map<std::string, CppObj*>            TypeNameToCppObj;
 
 /**
  * Teplate args for creating template instances are unfortunately a bit complex.
@@ -114,8 +113,8 @@ private:
   using MemberConditionalMap = std::map<const CppObj*, const CppHashIf*>;
 
 private:
-  std::uint32_t props_ {0};
-  bool          needsGenericProxyDefinition_ {false};
+  std::uint32_t props_{0};
+  bool          needsGenericProxyDefinition_{false};
 
   CibFunctionHelperArray         needsBridging_;
   mutable MemberConditionalMap   memberConditionalMap_;
@@ -125,12 +124,22 @@ private:
   mutable TypeNameToCppObj       typeNameToCibCppObj_;
   TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
   TmplInstanceCache              tmplInstanceCache_;
-  CibCompound*      templateClass_ {nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  CibCompound*      templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues templateArgValues_;
   std::set<const CibCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
   std::string                  nsName_;
 
 public:
+  bool isStlTemplateClass() const
+  {
+    static const std::string kCibStlResSubDir = "cib-stl-interface";
+    return name().find(kCibStlResSubDir) != std::string::npos;
+  }
+  bool isStlNamespace() const
+  {
+    static const std::string kStlNamespaceName = "std";
+    return name().find(kStlNamespaceName) != std::string::npos;
+  }
   const CppHashIf* getMemConditional(const CppObj* mem) const
   {
     if (mem == nullptr)
@@ -256,7 +265,7 @@ public:
       return "}";
   }
   ///@ return CppObj corresponding to name of a given type
-  const CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
+  CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
   /// Identifies mothods that need to be bridged
   void identifyMethodsToBridge(const CibHelper& helper);
   void identifyAbstract(const CibHelper& helper);
@@ -530,8 +539,7 @@ public:
                        const CibParams& cibParams,
                        const CibIdMgr&  cibIdMgr,
                        CppIndent        indentation = CppIndent()) const;
-  void emitLibGlueCode(std::ostream&    stm,
-                       const CibHelper& helper,
+  void emitLibGlueCode(const CibHelper& helper,
                        const CibParams& cibParams,
                        const CibIdMgr&  cibIdMgr,
                        CppIndent        indentation = CppIndent()) const;

@@ -47,8 +47,8 @@ static CppTypeModifier convertRefToPtr(const CppTypeModifier& typeModifier)
 {
   if (typeModifier.refType_ == CppRefType::kNoRef)
     return typeModifier;
-  auto ret = resolveTypeModifier(CppTypeModifier {CppRefType::kNoRef, 1, 0},
-                                 CppTypeModifier {CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
+  auto ret = resolveTypeModifier(CppTypeModifier{CppRefType::kNoRef, 1, 0},
+                                 CppTypeModifier{CppRefType::kNoRef, typeModifier.ptrLevel_, typeModifier.constBits_});
 
   if ((ret.ptrLevel_ > 1) && (typeModifier.constBits_ & 0x1))
   {
@@ -115,7 +115,7 @@ static void emitType(std::ostream&      stm,
     }
     else if (resolvedType->isTemplated() && (purpose != kPurposeProxyDecl))
     {
-      stm << "__zz_cib_ThisClass";
+      stm << longName(typeResolver);
     }
     else if (!(purpose & kPurposeProxyDecl))
     {
@@ -128,7 +128,7 @@ static void emitType(std::ostream&      stm,
   }
   else
   {
-    if (resolvedCppObj)
+    if (resolvedCppObj && (purpose != kPurposeProxyDecl))
     {
       stm << longName(resolvedCppObj);
     }
@@ -611,6 +611,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
                                  const CibIdData*   cibIdData,
                                  CppIndent          indentation) const
 {
+  if (strncmp(funcName().data(), "operator[]", 10) == 0)
+    printf("blah");
   stm << indentation;
   if (asInline)
     stm << "inline ";
@@ -705,6 +707,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
         resolvedCppObj && isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
       if (retType && retType->needsNoProxy())
         retType = nullptr;
+      if (retType && retType->isTemplated() && callingOwner->isTemplateInstance())
+        retType = callingOwner;
       if (isRetUniquePtr)
         stm << returnType()->baseType() << "(";
       if (retType && isByValue(returnType()) && !isRetUniquePtr)
@@ -936,22 +940,15 @@ void emitInheritanceList(std::ostream& stm, const CibCompoundArray& inhList, Cpp
     stm << sep << accessType << ' ' << (*itr)->longName();
 }
 
-const CppObj* CibCompound::resolveTypeName(const std::string& typeName, const CibHelper& helper) const
+CppObj* CibCompound::resolveTypeName(const std::string& typeName, const CibHelper& helper) const
 {
   auto itr = typeNameToCibCppObj_.find(typeName);
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
 
-  const CppObj* resolvedType = helper.resolveTypename(typeName, this);
-  if (resolvedType == nullptr)
-  {
-    forEachParent(CppAccessType::kPublic, [&](const CibCompound* parent) {
-      resolvedType = parent->resolveTypeName(typeName, helper);
-      return resolvedType == nullptr;
-    });
-  }
-
+  auto* resolvedType             = helper.resolveTypename(typeName, this);
   typeNameToCibCppObj_[typeName] = resolvedType;
+
   return resolvedType;
 }
 
@@ -989,7 +986,9 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   if (!isCppFile(this))
     return;
 
-  bfs::path usrIncPath = cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  bfs::path usrIncPath = isStlTemplateClass()
+                           ? bfs::temp_directory_path() / bfs::unique_path()
+                           : cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
   bfs::create_directories(usrIncPath.parent_path());
   std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
@@ -1034,7 +1033,7 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
 
 void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
-  if (!isCppFile(this))
+  if (!isCppFile(this) || isStlTemplateClass())
     return;
 
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
@@ -1077,14 +1076,20 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
       templCompound->collectTemplateInstanceTypeDependencies(helper, dependencies);
       auto fwdDecls = extractFwdDeclarations(dependencies);
       auto asts     = collectAstDependencies(dependencies);
-      asts.insert(getFileAstObj(this));
+      auto thisAst  = getFileAstObj(this);
+      if (!isStlTemplateClass())
+        asts.insert(thisAst);
+      else
+        asts.erase(thisAst);
       auto headers = collectHeaderDependencies(asts, cibParams.inputPath);
       if (!headers.empty())
       {
         tmplStm << '\n';
         for (const auto& header : headers)
-          tmplStm << "#include \"" << header << "\"\n";
+          tmplStm << "#include " << header << "\n";
       }
+      if (isStlTemplateClass())
+        tmplStm << "#include <" << bfs::path(name()).filename().string() << ">\n";
       for (auto cppObj : fwdDecls)
         gCppWriter.emit(cppObj, tmplStm);
       templCompound->emitHelperDecl(tmplStm, helper, cibParams);
@@ -1110,7 +1115,7 @@ void CibCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm) c
 
 void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
-  if (!isCppFile(this))
+  if (!isCppFile(this) || isStlTemplateClass())
     return;
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-postdef.h");
@@ -1180,7 +1185,7 @@ std::ostream& CibCompound::emitWrappingNamespacesForProxyDefn(std::ostream&    s
   if (outer())
     outer()->emitWrappingNamespacesForProxyDefn(stm, cibParams, indentation);
   if (isNamespace(this))
-    stm << "namespace " << nsName() << " {\n";
+    stm << "namespace " << name() << " {\n";
 
   return stm;
 }
@@ -1277,9 +1282,10 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
 {
   if (!isCppFile(this))
     return;
-  bfs::path headerPath = name();
-  auto      headerName = name().substr(cibParams.inputPath.string().length());
-  bfs::path usrSrcPath = (cibParams.outputPath / headerName).replace_extension(".cpp");
+  bfs::path usrSrcFile = isStlTemplateClass()
+                           ? bfs::temp_directory_path() / bfs::unique_path()
+                           : cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  bfs::path usrSrcPath = usrSrcFile.replace_extension(".cpp");
   {
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
@@ -1421,13 +1427,18 @@ std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<cons
   for (auto compound : compoundObjs)
   {
     assert(isCppFile(compound));
-    headers.emplace(bfs::relative(compound->name(), dependentPath).string());
+    if (compound->isStlTemplateClass())
+      headers.emplace('<' + bfs::path(compound->name()).filename().string() + '>');
+    else
+      headers.emplace('"' + bfs::relative(compound->name(), dependentPath).string() + '"');
   }
   return headers;
 }
 
 bfs::path CibCompound::getImplDir(const CibParams& cibParams) const
 {
+  if (isStlTemplateClass())
+    return cibParams.cibInternalDirName;
   bfs::path impl = name();
   return bfs::path(cibParams.cibInternalDirName) / bfs::relative(impl, cibParams.inputPath).remove_filename();
 }
@@ -1848,9 +1859,9 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (shallAddCopyCtor(this))
   {
     auto ctorProtection = CppAccessType::kPublic;
-    auto paramType      = new CppVarType(name(), CppTypeModifier {CppRefType::kByRef});
+    auto paramType      = new CppVarType(name(), CppTypeModifier{CppRefType::kByRef});
     paramType->typeModifier().constBits_ |= 1;
-    auto param     = new CppVar(paramType, CppVarDecl {std::string()});
+    auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamVector;
     paramList->emplace_back(param);
     auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, 0);
@@ -2497,7 +2508,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
     auto asts = collectAstDependencies(dependencies);
     asts.insert(getFileAstObj(this));
     for (const auto& header : collectHeaderDependencies(asts, cibParams.inputPath))
-      stm << indentation << "#include \"" << header << "\"\n";
+      stm << indentation << "#include " << header << "\n";
   }
   stm << '\n'; // Start in new line.
   if (!facades.empty() && !forProxy && !cibParams.noRtti)
@@ -2511,14 +2522,34 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
   }
 }
 
-void CibCompound::emitLibGlueCode(std::ostream&    stm,
-                                  const CibHelper& helper,
+void CibCompound::emitLibGlueCode(const CibHelper& helper,
                                   const CibParams& cibParams,
                                   const CibIdMgr&  cibIdMgr,
                                   CppIndent        indentation /* = CppIndent */) const
 {
   if (!isCppFile(this))
     return;
+
+  if (isStlTemplateClass())
+  {
+    bool isUsed = false;
+    forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
+      if (isClassLike(nested) && nested->numTemplateInstances())
+        isUsed = true;
+    });
+
+    if (!isUsed)
+      return;
+  }
+
+  const bfs::path bndSrcPath = [&]() {
+    bfs::path relPath = isStlTemplateClass() ? name().substr(cibParams.stlInterfacePath.string().length())
+                                             : name().substr(cibParams.inputPath.string().length());
+    relPath.replace_extension(relPath.extension().string() + ".cpp");
+    return cibParams.binderPath / relPath.string();
+  }();
+  bfs::create_directories(bndSrcPath.parent_path());
+  std::ofstream stm(bndSrcPath.string(), std::ios_base::out);
 
   emitDependecyHeaders(stm, helper, cibParams, cibIdMgr, indentation);
 
@@ -2797,11 +2828,11 @@ struct MethodTableEntryInfo
   {
   }
 
-  const CppHashIf*  cond {nullptr};
+  const CppHashIf*  cond{nullptr};
   CibMethodCAPIName name;
 
-  size_t subGroupStartOffset {0};
-  size_t subGroupEndPadding {0};
+  size_t subGroupStartOffset{0};
+  size_t subGroupEndPadding{0};
 };
 
 class MethodTableBuilder

@@ -144,7 +144,7 @@ static ::Example::Int* __zz_cib_decl GetValue(const __zz_cib_Delegatee* __zz_cib
 static void __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, ::Example::Int* x) {
   __zz_cib_obj->::Example::Value<::Example::Int>::SetValue(*x);
 }
-static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_ThisClass const * rhs) {
+static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<::Example::Int> const * rhs) {
   return __zz_cib_obj->::Example::Value<::Example::Int>::operator ==(*rhs);
 }
 }
@@ -191,7 +191,7 @@ static float __zz_cib_decl GetValue(const __zz_cib_Delegatee* __zz_cib_obj) {
 static void __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, float x) {
   __zz_cib_obj->::Example::Value<float>::SetValue(x);
 }
-static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_ThisClass const * rhs) {
+static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<float> const * rhs) {
   return __zz_cib_obj->::Example::Value<float>::operator ==(*rhs);
 }
 }
@@ -238,7 +238,7 @@ static int __zz_cib_decl GetValue(const __zz_cib_Delegatee* __zz_cib_obj) {
 static void __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, int x) {
   __zz_cib_obj->::Example::Value<int>::SetValue(x);
 }
-static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_ThisClass const * rhs) {
+static bool __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, ::Example::Value<int> const * rhs) {
   return __zz_cib_obj->::Example::Value<int>::operator ==(*rhs);
 }
 }

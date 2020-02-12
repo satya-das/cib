@@ -36,8 +36,8 @@
 -        std::unique_ptr<Int> pi() const {
 -          return std::make_unique<Int>(152);
 -        }
-+        ::Example::Int i() const;
-+        ::Example::Outer::Inner::Float f() const;
++        Int i() const;
++        Float f() const;
 +        std::unique_ptr<Int> pi() const;
  
        private:

@@ -80,7 +80,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
     GetValue = 3,
     //#= void SetValue(::Example::Int);
     SetValue = 4,
-    //#= bool operator ==(__zz_cib_ThisClass const &) const;
+    //#= bool operator ==(::Example::Value<::Example::Int> const &) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
@@ -98,7 +98,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
     GetValue = 3,
     //#= void SetValue(float);
     SetValue = 4,
-    //#= bool operator ==(__zz_cib_ThisClass const &) const;
+    //#= bool operator ==(::Example::Value<float> const &) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
@@ -116,7 +116,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
     GetValue = 3,
     //#= void SetValue(int);
     SetValue = 4,
-    //#= bool operator ==(__zz_cib_ThisClass const &) const;
+    //#= bool operator ==(::Example::Value<int> const &) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };

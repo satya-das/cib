@@ -32,6 +32,18 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+namespace {
+
+std::vector<std::string> collectAllInterfaceFiles(const CibParams& cibParams)
+{
+  auto interfaceFiles = collectFiles(cibParams.inputPath.string(), selectHeadersOnly);
+  collectFiles(interfaceFiles, cibParams.stlInterfacePath, selectAllFiles);
+
+  return interfaceFiles;
+}
+
+} // namespace
+
 CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
   , cibParams_(cibParams)
@@ -44,7 +56,8 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   parser.addKnownMacros(parserOptions.knownMacros);
   parser.addKnownApiDecors(parserOptions.knownApiDecor);
   parser.addIgnorableMacros(parserOptions.ignorableMacros);
-  program_.reset(new CppProgram(cibParams.inputPath.string(), std::move(parser)));
+  const auto files = collectAllInterfaceFiles(cibParams);
+  program_.reset(new CppProgram(files, std::move(parser)));
   buildCibCppObjTree();
 }
 
@@ -84,12 +97,21 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
   return cppObj;
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name, const CppCompound* begScope) const
+CppObj* CibHelper::resolveTypename(const std::string& name, const CibCompound* begScope) const
 {
-  return resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope));
+  CppObj* resolvedType = resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope));
+  if (!resolvedType && begScope)
+  {
+    begScope->forEachParent(CppAccessType::kPublic, [&](const CibCompound* parent) {
+      resolvedType = parent->resolveTypeName(name, *this);
+      return (resolvedType == nullptr);
+    });
+  }
+
+  return resolvedType;
 }
 
-CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppCompound* begScope)
+CppObj* CibHelper::resolveVarType(CppVarType* varType, const CibCompound* begScope)
 {
   return resolveVarType(varType, program_->typeTreeNodeFromCppObj(begScope));
 }
@@ -153,7 +175,7 @@ CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
     const auto name = getName(cppObj);
     if (name.empty())
       return cppObj;
-    auto* nextResolvedObj = resolveTypename(name, cppObj->owner());
+    auto* nextResolvedObj = resolveTypename(name, owner(cppObj));
     if (nextResolvedObj)
       cppObj = nextResolvedObj;
     else
@@ -360,7 +382,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       else
       {
         const auto* memType = resolveVarType(var->varType(), cppCompound);
-        if (memType && (memType->objType_ == CppCompound::kObjectType))
+        if (memType && (memType->objType_ == CibCompound::kObjectType))
         {
           const auto* memObj = static_cast<const CibCompound*>(memType);
           if (!memObj->isCopyCtorCallable())

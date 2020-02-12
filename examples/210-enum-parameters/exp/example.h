@@ -28,10 +28,10 @@ public:
   A(A const & );
   ~A();
   A();
-  int fE(::E e) const;
-  int fE(::EC e) const;
-  int fE(::E8 e) const;
-  int fE(::EC16 e) const;
+  int fE(E e) const;
+  int fE(EC e) const;
+  int fE(E8 e) const;
+  int fE(EC16 e) const;
 
 private:
   __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);

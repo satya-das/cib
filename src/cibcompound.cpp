@@ -197,7 +197,7 @@ static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const Templ
     auto templStart = type.find('<');
     if (templStart != type.npos)
       type = type.substr(0, templStart) + ReplaceTemplateParamsWithArgs(type, templStart, type.length(), argValues);
-    return std::make_unique<CppVarType>(type, varType->typeModifier());
+    return std::make_unique<CppVarType>(varType->accessType_, type, varType->typeModifier());
   }
   else
   {
@@ -206,7 +206,7 @@ static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const Templ
 
   const auto substitutedVarTypeModifier = substitutedVar ? substitutedVar->typeModifier() : CppTypeModifier();
   const auto typeModifier               = resolveTypeModifier(varType->typeModifier(), substitutedVarTypeModifier);
-  auto       ret                        = new CppVarType(type, typeModifier);
+  auto       ret                        = new CppVarType(varType->accessType_, type, typeModifier);
   const auto substitutedVarTypeAttr     = substitutedVar ? substitutedVar->typeAttr() : 0;
   ret->typeAttr(varType->typeAttr() | substitutedVarTypeAttr);
   return CppVarTypePtr(ret);
@@ -280,7 +280,7 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
       CibFunctionHelper func(mem);
       if (func.hasVariadicParam())
         return false;
-      CppFunctionBase*  newMem = nullptr;
+      CppFunctionBase* newMem = nullptr;
       if (func.isConstructorLike())
         newMem = new CppConstructor(CppAccessType::kPublic,
                                     this->name(),
@@ -296,6 +296,14 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
                                  instantiateParams(func.getParams(), resolvedArgVals),
                                  func.getAttr());
       ret->addMember(newMem);
+    }
+    else if (CppConstUsingDeclEPtr usingDecl = mem)
+    {
+      if (CppConstVarTypeEPtr varType = usingDecl->cppObj_)
+      {
+        auto newMem = instantiateVarType(varType, resolvedArgVals);
+        ret->addMember(new CppUsingDecl(usingDecl->name_, newMem.release()));
+      }
     }
     return false;
   });

@@ -211,7 +211,7 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
     {
       compound->setNsName(cibParams.globalNsName());
     }
-    else
+    else if (!compound->isStlNamespace())
     {
       auto className                = compound->longName();
       const auto [clsId, cibIdData] = [&]() {

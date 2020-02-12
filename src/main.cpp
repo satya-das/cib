@@ -25,6 +25,7 @@
 #include "cibhelper.h"
 #include "cibidmgr.h"
 #include "ciboptionparser.h"
+#include "cibutil.h"
 
 #include "res_template.h"
 
@@ -276,14 +277,7 @@ int main(int argc, const char* argv[])
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
-    const bfs::path bndSrcPath = [&]() {
-      bfs::path relPath = cppAst->name().substr(cibParams.inputPath.string().length());
-      relPath.replace_extension(relPath.extension().string() + ".cpp");
-      return cibParams.binderPath / relPath.string();
-    }();
-    bfs::create_directories(bndSrcPath.parent_path());
-    std::ofstream bindSrcStm(bndSrcPath.string(), std::ios_base::out);
-    cibCppCompound->emitLibGlueCode(bindSrcStm, helper, cibParams, cibIdMgr);
+    cibCppCompound->emitLibGlueCode(helper, cibParams, cibIdMgr);
   }
   emitGlueCodeForNamespaces(fileAsts, helper, cibParams, cibIdMgr);
 

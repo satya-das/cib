@@ -19,8 +19,8 @@ namespace Example
         A(A const & );
         ~A();
         A();
-        ::Example::Int i() const;
-        ::Example::Outer::Inner::Float f() const;
+        Int i() const;
+        Float f() const;
         std::unique_ptr<Int> pi() const;
 
       private:
