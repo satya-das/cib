@@ -70,6 +70,7 @@ set(RESFILES
 	__zz_cib_Module-proxy-mgr.cpp
 	__zz_cib_Module-internal-proxy.h
 	__zz_cib_pointer_helper.h
+	cib-stl-interface/vector
 )
 
 list(APPEND RESPATHS)
@@ -143,6 +144,7 @@ set(EXAMPLES
 	240-operator-overloading
 	250-namespace
 	260-conditional-api-availability
+	300-std-vector
 )
 
 add_subdirectory(examples)

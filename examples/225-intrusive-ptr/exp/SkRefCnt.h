@@ -41,7 +41,7 @@ public:
   virtual void internal_dispose() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(SkRefCntBase, __zz_cib_Class256);
+  __ZZ_CIB_CLASS_INTERNAL_DEF(SkRefCntBase, __zz_cib_Class257);
 };
 
 ///////////////////////////////////////////////////////////////////////////////

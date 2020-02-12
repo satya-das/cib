@@ -2,12 +2,12 @@
 
 namespace __zz_cib_ { namespace Example { namespace A {
   //#= FullClassName: ::Example::A
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 261 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace Int {
   //#= FullClassName: ::Example::Int
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classid = 262 };
 }}}
 
 namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
@@ -26,7 +26,7 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 262 };
+  enum { __zz_cib_next_class_id = 263 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

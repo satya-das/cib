@@ -21,7 +21,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class259 {
 }}
 
 namespace __zz_cib_ { namespace templates {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

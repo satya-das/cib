@@ -15,7 +15,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_GenericProxy {
 class __zz_cib : public ::SkRefCntBase {
   __zz_cib_PROXY* __zz_cib_proxy;
@@ -24,7 +24,7 @@ class __zz_cib : public ::SkRefCntBase {
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_Class257::__zz_cib_GenericProxy::__zz_cib_methodid;
 public:
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib, ::SkRefCntBase)
 
@@ -48,12 +48,12 @@ public:
 };
 }}}
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib;
+using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Class257::__zz_cib_GenericProxy::__zz_cib;
 using __zz_cib_ThisClass = __zz_cib_Delegatee;
 static ::SkRefCntBase* __zz_cib_decl __zz_cib_new(__zz_cib_PROXY* proxy, const __zz_cib_MethodTable* mtbl) {
-  return new __zz_cib_::__zz_cib_Class256::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
+  return new __zz_cib_::__zz_cib_Class257::__zz_cib_GenericProxy::__zz_cib(proxy, mtbl);
 }
 static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
   delete __zz_cib_obj;
@@ -70,8 +70,8 @@ static void __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_ob
 static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_cib_obj) {
   static bool classIdRepoPopulated = false;
   if (!classIdRepoPopulated) {
-    __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
-    __zz_cib_gClassIdRepo[std::type_index(typeid(::SkRefCntBase))] = __zz_cib_::__zz_cib_Class256::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_Class258::__zz_cib_classid;
+    __zz_cib_gClassIdRepo[std::type_index(typeid(::SkRefCntBase))] = __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
     classIdRepoPopulated = true;
   }
   auto tdx = std::type_index(typeid(**__zz_cib_obj));
@@ -81,10 +81,10 @@ static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_c
     auto* obj = dynamic_cast<::I*>(*__zz_cib_obj);
     if (obj) {
       *__zz_cib_obj = obj;
-      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
+      return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_Class258::__zz_cib_classid;
     }
   }
-  return __zz_cib_::__zz_cib_Class256::__zz_cib_classid;
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_classid;
 }
 static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
   __zz_cib_obj->__zz_cib_release_proxy();
@@ -93,7 +93,7 @@ static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_ob
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),

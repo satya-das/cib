@@ -21,7 +21,7 @@ namespace __zz_cib_ { namespace TemplateTest {
 }}
 
 namespace __zz_cib_ { namespace FeatureTests {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

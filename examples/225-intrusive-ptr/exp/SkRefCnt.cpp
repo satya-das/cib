@@ -5,38 +5,38 @@
 SkRefCntBase::SkRefCntBase(__zz_cib_::__zz_cib_HANDLE* h)
   : __zz_cib_h_(h)
 {
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 SkRefCntBase::SkRefCntBase()
-  : SkRefCntBase(__zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_new(this))
+  : SkRefCntBase(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 SkRefCntBase::~SkRefCntBase() {
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_release_proxy(this);
-  auto h = __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_proxy(this);
+  auto h = __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_handle(this);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_delete(h);
 }
 
 void SkRefCntBase::ref() const {
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::ref(__zz_cib_h_);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::ref(__zz_cib_h_);
 }
 
 void SkRefCntBase::unref() const {
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::unref(__zz_cib_h_);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::unref(__zz_cib_h_);
 }
 
 void SkRefCntBase::internal_dispose() const {
-  __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::internal_dispose(__zz_cib_h_);
+  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::internal_dispose(__zz_cib_h_);
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 namespace __zz_cib_Generic {
 class __zz_cib : public ::SkRefCntBase {
   __zz_cib_HANDLE* __zz_cib_h_;
 
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_Class256::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_Class257::__zz_cib_methodid;
   using __zz_cib_TYPE = __zz_cib_HANDLE;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
@@ -55,18 +55,18 @@ public:
   }
 };
 }}}
-::SkRefCntBase* __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+::SkRefCntBase* __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_create_proxy(__zz_cib_HANDLE* h) {
   switch(__zz_cib_get_class_id(&h)) {
+  case __zz_cib_::__zz_cib_Class258::__zz_cib_classid:
+    return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_from_handle(h);
   case __zz_cib_::__zz_cib_Class257::__zz_cib_classid:
-    return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_from_handle(h);
-  case __zz_cib_::__zz_cib_Class256::__zz_cib_classid:
     return new ::SkRefCntBase(h);
   default: break;
   }
-  return ::__zz_cib_::__zz_cib_Class256::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
+  return ::__zz_cib_::__zz_cib_Class257::__zz_cib_Generic::__zz_cib::__zz_cib_from_handle(h);
 }
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 struct __zz_cib_Delegator {
   using __zz_cib_Delegatee = ::SkRefCntBase;
   static void __zz_cib_decl internal_dispose(const ::SkRefCntBase* __zz_cib_obj) {
@@ -80,7 +80,7 @@ struct __zz_cib_Delegator {
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::internal_dispose),
@@ -92,7 +92,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class256 {
+namespace __zz_cib_Class257 {
 const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
   return __zz_cib_GetMethodTable();
 }

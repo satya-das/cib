@@ -611,8 +611,6 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
                                  const CibIdData*   cibIdData,
                                  CppIndent          indentation) const
 {
-  if (strncmp(funcName().data(), "operator[]", 10) == 0)
-    printf("blah");
   stm << indentation;
   if (asInline)
     stm << "inline ";
@@ -983,7 +981,7 @@ static const CppHashIf* hasHeaderGuard(const CppObjPtrArray& members)
 
 void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
-  if (!isCppFile(this))
+  if (!isCppFile(this) || isUnusedStl())
     return;
 
   bfs::path usrIncPath = isStlTemplateClass()
@@ -1115,7 +1113,7 @@ void CibCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm) c
 
 void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
-  if (!isCppFile(this) || isStlTemplateClass())
+  if (!isCppFile(this) || isUnusedStl())
     return;
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-postdef.h");
@@ -1280,7 +1278,7 @@ void CibCompound::emitImplSource(std::ostream&    stm,
 
 void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const
 {
-  if (!isCppFile(this))
+  if (!isCppFile(this) || isUnusedStl())
     return;
   bfs::path usrSrcFile = isStlTemplateClass()
                            ? bfs::temp_directory_path() / bfs::unique_path()
@@ -2527,20 +2525,8 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
                                   const CibIdMgr&  cibIdMgr,
                                   CppIndent        indentation /* = CppIndent */) const
 {
-  if (!isCppFile(this))
+  if (!isCppFile(this) || isUnusedStl())
     return;
-
-  if (isStlTemplateClass())
-  {
-    bool isUsed = false;
-    forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
-      if (isClassLike(nested) && nested->numTemplateInstances())
-        isUsed = true;
-    });
-
-    if (!isUsed)
-      return;
-  }
 
   const bfs::path bndSrcPath = [&]() {
     bfs::path relPath = isStlTemplateClass() ? name().substr(cibParams.stlInterfacePath.string().length())

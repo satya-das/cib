@@ -140,6 +140,18 @@ public:
     static const std::string kStlNamespaceName = "std";
     return name().find(kStlNamespaceName) != std::string::npos;
   }
+  bool isUnusedStl() const
+  {
+    if (!isStlTemplateClass())
+      return false;
+    bool isUsed = false;
+    forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
+      if (isClassLike(nested) && nested->numTemplateInstances())
+        isUsed = true;
+    });
+
+    return !isUsed;
+  }
   const CppHashIf* getMemConditional(const CppObj* mem) const
   {
     if (mem == nullptr)

@@ -16,7 +16,7 @@ namespace __zz_cib_ { namespace I { namespace __zz_cib_GenericProxy {
 }}}
 
 namespace __zz_cib_ { namespace Demo {
-  enum { __zz_cib_next_class_id = 259 };
+  enum { __zz_cib_next_class_id = 260 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

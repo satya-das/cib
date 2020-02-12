@@ -2,11 +2,11 @@
 
 namespace __zz_cib_ { namespace Example { namespace Outer { namespace Inner { namespace A {
   //#= FullClassName: ::Example::Outer::Inner::A
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 260 };
 }}}}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

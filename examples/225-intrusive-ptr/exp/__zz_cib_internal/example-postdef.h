@@ -9,7 +9,7 @@
 #include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::I, __zz_cib_Helper> {
 private:
@@ -49,9 +49,9 @@ private:
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* __zz_cib_cast_to___zz_cib_Class256(__zz_cib_HANDLE* __zz_cib_obj) {
-    using __zz_cib_cast_to___zz_cib_Class256Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
-    return instance().invoke<__zz_cib_cast_to___zz_cib_Class256Proc, __zz_cib_methodid::__zz_cib_cast_to___zz_cib_Class256>(__zz_cib_obj);
+  static __zz_cib_HANDLE* __zz_cib_cast_to___zz_cib_Class257(__zz_cib_HANDLE* __zz_cib_obj) {
+    using __zz_cib_cast_to___zz_cib_Class257Proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_HANDLE* h);
+    return instance().invoke<__zz_cib_cast_to___zz_cib_Class257Proc, __zz_cib_methodid::__zz_cib_cast_to___zz_cib_Class257>(__zz_cib_obj);
   }
   static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
@@ -70,7 +70,7 @@ public:
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Class256::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
     return h;
   }
   static void __zz_cib_release_proxy(::I* __zz_cib_obj) {
@@ -99,7 +99,7 @@ public:
 }}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 class __zz_cib_Helper : public __zz_cib_MethodTableHelper
   , public __zz_cib_HandleHelper<::A, __zz_cib_Helper> {
 private:
