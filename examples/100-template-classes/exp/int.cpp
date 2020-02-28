@@ -18,19 +18,19 @@ Example::Int::Int(Int&& rhs)
 }
 
 Example::Int::Int(::Example::Int const & __zz_cib_param0)
-  : Example::Int(__zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Example::Int(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 Example::Int::~Int() {
   auto h = __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 Example::Int::Int(int x)
-  : Example::Int(__zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_new(x))
+  : Example::Int(__zz_cib_Helper::__zz_cib_new(x))
 {}
 
 Example::Int::operator int() const {
-  return __zz_cib_::Example::Int::__zz_cib_Helper::__zz_cib_Operator(__zz_cib_h_);
+  return __zz_cib_Helper::__zz_cib_Operator(__zz_cib_h_);
 }
 }

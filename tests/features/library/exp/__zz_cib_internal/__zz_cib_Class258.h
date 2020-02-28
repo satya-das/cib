@@ -127,23 +127,23 @@ inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(Templa
 }
 
 inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(::TemplateClassWithTwoParams<int, float> const & __zz_cib_param0)
-  : TemplateClassWithTwoParams<int, float>(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : TemplateClassWithTwoParams<int, float>(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline TemplateClassWithTwoParams<int, float>::~TemplateClassWithTwoParams() {
   auto h = __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(int _a1, float _a2)
-  : TemplateClassWithTwoParams<int, float>(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_new(_a1, _a2))
+  : TemplateClassWithTwoParams<int, float>(__zz_cib_Helper::__zz_cib_new(_a1, _a2))
 {}
 
 inline int TemplateClassWithTwoParams<int, float>::get1() const {
-  return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::get1(__zz_cib_h_);
+  return __zz_cib_Helper::get1(__zz_cib_h_);
 }
 
 inline float TemplateClassWithTwoParams<int, float>::get2() const {
-  return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::get2(__zz_cib_h_);
+  return __zz_cib_Helper::get2(__zz_cib_h_);
 }
 

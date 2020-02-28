@@ -17,11 +17,11 @@ I::I(I&& rhs)
 I::~I() {
   __zz_cib_::I::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::I::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::I::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 I::I()
-  : I(__zz_cib_::I::__zz_cib_Helper::__zz_cib_new(this))
+  : I(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 
@@ -36,38 +36,38 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 ::I const & A::f() const {
   return *__zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_)
+    __zz_cib_Helper::f(__zz_cib_h_)
   );
 }
 
 ::I const * A::g() const {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::g(__zz_cib_h_)
+    __zz_cib_Helper::g(__zz_cib_h_)
   );
 }
 
 ::I* A::c() const {
   return __zz_cib_::I::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::c(__zz_cib_h_)
+    __zz_cib_Helper::c(__zz_cib_h_)
   );
 }
 
 void A::d(::I const * p) const {
-  __zz_cib_::A::__zz_cib_Helper::d(__zz_cib_h_, __zz_cib_::I::__zz_cib_Helper::__zz_cib_handle(p));
+  __zz_cib_Helper::d(__zz_cib_h_, __zz_cib_::I::__zz_cib_Helper::__zz_cib_handle(p));
 }
 
 namespace __zz_cib_ {

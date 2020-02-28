@@ -120,19 +120,19 @@ inline Value<int>::Value(Value<int>&& rhs)
 }
 
 inline Value<int>::Value(::Value<int> const & __zz_cib_param0)
-  : Value<int>(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Value<int>(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Value<int>::~Value() {
   auto h = __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline Value<int>::Value(int value)
-  : Value<int>(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_new(value))
+  : Value<int>(__zz_cib_Helper::__zz_cib_new(value))
 {}
 
 inline int Value<int>::get() const {
-  return __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::get(__zz_cib_h_);
+  return __zz_cib_Helper::get(__zz_cib_h_);
 }
 

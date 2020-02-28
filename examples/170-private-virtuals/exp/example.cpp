@@ -15,29 +15,29 @@ IF::IF(IF&& rhs)
 }
 
 int IF::ProtectedVirtual() {
-  return __zz_cib_::IF::__zz_cib_Helper::ProtectedVirtual(__zz_cib_h_);
+  return __zz_cib_Helper::ProtectedVirtual(__zz_cib_h_);
 }
 
 int IF::ProtectedNonVirtual() {
-  return __zz_cib_::IF::__zz_cib_Helper::ProtectedNonVirtual(__zz_cib_h_);
+  return __zz_cib_Helper::ProtectedNonVirtual(__zz_cib_h_);
 }
 
 int IF::PublicVirtual() {
-  return __zz_cib_::IF::__zz_cib_Helper::PublicVirtual(__zz_cib_h_);
+  return __zz_cib_Helper::PublicVirtual(__zz_cib_h_);
 }
 
 int IF::PublicNonVirtual() {
-  return __zz_cib_::IF::__zz_cib_Helper::PublicNonVirtual(__zz_cib_h_);
+  return __zz_cib_Helper::PublicNonVirtual(__zz_cib_h_);
 }
 
 IF::~IF() {
   __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::IF::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::IF::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 IF::IF()
-  : IF(__zz_cib_::IF::__zz_cib_Helper::__zz_cib_new(this))
+  : IF(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 
@@ -52,25 +52,25 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::SetIF(::IF* pIF) {
-  return __zz_cib_::A::__zz_cib_Helper::SetIF(__zz_cib_h_, __zz_cib_::IF::__zz_cib_Helper::__zz_cib_handle(pIF));
+  return __zz_cib_Helper::SetIF(__zz_cib_h_, __zz_cib_::IF::__zz_cib_Helper::__zz_cib_handle(pIF));
 }
 
 ::IF* A::GetIF() const {
   return __zz_cib_::IF::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::GetIF(__zz_cib_h_)
+    __zz_cib_Helper::GetIF(__zz_cib_h_)
   );
 }
 

@@ -138,27 +138,27 @@ inline Example::Value<float>::Value(Value<float>&& rhs)
 }
 
 inline Example::Value<float>::Value(::Example::Value<float> const & __zz_cib_param0)
-  : Example::Value<float>(__zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Example::Value<float>(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::Value<float>::~Value() {
   auto h = __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline Example::Value<float>::Value(float x)
-  : Example::Value<float>(__zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_new(x))
+  : Example::Value<float>(__zz_cib_Helper::__zz_cib_new(x))
 {}
 
 inline float Example::Value<float>::GetValue() const {
-  return __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::GetValue(__zz_cib_h_);
+  return __zz_cib_Helper::GetValue(__zz_cib_h_);
 }
 
 inline void Example::Value<float>::SetValue(float x) {
-  __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::SetValue(__zz_cib_h_, x);
+  __zz_cib_Helper::SetValue(__zz_cib_h_, x);
 }
 
 inline bool Example::Value<float>::operator ==(::Example::Value<float> const & rhs) const {
-  return __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(rhs));
+  return __zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(rhs));
 }
 }

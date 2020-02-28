@@ -138,27 +138,27 @@ inline Example::Value<int>::Value(Value<int>&& rhs)
 }
 
 inline Example::Value<int>::Value(::Example::Value<int> const & __zz_cib_param0)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Example::Value<int>(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline Example::Value<int>::~Value() {
   auto h = __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline Example::Value<int>::Value(int x)
-  : Example::Value<int>(__zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_new(x))
+  : Example::Value<int>(__zz_cib_Helper::__zz_cib_new(x))
 {}
 
 inline int Example::Value<int>::GetValue() const {
-  return __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::GetValue(__zz_cib_h_);
+  return __zz_cib_Helper::GetValue(__zz_cib_h_);
 }
 
 inline void Example::Value<int>::SetValue(int x) {
-  __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::SetValue(__zz_cib_h_, x);
+  __zz_cib_Helper::SetValue(__zz_cib_h_, x);
 }
 
 inline bool Example::Value<int>::operator ==(::Example::Value<int> const & rhs) const {
-  return __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(rhs));
+  return __zz_cib_Helper::__zz_cib_OperatorCmpEq(__zz_cib_h_, __zz_cib_::Example::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(rhs));
 }
 }

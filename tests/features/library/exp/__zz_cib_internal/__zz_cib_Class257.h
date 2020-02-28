@@ -120,19 +120,19 @@ inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(TemplateClassWi
 }
 
 inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(::TemplateClassWithOneParam<int> const & __zz_cib_param0)
-  : TemplateClassWithOneParam<int>(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : TemplateClassWithOneParam<int>(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 inline TemplateClassWithOneParam<int>::~TemplateClassWithOneParam() {
   auto h = __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(int _a1)
-  : TemplateClassWithOneParam<int>(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_new(_a1))
+  : TemplateClassWithOneParam<int>(__zz_cib_Helper::__zz_cib_new(_a1))
 {}
 
 inline int TemplateClassWithOneParam<int>::get() const {
-  return __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::get(__zz_cib_h_);
+  return __zz_cib_Helper::get(__zz_cib_h_);
 }
 

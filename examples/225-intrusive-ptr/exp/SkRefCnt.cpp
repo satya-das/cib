@@ -9,25 +9,25 @@ SkRefCntBase::SkRefCntBase(__zz_cib_::__zz_cib_HANDLE* h)
 }
 
 SkRefCntBase::SkRefCntBase()
-  : SkRefCntBase(__zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_new(this))
+  : SkRefCntBase(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 SkRefCntBase::~SkRefCntBase() {
   __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 void SkRefCntBase::ref() const {
-  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::ref(__zz_cib_h_);
+  __zz_cib_Helper::ref(__zz_cib_h_);
 }
 
 void SkRefCntBase::unref() const {
-  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::unref(__zz_cib_h_);
+  __zz_cib_Helper::unref(__zz_cib_h_);
 }
 
 void SkRefCntBase::internal_dispose() const {
-  __zz_cib_::__zz_cib_Class257::__zz_cib_Helper::internal_dispose(__zz_cib_h_);
+  __zz_cib_Helper::internal_dispose(__zz_cib_h_);
 }
 
 namespace __zz_cib_ {

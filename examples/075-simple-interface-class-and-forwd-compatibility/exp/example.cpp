@@ -17,11 +17,11 @@ Interface::Interface(Interface&& rhs)
 Interface::~Interface() {
   __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 Interface::Interface()
-  : Interface(__zz_cib_::Interface::__zz_cib_Helper::__zz_cib_new(this))
+  : Interface(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 
@@ -36,20 +36,20 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::UseInterface(::Interface* pInterface) const {
-  return __zz_cib_::A::__zz_cib_Helper::UseInterface(__zz_cib_h_, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(pInterface));
+  return __zz_cib_Helper::UseInterface(__zz_cib_h_, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(pInterface));
 }
 
 namespace __zz_cib_ {

@@ -15,25 +15,25 @@ Interface::Interface(Interface&& rhs)
 }
 
 Interface::Interface(::Interface const & __zz_cib_param0)
-  : Interface(__zz_cib_::Interface::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : Interface(__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 Interface::Interface()
-  : Interface(__zz_cib_::Interface::__zz_cib_Helper::__zz_cib_new(this))
+  : Interface(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 Interface::~Interface() {
   __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 int Interface::Func() {
-  return __zz_cib_::Interface::__zz_cib_Helper::Func(__zz_cib_h_);
+  return __zz_cib_Helper::Func(__zz_cib_h_);
 }
 
 int Interface::DoFunc() const {
-  return __zz_cib_::Interface::__zz_cib_Helper::DoFunc(__zz_cib_h_);
+  return __zz_cib_Helper::DoFunc(__zz_cib_h_);
 }
 
 namespace __zz_cib_ {

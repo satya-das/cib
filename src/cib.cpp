@@ -647,7 +647,9 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
       stm << ++indentation << ": " << fullName(callingOwner) << '(';
     }
 
-    stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_Helper::" << capiName << '(';
+    if (!isClassLike(callingOwner) || callingOwner->needsNoProxy())
+      stm << "__zz_cib_" << callingOwner->longNsName() << "::";
+    stm << "__zz_cib_Helper::" << capiName << '(';
     if (callingOwner->needsNoProxy() || callingOwner->needsGenericProxyDefinition())
     {
       stm << "this";
@@ -729,7 +731,9 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
         }
       }
     }
-    stm << "__zz_cib_" << callingOwner->longNsName() << "::__zz_cib_Helper::" << capiName << "(";
+    if (!isClassLike(callingOwner) || callingOwner->needsNoProxy())
+      stm << "__zz_cib_" << callingOwner->longNsName() << "::";
+    stm << "__zz_cib_Helper::" << capiName << "(";
     if (isDestructor() && !callingOwner->needsNoProxy())
     {
       stm << "h";
@@ -2252,8 +2256,7 @@ void CibCompound::emitHandleConstructorDefn(std::ostream&    stm,
     if (pubParent->isShared() || !pubParent->isEmpty())
     {
       auto capiName = cibIdData->getMethodCApiName(castToBaseName(pubParent, cibParams));
-      stm << indentation << sep << " ::" << fullName(pubParent) << "(__zz_cib_" << longNsName()
-          << "::__zz_cib_Helper::" << capiName << "(h))\n";
+      stm << indentation << sep << " ::" << fullName(pubParent) << "(__zz_cib_Helper::" << capiName << "(h))\n";
       sep = ',';
     }
     return true;

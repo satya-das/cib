@@ -15,61 +15,61 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new(this))
+  : A(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 A::~A() {
   __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 int A::f0() {
-  return __zz_cib_::A::__zz_cib_Helper::f0(__zz_cib_h_);
+  return __zz_cib_Helper::f0(__zz_cib_h_);
 }
 
 #if  COND // Start of a conditional group, also start of 1st subgroup
 int A::f1() {
-  return __zz_cib_::A::__zz_cib_Helper::f1(__zz_cib_h_);
+  return __zz_cib_Helper::f1(__zz_cib_h_);
 }
 
 int A::f2() {
-  return __zz_cib_::A::__zz_cib_Helper::f2(__zz_cib_h_);
+  return __zz_cib_Helper::f2(__zz_cib_h_);
 }
 
 #elif  COND2 // OPTIONAL. Start of 2nd subgroup
 int A::f3() {
-  return __zz_cib_::A::__zz_cib_Helper::f3(__zz_cib_h_);
+  return __zz_cib_Helper::f3(__zz_cib_h_);
 }
 
 #else 
 int A::f4() {
-  return __zz_cib_::A::__zz_cib_Helper::f4(__zz_cib_h_);
+  return __zz_cib_Helper::f4(__zz_cib_h_);
 }
 
 int A::f5() {
-  return __zz_cib_::A::__zz_cib_Helper::f5(__zz_cib_h_);
+  return __zz_cib_Helper::f5(__zz_cib_h_);
 }
 
 int A::f6() {
-  return __zz_cib_::A::__zz_cib_Helper::f6(__zz_cib_h_);
+  return __zz_cib_Helper::f6(__zz_cib_h_);
 }
 #endif
 
 int A::f7() {
-  return __zz_cib_::A::__zz_cib_Helper::f7(__zz_cib_h_);
+  return __zz_cib_Helper::f7(__zz_cib_h_);
 }
 
 int A::func() const {
-  return __zz_cib_::A::__zz_cib_Helper::func(__zz_cib_h_);
+  return __zz_cib_Helper::func(__zz_cib_h_);
 }
 
 int A::DoFunc() const {
-  return __zz_cib_::A::__zz_cib_Helper::DoFunc(__zz_cib_h_);
+  return __zz_cib_Helper::DoFunc(__zz_cib_h_);
 }
 
 
@@ -84,25 +84,25 @@ B::B(B&& rhs)
 }
 
 B::B(::B const & __zz_cib_param0)
-  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : B(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::B::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 B::B()
-  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_new())
+  : B(__zz_cib_Helper::__zz_cib_new())
 {}
 
 B::~B() {
   auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 #if  COND // Start of a conditional group, also start of 1st subgroup
 int B::f1() {
-  return __zz_cib_::B::__zz_cib_Helper::f1(__zz_cib_h_);
+  return __zz_cib_Helper::f1(__zz_cib_h_);
 }
 
 int B::f2() {
-  return __zz_cib_::B::__zz_cib_Helper::f2(__zz_cib_h_);
+  return __zz_cib_Helper::f2(__zz_cib_h_);
 }
 #endif
 
@@ -118,30 +118,30 @@ C::C(C&& rhs)
 }
 
 C::C(::C const & __zz_cib_param0)
-  : C(__zz_cib_::C::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::C::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : C(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::C::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 C::C()
-  : C(__zz_cib_::C::__zz_cib_Helper::__zz_cib_new())
+  : C(__zz_cib_Helper::__zz_cib_new())
 {}
 
 C::~C() {
   auto h = __zz_cib_::C::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::C::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 #if  COND // Start of a conditional group, also start of 1st subgroup
 int C::f1() {
-  return __zz_cib_::C::__zz_cib_Helper::f1(__zz_cib_h_);
+  return __zz_cib_Helper::f1(__zz_cib_h_);
 }
 
 int C::f2() {
-  return __zz_cib_::C::__zz_cib_Helper::f2(__zz_cib_h_);
+  return __zz_cib_Helper::f2(__zz_cib_h_);
 }
 #endif
 
 int C::f3() {
-  return __zz_cib_::C::__zz_cib_Helper::f3(__zz_cib_h_);
+  return __zz_cib_Helper::f3(__zz_cib_h_);
 }
 
 
@@ -159,31 +159,31 @@ P::P(P&& rhs)
 }
 
 P::P(::P const & __zz_cib_param0)
-  : P(__zz_cib_::P::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::P::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : P(__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::P::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 P::P()
-  : P(__zz_cib_::P::__zz_cib_Helper::__zz_cib_new(this))
+  : P(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 P::~P() {
   __zz_cib_::P::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::P::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::P::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 #if  COND // Start of a conditional group, also start of 1st subgroup
 int P::f1() {
-  return __zz_cib_::P::__zz_cib_Helper::f1(__zz_cib_h_);
+  return __zz_cib_Helper::f1(__zz_cib_h_);
 }
 
 int P::f2() {
-  return __zz_cib_::P::__zz_cib_Helper::f2(__zz_cib_h_);
+  return __zz_cib_Helper::f2(__zz_cib_h_);
 }
 #endif
 
 int P::f3() {
-  return __zz_cib_::P::__zz_cib_Helper::f3(__zz_cib_h_);
+  return __zz_cib_Helper::f3(__zz_cib_h_);
 }
 
 namespace __zz_cib_ {

@@ -17,16 +17,16 @@ Facade::Facade(Facade&& rhs)
 Facade::~Facade() {
   __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 Facade::Facade()
-  : Facade(__zz_cib_::Facade::__zz_cib_Helper::__zz_cib_new(this))
+  : Facade(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 
 PublicFacadeImpl::PublicFacadeImpl(__zz_cib_::__zz_cib_HANDLE* h)
-  : ::Facade(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_cast_to_Facade(h))
+  : ::Facade(__zz_cib_Helper::__zz_cib_cast_to_Facade(h))
   , __zz_cib_h_(h)
 {
   __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
@@ -41,21 +41,21 @@ PublicFacadeImpl::PublicFacadeImpl(PublicFacadeImpl&& rhs)
 }
 
 PublicFacadeImpl::PublicFacadeImpl(::PublicFacadeImpl const & __zz_cib_param0)
-  : PublicFacadeImpl(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : PublicFacadeImpl(__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 PublicFacadeImpl::~PublicFacadeImpl() {
   __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 PublicFacadeImpl::PublicFacadeImpl()
-  : PublicFacadeImpl(__zz_cib_::PublicFacadeImpl::__zz_cib_Helper::__zz_cib_new(this))
+  : PublicFacadeImpl(__zz_cib_Helper::__zz_cib_new(this))
 {}
 
 void PublicFacadeImpl::F() {
-  __zz_cib_::PublicFacadeImpl::__zz_cib_Helper::F(__zz_cib_h_);
+  __zz_cib_Helper::F(__zz_cib_h_);
 }
 
 
@@ -70,33 +70,33 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 ::Facade* A::PublicFacade() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::PublicFacade(__zz_cib_h_)
+    __zz_cib_Helper::PublicFacade(__zz_cib_h_)
   );
 }
 
 ::Facade* A::PrivateFacade1() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::PrivateFacade1(__zz_cib_h_)
+    __zz_cib_Helper::PrivateFacade1(__zz_cib_h_)
   );
 }
 
 ::Facade* A::PrivateFacade2() {
   return __zz_cib_::Facade::__zz_cib_Helper::__zz_cib_from_handle(
-    __zz_cib_::A::__zz_cib_Helper::PrivateFacade2(__zz_cib_h_)
+    __zz_cib_Helper::PrivateFacade2(__zz_cib_h_)
   );
 }
 

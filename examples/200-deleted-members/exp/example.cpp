@@ -16,15 +16,15 @@ A::A(A&& rhs)
 
 A::~A() {
   auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::A::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::A::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 int A::f() {
-  return __zz_cib_::A::__zz_cib_Helper::f(__zz_cib_h_);
+  return __zz_cib_Helper::f(__zz_cib_h_);
 }
 
 
@@ -40,14 +40,14 @@ B::B(B&& rhs)
 
 B::~B() {
   auto h = __zz_cib_::B::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::B::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 B::B()
-  : B(__zz_cib_::B::__zz_cib_Helper::__zz_cib_new())
+  : B(__zz_cib_Helper::__zz_cib_new())
 {}
 
 int B::g() {
-  return __zz_cib_::B::__zz_cib_Helper::g(__zz_cib_h_);
+  return __zz_cib_Helper::g(__zz_cib_h_);
 }
 

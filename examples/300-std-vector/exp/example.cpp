@@ -16,21 +16,21 @@ C::C(C&& rhs)
 }
 
 C::C(::C const & __zz_cib_param0)
-  : C(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : C(__zz_cib_Helper::__zz_cib_copy(this, __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 C::C(int x)
-  : C(__zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_new(this, x))
+  : C(__zz_cib_Helper::__zz_cib_new(this, x))
 {}
 
 C::~C() {
   __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_release_proxy(this);
   auto h = __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 int C::f() const {
-  return __zz_cib_::__zz_cib_Class258::__zz_cib_Helper::f(__zz_cib_h_);
+  return __zz_cib_Helper::f(__zz_cib_h_);
 }
 
 
@@ -45,21 +45,21 @@ A::A(A&& rhs)
 }
 
 A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
+  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
 {}
 
 A::~A() {
   auto h = __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_delete(h);
+  __zz_cib_Helper::__zz_cib_delete(h);
 }
 
 A::A()
-  : A(__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::__zz_cib_new())
+  : A(__zz_cib_Helper::__zz_cib_new())
 {}
 
 ::std::vector<::C> A::g() const {
   return __zz_cib_::__zz_cib_Class256::__zz_cib_Class257::__zz_cib_Helper::__zz_cib_obj_from_handle(
-__zz_cib_::__zz_cib_Class259::__zz_cib_Helper::g(__zz_cib_h_)
+__zz_cib_Helper::g(__zz_cib_h_)
 );
 }
 
