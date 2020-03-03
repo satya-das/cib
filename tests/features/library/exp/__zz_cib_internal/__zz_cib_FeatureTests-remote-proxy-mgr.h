@@ -24,18 +24,17 @@
 #pragma once
 
 #include "__zz_cib_FeatureTests-def.h"
-#include "__zz_cib_FeatureTests-handle.h"
 #include "__zz_cib_FeatureTests-ids.h"
 #include "__zz_cib_FeatureTests-internal-proxy.h"
 #include "__zz_cib_FeatureTests-mtable-helper.h"
 
 namespace __zz_cib_ {
 
-using __zz_cib_client_id = std::uint32_t;
+using __zz_cib_ClientId = std::uint32_t;
 
 namespace FeatureTests {
 
-using __zz_cib_client_id = std::uint32_t;
+using __zz_cib_ClientId = std::uint32_t;
 
 template <typename _ProxyClass, typename _Helper>
 class __zz_cib_remote_proxy_mgr
@@ -51,18 +50,18 @@ public:
   }
 
 public:
-  _ProxyClass* findProxy(__zz_cib_HANDLE* h)
+  _ProxyClass* findProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
-    return _Helper::__zz_cib_find_proxy(h, clientId_);
+    return _Helper::__zz_cib_findProxy(h, clientId_);
   }
-  void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
+  void addProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
   {
-    _Helper::__zz_cib_register_proxy(
+    _Helper::__zz_cib_registerProxy(
       h, clientId_, __zz_cib_obj, [](_ProxyClass* obj) { _Helper::__zz_cib_delete_only_proxy(obj); });
   }
-  void removeProxy(__zz_cib_HANDLE* h)
+  void removeProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
-    _Helper::__zz_cib_unregister_proxy(h, clientId_);
+    _Helper::__zz_cib_unregisterProxy(h, clientId_);
   }
 
 private:

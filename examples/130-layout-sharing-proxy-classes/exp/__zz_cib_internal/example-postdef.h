@@ -6,50 +6,52 @@
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
 
 namespace __zz_cib_ {
-namespace CPoint {
-class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
-private:
-  using __zz_cib_TYPE = ::CPoint;
-  using _ProxyClass = ::CPoint;
+template <>
+struct __zz_cib_Helper<::CPoint> : public __zz_cib_MethodTableHelper {
+  using __zz_cib_AbiType = typename ::CPoint::__zz_cib_AbiType;
   friend class ::CPoint;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_TYPE* __zz_cib_obj, ::CPoint const * __zz_cib_param0) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_TYPE*, ::CPoint const * __zz_cib_param0);
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_copy(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
       __zz_cib_obj,
-      __zz_cib_param0);
+      __zz_cib_args...);
   }
-  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
+  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
       return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new(__zz_cib_TYPE* __zz_cib_obj, double _x, double _y, double _z) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_TYPE*, double _x, double _y, double _z);
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_new(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       __zz_cib_obj,
-      _x, _y, _z);
+      __zz_cib_args...);
   }
-  static ::CPoint const * __zz_cib_OperatorPlusEq(__zz_cib_TYPE* __zz_cib_obj, ::CPoint const * p) {
-    using __zz_cib_proc = ::CPoint const * (__zz_cib_decl *) (__zz_cib_TYPE*, ::CPoint const * p);
+  template <typename _RT, typename ..._Args>
+  static auto __zz_cib_OperatorPlusEq(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorPlusEq>(
       __zz_cib_obj,
-      p);
+      __zz_cib_args...);
   }
 };
-}}
+}

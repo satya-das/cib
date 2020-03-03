@@ -4,7 +4,7 @@
 
 #include <memory>
 
-class I : public __zz_cib_::__zz_cib_proxy_manager
+class I : public __zz_cib_::__zz_cib_ProxyManager<I>
 {
 public:
   virtual ~I() {}

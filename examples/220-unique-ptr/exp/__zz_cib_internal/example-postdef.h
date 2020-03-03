@@ -6,62 +6,60 @@
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
-class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::I, __zz_cib_Helper> {
-private:
-  using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::I, __zz_cib_Helper>;
-  static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
+template <>
+struct __zz_cib_Helper<::I> : public __zz_cib_MethodTableHelper {
+  using __zz_cib_AbiType = typename ::I::__zz_cib_AbiType;
   using _ProxyClass = ::I;
+  static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::I;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_new(::I* __zz_cib_proxy, int* pi) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*, int* pi);
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_new(::I* __zz_cib_h_, _Args... __zz_cib_args) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table(),
-      std::move(pi));
+      __zz_cib_h_, __zz_cib_get_proxy_method_table(),
+      __zz_cib_args...);
   }
-  static __zz_cib_TYPE* __zz_cib_new_1(::I* __zz_cib_proxy) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*);
+  static __zz_cib_AbiType __zz_cib_new_1(::I* __zz_cib_h_) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::I*, const __zz_cib_MethodTable*);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_1>(
-      __zz_cib_proxy, __zz_cib_get_proxy_method_table()
+      __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
-  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
+  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
       return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static std::uint32_t __zz_cib_get_class_id(__zz_cib_HANDLE** __zz_cib_obj) {
-    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_HANDLE**);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_AbiType* __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_AbiType*);
     return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
   }
-  static ::I* __zz_cib_create_proxy(__zz_cib_HANDLE* h);
-public:
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::I* __zz_cib_obj) {
+  static ::I* __zz_cib_create_proxy(__zz_cib_AbiType h);
+  static __zz_cib_AbiType& __zz_cib_get_handle(::I* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::I* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const ::I* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::I* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(::I* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -70,117 +68,120 @@ public:
   }
   static void __zz_cib_release_proxy(::I* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_) {
-      using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_HANDLE*);
+      using __zz_cib_release_proxyProc = void (__zz_cib_decl *) (__zz_cib_AbiType);
       return instance().invoke<__zz_cib_release_proxyProc, __zz_cib_methodid::__zz_cib_release_proxy>(
       __zz_cib_obj->__zz_cib_h_);
     }
   }
-  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+  static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
     auto&  dis   = instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy == nullptr)
       proxy = __zz_cib_create_proxy(h);
     return proxy;
   }
-  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h) {
+  static void __zz_cib_add_proxy(_ProxyClass* __zz_cib_obj, __zz_cib_AbiType h) {
     auto& dis = instance();
     dis.proxyMgr.addProxy(__zz_cib_obj, h);
   }
-  static void __zz_cib_remove_proxy(__zz_cib_HANDLE* h) {
+  static void __zz_cib_remove_proxy(__zz_cib_AbiType h) {
     auto& dis = instance();
       dis.proxyMgr.removeProxy(h);
   }
 };
-}}
+}
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
-class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::A, __zz_cib_Helper> {
-private:
-  using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::A, __zz_cib_Helper>;
+template <>
+struct __zz_cib_Helper<::A> : public __zz_cib_MethodTableHelper {
+  using __zz_cib_AbiType = typename ::A::__zz_cib_AbiType;
   using _ProxyClass = ::A;
   friend class ::A;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
-      __zz_cib_param0);
+      __zz_cib_args...);
   }
-  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
+  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
       return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+  static __zz_cib_AbiType __zz_cib_new() {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) ();
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static __zz_cib_HANDLE* f(const __zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (const __zz_cib_TYPE*);
+  template <typename _RT>
+  static auto f(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
       __zz_cib_obj
       );
   }
-  static __zz_cib_HANDLE* g(__zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = __zz_cib_HANDLE* (__zz_cib_decl *) (__zz_cib_TYPE*);
+  template <typename _RT>
+  static auto g(__zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::g>(
       __zz_cib_obj
       );
   }
-  static int h(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+  template <typename _RT, typename ..._Args>
+  static auto h(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::h>(
       __zz_cib_obj,
-      std::move(p));
+      __zz_cib_args...);
   }
-  static int i(const __zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE* p) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (const __zz_cib_TYPE*, __zz_cib_HANDLE* p);
+  template <typename _RT, typename ..._Args>
+  static auto i(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::i>(
       __zz_cib_obj,
-      p);
+      __zz_cib_args...);
   }
-  static int j(__zz_cib_TYPE* __zz_cib_obj, __zz_cib_HANDLE** pp) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*, __zz_cib_HANDLE** pp);
+  template <typename _RT, typename ..._Args>
+  static auto j(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::j>(
       __zz_cib_obj,
-      std::move(pp));
+      __zz_cib_args...);
   }
-  static ::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+  static ::A* __zz_cib_create_proxy(__zz_cib_AbiType h) {
     return new ::A(h);
   }
-public:
-  static ::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+  static ::A __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return ::A(h);
   }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::A* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::A* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const ::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::A* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(::A* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
-  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+  static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return __zz_cib_create_proxy(h);
   }
 };
-}}
+}

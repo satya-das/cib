@@ -23,12 +23,10 @@
 
 #pragma once
 
-#include "__zz_cib_$Module$-handle.h"
-
 #include <map>
 
 namespace __zz_cib_ {
-namespace $Module$ {
+namespace Module {
 
 /**
  * Only for the purpose of simplicity.
@@ -46,5 +44,5 @@ public:
   void removeProxy(__zz_cib_HANDLE*) {}
 };
 
-} // namespace $Module$
+} // namespace Module
 } // namespace __zz_cib_

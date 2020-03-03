@@ -1,33 +1,38 @@
 #pragma once
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   //#= FullClassName: ::A
   enum { __zz_cib_classid = 257 };
-}}
-
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
-  //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 261 };
 }}}
 
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::A::__zz_cib_Generic
+  enum { __zz_cib_classid = 261 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::B
   enum { __zz_cib_classid = 258 };
-}}
+}}}
 
-namespace __zz_cib_ { namespace C {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   //#= FullClassName: ::C
   enum { __zz_cib_classid = 259 };
-}}
+}}}
 
-namespace __zz_cib_ { namespace P {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   //#= FullClassName: ::P
   enum { __zz_cib_classid = 260 };
-}}
+}}}
 
-namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
-  //#= FullClassName: ::P::__zz_cib_GenericProxy
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::P::__zz_cib_Generic
   enum { __zz_cib_classid = 262 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 256 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
@@ -35,9 +40,9 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= A(::A const &);
+    //#= A(const A&);
     __zz_cib_copy = 0,
     //#= A();
     __zz_cib_new = 1,
@@ -67,9 +72,9 @@ namespace __zz_cib_ { namespace A {
     __zz_cib_release_proxy = 13,
     __zz_cib_next_method_id = 14
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int DoFunc() const;
     DoFunc = 0,
@@ -77,11 +82,11 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= B(::B const &);
+    //#= B(const B&);
     __zz_cib_copy = 0,
     //#= B();
     __zz_cib_new = 1,
@@ -93,11 +98,11 @@ namespace __zz_cib_ { namespace B {
     f2 = 4,
     __zz_cib_next_method_id = 5
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace C {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
-    //#= C(::C const &);
+    //#= C(const C&);
     __zz_cib_copy = 0,
     //#= C();
     __zz_cib_new = 1,
@@ -111,11 +116,11 @@ namespace __zz_cib_ { namespace C {
     f3 = 5,
     __zz_cib_next_method_id = 6
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace P {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
-    //#= P(::P const &);
+    //#= P(const P&);
     __zz_cib_copy = 0,
     //#= P();
     __zz_cib_new = 1,
@@ -131,9 +136,9 @@ namespace __zz_cib_ { namespace P {
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int f3();
     f3 = 0,
@@ -145,5 +150,5 @@ namespace __zz_cib_ { namespace P { namespace __zz_cib_GenericProxy {
     __zz_cib_delete = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}}}
 

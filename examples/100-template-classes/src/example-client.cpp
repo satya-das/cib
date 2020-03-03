@@ -6,7 +6,7 @@ TEST_CASE("Instances of template class can cross component boundary")
 {
   Example::Value<int>          x(5);
   Example::Value<Example::Int> y(Example::Int(9));
-  Example::A::FloatValue f(10.0);
+  Example::FloatValue f(10.0);
   Example::A                   a;
 
   a.Set(x);

@@ -9,7 +9,7 @@ class Interface
 public:
   Interface(Interface&& rhs);
 public:
-  Interface(Interface const & );
+  Interface(const Interface& );
   Interface();
   virtual ~Interface();
   int Func();
@@ -17,7 +17,7 @@ protected:
   virtual int DoFunc() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Interface, Interface);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(Interface, Interface);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

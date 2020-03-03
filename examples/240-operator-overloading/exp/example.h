@@ -9,14 +9,14 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A(A const & );
+    A(const A& );
     ~A();
     A();
     A& operator <<(int x);
     A& operator >>(int& x);
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
   };
 }
 

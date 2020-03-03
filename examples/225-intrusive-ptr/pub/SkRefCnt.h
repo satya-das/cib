@@ -261,4 +261,7 @@ template <typename T> sk_sp<T> sk_ref_sp(const T* obj) {
     return sk_sp<T>(const_cast<T*>(SkSafeRef(obj)));
 }
 
+// Make cib aware about sk_sp smart pointer
+#include "sk_sp-cib-input.h"
+
 #endif

@@ -40,7 +40,7 @@
 
 namespace {
 
-std::string kProxyMgrMethods[3] = {"__zz_cib_find_proxy", "__zz_cib_register_proxy", "__zz_cib_unregister_proxy"};
+std::string kProxyMgrMethods[3] = {"__zz_cib_findProxy", "__zz_cib_registerProxy", "__zz_cib_unregisterProxy"};
 
 static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
 {
@@ -83,7 +83,7 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
         return "";
       };
       auto extractClassNsName = [](const CppCompound* classObj) -> std::string {
-        return fullName(classObj).substr(11); // skip "__zz_cib_::"
+        return fullName(classObj).substr(25); // skip "__zz_cib_::__zz_cib_ids::"
       };
       if (enumObj->name_ == kMethodIdName)
       {
@@ -269,15 +269,14 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     if (forGenericProxy && (!compound->needsGenericProxyDefinition() || compound->getAllVirtualMethods().empty()))
       break;
 
-    const auto className = forGenericProxy ? compound->longName() + "::__zz_cib_GenericProxy" : compound->longName();
+    const auto className = forGenericProxy ? compound->longName() + "::__zz_cib_Generic" : compound->longName();
     CibIdData* cibIdData = nullptr;
     auto       itr       = cibIdTable_.find(className);
     if (itr == cibIdTable_.end())
     {
-      const auto clsId = nextClassId_++;
-      const auto classNsName =
-        forGenericProxy ? compound->fullNsName() + "::__zz_cib_GenericProxy" : compound->fullNsName();
-      cibIdData = addClass(className, classNsName, clsId);
+      const auto clsId       = nextClassId_++;
+      const auto classNsName = forGenericProxy ? compound->fullNsName() + "::__zz_cib_Generic" : compound->fullNsName();
+      cibIdData              = addClass(className, classNsName, clsId);
     }
     else
     {
@@ -304,9 +303,13 @@ void CibIdMgr::assignIds(CibCompound*     compound,
         this->assignIds(const_cast<CibCompound*>(parent), helper, cibParams, forGenericProxy);
         if (parent->isShared() || !parent->isEmpty())
         {
-          auto castMethodName = compound->castToBaseName(parent, cibParams);
-          if (!cibIdData->hasMethod(castMethodName))
-            cibIdData->addOrUpdateMethod(castMethodName, castMethodName);
+          auto castToMethodName = compound->castToBaseName(parent, cibParams);
+          if (!cibIdData->hasMethod(castToMethodName))
+            cibIdData->addOrUpdateMethod(castToMethodName, castToMethodName);
+
+          auto castFromMethodName = compound->castFromBaseName(parent, cibParams);
+          if (!cibIdData->hasMethod(castFromMethodName))
+            cibIdData->addOrUpdateMethod(castFromMethodName, castFromMethodName);
         }
         return false;
       });
@@ -359,15 +362,14 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
   CppIndent indentation;
   for (const auto& cls : cibIdTable_)
   {
-    if (cls.second.numMethods() == 0)
-      continue;
     const auto& className   = cls.first;
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cls.second.getFullNsName();
-    stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end()) << '\n';
+    stm << "namespace __zz_cib_ { namespace __zz_cib_ids { " << expandNs(classNsName.begin(), classNsName.end())
+        << '\n';
     stm << ++indentation << "//#= FullClassName: " << className << '\n';
     stm << indentation << "enum { __zz_cib_classid = " << cibIdData.getId() << " };\n";
-    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}\n\n";
+    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
   }
   stm << indentation << "namespace __zz_cib_ { namespace " << cibParams.moduleName << " {\n";
   stm << ++indentation << "enum { __zz_cib_next_class_id = " << nextClassId_ << " };\n";
@@ -381,7 +383,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
       continue;
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cibIdData.getFullNsName();
-    stm << "namespace __zz_cib_ { " << expandNs(classNsName.begin(), classNsName.end()) << '\n'
+    stm << "namespace __zz_cib_ { namespace __zz_cib_ids { " << expandNs(classNsName.begin(), classNsName.end()) << '\n'
         << ++indentation << "enum __zz_cib_methodid {\n";
     ++indentation;
     auto nextMethodId = cibIdData.forEachMethod([&](const CibMethodIdTableEntry& methodIdEntry) {
@@ -390,7 +392,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     });
     stm << indentation << "__zz_cib_next_method_id = " << nextMethodId << '\n';
     stm << --indentation << "};\n";
-    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}\n\n";
+    stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
   }
   return true;
 }
@@ -404,7 +406,7 @@ void CibIdMgr::forEachCompound(CompoundVisitor visitor) const
     const auto&              className        = cls.first;
     const auto&              cibIdData        = cls.second;
     const auto&              classNsName      = cls.second.getFullNsName();
-    static const std::string genericProxyName = "__zz_cib_GenericProxy";
+    static const std::string genericProxyName = "__zz_cib_Generic";
     if (classNsName.length() > 2 + genericProxyName.length())
     {
       if (strcmp(classNsName.c_str() + classNsName.length() - genericProxyName.length(), genericProxyName.c_str()) == 0)

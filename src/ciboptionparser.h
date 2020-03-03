@@ -47,7 +47,7 @@ private:
   std::string  cibIdFile;
   bool         noExactDelegation{false};
   bool         libraryManagedProxies{false};
-  bool         alwaysUseNsName{false};
+  bool         alwaysUseNsName{true};
   bool         noRtti{false};
   bool         noException{false};
   StringVector noProxyClassNames;

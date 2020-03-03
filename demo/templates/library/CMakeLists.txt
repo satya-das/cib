@@ -21,7 +21,6 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-mtable-helper.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-classId-repo.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_templates-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/__zz_cib_templates-ids.h
 )

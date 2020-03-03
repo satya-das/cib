@@ -16,7 +16,7 @@ namespace Example
       public:
         A(A&& rhs);
       public:
-        A(A const & );
+        A(const A& );
         ~A();
         A();
         Int i() const;
@@ -24,7 +24,7 @@ namespace Example
         std::unique_ptr<Int> pi() const;
 
       private:
-        __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::Outer::Inner::A);
+        __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::Outer::Inner::A);
       };
     }
   }

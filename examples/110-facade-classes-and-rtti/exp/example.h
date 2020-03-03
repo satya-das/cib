@@ -13,7 +13,7 @@ protected:
   Facade();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(Facade, Facade);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(Facade, Facade);
 };
 
 class PublicFacadeImpl : public ::Facade
@@ -21,13 +21,13 @@ class PublicFacadeImpl : public ::Facade
 public:
   PublicFacadeImpl(PublicFacadeImpl&& rhs);
 public:
-  PublicFacadeImpl(PublicFacadeImpl const & );
+  PublicFacadeImpl(const PublicFacadeImpl& );
   ~PublicFacadeImpl();
   PublicFacadeImpl();
   virtual void F();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(PublicFacadeImpl, PublicFacadeImpl);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(PublicFacadeImpl, PublicFacadeImpl);
 };
 
 class A
@@ -35,7 +35,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   Facade* PublicFacade();
@@ -43,7 +43,7 @@ public:
   Facade* PrivateFacade2();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

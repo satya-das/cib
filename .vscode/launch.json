@@ -1,0 +1,1324 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run cib for skia",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-m",
+                "Skia",
+                "-b",
+                "cib/",
+                "-i",
+                "public/",
+                "-o",
+                "include/",
+                // "--library-managed-proxy", "true",
+                // "-c",
+                // "abi-ids.h",
+                "--always-use-unique-namespace",
+                "true",
+                "--no-exception",
+                "true",
+                "--no-rtti",
+                "true",
+                "-A",
+                "SK_API",
+                "-A",
+                "SK_ALWAYS_INLINE",
+                "-A",
+                "SK_CAPABILITY",
+                "-A",
+                "SK_SCOPED_CAPABILITY",
+                "-A",
+                "SKSL_WARN_UNUSED_RESULT",
+                "-A",
+                "SK_BEGIN_REQUIRE_DENSE",
+                "-A",
+                "SK_WARN_UNUSED_RESULT",
+                "-M",
+                "SK_END_REQUIRE_DENSE",
+                "-M",
+                "GR_MAKE_BITFIELD_CLASS_OPS",
+                "-M",
+                "SK_C_PLUS_PLUS_BEGIN_GUARD",
+                "-M",
+                "SK_C_PLUS_PLUS_END_GUARD",
+                "-M",
+                "GPU_DRIVER_BUG_WORKAROUNDS",
+                "-M",
+                "GR_MAKE_BITFIELD_OPS",
+                "-M",
+                "SK_WHEN",
+                "-M",
+                "SK_ACQUIRE",
+                "-M",
+                "SK_RELEASE_CAPABILITY",
+                "-M",
+                "SK_TRY_ACQUIRE",
+                "-M",
+                "SK_ASSERT_CAPABILITY",
+                "-I",
+                "SkDEBUGCODE",
+                "-I",
+                "SkDEBUGPARAMS",
+                "-I",
+                "__bridge",
+                "-I",
+                "__bridge_retained",
+                "-I",
+                "API_AVAILABLE",
+                "-I",
+                "SK_RESTRICT",
+                "-I",
+                "DEBUG_COIN_DECLARE_PARAMS",
+                "-I",
+                "PATH_OPS_DEBUG_T_SECT_CODE",
+                "-I",
+                "PATH_OPS_DEBUG_T_SECT_PARAMS",
+                "-I",
+                "SK_GUARDED_BY",
+                "-I",
+                "SK_ACQUIRE",
+                "-I",
+                "SK_REQUIRES",
+                "-I",
+                "SK_RELEASE_CAPABILITY",
+                "-I",
+                "SK_ASSERT_CAPABILITY",
+                "-I",
+                "SK_ACQUIRE_SHARED",
+                "-I",
+                "SK_RELEASE_SHARED_CAPABILITY",
+                "-I",
+                "SK_BLITBWMASK_ARGS",
+                "-I",
+                "SK_ASSERT_SHARED_CAPABILITY",
+                "-M",
+                "SK_BEGIN_REQUIRE_DENSE",
+                "-M",
+                "SK_END_REQUIRE_DENSE",
+                "-M",
+                "GR_MAKE_BITFIELD_CLASS_OPS",
+                "-M",
+                "SK_C_PLUS_PLUS_BEGIN_GUARD",
+                "-M",
+                "SK_C_PLUS_PLUS_END_GUARD",
+                "-M",
+                "GPU_DRIVER_BUG_WORKAROUNDS",
+                "-M",
+                "GR_MAKE_BITFIELD_OPS",
+                "-M",
+                "SK_FLATTENABLE_HOOKS",
+                "-M",
+                "SK_USE_FLUENT_IMAGE_FILTER_TYPES_IN_CLASS",
+                "-M",
+                "SK_RASTER_PIPELINE_STAGES",
+                "-M",
+                "INTERNAL_DECLARE_SET_TRACE_VALUE_INT",
+                "-M",
+                "INTERNAL_DECLARE_SET_TRACE_VALUE",
+                "-M",
+                "SK_RECORD_TYPES",
+                "-M",
+                "SK_OT_BYTE_BITFIELD",
+                "-M",
+                "SKSL_PRINTF_LIKE",
+                "-M",
+                "ACT_AS_PTR",
+                "-M",
+                "RECORD",
+                "-M",
+                "GR_DECLARE_FRAGMENT_PROCESSOR_TEST",
+                "-M",
+                "GR_DECLARE_GEOMETRY_PROCESSOR_TEST",
+                "-M",
+                "GR_DECLARE_XP_FACTORY_TEST",
+                "-M",
+                "DEFINE_NAMED_APPEND",
+                "-M",
+                "SK_CALLABLE_TRAITS__CV_REF_NE_VARARGS",
+                "-M",
+                "SK_CALLABLE_TRAITS__NE_VARARGS",
+                "-M",
+                "SK_STDMETHODIMP_",
+                "-M",
+                "SK_END_REQUIRE_DENSE",
+                "-M",
+                "GR_DECL_BITFIELD_OPS_FRIENDS",
+                "-M",
+                "SK_PRINTF_LIKE",
+                "-M",
+                "DEFINE_OP_CLASS_ID",
+                "-M",
+                "SHARD",
+                "-M",
+                "SK_WHEN"
+            ],
+            "stopAtEntry": false,
+            "cwd": "/home/dassat/googlesource/skia/cibification",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for FeatureTests",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/tests/features/library/pub",
+                "-b",
+                "${workspaceFolder}/tests/features/library/cib",
+                "-o",
+                "${workspaceFolder}/tests/features/library/exp",
+                "-m",
+                "FeatureTests"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for client-calls",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/demo/client-calls/library/pub",
+                "-b",
+                "${workspaceFolder}/demo/client-calls/library/cib",
+                "-o",
+                "${workspaceFolder}/demo/client-calls/library/exp",
+                "-c",
+                "${workspaceFolder}/demo/client-calls/library/abi/__zz_cib_Graphics-ids.h",
+                "-m",
+                "Demo"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for client-is-called",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/demo/client-is-called/library/pub",
+                "-b",
+                "${workspaceFolder}/demo/client-is-called/library/cib",
+                "-o",
+                "${workspaceFolder}/demo/client-is-called/library/exp",
+                "-c",
+                "${workspaceFolder}/demo/client-is-called/library/abi/__zz_cib_Graphics-ids.h",
+                "-m",
+                "Graphics"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for templates",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/demo/templates/library/pub",
+                "-b",
+                "${workspaceFolder}/demo/templates/library/cib",
+                "-o",
+                "${workspaceFolder}/demo/templates/library/exp",
+                "-c",
+                "${workspaceFolder}/demo/templates/library/abi/__zz_cib_templates-ids.h",
+                "-m",
+                "templates"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "client-is-called",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/demo/client-is-called/client-is-called-client",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for simple-class",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/010-simple-class/pub",
+                "-b",
+                "${workspaceFolder}/examples/010-simple-class/cib",
+                "-o",
+                "${workspaceFolder}/examples/010-simple-class/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 100-template-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/100-template-classes/pub",
+                "-b",
+                "${workspaceFolder}/examples/100-template-classes/cib",
+                "-o",
+                "${workspaceFolder}/examples/100-template-classes/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 020-virtual-function",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/020-virtual-function/pub",
+                "-b",
+                "${workspaceFolder}/examples/020-virtual-function/cib",
+                "-o",
+                "${workspaceFolder}/examples/020-virtual-function/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 055-abstract-class",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/055-abstract-class/pub",
+                "-b",
+                "${workspaceFolder}/examples/055-abstract-class/cib",
+                "-o",
+                "${workspaceFolder}/examples/055-abstract-class/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 130-layout-sharing-proxy-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/pub",
+                "-b",
+                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/cib",
+                "-o",
+                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/exp",
+                "--no-proxy",
+                "CPoint",
+                "--no-proxy",
+                "Dummy",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 300-std-vector",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/300-std-vector/pub",
+                "-b",
+                "${workspaceFolder}/examples/300-std-vector/cib",
+                "-o",
+                "${workspaceFolder}/examples/300-std-vector/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 150-reference-of-pointer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/150-reference-of-pointer/pub",
+                "-b",
+                "${workspaceFolder}/examples/150-reference-of-pointer/cib",
+                "-o",
+                "${workspaceFolder}/examples/150-reference-of-pointer/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 250-namespace",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/250-namespace/pub",
+                "-b",
+                "${workspaceFolder}/examples/250-namespace/cib",
+                "-o",
+                "${workspaceFolder}/examples/250-namespace/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 260-conditional-api-availability",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/260-conditional-api-availability/pub",
+                "-b",
+                "${workspaceFolder}/examples/260-conditional-api-availability/cib",
+                "-o",
+                "${workspaceFolder}/examples/260-conditional-api-availability/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 240-operator-overloading",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/240-operator-overloading/pub",
+                "-b",
+                "${workspaceFolder}/examples/240-operator-overloading/cib",
+                "-o",
+                "${workspaceFolder}/examples/240-operator-overloading/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 015-simple-class-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/015-simple-class-and-bkwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/015-simple-class-and-bkwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/015-simple-class-and-bkwd-compatibility/exp",
+                "-m",
+                "Example",
+                "-c",
+                "${workspaceFolder}/examples/010-simple-class/cib/__zz_cib_Example-ids.h"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 070-simple-interface-class-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 090-complex-interface-classes-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/090-complex-interface-classes-and-bkwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/090-complex-interface-classes-and-bkwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/090-complex-interface-classes-and-bkwd-compatibility/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 020-virtual-function",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/020-virtual-function/pub",
+                "-b",
+                "${workspaceFolder}/examples/020-virtual-function/cib",
+                "-o",
+                "${workspaceFolder}/examples/020-virtual-function/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 035-virtual-function-and-forwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/exp",
+                "-c",
+                "${workspaceFolder}/examples/020-virtual-function/cib/__zz_cib_Example-ids.h",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 030-virtual-function-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 140-rvalue-parameters",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/140-rvalue-parameters/pub",
+                "-b",
+                "${workspaceFolder}/examples/140-rvalue-parameters/cib",
+                "-o",
+                "${workspaceFolder}/examples/140-rvalue-parameters/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for Pod",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/pod-struct/pub",
+                "-b",
+                "${workspaceFolder}/examples/pod-struct/cib",
+                "-o",
+                "${workspaceFolder}/examples/pod-struct/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for no-proxy-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/no-proxy-classes/pub",
+                "-b",
+                "${workspaceFolder}/examples/no-proxy-classes/cib",
+                "-o",
+                "${workspaceFolder}/examples/no-proxy-classes/exp",
+                "-m",
+                "Example",
+                "--no-proxy",
+                "CPoint",
+                "--no-proxy",
+                "Dummy"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for template-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/100-template-classes/pub",
+                "-b",
+                "${workspaceFolder}/examples/100-template-classes/cib",
+                "-o",
+                "${workspaceFolder}/examples/100-template-classes/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for runtime-polymorphism",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../build_results/GNU/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/example5/pub",
+                "-b",
+                "${workspaceFolder}/examples/example5/cib",
+                "-o",
+                "${workspaceFolder}/examples/example5/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../build_results/GNU",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for deleted-members",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/200-deleted-members/pub",
+                "-b",
+                "${workspaceFolder}/examples/200-deleted-members/cib",
+                "-o",
+                "${workspaceFolder}/examples/200-deleted-members/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for unique_ptr",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/220-unique-ptr/pub",
+                "-b",
+                "${workspaceFolder}/examples/220-unique-ptr/cib",
+                "-o",
+                "${workspaceFolder}/examples/220-unique-ptr/exp",
+                "-m",
+                "Example",
+                "--always-use-unique-namespace",
+                "true"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 225-intrusive-ptr",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/225-intrusive-ptr/pub",
+                "-b",
+                "${workspaceFolder}/examples/225-intrusive-ptr/cib",
+                "-o",
+                "${workspaceFolder}/examples/225-intrusive-ptr/exp",
+                "-m",
+                "Example",
+                "--always-use-unique-namespace",
+                "true"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 170-private-virtuals",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/170-private-virtuals/pub",
+                "-b",
+                "${workspaceFolder}/examples/170-private-virtuals/cib",
+                "-o",
+                "${workspaceFolder}/examples/170-private-virtuals/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for lib-deletes-proxy",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/230-lib-deletes-proxy/pub",
+                "-b",
+                "${workspaceFolder}/examples/230-lib-deletes-proxy/cib",
+                "-o",
+                "${workspaceFolder}/examples/230-lib-deletes-proxy/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "inheritance-type-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../build_results/GNU/examples/inheritance-type-and-bkwd-compatibility",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../build_results/GNU",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "private-virtuals",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/dassat/github/cib/builds/examples/170-private-virtuals",
+            "stopAtEntry": false,
+            "cwd": "/home/dassat/github/cib/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "deleted-member",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../build_results/GNU/examples/200-deleted-members",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "unique-ptr",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/220-unique-ptr",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "intrusive-ptr",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/225-intrusive-ptr",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "free-functions",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/160-free-functions",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "lib-deletes-proxy",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/230-lib-deletes-proxy",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "template-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/100-template-classes",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "110-facade-classes-and-rtti",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/110-facade-classes-and-rtti",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "090-complex-interface-classes-and-bkwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/090-complex-interface-classes-and-bkwd-compatibility",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "020-virtual-function",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/020-virtual-function",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "140-rvalue-parameters",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/140-rvalue-parameters",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "035-virtual-function-and-forwd-compatibility-new-client-with-old-lib",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/035-virtual-function-and-forwd-compatibility-new-client-with-old-lib//035-virtual-function-and-forwd-compatibility",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Draw",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../build_results/GNU/cibtest/draw",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../build_results/GNU",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Draw_Cibified",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/../build_results/GNU/cibtest/draw_cibified",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/../build_results/GNU",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

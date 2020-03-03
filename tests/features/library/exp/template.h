@@ -67,7 +67,7 @@ class TemplateTest
 public:
   TemplateTest(TemplateTest&& rhs);
 public:
-  TemplateTest(TemplateTest const & );
+  TemplateTest(const TemplateTest& );
   ~TemplateTest();
   TemplateTest();
   TemplateClassWithOneParam<int> getTemplateClassWithOneParam() const;
@@ -75,7 +75,7 @@ public:
   TemplateClassWithTwoParamsAndDefaultParameter<int> getTemplateClassWithTwoParamsAndDefaultParameter() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(TemplateTest, TemplateTest);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(TemplateTest, TemplateTest);
 };
 
 #include "__zz_cib_internal/template-postdef.h"

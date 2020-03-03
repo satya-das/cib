@@ -4,58 +4,78 @@
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
 
 #include "example.h"
 
-namespace __zz_cib_ {
-namespace __zz_cib_Example_Global {
-class __zz_cib_Helper : public __zz_cib_MethodTableHelper {
-public:
-  __zz_cib_Helper()
-    : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
-  {}
-  static __zz_cib_Helper& instance() {
-    static __zz_cib_Helper helper;
-    return helper;
-  }
+namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+struct __zz_cib_Helper : public __zz_cib_MethodTableHelper {
+using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Example_Global::__zz_cib_methodid;
 
-  static int GetNewA(__zz_cib_HANDLE** pA) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
+__zz_cib_Helper()
+  : __zz_cib_MethodTableHelper(
+    __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Example_Global::__zz_cib_classid))
+{}
+static __zz_cib_Helper& instance() {
+  static __zz_cib_Helper helper;
+  return helper;
+}
+
+  template <typename _RT, typename ..._Args>
+  static auto GetNewA(_Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA>(
-      pA);
+      __zz_cib_args...);
   }
-  static int GetNewB(__zz_cib_HANDLE** pA) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_HANDLE** pA);
+  template <typename _RT, typename ..._Args>
+  static auto GetNewB(_Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB>(
-      pA);
+      __zz_cib_args...);
   }
-  static int GetNewA_2(__zz_cib_HANDLE const ** pA) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
+  template <typename _RT, typename ..._Args>
+  static auto GetNewA_2(_Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA_2>(
-      pA);
+      __zz_cib_args...);
   }
-  static int GetNewB_3(__zz_cib_HANDLE const ** pA) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_HANDLE const ** pA);
+  template <typename _RT, typename ..._Args>
+  static auto GetNewB_3(_Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB_3>(
-      pA);
+      __zz_cib_args...);
   }
 };
 }}
 
-int GetNewA(::A*& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+int GetNewA(A*& pA) {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<A*&>(pA)
+    )
+  );
 }
 
-int GetNewB(::A*& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+int GetNewB(A*& pA) {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<A*&>(pA)
+    )
+  );
 }
 
-int GetNewA(::A const *& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+int GetNewA(const A*& pA) {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<const A*&>(pA)
+    )
+  );
 }
 
-int GetNewB(::A const *& pA) {
-  return __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(&pA));
+int GetNewB(const A*& pA) {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<const A*&>(pA)
+    )
+  );
 }

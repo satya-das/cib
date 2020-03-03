@@ -74,19 +74,6 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 #### Handle definition
 **Type definiton of opaque pointers used by client**:
 
-[**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
-
-!INCLUDECODE "examples/010-simple-class/exp/__zz_cib_internal/__zz_cib_Example-handle.h" (c++)
-
-#### Definition of Handle to proxy
-**Type definiton of opaque pointers used by library**:
-
-[**File**: cib/__zz_cib_Example-proxy.h]:
-
-!INCLUDECODE "examples/010-simple-class/cib/__zz_cib_Example-proxy.h" (c++)
-
-As I have mentioned earlier that CIB doesn't let compiler generated ABI to cross component boundary. Object layout is also part of ABI. CIB uses opaque pointer for objects belonging to other component and completely avoids accessing compiler generated object layout of another component. For this purpose CIB defines `__zz_cib_HANDLE` and `__zz_cib_PROXY` to represent library side and client side objects to vice versa in opaque manner.
-
 #### MethodTableHelper class
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
@@ -170,7 +157,7 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 
 !INCLUDECODE "examples/010-simple-class/exp/__zz_cib_internal/example-predef.h" (c++)
 
-We see a #include and forward declarations of `class __zz_cib_Helper`, and `struct __zz_cib_Delegator`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header as clean as possible. We will look into that in next part. __zz_cib_Delegator is the struct that is needed when the class is an interface like class. We will see use of that in other example. Let's see what is the definition of the macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
+We see a #include and forward declarations of `struct __zz_cib_Helper`, and `struct __zz_cib_Delegator`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header as clean as possible. We will look into that in next part. __zz_cib_Delegator is the struct that is needed when the class is an interface like class. We will see use of that in other example. Let's see what is the definition of the macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
 
 **File**: __zz_cib_internal/__zz_cib_Example-class-internal-def.h.:
 
@@ -185,7 +172,7 @@ We will now move to see the content of file that was #include'd at the end of pr
 
 !INCLUDECODE "examples/010-simple-class/exp/__zz_cib_internal/example-postdef.h" (c++)
 
-This file contains definition of `class __zz_cib_Helper`.
+This file contains definition of `struct __zz_cib_Helper`.
 
 We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_MethodTableHelper`, and `__zz_cib_HandleHelper`. We had already seen __zz_cib_MethodTableHelper before. `__zz_cib_HandleHelper` has methods to convert handle to proxy class and vice versa.
 Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches MethodTable on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. As the name suggest, this class is helper of proxy class.

@@ -1,7 +1,7 @@
 #ifndef __zz_cib_MethodTable_defined
 #define __zz_cib_MethodTable_defined
 
-#include "__zz_cib_$Module$-decl.h"
+#include "__zz_cib_Module-decl.h"
 
 #include <cstdint>
 

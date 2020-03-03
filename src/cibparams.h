@@ -59,11 +59,12 @@ public:
   std::string  ctorCAPIPrefix;
   std::string  dtorCAPIPrefix;
   std::string  castToBasePrefix;
-  bool         noExactDelegation {false};
+  std::string  castFromBasePrefix;
+  bool         noExactDelegation{false};
   bool         libraryManagedProxies;
-  bool         alwaysUseNsName {false};
-  bool         noRtti {false};
-  bool         noException {false};
+  bool         alwaysUseNsName{true};
+  bool         noRtti{false};
+  bool         noException{false};
   StringVector noProxyClasses;
 
 public:
@@ -91,6 +92,7 @@ public:
     , ctorCAPIPrefix(CIBPREFIX "new")
     , dtorCAPIPrefix(CIBPREFIX "delete")
     , castToBasePrefix(CIBPREFIX "cast_to_")
+    , castFromBasePrefix(CIBPREFIX "cast_from_")
     , noExactDelegation(d)
     , libraryManagedProxies(p)
     , alwaysUseNsName(u)

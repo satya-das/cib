@@ -17,7 +17,7 @@
 -  virtual int f() const {
 -    return m;
 -  }
-+  C(C const & );
++  C(const C& );
 +  C(int x);
 +  virtual ~C();
 +  virtual int f() const;
@@ -25,7 +25,7 @@
  private:
 -  char disturbSize[11];
 -  int m;
-+  __ZZ_CIB_CLASS_INTERNAL_DEF(C, __zz_cib_Class258);
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
  };
  
  class A
@@ -35,7 +35,7 @@
 -  
 +  A(A&& rhs);
  public:
-+  A(A const & );
++  A(const A& );
 +  ~A();
 +  A();
    // std::vector<int> f() const {
@@ -52,7 +52,7 @@
 -    return ret;
 -  }
 +private:
-+  __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class259);
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
 +
 +#include "__zz_cib_internal/example-postdef.h"

@@ -1,28 +1,38 @@
 #pragma once
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
+  //#= FullClassName: ::Example
+  enum { __zz_cib_classid = 256 };
+}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class261 {
   //#= FullClassName: ::Example::A
   enum { __zz_cib_classid = 261 };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace Int {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
   //#= FullClassName: ::Example::Int
   enum { __zz_cib_classid = 262 };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Example::Value<::Example::Int>
   enum { __zz_cib_classid = 258 };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Example::Value<float>
   enum { __zz_cib_classid = 259 };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
   //#= FullClassName: ::Example::Value<int>
   enum { __zz_cib_classid = 257 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 260 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
@@ -30,33 +40,33 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class261 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
-    //#= A(::Example::A const &);
+    //#= A(const A&);
     __zz_cib_copy = 1,
     //#= ~A();
     __zz_cib_delete = 2,
-    //#= void Set(::Example::Value<int> const &);
+    //#= void Set(const Value<int>&);
     Set = 3,
-    //#= ::Example::Value<int> Get() const;
+    //#= Value<int> Get() const;
     Get = 4,
-    //#= void SetInt(::Example::Value<::Example::Int> const &);
+    //#= void SetInt(const Value<Int>&);
     SetInt = 5,
-    //#= ::Example::Value<::Example::Int> GetInt() const;
+    //#= Value<Int> GetInt() const;
     GetInt = 6,
-    //#= void SetFloat(::Example::Value<float> const );
+    //#= void SetFloat(FloatValue);
     SetFloat = 7,
-    //#= ::Example::Value<float> GetFloat() const;
+    //#= FloatValue GetFloat() const;
     GetFloat = 8,
     __zz_cib_next_method_id = 9
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace Int {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
   enum __zz_cib_methodid {
-    //#= Int(::Example::Int const &);
+    //#= Int(const Int&);
     __zz_cib_copy = 0,
     //#= ~Int();
     __zz_cib_delete = 1,
@@ -66,11 +76,11 @@ namespace __zz_cib_ { namespace Example { namespace Int {
     __zz_cib_Operator = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= Value(::Example::Value<::Example::Int> const &);
+    //#= Value(const Value<::Example::Int>&);
     __zz_cib_copy = 0,
     //#= ~Value();
     __zz_cib_delete = 1,
@@ -80,15 +90,15 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class258 {
     GetValue = 3,
     //#= void SetValue(::Example::Int);
     SetValue = 4,
-    //#= bool operator ==(::Example::Value<::Example::Int> const &) const;
+    //#= bool operator ==(const Value&) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
-    //#= Value(::Example::Value<float> const &);
+    //#= Value(const Value<float>&);
     __zz_cib_copy = 0,
     //#= ~Value();
     __zz_cib_delete = 1,
@@ -98,15 +108,15 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class259 {
     GetValue = 3,
     //#= void SetValue(float);
     SetValue = 4,
-    //#= bool operator ==(::Example::Value<float> const &) const;
+    //#= bool operator ==(const Value&) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= Value(::Example::Value<int> const &);
+    //#= Value(const Value<int>&);
     __zz_cib_copy = 0,
     //#= ~Value();
     __zz_cib_delete = 1,
@@ -116,9 +126,9 @@ namespace __zz_cib_ { namespace Example { namespace __zz_cib_Class257 {
     GetValue = 3,
     //#= void SetValue(int);
     SetValue = 4,
-    //#= bool operator ==(::Example::Value<int> const &) const;
+    //#= bool operator ==(const Value&) const;
     __zz_cib_OperatorCmpEq = 5,
     __zz_cib_next_method_id = 6
   };
-}}}
+}}}}
 

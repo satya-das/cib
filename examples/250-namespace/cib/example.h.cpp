@@ -3,59 +3,61 @@
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-proxy.h"
-#include "__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_Example-generic.h"
+#include "__zz_cib_Example-library-type-handler.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;
-namespace Example {
 using namespace ::Example::Outer;
-namespace Outer {
 using namespace ::Example::Outer::Inner;
-namespace Inner {
-using namespace ::Example::Outer::Inner;
-namespace A {
-namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = ::Example::Outer::Inner::A;
-using __zz_cib_ThisClass = __zz_cib_Delegatee;
-static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_Delegatee(*__zz_cib_obj);
+template <>
+struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer::Inner::A {
+  using __zz_cib_Delegatee = ::Example::Outer::Inner::A;
+  using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(*__zz_cib_obj);
+  }
+  static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+        delete __zz_cib_obj;
+  }
+  static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_new() {
+    return new __zz_cib_Delegatee();
+  }
+  static __zz_cib_AbiType_t<Int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<Int>(
+      __zz_cib_obj->::Example::Outer::Inner::A::i()
+    );
+  }
+  static __zz_cib_AbiType_t<Float> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<Float>(
+      __zz_cib_obj->::Example::Outer::Inner::A::f()
+    );
+  }
+  static __zz_cib_AbiType_t<std::unique_ptr<Int>> __zz_cib_decl pi(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<std::unique_ptr<Int>>(
+      __zz_cib_obj->::Example::Outer::Inner::A::pi()
+    );
+  }
+};
 }
-static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_new() {
-  return new __zz_cib_Delegatee();
-}
-static ::Example::Int __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::Outer::Inner::A::i();
-}
-static ::Example::Outer::Inner::Float __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::Outer::Inner::A::f();
-}
-static ::Example::Int* __zz_cib_decl pi(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::Outer::Inner::A::pi().release();
-}
-}
-}}}}}
 
 namespace __zz_cib_ {
 using namespace ::Example;
-namespace Example {
+namespace __zz_cib_Class257 {
 using namespace ::Example::Outer;
-namespace Outer {
+namespace __zz_cib_Class258 {
 using namespace ::Example::Outer::Inner;
-namespace Inner {
+namespace __zz_cib_Class259 {
 using namespace ::Example::Outer::Inner;
-namespace A {
+namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::i),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::f),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::pi)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::i),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::f),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::pi)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;

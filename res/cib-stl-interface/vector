@@ -25,10 +25,10 @@ public:
   // explicit vector(size_type __n /*, const allocator_type& __a = allocator_type()*/);
 
   vector(size_type __n, const value_type& __value /*, const allocator_type& __a = allocator_type()*/);
-  vector(const vector& __x);
-  vector(vector&& __x) noexcept;
-  // vector(const vector& __x /*, const allocator_type& __a*/);
-  // vector(vector&& __rv /*, const allocator_type& __m*/) noexcept;
+  vector(const vector<_Tp>& __x);
+  vector(vector<_Tp>&& __x) noexcept;
+  // vector(const vector<_Tp>& __x /*, const allocator_type& __a*/);
+  // vector(vector<_Tp>&& __rv /*, const allocator_type& __m*/) noexcept;
 
   /*
     vector(initializer_list<value_type> __l, const allocator_type& __a = allocator_type());
@@ -39,11 +39,11 @@ public:
 
   ~vector();
 
-  vector& operator=(const vector& __x);
-  vector& operator=(vector&& __x) noexcept;
+  vector<_Tp>& operator=(const vector<_Tp>& __x);
+  vector<_Tp>& operator=(vector<_Tp>&& __x) noexcept;
 
   /*
-    vector& operator=(initializer_list<value_type> __l);
+    vector<_Tp>& operator=(initializer_list<value_type> __l);
   */
 
   void assign(size_type __n, const value_type& __val);
@@ -120,7 +120,7 @@ public:
     iterator erase(const_iterator __first, const_iterator __last);
   */
 
-  void swap(vector& __x);
+  void swap(vector<_Tp>& __x);
   void clear();
 };
 

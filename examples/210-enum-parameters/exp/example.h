@@ -25,7 +25,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   int fE(E e) const;
@@ -34,7 +34,7 @@ public:
   int fE(EC16 e) const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

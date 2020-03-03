@@ -9,13 +9,13 @@ namespace Example
   public:
     Int(Int&& rhs);
   public:
-    Int(Int const & );
+    Int(const Int& );
     ~Int();
     Int(int x = 0);
     operator int () const;
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(Int, Example::Int);
+    __ZZ_CIB_PROXY_CLASS_INTERNALS(Int, Example::Int);
   };
 }
 

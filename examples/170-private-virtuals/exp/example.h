@@ -22,7 +22,7 @@ protected:
   IF();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(IF, IF);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(IF, IF);
 };
 
 //! Class that has methods to make class IF interface and facade.
@@ -31,7 +31,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   //! Makes IF an interface class
@@ -40,7 +40,7 @@ public:
   IF* GetIF() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

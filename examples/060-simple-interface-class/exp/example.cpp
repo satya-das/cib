@@ -1,31 +1,34 @@
 #include "example.h"
 
 
-Interface::Interface(__zz_cib_::__zz_cib_HANDLE* h)
+Interface::Interface(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {
-  __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 Interface::Interface(Interface&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
-  __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
 Interface::~Interface() {
-  __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_proxy(this);
-  auto h = __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_Helper::__zz_cib_delete(h);
+__zz_cib_MyHelper::__zz_cib_release_proxy(this);
+auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
+  __zz_cib_MyHelper::__zz_cib_delete(
+    h
+  );
 }
 
 Interface::Interface()
-  : Interface(__zz_cib_Helper::__zz_cib_new(this))
-{}
+  : Interface(__zz_cib_MyHelper::__zz_cib_new(
+    this))
+  {}
 
 
-A::A(__zz_cib_::__zz_cib_HANDLE* h)
+A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {}
 
@@ -35,43 +38,54 @@ A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-A::A(::A const & __zz_cib_param0)
-  : A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
+A::A(const A& __zz_cib_param0)
+  : A(__zz_cib_MyHelper::__zz_cib_copy(
+        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+  {}
 
 A::~A() {
-  auto h = __zz_cib_::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_Helper::__zz_cib_delete(h);
+auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
+  __zz_cib_MyHelper::__zz_cib_delete(
+    h
+  );
 }
 
 A::A()
-  : A(__zz_cib_Helper::__zz_cib_new())
-{}
+  : A(__zz_cib_MyHelper::__zz_cib_new(
+    ))
+  {}
 
-int A::UseInterface(::Interface* pInterface) const {
-  return __zz_cib_Helper::UseInterface(__zz_cib_h_, __zz_cib_::Interface::__zz_cib_Helper::__zz_cib_handle(pInterface));
+int A::UseInterface(Interface* pInterface) const {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::UseInterface<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<Interface*>(pInterface)
+    )
+  );
 }
 
 namespace __zz_cib_ {
-namespace Interface {
-struct __zz_cib_Delegator {
+template <>
+struct __zz_cib_Delegator<::Interface> {
   using __zz_cib_Delegatee = ::Interface;
-  static int __zz_cib_decl Func(::Interface* __zz_cib_obj) {
-    return __zz_cib_obj->Func();
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Func(::Interface* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
+      __zz_cib_obj->Func()
+    );
   }
   static void __zz_cib_decl __zz_cib_delete(::Interface* __zz_cib_obj) {
-    __zz_cib_Helper::__zz_cib_release_handle(__zz_cib_obj);
+    __zz_cib_Helper<::Interface>::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
-}}
+};
 
 namespace __zz_cib_ {
-namespace Interface {
+namespace __zz_cib_Class257 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::Func),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Func),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_delete)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;
@@ -79,9 +93,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
-namespace Interface {
-const __zz_cib_MethodTable* __zz_cib_Helper::__zz_cib_get_proxy_method_table() {
-  return __zz_cib_GetMethodTable();
+const __zz_cib_MethodTable* __zz_cib_Helper<::Interface>::__zz_cib_get_proxy_method_table() {
+  return __zz_cib_::__zz_cib_Class257::__zz_cib_GetMethodTable();
 }
-}}
+}
 

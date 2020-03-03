@@ -13,7 +13,7 @@ protected:
   I();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(I, I);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(I, I);
 };
 
 class A
@@ -21,14 +21,14 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   I* f() const;
   I* g();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

@@ -41,7 +41,7 @@ public:
   virtual void internal_dispose() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(SkRefCntBase, __zz_cib_Class257);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(SkRefCntBase, SkRefCntBase);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -286,5 +286,7 @@ sk_sp<T> sk_ref_sp(const T* obj)
 {
   return sk_sp<T>(const_cast<T*>(SkSafeRef(obj)));
 }
+// Make cib aware about sk_sp smart pointer
+#  include "sk_sp-cib-input.h"
 #include "__zz_cib_internal/SkRefCnt-postdef.h"
 #endif

@@ -1,5 +1,19 @@
 #pragma once
 
+#include "__zz_cib_Module-mtable.h"
+
+namespace __zz_cib_ {
+
+template <typename>
+struct __zz_cib_Delegator
+{
+};
+
+template <typename>
+static const __zz_cib_MethodTable* __zz_cib_GetMethodTable();
+
+} // namespace __zz_cib_
+
 #define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)                                                              \
   template <typename _T>                                                                                               \
   parentName& operator=(const _T& rhs)                                                                                 \

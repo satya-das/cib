@@ -16,7 +16,7 @@ public:
   virtual std::unique_ptr<int> g() const = 0;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(I, __zz_cib_Class257);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(I, I);
 };
 
 class A
@@ -24,7 +24,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   std::unique_ptr<I> f() const;
@@ -34,7 +34,7 @@ public:
   int j(std::unique_ptr<I>* pp);
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class258);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

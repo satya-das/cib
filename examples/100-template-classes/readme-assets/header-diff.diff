@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,36 +1,31 @@
+@@ -1,37 +1,31 @@
  #pragma once
 -
  #include "int.h"
@@ -13,43 +13,41 @@
 +//! Contains example definitions to explain cib's functioning
 +namespace Example
 +{
+ using FloatValue = Value<float>;
+-
  class A
  {
  public:
--  void       Set(const Value<int>& x);
++    A(A&& rhs);
++  public:
++    A();
++    A(const A& );
++    ~A();
+   void       Set(const Value<int>& x);
 -  Value<int> Get() const
 -  {
 -    return x_;
 -  }
--  void       SetInt(const Value<Int>& y);
++    Value<int> Get() const;
+   void       SetInt(const Value<Int>& y);
 -  Value<Int> GetInt() const
 -  {
 -    return y_;
 -  }
 -
-+    A(A&& rhs);
-+  public:
-+    A();
-+    A(A const & );
-+    ~A();
-+    void Set(Value<int> const & x);
-+    Value<int> Get() const;
-+    void SetInt(Value<Int> const & y);
 +    Value<Int> GetInt() const;
-   using FloatValue = Value<float>;
--  void       SetFloat(const FloatValue f);
+   void       SetFloat(FloatValue f);
 -  FloatValue GetFloat() const
 -  {
 -    return f_;
 -  }
-+    void SetFloat(FloatValue const  f);
 +    FloatValue GetFloat() const;
  
  private:
 -  Value<int> x_;
 -  Value<Int> y_;
 -  FloatValue f_;
-+    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
++    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
  };
 -
  }

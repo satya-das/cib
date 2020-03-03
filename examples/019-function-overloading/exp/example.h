@@ -12,7 +12,7 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A(A const & );
+    A(const A& );
     ~A();
     A();
     //! Doesn't do anything meaningful
@@ -21,7 +21,7 @@ namespace Example
     int Func(float );
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
   };
 }
 

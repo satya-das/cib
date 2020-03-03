@@ -1,28 +1,33 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global {
   //#= FullClassName: ::
   enum { __zz_cib_classid = 259 };
-}}
-
-namespace __zz_cib_ { namespace A {
-  //#= FullClassName: ::A
-  enum { __zz_cib_classid = 257 };
-}}
-
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
-  //#= FullClassName: ::A::__zz_cib_GenericProxy
-  enum { __zz_cib_classid = 260 };
 }}}
 
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::A
+  enum { __zz_cib_classid = 257 };
+}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::A::__zz_cib_Generic
+  enum { __zz_cib_classid = 260 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::B
   enum { __zz_cib_classid = 258 };
-}}
+}}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
-  //#= FullClassName: ::B::__zz_cib_GenericProxy
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::B::__zz_cib_Generic
   enum { __zz_cib_classid = 261 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 256 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
@@ -30,25 +35,25 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global {
   enum __zz_cib_methodid {
-    //#= int GetNewA(::A*&);
+    //#= int GetNewA(A*&);
     GetNewA = 0,
-    //#= int GetNewB(::A*&);
+    //#= int GetNewB(A*&);
     GetNewB = 1,
-    //#= int GetNewA(::A const *&);
+    //#= int GetNewA(const A*&);
     GetNewA_2 = 2,
-    //#= int GetNewB(::A const *&);
+    //#= int GetNewB(const A*&);
     GetNewB_3 = 3,
     __zz_cib_next_method_id = 4
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
-    //#= A(::A const &);
+    //#= A(const A&);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
     VirtualFunction = 2,
@@ -60,9 +65,9 @@ namespace __zz_cib_ { namespace A {
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int VirtualFunction() const;
     VirtualFunction = 0,
@@ -70,27 +75,29 @@ namespace __zz_cib_ { namespace A { namespace __zz_cib_GenericProxy {
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}
+}}}}
 
-namespace __zz_cib_ { namespace B {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 0,
-    //#= B(::B const &);
+    //#= B(const B&);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
     VirtualFunction = 2,
     //#= ~B();
     __zz_cib_delete = 3,
-    //#= __zz_cib_cast_to_A
-    __zz_cib_cast_to_A = 4,
+    //#= __zz_cib_cast_to___zz_cib_Class257
+    __zz_cib_cast_to___zz_cib_Class257 = 4,
+    //#= __zz_cib_cast_from___zz_cib_Class257
+    __zz_cib_cast_from___zz_cib_Class257 = 5,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_release_proxy = 6,
+    __zz_cib_next_method_id = 7
   };
-}}
+}}}
 
-namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int VirtualFunction() const;
     VirtualFunction = 0,
@@ -98,5 +105,5 @@ namespace __zz_cib_ { namespace B { namespace __zz_cib_GenericProxy {
     __zz_cib_delete = 1,
     __zz_cib_next_method_id = 2
   };
-}}}
+}}}}
 

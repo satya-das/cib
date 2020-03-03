@@ -8,13 +8,13 @@ class C
 public:
   C(C&& rhs);
 public:
-  C(C const & );
+  C(const C& );
   C(int x);
   virtual ~C();
   virtual int f() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(C, __zz_cib_Class258);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
 };
 
 class A
@@ -22,7 +22,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   // std::vector<int> f() const {
@@ -31,7 +31,7 @@ public:
   std::vector<C> g() const;
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, __zz_cib_Class259);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

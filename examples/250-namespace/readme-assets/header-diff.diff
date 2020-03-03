@@ -21,7 +21,7 @@
        public:
 +        A(A&& rhs);
 +      public:
-+        A(A const & );
++        A(const A& );
 +        ~A();
          A();
 -
@@ -43,7 +43,7 @@
        private:
 -        Int m {16};
 -        Float x {2.0};
-+        __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::Outer::Inner::A);
++        __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::Outer::Inner::A);
        };
      }
    }

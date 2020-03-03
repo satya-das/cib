@@ -6,6 +6,8 @@
 //! Contains example definitions to explain cib's functioning
 namespace Example {
 
+using FloatValue = Value<float>;
+
 class A
 {
 public:
@@ -20,8 +22,7 @@ public:
     return y_;
   }
 
-  using FloatValue = Value<float>;
-  void       SetFloat(const FloatValue f);
+  void       SetFloat(FloatValue f);
   FloatValue GetFloat() const
   {
     return f_;

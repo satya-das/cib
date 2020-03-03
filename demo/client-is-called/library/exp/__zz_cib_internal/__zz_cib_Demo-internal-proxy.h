@@ -32,15 +32,15 @@
 namespace __zz_cib_ {
 namespace Demo {
 
-using __zz_cib_client_id = std::uint32_t;
+using __zz_cib_ClientId = std::uint32_t;
 
 class __zz_cib_internal_proxy
 {
 public:
-  static __zz_cib_client_id __zz_cib_get_client_id()
+  static __zz_cib_ClientId __zz_cib_get_client_id()
   {
-    using __zz_cib_get_next_client_id_proc   = __zz_cib_client_id (*__zz_cib_decl)();
-    static const __zz_cib_client_id clientId = internal_mtable().invoke<__zz_cib_get_next_client_id_proc, 0>();
+    using __zz_cib_get_next_client_id_proc   = __zz_cib_ClientId (*__zz_cib_decl)();
+    static const __zz_cib_ClientId clientId = internal_mtable().invoke<__zz_cib_get_next_client_id_proc, 0>();
     return clientId;
   }
 

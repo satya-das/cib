@@ -27,8 +27,6 @@
 #include "ciboptionparser.h"
 #include "cibutil.h"
 
-#include "res_template.h"
-
 #include "cppast.h"
 
 #include "boost-helper/bfs.h"
@@ -76,7 +74,7 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
-    stm << indentation << "case __zz_cib_::" << nsName << "::__zz_cib_classid:\n";
+    stm << indentation << "case __zz_cib_::__zz_cib_ids::" << nsName << "::__zz_cib_classid:\n";
     stm << ++indentation << "return __zz_cib_::" << nsName << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   });
@@ -194,48 +192,71 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
   }
 }
 
-static void processResourceFile(const std::string&       filename,
-                                const bfs::path&         outDir,
-                                const CibParams&         cibParams,
-                                const StringToStringMap& substituteInfo)
+std::string replaceModuleNameInTemplate(const std::string& resBuf, const std::string& moduleName)
+{
+  std::string       ret;
+  const std::string kStrToReplace = "Module";
+  const auto*       s             = resBuf.data();
+  for (const auto* p = strstr(s, kStrToReplace.data()); p; p = strstr(s, kStrToReplace.data()))
+  {
+    ret.append(s, p);
+    ret.append(moduleName);
+    s = p + kStrToReplace.length();
+  }
+
+  ret.append(s, resBuf.data() + resBuf.length());
+
+  return ret;
+}
+
+static void processResourceFile(const std::string& filename, const bfs::path& outDir, const CibParams& cibParams)
 {
   {
     std::stringbuf tmpbuf;
     std::ifstream((cibParams.resDir / filename).string(), std::ios_base::in) >> &tmpbuf;
     auto          buf         = tmpbuf.str();
     auto          outFilename = "__zz_cib_" + cibParams.moduleName + filename.substr(15);
-    auto          cibcode     = replacePlaceholdersInTemplate(buf.begin(), buf.end(), substituteInfo);
+    auto          cibcode     = replaceModuleNameInTemplate(buf.data(), cibParams.moduleName);
     std::ofstream cibLibIncStm((outDir / outFilename).string(), std::ios_base::out);
     cibLibIncStm << cibcode;
   }
 }
 
-static void emitLibBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
+static void emitLibBoilerPlateCode(const CibParams& cibParams)
 {
-  const char* filesToProcessForBinder[] = {"__zz_cib_Module-mtable.h",
+  const char* filesToProcessForBinder[] = {"__zz_cib_Module-class-types.h",
+                                           "__zz_cib_Module-smart-ptr-detection.h",
+                                           "__zz_cib_Module-smart-ptr-input.h",
+                                           "__zz_cib_Module-mtable.h",
                                            "__zz_cib_Module-mtable-helper.h",
                                            "__zz_cib_Module-delegate-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-export.h",
-                                           "__zz_cib_Module-proxy.h",
+                                           "__zz_cib_Module-generic.h",
                                            "__zz_cib_Module-proxy-mgr.h",
                                            "__zz_cib_Module-proxy-mgr.cpp",
                                            "__zz_cib_Module-internal.h",
                                            "__zz_cib_Module-classId-repo.cpp",
-                                           "__zz_cib_Module-smart-ptr-helper.h",
+                                           "__zz_cib_Module-library-type-handler.h",
                                            nullptr};
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
   {
-    processResourceFile(filesToProcessForBinder[i], cibParams.binderPath, cibParams, substituteInfo);
+    processResourceFile(filesToProcessForBinder[i], cibParams.binderPath, cibParams);
   }
 }
 
-static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringToStringMap& substituteInfo)
+static void emitClientBoilerPlateCode(const CibParams& cibParams)
 {
-  const char* filesToProcessForClient[] = {"__zz_cib_Module-def.h",
+  const char* filesToProcessForClient[] = {"__zz_cib_Module-class-proxy-detection.h",
+                                           "__zz_cib_Module-class-helper.h",
+                                           "__zz_cib_Module-class-types.h",
+                                           "__zz_cib_Module-client-type-handler.h",
+                                           "__zz_cib_Module-generic.h",
+                                           "__zz_cib_Module-smart-ptr-detection.h",
+                                           "__zz_cib_Module-smart-ptr-input.h",
+                                           "__zz_cib_Module-def.h",
                                            "__zz_cib_Module-mtable.h",
                                            "__zz_cib_Module-mtable-helper.h",
-                                           "__zz_cib_Module-handle.h",
                                            "__zz_cib_Module-handle-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-import.h",
@@ -243,12 +264,10 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams, const StringTo
                                            "__zz_cib_Module-remote-proxy-mgr.h",
                                            "__zz_cib_Module-internal-proxy.h",
                                            "__zz_cib_Module-class-internal-def.h",
-                                           "__zz_cib_Module-smart-ptr-helper.h",
                                            nullptr};
   for (int i = 0; filesToProcessForClient[i] != nullptr; ++i)
   {
-    processResourceFile(
-      filesToProcessForClient[i], cibParams.outputPath / "__zz_cib_internal", cibParams, substituteInfo);
+    processResourceFile(filesToProcessForClient[i], cibParams.outputPath / "__zz_cib_internal", cibParams);
   }
 }
 
@@ -263,16 +282,16 @@ int main(int argc, const char* argv[])
   CibIdMgr  cibIdMgr(cibParams);
   CibHelper helper(cibParams, cppParams, cibIdMgr);
   cibIdMgr.assignIds(helper, cibParams);
-  StringToStringMap substituteInfo;
-  substituteInfo["Module"] = cibParams.moduleName;
 
-  emitLibBoilerPlateCode(cibParams, substituteInfo);
-  emitClientBoilerPlateCode(cibParams, substituteInfo);
+  emitLibBoilerPlateCode(cibParams);
+  emitClientBoilerPlateCode(cibParams);
 
   const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
   for (auto& cppAst : fileAsts)
   {
     CibConstCompoundEPtr cibCppCompound = cppAst;
+    // cibCppCompound->emitFwdDecl(helper, cibParams);
+    // cibCppCompound->emitClassNames(helper, cibParams);
     cibCppCompound->emitUserHeader(helper, cibParams);
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);

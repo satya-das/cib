@@ -140,46 +140,6 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 `__zz_cib_decl` is needed to ensure both library and clients use same calling convention for calling functions across the component boundary. `stdcall` is chosen by default because that is what most compilers support. It can be changed to something different if library vendor wants to use other appropriate calling convention.
 
-#### Handle definition
-**Type definiton of opaque pointers used by client**:
-
-[**File**: exp/__zz_cib_internal/__zz_cib_Example-handle.h]:
-
-```c++
-#pragma once
-
-namespace __zz_cib_ {
-
-//! Objects of classes defined by library travels to client as handles.
-//! Only object pointers travel across component boundary and objects of library
-//! go to client as opaque pointer of __zz_cib_HANDLE.
-class __zz_cib_HANDLE;
-
-} // namespace __zz_cib_
-
-```
-
-#### Definition of Handle to proxy
-**Type definiton of opaque pointers used by library**:
-
-[**File**: cib/__zz_cib_Example-proxy.h]:
-
-```c++
-#pragma once
-
-namespace __zz_cib_ {
-
-//! Objects of classes defined by client travels to library as proxies.
-//! Only object pointers travel across component boundary and objects of client
-//! go to library as opaque pointer of __zz_cib_PROXY.
-class __zz_cib_PROXY;
-
-} // namespace __zz_cib_
-
-```
-
-As I have mentioned earlier that CIB doesn't let compiler generated ABI to cross component boundary. Object layout is also part of ABI. CIB uses opaque pointer for objects belonging to other component and completely avoids accessing compiler generated object layout of another component. For this purpose CIB defines `__zz_cib_HANDLE` and `__zz_cib_PROXY` to represent library side and client side objects to vice versa in opaque manner.
-
 #### MethodTableHelper class
 
 [**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
@@ -250,9 +210,19 @@ As you can guess these types are independent of headers that library wants to pu
 ```c++
 #pragma once
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::Example
+  enum { __zz_cib_classid = 257 };
+}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Example::A
   enum { __zz_cib_classid = 258 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 256 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
@@ -260,9 +230,9 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace Example { namespace A {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= A(::Example::A const &);
+    //#= A(const A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
@@ -272,7 +242,7 @@ namespace __zz_cib_ { namespace Example { namespace A {
     SomeFunc = 3,
     __zz_cib_next_method_id = 4
   };
-}}}
+}}}}
 
 
 ```
@@ -299,43 +269,43 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-proxy.h"
-#include "__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_Example-generic.h"
+#include "__zz_cib_Example-library-type-handler.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;
-namespace Example {
-using namespace ::Example;
-namespace A {
-namespace __zz_cib_Delegator {
-using __zz_cib_Delegatee = ::Example::A;
-using __zz_cib_ThisClass = __zz_cib_Delegatee;
-static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
-  return new __zz_cib_Delegatee(*__zz_cib_obj);
+template <>
+struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
+  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(*__zz_cib_obj);
+  }
+  static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+        delete __zz_cib_obj;
+  }
+  static ::Example::A* __zz_cib_decl __zz_cib_new() {
+    return new __zz_cib_Delegatee();
+  }
+  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
+      __zz_cib_obj->::Example::A::SomeFunc()
+    );
+  }
+};
 }
-static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
-  delete __zz_cib_obj;
-}
-static ::Example::A* __zz_cib_decl __zz_cib_new() {
-  return new __zz_cib_Delegatee();
-}
-static int __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
-  return __zz_cib_obj->::Example::A::SomeFunc();
-}
-}
-}}}
 
 namespace __zz_cib_ {
 using namespace ::Example;
-namespace Example {
+namespace __zz_cib_Class257 {
 using namespace ::Example;
-namespace A {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_copy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Delegator::SomeFunc)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_copy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_delete),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_new),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::SomeFunc)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
   return &methodTable;
@@ -363,14 +333,14 @@ If you notice the names of delegator functions in library glue code has suffix `
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-mtable.h"
 
-namespace __zz_cib_ { namespace Example { namespace A { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 
 extern "C" __zz_cib_export
 const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Example_GetMethodTable(std::uint32_t classId)
 {
   switch(classId) {
-  case __zz_cib_::Example::A::__zz_cib_classid:
-    return __zz_cib_::Example::A::__zz_cib_GetMethodTable();
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_classid:
+    return __zz_cib_::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_GetMethodTable();
   default:
     return nullptr;
   }
@@ -422,7 +392,7 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A(A const & );
+    A(const A& );
     ~A();
     A();
     //! Doesn't do anything meaningful
@@ -430,7 +400,7 @@ namespace Example
     int SomeFunc();
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
   };
 }
 
@@ -458,7 +428,7 @@ You can notice certain differences between this class and the original class in 
    public:
 +    A(A&& rhs);
 +  public:
-+    A(A const & );
++    A(const A& );
 +    ~A();
      A();
      //! Doesn't do anything meaningful
@@ -468,7 +438,7 @@ You can notice certain differences between this class and the original class in 
      
    private:
 -    int x {1};
-+    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
++    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
    };
  }
  
@@ -486,42 +456,64 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 ```c++
 #include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
 
-namespace __zz_cib_ { namespace Example { namespace A {
-class __zz_cib_Helper;
-struct __zz_cib_Delegator;
-}}}
-
 ```
 
-We see a #include and forward declarations of `class __zz_cib_Helper`, and `struct __zz_cib_Delegator`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header as clean as possible. We will look into that in next part. __zz_cib_Delegator is the struct that is needed when the class is an interface like class. We will see use of that in other example. Let's see what is the definition of the macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
+We see a #include and forward declarations of `struct __zz_cib_Helper`, and `struct __zz_cib_Delegator`. __zz_cib_Helper class is the one that will do most of the heavy lifting. It is there to take away all the dirty details and keep the client facing header as clean as possible. We will look into that in next part. __zz_cib_Delegator is the struct that is needed when the class is an interface like class. We will see use of that in other example. Let's see what is the definition of the macro `__ZZ_ CIB _CLASS_INTERNAL_DEF` that is present inside the class.
 
 **File**: __zz_cib_internal/__zz_cib_Example-class-internal-def.h.:
 
 ```c++
-#include "__zz_cib_Example-handle-helper.h"
+/*
+    Generated by cib for ABI compatibility and stability.
+    For copyright details refer to the copyright statement of library that contains this file.
+*/
 
-#ifdef __ZZ_CIB_CLASS_INTERNAL_DEF
-#  undef __ZZ_CIB_CLASS_INTERNAL_DEF
-#endif
+#pragma once
+
+#include "__zz_cib_Example-class-helper.h"
+
+namespace __zz_cib_ {
+
+template <typename _ProxyClass>
+struct __zz_cib_Delegator
+{
+};
+
+} // namespace __zz_cib_
 
 //! @def __ZZ_CIB_CLASS_NAME
 //! Macro that helps passing template class name as parameter to anoher macro.
 #define __ZZ_CIB_CLASS_NAME(...) __VA_ARGS__
 
-//! @def __ZZ_CIB_CLASS_INTERNAL_DEF
+//! @def __ZZ_CIB_PROXY_CLASS_INTERNALS
 //! Macro that allows cib to add it's hook in proxy classes
 //! in a minimally invasive way.
-#define __ZZ_CIB_CLASS_INTERNAL_DEF(className, fullName)                                                               \
+#define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
+public:                                                                                                                \
+  class __zz_cib_Opaque;                                                                                               \
+  using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
+                                                                                                                       \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
-  explicit className(__zz_cib_::__zz_cib_HANDLE* h);                                                                   \
+  explicit className(__zz_cib_AbiType h);                                                                              \
                                                                                                                        \
 private:                                                                                                               \
-  friend class __zz_cib_::fullName::__zz_cib_Helper;                                                                   \
-  friend struct __zz_cib_::fullName::__zz_cib_Delegator;                                                               \
+  friend class __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
+  friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
   using __zz_cib_ThisClass = className;                                                                                \
-  using __zz_cib_Helper    = __zz_cib_::fullName::__zz_cib_Helper;                                                     \
-  __zz_cib_::__zz_cib_HANDLE* __zz_cib_h_
+  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \
+  __zz_cib_AbiType __zz_cib_h_
+
+//! @def __ZZ_CIB_CLASS_INTERNALS
+//! Macro that allows cib to add it's hook in proxy classes
+//! in a minimally invasive way.
+#define __ZZ_CIB_CLASS_INTERNALS(className, fullName)                                                                  \
+public:                                                                                                                \
+  using __zz_cib_AbiType = className*;                                                                                 \
+                                                                                                                       \
+private:                                                                                                               \
+  using __zz_cib_ThisClass = className;                                                                                \
+  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>
 
 ```
 
@@ -541,82 +533,79 @@ We will now move to see the content of file that was #include'd at the end of pr
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-smart-ptr-helper.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;
-namespace Example {
-using namespace ::Example;
-namespace A {
-class __zz_cib_Helper : public __zz_cib_MethodTableHelper
-  , public __zz_cib_HandleHelper<::Example::A, __zz_cib_Helper> {
-private:
-  using __zz_cib_TYPE = __zz_cib_HANDLE;
-  friend class __zz_cib_HandleHelper<::Example::A, __zz_cib_Helper>;
+template <>
+struct __zz_cib_Helper<::Example::A> : public __zz_cib_MethodTableHelper {
+  using __zz_cib_AbiType = typename ::Example::A::__zz_cib_AbiType;
   using _ProxyClass = ::Example::A;
   friend class ::Example::A;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_classid))
   {}
   static __zz_cib_Helper& instance() {
     static __zz_cib_Helper helper;
     return helper;
   }
 
-  static __zz_cib_TYPE* __zz_cib_copy(__zz_cib_HANDLE const * __zz_cib_param0) {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) (__zz_cib_HANDLE const * __zz_cib_param0);
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
-      __zz_cib_param0);
+      __zz_cib_args...);
   }
-  static void __zz_cib_delete(__zz_cib_TYPE* __zz_cib_obj) {
+  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
-      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_TYPE*);
+      using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
       return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_TYPE* __zz_cib_new() {
-    using __zz_cib_proc = __zz_cib_TYPE* (__zz_cib_decl *) ();
+  static __zz_cib_AbiType __zz_cib_new() {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) ();
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
       );
   }
-  static int SomeFunc(__zz_cib_TYPE* __zz_cib_obj) {
-    using __zz_cib_proc = int (__zz_cib_decl *) (__zz_cib_TYPE*);
+  template <typename _RT>
+  static auto SomeFunc(__zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SomeFunc>(
       __zz_cib_obj
       );
   }
-  static ::Example::A* __zz_cib_create_proxy(__zz_cib_HANDLE* h) {
+  static ::Example::A* __zz_cib_create_proxy(__zz_cib_AbiType h) {
     return new ::Example::A(h);
   }
-public:
-  static ::Example::A __zz_cib_obj_from_handle(__zz_cib_HANDLE* h) {
+  static ::Example::A __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return ::Example::A(h);
   }
-  static __zz_cib_HANDLE*& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_HANDLE* __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
-  static _ProxyClass* __zz_cib_get_or_create_proxy(__zz_cib_HANDLE* h) {
+  static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return __zz_cib_create_proxy(h);
   }
 };
-}}}
+}
 
 ```
 
-This file contains definition of `class __zz_cib_Helper`.
+This file contains definition of `struct __zz_cib_Helper`.
 
 We see that class `__zz_cib_::Example::A::__zz_cib_Helper` is derived from `__zz_cib_::__zz_cib_MethodTableHelper`, and `__zz_cib_HandleHelper`. We had already seen __zz_cib_MethodTableHelper before. `__zz_cib_HandleHelper` has methods to convert handle to proxy class and vice versa.
 Notice that class `__zz_cib_::Example::A::__zz_cib_Helper` is a singleton which fetches MethodTable on construction and passes that to base __zz_cib_MethodTableHelper. The implementation of methods are done by delegating calls to function whose pointer is fetched using `getMethod<>()`. As the name suggest, this class is helper of proxy class.
@@ -633,7 +622,7 @@ namespace Example {
 }
 namespace Example {
 
-Example::A::A(__zz_cib_::__zz_cib_HANDLE* h)
+Example::A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {}
 
@@ -643,21 +632,29 @@ Example::A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-Example::A::A(::Example::A const & __zz_cib_param0)
-  : Example::A(__zz_cib_Helper::__zz_cib_copy(__zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_handle(__zz_cib_param0)))
-{}
+Example::A::A(const A& __zz_cib_param0)
+  : Example::A(__zz_cib_MyHelper::__zz_cib_copy(
+        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+  {}
 
 Example::A::~A() {
-  auto h = __zz_cib_::Example::A::__zz_cib_Helper::__zz_cib_release_handle(this);
-  __zz_cib_Helper::__zz_cib_delete(h);
+auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
+  __zz_cib_MyHelper::__zz_cib_delete(
+    h
+  );
 }
 
 Example::A::A()
-  : Example::A(__zz_cib_Helper::__zz_cib_new())
-{}
+  : Example::A(__zz_cib_MyHelper::__zz_cib_new(
+    ))
+  {}
 
 int Example::A::SomeFunc() {
-  return __zz_cib_Helper::SomeFunc(__zz_cib_h_);
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::SomeFunc<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
 }
 }
 

@@ -24,7 +24,6 @@ set(LIB_GLUE_SRCS
     ${example_ROOT}/cib/__zz_cib_Example-ids.h
     ${example_ROOT}/cib/__zz_cib_Example-mtable.h
     ${example_ROOT}/cib/__zz_cib_Example-mtable-helper.h
-    ${example_ROOT}/cib/__zz_cib_Example-proxy.h
 )
 set(PUB_FILES "")
 set(EXP_SOURCES "")

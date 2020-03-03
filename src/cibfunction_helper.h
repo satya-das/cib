@@ -62,6 +62,7 @@ enum FuncProtoPurpose
   kPurposeSignature            = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyDecl            = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyDefn            = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDefnReturnType  = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeProxyProcType        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
   kPurposeGenericProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
   kPurposeGeneric              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
@@ -271,13 +272,14 @@ public:
   std::string signature(const CibHelper& helper) const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, const CibHelper& helper, bool resolveTypes, FuncProtoPurpose purpose) const;
+  void emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purpose, const CibHelper& helper) const;
   void emitSignature(std::ostream& stm, const CibHelper& helper, FuncProtoPurpose purpose) const;
   /// Emits function arguments for function call.
   void emitArgsForCall(std::ostream&    stm,
                        const CibHelper& helper,
                        const CibParams& cibParams,
-                       FuncProtoPurpose purpose) const;
+                       FuncProtoPurpose purpose,
+                       CppIndent        indentation) const;
   /// Emits declaration as originally defined/declared.
   void emitOrigDecl(std::ostream&    stm,
                     const CibHelper& helper,
@@ -320,7 +322,7 @@ public:
   void emitProcType(std::ostream&    stm,
                     const CibHelper& helper,
                     const CibParams& cibParams,
-                    bool             forGenericProxy,
+                    FuncProtoPurpose purpose,
                     CppIndent        indentation = CppIndent()) const;
   void emitCAPIReturnType(std::ostream&    stm,
                           const CibHelper& helper,

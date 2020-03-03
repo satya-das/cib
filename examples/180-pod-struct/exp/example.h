@@ -20,11 +20,11 @@ public:
   NonPod1(NonPod1&& rhs);
 public:
   NonPod1();
-  NonPod1(NonPod1 const & );
+  NonPod1(const NonPod1& );
   ~NonPod1();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod1, NonPod1);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(NonPod1, NonPod1);
 };
 
 struct NonPod2
@@ -33,11 +33,11 @@ public:
   NonPod2(NonPod2&& rhs);
 public:
   NonPod2();
-  NonPod2(NonPod2 const & );
+  NonPod2(const NonPod2& );
   ~NonPod2();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod2, NonPod2);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(NonPod2, NonPod2);
 };
 
 struct NonPod3
@@ -46,11 +46,11 @@ public:
   NonPod3(NonPod3&& rhs);
 public:
   NonPod3();
-  NonPod3(NonPod3 const & );
+  NonPod3(const NonPod3& );
   ~NonPod3();
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(NonPod3, NonPod3);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(NonPod3, NonPod3);
 };
 
 class A
@@ -58,7 +58,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(A const & );
+  A(const A& );
   ~A();
   A();
   void setPod(Pod& p);
@@ -68,7 +68,7 @@ public:
   void setNonPod3(NonPod3& n);
 
 private:
-  __ZZ_CIB_CLASS_INTERNAL_DEF(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/example-postdef.h"

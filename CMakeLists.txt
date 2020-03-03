@@ -51,24 +51,32 @@ set(CIB_HEADERS
 
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
 set(RESFILES
+	__zz_cib_Module-class-fwd-decl.h
 	__zz_cib_Module-classId-repo.cpp
 	__zz_cib_Module-class-internal-def.h
+	__zz_cib_Module-class-names.h
+	__zz_cib_Module-class-helper.h
+	__zz_cib_Module-class-proxy-detection.h
+	__zz_cib_Module-class-types.h
+	__zz_cib_Module-client-type-handler.h
 	__zz_cib_Module-decl.h
 	__zz_cib_Module-def.h
+	__zz_cib_Module-delegate-helper.h
 	__zz_cib_Module-export.h
-	__zz_cib_Module-handle.h
-	__zz_cib_Module-handle-helper.h
 	__zz_cib_Module-import.h
+	__zz_cib_Module-internal.h
+	__zz_cib_Module-internal-proxy.h
+	__zz_cib_Module-library-type-handler.h
 	__zz_cib_Module-local-proxy-mgr.h
-	__zz_cib_Module-remote-proxy-mgr.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
-	__zz_cib_Module-delegate-helper.h
-	__zz_cib_Module-smart-ptr-helper.h
-	__zz_cib_Module-proxy.h
-	__zz_cib_Module-proxy-mgr.h
+	__zz_cib_Module-null-proxy-mgr.h
+	__zz_cib_Module-generic.h
 	__zz_cib_Module-proxy-mgr.cpp
-	__zz_cib_Module-internal-proxy.h
+	__zz_cib_Module-proxy-mgr.h
+	__zz_cib_Module-remote-proxy-mgr.h
+	__zz_cib_Module-smart-ptr-detection.h
+	__zz_cib_Module-smart-ptr-input.h
 	__zz_cib_pointer_helper.h
 	cib-stl-interface/vector
 )

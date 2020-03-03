@@ -7,24 +7,24 @@
 //! Contains example definitions to explain cib's functioning
 namespace Example
 {
+  using FloatValue = Value<float>;
   class A
   {
   public:
     A(A&& rhs);
   public:
     A();
-    A(A const & );
+    A(const A& );
     ~A();
-    void Set(Value<int> const & x);
+    void Set(const Value<int>& x);
     Value<int> Get() const;
-    void SetInt(Value<Int> const & y);
+    void SetInt(const Value<Int>& y);
     Value<Int> GetInt() const;
-    using FloatValue = Value<float>;
-    void SetFloat(FloatValue const  f);
+    void SetFloat(FloatValue f);
     FloatValue GetFloat() const;
 
   private:
-    __ZZ_CIB_CLASS_INTERNAL_DEF(A, Example::A);
+    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
   };
 }
 

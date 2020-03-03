@@ -23,8 +23,6 @@
 
 #pragma once
 
-#include "__zz_cib_Example-handle.h"
-
 #include <map>
 
 namespace __zz_cib_ {
@@ -34,22 +32,22 @@ template <typename _ProxyClass>
 class __zz_cib_local_proxy_mgr
 {
 public:
-  _ProxyClass* findProxy(__zz_cib_HANDLE* h)
+  _ProxyClass* findProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
     auto itr = proxyRepo.find(h);
     return (itr == proxyRepo.end()) ? nullptr : itr->second;
   }
-  void addProxy(_ProxyClass* __zz_cib_obj, __zz_cib_HANDLE* h)
+  void addProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
   {
     proxyRepo[h] = __zz_cib_obj;
   }
-  void removeProxy(__zz_cib_HANDLE* h)
+  void removeProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
     proxyRepo.erase(h);
   }
 
 private:
-  using ProxyRepo = std::map<__zz_cib_HANDLE*, _ProxyClass*>;
+  using ProxyRepo = std::map<typename _ProxyClass::__zz_cib_AbiType, _ProxyClass*>;
   ProxyRepo proxyRepo;
 };
 

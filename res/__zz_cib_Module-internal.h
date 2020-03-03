@@ -26,19 +26,19 @@
 #include <cstdint>
 
 namespace __zz_cib_ {
-namespace $Module$ {
+namespace Module {
 
-using __zz_cib_client_id = std::uint32_t;
+using __zz_cib_ClientId = std::uint32_t;
 
 class __zz_cib_internal
 {
 public:
-  static __zz_cib_client_id __zz_cib_get_next_client_id()
+  static __zz_cib_ClientId __zz_cib_get_next_client_id()
   {
-    static __zz_cib_client_id nextClientId = 0;
+    static __zz_cib_ClientId nextClientId = 0;
     return nextClientId++;
   }
 };
 
-} // namespace $Module$
+} // namespace Module
 } // namespace __zz_cib_

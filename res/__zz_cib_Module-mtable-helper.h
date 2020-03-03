@@ -1,7 +1,7 @@
 #ifndef __zz_cib_MethodTableHelper_defined
 #define __zz_cib_MethodTableHelper_defined
 
-#include "__zz_cib_$Module$-mtable.h"
+#include "__zz_cib_Module-mtable.h"
 
 #include <cassert>
 #include <functional>

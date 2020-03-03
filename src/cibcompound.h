@@ -228,6 +228,11 @@ public:
   {
     return cibParams.castToBasePrefix + base->nsName();
   }
+  /// @return Name of function that casts from object of parent class
+  std::string castFromBaseName(const CibCompound* base, const CibParams& cibParams) const
+  {
+    return cibParams.castFromBasePrefix + base->nsName();
+  }
   /// @return string that represents a sequence of all wrapping Ns namespaces
   std::string wrappingNsNamespaceDeclarations(const CibParams& cibParams) const
   {
@@ -244,6 +249,10 @@ public:
     return outer()->closingBracesForWrappingNsNamespaces() + '}';
   }
 
+  // TODO: Name it better.
+  std::ostream& emitWrappingNsNamespacesForHelper(std::ostream&    stm,
+                                                  const CibParams& cibParams,
+                                                  CppIndent        indentation) const;
   std::ostream& emitWrappingNsNamespacesForGlueCode(std::ostream&    stm,
                                                     const CibParams& cibParams,
                                                     CppIndent        indentation) const;
@@ -522,6 +531,8 @@ public:
 
     return ret;
   }
+  void emitFwdDecl(const CibHelper& helper, const CibParams& cibParams) const;
+  void emitClassNames(const CibHelper& helper, const CibParams& cibParams) const;
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
@@ -541,11 +552,6 @@ public:
                             const CibParams& cibParams,
                             const CibIdMgr&  cibIdMgr,
                             CppIndent        indentation = CppIndent()) const;
-  void emitProtectedAccessor(std::ostream&    stm,
-                             const CibHelper& helper,
-                             const CibParams& cibParams,
-                             const CibIdMgr&  cibIdMgr,
-                             CppIndent        indentation = CppIndent()) const;
   void emitGenericDefn(std::ostream&    stm,
                        const CibHelper& helper,
                        const CibParams& cibParams,
@@ -663,10 +669,6 @@ private:
                 const CibHelper& helper,
                 const CibParams& cibParams,
                 CppIndent        indentation = CppIndent()) const;
-  void emitHelperDecl(std::ostream&    stm,
-                      const CibHelper& helper,
-                      const CibParams& cibParams,
-                      CppIndent        indentation = CppIndent()) const;
   void emitDecl(std::ostream&    stm,
                 const CibHelper& helper,
                 const CibParams& cibParams,
