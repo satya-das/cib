@@ -153,6 +153,7 @@ set(EXAMPLES
 	250-namespace
 	260-conditional-api-availability
 	300-std-vector
+	310-std-function
 )
 
 add_subdirectory(examples)

@@ -2,6 +2,7 @@
 
 #include "__zz_cib_Example-smart-ptr-detection.h"
 
+#include <functional>
 #include <type_traits>
 
 namespace __zz_cib_ {
@@ -37,6 +38,16 @@ struct __zz_cib_SharesLayout<
 {
 };
 
+template <typename T, typename = void>
+struct __zz_cib_IsStdFunction : std::false_type
+{
+};
+
+template <typename R, typename... Args>
+struct __zz_cib_IsStdFunction<std::function<R(Args...)>> : std::true_type
+{
+};
+
 template <typename _T>
 constexpr bool __zz_cib_UsesMethodTable_v = __zz_cib_UsesMethodTable<_T>::value;
 
@@ -44,8 +55,11 @@ template <typename _T>
 constexpr bool __zz_cib_SharesLayout_v = __zz_cib_SharesLayout<_T>::value;
 
 template <typename _T>
+constexpr bool __zz_cib_IsStdFunction_v = __zz_cib_IsStdFunction<_T>::value;
+
+template <typename _T>
 constexpr bool __zz_cib_IsConstructibleClass_v =
-  (std::is_class_v<_T> && !std::is_abstract_v<_T> && !__zz_cib_IsSmartPtr_v<_T>);
+  (std::is_class_v<_T> && !std::is_abstract_v<_T> && !__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
 
 template <typename _T>
 constexpr bool __zz_cib_IsAbstractClass_v = (std::is_class_v<_T> && std::is_abstract_v<_T>);

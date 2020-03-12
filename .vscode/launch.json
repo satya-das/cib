@@ -1267,6 +1267,24 @@
             ]
         },
         {
+            "name": "310-std-function",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/310-std-function",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "035-virtual-function-and-forwd-compatibility-new-client-with-old-lib",
             "type": "cppdbg",
             "request": "launch",

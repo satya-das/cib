@@ -6,6 +6,7 @@
 #pragma once
 
 #include "__zz_cib_Demo-class-types.h"
+#include "__zz_cib_Demo-decl.h"
 
 #include <type_traits>
 
@@ -19,6 +20,7 @@ namespace __zz_cib_ {
 template <typename _T, typename = void>
 class __zz_cib_LibraryTypeToAbiType
 {
+  static_assert(!std::is_class_v<_T>);
   _T m;
 
 public:
@@ -158,6 +160,7 @@ using __zz_cib_AbiType_t = decltype((static_cast<__zz_cib_LibraryTypeToAbiType<_
 template <typename _T, typename = void>
 class __zz_cib_AbiTypeToLibraryType
 {
+  static_assert(!std::is_class_v<_T>);
   __zz_cib_AbiType_t<_T> m;
 
 public:
@@ -300,5 +303,77 @@ auto __zz_cib_FromAbiType(__zz_cib_AbiType_t<_T> obj)
 {
   return __zz_cib_AbiTypeToLibraryType<_T>(obj);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+template <typename R, typename... Args>
+class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>>
+{
+  std::function<R(Args...)>& m;
+
+public:
+  using Func = std::function<R(Args...)>;
+  using Proc = R(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
+  struct ProcData
+  {
+    Proc  proc;
+    void* data;
+  };
+
+  ProcData convert() const
+  {
+    auto proc = [](void* data, Args... args) -> R {
+      auto& func = *static_cast<Func*>(data);
+      return func(args...);
+    };
+
+    void* data = static_cast<void*>(&m);
+
+    return ProcData{proc, data};
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>& x)
+    : m(x)
+  {
+  }
+
+  operator ProcData() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>>
+{
+public:
+  using Func = std::function<R(Args...)>;
+  using Proc = R(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
+  struct ProcData
+  {
+    Proc  proc;
+    void* data;
+  };
+
+private:
+  ProcData m;
+
+public:
+  __zz_cib_AbiTypeToLibraryType(const __zz_cib_AbiType_t<Func>& x)
+    : m{x.proc, x.data}
+  {
+  }
+
+  Func convert() const
+  {
+    return [m = this->m](Args... args) -> R { return m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...); };
+  }
+
+  operator Func() const
+  {
+    return convert();
+  }
+};
 
 } // namespace __zz_cib_
