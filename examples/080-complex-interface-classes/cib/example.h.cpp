@@ -294,7 +294,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType_t<int> __zz_cib_decl SetInterface(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Interface1*> pInterface1) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::SetInterface(
-                __zz_cib_::__zz_cib_FromAbiType<Interface1*>(pInterface1)
+        __zz_cib_::__zz_cib_FromAbiType<Interface1*>(pInterface1)
       )
     );
   }

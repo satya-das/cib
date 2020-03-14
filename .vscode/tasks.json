@@ -42,7 +42,7 @@
         // "250-namespace",
         // "260-conditional-api-availability",
         // "300-std-vector",
-        "310-std-function"
+        // "310-std-function"
       ],
       "options": {
         "cwd": "${workspaceFolder}/builds"

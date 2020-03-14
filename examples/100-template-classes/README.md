@@ -144,14 +144,14 @@ struct __zz_cib_Delegator<::Example::Value<::Example::Int>> : public ::Example::
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::Example::Int> x) {
-        __zz_cib_obj->::Example::Value<::Example::Int>::SetValue(
-            __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(x)
+    __zz_cib_obj->::Example::Value<::Example::Int>::SetValue(
+      __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(x)
     );
   }
   static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const Value&> rhs) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::Example::Value<::Example::Int>::operator ==(
-                __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
+        __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
       )
     );
   }
@@ -197,14 +197,14 @@ struct __zz_cib_Delegator<::Example::Value<float>> : public ::Example::Value<flo
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<float> x) {
-        __zz_cib_obj->::Example::Value<float>::SetValue(
-            __zz_cib_::__zz_cib_FromAbiType<float>(x)
+    __zz_cib_obj->::Example::Value<float>::SetValue(
+      __zz_cib_::__zz_cib_FromAbiType<float>(x)
     );
   }
   static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const Value&> rhs) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::Example::Value<float>::operator ==(
-                __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
+        __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
       )
     );
   }
@@ -250,14 +250,14 @@ struct __zz_cib_Delegator<::Example::Value<int>> : public ::Example::Value<int> 
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl SetValue(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
-        __zz_cib_obj->::Example::Value<int>::SetValue(
-            __zz_cib_::__zz_cib_FromAbiType<int>(x)
+    __zz_cib_obj->::Example::Value<int>::SetValue(
+      __zz_cib_::__zz_cib_FromAbiType<int>(x)
     );
   }
   static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const Value&> rhs) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::Example::Value<int>::operator ==(
-                __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
+        __zz_cib_::__zz_cib_FromAbiType<const Value&>(rhs)
       )
     );
   }

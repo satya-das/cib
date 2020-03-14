@@ -26,7 +26,7 @@ struct __zz_cib_Delegator<::CPoint> : public ::CPoint {
   static __zz_cib_AbiType_t<const CPoint&> __zz_cib_decl __zz_cib_OperatorPlusEq(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const CPoint&> p) {
     return __zz_cib_ToAbiType<const CPoint&>(
       __zz_cib_obj->::CPoint::operator +=(
-                __zz_cib_::__zz_cib_FromAbiType<const CPoint&>(p)
+        __zz_cib_::__zz_cib_FromAbiType<const CPoint&>(p)
       )
     );
   }

@@ -85,14 +85,14 @@ struct __zz_cib_Delegator<::A> {
   static __zz_cib_AbiType_t<int> __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const Value<int>&> intVal) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->setValue(
-                __zz_cib_::__zz_cib_FromAbiType<const Value<int>&>(intVal)
+        __zz_cib_::__zz_cib_FromAbiType<const Value<int>&>(intVal)
       )
     );
   }
   static __zz_cib_AbiType_t<float> __zz_cib_decl setValue_3(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const Value<float>&> floatVal) {
     return __zz_cib_ToAbiType<float>(
       __zz_cib_obj->setValue(
-                __zz_cib_::__zz_cib_FromAbiType<const Value<float>&>(floatVal)
+        __zz_cib_::__zz_cib_FromAbiType<const Value<float>&>(floatVal)
       )
     );
   }

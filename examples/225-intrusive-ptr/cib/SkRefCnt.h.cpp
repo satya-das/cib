@@ -65,13 +65,13 @@ struct __zz_cib_Delegator<::SkRefCntBase> : public ::SkRefCntBase {
         delete __zz_cib_obj;
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl ref(const __zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->::SkRefCntBase::ref();
+    __zz_cib_obj->::SkRefCntBase::ref();
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl unref(const __zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->::SkRefCntBase::unref();
+    __zz_cib_obj->::SkRefCntBase::unref();
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->::SkRefCntBase::internal_dispose();
+    __zz_cib_obj->::SkRefCntBase::internal_dispose();
   }
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;

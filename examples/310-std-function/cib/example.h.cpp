@@ -108,21 +108,21 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType_t<int> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int()>> callback) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f(
-                __zz_cib_::__zz_cib_FromAbiType<std::function<int()>>(callback)
+        __zz_cib_::__zz_cib_FromAbiType<std::function<int()>>(callback)
       )
     );
   }
   static __zz_cib_AbiType_t<int> __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const std::function<int()>&> callback) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::g(
-                __zz_cib_::__zz_cib_FromAbiType<const std::function<int()>&>(callback)
+        __zz_cib_::__zz_cib_FromAbiType<const std::function<int()>&>(callback)
       )
     );
   }
   static __zz_cib_AbiType_t<int> __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int(C)>> callback) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::h(
-                __zz_cib_::__zz_cib_FromAbiType<std::function<int(C)>>(callback)
+        __zz_cib_::__zz_cib_FromAbiType<std::function<int(C)>>(callback)
       )
     );
   }

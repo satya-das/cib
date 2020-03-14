@@ -25,14 +25,14 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   static __zz_cib_AbiType_t<A&> __zz_cib_decl __zz_cib_OperatorLShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
     return __zz_cib_ToAbiType<A&>(
       __zz_cib_obj->::Example::A::operator <<(
-                __zz_cib_::__zz_cib_FromAbiType<int>(x)
+        __zz_cib_::__zz_cib_FromAbiType<int>(x)
       )
     );
   }
   static __zz_cib_AbiType_t<A&> __zz_cib_decl __zz_cib_OperatorRShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int&> x) {
     return __zz_cib_ToAbiType<A&>(
       __zz_cib_obj->::Example::A::operator >>(
-                __zz_cib_::__zz_cib_FromAbiType<int&>(x)
+        __zz_cib_::__zz_cib_FromAbiType<int&>(x)
       )
     );
   }

@@ -164,7 +164,7 @@ template <>
 struct __zz_cib_Delegator<::Facade> {
   using __zz_cib_Delegatee = ::Facade;
   static __zz_cib_AbiType_t<void> __zz_cib_decl F(::Facade* __zz_cib_obj) {
-        __zz_cib_obj->F();
+    __zz_cib_obj->F();
   }
   static void __zz_cib_decl __zz_cib_delete(::Facade* __zz_cib_obj) {
     __zz_cib_Helper<::Facade>::__zz_cib_release_handle(__zz_cib_obj);
@@ -196,7 +196,7 @@ template <>
 struct __zz_cib_Delegator<::PublicFacadeImpl> {
   using __zz_cib_Delegatee = ::PublicFacadeImpl;
   static __zz_cib_AbiType_t<void> __zz_cib_decl F(::PublicFacadeImpl* __zz_cib_obj) {
-        __zz_cib_obj->F();
+    __zz_cib_obj->F();
   }
   static void __zz_cib_decl __zz_cib_delete(::PublicFacadeImpl* __zz_cib_obj) {
     __zz_cib_Helper<::PublicFacadeImpl>::__zz_cib_release_handle(__zz_cib_obj);

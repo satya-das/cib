@@ -109,28 +109,28 @@ struct __zz_cib_Delegator<::A> : public ::A {
     return new __zz_cib_Delegatee();
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl setPod(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod&> p) {
-        __zz_cib_obj->::A::setPod(
-            __zz_cib_::__zz_cib_FromAbiType<Pod&>(p)
+    __zz_cib_obj->::A::setPod(
+      __zz_cib_::__zz_cib_FromAbiType<Pod&>(p)
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl setPod_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod*> p) {
-        __zz_cib_obj->::A::setPod(
-            __zz_cib_::__zz_cib_FromAbiType<Pod*>(p)
+    __zz_cib_obj->::A::setPod(
+      __zz_cib_::__zz_cib_FromAbiType<Pod*>(p)
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod1(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod1&> n) {
-        __zz_cib_obj->::A::setNonPod1(
-            __zz_cib_::__zz_cib_FromAbiType<NonPod1&>(n)
+    __zz_cib_obj->::A::setNonPod1(
+      __zz_cib_::__zz_cib_FromAbiType<NonPod1&>(n)
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod2(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod2&> n) {
-        __zz_cib_obj->::A::setNonPod2(
-            __zz_cib_::__zz_cib_FromAbiType<NonPod2&>(n)
+    __zz_cib_obj->::A::setNonPod2(
+      __zz_cib_::__zz_cib_FromAbiType<NonPod2&>(n)
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod3&> n) {
-        __zz_cib_obj->::A::setNonPod3(
-            __zz_cib_::__zz_cib_FromAbiType<NonPod3&>(n)
+    __zz_cib_obj->::A::setNonPod3(
+      __zz_cib_::__zz_cib_FromAbiType<NonPod3&>(n)
     );
   }
 };

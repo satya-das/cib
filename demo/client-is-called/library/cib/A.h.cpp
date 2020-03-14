@@ -99,7 +99,7 @@ struct __zz_cib_Delegator<::C> : public ::C {
   static __zz_cib_AbiType_t<int> __zz_cib_decl UseInterface(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<I*> pI) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::C::UseInterface(
-                __zz_cib_::__zz_cib_FromAbiType<I*>(pI)
+        __zz_cib_::__zz_cib_FromAbiType<I*>(pI)
       )
     );
   }

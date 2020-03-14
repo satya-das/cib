@@ -20,28 +20,28 @@ namespace __zz_cib_ { namespace __zz_cib_NsDelegator {
 static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewA(__zz_cib_AbiType_t<A*&> pA) {
   return __zz_cib_ToAbiType<int>(
     ::GetNewA(
-            __zz_cib_::__zz_cib_FromAbiType<A*&>(pA)
+      __zz_cib_::__zz_cib_FromAbiType<A*&>(pA)
     )
   );
 }
 static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewB(__zz_cib_AbiType_t<A*&> pA) {
   return __zz_cib_ToAbiType<int>(
     ::GetNewB(
-            __zz_cib_::__zz_cib_FromAbiType<A*&>(pA)
+      __zz_cib_::__zz_cib_FromAbiType<A*&>(pA)
     )
   );
 }
 static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewA_2(__zz_cib_AbiType_t<const A*&> pA) {
   return __zz_cib_ToAbiType<int>(
     ::GetNewA(
-            __zz_cib_::__zz_cib_FromAbiType<const A*&>(pA)
+      __zz_cib_::__zz_cib_FromAbiType<const A*&>(pA)
     )
   );
 }
 static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewB_3(__zz_cib_AbiType_t<const A*&> pA) {
   return __zz_cib_ToAbiType<int>(
     ::GetNewB(
-            __zz_cib_::__zz_cib_FromAbiType<const A*&>(pA)
+      __zz_cib_::__zz_cib_FromAbiType<const A*&>(pA)
     )
   );
 }

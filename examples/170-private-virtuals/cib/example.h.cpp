@@ -188,7 +188,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType_t<int> __zz_cib_decl SetIF(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<IF*> pIF) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::SetIF(
-                __zz_cib_::__zz_cib_FromAbiType<IF*>(pIF)
+        __zz_cib_::__zz_cib_FromAbiType<IF*>(pIF)
       )
     );
   }

@@ -61,7 +61,7 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
     return new __zz_cib_::__zz_cib_Generic<::Facade>(proxy, mtbl);
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->F();
+    __zz_cib_obj->F();
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
@@ -156,7 +156,7 @@ struct __zz_cib_Delegator<::PublicFacadeImpl> : public ::PublicFacadeImpl {
     return new __zz_cib_::__zz_cib_Generic<::PublicFacadeImpl>(proxy, mtbl);
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->::PublicFacadeImpl::F();
+    __zz_cib_obj->::PublicFacadeImpl::F();
   }
   static ::Facade* __zz_cib_decl __zz_cib_cast_to___zz_cib_Class257(::PublicFacadeImpl* __zz_cib_obj) {
     return __zz_cib_obj;

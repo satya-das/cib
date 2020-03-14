@@ -77,7 +77,7 @@ struct __zz_cib_Delegator<::I> : public ::I {
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_obj) {
-        __zz_cib_obj->::I::internal_dispose();
+    __zz_cib_obj->::I::internal_dispose();
   }
   static ::SkRefCntBase* __zz_cib_decl __zz_cib_cast_to___zz_cib_Class257(::I* __zz_cib_obj) {
     return __zz_cib_obj;
@@ -146,14 +146,14 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType_t<int> __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<sk_sp<I>> p) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::h(
-                __zz_cib_::__zz_cib_FromAbiType<sk_sp<I>>(p)
+        __zz_cib_::__zz_cib_FromAbiType<sk_sp<I>>(p)
       )
     );
   }
   static __zz_cib_AbiType_t<int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<I*> p) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::i(
-                __zz_cib_::__zz_cib_FromAbiType<I*>(p)
+        __zz_cib_::__zz_cib_FromAbiType<I*>(p)
       )
     );
   }

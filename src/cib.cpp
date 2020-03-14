@@ -322,10 +322,9 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   stm << indentation << "static ";
   emitCAPIDecl(stm, helper, cibParams, callingOwner, capiName, purpose);
   stm << " {\n";
-  stm << ++indentation;
   if (isConstructor())
   {
-    stm << "return new ";
+    stm << ++indentation << "return new ";
     if (callingOwner->needsNoProxy())
     {
       stm << "(__zz_cib_this) ";
@@ -356,6 +355,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   }
   else if (isDestructor())
   {
+    stm << ++indentation;
     if (callingOwner->needsNoProxy())
     {
       stm << "__zz_cib_obj->~" << callingOwner->name() << "();\n";
@@ -371,12 +371,11 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   {
     if (!isVoid(returnType()))
     {
-      stm << "return __zz_cib_ToAbiType<";
+      stm << ++indentation << "return __zz_cib_ToAbiType<";
       emitType(stm, returnType(), kPurposeSignature, helper);
       stm << ">(\n";
-      ++indentation;
     }
-    stm << indentation;
+    stm << ++indentation;
     if (isClassLike(callingOwner) && !isStatic())
       stm << "__zz_cib_obj->";
 
@@ -400,7 +399,10 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     stm << "(";
     if (hasParams())
-      stm << '\n' << ++indentation;
+    {
+      stm << '\n';
+      ++indentation;
+    }
     emitArgsForCall(stm, helper, cibParams, purpose, indentation);
     if (hasParams())
       stm << '\n' << --indentation;

@@ -85,7 +85,7 @@ template <>
 struct __zz_cib_Delegator<::SkRefCntBase> {
   using __zz_cib_Delegatee = ::SkRefCntBase;
   static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose(const ::SkRefCntBase* __zz_cib_obj) {
-        __zz_cib_obj->internal_dispose();
+    __zz_cib_obj->internal_dispose();
   }
   static void __zz_cib_decl __zz_cib_delete(::SkRefCntBase* __zz_cib_obj) {
     __zz_cib_Helper<::SkRefCntBase>::__zz_cib_release_handle(__zz_cib_obj);

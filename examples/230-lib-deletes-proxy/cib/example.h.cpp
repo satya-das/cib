@@ -144,8 +144,8 @@ struct __zz_cib_Delegator<::A> : public ::A {
     );
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl d(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const I*> p) {
-        __zz_cib_obj->::A::d(
-            __zz_cib_::__zz_cib_FromAbiType<const I*>(p)
+    __zz_cib_obj->::A::d(
+      __zz_cib_::__zz_cib_FromAbiType<const I*>(p)
     );
   }
 };
