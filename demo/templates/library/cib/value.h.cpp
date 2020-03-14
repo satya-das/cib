@@ -5,6 +5,7 @@
 #include "__zz_cib_templates-delegate-helper.h"
 #include "__zz_cib_templates-generic.h"
 #include "__zz_cib_templates-library-type-handler.h"
+#include "__zz_cib_templates-class-down-cast.h"
 
 namespace __zz_cib_ {
 template <>

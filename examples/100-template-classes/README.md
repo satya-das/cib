@@ -121,6 +121,7 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-library-type-handler.h"
+#include "__zz_cib_Example-class-down-cast.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;

@@ -51,6 +51,7 @@ set(CIB_HEADERS
 
 set(RESDIR ${CMAKE_BINARY_DIR}/cibres)
 set(RESFILES
+	__zz_cib_Module-class-down-cast.h
 	__zz_cib_Module-class-fwd-decl.h
 	__zz_cib_Module-classId-repo.cpp
 	__zz_cib_Module-class-internal-def.h

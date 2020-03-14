@@ -5,6 +5,7 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-library-type-handler.h"
+#include "__zz_cib_Example-class-down-cast.h"
 
 namespace __zz_cib_ {
 struct __zz_cib_Delegator<::Interface>;

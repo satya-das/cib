@@ -1901,7 +1901,8 @@ void CibCompound::emitCastingHelpers(std::ostream&    stm,
     if ((pubParent->isShared() || !pubParent->isEmpty()) && !processedAncestor.count(pubParent))
     {
       emitCastToParent(pubParent);
-      emitCastFromParent(pubParent);
+      if (!cibParams.noRtti)
+        emitCastFromParent(pubParent);
       processedAncestor.insert(pubParent);
     }
     return false;
@@ -2379,6 +2380,9 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-library-type-handler.h\"\n";
+  if (!cibParams.noRtti)
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-down-cast.h\"\n";
+
   if (cibParams.libraryManagedProxies)
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
   stm << '\n';
@@ -2483,11 +2487,12 @@ void CibCompound::emitDelegators(std::ostream&    stm,
         stm << ++indentation << "return __zz_cib_obj;\n";
         stm << --indentation << "}\n";
       }
+      if (!cibParams.noRtti)
       {
         auto castApiName = castFromBaseName(pubParent, cibParams);
         stm << indentation << "static " << longName() << "* __zz_cib_decl " << cibIdData->getMethodCApiName(castApiName)
             << "(" << pubParent->longName() << "* __zz_cib_obj) {\n";
-        stm << ++indentation << "return dynamic_cast<" << longName() << "*>(__zz_cib_obj);\n";
+        stm << ++indentation << "return __zz_cib_DownCast<" << longName() << "*>(__zz_cib_obj);\n";
         stm << --indentation << "}\n";
       }
 

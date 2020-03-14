@@ -5,6 +5,7 @@
 #include "__zz_cib_FeatureTests-delegate-helper.h"
 #include "__zz_cib_FeatureTests-generic.h"
 #include "__zz_cib_FeatureTests-library-type-handler.h"
+#include "__zz_cib_FeatureTests-class-down-cast.h"
 
 namespace __zz_cib_ {
 template <>

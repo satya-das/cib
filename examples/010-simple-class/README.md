@@ -271,6 +271,7 @@ CIB will generate library glue code and library is expected to compile these sou
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-library-type-handler.h"
+#include "__zz_cib_Example-class-down-cast.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;

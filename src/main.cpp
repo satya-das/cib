@@ -225,6 +225,7 @@ static void processResourceFile(const std::string& filename, const bfs::path& ou
 static void emitLibBoilerPlateCode(const CibParams& cibParams)
 {
   const char* filesToProcessForBinder[] = {"__zz_cib_Module-class-types.h",
+                                           "__zz_cib_Module-class-down-cast.h",
                                            "__zz_cib_Module-smart-ptr-detection.h",
                                            "__zz_cib_Module-smart-ptr-input.h",
                                            "__zz_cib_Module-mtable.h",

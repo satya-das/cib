@@ -12,6 +12,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-library-type-handler.h"
+#include "__zz_cib_Example-class-down-cast.h"
 
 namespace __zz_cib_ {
 template <>
@@ -185,7 +186,7 @@ struct __zz_cib_Delegator<::B> : public ::B {
     return __zz_cib_obj;
   }
   static ::B* __zz_cib_decl __zz_cib_cast_from___zz_cib_Class257(::A* __zz_cib_obj) {
-    return dynamic_cast<::B*>(__zz_cib_obj);
+    return __zz_cib_DownCast<::B*>(__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
