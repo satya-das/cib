@@ -28,38 +28,49 @@ public:
   int ProtectedVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PublicPureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicPureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicPureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int ProtectedPureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PublicVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PrivatePureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      __zz_cib_h_
+    );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::IF)

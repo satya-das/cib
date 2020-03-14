@@ -59,8 +59,9 @@ public:
   }
   void internal_dispose() const override {
     using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (const __zz_cib_AbiType);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose>(
+      __zz_cib_h_
+    );
   }
 };
 }

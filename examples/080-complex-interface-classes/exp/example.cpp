@@ -179,8 +179,10 @@ public:
   int f() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
+        __zz_cib_h_
+      )
+    );
   }
 };
 }
@@ -246,8 +248,10 @@ public:
   int g() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g>(
+        __zz_cib_h_
+      )
+    );
   }
 };
 }

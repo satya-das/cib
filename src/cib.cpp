@@ -600,12 +600,12 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     stm << indentation << "if (!__zz_cib_h_) return;\n";
   emitProcType(
     stm, helper, cibParams, genericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType, indentation);
-  stm << indentation;
   if (returnType() && !isVoid(returnType()))
   {
-    stm << "return __zz_cib_FromAbiType<";
+    stm << indentation << "return __zz_cib_FromAbiType<";
     emitType(stm, returnType(), kPurposeSignature, helper);
     stm << ">(\n";
+    ++indentation;
   }
   stm << indentation << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::";
   stm << capiName << ">(\n";
@@ -616,9 +616,8 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     emitArgsForCall(stm, helper, cibParams, genericProxy ? kPurposeGenericProxy : kPurposeGeneric, indentation);
   }
   if (returnType() && !isVoid(returnType()))
-    stm << ')';
-  stm << ");\n";
-  --indentation;
+    stm << '\n' << --indentation << ")";
+  stm << '\n' << --indentation << ");\n";
   stm << --indentation << "}\n";
 }
 

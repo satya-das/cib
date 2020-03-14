@@ -125,32 +125,42 @@ public:
   int ProtectedVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PublicPureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicPureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicPureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int ProtectedPureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PublicVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
   int PrivatePureVirtual() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual>(
+        __zz_cib_h_
+      )
+    );
   }
 };
 }

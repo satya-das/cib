@@ -32,20 +32,25 @@ public:
   int VirtFunc() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc>(
+        __zz_cib_h_
+      )
+    );
   }
   int AnotherVirtFunc() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
+        __zz_cib_h_
+      )
+    );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      __zz_cib_h_
+    );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::A)
@@ -131,14 +136,18 @@ public:
   int VirtFunc() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc>(
+        __zz_cib_h_
+      )
+    );
   }
   int AnotherVirtFunc() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
-      __zz_cib_h_));
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::AnotherVirtFunc>(
+        __zz_cib_h_
+      )
+    );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::B)

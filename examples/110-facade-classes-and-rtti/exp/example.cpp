@@ -140,8 +140,9 @@ public:
   }
   void F() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_AbiType);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+      __zz_cib_h_
+    );
   }
 };
 }

@@ -26,14 +26,16 @@ public:
   {}
   void F() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+      __zz_cib_h_
+    );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      __zz_cib_h_
+    );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::Facade)
@@ -120,8 +122,9 @@ public:
   {}
   void F() override {
     using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
-        __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
-      __zz_cib_h_);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+      __zz_cib_h_
+    );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
   __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::PublicFacadeImpl)
