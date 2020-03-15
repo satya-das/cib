@@ -306,10 +306,12 @@ void CibIdMgr::assignIds(CibCompound*     compound,
           auto castToMethodName = compound->castToBaseName(parent, cibParams);
           if (!cibIdData->hasMethod(castToMethodName))
             cibIdData->addOrUpdateMethod(castToMethodName, castToMethodName);
-
-          auto castFromMethodName = compound->castFromBaseName(parent, cibParams);
-          if (!cibIdData->hasMethod(castFromMethodName))
-            cibIdData->addOrUpdateMethod(castFromMethodName, castFromMethodName);
+          if (!cibParams.noRtti)
+          {
+            auto castFromMethodName = compound->castFromBaseName(parent, cibParams);
+            if (!cibIdData->hasMethod(castFromMethodName))
+              cibIdData->addOrUpdateMethod(castFromMethodName, castFromMethodName);
+          }
         }
         return false;
       });

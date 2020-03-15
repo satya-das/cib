@@ -1,12 +1,12 @@
 #pragma once
 
+#include "__zz_cib_internal/__zz_cib_FeatureTests-client-type-handler.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-def.h"
+#include "__zz_cib_internal/__zz_cib_FeatureTests-handle-helper.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-ids.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-local-proxy-mgr.h"
-#include "__zz_cib_internal/__zz_cib_FeatureTests-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_FeatureTests-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_FeatureTests-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_FeatureTests-client-type-handler.h"
+#include "__zz_cib_internal/__zz_cib_FeatureTests-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <>

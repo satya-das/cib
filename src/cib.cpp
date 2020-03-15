@@ -88,6 +88,22 @@ static void emitType(std::ostream&      stm,
   }
 }
 
+static void emitType(std::ostream&      stm,
+                     const CppVar*      varObj,
+                     FuncProtoPurpose   purpose,
+                     const CibHelper&   helper,
+                     const CibCompound* typeResolver = nullptr)
+{
+  emitType(stm, varObj->varType(), purpose, helper, typeResolver);
+  for (auto& arrSize : varObj->varDecl().arraySizes())
+  {
+    stm << '[';
+    if (arrSize)
+      gCppWriter.emitExpr(arrSize.get(), stm);
+    stm << ']';
+  }
+}
+
 inline void emitParamName(std::ostream& stm, const CppVar* var, size_t paramName, bool makeNameIfMissing = true)
 {
   if (!var->name().empty())
@@ -165,7 +181,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeCApi:
       case kPurposeProxyCApi:
         stm << "__zz_cib_::__zz_cib_FromAbiType<";
-        emitType(stm, var->varType(), kPurposeSignature, helper);
+        emitType(stm, var.get(), kPurposeSignature, helper);
         stm << ">(";
         emitParamName(stm, var, i);
         stm << ")";
@@ -921,13 +937,13 @@ void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibPa
 
 void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams)
 {
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-client-type-handler.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-local-proxy-mgr.h\"\n";
-  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-remote-proxy-mgr.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
-  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-helper.h\"\n";
-  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-client-type-handler.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-remote-proxy-mgr.h\"\n";
 }
 
 std::ostream& CibCompound::emitWrappingNsNamespacesForHelper(std::ostream&    stm,
@@ -2377,14 +2393,15 @@ void CibCompound::emitDependecyHeaders(std::ostream&    stm,
 
 void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibParams)
 {
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-library-type-handler.h\"\n";
   if (!cibParams.noRtti)
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-down-cast.h\"\n";
 
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-library-type-handler.h\"\n";
+
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   if (cibParams.libraryManagedProxies)
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
   stm << '\n';

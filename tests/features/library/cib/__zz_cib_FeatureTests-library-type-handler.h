@@ -41,6 +41,30 @@ public:
   }
 };
 
+template <typename _T, int _N>
+class __zz_cib_LibraryTypeToAbiType<_T[_N]>
+{
+  static_assert(!std::is_class_v<_T>);
+  _T* m;
+
+public:
+  _T* convert()
+  {
+    return m;
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(_T x[_N])
+    : m(x)
+  {
+  }
+
+  operator _T*() const
+  {
+    return convert();
+  }
+};
+
 template <>
 class __zz_cib_LibraryTypeToAbiType<void>
 {
@@ -175,6 +199,30 @@ public:
   }
 
   operator _T() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T, int _N>
+class __zz_cib_AbiTypeToLibraryType<_T[_N]>
+{
+  static_assert(!std::is_class_v<_T>);
+  _T* m;
+
+public:
+  _T* convert() const
+  {
+    return m;
+  }
+
+public:
+  __zz_cib_AbiTypeToLibraryType(_T* x)
+    : m(x)
+  {
+  }
+
+  operator _T*() const
   {
     return convert();
   }

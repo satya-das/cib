@@ -116,12 +116,12 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 #include "int.h"
 #include "value.h"
 
-#include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
+#include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-library-type-handler.h"
-#include "__zz_cib_Example-class-down-cast.h"
+#include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
 using namespace ::Example;
@@ -344,13 +344,13 @@ Let's see what that `value-postdef.h` contains:
 ```c++
 #pragma once
 
+#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
-#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-handle-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
+#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 #include "__zz_cib_Class259.h"
 #include "__zz_cib_Class257.h"
 
