@@ -239,6 +239,10 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-internal.h",
                                            "__zz_cib_Module-classId-repo.cpp",
                                            "__zz_cib_Module-library-type-handler.h",
+                                           "__zz_cib_Module-library-class-type-converter.h",
+                                           "__zz_cib_Module-library-default-type-converter.h",
+                                           "__zz_cib_Module-library-smart-ptr-converter.h",
+                                           "__zz_cib_Module-library-std-function-converter.h",
                                            nullptr};
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
   {
@@ -252,6 +256,10 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-class-helper.h",
                                            "__zz_cib_Module-class-types.h",
                                            "__zz_cib_Module-client-type-handler.h",
+                                           "__zz_cib_Module-client-default-type-converter.h",
+                                           "__zz_cib_Module-client-proxy-type-converter.h",
+                                           "__zz_cib_Module-client-smart-ptr-converter.h",
+                                           "__zz_cib_Module-client-std-function-converter.h",
                                            "__zz_cib_Module-generic.h",
                                            "__zz_cib_Module-smart-ptr-detection.h",
                                            "__zz_cib_Module-smart-ptr-input.h",

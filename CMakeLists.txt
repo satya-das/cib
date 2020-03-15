@@ -60,6 +60,10 @@ set(RESFILES
 	__zz_cib_Module-class-proxy-detection.h
 	__zz_cib_Module-class-types.h
 	__zz_cib_Module-client-type-handler.h
+	__zz_cib_Module-client-default-type-converter.h
+	__zz_cib_Module-client-proxy-type-converter.h
+	__zz_cib_Module-client-smart-ptr-converter.h
+	__zz_cib_Module-client-std-function-converter.h
 	__zz_cib_Module-decl.h
 	__zz_cib_Module-def.h
 	__zz_cib_Module-delegate-helper.h
@@ -68,6 +72,10 @@ set(RESFILES
 	__zz_cib_Module-internal.h
 	__zz_cib_Module-internal-proxy.h
 	__zz_cib_Module-library-type-handler.h
+	__zz_cib_Module-library-class-type-converter.h
+	__zz_cib_Module-library-default-type-converter.h
+	__zz_cib_Module-library-smart-ptr-converter.h
+	__zz_cib_Module-library-std-function-converter.h
 	__zz_cib_Module-local-proxy-mgr.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
