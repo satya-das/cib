@@ -869,6 +869,8 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
     if (!compound->isTemplated() || compound->templateInstances_.empty())
       return;
     compound->forEachTemplateInstance([&](CibCompound* templCompound) {
+      if (!templCompound->isShared())
+        return;
       auto          specializationFilename = templCompound->nsName() + ".h";
       auto          specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
       std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
@@ -1581,7 +1583,10 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
   if (isTemplated())
   {
-    forEachTemplateInstance([&](CibCompound* templateInstace) { templateInstace->identifyMethodsToBridge(helper); });
+    forEachTemplateInstance([&](CibCompound* templateInstace) {
+      if (templateInstace->isShared())
+        templateInstace->identifyMethodsToBridge(helper);
+    });
     return;
   }
   // A class that is inline and not shared don't need any bridging.
@@ -2364,8 +2369,11 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
     if (compound->isTemplated())
     {
       compound->forEachTemplateInstance([&](CibCompound* templateInstace) {
-        templateInstace->emitDelegators(stm, helper, cibParams, cibIdMgr, indentation);
-        templateInstace->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, false);
+        if (templateInstace->isShared())
+        {
+          templateInstace->emitDelegators(stm, helper, cibParams, cibIdMgr, indentation);
+          templateInstace->emitMethodTableGetterDefn(stm, helper, cibParams, cibIdMgr, false);
+        }
       });
     }
     else

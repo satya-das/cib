@@ -273,7 +273,6 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   ret                 = new CibCompound(clsName, compoundType());
   ret->templateClass_ = this;
   ret->owner(owner());
-  ret->setShared();
   forEachMember(this, CppAccessType::kPublic, [&](const CppObj* mem) -> bool {
     if (isFunctionLike(mem))
     {
