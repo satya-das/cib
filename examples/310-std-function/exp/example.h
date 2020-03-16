@@ -17,8 +17,6 @@ private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
 };
 
-// useful link:
-// https://stackoverflow.com/questions/9044866/how-to-get-the-number-of-arguments-of-stdfunction
 class A
 {
 public:

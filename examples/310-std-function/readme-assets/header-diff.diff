@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,39 +1,38 @@
+@@ -1,37 +1,36 @@
  #pragma once
 -
  #include <functional>
@@ -28,8 +28,6 @@
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
  };
  
- // useful link:
- // https://stackoverflow.com/questions/9044866/how-to-get-the-number-of-arguments-of-stdfunction
  class A
  {
  public:

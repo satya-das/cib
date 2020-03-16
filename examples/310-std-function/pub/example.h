@@ -17,8 +17,6 @@ private:
   int m;
 };
 
-// useful link:
-// https://stackoverflow.com/questions/9044866/how-to-get-the-number-of-arguments-of-stdfunction
 class A
 {
 public:
