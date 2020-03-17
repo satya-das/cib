@@ -62,5 +62,6 @@
         "random": "cpp",
         "regex": "cpp",
         "variant": "cpp"
-    }
+    },
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format-6.0",
 }
