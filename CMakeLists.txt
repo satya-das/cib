@@ -64,6 +64,7 @@ set(RESFILES
 	__zz_cib_Module-client-proxy-type-converter.h
 	__zz_cib_Module-client-smart-ptr-converter.h
 	__zz_cib_Module-client-std-function-converter.h
+	__zz_cib_Module-std-function-converter-base.h
 	__zz_cib_Module-decl.h
 	__zz_cib_Module-def.h
 	__zz_cib_Module-delegate-helper.h

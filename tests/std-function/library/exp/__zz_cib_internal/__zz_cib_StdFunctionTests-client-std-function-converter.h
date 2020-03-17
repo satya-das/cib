@@ -8,43 +8,22 @@
 #include "__zz_cib_StdFunctionTests-client-default-type-converter.h"
 #include "__zz_cib_StdFunctionTests-decl.h"
 
+#include "__zz_cib_StdFunctionTests-std-function-converter-base.h"
+
 namespace __zz_cib_ {
 
 template <typename R, typename... Args>
-class __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>>
+struct __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>> : __zz_cib_StdFuncToAbiType<R, Args...>
 {
-  std::function<R(Args...)>& m;
+  using __zz_cib_StdFuncToAbiType<R, Args...>::__zz_cib_StdFuncToAbiType;
+};
 
-public:
-  using Func = std::function<R(Args...)>;
-  using Proc = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
-  struct ProcData
-  {
-    Proc  proc;
-    void* data;
-  };
+/////////////////////////////////////////////////////////////////////////////////////////////
 
-  ProcData convert() const
-  {
-    auto proc = [](void* data, __zz_cib_AbiType_t<Args>... args) -> __zz_cib_AbiType_t<R> {
-      auto& func = *static_cast<Func*>(data);
-      return __zz_cib_ToAbiType<R>(func(__zz_cib_FromAbiType<Args>(args)...));
-    };
-
-    void* data = static_cast<void*>(&m);
-    return ProcData{proc, data};
-  }
-
-public:
-  __zz_cib_ClientTypeToAbiType(std::function<R(Args...)>& x)
-    : m(x)
-  {
-  }
-
-  operator ProcData() const
-  {
-    return convert();
-  }
+template <typename R, typename... Args>
+struct __zz_cib_AbiTypeToClientType<std::function<R(Args...)>> : __zz_cib_AbiTypeToStdFunc<R, Args...>
+{
+  using __zz_cib_AbiTypeToStdFunc<R, Args...>::__zz_cib_AbiTypeToStdFunc;
 };
 
 } // namespace __zz_cib_
