@@ -24,7 +24,6 @@ set(LIBRARY_CIB_FILES
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_StdFunctionTests-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_StdFunctionTests-mtable-helper.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_StdFunctionTests-classId-repo.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_StdFunctionTests-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_StdFunctionTests-proxy-mgr.h
 )
 

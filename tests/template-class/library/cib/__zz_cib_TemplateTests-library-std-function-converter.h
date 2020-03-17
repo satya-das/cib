@@ -17,7 +17,7 @@ class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>>
 
 public:
   using Func = std::function<R(Args...)>;
-  using Proc = R(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
+  using Proc = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
   struct ProcData
   {
     Proc  proc;
@@ -55,7 +55,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>>
 {
 public:
   using Func = std::function<R(Args...)>;
-  using Proc = R(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
+  using Proc = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(void*, __zz_cib_AbiType_t<Args>...);
   struct ProcData
   {
     Proc  proc;
@@ -73,7 +73,9 @@ public:
 
   Func convert() const
   {
-    return [m = this->m](Args... args) -> R { return m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...); };
+    return [m = this->m](Args... args) -> R {
+      return __zz_cib_FromAbiType<R>(m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...));
+    };
   }
 
   operator Func() const
