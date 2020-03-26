@@ -69,4 +69,7 @@ constexpr bool __zz_cib_IsConstructibleClass_v =
 template <typename _T>
 constexpr bool __zz_cib_IsAbstractClass_v = (std::is_class_v<_T> && std::is_abstract_v<_T>);
 
+template <typename _T>
+constexpr bool __zz_cib_IsPlainType_v = (!__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
+
 } // namespace __zz_cib_

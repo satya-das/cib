@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <functional>
+
 namespace __zz_cib_ {
 
 template <typename R, typename... Args>
@@ -53,10 +55,193 @@ public:
   }
 };
 
+template <typename R, typename... Args>
+class __zz_cib_StdFuncToAbiType<std::function<R(Args...)>>
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  std::function<R(Args...)>& m;
+
+public:
+  ProcData convert() const
+  {
+    auto proc = [](void* data, __zz_cib_AbiType_t<Args>... args) -> __zz_cib_AbiType_t<R> {
+      auto& func = *static_cast<Func*>(data);
+      return __zz_cib_ToAbiType<R>(func(__zz_cib_FromAbiType<Args>(args)...));
+    };
+
+    void* data = static_cast<void*>(&m);
+    return ProcData{proc, data};
+  }
+
+public:
+  __zz_cib_StdFuncToAbiType(std::function<R(Args...)>& x)
+    : m(x)
+  {
+  }
+
+  operator ProcData() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_StdFuncToAbiType<std::function<R(Args...)>&>
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  std::function<R(Args...)>& m;
+
+public:
+  ProcData convert() const
+  {
+    auto proc = [](void* data, __zz_cib_AbiType_t<Args>... args) -> __zz_cib_AbiType_t<R> {
+      auto& func = *static_cast<Func*>(data);
+      return __zz_cib_ToAbiType<R>(func(__zz_cib_FromAbiType<Args>(args)...));
+    };
+
+    void* data = static_cast<void*>(&m);
+    return ProcData{proc, data};
+  }
+
+public:
+  __zz_cib_StdFuncToAbiType(std::function<R(Args...)>& x)
+    : m(x)
+  {
+  }
+
+  operator ProcData() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_StdFuncToAbiType<std::function<R(Args...)>&&>
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  std::function<R(Args...)> m;
+
+public:
+  ProcData convert() const
+  {
+    auto proc = [](void* data, __zz_cib_AbiType_t<Args>... args) -> __zz_cib_AbiType_t<R> {
+      auto& func = *static_cast<Func*>(data);
+      return __zz_cib_ToAbiType<R>(func(__zz_cib_FromAbiType<Args>(args)...));
+    };
+
+    void* data = static_cast<void*>(&m);
+    return ProcData{proc, data};
+  }
+
+public:
+  __zz_cib_StdFuncToAbiType(std::function<R(Args...)>&& x)
+    : m(std::move(x))
+  {
+  }
+
+  operator ProcData() const
+  {
+    return convert();
+  }
+};
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename R, typename... Args>
 class __zz_cib_AbiTypeToStdFunc
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  ProcData m;
+
+public:
+  __zz_cib_AbiTypeToStdFunc(const __zz_cib_AbiType_t<Func>& x)
+    : m{x.proc, x.data}
+  {
+  }
+
+  Func convert() const
+  {
+    return [m = this->m](Args... args) -> R {
+      return __zz_cib_FromAbiType<R>(m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...));
+    };
+  }
+
+  operator Func() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToStdFunc<std::function<R(Args...)>>
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  ProcData m;
+
+public:
+  __zz_cib_AbiTypeToStdFunc(const __zz_cib_AbiType_t<Func>& x)
+    : m{x.proc, x.data}
+  {
+  }
+
+  Func convert() const
+  {
+    return [m = this->m](Args... args) -> R {
+      return __zz_cib_FromAbiType<R>(m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...));
+    };
+  }
+
+  operator Func() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToStdFunc<std::function<R(Args...)>&>
+{
+  using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
+  using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;
+  using ProcData = typename __zz_cib_StdFuncConverterBase<R, Args...>::ProcData;
+
+  ProcData m;
+
+public:
+  __zz_cib_AbiTypeToStdFunc(const __zz_cib_AbiType_t<Func>& x)
+    : m{x.proc, x.data}
+  {
+  }
+
+  Func convert() const
+  {
+    return [m = this->m](Args... args) -> R {
+      return __zz_cib_FromAbiType<R>(m.proc(m.data, __zz_cib_ToAbiType<Args>(args)...));
+    };
+  }
+
+  operator Func() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToStdFunc<std::function<R(Args...)>&&>
 {
   using Func     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Func;
   using Proc     = typename __zz_cib_StdFuncConverterBase<R, Args...>::Proc;

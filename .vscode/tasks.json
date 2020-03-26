@@ -42,7 +42,8 @@
         // "250-namespace",
         // "260-conditional-api-availability",
         // "300-std-vector",
-        // "310-std-function"
+        // "310-std-function",
+        "StdFunctionTestsClient",
       ],
       "options": {
         "cwd": "${workspaceFolder}/builds"
