@@ -45,4 +45,10 @@ public:
     C c(299);
     return callback(b, c).f();
   }
+
+  int passStdFunctionByValue2(TestCallback&& callback) const {
+    B b(199);
+    C c(299);
+    return callback(b, c).f();
+  }
 };
