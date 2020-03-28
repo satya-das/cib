@@ -40,15 +40,45 @@ class T
 public:
   T();
 
-  int passStdFunctionByValue(TestCallback callback) const {
+  int passStdFunctionByValue(TestCallback callback) {
+    savedCallbackPassedByValue = callback;
+    return invokeCallback(callback);
+  }
+
+  int passStdFunctionByRValueRef(TestCallback&& callback) {
+    savedCallbackPassedByRValueRef = callback;
+    return invokeCallback(callback);
+  }
+
+  int invokeSavedCallbackPassedByValue() const {
+    return invokeCallback(savedCallbackPassedByValue);
+  }
+
+  int invokeSavedCallbackPassedByRValueRef() const {
+    return invokeCallback(savedCallbackPassedByRValueRef);
+  }
+
+  TestCallback getCallback() const {
+    return [](B b, C c) {
+      return A(b.f() - c.f());
+    };
+  }
+
+private:
+  static int invokeCallback(const TestCallback& callback) {
     B b(199);
     C c(299);
     return callback(b, c).f();
   }
 
-  int passStdFunctionByValue2(TestCallback&& callback) const {
-    B b(199);
-    C c(299);
-    return callback(b, c).f();
-  }
+private:
+  TestCallback savedCallbackPassedByValue;
+  TestCallback savedCallbackPassedByRValueRef;
 };
+
+// class I
+// {
+// public:
+//   virtual int passStdFunctionByValue(TestCallback callback) const = 0;
+//   virtual int passStdFunctionByValue2(TestCallback&& callback) const = 0;
+// };

@@ -13,17 +13,168 @@
 namespace __zz_cib_ {
 
 template <typename R, typename... Args>
-struct __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>> : __zz_cib_StdFuncToAbiType<R, Args...>
+class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>>
 {
-  using __zz_cib_StdFuncToAbiType<R, Args...>::__zz_cib_StdFuncToAbiType;
+  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  AbiType convert() const
+  {
+    return mConverter.convert();
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>& x)
+    : mConverter(std::move(x))
+  {
+  }
+  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>&& x)
+    : mConverter(std::move(x))
+  {
+  }
+
+  operator AbiType() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>&>
+{
+  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  AbiType convert() const
+  {
+    return mConverter.convert();
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>& x)
+    : mConverter(&x)
+  {
+  }
+
+  operator AbiType() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>&&>
+{
+  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  AbiType convert() const
+  {
+    return mConverter.convert();
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>&& x)
+    : mConverter(std::move(x))
+  {
+  }
+
+  operator AbiType() const
+  {
+    return convert();
+  }
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename R, typename... Args>
-struct __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>> : __zz_cib_AbiTypeToStdFunc<R, Args...>
+class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>>
 {
-  using __zz_cib_AbiTypeToStdFunc<R, Args...>::__zz_cib_AbiTypeToStdFunc;
+  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
+  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  StdFunc convert()
+  {
+    return mConverter.getObj();
+  }
+
+public:
+  __zz_cib_AbiTypeToLibraryType(AbiType x)
+    : mConverter(*x)
+  {
+  }
+
+  operator StdFunc()
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&>
+{
+  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
+  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  StdFunc& convert()
+  {
+    return mConverter.getRef();
+  }
+
+public:
+  __zz_cib_AbiTypeToLibraryType(AbiType x)
+    : mConverter(x)
+  {
+  }
+
+  operator StdFunc&() const
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&&>
+{
+  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
+  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
+  using AbiType   = typename Converter::AbiType;
+
+  Converter mConverter;
+
+public:
+  StdFunc convert()
+  {
+    return mConverter.getObj();
+  }
+
+public:
+  __zz_cib_AbiTypeToLibraryType(AbiType x)
+    : mConverter(*x)
+  {
+  }
+
+  operator StdFunc()
+  {
+    return convert();
+  }
 };
 
 } // namespace __zz_cib_

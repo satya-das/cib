@@ -249,11 +249,39 @@ struct __zz_cib_Helper<::T> : public __zz_cib_MethodTableHelper {
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto passStdFunctionByValue(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType, _Args...);
+  static auto passStdFunctionByValue(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::passStdFunctionByValue>(
       __zz_cib_obj,
       __zz_cib_args...);
+  }
+  template <typename _RT, typename ..._Args>
+  static auto passStdFunctionByRValueRef(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::passStdFunctionByRValueRef>(
+      __zz_cib_obj,
+      __zz_cib_args...);
+  }
+  template <typename _RT>
+  static auto invokeSavedCallbackPassedByValue(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::invokeSavedCallbackPassedByValue>(
+      __zz_cib_obj
+      );
+  }
+  template <typename _RT>
+  static auto invokeSavedCallbackPassedByRValueRef(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::invokeSavedCallbackPassedByRValueRef>(
+      __zz_cib_obj
+      );
+  }
+  template <typename _RT>
+  static auto getCallback(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getCallback>(
+      __zz_cib_obj
+      );
   }
   static ::T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
     return new ::T(h);

@@ -80,9 +80,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
     __zz_cib_delete = 1,
     //#= T();
     __zz_cib_new = 2,
-    //#= int passStdFunctionByValue(TestCallback) const;
+    //#= int passStdFunctionByValue(TestCallback);
     passStdFunctionByValue = 3,
-    __zz_cib_next_method_id = 4
+    //#= int passStdFunctionByRValueRef(TestCallback&&);
+    passStdFunctionByRValueRef = 4,
+    //#= int invokeSavedCallbackPassedByValue() const;
+    invokeSavedCallbackPassedByValue = 5,
+    //#= int invokeSavedCallbackPassedByRValueRef() const;
+    invokeSavedCallbackPassedByRValueRef = 6,
+    //#= TestCallback getCallback() const;
+    getCallback = 7,
+    __zz_cib_next_method_id = 8
   };
 }}}
 
