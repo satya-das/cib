@@ -15,24 +15,24 @@ namespace __zz_cib_ {
 template <typename R, typename... Args>
 class __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>>
 {
-  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = const AbiFunctor*;
 
-  Converter mConverter;
+  const AbiFunctor mAbiFunctor;
 
 public:
   AbiType convert() const
   {
-    return mConverter.convert();
+    return &mAbiFunctor;
   }
 
 public:
   __zz_cib_ClientTypeToAbiType(std::function<R(Args...)>& x)
-    : mConverter(std::move(x))
+    : mAbiFunctor(toAbiFunctor(x))
   {
   }
   __zz_cib_ClientTypeToAbiType(std::function<R(Args...)>&& x)
-    : mConverter(std::move(x))
+    : mAbiFunctor(toAbiFunctor(x))
   {
   }
 
@@ -45,24 +45,36 @@ public:
 template <typename R, typename... Args>
 class __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>&>
 {
-  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = AbiFunctor*;
 
-  Converter mConverter;
+  AbiFunctor                 mAbiFunctor;
+  std::function<R(Args...)>& mOrigParam;
 
 public:
-  AbiType convert() const
+  AbiType convert()
   {
-    return mConverter.convert();
+    return &mAbiFunctor;
   }
 
 public:
   __zz_cib_ClientTypeToAbiType(std::function<R(Args...)>& x)
-    : mConverter(&x)
+    : mAbiFunctor(toAbiFunctor(&x))
+    , mOrigParam(x)
   {
   }
 
-  operator AbiType() const
+  ~__zz_cib_ClientTypeToAbiType()
+  {
+    if (AbiFunctor_getStdFunc(mAbiFunctor) == &mOrigParam)
+      return;
+    if (mAbiFunctor.proc == nullptr)
+      mOrigParam = nullptr;
+    else
+      mOrigParam = fromAbiFunctor(mAbiFunctor);
+  }
+
+  operator AbiType()
   {
     return convert();
   }
@@ -71,20 +83,20 @@ public:
 template <typename R, typename... Args>
 class __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>&&>
 {
-  using Converter = __zz_cib_StdFuncToAbiType<R, Args...>;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = const AbiFunctor*;
 
-  Converter mConverter;
+  const AbiFunctor mAbiFunctor;
 
 public:
   AbiType convert() const
   {
-    return mConverter.convert();
+    return &mAbiFunctor;
   }
 
 public:
   __zz_cib_ClientTypeToAbiType(std::function<R(Args...)>&& x)
-    : mConverter(std::move(x))
+    : mAbiFunctor(toAbiFunctor(x))
   {
   }
 
@@ -99,81 +111,74 @@ public:
 template <typename R, typename... Args>
 class __zz_cib_AbiTypeToClientType<std::function<R(Args...)>>
 {
-  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
-  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = const AbiFunctor*;
 
-  Converter mConverter;
-
-public:
-  StdFunc convert()
-  {
-    return mConverter.getObj();
-  }
+  const AbiFunctor* mAbiFunctor;
 
 public:
   __zz_cib_AbiTypeToClientType(AbiType x)
-    : mConverter(*x)
+    : mAbiFunctor(x)
   {
   }
 
-  operator StdFunc()
+  operator std::function<R(Args...)>() const
   {
-    return convert();
+    return fromAbiFunctor(*mAbiFunctor);
   }
 };
 
 template <typename R, typename... Args>
 class __zz_cib_AbiTypeToClientType<std::function<R(Args...)>&>
 {
-  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
-  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = AbiFunctor*;
 
-  Converter mConverter;
-
-public:
-  StdFunc& convert()
-  {
-    return mConverter.getRef();
-  }
+  AbiFunctor*               mAbiFunctor;
+  std::function<R(Args...)> mStdFunc;
 
 public:
   __zz_cib_AbiTypeToClientType(AbiType x)
-    : mConverter(x)
+    : mAbiFunctor(x)
+    , mStdFunc(fromAbiFunctor(mAbiFunctor))
   {
+    // It is used to detect change in stored callable object inside destructor.
+    // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
   }
 
-  operator StdFunc&() const
+  ~__zz_cib_AbiTypeToClientType()
   {
-    return convert();
+    // const isStdFuncUnchanged = (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr);
+    // if (isStdFuncUnchanged)
+    //   return;
+    *mAbiFunctor = toAbiFunctor(mStdFunc);
+  }
+
+  operator std::function<R(Args...)>&()
+  {
+    return mStdFunc;
   }
 };
 
 template <typename R, typename... Args>
 class __zz_cib_AbiTypeToClientType<std::function<R(Args...)>&&>
 {
-  using Converter = __zz_cib_AbiTypeToStdFunc<R, Args...>;
-  using StdFunc   = typename __zz_cib_StdFuncToAbiType<R, Args...>::StdFunc;
-  using AbiType   = typename Converter::AbiType;
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = const AbiFunctor*;
 
-  Converter mConverter;
-
-public:
-  StdFunc convert()
-  {
-    return mConverter.getObj();
-  }
+  const AbiFunctor* mAbiFunctor;
 
 public:
   __zz_cib_AbiTypeToClientType(AbiType x)
-    : mConverter(*x)
+    : mAbiFunctor(x)
   {
   }
 
-  operator StdFunc()
+  operator std::function<R(Args...)>() const
   {
-    return convert();
+    if (mAbiFunctor->proc == nullptr)
+      return nullptr;
+    return __zz_cib_SmartFunctor<R, Args...>(*mAbiFunctor);
   }
 };
 
