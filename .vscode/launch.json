@@ -1303,6 +1303,24 @@
             ]
         },
         {
+            "name": "120-proxy-object-reuse",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/120-proxy-object-reuse",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Draw",
             "type": "cppdbg",
             "request": "launch",
