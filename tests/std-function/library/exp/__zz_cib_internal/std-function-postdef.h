@@ -262,6 +262,13 @@ struct __zz_cib_Helper<::T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj,
       __zz_cib_args...);
   }
+  template <typename _RT, typename ..._Args>
+  static auto passStdFunctionByRef(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::passStdFunctionByRef>(
+      __zz_cib_obj,
+      __zz_cib_args...);
+  }
   template <typename _RT>
   static auto invokeSavedCallbackPassedByValue(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);

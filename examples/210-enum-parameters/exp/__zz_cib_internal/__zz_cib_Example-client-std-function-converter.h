@@ -66,7 +66,7 @@ public:
 
   ~__zz_cib_ClientTypeToAbiType()
   {
-    if (AbiFunctor_getStdFunc(mAbiFunctor) == &mOrigParam)
+    if (AbiFunctor_getStdFunc(&mAbiFunctor) == &mOrigParam)
       return;
     if (mAbiFunctor.proc == nullptr)
       mOrigParam = nullptr;

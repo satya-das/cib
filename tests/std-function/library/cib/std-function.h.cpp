@@ -144,6 +144,11 @@ struct __zz_cib_Delegator<::T> : public ::T {
       )
     );
   }
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl passStdFunctionByRef(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<TestCallback&> callback) {
+    __zz_cib_obj->::T::passStdFunctionByRef(
+      __zz_cib_::__zz_cib_FromAbiType<TestCallback&>(callback)
+    );
+  }
   static __zz_cib_RValueAbiType_t<int> __zz_cib_decl invokeSavedCallbackPassedByValue(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::T::invokeSavedCallbackPassedByValue()
@@ -171,11 +176,12 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::__zz_cib_new),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::passStdFunctionByValue),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::passStdFunctionByRValueRef),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::passStdFunctionByRef),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::invokeSavedCallbackPassedByValue),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::invokeSavedCallbackPassedByRValueRef),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::T>::getCallback)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 9 };
   return &methodTable;
 }
 }}

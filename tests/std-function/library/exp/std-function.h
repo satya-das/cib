@@ -56,6 +56,7 @@ public:
   T();
   int passStdFunctionByValue(TestCallback callback);
   int passStdFunctionByRValueRef(TestCallback&& callback);
+  void passStdFunctionByRef(TestCallback& callback);
   int invokeSavedCallbackPassedByValue() const;
   int invokeSavedCallbackPassedByRValueRef() const;
   TestCallback getCallback() const;

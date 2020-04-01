@@ -154,6 +154,13 @@ int T::passStdFunctionByRValueRef(TestCallback&& callback) {
   );
 }
 
+void T::passStdFunctionByRef(TestCallback& callback) {
+  __zz_cib_MyHelper::passStdFunctionByRef<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+    __zz_cib_::__zz_cib_ToAbiType<TestCallback&>(callback)
+  );
+}
+
 int T::invokeSavedCallbackPassedByValue() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::invokeSavedCallbackPassedByValue<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(

@@ -140,7 +140,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&>
 public:
   __zz_cib_AbiTypeToLibraryType(AbiType x)
     : mAbiFunctor(x)
-    , mStdFunc(fromAbiFunctor(mAbiFunctor))
+    , mStdFunc(fromAbiFunctor(*mAbiFunctor))
   {
     // It is used to detect change in stored callable object inside destructor.
     // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
