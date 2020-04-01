@@ -56,6 +56,12 @@ public:
     };
   }
 
+  void passStdFunctionByPtr(TestCallback* callback) {
+    *callback = [](B b, C c) {
+      return A(b.f() + c.f());
+    };
+  }
+
   int invokeSavedCallbackPassedByValue() const {
     return invokeCallback(savedCallbackPassedByValue);
   }

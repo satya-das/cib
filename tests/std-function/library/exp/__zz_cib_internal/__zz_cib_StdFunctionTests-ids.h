@@ -86,13 +86,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
     passStdFunctionByRValueRef = 4,
     //#= void passStdFunctionByRef(TestCallback&);
     passStdFunctionByRef = 5,
+    //#= void passStdFunctionByPtr(TestCallback*);
+    passStdFunctionByPtr = 6,
     //#= int invokeSavedCallbackPassedByValue() const;
-    invokeSavedCallbackPassedByValue = 6,
+    invokeSavedCallbackPassedByValue = 7,
     //#= int invokeSavedCallbackPassedByRValueRef() const;
-    invokeSavedCallbackPassedByRValueRef = 7,
+    invokeSavedCallbackPassedByRValueRef = 8,
     //#= TestCallback getCallback() const;
-    getCallback = 8,
-    __zz_cib_next_method_id = 9
+    getCallback = 9,
+    __zz_cib_next_method_id = 10
   };
 }}}
 

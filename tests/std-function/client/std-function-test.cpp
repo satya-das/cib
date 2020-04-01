@@ -34,10 +34,24 @@ TEST_CASE("Pass callback by reference")
 
   TestCallback callback;
   t.passStdFunctionByRef(callback);
+  CHECK(callback != nullptr);
 
   B b(2);
   C c(100);
   CHECK(callback(b, c).f() == 200);
+}
+
+TEST_CASE("Pass callback by pointer")
+{
+  T t;
+
+  TestCallback callback;
+  t.passStdFunctionByPtr(&callback);
+  CHECK(callback != nullptr);
+
+  B b(2);
+  C c(100);
+  CHECK(callback(b, c).f() == 102);
 }
 
 TEST_CASE("Return callback by value")

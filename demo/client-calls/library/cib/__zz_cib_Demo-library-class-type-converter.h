@@ -83,7 +83,7 @@ public:
 };
 
 template <typename _T>
-class __zz_cib_AbiTypeToLibraryType<_T*, std::enable_if_t<std::is_class_v<_T>, void>>
+class __zz_cib_AbiTypeToLibraryType<_T*, std::enable_if_t<__zz_cib_IsPlainType_v<_T>, void>>
 {
   static_assert(std::is_same_v<_T*, __zz_cib_AbiType_t<_T*>>);
 
