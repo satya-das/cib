@@ -46,7 +46,6 @@ public:
   void convert() const {}
 
   __zz_cib_LibraryTypeToAbiType(void) {}
-  operator void() const {}
 };
 
 template <typename _T, int _N>

@@ -45,7 +45,6 @@ public:
   void convert() const {}
 
   __zz_cib_ClientTypeToAbiType(void) {}
-  operator void() const {}
 };
 
 template <typename _T>
