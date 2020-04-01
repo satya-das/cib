@@ -324,10 +324,7 @@ public:
                     const CibParams& cibParams,
                     FuncProtoPurpose purpose,
                     CppIndent        indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream&    stm,
-                          const CibHelper& helper,
-                          bool             forGenericProxy,
-                          CppIndent        indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CibHelper& helper, CppIndent indentation = CppIndent()) const;
 
 private:
   static std::string modifyName(const std::string& funcname);

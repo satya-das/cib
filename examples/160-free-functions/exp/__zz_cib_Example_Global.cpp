@@ -38,16 +38,16 @@ static __zz_cib_Helper& instance() {
 }}
 
 int GlobalFunction1() {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );
 }
 
 int GlobalFunction2() {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );

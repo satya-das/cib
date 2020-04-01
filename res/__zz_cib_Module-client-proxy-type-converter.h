@@ -143,12 +143,12 @@ public:
   {
   }
 
-  _T&& convert() const
+  _T convert() const
   {
     return __zz_cib_Helper<std::remove_cv_t<_T>>::__zz_cib_obj_from_handle(m);
   }
 
-  operator _T &&() const
+  operator _T() const
   {
     return convert();
   }

@@ -41,24 +41,24 @@ Example::Outer::Inner::A::A()
   {}
 
 ::Example::Int Example::Outer::Inner::A::i() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(
-    __zz_cib_MyHelper::i<__zz_cib_::__zz_cib_AbiType_t<::Example::Int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Int>(
+    __zz_cib_MyHelper::i<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 ::Example::Outer::Inner::Float Example::Outer::Inner::A::f() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::Outer::Inner::Float>(
-    __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_AbiType_t<::Example::Outer::Inner::Float>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Outer::Inner::Float>(
+    __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Outer::Inner::Float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 std::unique_ptr<Int> Example::Outer::Inner::A::pi() const {
-  return __zz_cib_::__zz_cib_FromAbiType<std::unique_ptr<Int>>(
-    __zz_cib_MyHelper::pi<__zz_cib_::__zz_cib_AbiType_t<std::unique_ptr<Int>>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<std::unique_ptr<Int>>(
+    __zz_cib_MyHelper::pi<__zz_cib_::__zz_cib_RValueAbiType_t<std::unique_ptr<Int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

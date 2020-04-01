@@ -84,25 +84,25 @@ template <typename R, typename... Args>
 class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
-  using AbiType    = const AbiFunctor*;
+  using AbiType    = AbiFunctor;
 
-  const AbiFunctor mAbiFunctor;
+  AbiFunctor mAbiFunctor;
 
 public:
-  AbiType convert() const
+  AbiFunctor convert()
   {
-    return &mAbiFunctor;
+    return std::move(mAbiFunctor);
   }
 
 public:
   __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>&& x)
-    : mAbiFunctor(toAbiFunctor(std::move(x)))
+    : mAbiFunctor(toAbiFunctor(x))
   {
   }
 
-  operator AbiType() const
+  operator AbiFunctor()
   {
-    return convert();
+    return std::move(mAbiFunctor);
   }
 };
 
@@ -148,8 +148,7 @@ public:
 
   ~__zz_cib_AbiTypeToLibraryType()
   {
-    // using SmartFunctor = __zz_cib_SmartFunctor<R, Args...>;
-    // const bool isStdFuncUnchanged = (mStdFunc.target<SmartFunctor>() != nullptr);
+    // const isStdFuncUnchanged = (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr);
     // if (isStdFuncUnchanged)
     //   return;
     *mAbiFunctor = toAbiFunctor(mStdFunc);
@@ -165,21 +164,25 @@ template <typename R, typename... Args>
 class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
-  using AbiType    = const AbiFunctor*;
+  using AbiType    = AbiFunctor;
 
-  const AbiFunctor* mAbiFunctor;
+  AbiFunctor mAbiFunctor;
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiType x)
-    : mAbiFunctor(x)
+  __zz_cib_AbiTypeToLibraryType(AbiFunctor&& x)
+    : mAbiFunctor(std::move(x))
+  {
+  }
+  __zz_cib_AbiTypeToLibraryType(AbiFunctor x)
+    : mAbiFunctor(std::move(x))
   {
   }
 
   operator std::function<R(Args...)>() const
   {
-    if (mAbiFunctor->proc == nullptr)
+    if (mAbiFunctor.proc == nullptr)
       return nullptr;
-    return __zz_cib_SmartFunctor<R, Args...>(*mAbiFunctor);
+    return __zz_cib_SmartFunctor<R, Args...>(mAbiFunctor);
   }
 };
 

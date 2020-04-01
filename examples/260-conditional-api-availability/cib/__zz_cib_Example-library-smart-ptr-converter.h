@@ -14,19 +14,54 @@ class __zz_cib_LibraryTypeToAbiType<_T, std::enable_if_t<__zz_cib_IsSmartPtr_v<_
 {
   _T& m;
 
+  using AbiType = decltype(__zz_cib_LibraryTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert());
+
 public:
   auto convert() const
   {
-    return __zz_cib_release(m);
+    return __zz_cib_LibraryTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert();
   }
 
 public:
+  __zz_cib_LibraryTypeToAbiType(_T& x)
+    : m(x)
+  {
+  }
   __zz_cib_LibraryTypeToAbiType(_T&& x)
     : m(x)
   {
   }
 
-  operator decltype(((__zz_cib_LibraryTypeToAbiType<_T>*) (nullptr))->convert())() const
+  operator AbiType() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
+class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<_T>, void>>
+{
+  _T m;
+
+  using AbiType = decltype(__zz_cib_LibraryTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert());
+
+public:
+  auto convert()
+  {
+    return __zz_cib_LibraryTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert();
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(_T& x)
+    : m(std::move(x))
+  {
+  }
+  __zz_cib_LibraryTypeToAbiType(_T&& x)
+    : m(std::move(x))
+  {
+  }
+
+  operator AbiType()
   {
     return convert();
   }
@@ -36,6 +71,23 @@ public:
 
 template <typename _T>
 class __zz_cib_AbiTypeToLibraryType<_T, std::enable_if_t<__zz_cib_IsSmartPtr_v<_T>, void>>
+{
+  __zz_cib_AbiType_t<_T> m;
+
+public:
+  __zz_cib_AbiTypeToLibraryType(__zz_cib_AbiType_t<_T> x)
+    : m(x)
+  {
+  }
+
+  operator _T() const
+  {
+    return __zz_cib_attach<_T>(__zz_cib_AbiTypeToLibraryType<__zz_cib_SmartPtrUnderlyingType_t<_T>>(m).convert());
+  }
+};
+
+template <typename _T>
+class __zz_cib_AbiTypeToLibraryType<_T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<_T>, void>>
 {
   __zz_cib_AbiType_t<_T> m;
 

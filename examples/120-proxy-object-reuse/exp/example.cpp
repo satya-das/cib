@@ -60,15 +60,15 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 void B::SetA(A* pA) {
-  __zz_cib_MyHelper::SetA<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::SetA<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<A*>(pA)
   );
 }
 
 ::A* B::GetA() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::A*>(
-    __zz_cib_MyHelper::GetA<__zz_cib_::__zz_cib_AbiType_t<::A*>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::A*>(
+    __zz_cib_MyHelper::GetA<__zz_cib_::__zz_cib_RValueAbiType_t<::A*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

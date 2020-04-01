@@ -12,10 +12,11 @@ template <>
 struct __zz_cib_Delegator<::NonPod1> : public ::NonPod1 {
   using __zz_cib_Delegatee = ::NonPod1;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::NonPod1* __zz_cib_decl __zz_cib_new() {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static ::NonPod1* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -41,10 +42,11 @@ template <>
 struct __zz_cib_Delegator<::NonPod2> : public ::NonPod2 {
   using __zz_cib_Delegatee = ::NonPod2;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::NonPod2* __zz_cib_decl __zz_cib_new() {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static ::NonPod2* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -70,10 +72,11 @@ template <>
 struct __zz_cib_Delegator<::NonPod3> : public ::NonPod3 {
   using __zz_cib_Delegatee = ::NonPod3;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::NonPod3* __zz_cib_decl __zz_cib_new() {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static ::NonPod3* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -99,36 +102,37 @@ template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = ::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl setPod(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod&> p) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl setPod(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod&> p) {
     __zz_cib_obj->::A::setPod(
       __zz_cib_::__zz_cib_FromAbiType<Pod&>(p)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl setPod_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod*> p) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl setPod_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<Pod*> p) {
     __zz_cib_obj->::A::setPod(
       __zz_cib_::__zz_cib_FromAbiType<Pod*>(p)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod1(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod1&> n) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl setNonPod1(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod1&> n) {
     __zz_cib_obj->::A::setNonPod1(
       __zz_cib_::__zz_cib_FromAbiType<NonPod1&>(n)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod2(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod2&> n) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl setNonPod2(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod2&> n) {
     __zz_cib_obj->::A::setNonPod2(
       __zz_cib_::__zz_cib_FromAbiType<NonPod2&>(n)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod3&> n) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl setNonPod3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<NonPod3&> n) {
     __zz_cib_obj->::A::setNonPod3(
       __zz_cib_::__zz_cib_FromAbiType<NonPod3&>(n)
     );

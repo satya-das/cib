@@ -35,8 +35,8 @@ Example::A::A()
   {}
 
 ::Example::A& Example::A::operator <<(int x) {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::A&>(
-    __zz_cib_MyHelper::__zz_cib_OperatorLShift<__zz_cib_::__zz_cib_AbiType_t<::Example::A&>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::A&>(
+    __zz_cib_MyHelper::__zz_cib_OperatorLShift<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::A&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<int>(x)
     )
@@ -44,8 +44,8 @@ Example::A::A()
 }
 
 ::Example::A& Example::A::operator >>(int& x) {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::A&>(
-    __zz_cib_MyHelper::__zz_cib_OperatorRShift<__zz_cib_::__zz_cib_AbiType_t<::Example::A&>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::A&>(
+    __zz_cib_MyHelper::__zz_cib_OperatorRShift<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::A&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<int&>(x)
     )

@@ -274,12 +274,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
                                      const std::string& capiName,
                                      FuncProtoPurpose   purpose) const
 {
-  if (isConstructor())
-    stm << callingOwner->longName() << "*";
-  else if (isDestructor())
-    stm << "void";
-  else
-    emitType(stm, returnType(), purpose, helper);
+  emitCAPIReturnType(stm, helper);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
   if ((purpose != kPurposeSignature) && isConstructor() && callingOwner->needsGenericProxyDefinition())
@@ -387,7 +382,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   {
     if (!isVoid(returnType()))
     {
-      stm << ++indentation << "return __zz_cib_ToAbiType<";
+      stm << ++indentation << "return __zz_cib_ToRValueAbiType<";
       emitType(stm, returnType(), kPurposeSignature, helper);
       stm << ">(\n";
     }
@@ -518,7 +513,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     stm << indentation;
     if (returnType() && !isVoid(returnType()))
     {
-      stm << ++indentation << "return __zz_cib_::__zz_cib_FromAbiType<";
+      stm << ++indentation << "return __zz_cib_::__zz_cib_FromRValueAbiType<";
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">(\n";
     }
@@ -540,7 +535,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     stm << capiName;
     if (!isDestructor())
     {
-      stm << "<__zz_cib_::__zz_cib_AbiType_t<";
+      stm << "<__zz_cib_::__zz_cib_RValueAbiType_t<";
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">>";
     }
@@ -657,7 +652,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   }
   else
   {
-    emitCAPIReturnType(stm, helper, false);
+    emitCAPIReturnType(stm, helper);
   }
 
   stm << "(__zz_cib_decl *) (";
@@ -695,7 +690,6 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
 
 void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
                                            const CibHelper& helper,
-                                           bool             forGenericProxy,
                                            CppIndent        indentation /* = CppIndent */) const
 {
   stm << indentation;
@@ -704,7 +698,11 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
   else if (isDestructor())
     stm << "void";
   else
-    emitType(stm, returnType(), forGenericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType, helper);
+  {
+    stm << "__zz_cib_RValueAbiType_t<";
+    emitType(stm, returnType(), kPurposeSignature, helper);
+    stm << '>';
+  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2470,6 +2468,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << " {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
     stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
+    stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n";
     if (needsGenericProxyDefinition())
       stm << indentation << "using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;\n";
   }

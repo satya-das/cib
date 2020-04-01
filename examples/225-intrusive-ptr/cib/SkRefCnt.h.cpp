@@ -27,7 +27,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   void internal_dispose() const override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<void>(__zz_cib_decl *) (const __zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose>(
       __zz_cib_h_
     );
@@ -57,20 +57,21 @@ template <>
 struct __zz_cib_Delegator<::SkRefCntBase> : public ::SkRefCntBase {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::SkRefCntBase>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::SkRefCntBase* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::SkRefCntBase>(proxy, mtbl);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl ref(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl ref(const __zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::SkRefCntBase::ref();
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl unref(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl unref(const __zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::SkRefCntBase::unref();
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl internal_dispose(const __zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::SkRefCntBase::internal_dispose();
   }
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_cib_obj) {

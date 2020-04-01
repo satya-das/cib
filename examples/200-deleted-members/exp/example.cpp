@@ -27,8 +27,8 @@ A::A()
   {}
 
 int A::f() {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -58,8 +58,8 @@ B::B()
   {}
 
 int B::g() {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_MyHelper::g<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_MyHelper::g<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

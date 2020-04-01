@@ -31,7 +31,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int VirtualFunction() const override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtualFunction>(
         __zz_cib_h_
@@ -63,15 +63,16 @@ template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::A* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl);
   }
-  static ::A* __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl, *__zz_cib_obj);
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl VirtualFunction(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl VirtualFunction(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::A::VirtualFunction()
     );
   }
@@ -135,7 +136,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int VirtualFunction() const override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtualFunction>(
         __zz_cib_h_
@@ -167,15 +168,16 @@ template <>
 struct __zz_cib_Delegator<::B> : public ::B {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::B>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::B* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::B>(proxy, mtbl);
   }
-  static ::B* __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::B>(proxy, mtbl, *__zz_cib_obj);
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl VirtualFunction(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl VirtualFunction(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::B::VirtualFunction()
     );
   }

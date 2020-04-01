@@ -112,8 +112,8 @@ A::A()
   {}
 
 int A::SetInterface(Interface1* pInterface1) const {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_MyHelper::SetInterface<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_MyHelper::SetInterface<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<Interface1*>(pInterface1)
     )
@@ -124,13 +124,13 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface1> {
   using __zz_cib_Delegatee = ::Interface1;
-  static __zz_cib_AbiType_t<Interface3&> __zz_cib_decl r(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Interface3&>(
+  static __zz_cib_RValueAbiType_t<Interface3&> __zz_cib_decl r(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Interface3&>(
       __zz_cib_obj->r()
     );
   }
-  static __zz_cib_AbiType_t<Interface2*> __zz_cib_decl p(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Interface2*>(
+  static __zz_cib_RValueAbiType_t<Interface2*> __zz_cib_decl p(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Interface2*>(
       __zz_cib_obj->p()
     );
   }
@@ -177,7 +177,7 @@ public:
     return new __zz_cib_Generic(h);
   }
   int f() override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f>(
         __zz_cib_h_
@@ -199,8 +199,8 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface2> {
   using __zz_cib_Delegatee = ::Interface2;
-  static __zz_cib_AbiType_t<int> __zz_cib_decl f(::Interface2* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f(::Interface2* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->f()
     );
   }
@@ -246,7 +246,7 @@ public:
     return new __zz_cib_Generic(h);
   }
   int g() override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g>(
         __zz_cib_h_
@@ -268,8 +268,8 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface3> {
   using __zz_cib_Delegatee = ::Interface3;
-  static __zz_cib_AbiType_t<int> __zz_cib_decl g(::Interface3* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl g(::Interface3* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->g()
     );
   }

@@ -279,17 +279,18 @@ template <>
 struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   using __zz_cib_Delegatee = ::Example::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::Example::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl SomeFunc(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::Example::A::SomeFunc()
     );
   }
@@ -651,8 +652,8 @@ Example::A::A()
   {}
 
 int Example::A::SomeFunc() {
-  return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_MyHelper::SomeFunc<__zz_cib_::__zz_cib_AbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_MyHelper::SomeFunc<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

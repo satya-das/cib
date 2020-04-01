@@ -74,7 +74,7 @@ public:
 };
 
 template <typename _T>
-class __zz_cib_LibraryTypeToAbiType<_T&, std::enable_if_t<!__zz_cib_IsSmartPtr_v<_T>, void>>
+class __zz_cib_LibraryTypeToAbiType<_T&, std::enable_if_t<__zz_cib_IsPlainType_v<_T>, void>>
 {
   _T& m;
 
@@ -97,13 +97,60 @@ public:
 };
 
 template <typename _T>
+class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<!std::is_class_v<_T>, void>>
+{
+  _T m;
+
+public:
+  _T convert()
+  {
+    return std::move(m);
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(_T x)
+    : m(std::move(x))
+  {
+  }
+
+  operator _T()
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
 auto __zz_cib_ToAbiType(__zz_cib_LibraryTypeToAbiType<_T> obj)
 {
   return obj.convert();
 }
 
 template <typename _T>
+struct __zz_cib_RValueRef : std::add_rvalue_reference<_T>
+{
+};
+
+template <typename _T>
+struct __zz_cib_RValueRef<_T*>
+{
+  using type = _T*;
+};
+
+template <typename _T>
+using __zz_cib_RValueRef_t = typename __zz_cib_RValueRef<_T>::type;
+
+template <typename _T>
 using __zz_cib_AbiType_t = decltype((static_cast<__zz_cib_LibraryTypeToAbiType<_T>*>(nullptr))->convert());
+
+template <typename _T>
+auto __zz_cib_ToRValueAbiType(__zz_cib_LibraryTypeToAbiType<__zz_cib_RValueRef_t<_T>> obj)
+{
+  return obj.convert();
+}
+
+template <typename _T>
+using __zz_cib_RValueAbiType_t =
+  decltype((static_cast<__zz_cib_LibraryTypeToAbiType<__zz_cib_RValueRef_t<_T>>*>(nullptr))->convert());
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -209,6 +256,12 @@ template <typename _T>
 auto __zz_cib_FromAbiType(__zz_cib_AbiType_t<_T> obj)
 {
   return __zz_cib_AbiTypeToLibraryType<_T>(obj);
+}
+
+template <typename _T>
+auto __zz_cib_FromRValueAbiType(__zz_cib_RValueAbiType_t<_T> obj)
+{
+  return __zz_cib_AbiTypeToLibraryType<__zz_cib_RValueRef_t<_T>>(obj);
 }
 
 } // namespace __zz_cib_

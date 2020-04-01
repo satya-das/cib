@@ -13,24 +13,25 @@ template <>
 struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   using __zz_cib_Delegatee = ::Example::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::Example::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::Example::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<A&> __zz_cib_decl __zz_cib_OperatorLShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
-    return __zz_cib_ToAbiType<A&>(
+  static __zz_cib_RValueAbiType_t<A&> __zz_cib_decl __zz_cib_OperatorLShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
+    return __zz_cib_ToRValueAbiType<A&>(
       __zz_cib_obj->::Example::A::operator <<(
         __zz_cib_::__zz_cib_FromAbiType<int>(x)
       )
     );
   }
-  static __zz_cib_AbiType_t<A&> __zz_cib_decl __zz_cib_OperatorRShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int&> x) {
-    return __zz_cib_ToAbiType<A&>(
+  static __zz_cib_RValueAbiType_t<A&> __zz_cib_decl __zz_cib_OperatorRShift(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int&> x) {
+    return __zz_cib_ToRValueAbiType<A&>(
       __zz_cib_obj->::Example::A::operator >>(
         __zz_cib_::__zz_cib_FromAbiType<int&>(x)
       )

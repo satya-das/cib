@@ -26,7 +26,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   void F() override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
       __zz_cib_h_
     );
@@ -56,11 +56,12 @@ template <>
 struct __zz_cib_Delegator<::Facade> : public ::Facade {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Facade>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::Facade* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::Facade>(proxy, mtbl);
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->F();
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -122,7 +123,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   void F() override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
       __zz_cib_h_
     );
@@ -145,17 +146,18 @@ template <>
 struct __zz_cib_Delegator<::PublicFacadeImpl> : public ::PublicFacadeImpl {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::PublicFacadeImpl>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::PublicFacadeImpl>(proxy, mtbl, *__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::PublicFacadeImpl>(proxy, mtbl);
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::PublicFacadeImpl::F();
   }
   static ::Facade* __zz_cib_decl __zz_cib_cast_to___zz_cib_Class257(::PublicFacadeImpl* __zz_cib_obj) {
@@ -191,27 +193,28 @@ template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = ::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<Facade*> __zz_cib_decl PublicFacade(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Facade*>(
+  static __zz_cib_RValueAbiType_t<Facade*> __zz_cib_decl PublicFacade(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Facade*>(
       __zz_cib_obj->::A::PublicFacade()
     );
   }
-  static __zz_cib_AbiType_t<Facade*> __zz_cib_decl PrivateFacade1(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Facade*>(
+  static __zz_cib_RValueAbiType_t<Facade*> __zz_cib_decl PrivateFacade1(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Facade*>(
       __zz_cib_obj->::A::PrivateFacade1()
     );
   }
-  static __zz_cib_AbiType_t<Facade*> __zz_cib_decl PrivateFacade2(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Facade*>(
+  static __zz_cib_RValueAbiType_t<Facade*> __zz_cib_decl PrivateFacade2(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Facade*>(
       __zz_cib_obj->::A::PrivateFacade2()
     );
   }

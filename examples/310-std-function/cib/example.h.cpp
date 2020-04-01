@@ -24,7 +24,7 @@ public:
     , __zz_cib_mtbl_helper(mtbl)
   {}
   int value() const override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::value>(
         __zz_cib_h_
@@ -56,18 +56,19 @@ template <>
 struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::C>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static ::C* __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::C>(proxy, mtbl, *__zz_cib_obj);
   }
-  static ::C* __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, __zz_cib_AbiType_t<int> x) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, __zz_cib_AbiType_t<int> x) {
     return new __zz_cib_::__zz_cib_Generic<::C>(proxy, mtbl,     __zz_cib_::__zz_cib_FromAbiType<int>(x));
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl value(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl value(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::C::value()
     );
   }
@@ -96,31 +97,32 @@ template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = ::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int()>> callback) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int()>> callback) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::A::f(
         __zz_cib_::__zz_cib_FromAbiType<std::function<int()>>(callback)
       )
     );
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const std::function<int()>&> callback) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const std::function<int()>&> callback) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::A::g(
         __zz_cib_::__zz_cib_FromAbiType<const std::function<int()>&>(callback)
       )
     );
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int(C)>> callback) {
-    return __zz_cib_ToAbiType<int>(
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl h(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<std::function<int(C)>> callback) {
+    return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::A::h(
         __zz_cib_::__zz_cib_FromAbiType<std::function<int(C)>>(callback)
       )

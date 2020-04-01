@@ -132,8 +132,8 @@ inline Value<float>::Value(float value)
   {}
 
 inline float Value<float>::get() const {
-  return __zz_cib_::__zz_cib_FromAbiType<float>(
-    __zz_cib_MyHelper::get<__zz_cib_::__zz_cib_AbiType_t<float>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<float>(
+    __zz_cib_MyHelper::get<__zz_cib_::__zz_cib_RValueAbiType_t<float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

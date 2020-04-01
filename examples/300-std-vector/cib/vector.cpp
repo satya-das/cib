@@ -14,143 +14,144 @@ template <>
 struct __zz_cib_Delegator<::std::vector<::C>> : public ::std::vector<::C> {
   using __zz_cib_Delegatee = ::std::vector<::C>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::std::vector<::C>* __zz_cib_decl __zz_cib_new() {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static ::std::vector<::C>* __zz_cib_decl __zz_cib_new_1(__zz_cib_AbiType_t<size_type> __n, __zz_cib_AbiType_t<const value_type&> __value) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_AbiType_t<size_type> __n, __zz_cib_AbiType_t<const value_type&> __value) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<size_type>(__n),
     __zz_cib_::__zz_cib_FromAbiType<const value_type&>(__value));
   }
-  static ::std::vector<::C>* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static ::std::vector<::C>* __zz_cib_decl __zz_cib_new_3(__zz_cib_AbiType_t<vector<::C>&&> __x) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_3(__zz_cib_AbiType_t<vector<::C>&&> __x) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<vector<::C>&&>(__x));
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType_t<vector<::C>&> __zz_cib_decl __zz_cib_OperatorEqual(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const vector<::C>&> __x) {
-    return __zz_cib_ToAbiType<vector<::C>&>(
+  static __zz_cib_RValueAbiType_t<vector<::C>&> __zz_cib_decl __zz_cib_OperatorEqual(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const vector<::C>&> __x) {
+    return __zz_cib_ToRValueAbiType<vector<::C>&>(
       __zz_cib_obj->::std::vector<::C>::operator=(
         __zz_cib_::__zz_cib_FromAbiType<const vector<::C>&>(__x)
       )
     );
   }
-  static __zz_cib_AbiType_t<vector<::C>&> __zz_cib_decl __zz_cib_OperatorEqual_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<vector<::C>&&> __x) {
-    return __zz_cib_ToAbiType<vector<::C>&>(
+  static __zz_cib_RValueAbiType_t<vector<::C>&> __zz_cib_decl __zz_cib_OperatorEqual_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<vector<::C>&&> __x) {
+    return __zz_cib_ToRValueAbiType<vector<::C>&>(
       __zz_cib_obj->::std::vector<::C>::operator=(
         __zz_cib_::__zz_cib_FromAbiType<vector<::C>&&>(__x)
       )
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl assign(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n, __zz_cib_AbiType_t<const value_type&> __val) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl assign(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n, __zz_cib_AbiType_t<const value_type&> __val) {
     __zz_cib_obj->::std::vector<::C>::assign(
       __zz_cib_::__zz_cib_FromAbiType<size_type>(__n),
       __zz_cib_::__zz_cib_FromAbiType<const value_type&>(__val)
     );
   }
-  static __zz_cib_AbiType_t<size_type> __zz_cib_decl size(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<size_type>(
+  static __zz_cib_RValueAbiType_t<size_type> __zz_cib_decl size(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<size_type>(
       __zz_cib_obj->::std::vector<::C>::size()
     );
   }
-  static __zz_cib_AbiType_t<size_type> __zz_cib_decl max_size(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<size_type>(
+  static __zz_cib_RValueAbiType_t<size_type> __zz_cib_decl max_size(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<size_type>(
       __zz_cib_obj->::std::vector<::C>::max_size()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl resize(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __new_size, __zz_cib_AbiType_t<const value_type&> __x) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl resize(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __new_size, __zz_cib_AbiType_t<const value_type&> __x) {
     __zz_cib_obj->::std::vector<::C>::resize(
       __zz_cib_::__zz_cib_FromAbiType<size_type>(__new_size),
       __zz_cib_::__zz_cib_FromAbiType<const value_type&>(__x)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl shrink_to_fit(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl shrink_to_fit(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::std::vector<::C>::shrink_to_fit();
   }
-  static __zz_cib_AbiType_t<size_type> __zz_cib_decl capacity(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<size_type>(
+  static __zz_cib_RValueAbiType_t<size_type> __zz_cib_decl capacity(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<size_type>(
       __zz_cib_obj->::std::vector<::C>::capacity()
     );
   }
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl empty(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<bool>(
+  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl empty(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<bool>(
       __zz_cib_obj->::std::vector<::C>::empty()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl reserve(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl reserve(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
     __zz_cib_obj->::std::vector<::C>::reserve(
       __zz_cib_::__zz_cib_FromAbiType<size_type>(__n)
     );
   }
-  static __zz_cib_AbiType_t<value_type&> __zz_cib_decl __zz_cib_OperatorIndex(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
-    return __zz_cib_ToAbiType<value_type&>(
+  static __zz_cib_RValueAbiType_t<value_type&> __zz_cib_decl __zz_cib_OperatorIndex(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
+    return __zz_cib_ToRValueAbiType<value_type&>(
       __zz_cib_obj->::std::vector<::C>::operator[](
         __zz_cib_::__zz_cib_FromAbiType<size_type>(__n)
       )
     );
   }
-  static __zz_cib_AbiType_t<const value_type&> __zz_cib_decl __zz_cib_OperatorIndex_16(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
-    return __zz_cib_ToAbiType<const value_type&>(
+  static __zz_cib_RValueAbiType_t<const value_type&> __zz_cib_decl __zz_cib_OperatorIndex_16(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
+    return __zz_cib_ToRValueAbiType<const value_type&>(
       __zz_cib_obj->::std::vector<::C>::operator[](
         __zz_cib_::__zz_cib_FromAbiType<size_type>(__n)
       )
     );
   }
-  static __zz_cib_AbiType_t<value_type&> __zz_cib_decl at(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
-    return __zz_cib_ToAbiType<value_type&>(
+  static __zz_cib_RValueAbiType_t<value_type&> __zz_cib_decl at(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
+    return __zz_cib_ToRValueAbiType<value_type&>(
       __zz_cib_obj->::std::vector<::C>::at(
         __zz_cib_::__zz_cib_FromAbiType<size_type>(__n)
       )
     );
   }
-  static __zz_cib_AbiType_t<const value_type&> __zz_cib_decl at_18(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
-    return __zz_cib_ToAbiType<const value_type&>(
+  static __zz_cib_RValueAbiType_t<const value_type&> __zz_cib_decl at_18(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<size_type> __n) {
+    return __zz_cib_ToRValueAbiType<const value_type&>(
       __zz_cib_obj->::std::vector<::C>::at(
         __zz_cib_::__zz_cib_FromAbiType<size_type>(__n)
       )
     );
   }
-  static __zz_cib_AbiType_t<value_type&> __zz_cib_decl front(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<value_type&>(
+  static __zz_cib_RValueAbiType_t<value_type&> __zz_cib_decl front(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<value_type&>(
       __zz_cib_obj->::std::vector<::C>::front()
     );
   }
-  static __zz_cib_AbiType_t<const value_type&> __zz_cib_decl front_20(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<const value_type&>(
+  static __zz_cib_RValueAbiType_t<const value_type&> __zz_cib_decl front_20(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<const value_type&>(
       __zz_cib_obj->::std::vector<::C>::front()
     );
   }
-  static __zz_cib_AbiType_t<value_type&> __zz_cib_decl back(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<value_type&>(
+  static __zz_cib_RValueAbiType_t<value_type&> __zz_cib_decl back(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<value_type&>(
       __zz_cib_obj->::std::vector<::C>::back()
     );
   }
-  static __zz_cib_AbiType_t<const value_type&> __zz_cib_decl back_22(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<const value_type&>(
+  static __zz_cib_RValueAbiType_t<const value_type&> __zz_cib_decl back_22(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<const value_type&>(
       __zz_cib_obj->::std::vector<::C>::back()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl push_back(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const value_type&> __x) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl push_back(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const value_type&> __x) {
     __zz_cib_obj->::std::vector<::C>::push_back(
       __zz_cib_::__zz_cib_FromAbiType<const value_type&>(__x)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl push_back_24(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<value_type&&> __x) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl push_back_24(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<value_type&&> __x) {
     __zz_cib_obj->::std::vector<::C>::push_back(
       __zz_cib_::__zz_cib_FromAbiType<value_type&&>(__x)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl pop_back(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl pop_back(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::std::vector<::C>::pop_back();
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl swap(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<vector<::C>&> __x) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl swap(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<vector<::C>&> __x) {
     __zz_cib_obj->::std::vector<::C>::swap(
       __zz_cib_::__zz_cib_FromAbiType<vector<::C>&>(__x)
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl clear(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl clear(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::std::vector<::C>::clear();
   }
 };

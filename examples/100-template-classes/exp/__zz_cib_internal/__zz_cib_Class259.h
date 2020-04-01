@@ -150,23 +150,23 @@ inline Example::Value<float>::Value(float x)
   {}
 
 inline float Example::Value<float>::GetValue() const {
-  return __zz_cib_::__zz_cib_FromAbiType<float>(
-    __zz_cib_MyHelper::GetValue<__zz_cib_::__zz_cib_AbiType_t<float>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<float>(
+    __zz_cib_MyHelper::GetValue<__zz_cib_::__zz_cib_RValueAbiType_t<float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 inline void Example::Value<float>::SetValue(float x) {
-  __zz_cib_MyHelper::SetValue<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::SetValue<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<float>(x)
   );
 }
 
 inline bool Example::Value<float>::operator ==(const Value& rhs) const {
-  return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::__zz_cib_OperatorCmpEq<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
+    __zz_cib_MyHelper::__zz_cib_OperatorCmpEq<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<const Value&>(rhs)
     )

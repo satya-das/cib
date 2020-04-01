@@ -33,45 +33,45 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 void Example::A::Set(const Value<int>& x) {
-  __zz_cib_MyHelper::Set<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::Set<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<const Value<int>&>(x)
   );
 }
 
 ::Example::Value<int> Example::A::Get() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<int>>(
-    __zz_cib_MyHelper::Get<__zz_cib_::__zz_cib_AbiType_t<::Example::Value<int>>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Value<int>>(
+    __zz_cib_MyHelper::Get<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Value<int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void Example::A::SetInt(const Value<Int>& y) {
-  __zz_cib_MyHelper::SetInt<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::SetInt<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<const Value<Int>&>(y)
   );
 }
 
 ::Example::Value<::Example::Int> Example::A::GetInt() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<::Example::Int>>(
-    __zz_cib_MyHelper::GetInt<__zz_cib_::__zz_cib_AbiType_t<::Example::Value<::Example::Int>>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Value<::Example::Int>>(
+    __zz_cib_MyHelper::GetInt<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Value<::Example::Int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void Example::A::SetFloat(FloatValue f) {
-  __zz_cib_MyHelper::SetFloat<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::SetFloat<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<FloatValue>(f)
   );
 }
 
 ::Example::Value<float> Example::A::GetFloat() const {
-  return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<float>>(
-    __zz_cib_MyHelper::GetFloat<__zz_cib_::__zz_cib_AbiType_t<::Example::Value<float>>>(
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Value<float>>(
+    __zz_cib_MyHelper::GetFloat<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Value<float>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

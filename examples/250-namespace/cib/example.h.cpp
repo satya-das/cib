@@ -15,27 +15,28 @@ template <>
 struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer::Inner::A {
   using __zz_cib_Delegatee = ::Example::Outer::Inner::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
+  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static ::Example::Outer::Inner::A* __zz_cib_decl __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<Int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Int>(
+  static __zz_cib_RValueAbiType_t<Int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Int>(
       __zz_cib_obj->::Example::Outer::Inner::A::i()
     );
   }
-  static __zz_cib_AbiType_t<Float> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<Float>(
+  static __zz_cib_RValueAbiType_t<Float> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<Float>(
       __zz_cib_obj->::Example::Outer::Inner::A::f()
     );
   }
-  static __zz_cib_AbiType_t<std::unique_ptr<Int>> __zz_cib_decl pi(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<std::unique_ptr<Int>>(
+  static __zz_cib_RValueAbiType_t<std::unique_ptr<Int>> __zz_cib_decl pi(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<std::unique_ptr<Int>>(
       __zz_cib_obj->::Example::Outer::Inner::A::pi()
     );
   }

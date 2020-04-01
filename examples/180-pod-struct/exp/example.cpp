@@ -123,35 +123,35 @@ A::A()
   {}
 
 void A::setPod(Pod& p) {
-  __zz_cib_MyHelper::setPod<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::setPod<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<Pod&>(p)
   );
 }
 
 void A::setPod(Pod* p) {
-  __zz_cib_MyHelper::setPod_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::setPod_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<Pod*>(p)
   );
 }
 
 void A::setNonPod1(NonPod1& n) {
-  __zz_cib_MyHelper::setNonPod1<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod1<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<NonPod1&>(n)
   );
 }
 
 void A::setNonPod2(NonPod2& n) {
-  __zz_cib_MyHelper::setNonPod2<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod2<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<NonPod2&>(n)
   );
 }
 
 void A::setNonPod3(NonPod3& n) {
-  __zz_cib_MyHelper::setNonPod3<__zz_cib_::__zz_cib_AbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<NonPod3&>(n)
   );

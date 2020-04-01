@@ -84,14 +84,14 @@ template <typename R, typename... Args>
 class __zz_cib_ClientTypeToAbiType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
-  using AbiType    = const AbiFunctor*;
+  using AbiType    = AbiFunctor;
 
-  const AbiFunctor mAbiFunctor;
+  AbiFunctor mAbiFunctor;
 
 public:
-  AbiType convert() const
+  AbiFunctor convert()
   {
-    return &mAbiFunctor;
+    return std::move(mAbiFunctor);
   }
 
 public:
@@ -100,9 +100,9 @@ public:
   {
   }
 
-  operator AbiType() const
+  operator AbiFunctor()
   {
-    return convert();
+    return std::move(mAbiFunctor);
   }
 };
 
@@ -164,21 +164,26 @@ template <typename R, typename... Args>
 class __zz_cib_AbiTypeToClientType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
-  using AbiType    = const AbiFunctor*;
+  using AbiType    = AbiFunctor;
 
-  const AbiFunctor* mAbiFunctor;
+  AbiFunctor mAbiFunctor;
 
 public:
-  __zz_cib_AbiTypeToClientType(AbiType x)
-    : mAbiFunctor(x)
+  __zz_cib_AbiTypeToClientType(AbiFunctor&& x)
+    : mAbiFunctor(std::move(x))
+  {
+  }
+
+  __zz_cib_AbiTypeToClientType(AbiFunctor x)
+    : mAbiFunctor(std::move(x))
   {
   }
 
   operator std::function<R(Args...)>() const
   {
-    if (mAbiFunctor->proc == nullptr)
+    if (mAbiFunctor.proc == nullptr)
       return nullptr;
-    return __zz_cib_SmartFunctor<R, Args...>(*mAbiFunctor);
+    return __zz_cib_SmartFunctor<R, Args...>(mAbiFunctor);
   }
 };
 
