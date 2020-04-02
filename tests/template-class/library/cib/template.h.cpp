@@ -13,6 +13,9 @@ struct __zz_cib_Delegator<::TemplateClassWithOneParam<int>> : public ::TemplateC
   using __zz_cib_Delegatee = ::TemplateClassWithOneParam<int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::TemplateClassWithOneParam<int>::TemplateClassWithOneParam;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -49,6 +52,9 @@ struct __zz_cib_Delegator<::TemplateClassWithTwoParams<int, float>> : public ::T
   using __zz_cib_Delegatee = ::TemplateClassWithTwoParams<int, float>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -92,6 +98,9 @@ struct __zz_cib_Delegator<::TemplateClassWithTwoParamsAndDefaultParameter<int, i
   using __zz_cib_Delegatee = ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>::TemplateClassWithTwoParamsAndDefaultParameter;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -135,6 +144,9 @@ struct __zz_cib_Delegator<::TemplateTest> : public ::TemplateTest {
   using __zz_cib_Delegatee = ::TemplateTest;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::TemplateTest::TemplateTest;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }

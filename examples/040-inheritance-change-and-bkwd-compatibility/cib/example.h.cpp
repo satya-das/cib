@@ -72,6 +72,9 @@ struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::A::A;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl, *__zz_cib_obj);
@@ -169,6 +172,9 @@ struct __zz_cib_Delegator<::I1> : public ::I1 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::I1>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::I1::I1;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::I1>(proxy, mtbl);
@@ -254,6 +260,9 @@ struct __zz_cib_Delegator<::I2> : public ::I2 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::I2>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::I2::I2;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::I2>(proxy, mtbl);
@@ -356,6 +365,9 @@ struct __zz_cib_Delegator<::B> : public ::B {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::B>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::B::B;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::B>(proxy, mtbl, *__zz_cib_obj);

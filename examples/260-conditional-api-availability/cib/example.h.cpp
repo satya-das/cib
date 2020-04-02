@@ -8,7 +8,7 @@
 #include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
-struct __zz_cib_Delegator<::A>;
+template<> struct __zz_cib_Delegator<::A>;
 template <>
 class __zz_cib_Generic<::A> : public ::A {
 public:
@@ -59,6 +59,9 @@ struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::A::A;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl, *__zz_cib_obj);
@@ -174,6 +177,9 @@ struct __zz_cib_Delegator<::B> : public ::B {
   using __zz_cib_Delegatee = ::B;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::B::B;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -224,6 +230,9 @@ struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = ::C;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::C::C;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -341,6 +350,9 @@ struct __zz_cib_Delegator<::P> : public ::P {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::P>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::P::P;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::P>(proxy, mtbl, *__zz_cib_obj);

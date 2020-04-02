@@ -13,6 +13,9 @@ struct __zz_cib_Delegator<::CPoint> : public ::CPoint {
   using __zz_cib_Delegatee = ::CPoint;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::CPoint::CPoint;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(::CPoint* __zz_cib_this, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new (__zz_cib_this) __zz_cib_Delegatee(*__zz_cib_obj);
   }

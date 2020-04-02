@@ -13,6 +13,9 @@ struct __zz_cib_Delegator<::Value<float>> : public ::Value<float> {
   using __zz_cib_Delegatee = ::Value<float>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Value<float>::Value;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -49,6 +52,9 @@ struct __zz_cib_Delegator<::Value<int>> : public ::Value<int> {
   using __zz_cib_Delegatee = ::Value<int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Value<int>::Value;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }

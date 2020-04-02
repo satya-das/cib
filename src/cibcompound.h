@@ -178,9 +178,9 @@ public:
   {
     nsName_ = std::move(nsName);
   }
-  const std::string& ctorName() const
+  std::string ctorName() const
   {
-    return isTemplateInstance() ? templateClass()->name() : name();
+    return isTemplateInstance() ? templateClass()->name() : justName();
   }
   std::string longName() const
   {

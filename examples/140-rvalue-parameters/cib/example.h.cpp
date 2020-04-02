@@ -13,6 +13,9 @@ struct __zz_cib_Delegator<::RValueExample> : public ::RValueExample {
   using __zz_cib_Delegatee = ::RValueExample;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::RValueExample::RValueExample;
+
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }

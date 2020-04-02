@@ -14,6 +14,9 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable();
 
 } // namespace __zz_cib_
 
+#define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)
+
+/*
 #define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)                                                              \
   template <typename _T>                                                                                               \
   parentName& operator=(const _T& rhs)                                                                                 \
@@ -22,7 +25,6 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable();
     return const_cast<parentName&>(static_cast<const parentName&>(ret));                                               \
   }
 
-/*
   void __zz_cib_TestPointerCompatibility() {                                    \
     {                                                                           \
       constexpr auto* pClass  = static_cast<className*>(nullptr) + 0xabad1deaU;   \

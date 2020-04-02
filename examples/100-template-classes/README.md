@@ -130,6 +130,9 @@ struct __zz_cib_Delegator<::Example::Value<::Example::Int>> : public ::Example::
   using __zz_cib_Delegatee = ::Example::Value<::Example::Int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Example::Value<::Example::Int>::Value;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -184,6 +187,9 @@ struct __zz_cib_Delegator<::Example::Value<float>> : public ::Example::Value<flo
   using __zz_cib_Delegatee = ::Example::Value<float>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Example::Value<float>::Value;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
@@ -238,6 +244,9 @@ struct __zz_cib_Delegator<::Example::Value<int>> : public ::Example::Value<int> 
   using __zz_cib_Delegatee = ::Example::Value<int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Example::Value<int>::Value;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }

@@ -8,7 +8,7 @@
 #include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
-struct __zz_cib_Delegator<::Interface>;
+template<> struct __zz_cib_Delegator<::Interface>;
 template <>
 class __zz_cib_Generic<::Interface> : public ::Interface {
 public:
@@ -59,6 +59,9 @@ struct __zz_cib_Delegator<::Interface> : public ::Interface {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Interface>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Interface::Interface;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::Interface>(proxy, mtbl, *__zz_cib_obj);

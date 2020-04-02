@@ -52,6 +52,9 @@ struct __zz_cib_Delegator<::I> : public ::I {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::I>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::I::I;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::I>(proxy, mtbl);
@@ -89,6 +92,9 @@ struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = ::C;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::C::C;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }

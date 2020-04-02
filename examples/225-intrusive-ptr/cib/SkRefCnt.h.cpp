@@ -58,6 +58,9 @@ struct __zz_cib_Delegator<::SkRefCntBase> : public ::SkRefCntBase {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::SkRefCntBase>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::SkRefCntBase::SkRefCntBase;
+
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::SkRefCntBase>(proxy, mtbl);

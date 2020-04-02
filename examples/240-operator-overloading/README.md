@@ -280,6 +280,9 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   using __zz_cib_Delegatee = ::Example::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Example::A::A;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }

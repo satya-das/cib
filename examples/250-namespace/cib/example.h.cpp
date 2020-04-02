@@ -16,6 +16,9 @@ struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer:
   using __zz_cib_Delegatee = ::Example::Outer::Inner::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::Example::Outer::Inner::A::A;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }

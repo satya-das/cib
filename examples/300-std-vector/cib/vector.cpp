@@ -15,6 +15,9 @@ struct __zz_cib_Delegator<::std::vector<::C>> : public ::std::vector<::C> {
   using __zz_cib_Delegatee = ::std::vector<::C>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::std::vector<::C>::vector;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }

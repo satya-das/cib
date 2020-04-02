@@ -13,6 +13,9 @@ struct __zz_cib_Delegator<::NonPod1> : public ::NonPod1 {
   using __zz_cib_Delegatee = ::NonPod1;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::NonPod1::NonPod1;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
@@ -43,6 +46,9 @@ struct __zz_cib_Delegator<::NonPod2> : public ::NonPod2 {
   using __zz_cib_Delegatee = ::NonPod2;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::NonPod2::NonPod2;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
@@ -73,6 +79,9 @@ struct __zz_cib_Delegator<::NonPod3> : public ::NonPod3 {
   using __zz_cib_Delegatee = ::NonPod3;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::NonPod3::NonPod3;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
@@ -103,6 +112,9 @@ struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = ::A;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+
+  using ::A::A;
+
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
