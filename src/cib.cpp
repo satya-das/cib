@@ -2464,12 +2464,15 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "template <>\n";
     stm << indentation++ << "struct __zz_cib_Delegator<";
     stm << longName() << ">";
-    stm << " : public " << longName();
+    if (isOverridable())
+      stm << " : public " << longName();
     stm << " {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
     stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
     stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n\n";
-    stm << indentation << "using " << longName() << "::" << ctorName() << ";\n\n";
+
+    if (isOverridable())
+      stm << indentation << "using " << longName() << "::" << ctorName() << ";\n\n";
 
     if (needsGenericProxyDefinition())
       stm << indentation << "using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;\n";
