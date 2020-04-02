@@ -116,7 +116,7 @@ inline Value<int>::Value(Value<int>&& rhs)
 
 inline Value<int>::Value(const Value<int>& __zz_cib_param0)
   : Value<int>(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const Value<int>&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 inline Value<int>::~Value() {
@@ -128,7 +128,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline Value<int>::Value(int value)
   : Value<int>(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(value)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(value)>(value)))
   {}
 
 inline int Value<int>::get() const {

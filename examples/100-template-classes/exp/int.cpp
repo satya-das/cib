@@ -19,7 +19,7 @@ Example::Int::Int(Int&& rhs)
 
 Example::Int::Int(const Int& __zz_cib_param0)
   : Example::Int(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const Int&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::Int::~Int() {
@@ -31,7 +31,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 Example::Int::Int(int x)
   : Example::Int(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 Example::Int::operator int() const {

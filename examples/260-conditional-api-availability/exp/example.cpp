@@ -17,7 +17,7 @@ A::A(A&& rhs)
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::A()
@@ -130,7 +130,7 @@ B::B(B&& rhs)
 
 B::B(const B& __zz_cib_param0)
   : B(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const B&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 B::B()
@@ -176,7 +176,7 @@ C::C(C&& rhs)
 
 C::C(const C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const C&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 C::C()
@@ -234,7 +234,7 @@ P::P(P&& rhs)
 P::P(const P& __zz_cib_param0)
   : P(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<const P&>(__zz_cib_param0)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 P::P()

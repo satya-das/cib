@@ -116,7 +116,7 @@ inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(TemplateClassWi
 
 inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(const TemplateClassWithOneParam<int>& __zz_cib_param0)
   : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const TemplateClassWithOneParam<int>&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 inline TemplateClassWithOneParam<int>::~TemplateClassWithOneParam() {
@@ -128,7 +128,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(int _a1)
   : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(_a1)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(_a1)))
   {}
 
 inline int TemplateClassWithOneParam<int>::get() const {

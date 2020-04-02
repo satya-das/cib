@@ -94,13 +94,26 @@ static void emitType(std::ostream&      stm,
                      const CibHelper&   helper,
                      const CibCompound* typeResolver = nullptr)
 {
-  emitType(stm, varObj->varType(), purpose, helper, typeResolver);
-  for (auto& arrSize : varObj->varDecl().arraySizes())
+  if ((purpose == kPurposeProxyProcType) || (purpose == kPurposeGenericProxyProcType))
   {
-    stm << '[';
-    if (arrSize)
-      gCppWriter.emitExpr(arrSize.get(), stm);
-    stm << ']';
+    stm << "__zz_cib_AbiType_t<decltype(";
+    stm << varObj->name();
+    stm << ")>";
+    return;
+  }
+  else
+  {
+    emitType(stm, varObj->varType(), purpose, helper, typeResolver);
+    if (purpose == kPurposeSignature)
+    {
+      for (auto& arrSize : varObj->varDecl().arraySizes())
+      {
+        stm << '[';
+        if (arrSize)
+          gCppWriter.emitExpr(arrSize.get(), stm);
+        stm << ']';
+      }
+    }
   }
 }
 
@@ -127,24 +140,35 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
     const auto& param = params->at(i);
     CppVarEPtr  var   = param;
     stm << sep;
-    emitType(stm, var->varType(), purpose, helper);
+    sep = ", ";
+
+    if ((purpose == kPurposeGenericProxyProcType) || (purpose == kPurposeProxyProcType))
+    {
+      stm << "__zz_cib_AbiType_t<decltype(";
+      emitParamName(stm, var, i, !(purpose & kPurposeProxyDecl));
+      stm << ")>";
+
+      continue;
+    }
+
+    emitType(stm, var.get(), purpose, helper);
     if (purpose != kPurposeSignature)
     {
       stm << ' ';
       emitParamName(stm, var, i, !(purpose & kPurposeProxyDecl));
-    }
-    if (param->objType_ == CppObjType::kVar)
-    {
-      if (!var->varDecl().arraySizes().empty())
+      if (param->objType_ == CppObjType::kVar)
       {
-        // FIXME: Emit error if the parameter type is not of basic types
-        // for (const auto& idx : var->varDecl_.arraySizes_)
+        if (!var->varDecl().arraySizes().empty())
         {
-          for (const auto& arSize : var->varDecl().arraySizes())
+          // FIXME: Emit error if the parameter type is not of basic types
+          // for (const auto& idx : var->varDecl_.arraySizes_)
           {
-            stm << "[";
-            gCppWriter.emitExpr(arSize.get(), stm);
-            stm << ']';
+            for (const auto& arSize : var->varDecl().arraySizes())
+            {
+              stm << "[";
+              gCppWriter.emitExpr(arSize.get(), stm);
+              stm << ']';
+            }
           }
         }
       }
@@ -154,7 +178,6 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
       stm << " = ";
       gCppWriter.emitExpr(var->varDecl().assignValue(), stm);
     }
-    sep = ", ";
   }
 }
 
@@ -190,9 +213,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeGeneric:
       case kPurposeProxyDefn:
       case kPurposeGenericProxy:
-        stm << "__zz_cib_::__zz_cib_ToAbiType<";
-        emitType(stm, var->varType(), kPurposeSignature, helper);
-        stm << ">(";
+        stm << "__zz_cib_::__zz_cib_ToAbiType<decltype(";
+        emitParamName(stm, var, i);
+        //        emitType(stm, var->varType(), kPurposeSignature, helper);
+        stm << ")>(";
         if (isByRValueRef(var) || helper.isSmartPtr(var.get()))
           stm << "std::move(";
         emitParamName(stm, var, i);

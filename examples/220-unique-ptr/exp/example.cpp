@@ -19,7 +19,7 @@ I::I(I&& rhs)
 I::I(std::unique_ptr<int> pi)
   : I(__zz_cib_MyHelper::__zz_cib_new(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<std::unique_ptr<int>>(std::move(pi))))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(pi)>(std::move(pi))))
   {}
 
 I::I()
@@ -48,7 +48,7 @@ A::A(A&& rhs)
 
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
@@ -83,7 +83,7 @@ int A::h(std::unique_ptr<I> p) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::h<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<std::unique_ptr<I>>(std::move(p))
+      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
     )
   );
 }
@@ -92,7 +92,7 @@ int A::i(I* p) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::i<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<I*>(p)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
     )
   );
 }
@@ -101,7 +101,7 @@ int A::j(std::unique_ptr<I>* pp) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::j<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<std::unique_ptr<I>*>(std::move(pp))
+      __zz_cib_::__zz_cib_ToAbiType<decltype(pp)>(std::move(pp))
     )
   );
 }

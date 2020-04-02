@@ -13,12 +13,12 @@ A::A(A&& rhs)
 
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::A(int x)
   : A(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 A::~A() {
@@ -49,7 +49,7 @@ B::B(B&& rhs)
 
 B::B(const B& __zz_cib_param0)
   : B(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const B&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 B::~B() {
@@ -61,7 +61,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 B::B(int x)
   : B(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 int B::f() const {
@@ -85,7 +85,7 @@ C::C(C&& rhs)
 
 C::C(const C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const C&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 C::~C() {
@@ -97,7 +97,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 C::C(int x)
   : C(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 int C::f() const {
@@ -121,7 +121,7 @@ T::T(T&& rhs)
 
 T::T(const T& __zz_cib_param0)
   : T(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const T&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 T::~T() {
@@ -140,7 +140,7 @@ int T::passStdFunctionByValue(TestCallback callback) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::passStdFunctionByValue<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<TestCallback>(callback)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
     )
   );
 }
@@ -149,7 +149,7 @@ int T::passStdFunctionByRValueRef(TestCallback&& callback) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::passStdFunctionByRValueRef<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<TestCallback&&>(std::move(callback))
+      __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(std::move(callback))
     )
   );
 }
@@ -157,14 +157,14 @@ int T::passStdFunctionByRValueRef(TestCallback&& callback) {
 void T::passStdFunctionByRef(TestCallback& callback) {
   __zz_cib_MyHelper::passStdFunctionByRef<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<TestCallback&>(callback)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
   );
 }
 
 void T::passStdFunctionByPtr(TestCallback* callback) {
   __zz_cib_MyHelper::passStdFunctionByPtr<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<TestCallback*>(callback)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
   );
 }
 

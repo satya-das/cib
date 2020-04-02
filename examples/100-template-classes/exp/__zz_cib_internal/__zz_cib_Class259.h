@@ -134,7 +134,7 @@ inline Example::Value<float>::Value(Value<float>&& rhs)
 
 inline Example::Value<float>::Value(const Value<float>& __zz_cib_param0)
   : Example::Value<float>(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const Value<float>&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 inline Example::Value<float>::~Value() {
@@ -146,7 +146,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline Example::Value<float>::Value(float x)
   : Example::Value<float>(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<float>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 inline float Example::Value<float>::GetValue() const {
@@ -160,7 +160,7 @@ inline float Example::Value<float>::GetValue() const {
 inline void Example::Value<float>::SetValue(float x) {
   __zz_cib_MyHelper::SetValue<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<float>(x)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
   );
 }
 
@@ -168,7 +168,7 @@ inline bool Example::Value<float>::operator ==(const Value& rhs) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
     __zz_cib_MyHelper::__zz_cib_OperatorCmpEq<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<const Value&>(rhs)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(rhs)>(rhs)
     )
   );
 }

@@ -41,20 +41,20 @@ public:
     );
   }
   int setValue(const Value<int>& intVal) const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<const Value<int>&> intVal);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(intVal)>);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue>(
         __zz_cib_h_,
-        __zz_cib_::__zz_cib_ToAbiType<const Value<int>&>(intVal)
+        __zz_cib_::__zz_cib_ToAbiType<decltype(intVal)>(intVal)
       )
     );
   }
   float setValue(const Value<float>& floatVal) const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<const Value<float>&> floatVal);
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(floatVal)>);
     return __zz_cib_FromAbiType<float>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_3>(
         __zz_cib_h_,
-        __zz_cib_::__zz_cib_ToAbiType<const Value<float>&>(floatVal)
+        __zz_cib_::__zz_cib_ToAbiType<decltype(floatVal)>(floatVal)
       )
     );
   }

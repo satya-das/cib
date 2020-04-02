@@ -17,13 +17,13 @@ C::C(C&& rhs)
 C::C(const C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<const C&>(__zz_cib_param0)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 C::C(int x)
   : C(__zz_cib_MyHelper::__zz_cib_new(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<int>(x)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 C::~C() {
@@ -55,7 +55,7 @@ A::A(A&& rhs)
 
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
@@ -74,7 +74,7 @@ int A::f(std::function<int()> callback) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<std::function<int()>>(callback)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
     )
   );
 }
@@ -83,7 +83,7 @@ int A::g(const std::function<int()>& callback) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::g<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<const std::function<int()>&>(callback)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
     )
   );
 }
@@ -92,7 +92,7 @@ int A::h(std::function<int(C)> callback) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::h<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<std::function<int(C)>>(callback)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
     )
   );
 }

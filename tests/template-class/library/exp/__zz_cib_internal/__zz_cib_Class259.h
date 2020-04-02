@@ -124,7 +124,7 @@ inline TemplateClassWithTwoParamsAndDefaultParameter<int, int>::TemplateClassWit
 
 inline TemplateClassWithTwoParamsAndDefaultParameter<int, int>::TemplateClassWithTwoParamsAndDefaultParameter(const TemplateClassWithTwoParamsAndDefaultParameter<int, int>& __zz_cib_param0)
   : TemplateClassWithTwoParamsAndDefaultParameter<int, int>(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const TemplateClassWithTwoParamsAndDefaultParameter<int, int>&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 inline TemplateClassWithTwoParamsAndDefaultParameter<int, int>::~TemplateClassWithTwoParamsAndDefaultParameter() {
@@ -136,8 +136,8 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline TemplateClassWithTwoParamsAndDefaultParameter<int, int>::TemplateClassWithTwoParamsAndDefaultParameter(int _a1, int _a2)
   : TemplateClassWithTwoParamsAndDefaultParameter<int, int>(__zz_cib_MyHelper::__zz_cib_new(
-        __zz_cib_::__zz_cib_ToAbiType<int>(_a1),
-    __zz_cib_::__zz_cib_ToAbiType<int>(_a2)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(_a1),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(_a2)>(_a2)))
   {}
 
 inline int TemplateClassWithTwoParamsAndDefaultParameter<int, int>::get1() const {

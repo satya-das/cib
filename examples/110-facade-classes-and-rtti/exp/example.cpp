@@ -48,7 +48,7 @@ PublicFacadeImpl::PublicFacadeImpl(PublicFacadeImpl&& rhs)
 PublicFacadeImpl::PublicFacadeImpl(const PublicFacadeImpl& __zz_cib_param0)
   : PublicFacadeImpl(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<const PublicFacadeImpl&>(__zz_cib_param0)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 PublicFacadeImpl::~PublicFacadeImpl() {
@@ -83,7 +83,7 @@ A::A(A&& rhs)
 
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {

@@ -23,7 +23,7 @@ A::A()
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
@@ -38,7 +38,7 @@ int A::setValue(const Value<int>& intVal) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::setValue<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<const Value<int>&>(intVal)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(intVal)>(intVal)
     )
   );
 }
@@ -47,7 +47,7 @@ float A::setValue(const Value<float>& floatVal) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<float>(
     __zz_cib_MyHelper::setValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<const Value<float>&>(floatVal)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(floatVal)>(floatVal)
     )
   );
 }

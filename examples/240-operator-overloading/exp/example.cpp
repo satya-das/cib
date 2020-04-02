@@ -19,7 +19,7 @@ Example::A::A(A&& rhs)
 
 Example::A::A(const A& __zz_cib_param0)
   : Example::A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::A::~A() {
@@ -38,7 +38,7 @@ Example::A::A()
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::A&>(
     __zz_cib_MyHelper::__zz_cib_OperatorLShift<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::A&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<int>(x)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
     )
   );
 }
@@ -47,7 +47,7 @@ Example::A::A()
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::A&>(
     __zz_cib_MyHelper::__zz_cib_OperatorRShift<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::A&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<int&>(x)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
     )
   );
 }

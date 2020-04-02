@@ -73,6 +73,30 @@ public:
 };
 
 template <typename _T>
+class __zz_cib_LibraryTypeToAbiType<_T[]>
+{
+  static_assert(!std::is_class_v<_T>);
+  _T* m;
+
+public:
+  _T* convert()
+  {
+    return m;
+  }
+
+public:
+  __zz_cib_LibraryTypeToAbiType(_T x[])
+    : m(x)
+  {
+  }
+
+  operator _T*() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
 class __zz_cib_LibraryTypeToAbiType<_T&, std::enable_if_t<__zz_cib_IsPlainType_v<_T>, void>>
 {
   _T& m;
@@ -181,6 +205,30 @@ public:
 
 template <typename _T, int _N>
 class __zz_cib_AbiTypeToLibraryType<_T[_N]>
+{
+  static_assert(!std::is_class_v<_T>);
+  _T* m;
+
+public:
+  _T* convert() const
+  {
+    return m;
+  }
+
+public:
+  __zz_cib_AbiTypeToLibraryType(_T* x)
+    : m(x)
+  {
+  }
+
+  operator _T*() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
+class __zz_cib_AbiTypeToLibraryType<_T[]>
 {
   static_assert(!std::is_class_v<_T>);
   _T* m;

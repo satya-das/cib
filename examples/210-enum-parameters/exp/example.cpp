@@ -13,7 +13,7 @@ A::A(A&& rhs)
 
 A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
-        __zz_cib_::__zz_cib_ToAbiType<const A&>(__zz_cib_param0)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
@@ -32,7 +32,7 @@ int A::fE(E e) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::fE<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<E>(e)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(e)>(e)
     )
   );
 }
@@ -41,7 +41,7 @@ int A::fE(EC e) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::fE_4<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<EC>(e)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(e)>(e)
     )
   );
 }
@@ -50,7 +50,7 @@ int A::fE(E8 e) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::fE_5<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<E8>(e)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(e)>(e)
     )
   );
 }
@@ -59,7 +59,7 @@ int A::fE(EC16 e) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::fE_6<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<EC16>(e)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(e)>(e)
     )
   );
 }
