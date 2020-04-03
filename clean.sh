@@ -11,3 +11,5 @@ find $DIR/demo -type d | grep 'cib$' | xargs rm -rf
 find $DIR/tests -type d | grep 'exp$' | xargs rm -rf
 find $DIR/tests -type d | grep 'cib$' | xargs rm -rf
 
+find $DIR -wholename '*/abi/*-ids.h' | xargs rm -rf
+
