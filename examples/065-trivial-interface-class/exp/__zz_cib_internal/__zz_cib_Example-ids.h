@@ -22,7 +22,7 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= Interface(const Interface&);
+    //#= Interface(const ::Interface&);
     __zz_cib_copy = 0,
     //#= Interface();
     __zz_cib_new = 1,

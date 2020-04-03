@@ -21,15 +21,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
     __zz_cib_delete = 0,
     //#= RValueExample(std::int32_t);
     __zz_cib_new = 1,
-    //#= RValueExample(RValueExample&&);
+    //#= RValueExample(::RValueExample&&);
     __zz_cib_new_2 = 2,
-    //#= RValueExample(const RValueExample&);
+    //#= RValueExample(const ::RValueExample&);
     __zz_cib_copy = 3,
-    //#= RValueExample& operator=(RValueExample&&);
+    //#= ::RValueExample& operator=(::RValueExample&&);
     __zz_cib_OperatorEqual = 4,
-    //#= RValueExample& operator=(const RValueExample&);
+    //#= ::RValueExample& operator=(const ::RValueExample&);
     __zz_cib_OperatorEqual_5 = 5,
-    //#= std::int32_t Set(RValueExample&&);
+    //#= std::int32_t Set(::RValueExample&&);
     Set = 6,
     //#= std::int32_t GetValue() const;
     GetValue = 7,

@@ -24,7 +24,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 1,
     //#= ~A();
     __zz_cib_delete = 2,

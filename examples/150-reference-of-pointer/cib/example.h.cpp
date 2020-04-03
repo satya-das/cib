@@ -20,7 +20,7 @@ class __zz_cib_Generic<::A> : public ::A {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::A>;
 
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const A& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::A& __zz_cib_param0)
     : ::A::A(    __zz_cib_param0)
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -128,7 +128,7 @@ class __zz_cib_Generic<::B> : public ::B {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::B>;
 
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const B& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::B& __zz_cib_param0)
     : ::B::B(    __zz_cib_param0)
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)

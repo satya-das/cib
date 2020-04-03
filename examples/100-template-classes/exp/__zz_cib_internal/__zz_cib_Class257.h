@@ -132,7 +132,7 @@ inline Example::Value<int>::Value(Value<int>&& rhs)
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline Example::Value<int>::Value(const Value<int>& __zz_cib_param0)
+inline Example::Value<int>::Value(const ::Example::Value<int>& __zz_cib_param0)
   : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -164,7 +164,7 @@ inline void Example::Value<int>::SetValue(int x) {
   );
 }
 
-inline bool Example::Value<int>::operator ==(const Value& rhs) const {
+inline bool Example::Value<int>::operator ==(const ::Example::Value<int>& rhs) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
     __zz_cib_MyHelper::__zz_cib_OperatorCmpEq<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),

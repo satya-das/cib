@@ -32,7 +32,7 @@ namespace __zz_cib_ { namespace TemplateTests {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= TemplateClassWithOneParam(const TemplateClassWithOneParam<int>&);
+    //#= TemplateClassWithOneParam(const ::TemplateClassWithOneParam<int>&);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithOneParam();
     __zz_cib_delete = 1,
@@ -46,7 +46,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= TemplateClassWithTwoParams(const TemplateClassWithTwoParams<int, float>&);
+    //#= TemplateClassWithTwoParams(const ::TemplateClassWithTwoParams<int, float>&);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithTwoParams();
     __zz_cib_delete = 1,
@@ -62,7 +62,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
-    //#= TemplateClassWithTwoParamsAndDefaultParameter(const TemplateClassWithTwoParamsAndDefaultParameter<int, int>&);
+    //#= TemplateClassWithTwoParamsAndDefaultParameter(const ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>&);
     __zz_cib_copy = 0,
     //#= ~TemplateClassWithTwoParamsAndDefaultParameter();
     __zz_cib_delete = 1,
@@ -78,17 +78,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   enum __zz_cib_methodid {
-    //#= TemplateTest(const TemplateTest&);
+    //#= TemplateTest(const ::TemplateTest&);
     __zz_cib_copy = 0,
     //#= ~TemplateTest();
     __zz_cib_delete = 1,
     //#= TemplateTest();
     __zz_cib_new = 2,
-    //#= TemplateClassWithOneParam<int> getTemplateClassWithOneParam() const;
+    //#= ::TemplateClassWithOneParam<int> getTemplateClassWithOneParam() const;
     getTemplateClassWithOneParam = 3,
-    //#= TemplateClassWithTwoParams<int, float> getTemplateClassWithTwoParams() const;
+    //#= ::TemplateClassWithTwoParams<int, float> getTemplateClassWithTwoParams() const;
     getTemplateClassWithTwoParams = 4,
-    //#= TemplateClassWithTwoParamsAndDefaultParameter<int> getTemplateClassWithTwoParamsAndDefaultParameter() const;
+    //#= ::TemplateClassWithTwoParamsAndDefaultParameter<int, int> getTemplateClassWithTwoParamsAndDefaultParameter() const;
     getTemplateClassWithTwoParamsAndDefaultParameter = 5,
     __zz_cib_next_method_id = 6
   };

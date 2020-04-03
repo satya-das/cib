@@ -20,7 +20,7 @@ Example::A::A()
     ))
   {}
 
-Example::A::A(const A& __zz_cib_param0)
+Example::A::A(const ::Example::A& __zz_cib_param0)
   : Example::A(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -32,7 +32,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
   );
 }
 
-void Example::A::Set(const Value<int>& x) {
+void Example::A::Set(const ::Example::Value<int>& x) {
   __zz_cib_MyHelper::Set<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
@@ -47,7 +47,7 @@ void Example::A::Set(const Value<int>& x) {
   );
 }
 
-void Example::A::SetInt(const Value<Int>& y) {
+void Example::A::SetInt(const ::Example::Value<::Example::Int>& y) {
   __zz_cib_MyHelper::SetInt<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(y)>(y)
@@ -62,7 +62,7 @@ void Example::A::SetInt(const Value<Int>& y) {
   );
 }
 
-void Example::A::SetFloat(FloatValue f) {
+void Example::A::SetFloat(::Example::Value<float> f) {
   __zz_cib_MyHelper::SetFloat<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(f)>(f)

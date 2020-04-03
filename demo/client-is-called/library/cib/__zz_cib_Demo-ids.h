@@ -29,11 +29,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= C();
     __zz_cib_new = 0,
-    //#= C(const C&);
+    //#= C(const ::C&);
     __zz_cib_copy = 1,
     //#= ~C();
     __zz_cib_delete = 2,
-    //#= int UseInterface(I*);
+    //#= int UseInterface(::I*);
     UseInterface = 3,
     __zz_cib_next_method_id = 4
   };

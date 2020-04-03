@@ -1,7 +1,7 @@
 #include "example.h"
 
 
-CPoint::CPoint(const CPoint& __zz_cib_param0)
+CPoint::CPoint(const ::CPoint& __zz_cib_param0)
 {
   __zz_cib_MyHelper::__zz_cib_copy(
     this, 
@@ -25,7 +25,7 @@ CPoint::CPoint(double _x, double _y, double _z)
   );
 }
 
-const ::CPoint& CPoint::operator +=(const CPoint& p) {
+const ::CPoint& CPoint::operator +=(const ::CPoint& p) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<const ::CPoint&>(
     __zz_cib_MyHelper::__zz_cib_OperatorPlusEq<__zz_cib_::__zz_cib_RValueAbiType_t<const ::CPoint&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),

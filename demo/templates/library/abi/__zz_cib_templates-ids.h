@@ -34,17 +34,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 1,
     //#= ~A();
     __zz_cib_delete = 2,
-    //#= int setValue(const Value<int>&) const;
+    //#= int setValue(const ::Value<int>&) const;
     setValue = 3,
-    //#= float setValue(const Value<float>&) const;
+    //#= float setValue(const ::Value<float>&) const;
     setValue_4 = 4,
-    //#= Value<int> getIntValue() const;
+    //#= ::Value<int> getIntValue() const;
     getIntValue = 5,
-    //#= Value<float> getFloatValue() const;
+    //#= ::Value<float> getFloatValue() const;
     getFloatValue = 6,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 7,
@@ -54,13 +54,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
-    //#= Value<float> getFloatValue() const;
+    //#= ::Value<float> getFloatValue() const;
     getFloatValue = 0,
-    //#= Value<int> getIntValue() const;
+    //#= ::Value<int> getIntValue() const;
     getIntValue = 1,
-    //#= int setValue(const Value<int>&) const;
+    //#= int setValue(const ::Value<int>&) const;
     setValue = 2,
-    //#= float setValue(const Value<float>&) const;
+    //#= float setValue(const ::Value<float>&) const;
     setValue_3 = 3,
     //#= ~A();
     __zz_cib_delete = 4,
@@ -70,7 +70,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { nam
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= Value(const Value<float>&);
+    //#= Value(const ::Value<float>&);
     __zz_cib_copy = 0,
     //#= ~Value();
     __zz_cib_delete = 1,
@@ -84,7 +84,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   enum __zz_cib_methodid {
-    //#= Value(const Value<int>&);
+    //#= Value(const ::Value<int>&);
     __zz_cib_copy = 0,
     //#= ~Value();
     __zz_cib_delete = 1,

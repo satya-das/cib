@@ -17,19 +17,19 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     //#= A();
     __zz_cib_new = 2,
-    //#= int fE(E) const;
+    //#= int fE(::E) const;
     fE = 3,
-    //#= int fE(EC) const;
+    //#= int fE(::EC) const;
     fE_4 = 4,
-    //#= int fE(E8) const;
+    //#= int fE(::E8) const;
     fE_5 = 5,
-    //#= int fE(EC16) const;
+    //#= int fE(::EC16) const;
     fE_6 = 6,
     __zz_cib_next_method_id = 7
   };

@@ -47,13 +47,13 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     //#= A();
     __zz_cib_new = 2,
-    //#= int SetInterface(Interface1*) const;
+    //#= int SetInterface(::Interface1*) const;
     SetInterface = 3,
     __zz_cib_next_method_id = 4
   };
@@ -63,9 +63,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= Interface1();
     __zz_cib_new = 0,
-    //#= Interface2* p();
+    //#= ::Interface2* p();
     p = 1,
-    //#= Interface3& r();
+    //#= ::Interface3& r();
     r = 2,
     //#= ~Interface1();
     __zz_cib_delete = 3,
@@ -79,9 +79,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
-    //#= Interface3& r();
+    //#= ::Interface3& r();
     r = 0,
-    //#= Interface2* p();
+    //#= ::Interface2* p();
     p = 1,
     //#= ~Interface1();
     __zz_cib_delete = 2,

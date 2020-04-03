@@ -42,7 +42,7 @@ A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-A::A(const A& __zz_cib_param0)
+A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -84,7 +84,7 @@ int A::h(sk_sp<I> p) const {
   );
 }
 
-int A::i(I* p) const {
+int A::i(::I* p) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::i<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),

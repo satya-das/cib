@@ -25,7 +25,7 @@ public:
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const A& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::A& __zz_cib_param0)
     : ::A::A(    __zz_cib_param0)
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -133,7 +133,7 @@ public:
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const B& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::B& __zz_cib_param0)
     : ::B::B(    __zz_cib_param0)
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
@@ -191,8 +191,8 @@ struct __zz_cib_Delegator<::B> : public ::B {
       __zz_cib_obj->::B::VirtFunc()
     );
   }
-  static __zz_cib_RValueAbiType_t<B*> __zz_cib_decl Create() {
-    return __zz_cib_ToRValueAbiType<B*>(
+  static __zz_cib_RValueAbiType_t<::B*> __zz_cib_decl Create() {
+    return __zz_cib_ToRValueAbiType<::B*>(
       ::B::Create()
     );
   }

@@ -22,30 +22,30 @@ struct __zz_cib_Delegator<::RValueExample> : public ::RValueExample {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_AbiType_t<std::int32_t> val) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<std::int32_t>(val));
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<RValueExample&&> __zz_cib_param0) {
-    return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<RValueExample&&>(__zz_cib_param0));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<::RValueExample&&> __zz_cib_param0) {
+    return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<::RValueExample&&>(__zz_cib_param0));
   }
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static __zz_cib_RValueAbiType_t<RValueExample&> __zz_cib_decl __zz_cib_OperatorEqual(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<RValueExample&&> rhs) {
-    return __zz_cib_ToRValueAbiType<RValueExample&>(
+  static __zz_cib_RValueAbiType_t<::RValueExample&> __zz_cib_decl __zz_cib_OperatorEqual(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::RValueExample&&> rhs) {
+    return __zz_cib_ToRValueAbiType<::RValueExample&>(
       __zz_cib_obj->::RValueExample::operator=(
-        __zz_cib_::__zz_cib_FromAbiType<RValueExample&&>(rhs)
+        __zz_cib_::__zz_cib_FromAbiType<::RValueExample&&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<RValueExample&> __zz_cib_decl __zz_cib_OperatorEqual_5(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const RValueExample&> rhs) {
-    return __zz_cib_ToRValueAbiType<RValueExample&>(
+  static __zz_cib_RValueAbiType_t<::RValueExample&> __zz_cib_decl __zz_cib_OperatorEqual_5(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::RValueExample&> rhs) {
+    return __zz_cib_ToRValueAbiType<::RValueExample&>(
       __zz_cib_obj->::RValueExample::operator=(
-        __zz_cib_::__zz_cib_FromAbiType<const RValueExample&>(rhs)
+        __zz_cib_::__zz_cib_FromAbiType<const ::RValueExample&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<std::int32_t> __zz_cib_decl Set(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<RValueExample&&> x) {
+  static __zz_cib_RValueAbiType_t<std::int32_t> __zz_cib_decl Set(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::RValueExample&&> x) {
     return __zz_cib_ToRValueAbiType<std::int32_t>(
       __zz_cib_obj->::RValueExample::Set(
-        __zz_cib_::__zz_cib_FromAbiType<RValueExample&&>(x)
+        __zz_cib_::__zz_cib_FromAbiType<::RValueExample&&>(x)
       )
     );
   }

@@ -136,24 +136,24 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<const I&> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<const I&>(
+  static __zz_cib_RValueAbiType_t<const ::I&> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<const ::I&>(
       __zz_cib_obj->::A::f()
     );
   }
-  static __zz_cib_RValueAbiType_t<const I*> __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<const I*>(
+  static __zz_cib_RValueAbiType_t<const ::I*> __zz_cib_decl g(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<const ::I*>(
       __zz_cib_obj->::A::g()
     );
   }
-  static __zz_cib_RValueAbiType_t<I*> __zz_cib_decl c(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<I*>(
+  static __zz_cib_RValueAbiType_t<::I*> __zz_cib_decl c(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::I*>(
       __zz_cib_obj->::A::c()
     );
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl d(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const I*> p) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl d(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::I*> p) {
     __zz_cib_obj->::A::d(
-      __zz_cib_::__zz_cib_FromAbiType<const I*>(p)
+      __zz_cib_::__zz_cib_FromAbiType<const ::I*>(p)
     );
   }
 };

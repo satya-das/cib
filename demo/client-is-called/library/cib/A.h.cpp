@@ -104,10 +104,10 @@ struct __zz_cib_Delegator<::C> : public ::C {
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl UseInterface(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<I*> pI) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl UseInterface(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::I*> pI) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::C::UseInterface(
-        __zz_cib_::__zz_cib_FromAbiType<I*>(pI)
+        __zz_cib_::__zz_cib_FromAbiType<::I*>(pI)
       )
     );
   }

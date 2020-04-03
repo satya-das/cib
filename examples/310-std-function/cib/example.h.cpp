@@ -18,7 +18,7 @@ public:
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const C& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::C& __zz_cib_param0)
     : ::C::C(    __zz_cib_param0)
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)

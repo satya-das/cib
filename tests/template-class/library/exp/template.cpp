@@ -11,7 +11,7 @@ TemplateTest::TemplateTest(TemplateTest&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-TemplateTest::TemplateTest(const TemplateTest& __zz_cib_param0)
+TemplateTest::TemplateTest(const ::TemplateTest& __zz_cib_param0)
   : TemplateTest(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

@@ -235,7 +235,7 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::Example::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
@@ -640,7 +640,7 @@ Example::A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-Example::A::A(const A& __zz_cib_param0)
+Example::A::A(const ::Example::A& __zz_cib_param0)
   : Example::A(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

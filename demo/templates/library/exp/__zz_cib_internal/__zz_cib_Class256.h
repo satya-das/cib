@@ -114,7 +114,7 @@ inline Value<int>::Value(Value<int>&& rhs)
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline Value<int>::Value(const Value<int>& __zz_cib_param0)
+inline Value<int>::Value(const ::Value<int>& __zz_cib_param0)
   : Value<int>(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

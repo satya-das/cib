@@ -20,7 +20,7 @@ A::A()
     this))
   {}
 
-A::A(const A& __zz_cib_param0)
+A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
@@ -34,7 +34,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
   );
 }
 
-int A::setValue(const Value<int>& intVal) const {
+int A::setValue(const ::Value<int>& intVal) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::setValue<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -43,7 +43,7 @@ int A::setValue(const Value<int>& intVal) const {
   );
 }
 
-float A::setValue(const Value<float>& floatVal) const {
+float A::setValue(const ::Value<float>& floatVal) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<float>(
     __zz_cib_MyHelper::setValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -72,27 +72,27 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> {
   using __zz_cib_Delegatee = ::A;
-  static __zz_cib_RValueAbiType_t<Value<float>> __zz_cib_decl getFloatValue(const ::A* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Value<float>>(
+  static __zz_cib_RValueAbiType_t<::Value<float>> __zz_cib_decl getFloatValue(const ::A* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Value<float>>(
       __zz_cib_obj->getFloatValue()
     );
   }
-  static __zz_cib_RValueAbiType_t<Value<int>> __zz_cib_decl getIntValue(const ::A* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Value<int>>(
+  static __zz_cib_RValueAbiType_t<::Value<int>> __zz_cib_decl getIntValue(const ::A* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Value<int>>(
       __zz_cib_obj->getIntValue()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const Value<int>&> intVal) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl setValue(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<int>&> intVal) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->setValue(
-        __zz_cib_::__zz_cib_FromAbiType<const Value<int>&>(intVal)
+        __zz_cib_::__zz_cib_FromAbiType<const ::Value<int>&>(intVal)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<float> __zz_cib_decl setValue_3(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const Value<float>&> floatVal) {
+  static __zz_cib_RValueAbiType_t<float> __zz_cib_decl setValue_3(const ::A* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<float>&> floatVal) {
     return __zz_cib_ToRValueAbiType<float>(
       __zz_cib_obj->setValue(
-        __zz_cib_::__zz_cib_FromAbiType<const Value<float>&>(floatVal)
+        __zz_cib_::__zz_cib_FromAbiType<const ::Value<float>&>(floatVal)
       )
     );
   }

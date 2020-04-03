@@ -17,7 +17,7 @@ C::C(C&& rhs)
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-C::C(const C& __zz_cib_param0)
+C::C(const ::C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
@@ -56,7 +56,7 @@ A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-A::A(const A& __zz_cib_param0)
+A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

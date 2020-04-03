@@ -22,7 +22,7 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
@@ -36,13 +36,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 0,
-    //#= B(const B&);
+    //#= B(const ::B&);
     __zz_cib_copy = 1,
     //#= ~B();
     __zz_cib_delete = 2,
-    //#= void SetA(A*);
+    //#= void SetA(::A*);
     SetA = 3,
-    //#= A* GetA() const;
+    //#= ::A* GetA() const;
     GetA = 4,
     __zz_cib_next_method_id = 5
   };

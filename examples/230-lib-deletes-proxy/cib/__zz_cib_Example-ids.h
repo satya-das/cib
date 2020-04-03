@@ -27,19 +27,19 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     //#= A();
     __zz_cib_new = 2,
-    //#= const I& f() const;
+    //#= const ::I& f() const;
     f = 3,
-    //#= const I* g() const;
+    //#= const ::I* g() const;
     g = 4,
-    //#= I* c() const;
+    //#= ::I* c() const;
     c = 5,
-    //#= void d(const I*) const;
+    //#= void d(const ::I*) const;
     d = 6,
     __zz_cib_next_method_id = 7
   };

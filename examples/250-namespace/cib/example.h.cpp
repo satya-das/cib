@@ -28,13 +28,13 @@ struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer:
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<Int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Int>(
+  static __zz_cib_RValueAbiType_t<::Example::Int> __zz_cib_decl i(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Example::Int>(
       __zz_cib_obj->::Example::Outer::Inner::A::i()
     );
   }
-  static __zz_cib_RValueAbiType_t<Float> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Float>(
+  static __zz_cib_RValueAbiType_t<::Example::Outer::Inner::Float> __zz_cib_decl f(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Example::Outer::Inner::Float>(
       __zz_cib_obj->::Example::Outer::Inner::A::f()
     );
   }

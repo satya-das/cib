@@ -14,7 +14,7 @@ Interface::Interface(Interface&& rhs)
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-Interface::Interface(const Interface& __zz_cib_param0)
+Interface::Interface(const ::Interface& __zz_cib_param0)
   : Interface(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))

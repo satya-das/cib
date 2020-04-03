@@ -156,18 +156,18 @@ struct __zz_cib_Delegator<::TemplateTest> : public ::TemplateTest {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<TemplateClassWithOneParam<int>> __zz_cib_decl getTemplateClassWithOneParam(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<TemplateClassWithOneParam<int>>(
+  static __zz_cib_RValueAbiType_t<::TemplateClassWithOneParam<int>> __zz_cib_decl getTemplateClassWithOneParam(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::TemplateClassWithOneParam<int>>(
       __zz_cib_obj->::TemplateTest::getTemplateClassWithOneParam()
     );
   }
-  static __zz_cib_RValueAbiType_t<TemplateClassWithTwoParams<int, float>> __zz_cib_decl getTemplateClassWithTwoParams(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<TemplateClassWithTwoParams<int, float>>(
+  static __zz_cib_RValueAbiType_t<::TemplateClassWithTwoParams<int, float>> __zz_cib_decl getTemplateClassWithTwoParams(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::TemplateClassWithTwoParams<int, float>>(
       __zz_cib_obj->::TemplateTest::getTemplateClassWithTwoParams()
     );
   }
-  static __zz_cib_RValueAbiType_t<TemplateClassWithTwoParamsAndDefaultParameter<int>> __zz_cib_decl getTemplateClassWithTwoParamsAndDefaultParameter(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<TemplateClassWithTwoParamsAndDefaultParameter<int>>(
+  static __zz_cib_RValueAbiType_t<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>> __zz_cib_decl getTemplateClassWithTwoParamsAndDefaultParameter(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>>(
       __zz_cib_obj->::TemplateTest::getTemplateClassWithTwoParamsAndDefaultParameter()
     );
   }

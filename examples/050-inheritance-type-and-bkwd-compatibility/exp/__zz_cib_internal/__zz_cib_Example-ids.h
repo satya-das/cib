@@ -32,7 +32,7 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= A();
     __zz_cib_new = 1,
@@ -64,7 +64,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= B(const B&);
+    //#= B(const ::B&);
     __zz_cib_copy = 0,
     //#= ~B();
     __zz_cib_delete = 1,
@@ -72,7 +72,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_new = 2,
     //#= int VirtFunc();
     VirtFunc = 3,
-    //#= B* Create();
+    //#= ::B* Create();
     Create = 4,
     //#= __zz_cib_cast_to___zz_cib_Class257
     __zz_cib_cast_to___zz_cib_Class257 = 5,

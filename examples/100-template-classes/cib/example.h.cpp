@@ -27,33 +27,33 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl Set(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const Value<int>&> x) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl Set(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Example::Value<int>&> x) {
     __zz_cib_obj->::Example::A::Set(
-      __zz_cib_::__zz_cib_FromAbiType<const Value<int>&>(x)
+      __zz_cib_::__zz_cib_FromAbiType<const ::Example::Value<int>&>(x)
     );
   }
-  static __zz_cib_RValueAbiType_t<Value<int>> __zz_cib_decl Get(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Value<int>>(
+  static __zz_cib_RValueAbiType_t<::Example::Value<int>> __zz_cib_decl Get(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Example::Value<int>>(
       __zz_cib_obj->::Example::A::Get()
     );
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl SetInt(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const Value<Int>&> y) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl SetInt(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Example::Value<::Example::Int>&> y) {
     __zz_cib_obj->::Example::A::SetInt(
-      __zz_cib_::__zz_cib_FromAbiType<const Value<Int>&>(y)
+      __zz_cib_::__zz_cib_FromAbiType<const ::Example::Value<::Example::Int>&>(y)
     );
   }
-  static __zz_cib_RValueAbiType_t<Value<Int>> __zz_cib_decl GetInt(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Value<Int>>(
+  static __zz_cib_RValueAbiType_t<::Example::Value<::Example::Int>> __zz_cib_decl GetInt(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Example::Value<::Example::Int>>(
       __zz_cib_obj->::Example::A::GetInt()
     );
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl SetFloat(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<FloatValue> f) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl SetFloat(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::Example::Value<float>> f) {
     __zz_cib_obj->::Example::A::SetFloat(
-      __zz_cib_::__zz_cib_FromAbiType<FloatValue>(f)
+      __zz_cib_::__zz_cib_FromAbiType<::Example::Value<float>>(f)
     );
   }
-  static __zz_cib_RValueAbiType_t<FloatValue> __zz_cib_decl GetFloat(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<FloatValue>(
+  static __zz_cib_RValueAbiType_t<::Example::Value<float>> __zz_cib_decl GetFloat(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Example::Value<float>>(
       __zz_cib_obj->::Example::A::GetFloat()
     );
   }

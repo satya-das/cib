@@ -19,7 +19,7 @@ A::A()
     this))
   {}
 
-A::A(const A& __zz_cib_param0)
+A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))

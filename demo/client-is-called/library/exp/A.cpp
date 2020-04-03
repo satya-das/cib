@@ -46,7 +46,7 @@ C::C()
     ))
   {}
 
-C::C(const C& __zz_cib_param0)
+C::C(const ::C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -58,7 +58,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
   );
 }
 
-int C::UseInterface(I* pI) {
+int C::UseInterface(::I* pI) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::UseInterface<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),

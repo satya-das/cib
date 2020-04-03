@@ -122,7 +122,7 @@ inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(Templa
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(const TemplateClassWithTwoParams<int, float>& __zz_cib_param0)
+inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(const ::TemplateClassWithTwoParams<int, float>& __zz_cib_param0)
   : TemplateClassWithTwoParams<int, float>(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

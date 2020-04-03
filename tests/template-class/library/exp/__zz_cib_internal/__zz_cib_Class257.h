@@ -114,7 +114,7 @@ inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(TemplateClassWi
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(const TemplateClassWithOneParam<int>& __zz_cib_param0)
+inline TemplateClassWithOneParam<int>::TemplateClassWithOneParam(const ::TemplateClassWithOneParam<int>& __zz_cib_param0)
   : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

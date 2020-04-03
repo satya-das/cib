@@ -94,7 +94,7 @@ A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-A::A(const A& __zz_cib_param0)
+A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_copy(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -111,7 +111,7 @@ A::A()
     ))
   {}
 
-int A::SetInterface(Interface1* pInterface1) const {
+int A::SetInterface(::Interface1* pInterface1) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::SetInterface<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -124,13 +124,13 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface1> {
   using __zz_cib_Delegatee = ::Interface1;
-  static __zz_cib_RValueAbiType_t<Interface3&> __zz_cib_decl r(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Interface3&>(
+  static __zz_cib_RValueAbiType_t<::Interface3&> __zz_cib_decl r(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Interface3&>(
       __zz_cib_obj->r()
     );
   }
-  static __zz_cib_RValueAbiType_t<Interface2*> __zz_cib_decl p(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<Interface2*>(
+  static __zz_cib_RValueAbiType_t<::Interface2*> __zz_cib_decl p(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::Interface2*>(
       __zz_cib_obj->p()
     );
   }

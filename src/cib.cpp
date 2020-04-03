@@ -44,13 +44,28 @@
 static CppWriter gCppWriter;
 
 static void emitType(std::ostream&      stm,
-                     const CppVarType*  typeObj,
+                     const CppVarType*  origTypeObj,
                      FuncProtoPurpose   purpose,
                      const CibHelper&   helper,
                      const CibCompound* typeResolver = nullptr)
 {
-  if (typeObj == nullptr)
+  if (origTypeObj == nullptr)
     return;
+
+  const auto& typeObj = [&]() -> CppVarType {
+    if (purpose == kPurposeProxyDecl)
+      return *origTypeObj;
+    auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(origTypeObj->baseType(), helper) : nullptr);
+    if (resolvedCppObj == nullptr)
+      return *origTypeObj;
+    const auto* resolvedType = isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
+    if (resolvedType && resolvedType->isTemplated())
+      resolvedType = typeResolver;
+    CppVarType varType(longName(resolvedType ? resolvedType : resolvedCppObj), origTypeObj->typeModifier());
+    varType.typeAttr(origTypeObj->typeAttr());
+    return varType;
+  }();
+
   switch (purpose)
   {
     case kPurposeCApi:
@@ -58,28 +73,20 @@ static void emitType(std::ostream&      stm,
     case kPurposeProxyProcType:
     case kPurposeGenericProxyProcType:
       stm << "__zz_cib_AbiType_t<";
-      gCppWriter.emit(typeObj, stm);
+      gCppWriter.emit(&typeObj, stm);
       stm << ">";
       return;
 
     case kPurposeProxyDefnReturnType:
-    {
-      auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(typeObj->baseType(), helper) : nullptr);
-      if (resolvedCppObj)
-      {
-        CppVarType varType(longName(resolvedCppObj), typeObj->typeModifier());
-        varType.typeAttr(typeObj->typeAttr());
-        gCppWriter.emit(&varType, stm);
-        return;
-      }
-    }
+      gCppWriter.emit(&typeObj, stm);
+      return;
 
     case kPurposeSignature:
     case kPurposeProxyDecl:
     case kPurposeProxyDefn:
     case kPurposeGenericProxy:
     case kPurposeGeneric:
-      gCppWriter.emit(typeObj, stm);
+      gCppWriter.emit(&typeObj, stm);
       return;
 
     default:
@@ -151,7 +158,7 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
       continue;
     }
 
-    emitType(stm, var.get(), purpose, helper);
+    emitType(stm, var.get(), purpose, helper, getOwner());
     if (purpose != kPurposeSignature)
     {
       stm << ' ';
@@ -204,7 +211,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeCApi:
       case kPurposeProxyCApi:
         stm << "__zz_cib_::__zz_cib_FromAbiType<";
-        emitType(stm, var.get(), kPurposeSignature, helper);
+        emitType(stm, var.get(), kPurposeSignature, helper, getOwner());
         stm << ">(";
         emitParamName(stm, var, i);
         stm << ")";
@@ -249,7 +256,7 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
     stm << "operator ";
   if (returnType())
   {
-    emitType(stm, returnType(), purpose, helper);
+    emitType(stm, returnType(), purpose, helper, getOwner());
     stm << ' ';
   }
 
@@ -407,7 +414,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     if (!isVoid(returnType()))
     {
       stm << ++indentation << "return __zz_cib_ToRValueAbiType<";
-      emitType(stm, returnType(), kPurposeSignature, helper);
+      emitType(stm, returnType(), kPurposeSignature, helper, getOwner());
       stm << ">(\n";
     }
     stm << ++indentation;
@@ -430,7 +437,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     else
     {
       stm << "operator ";
-      emitType(stm, returnType(), FuncProtoPurpose::kPurposeSignature, helper);
+      emitType(stm, returnType(), FuncProtoPurpose::kPurposeSignature, helper, getOwner());
     }
     stm << "(";
     if (hasParams())
@@ -640,7 +647,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   if (returnType() && !isVoid(returnType()))
   {
     stm << indentation << "return __zz_cib_FromAbiType<";
-    emitType(stm, returnType(), kPurposeSignature, helper);
+    emitType(stm, returnType(), kPurposeSignature, helper, getOwner());
     stm << ">(\n";
     ++indentation;
   }
@@ -724,7 +731,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
   else
   {
     stm << "__zz_cib_RValueAbiType_t<";
-    emitType(stm, returnType(), kPurposeSignature, helper);
+    emitType(stm, returnType(), kPurposeSignature, helper, getOwner());
     stm << '>';
   }
 }

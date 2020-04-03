@@ -37,13 +37,13 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global {
   enum __zz_cib_methodid {
-    //#= int GetNewA(A*&);
+    //#= int GetNewA(::A*&);
     GetNewA = 0,
-    //#= int GetNewB(A*&);
+    //#= int GetNewB(::A*&);
     GetNewB = 1,
-    //#= int GetNewA(const A*&);
+    //#= int GetNewA(const ::A*&);
     GetNewA_2 = 2,
-    //#= int GetNewB(const A*&);
+    //#= int GetNewB(const ::A*&);
     GetNewB_3 = 3,
     __zz_cib_next_method_id = 4
   };
@@ -53,7 +53,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new = 0,
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
     VirtualFunction = 2,
@@ -81,7 +81,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= B();
     __zz_cib_new = 0,
-    //#= B(const B&);
+    //#= B(const ::B&);
     __zz_cib_copy = 1,
     //#= int VirtualFunction() const;
     VirtualFunction = 2,

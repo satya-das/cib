@@ -27,15 +27,15 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= A(const A&);
+    //#= A(const ::A&);
     __zz_cib_copy = 0,
     //#= ~A();
     __zz_cib_delete = 1,
     //#= A();
     __zz_cib_new = 2,
-    //#= int SetIF(IF*);
+    //#= int SetIF(::IF*);
     SetIF = 3,
-    //#= IF* GetIF() const;
+    //#= ::IF* GetIF() const;
     GetIF = 4,
     __zz_cib_next_method_id = 5
   };
