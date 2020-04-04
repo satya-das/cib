@@ -18,7 +18,7 @@ namespace __zz_cib_ {
 template <typename _T, typename = void>
 class __zz_cib_LibraryTypeToAbiType
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   _T m;
 
 public:
@@ -51,7 +51,7 @@ public:
 template <typename _T, int _N>
 class __zz_cib_LibraryTypeToAbiType<_T[_N]>
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   _T* m;
 
 public:
@@ -75,7 +75,7 @@ public:
 template <typename _T>
 class __zz_cib_LibraryTypeToAbiType<_T[]>
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   _T* m;
 
 public:
@@ -120,7 +120,7 @@ public:
 };
 
 template <typename _T>
-class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<!std::is_class_v<_T>, void>>
+class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>, void>>
 {
   _T m;
 
@@ -178,7 +178,7 @@ using __zz_cib_RValueAbiType_t = decltype((static_cast<__zz_cib_LibraryTypeToAbi
 template <typename _T, typename = void>
 class __zz_cib_AbiTypeToLibraryType
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   __zz_cib_AbiType_t<_T> m;
 
 public:
@@ -201,7 +201,7 @@ public:
 template <typename _T, int _N>
 class __zz_cib_AbiTypeToLibraryType<_T[_N]>
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   _T* m;
 
 public:
@@ -225,7 +225,7 @@ public:
 template <typename _T>
 class __zz_cib_AbiTypeToLibraryType<_T[]>
 {
-  static_assert(!std::is_class_v<_T>);
+  static_assert(__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>);
   _T* m;
 
 public:

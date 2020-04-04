@@ -110,8 +110,17 @@ static void emitType(std::ostream&      stm,
   }
   else
   {
-    emitType(stm, varObj->varType(), purpose, helper, typeResolver);
-    if (purpose == kPurposeSignature)
+    if ((purpose == kPurposeCApi) || (purpose == kPurposeProxyCApi))
+    {
+      stm << "__zz_cib_AbiType_t<";
+      emitType(stm, varObj->varType(), kPurposeSignature, helper, typeResolver);
+    }
+    else
+    {
+      emitType(stm, varObj->varType(), purpose, helper, typeResolver);
+    }
+
+    if ((purpose == kPurposeSignature) || (purpose == kPurposeCApi) || (purpose == kPurposeProxyCApi))
     {
       for (auto& arrSize : varObj->varDecl().arraySizes())
       {
@@ -120,6 +129,11 @@ static void emitType(std::ostream&      stm,
           gCppWriter.emitExpr(arrSize.get(), stm);
         stm << ']';
       }
+    }
+
+    if ((purpose == kPurposeCApi) || (purpose == kPurposeProxyCApi))
+    {
+      stm << ">";
     }
   }
 }
@@ -163,6 +177,9 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
     {
       stm << ' ';
       emitParamName(stm, var, i, !(purpose & kPurposeProxyDecl));
+    }
+    if ((purpose != kPurposeSignature) && (purpose != kPurposeCApi) && (purpose != kPurposeProxyCApi))
+    {
       if (param->objType_ == CppObjType::kVar)
       {
         if (!var->varDecl().arraySizes().empty())
