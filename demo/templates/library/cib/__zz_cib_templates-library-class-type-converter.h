@@ -36,12 +36,12 @@ public:
 template <typename _T>
 class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsConstructibleClass_v<_T>, void>>
 {
-  _T m;
+  _T&& m;
 
 public:
   _T* convert() const
   {
-    return new _T(std::move(m));
+    return &m;
   }
 
 public:

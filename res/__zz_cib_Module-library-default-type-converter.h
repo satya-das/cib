@@ -148,32 +148,27 @@ auto __zz_cib_ToAbiType(__zz_cib_LibraryTypeToAbiType<_T> obj)
   return obj.convert();
 }
 
+// We don't need it BTW
 template <typename _T>
-struct __zz_cib_RValueRef : std::add_rvalue_reference<_T>
+struct __zz_cib_ReturnType
 {
+  using type = _T;
 };
 
 template <typename _T>
-struct __zz_cib_RValueRef<_T*>
-{
-  using type = _T*;
-};
-
-template <typename _T>
-using __zz_cib_RValueRef_t = typename __zz_cib_RValueRef<_T>::type;
+using __zz_cib_ReturnType_t = typename __zz_cib_ReturnType<_T>::type;
 
 template <typename _T>
 using __zz_cib_AbiType_t = decltype((static_cast<__zz_cib_LibraryTypeToAbiType<_T>*>(nullptr))->convert());
 
 template <typename _T>
-auto __zz_cib_ToRValueAbiType(__zz_cib_LibraryTypeToAbiType<__zz_cib_RValueRef_t<_T>> obj)
+auto __zz_cib_ToRValueAbiType(__zz_cib_LibraryTypeToAbiType<_T> obj)
 {
   return obj.convert();
 }
 
 template <typename _T>
-using __zz_cib_RValueAbiType_t =
-  decltype((static_cast<__zz_cib_LibraryTypeToAbiType<__zz_cib_RValueRef_t<_T>>*>(nullptr))->convert());
+using __zz_cib_RValueAbiType_t = decltype((static_cast<__zz_cib_LibraryTypeToAbiType<_T>*>(nullptr))->convert());
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -308,7 +303,7 @@ auto __zz_cib_FromAbiType(__zz_cib_AbiType_t<_T> obj)
 template <typename _T>
 auto __zz_cib_FromRValueAbiType(__zz_cib_RValueAbiType_t<_T> obj)
 {
-  return __zz_cib_AbiTypeToLibraryType<__zz_cib_RValueRef_t<_T>>(obj);
+  return __zz_cib_AbiTypeToLibraryType<_T>(obj);
 }
 
 } // namespace __zz_cib_

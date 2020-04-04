@@ -24,7 +24,6 @@ set(LIBRARY_CIB_FILES
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_TemplateTests-mtable.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_TemplateTests-mtable-helper.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_TemplateTests-classId-repo.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_TemplateTests-proxy.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_TemplateTests-proxy-mgr.h
 )
 
