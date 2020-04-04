@@ -55,7 +55,6 @@ set(RESFILES
 	__zz_cib_Module-class-fwd-decl.h
 	__zz_cib_Module-classId-repo.cpp
 	__zz_cib_Module-class-internal-def.h
-	__zz_cib_Module-class-names.h
 	__zz_cib_Module-class-helper.h
 	__zz_cib_Module-class-proxy-detection.h
 	__zz_cib_Module-class-types.h
@@ -87,6 +86,7 @@ set(RESFILES
 	__zz_cib_Module-remote-proxy-mgr.h
 	__zz_cib_Module-smart-ptr-detection.h
 	__zz_cib_Module-smart-ptr-input.h
+	__zz_cib_Module-value-types.h
 	__zz_cib_pointer_helper.h
 	cib-stl-interface/vector
 )

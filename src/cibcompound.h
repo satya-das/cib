@@ -531,8 +531,7 @@ public:
 
     return ret;
   }
-  void emitFwdDecl(const CibHelper& helper, const CibParams& cibParams) const;
-  void emitClassNames(const CibHelper& helper, const CibParams& cibParams) const;
+  void emitValueClassNames(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams) const;
   void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;

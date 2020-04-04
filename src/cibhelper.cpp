@@ -140,7 +140,7 @@ void CibHelper::buildCibCppObjTree()
 
 void CibHelper::markNoProxyClasses()
 {
-  for (auto& noProxyClassName : cibParams_.noProxyClasses)
+  for (auto& noProxyClassName : cibParams_.layoutSharingClasses)
   {
     CibCompoundEPtr noProxyClass = getCppObjFromTypeName(noProxyClassName);
 

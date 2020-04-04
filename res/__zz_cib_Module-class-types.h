@@ -22,6 +22,11 @@ struct __zz_cib_UsesMethodTable<_T, std::void_t<typename _T::__zz_cib_AbiType>> 
 {
 };
 
+template <typename _T>
+constexpr bool __zz_cib_UsesMethodTable_v = __zz_cib_UsesMethodTable<_T>::value;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 template <typename _T, typename = void>
 struct __zz_cib_SharesLayout : std::false_type
 {
@@ -43,6 +48,31 @@ struct __zz_cib_SharesLayout<
 {
 };
 
+template <typename _T>
+constexpr bool __zz_cib_SharesLayout_v = __zz_cib_SharesLayout<_T>::value;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+template <typename _T, typename = void>
+struct __zz_cib_IsValueType : std::false_type
+{
+};
+
+template <typename _T>
+struct __zz_cib_IsValueType<_T, std::enable_if_t<std::is_arithmetic_v<_T>, void>> : std::true_type
+{
+};
+
+template <typename _T>
+struct __zz_cib_IsValueType<_T, std::enable_if_t<__zz_cib_SharesLayout_v<_T>, void>> : std::true_type
+{
+};
+
+template <typename _T>
+constexpr bool __zz_cib_IsValueType_v = __zz_cib_IsValueType<_T>::value;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
 template <typename T, typename = void>
 struct __zz_cib_IsStdFunction : std::false_type
 {
@@ -54,13 +84,9 @@ struct __zz_cib_IsStdFunction<std::function<R(Args...)>> : std::true_type
 };
 
 template <typename _T>
-constexpr bool __zz_cib_UsesMethodTable_v = __zz_cib_UsesMethodTable<_T>::value;
-
-template <typename _T>
-constexpr bool __zz_cib_SharesLayout_v = __zz_cib_SharesLayout<_T>::value;
-
-template <typename _T>
 constexpr bool __zz_cib_IsStdFunction_v = __zz_cib_IsStdFunction<_T>::value;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename _T>
 constexpr bool __zz_cib_IsConstructibleClass_v =
@@ -70,6 +96,10 @@ template <typename _T>
 constexpr bool __zz_cib_IsAbstractClass_v = (std::is_class_v<_T> && std::is_abstract_v<_T>);
 
 template <typename _T>
-constexpr bool __zz_cib_IsPlainType_v = (!__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
+constexpr bool __zz_cib_IsPlainClass_v = (!__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
 
 } // namespace __zz_cib_
+
+#if __has_include("__zz_cib_Module-value-types.h")
+#  include "__zz_cib_Module-value-types.h"
+#endif

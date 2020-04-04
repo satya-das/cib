@@ -244,6 +244,7 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-library-smart-ptr-converter.h",
                                            "__zz_cib_Module-library-std-function-converter.h",
                                            "__zz_cib_Module-std-function-converter-base.h",
+                                           "__zz_cib_Module-value-types.h",
                                            nullptr};
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
   {
@@ -297,12 +298,14 @@ int main(int argc, const char* argv[])
   emitLibBoilerPlateCode(cibParams);
   emitClientBoilerPlateCode(cibParams);
 
+  std::ofstream valueClassStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + "-value-types.h")).string(),
+                              std::ios_base::app);
+
   const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
   for (auto& cppAst : fileAsts)
   {
     CibConstCompoundEPtr cibCppCompound = cppAst;
-    // cibCppCompound->emitFwdDecl(helper, cibParams);
-    // cibCppCompound->emitClassNames(helper, cibParams);
+    cibCppCompound->emitValueClassNames(valueClassStm, helper, cibParams);
     cibCppCompound->emitUserHeader(helper, cibParams);
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);

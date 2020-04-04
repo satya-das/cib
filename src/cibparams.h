@@ -65,7 +65,7 @@ public:
   bool         alwaysUseNsName{true};
   bool         noRtti{false};
   bool         noException{false};
-  StringVector noProxyClasses;
+  StringVector layoutSharingClasses;
 
 public:
   CibParams(std::string  m,
@@ -98,7 +98,7 @@ public:
     , alwaysUseNsName(u)
     , noRtti(t)
     , noException(e)
-    , noProxyClasses(std::move(n))
+    , layoutSharingClasses(std::move(n))
   {
   }
   CibParams(CibParams&&) = default;

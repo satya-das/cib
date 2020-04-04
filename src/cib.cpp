@@ -789,28 +789,21 @@ static const CppHashIf* hasHeaderGuard(const CppObjPtrArray& members)
   return lastHashIf;
 }
 
-void CibCompound::emitFwdDecl(const CibHelper& helper, const CibParams& cibParams) const
+void CibCompound::emitValueClassNames(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams) const
 {
-  // if (!isCppFile(this) || isStlTemplateClass())
-  //   return;
+  std::vector<const CibCompound*> layoutSharingClasses;
+  forEachNested(CppAccessType::kPublic, [&layoutSharingClasses](const CibCompound* compound) {
+    if (compound->needsNoProxy())
+      layoutSharingClasses.push_back(compound);
+  });
 
-  // const std::string kFwdClassDeclFileName = "__zz_cib_" + cibParams.moduleName + "-class-fwd-decl.h";
-  // auto              fwdDeclPath           = cibParams.cibInternalDir() / kFwdClassDeclFileName;
-  // bfs::create_directories(fwdDeclPath.parent_path());
-  // std::ofstream stm(fwdDeclPath.string(), std::ios_base::out);
+  if (layoutSharingClasses.empty())
+    return;
 
-  // for (; memItr != members().end(); ++memItr)
-  // {
-  //   const CppObj* mem = memItr->get();
-  //   if (mem == headerGuardEndIf)
-  //     stm << "#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
-  //   emitDecl(mem, stm, helper, cibParams);
-  //   if (isCompound(mem))
-  //     stm << '\n';
-  // }
+  stm << "\n#include \"" << bfs::relative(name(), cibParams.inputPath).string() << "\"\n";
 
-  // if (!headerGuardEndIf)
-  //   stm << "#include \"" << implIncludeName(cibParams) << "-postdef.h\"\n";
+  for (const auto* compound : layoutSharingClasses)
+    stm << "__ZZ_CIB_DECLARE_VALUE_CLASS(" << compound->longName() << ")\n";
 }
 
 void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const
