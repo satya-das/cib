@@ -17,7 +17,7 @@ namespace __zz_cib_ {
 template <typename _T, typename = void>
 class __zz_cib_ClientTypeToAbiType
 {
-  static_assert(__zz_cib_IsValueType_v<std::remove_pointer_t<_T>>);
+  static_assert(!std::is_class_v<_T>);
   _T m;
 
 public:

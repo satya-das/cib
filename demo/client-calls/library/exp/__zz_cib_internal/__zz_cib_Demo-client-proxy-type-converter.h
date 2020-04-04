@@ -13,6 +13,21 @@
 namespace __zz_cib_ {
 
 template <typename _T>
+struct __zz_cib_ProxyClassAbiType
+{
+  using type = typename _T::__zz_cib_AbiType;
+};
+
+template <typename _T>
+struct __zz_cib_ProxyClassAbiType<const _T>
+{
+  using type = const typename _T::__zz_cib_AbiType;
+};
+
+template <typename _T>
+using __zz_cib_ProxyClassAbiType_t = typename __zz_cib_ProxyClassAbiType<_T>::type;
+
+template <typename _T>
 class __zz_cib_ClientTypeToAbiType<_T, std::enable_if_t<__zz_cib_IsProxyClass_v<_T>, void>>
 {
   _T m;
@@ -108,6 +123,35 @@ public:
   }
 };
 
+template <typename _T>
+class __zz_cib_ClientTypeToAbiType<_T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<_T>, void>>
+{
+  _T*&                             m;
+  __zz_cib_ProxyClassAbiType_t<_T> mHandle;
+
+public:
+  auto convert()
+  {
+    return &mHandle;
+  }
+
+public:
+  __zz_cib_ClientTypeToAbiType(_T*& x)
+    : m(x)
+    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<_T>>::__zz_cib_get_handle(m) : nullptr)
+  {
+  }
+  ~__zz_cib_ClientTypeToAbiType()
+  {
+    m = __zz_cib_::__zz_cib_Helper<std::remove_cv_t<_T>>::__zz_cib_from_handle(mHandle);
+  }
+
+  operator __zz_cib_ProxyClassAbiType_t<_T>*()
+  {
+    return convert();
+  }
+};
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename _T>
@@ -171,6 +215,28 @@ public:
   }
 
   operator _T*() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
+class __zz_cib_AbiTypeToClientType<_T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<_T>, void>>
+{
+  __zz_cib_AbiType_t<_T*&> m;
+
+public:
+  __zz_cib_AbiTypeToClientType(__zz_cib_AbiType_t<_T*&> x)
+    : m(x)
+  {
+  }
+
+  _T*& convert()
+  {
+    return __zz_cib_Helper<std::remove_cv_t<_T>>::__zz_cib_from_handle(*m);
+  }
+
+  operator _T*&()
   {
     return convert();
   }
