@@ -241,10 +241,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         emitParamName(stm, var, i);
         //        emitType(stm, var->varType(), kPurposeSignature, helper);
         stm << ")>(";
-        if (isByRValueRef(var) || helper.isSmartPtr(var.get()))
+        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
           stm << "std::move(";
         emitParamName(stm, var, i);
-        if (isByRValueRef(var) || helper.isSmartPtr(var.get()))
+        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
           stm << ')';
         stm << ')';
         break;
@@ -254,10 +254,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         break;
 
       case kPurposeGenericProxyCtorInit:
-        if (isByRValueRef(var) || helper.isSmartPtr(var.get()))
+        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
           stm << "std::move(";
         emitParamName(stm, var, i);
-        if (isByRValueRef(var) || helper.isSmartPtr(var.get()))
+        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
           stm << ')';
         break;
 
@@ -810,7 +810,7 @@ void CibCompound::emitValueClassNames(std::ostream& stm, const CibHelper& helper
 {
   std::vector<const CibCompound*> layoutSharingClasses;
   forEachNested(CppAccessType::kPublic, [&layoutSharingClasses](const CibCompound* compound) {
-    if (compound->needsNoProxy() && !compound.name().empty())
+    if (compound->needsNoProxy() && !compound->name().empty())
       layoutSharingClasses.push_back(compound);
   });
 
