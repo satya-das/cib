@@ -810,7 +810,7 @@ void CibCompound::emitValueClassNames(std::ostream& stm, const CibHelper& helper
 {
   std::vector<const CibCompound*> layoutSharingClasses;
   forEachNested(CppAccessType::kPublic, [&layoutSharingClasses](const CibCompound* compound) {
-    if (compound->needsNoProxy())
+    if (compound->needsNoProxy() && !compound.name().empty())
       layoutSharingClasses.push_back(compound);
   });
 
