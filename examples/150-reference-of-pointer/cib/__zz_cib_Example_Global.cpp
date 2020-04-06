@@ -16,7 +16,9 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "example.h"
 
-namespace __zz_cib_ { namespace __zz_cib_NsDelegator {
+namespace __zz_cib_ {
+namespace __zz_cib_Example_Global {
+namespace __zz_cib_NsDelegator {
 static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewA(__zz_cib_AbiType_t<::A*&> pA) {
   return __zz_cib_ToRValueAbiType<int>(
     ::GetNewA(
@@ -45,7 +47,7 @@ static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewB_3(__zz_cib_AbiType_t<
     )
   );
 }
-}}
+}}}
 
 namespace __zz_cib_ {
 namespace __zz_cib_Example_Global {

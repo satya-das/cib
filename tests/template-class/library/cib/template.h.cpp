@@ -10,7 +10,7 @@
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::TemplateClassWithOneParam<int>> : public ::TemplateClassWithOneParam<int> {
-  using __zz_cib_Delegatee = ::TemplateClassWithOneParam<int>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::TemplateClassWithOneParam<int>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -49,7 +49,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::TemplateClassWithTwoParams<int, float>> : public ::TemplateClassWithTwoParams<int, float> {
-  using __zz_cib_Delegatee = ::TemplateClassWithTwoParams<int, float>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::TemplateClassWithTwoParams<int, float>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -95,7 +95,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>> : public ::TemplateClassWithTwoParamsAndDefaultParameter<int, int> {
-  using __zz_cib_Delegatee = ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -141,7 +141,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::TemplateTest> : public ::TemplateTest {
-  using __zz_cib_Delegatee = ::TemplateTest;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::TemplateTest>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 

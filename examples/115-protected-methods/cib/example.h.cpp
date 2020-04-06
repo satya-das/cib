@@ -35,7 +35,6 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
 }
 
 namespace __zz_cib_ {
-using namespace ::Example;
 namespace __zz_cib_Class257 {
 using namespace ::Example;
 namespace __zz_cib_Class258 {

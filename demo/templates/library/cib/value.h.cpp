@@ -10,7 +10,7 @@
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Value<float>> : public ::Value<float> {
-  using __zz_cib_Delegatee = ::Value<float>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Value<float>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -49,7 +49,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Value<int>> : public ::Value<int> {
-  using __zz_cib_Delegatee = ::Value<int>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Value<int>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 

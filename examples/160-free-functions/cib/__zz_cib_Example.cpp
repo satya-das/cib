@@ -12,7 +12,9 @@
 
 #include "example-file2.h"
 
-namespace __zz_cib_ { namespace Example { 
+namespace __zz_cib_ {
+namespace __zz_cib_Class257 {
+using namespace ::Example;
 namespace __zz_cib_NsDelegator {
 static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function1() {
   return __zz_cib_ToRValueAbiType<int>(
@@ -21,7 +23,9 @@ static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function1() {
 }
 }}}
 
-namespace __zz_cib_ { namespace Example { 
+namespace __zz_cib_ {
+namespace __zz_cib_Class257 {
+using namespace ::Example;
 namespace __zz_cib_NsDelegator {
 static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function2() {
   return __zz_cib_ToRValueAbiType<int>(
@@ -31,12 +35,12 @@ static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function2() {
 }}}
 
 namespace __zz_cib_ {
-using namespace ::Example;
 namespace __zz_cib_Class257 {
+using namespace ::Example;
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&Example::__zz_cib_NsDelegator::Function1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&Example::__zz_cib_NsDelegator::Function2)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Class257::__zz_cib_NsDelegator::Function1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_Class257::__zz_cib_NsDelegator::Function2)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;

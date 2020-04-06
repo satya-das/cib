@@ -277,7 +277,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
-  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -301,7 +301,6 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
 }
 
 namespace __zz_cib_ {
-using namespace ::Example;
 namespace __zz_cib_Class257 {
 using namespace ::Example;
 namespace __zz_cib_Class258 {

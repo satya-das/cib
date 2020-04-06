@@ -13,7 +13,7 @@ using namespace ::Example::Outer;
 using namespace ::Example::Outer::Inner;
 template <>
 struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer::Inner::A {
-  using __zz_cib_Delegatee = ::Example::Outer::Inner::A;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -47,11 +47,10 @@ struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer:
 }
 
 namespace __zz_cib_ {
-using namespace ::Example;
 namespace __zz_cib_Class257 {
-using namespace ::Example::Outer;
+using namespace ::Example;
 namespace __zz_cib_Class258 {
-using namespace ::Example::Outer::Inner;
+using namespace ::Example::Outer;
 namespace __zz_cib_Class259 {
 using namespace ::Example::Outer::Inner;
 namespace __zz_cib_Class260 {

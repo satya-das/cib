@@ -89,7 +89,7 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> : public ::A {
-  using __zz_cib_Delegatee = ::A;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::A>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 

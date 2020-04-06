@@ -12,21 +12,25 @@
 
 #include "example-file2.h"
 
-namespace __zz_cib_ { namespace __zz_cib_NsDelegator {
+namespace __zz_cib_ {
+namespace __zz_cib_Example_Global {
+namespace __zz_cib_NsDelegator {
 static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GlobalFunction1() {
   return __zz_cib_ToRValueAbiType<int>(
     ::GlobalFunction1()
   );
 }
-}}
+}}}
 
-namespace __zz_cib_ { namespace __zz_cib_NsDelegator {
+namespace __zz_cib_ {
+namespace __zz_cib_Example_Global {
+namespace __zz_cib_NsDelegator {
 static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GlobalFunction2() {
   return __zz_cib_ToRValueAbiType<int>(
     ::GlobalFunction2()
   );
 }
-}}
+}}}
 
 namespace __zz_cib_ {
 namespace __zz_cib_Example_Global {

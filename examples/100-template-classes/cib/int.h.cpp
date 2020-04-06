@@ -11,7 +11,7 @@ namespace __zz_cib_ {
 using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::Int> : public ::Example::Int {
-  using __zz_cib_Delegatee = ::Example::Int;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::Int>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -35,7 +35,6 @@ struct __zz_cib_Delegator<::Example::Int> : public ::Example::Int {
 }
 
 namespace __zz_cib_ {
-using namespace ::Example;
 namespace __zz_cib_Class256 {
 using namespace ::Example;
 namespace __zz_cib_Class262 {

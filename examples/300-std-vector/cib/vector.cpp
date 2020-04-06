@@ -12,7 +12,7 @@ namespace __zz_cib_ {
 using namespace ::std;
 template <>
 struct __zz_cib_Delegator<::std::vector<::C>> : public ::std::vector<::C> {
-  using __zz_cib_Delegatee = ::std::vector<::C>;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::std::vector<::C>>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -28,8 +28,8 @@ struct __zz_cib_Delegator<::std::vector<::C>> : public ::std::vector<::C> {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_3(__zz_cib_AbiType_t<::std::vector<::C>&&> __x) {
-    return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C>&&>(__x));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(std::move(*__zz_cib_obj));
   }
   static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
@@ -161,7 +161,6 @@ struct __zz_cib_Delegator<::std::vector<::C>> : public ::std::vector<::C> {
 }
 
 namespace __zz_cib_ {
-using namespace ::std;
 namespace __zz_cib_Class256 {
 using namespace ::std;
 namespace __zz_cib_Class257 {

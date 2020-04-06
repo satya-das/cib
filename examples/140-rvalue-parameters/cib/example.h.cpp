@@ -10,7 +10,7 @@
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::RValueExample> : public ::RValueExample {
-  using __zz_cib_Delegatee = ::RValueExample;
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::RValueExample>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
 
@@ -22,8 +22,8 @@ struct __zz_cib_Delegator<::RValueExample> : public ::RValueExample {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_AbiType_t<std::int32_t> val) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<std::int32_t>(val));
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<::RValueExample&&> __zz_cib_param0) {
-    return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<::RValueExample&&>(__zz_cib_param0));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_Delegatee(std::move(*__zz_cib_obj));
   }
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);

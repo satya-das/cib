@@ -354,6 +354,10 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
   {
     stm << "const __zz_cib_Delegatee* __zz_cib_obj)";
   }
+  else if ((purpose == kPurposeCApi) && isMoveConstructor() && getOwner()->isOverridable())
+  {
+    stm << "__zz_cib_Delegatee* __zz_cib_obj)";
+  }
   else
   {
     emitArgsForDecl(stm, purpose, helper);
@@ -405,6 +409,10 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     if (!forProxy && isCopyConstructor() && getOwner()->isOverridable())
     {
       stm << "*__zz_cib_obj";
+    }
+    else if (!forProxy && isMoveConstructor() && getOwner()->isOverridable())
+    {
+      stm << "std::move(*__zz_cib_obj)";
     }
     else
     {
@@ -1012,29 +1020,13 @@ std::ostream& CibCompound::emitWrappingNsNamespacesForGlueCode(std::ostream&    
                                                                CppIndent        indentation) const
 {
   if (outer() == nullptr || isCppFile(outer()))
-  {
     stm << "namespace __zz_cib_ {\n";
-    if (isNamespace(this))
-    {
-      stm << "using namespace " << longName() << ";\n";
-    }
-  }
   else
-  {
     outer()->emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-    if (isClassLike(this))
-    {
-      if (isNamespace(outer()))
-      {
-        stm << "using namespace " << outer()->longName() << ";\n";
-      }
-    }
-    else if (isNamespace(this))
-    {
-      stm << "using namespace " << longName() << ";\n";
-    }
-  }
+
   stm << "namespace " << nsName() << " {\n";
+  if (isNamespace(this))
+    stm << "using namespace " << longName() << ";\n";
 
   return stm;
 }
@@ -2495,7 +2487,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     const auto delegatee = [&]() -> std::string {
       if (needsGenericProxyDefinition())
         return "__zz_cib_::__zz_cib_Generic<" + longName() + ">";
-      else if (needsDelagatorClass())
+      else if (isOverridable())
         return "__zz_cib_::__zz_cib_Delegator<" + longName() + ">";
       else
         return longName();
@@ -2520,10 +2512,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   }
   else
   {
-    // emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
-    stm << indentation << "namespace __zz_cib_ { " << wrappingNamespaceDeclarations(cibParams);
-    if (!isCppFile(this))
-      stm << "namespace " << name() << " { \n";
+    emitWrappingNsNamespacesForGlueCode(stm, cibParams, indentation);
     stm << indentation << "namespace __zz_cib_NsDelegator {\n";
   }
 
@@ -2625,9 +2614,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
   }
   if (!isClassLike(this))
   {
-    stm << '}';
-    if (!isCppFile(this))
-      stm << '}' << closingBracesForWrappingNamespaces();
+    stm << '}' << closingBracesForWrappingNsNamespaces();
   }
   else
   {
@@ -2874,7 +2861,7 @@ void CibCompound::emitMethodTableGetterDefn(std::ostream&    stm,
         else
         {
           if (isNamespaceLike(this))
-            stm << fullName(this) << "::";
+            stm << fullNsName() << "::";
           stm << "__zz_cib_NsDelegator::";
         }
         stm << mtableEntry.name << ')';
