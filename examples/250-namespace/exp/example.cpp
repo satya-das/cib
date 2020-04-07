@@ -24,25 +24,25 @@ Example::Outer::Inner::A::A(A&& rhs)
 }
 
 Example::Outer::Inner::A::A(const ::Example::Outer::Inner::A& __zz_cib_param0)
-  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_copy(
+  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::Outer::Inner::A::~A() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 Example::Outer::Inner::A::A()
-  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_new(
+  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_new_2(
     ))
   {}
 
 ::Example::Int Example::Outer::Inner::A::i() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Int>(
-    __zz_cib_MyHelper::i<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Int>>(
+    __zz_cib_MyHelper::i_3<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -50,7 +50,7 @@ Example::Outer::Inner::A::A()
 
 ::Example::Outer::Inner::Float Example::Outer::Inner::A::f() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::Outer::Inner::Float>(
-    __zz_cib_MyHelper::f<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Outer::Inner::Float>>(
+    __zz_cib_MyHelper::f_4<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::Outer::Inner::Float>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -58,7 +58,7 @@ Example::Outer::Inner::A::A()
 
 std::unique_ptr<Int> Example::Outer::Inner::A::pi() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<std::unique_ptr<Int>>(
-    __zz_cib_MyHelper::pi<__zz_cib_::__zz_cib_RValueAbiType_t<std::unique_ptr<Int>>>(
+    __zz_cib_MyHelper::pi_5<__zz_cib_::__zz_cib_RValueAbiType_t<std::unique_ptr<Int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

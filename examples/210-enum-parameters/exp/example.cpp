@@ -12,25 +12,25 @@ A::A(A&& rhs)
 }
 
 A::A(const ::A& __zz_cib_param0)
-  : A(__zz_cib_MyHelper::__zz_cib_copy(
+  : A(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_new(
+  : A(__zz_cib_MyHelper::__zz_cib_new_2(
     ))
   {}
 
 int A::fE(::E e) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::fE<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_MyHelper::fE_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(e)>(e)
     )

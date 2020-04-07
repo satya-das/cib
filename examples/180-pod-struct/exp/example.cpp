@@ -16,18 +16,18 @@ NonPod1::NonPod1(NonPod1&& rhs)
 }
 
 NonPod1::NonPod1()
-  : NonPod1(__zz_cib_MyHelper::__zz_cib_new(
+  : NonPod1(__zz_cib_MyHelper::__zz_cib_new_0(
     ))
   {}
 
 NonPod1::NonPod1(const ::NonPod1& __zz_cib_param0)
-  : NonPod1(__zz_cib_MyHelper::__zz_cib_copy(
+  : NonPod1(__zz_cib_MyHelper::__zz_cib_copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 NonPod1::~NonPod1() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_2(
     h
   );
 }
@@ -47,18 +47,18 @@ NonPod2::NonPod2(NonPod2&& rhs)
 }
 
 NonPod2::NonPod2()
-  : NonPod2(__zz_cib_MyHelper::__zz_cib_new(
+  : NonPod2(__zz_cib_MyHelper::__zz_cib_new_0(
     ))
   {}
 
 NonPod2::NonPod2(const ::NonPod2& __zz_cib_param0)
-  : NonPod2(__zz_cib_MyHelper::__zz_cib_copy(
+  : NonPod2(__zz_cib_MyHelper::__zz_cib_copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 NonPod2::~NonPod2() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_2(
     h
   );
 }
@@ -78,18 +78,18 @@ NonPod3::NonPod3(NonPod3&& rhs)
 }
 
 NonPod3::NonPod3()
-  : NonPod3(__zz_cib_MyHelper::__zz_cib_new(
+  : NonPod3(__zz_cib_MyHelper::__zz_cib_new_0(
     ))
   {}
 
 NonPod3::NonPod3(const ::NonPod3& __zz_cib_param0)
-  : NonPod3(__zz_cib_MyHelper::__zz_cib_copy(
+  : NonPod3(__zz_cib_MyHelper::__zz_cib_copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 NonPod3::~NonPod3() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_2(
     h
   );
 }
@@ -106,24 +106,24 @@ A::A(A&& rhs)
 }
 
 A::A(const ::A& __zz_cib_param0)
-  : A(__zz_cib_MyHelper::__zz_cib_copy(
+  : A(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_new(
+  : A(__zz_cib_MyHelper::__zz_cib_new_2(
     ))
   {}
 
 void A::setPod(::Pod& p) {
-  __zz_cib_MyHelper::setPod<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::setPod_3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
   );
@@ -137,21 +137,21 @@ void A::setPod(::Pod* p) {
 }
 
 void A::setNonPod1(::NonPod1& n) {
-  __zz_cib_MyHelper::setNonPod1<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod1_5<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
   );
 }
 
 void A::setNonPod2(::NonPod2& n) {
-  __zz_cib_MyHelper::setNonPod2<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod2_6<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
   );
 }
 
 void A::setNonPod3(::NonPod3& n) {
-  __zz_cib_MyHelper::setNonPod3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::setNonPod3_7<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
   );

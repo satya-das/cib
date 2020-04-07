@@ -23,15 +23,15 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= A(const ::Example::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= A();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= ::Example::A& operator <<(int);
-    __zz_cib_OperatorLShift = 3,
+    __zz_cib_OperatorLShift_3 = 3,
     //#= ::Example::A& operator >>(int&);
-    __zz_cib_OperatorRShift = 4,
+    __zz_cib_OperatorRShift_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}

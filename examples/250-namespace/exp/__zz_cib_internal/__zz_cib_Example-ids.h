@@ -33,17 +33,17 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
     //#= A(const ::Example::Outer::Inner::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= A();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= ::Example::Int i() const;
-    i = 3,
+    i_3 = 3,
     //#= ::Example::Outer::Inner::Float f() const;
-    f = 4,
+    f_4 = 4,
     //#= std::unique_ptr<Int> pi() const;
-    pi = 5,
+    pi_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}}}}

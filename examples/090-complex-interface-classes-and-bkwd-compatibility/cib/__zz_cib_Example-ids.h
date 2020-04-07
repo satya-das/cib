@@ -48,13 +48,13 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= A();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int SetInterface(::Interface1*) const;
-    SetInterface = 3,
+    SetInterface_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -62,17 +62,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= Interface1();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= ::Interface2* p();
-    p = 1,
+    p_1 = 1,
     //#= ::Interface3& r();
-    r = 2,
+    r_2 = 2,
     //#= ~Interface1();
-    __zz_cib_delete = 3,
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     //#= int disruptVTable();
-    disruptVTable = 5,
+    disruptVTable_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -80,13 +80,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= ::Interface3& r();
-    r = 0,
+    r_0 = 0,
     //#= ::Interface2* p();
-    p = 1,
+    p_1 = 1,
     //#= ~Interface1();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= int disruptVTable();
-    disruptVTable = 3,
+    disruptVTable_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}}
@@ -94,17 +94,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= Interface2();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= int f();
-    f = 1,
+    f_1 = 1,
     //#= ~Interface2();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     //#= int disruptVTable();
-    disruptVTable = 5,
+    disruptVTable_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -112,11 +112,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int f();
-    f = 0,
+    f_0 = 0,
     //#= ~Interface2();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= int disruptVTable();
-    disruptVTable = 2,
+    disruptVTable_2 = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}
@@ -124,17 +124,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= Interface3();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= int g();
-    g = 1,
+    g_1 = 1,
     //#= ~Interface3();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     //#= int disruptVTable();
-    disruptVTable = 5,
+    disruptVTable_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}
@@ -142,11 +142,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int g();
-    g = 0,
+    g_0 = 0,
     //#= ~Interface3();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= int disruptVTable();
-    disruptVTable = 2,
+    disruptVTable_2 = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}

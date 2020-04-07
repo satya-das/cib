@@ -53,19 +53,19 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= A();
-    __zz_cib_new = 1,
+    __zz_cib_new_1 = 1,
     //#= int VirtFunc();
-    VirtFunc = 2,
+    VirtFunc_2 = 2,
     //#= ~A();
-    __zz_cib_delete = 3,
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 5,
+    AnotherVirtFunc_5 = 5,
     //#= int SomeFunc();
-    SomeFunc = 6,
+    SomeFunc_6 = 6,
     __zz_cib_next_method_id = 7
   };
 }}}
@@ -73,11 +73,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int VirtFunc();
-    VirtFunc = 0,
+    VirtFunc_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 2,
+    AnotherVirtFunc_2 = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}
@@ -85,15 +85,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= B(const ::B&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~B();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= B();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int VirtFunc();
-    VirtFunc = 3,
+    VirtFunc_3 = 3,
     //#= ::B* Create();
-    Create = 4,
+    Create_4 = 4,
     //#= __zz_cib_cast_to___zz_cib_Class257
     __zz_cib_cast_to___zz_cib_Class257 = 5,
     //#= __zz_cib_cast_from___zz_cib_Class257
@@ -103,11 +103,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 8,
     //#= int G();
-    G = 9,
+    G_9 = 9,
     //#= int F();
-    F = 10,
+    F_10 = 10,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 11,
+    AnotherVirtFunc_11 = 11,
     //#= __zz_cib_cast_to___zz_cib_Class261
     __zz_cib_cast_to___zz_cib_Class261 = 12,
     //#= __zz_cib_cast_from___zz_cib_Class261
@@ -123,15 +123,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int VirtFunc();
-    VirtFunc = 0,
+    VirtFunc_0 = 0,
     //#= ~B();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= int G();
-    G = 2,
+    G_2 = 2,
     //#= int F();
-    F = 3,
+    F_3 = 3,
     //#= int AnotherVirtFunc();
-    AnotherVirtFunc = 4,
+    AnotherVirtFunc_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}
@@ -139,13 +139,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   enum __zz_cib_methodid {
     //#= I1();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= I1(const ::I1&);
-    __zz_cib_copy = 1,
+    __zz_cib_copy_1 = 1,
     //#= int F();
-    F = 2,
+    F_2 = 2,
     //#= ~I1();
-    __zz_cib_delete = 3,
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     __zz_cib_next_method_id = 5
@@ -155,9 +155,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int F();
-    F = 0,
+    F_0 = 0,
     //#= ~I1();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}}
@@ -165,13 +165,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class262 {
   enum __zz_cib_methodid {
     //#= I2();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= I2(const ::I2&);
-    __zz_cib_copy = 1,
+    __zz_cib_copy_1 = 1,
     //#= int G();
-    G = 2,
+    G_2 = 2,
     //#= ~I2();
-    __zz_cib_delete = 3,
+    __zz_cib_delete_3 = 3,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 4,
     __zz_cib_next_method_id = 5
@@ -181,9 +181,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class262 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class262 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int G();
-    G = 0,
+    G_0 = 0,
     //#= ~I2();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}}

@@ -27,38 +27,38 @@ struct __zz_cib_Helper<::SkRefCntBase> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static __zz_cib_AbiType __zz_cib_new(::SkRefCntBase* __zz_cib_h_) {
+  static __zz_cib_AbiType __zz_cib_new_0(::SkRefCntBase* __zz_cib_h_) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::SkRefCntBase*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_0>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
   template <typename _RT>
-  static auto ref(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto ref_2(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::ref>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::ref_2>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto unref(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto unref_3(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::unref>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::unref_3>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto internal_dispose(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto internal_dispose_4(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose_4>(
       __zz_cib_obj
       );
   }

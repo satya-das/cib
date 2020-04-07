@@ -1485,10 +1485,11 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
       auto cibIdData = cibIdMgr.getCibIdData(compound->longName());
       if (cibIdData)
       {
-        auto castFromMethodName = compound->castFromBaseName(this, cibParams);
+        const auto castFromMethodName = compound->castFromBaseName(this, cibParams);
+        const auto capiName           = cibIdData->getMethodCApiName(castFromMethodName);
         stm << indentation << "case __zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classid:\n";
         stm << ++indentation << "return __zz_cib_Helper<" << fullName(compound) << ">::__zz_cib_from_handle(\n";
-        stm << ++indentation << "__zz_cib_Helper<" << fullName(compound) << ">::" << castFromMethodName << "(h)\n";
+        stm << ++indentation << "__zz_cib_Helper<" << fullName(compound) << ">::" << capiName << "(h)\n";
         stm << --indentation << ");\n";
         --indentation;
       }

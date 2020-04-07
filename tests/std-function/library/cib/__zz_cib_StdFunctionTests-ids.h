@@ -33,13 +33,13 @@ namespace __zz_cib_ { namespace StdFunctionTests {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= A(int);
-    __zz_cib_new = 1,
+    __zz_cib_new_1 = 1,
     //#= ~A();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= int f() const;
-    f = 3,
+    f_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -47,13 +47,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= B(const ::B&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~B();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= B(int);
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int f() const;
-    f = 3,
+    f_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -61,13 +61,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= C(const ::C&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~C();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= C(int);
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int f() const;
-    f = 3,
+    f_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -75,25 +75,25 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
     //#= T(const ::T&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~T();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= T();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int passStdFunctionByValue(::TestCallback);
-    passStdFunctionByValue = 3,
+    passStdFunctionByValue_3 = 3,
     //#= int passStdFunctionByRValueRef(::TestCallback&&);
-    passStdFunctionByRValueRef = 4,
+    passStdFunctionByRValueRef_4 = 4,
     //#= void passStdFunctionByRef(::TestCallback&);
-    passStdFunctionByRef = 5,
+    passStdFunctionByRef_5 = 5,
     //#= void passStdFunctionByPtr(::TestCallback*);
-    passStdFunctionByPtr = 6,
+    passStdFunctionByPtr_6 = 6,
     //#= int invokeSavedCallbackPassedByValue() const;
-    invokeSavedCallbackPassedByValue = 7,
+    invokeSavedCallbackPassedByValue_7 = 7,
     //#= int invokeSavedCallbackPassedByRValueRef() const;
-    invokeSavedCallbackPassedByRValueRef = 8,
+    invokeSavedCallbackPassedByRValueRef_8 = 8,
     //#= ::TestCallback getCallback() const;
-    getCallback = 9,
+    getCallback_9 = 9,
     __zz_cib_next_method_id = 10
   };
 }}}

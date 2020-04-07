@@ -23,15 +23,15 @@ static __zz_cib_Helper& instance() {
 }
 
   template <typename _RT>
-  static auto Function1() {
+  static auto Function1_0() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Function1>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Function1_0>(
       );
   }
   template <typename _RT>
-  static auto Function2() {
+  static auto Function2_1() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Function2>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Function2_1>(
       );
   }
 };
@@ -39,7 +39,7 @@ static __zz_cib_Helper& instance() {
 
 int Example::Function1() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::Example::__zz_cib_Helper::Function1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::Example::__zz_cib_Helper::Function1_0<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );
@@ -47,7 +47,7 @@ int Example::Function1() {
 
 int Example::Function2() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::Example::__zz_cib_Helper::Function2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::Example::__zz_cib_Helper::Function2_1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );

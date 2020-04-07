@@ -33,13 +33,13 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= A();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= ::std::vector<::C> g() const;
-    g = 3,
+    g_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -47,13 +47,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= C(const ::C&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= C(int);
-    __zz_cib_new = 1,
+    __zz_cib_new_1 = 1,
     //#= ~C();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= int f() const;
-    f = 3,
+    f_3 = 3,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 4,
     //#= __zz_cib_release_proxy
@@ -65,9 +65,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int f() const;
-    f = 0,
+    f_0 = 0,
     //#= ~C();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}}
@@ -75,61 +75,61 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= vector();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= vector(::std::vector<::C>::size_type, const ::C&);
     __zz_cib_new_1 = 1,
     //#= vector(const ::std::vector<::C>&);
-    __zz_cib_copy = 2,
+    __zz_cib_copy_2 = 2,
     //#= vector(::std::vector<::C>&&);
     __zz_cib_new_3 = 3,
     //#= ~vector();
-    __zz_cib_delete = 4,
+    __zz_cib_delete_4 = 4,
     //#= ::std::vector<::C>& operator=(const ::std::vector<::C>&);
-    __zz_cib_OperatorEqual = 5,
+    __zz_cib_OperatorEqual_5 = 5,
     //#= ::std::vector<::C>& operator=(::std::vector<::C>&&);
     __zz_cib_OperatorEqual_6 = 6,
     //#= void assign(::std::vector<::C>::size_type, const ::C&);
-    assign = 7,
+    assign_7 = 7,
     //#= ::std::vector<::C>::size_type size() const;
-    size = 8,
+    size_8 = 8,
     //#= ::std::vector<::C>::size_type max_size() const;
-    max_size = 9,
+    max_size_9 = 9,
     //#= void resize(::std::vector<::C>::size_type, const ::C&);
-    resize = 10,
+    resize_10 = 10,
     //#= void shrink_to_fit();
-    shrink_to_fit = 11,
+    shrink_to_fit_11 = 11,
     //#= ::std::vector<::C>::size_type capacity() const;
-    capacity = 12,
+    capacity_12 = 12,
     //#= bool empty() const;
-    empty = 13,
+    empty_13 = 13,
     //#= void reserve(::std::vector<::C>::size_type);
-    reserve = 14,
+    reserve_14 = 14,
     //#= ::C& operator[](::std::vector<::C>::size_type);
-    __zz_cib_OperatorIndex = 15,
+    __zz_cib_OperatorIndex_15 = 15,
     //#= const ::C& operator[](::std::vector<::C>::size_type) const;
     __zz_cib_OperatorIndex_16 = 16,
     //#= ::C& at(::std::vector<::C>::size_type);
-    at = 17,
+    at_17 = 17,
     //#= const ::C& at(::std::vector<::C>::size_type) const;
     at_18 = 18,
     //#= ::C& front();
-    front = 19,
+    front_19 = 19,
     //#= const ::C& front() const;
     front_20 = 20,
     //#= ::C& back();
-    back = 21,
+    back_21 = 21,
     //#= const ::C& back() const;
     back_22 = 22,
     //#= void push_back(const ::C&);
-    push_back = 23,
+    push_back_23 = 23,
     //#= void push_back(::C&&);
     push_back_24 = 24,
     //#= void pop_back();
-    pop_back = 25,
+    pop_back_25 = 25,
     //#= void swap(::std::vector<::C>&);
-    swap = 26,
+    swap_26 = 26,
     //#= void clear();
-    clear = 27,
+    clear_27 = 27,
     __zz_cib_next_method_id = 28
   };
 }}}}

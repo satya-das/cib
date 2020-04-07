@@ -23,15 +23,15 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= Interface(const ::Interface&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= Interface();
-    __zz_cib_new = 1,
+    __zz_cib_new_1 = 1,
     //#= ~Interface();
-    __zz_cib_delete = 2,
+    __zz_cib_delete_2 = 2,
     //#= int Func();
-    Func = 3,
+    Func_3 = 3,
     //#= int DoFunc() const;
-    DoFunc = 4,
+    DoFunc_4 = 4,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 5,
     __zz_cib_next_method_id = 6
@@ -41,9 +41,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int DoFunc() const;
-    DoFunc = 0,
+    DoFunc_0 = 0,
     //#= ~Interface();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     __zz_cib_next_method_id = 2
   };
 }}}}

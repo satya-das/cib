@@ -18,25 +18,25 @@ Example::Int::Int(Int&& rhs)
 }
 
 Example::Int::Int(const ::Example::Int& __zz_cib_param0)
-  : Example::Int(__zz_cib_MyHelper::__zz_cib_copy(
+  : Example::Int(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::Int::~Int() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 Example::Int::Int(int x)
-  : Example::Int(__zz_cib_MyHelper::__zz_cib_new(
+  : Example::Int(__zz_cib_MyHelper::__zz_cib_new_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 Example::Int::operator int() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::__zz_cib_Operator<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_MyHelper::__zz_cib_Operator_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

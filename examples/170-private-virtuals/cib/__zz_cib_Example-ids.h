@@ -28,15 +28,15 @@ namespace __zz_cib_ { namespace Example {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= A();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int SetIF(::IF*);
-    SetIF = 3,
+    SetIF_3 = 3,
     //#= ::IF* GetIF() const;
-    GetIF = 4,
+    GetIF_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}
@@ -44,23 +44,23 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= IF();
-    __zz_cib_new = 0,
+    __zz_cib_new_0 = 0,
     //#= int ProtectedPureVirtual();
-    ProtectedPureVirtual = 1,
+    ProtectedPureVirtual_1 = 1,
     //#= int ProtectedVirtual();
-    ProtectedVirtual = 2,
+    ProtectedVirtual_2 = 2,
     //#= int ProtectedNonVirtual();
-    ProtectedNonVirtual = 3,
+    ProtectedNonVirtual_3 = 3,
     //#= int PublicPureVirtual();
-    PublicPureVirtual = 4,
+    PublicPureVirtual_4 = 4,
     //#= int PublicVirtual();
-    PublicVirtual = 5,
+    PublicVirtual_5 = 5,
     //#= int PublicNonVirtual();
-    PublicNonVirtual = 6,
+    PublicNonVirtual_6 = 6,
     //#= ~IF();
-    __zz_cib_delete = 7,
+    __zz_cib_delete_7 = 7,
     //#= int PrivatePureVirtual();
-    PrivatePureVirtual = 8,
+    PrivatePureVirtual_8 = 8,
     //#= __zz_cib_get_class_id
     __zz_cib_get_class_id = 9,
     //#= __zz_cib_release_proxy
@@ -72,17 +72,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int ProtectedVirtual();
-    ProtectedVirtual = 0,
+    ProtectedVirtual_0 = 0,
     //#= int PublicPureVirtual();
-    PublicPureVirtual = 1,
+    PublicPureVirtual_1 = 1,
     //#= int ProtectedPureVirtual();
-    ProtectedPureVirtual = 2,
+    ProtectedPureVirtual_2 = 2,
     //#= int PublicVirtual();
-    PublicVirtual = 3,
+    PublicVirtual_3 = 3,
     //#= int PrivatePureVirtual();
-    PrivatePureVirtual = 4,
+    PrivatePureVirtual_4 = 4,
     //#= ~IF();
-    __zz_cib_delete = 5,
+    __zz_cib_delete_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}}

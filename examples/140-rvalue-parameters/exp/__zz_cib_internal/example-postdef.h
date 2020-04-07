@@ -26,18 +26,18 @@ struct __zz_cib_Helper<::RValueExample> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_0(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_0>(
         __zz_cib_obj
         );
     }
   }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_new(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_new_1(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_1>(
       __zz_cib_args...);
   }
   template <typename ..._Args>
@@ -47,15 +47,15 @@ struct __zz_cib_Helper<::RValueExample> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_3(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_3>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto __zz_cib_OperatorEqual(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto __zz_cib_OperatorEqual_4(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual_4>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -67,16 +67,16 @@ struct __zz_cib_Helper<::RValueExample> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto Set(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto Set_6(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Set>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::Set_6>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto GetValue(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto GetValue_7(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue_7>(
       __zz_cib_obj
       );
   }

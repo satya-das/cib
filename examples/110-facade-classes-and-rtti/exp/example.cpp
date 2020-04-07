@@ -19,13 +19,13 @@ Facade::Facade(Facade&& rhs)
 Facade::~Facade() {
 __zz_cib_MyHelper::__zz_cib_release_proxy(this);
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_2(
     h
   );
 }
 
 Facade::Facade()
-  : Facade(__zz_cib_MyHelper::__zz_cib_new(
+  : Facade(__zz_cib_MyHelper::__zz_cib_new_0(
     this))
   {}
 
@@ -46,7 +46,7 @@ PublicFacadeImpl::PublicFacadeImpl(PublicFacadeImpl&& rhs)
 }
 
 PublicFacadeImpl::PublicFacadeImpl(const ::PublicFacadeImpl& __zz_cib_param0)
-  : PublicFacadeImpl(__zz_cib_MyHelper::__zz_cib_copy(
+  : PublicFacadeImpl(__zz_cib_MyHelper::__zz_cib_copy_0(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
@@ -54,18 +54,18 @@ PublicFacadeImpl::PublicFacadeImpl(const ::PublicFacadeImpl& __zz_cib_param0)
 PublicFacadeImpl::~PublicFacadeImpl() {
 __zz_cib_MyHelper::__zz_cib_release_proxy(this);
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 PublicFacadeImpl::PublicFacadeImpl()
-  : PublicFacadeImpl(__zz_cib_MyHelper::__zz_cib_new(
+  : PublicFacadeImpl(__zz_cib_MyHelper::__zz_cib_new_2(
     this))
   {}
 
 void PublicFacadeImpl::F() {
-  __zz_cib_MyHelper::F<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::F_3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
@@ -82,25 +82,25 @@ A::A(A&& rhs)
 }
 
 A::A(const ::A& __zz_cib_param0)
-  : A(__zz_cib_MyHelper::__zz_cib_copy(
+  : A(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 A::~A() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_new(
+  : A(__zz_cib_MyHelper::__zz_cib_new_2(
     ))
   {}
 
 ::Facade* A::PublicFacade() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Facade*>(
-    __zz_cib_MyHelper::PublicFacade<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
+    __zz_cib_MyHelper::PublicFacade_3<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -108,7 +108,7 @@ A::A()
 
 ::Facade* A::PrivateFacade1() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Facade*>(
-    __zz_cib_MyHelper::PrivateFacade1<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
+    __zz_cib_MyHelper::PrivateFacade1_4<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -116,7 +116,7 @@ A::A()
 
 ::Facade* A::PrivateFacade2() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Facade*>(
-    __zz_cib_MyHelper::PrivateFacade2<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
+    __zz_cib_MyHelper::PrivateFacade2_5<__zz_cib_::__zz_cib_RValueAbiType_t<::Facade*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -140,7 +140,7 @@ public:
   }
   void F() override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<void>(__zz_cib_decl *) (__zz_cib_AbiType);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F_1>(
       __zz_cib_h_
     );
   }
@@ -163,10 +163,10 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Facade> {
   using __zz_cib_Delegatee = ::Facade;
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F(::Facade* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F_0(::Facade* __zz_cib_obj) {
     __zz_cib_obj->F();
   }
-  static void __zz_cib_decl __zz_cib_delete(::Facade* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_1(::Facade* __zz_cib_obj) {
     __zz_cib_Helper<::Facade>::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
@@ -177,8 +177,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class257 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::F),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_delete)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::F_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_delete_1)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;
@@ -195,10 +195,10 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::PublicFacadeImpl> {
   using __zz_cib_Delegatee = ::PublicFacadeImpl;
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F(::PublicFacadeImpl* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F_0(::PublicFacadeImpl* __zz_cib_obj) {
     __zz_cib_obj->F();
   }
-  static void __zz_cib_decl __zz_cib_delete(::PublicFacadeImpl* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_1(::PublicFacadeImpl* __zz_cib_obj) {
     __zz_cib_Helper<::PublicFacadeImpl>::__zz_cib_release_handle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
@@ -209,8 +209,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::F),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_delete)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::F_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_delete_1)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 2 };
   return &methodTable;

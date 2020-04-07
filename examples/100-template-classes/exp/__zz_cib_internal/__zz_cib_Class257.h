@@ -41,43 +41,43 @@ struct __zz_cib_Helper<::Example::Value<int>> : public __zz_cib_MethodTableHelpe
   }
 
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_0(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_args...);
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_new(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_new_2(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto GetValue(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto GetValue_3(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetValue_3>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto SetValue(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto SetValue_4(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SetValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SetValue_4>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto __zz_cib_OperatorCmpEq(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto __zz_cib_OperatorCmpEq_5(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorCmpEq>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorCmpEq_5>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -133,32 +133,32 @@ inline Example::Value<int>::Value(Value<int>&& rhs)
 }
 
 inline Example::Value<int>::Value(const ::Example::Value<int>& __zz_cib_param0)
-  : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_copy(
+  : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 inline Example::Value<int>::~Value() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 inline Example::Value<int>::Value(int x)
-  : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_new(
+  : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_new_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
 
 inline int Example::Value<int>::GetValue() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::GetValue<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 inline void Example::Value<int>::SetValue(int x) {
-  __zz_cib_MyHelper::SetValue<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
   );
@@ -166,7 +166,7 @@ inline void Example::Value<int>::SetValue(int x) {
 
 inline bool Example::Value<int>::operator ==(const ::Example::Value<int>& rhs) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
-    __zz_cib_MyHelper::__zz_cib_OperatorCmpEq<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
+    __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(rhs)>(rhs)
     )

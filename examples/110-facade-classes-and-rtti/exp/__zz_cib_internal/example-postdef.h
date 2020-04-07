@@ -27,16 +27,16 @@ struct __zz_cib_Helper<::Facade> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static __zz_cib_AbiType __zz_cib_new(::Facade* __zz_cib_h_) {
+  static __zz_cib_AbiType __zz_cib_new_0(::Facade* __zz_cib_h_) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::Facade*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_0>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
         __zz_cib_obj
         );
     }
@@ -104,30 +104,30 @@ struct __zz_cib_Helper<::PublicFacadeImpl> : public __zz_cib_MethodTableHelper {
   }
 
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(::PublicFacadeImpl* __zz_cib_h_, _Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_0(::PublicFacadeImpl* __zz_cib_h_, _Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::PublicFacadeImpl*, const __zz_cib_MethodTable*, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table(),
       __zz_cib_args...);
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_AbiType __zz_cib_new(::PublicFacadeImpl* __zz_cib_h_) {
+  static __zz_cib_AbiType __zz_cib_new_2(::PublicFacadeImpl* __zz_cib_h_) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::PublicFacadeImpl*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
   template <typename _RT>
-  static auto F(__zz_cib_AbiType __zz_cib_obj) {
+  static auto F_3(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::F>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::F_3>(
       __zz_cib_obj
       );
   }
@@ -202,42 +202,42 @@ struct __zz_cib_Helper<::A> : public __zz_cib_MethodTableHelper {
   }
 
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_0(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_args...);
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_AbiType __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_new_2() {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
       );
   }
   template <typename _RT>
-  static auto PublicFacade(__zz_cib_AbiType __zz_cib_obj) {
+  static auto PublicFacade_3(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PublicFacade>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PublicFacade_3>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto PrivateFacade1(__zz_cib_AbiType __zz_cib_obj) {
+  static auto PrivateFacade1_4(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PrivateFacade1>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PrivateFacade1_4>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto PrivateFacade2(__zz_cib_AbiType __zz_cib_obj) {
+  static auto PrivateFacade2_5(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PrivateFacade2>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::PrivateFacade2_5>(
       __zz_cib_obj
       );
   }

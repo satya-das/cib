@@ -22,15 +22,15 @@ static __zz_cib_Helper& instance() {
 }
 
   template <typename _RT, typename ..._Args>
-  static auto GetNewA(_Args... __zz_cib_args) {
+  static auto GetNewA_0(_Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA_0>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto GetNewB(_Args... __zz_cib_args) {
+  static auto GetNewB_1(_Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB_1>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
@@ -50,7 +50,7 @@ static __zz_cib_Helper& instance() {
 
 int GetNewA(::A*& pA) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_0<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
@@ -58,7 +58,7 @@ int GetNewA(::A*& pA) {
 
 int GetNewB(::A*& pA) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );

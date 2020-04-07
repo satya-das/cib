@@ -33,13 +33,13 @@ namespace __zz_cib_ { namespace TemplateTests {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   enum __zz_cib_methodid {
     //#= TemplateClassWithOneParam(const ::TemplateClassWithOneParam<int>&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~TemplateClassWithOneParam();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= TemplateClassWithOneParam(int);
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int get() const;
-    get = 3,
+    get_3 = 3,
     __zz_cib_next_method_id = 4
   };
 }}}
@@ -47,15 +47,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= TemplateClassWithTwoParams(const ::TemplateClassWithTwoParams<int, float>&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~TemplateClassWithTwoParams();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= TemplateClassWithTwoParams(int, float);
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int get1() const;
-    get1 = 3,
+    get1_3 = 3,
     //#= float get2() const;
-    get2 = 4,
+    get2_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}
@@ -63,15 +63,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= TemplateClassWithTwoParamsAndDefaultParameter(const ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~TemplateClassWithTwoParamsAndDefaultParameter();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= TemplateClassWithTwoParamsAndDefaultParameter(int, int);
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= int get1() const;
-    get1 = 3,
+    get1_3 = 3,
     //#= int get2() const;
-    get2 = 4,
+    get2_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}
@@ -79,17 +79,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   enum __zz_cib_methodid {
     //#= TemplateTest(const ::TemplateTest&);
-    __zz_cib_copy = 0,
+    __zz_cib_copy_0 = 0,
     //#= ~TemplateTest();
-    __zz_cib_delete = 1,
+    __zz_cib_delete_1 = 1,
     //#= TemplateTest();
-    __zz_cib_new = 2,
+    __zz_cib_new_2 = 2,
     //#= ::TemplateClassWithOneParam<int> getTemplateClassWithOneParam() const;
-    getTemplateClassWithOneParam = 3,
+    getTemplateClassWithOneParam_3 = 3,
     //#= ::TemplateClassWithTwoParams<int, float> getTemplateClassWithTwoParams() const;
-    getTemplateClassWithTwoParams = 4,
+    getTemplateClassWithTwoParams_4 = 4,
     //#= ::TemplateClassWithTwoParamsAndDefaultParameter<int, int> getTemplateClassWithTwoParamsAndDefaultParameter() const;
-    getTemplateClassWithTwoParamsAndDefaultParameter = 5,
+    getTemplateClassWithTwoParamsAndDefaultParameter_5 = 5,
     __zz_cib_next_method_id = 6
   };
 }}}

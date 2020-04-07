@@ -46,10 +46,10 @@ struct CibMethodIdTableEntry
   {
   }
 
-  CibMethodId        id {kInvalidMethodId};
+  CibMethodId        id{kInvalidMethodId};
   CibMethodSignature sig;
   CibMethodCAPIName  name;
-  const CppObj*      obj {nullptr};
+  const CppObj*      obj{nullptr};
 };
 
 using MethodIdVisitor = std::function<void(const CibMethodIdTableEntry&)>;
@@ -128,7 +128,7 @@ class CibIdData
   CibClassId         classId;
   CibFullClassNsName fullNsName;
   CibMethodIdTable   methodIdTable;
-  CibMethodId        nextMethodId {0};
+  CibMethodId        nextMethodId{0};
   CibMethodsSet      allCApiNames;
 
 public:
@@ -171,7 +171,8 @@ public:
     if (methodId == kInvalidMethodId)
     {
       methodId = nextMethodId;
-      if (allCApiNames.count(methodName) != 0)
+      // if (allCApiNames.count(methodName) != 0)
+      if (signature != methodName)
         methodName += "_" + std::to_string(methodId);
       assert(allCApiNames.count(methodName) == 0);
     }
@@ -260,8 +261,8 @@ private:
 private:
   CibIdTable                                    cibIdTable_;
   const CibParams&                              cibParams_;
-  CibClassId                                    nextClassId_ {256};
-  CibClassId                                    internalClassId_ {1};
+  CibClassId                                    nextClassId_{256};
+  CibClassId                                    internalClassId_{1};
   std::set<std::pair<const CibCompound*, bool>> idsAssigned_;
   std::set<const CibCompound*>                  nsNameAssigned_;
 };

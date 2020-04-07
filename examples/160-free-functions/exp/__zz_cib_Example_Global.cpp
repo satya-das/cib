@@ -23,15 +23,15 @@ static __zz_cib_Helper& instance() {
 }
 
   template <typename _RT>
-  static auto GlobalFunction1() {
+  static auto GlobalFunction1_0() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction1>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction1_0>(
       );
   }
   template <typename _RT>
-  static auto GlobalFunction2() {
+  static auto GlobalFunction2_1() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction2>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction2_1>(
       );
   }
 };
@@ -39,7 +39,7 @@ static __zz_cib_Helper& instance() {
 
 int GlobalFunction1() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction1_0<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );
@@ -47,7 +47,7 @@ int GlobalFunction1() {
 
 int GlobalFunction2() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GlobalFunction2_1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
 
     )
   );

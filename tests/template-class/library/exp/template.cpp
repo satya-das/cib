@@ -12,25 +12,25 @@ TemplateTest::TemplateTest(TemplateTest&& rhs)
 }
 
 TemplateTest::TemplateTest(const ::TemplateTest& __zz_cib_param0)
-  : TemplateTest(__zz_cib_MyHelper::__zz_cib_copy(
+  : TemplateTest(__zz_cib_MyHelper::__zz_cib_copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 TemplateTest::~TemplateTest() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_1(
     h
   );
 }
 
 TemplateTest::TemplateTest()
-  : TemplateTest(__zz_cib_MyHelper::__zz_cib_new(
+  : TemplateTest(__zz_cib_MyHelper::__zz_cib_new_2(
     ))
   {}
 
 ::TemplateClassWithOneParam<int> TemplateTest::getTemplateClassWithOneParam() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::TemplateClassWithOneParam<int>>(
-    __zz_cib_MyHelper::getTemplateClassWithOneParam<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithOneParam<int>>>(
+    __zz_cib_MyHelper::getTemplateClassWithOneParam_3<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithOneParam<int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -38,7 +38,7 @@ TemplateTest::TemplateTest()
 
 ::TemplateClassWithTwoParams<int, float> TemplateTest::getTemplateClassWithTwoParams() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::TemplateClassWithTwoParams<int, float>>(
-    __zz_cib_MyHelper::getTemplateClassWithTwoParams<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithTwoParams<int, float>>>(
+    __zz_cib_MyHelper::getTemplateClassWithTwoParams_4<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithTwoParams<int, float>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -46,7 +46,7 @@ TemplateTest::TemplateTest()
 
 ::TemplateClassWithTwoParamsAndDefaultParameter<int, int> TemplateTest::getTemplateClassWithTwoParamsAndDefaultParameter() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>>(
-    __zz_cib_MyHelper::getTemplateClassWithTwoParamsAndDefaultParameter<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>(
+    __zz_cib_MyHelper::getTemplateClassWithTwoParamsAndDefaultParameter_5<__zz_cib_::__zz_cib_RValueAbiType_t<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

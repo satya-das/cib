@@ -64,9 +64,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static __zz_cib_AbiType __zz_cib_new() {
+  static __zz_cib_AbiType __zz_cib_new_0() {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_0>(
       );
   }
   template <typename ..._Args>
@@ -76,9 +76,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_2(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_2>(
       __zz_cib_args...);
   }
   template <typename ..._Args>
@@ -87,18 +87,18 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
     return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_3>(
       __zz_cib_args...);
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_4(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_4>(
         __zz_cib_obj
         );
     }
   }
   template <typename _RT, typename ..._Args>
-  static auto __zz_cib_OperatorEqual(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto __zz_cib_OperatorEqual_5(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorEqual_5>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -110,65 +110,65 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto assign(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto assign_7(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::assign>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::assign_7>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto size(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto size_8(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::size>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::size_8>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto max_size(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto max_size_9(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::max_size>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::max_size_9>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto resize(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto resize_10(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::resize>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::resize_10>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto shrink_to_fit(__zz_cib_AbiType __zz_cib_obj) {
+  static auto shrink_to_fit_11(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::shrink_to_fit>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::shrink_to_fit_11>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto capacity(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto capacity_12(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::capacity>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::capacity_12>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto empty(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto empty_13(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::empty>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::empty_13>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto reserve(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto reserve_14(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::reserve>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::reserve_14>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto __zz_cib_OperatorIndex(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto __zz_cib_OperatorIndex_15(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorIndex>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_OperatorIndex_15>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -180,9 +180,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
-  static auto at(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto at_17(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::at>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::at_17>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -194,9 +194,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto front(__zz_cib_AbiType __zz_cib_obj) {
+  static auto front_19(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::front>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::front_19>(
       __zz_cib_obj
       );
   }
@@ -208,9 +208,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       );
   }
   template <typename _RT>
-  static auto back(__zz_cib_AbiType __zz_cib_obj) {
+  static auto back_21(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::back>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::back_21>(
       __zz_cib_obj
       );
   }
@@ -222,9 +222,9 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto push_back(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto push_back_23(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::push_back>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::push_back_23>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -236,23 +236,23 @@ struct __zz_cib_Helper<::std::vector<::C>> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto pop_back(__zz_cib_AbiType __zz_cib_obj) {
+  static auto pop_back_25(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::pop_back>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::pop_back_25>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto swap(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto swap_26(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::swap>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::swap_26>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto clear(__zz_cib_AbiType __zz_cib_obj) {
+  static auto clear_27(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::clear>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::clear_27>(
       __zz_cib_obj
       );
   }
@@ -301,7 +301,7 @@ inline std::vector<::C>::vector(__zz_cib_AbiType h)
 }
 
 inline std::vector<::C>::vector()
-  : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_new(
+  : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_new_0(
     ))
   {}
 
@@ -312,7 +312,7 @@ inline std::vector<::C>::vector(::std::vector<::C>::size_type __n, const ::C& __
   {}
 
 inline std::vector<::C>::vector(const ::std::vector<::C>& __x)
-  : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_copy(
+  : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_copy_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)))
   {}
 
@@ -323,14 +323,14 @@ inline std::vector<::C>::vector(::std::vector<::C>&& __x)
 
 inline std::vector<::C>::~vector() {
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete(
+  __zz_cib_MyHelper::__zz_cib_delete_4(
     h
   );
 }
 
 inline ::std::vector<::C>& std::vector<::C>::operator=(const ::std::vector<::C>& __x) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::C>&>(
-    __zz_cib_MyHelper::__zz_cib_OperatorEqual<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>&>>(
+    __zz_cib_MyHelper::__zz_cib_OperatorEqual_5<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)
     )
@@ -347,7 +347,7 @@ inline ::std::vector<::C>& std::vector<::C>::operator=(::std::vector<::C>&& __x)
 }
 
 inline void std::vector<::C>::assign(::std::vector<::C>::size_type __n, const ::C& __val) {
-  __zz_cib_MyHelper::assign<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::assign_7<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__val)>(__val)
@@ -356,7 +356,7 @@ inline void std::vector<::C>::assign(::std::vector<::C>::size_type __n, const ::
 
 inline ::std::vector<::C>::size_type std::vector<::C>::size() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::C>::size_type>(
-    __zz_cib_MyHelper::size<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
+    __zz_cib_MyHelper::size_8<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -364,14 +364,14 @@ inline ::std::vector<::C>::size_type std::vector<::C>::size() const {
 
 inline ::std::vector<::C>::size_type std::vector<::C>::max_size() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::C>::size_type>(
-    __zz_cib_MyHelper::max_size<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
+    __zz_cib_MyHelper::max_size_9<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 inline void std::vector<::C>::resize(::std::vector<::C>::size_type __new_size, const ::C& __x) {
-  __zz_cib_MyHelper::resize<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::resize_10<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__new_size)>(__new_size),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)
@@ -379,14 +379,14 @@ inline void std::vector<::C>::resize(::std::vector<::C>::size_type __new_size, c
 }
 
 inline void std::vector<::C>::shrink_to_fit() {
-  __zz_cib_MyHelper::shrink_to_fit<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::shrink_to_fit_11<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
 
 inline ::std::vector<::C>::size_type std::vector<::C>::capacity() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::C>::size_type>(
-    __zz_cib_MyHelper::capacity<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
+    __zz_cib_MyHelper::capacity_12<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::size_type>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -394,14 +394,14 @@ inline ::std::vector<::C>::size_type std::vector<::C>::capacity() const {
 
 inline bool std::vector<::C>::empty() const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
-    __zz_cib_MyHelper::empty<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
+    __zz_cib_MyHelper::empty_13<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 inline void std::vector<::C>::reserve(::std::vector<::C>::size_type __n) {
-  __zz_cib_MyHelper::reserve<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::reserve_14<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
   );
@@ -409,7 +409,7 @@ inline void std::vector<::C>::reserve(::std::vector<::C>::size_type __n) {
 
 inline ::C& std::vector<::C>::operator[](::std::vector<::C>::size_type __n) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
-    __zz_cib_MyHelper::__zz_cib_OperatorIndex<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
+    __zz_cib_MyHelper::__zz_cib_OperatorIndex_15<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
     )
@@ -427,7 +427,7 @@ inline const ::C& std::vector<::C>::operator[](::std::vector<::C>::size_type __n
 
 inline ::C& std::vector<::C>::at(::std::vector<::C>::size_type __n) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
-    __zz_cib_MyHelper::at<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
+    __zz_cib_MyHelper::at_17<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
     )
@@ -445,7 +445,7 @@ inline const ::C& std::vector<::C>::at(::std::vector<::C>::size_type __n) const 
 
 inline ::C& std::vector<::C>::front() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
-    __zz_cib_MyHelper::front<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
+    __zz_cib_MyHelper::front_19<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -461,7 +461,7 @@ inline const ::C& std::vector<::C>::front() const {
 
 inline ::C& std::vector<::C>::back() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
-    __zz_cib_MyHelper::back<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
+    __zz_cib_MyHelper::back_21<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -476,7 +476,7 @@ inline const ::C& std::vector<::C>::back() const {
 }
 
 inline void std::vector<::C>::push_back(const ::C& __x) {
-  __zz_cib_MyHelper::push_back<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::push_back_23<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)
   );
@@ -490,20 +490,20 @@ inline void std::vector<::C>::push_back(::C&& __x) {
 }
 
 inline void std::vector<::C>::pop_back() {
-  __zz_cib_MyHelper::pop_back<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::pop_back_25<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
 
 inline void std::vector<::C>::swap(::std::vector<::C>& __x) {
-  __zz_cib_MyHelper::swap<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::swap_26<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)
   );
 }
 
 inline void std::vector<::C>::clear() {
-  __zz_cib_MyHelper::clear<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::clear_27<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
