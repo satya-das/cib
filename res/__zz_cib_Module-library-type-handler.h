@@ -7,5 +7,6 @@
 
 #include "__zz_cib_Module-library-class-type-converter.h"
 #include "__zz_cib_Module-library-default-type-converter.h"
+#include "__zz_cib_Module-library-function-type-converter.h"
 #include "__zz_cib_Module-library-smart-ptr-converter.h"
 #include "__zz_cib_Module-library-std-function-converter.h"

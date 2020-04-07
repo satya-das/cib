@@ -7,5 +7,6 @@
 
 #include "__zz_cib_StdFunctionTests-library-class-type-converter.h"
 #include "__zz_cib_StdFunctionTests-library-default-type-converter.h"
+#include "__zz_cib_StdFunctionTests-library-function-type-converter.h"
 #include "__zz_cib_StdFunctionTests-library-smart-ptr-converter.h"
 #include "__zz_cib_StdFunctionTests-library-std-function-converter.h"

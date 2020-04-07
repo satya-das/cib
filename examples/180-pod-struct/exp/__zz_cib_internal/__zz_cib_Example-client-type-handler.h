@@ -6,6 +6,7 @@
 #pragma once
 
 #include "__zz_cib_Example-client-default-type-converter.h"
+#include "__zz_cib_Example-client-function-type-converter.h"
 #include "__zz_cib_Example-client-proxy-type-converter.h"
 #include "__zz_cib_Example-client-smart-ptr-converter.h"
 #include "__zz_cib_Example-client-std-function-converter.h"
