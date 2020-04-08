@@ -53,24 +53,25 @@ enum FuncProtoPurpose
 {
   kPurposeBaseLine = __LINE__, //!< This is unusable const, don't use it.
 
-  kPurposeGlueCode             = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeAbiLayer             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeLibraryAbi           = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
-  kPurposeClientAbi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
-  kPurposeLibGlueCode          = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeClientGlueCode       = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeSignature            = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeProxyDecl            = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeProxyDefn            = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeProxyDefnReturnType  = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeProxyProcType        = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
-  kPurposeGenericProxy         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
-  kPurposeGeneric              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
-  kPurposeCApi                 = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeProxyCApi            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeGenericProxyProcType = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
-  kPurposeInvokeHelper         = (1 << (__LINE__ - kPurposeBaseLine)),
-  kPurposeGenericProxyCtorInit = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeGlueCode               = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeAbiLayer               = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeLibraryAbi             = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
+  kPurposeClientAbi              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeAbiLayer,
+  kPurposeLibGlueCode            = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeClientGlueCode         = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeSignature              = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeSigForVirtualFuncMatch = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDecl              = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDefn              = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyDefnReturnType    = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeProxyProcType          = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
+  kPurposeGenericProxy           = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeLibGlueCode,
+  kPurposeGeneric                = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeClientGlueCode,
+  kPurposeCApi                   = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeProxyCApi              = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeGenericProxyProcType   = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
+  kPurposeInvokeHelper           = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeGenericProxyCtorInit   = (1 << (__LINE__ - kPurposeBaseLine)),
 };
 
 /*!
@@ -269,7 +270,7 @@ public:
   }
 
   /// @return signature of this method.
-  std::string signature(const CibHelper& helper) const;
+  std::string signature(const CibHelper& helper, FuncProtoPurpose purpose = kPurposeSignature) const;
 
   /// Emits function arguments for function definition/declaration.
   void emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purpose, const CibHelper& helper) const;

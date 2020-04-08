@@ -122,6 +122,14 @@ public:
   static ::IF* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
+  int PublicVirtual() override {
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual_5>(
+        __zz_cib_h_
+      )
+    );
+  }
   int ProtectedVirtual() override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
@@ -142,14 +150,6 @@ public:
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual_1>(
-        __zz_cib_h_
-      )
-    );
-  }
-  int PublicVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual_5>(
         __zz_cib_h_
       )
     );
@@ -177,24 +177,24 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::IF> {
   using __zz_cib_Delegatee = ::IF;
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedVirtual_0(::IF* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicVirtual_0(::IF* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
+      __zz_cib_obj->PublicVirtual()
+    );
+  }
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedVirtual_1(::IF* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->ProtectedVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicPureVirtual_1(::IF* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicPureVirtual_2(::IF* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->PublicPureVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedPureVirtual_2(::IF* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedPureVirtual_3(::IF* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->ProtectedPureVirtual()
-    );
-  }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicVirtual_3(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
-      __zz_cib_obj->PublicVirtual()
     );
   }
   static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PrivatePureVirtual_4(::IF* __zz_cib_obj) {
@@ -213,10 +213,10 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class257 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::ProtectedVirtual_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::PublicPureVirtual_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::ProtectedPureVirtual_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::PublicVirtual_3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::PublicVirtual_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::ProtectedVirtual_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::PublicPureVirtual_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::ProtectedPureVirtual_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::PrivatePureVirtual_4),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::IF>::__zz_cib_delete_5)
   };

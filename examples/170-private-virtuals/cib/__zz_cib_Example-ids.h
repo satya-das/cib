@@ -71,14 +71,14 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
-    //#= int ProtectedVirtual();
-    ProtectedVirtual_0 = 0,
-    //#= int PublicPureVirtual();
-    PublicPureVirtual_1 = 1,
-    //#= int ProtectedPureVirtual();
-    ProtectedPureVirtual_2 = 2,
     //#= int PublicVirtual();
-    PublicVirtual_3 = 3,
+    PublicVirtual_0 = 0,
+    //#= int ProtectedVirtual();
+    ProtectedVirtual_1 = 1,
+    //#= int PublicPureVirtual();
+    PublicPureVirtual_2 = 2,
+    //#= int ProtectedPureVirtual();
+    ProtectedPureVirtual_3 = 3,
     //#= int PrivatePureVirtual();
     PrivatePureVirtual_4 = 4,
     //#= ~IF();

@@ -27,31 +27,31 @@ struct __zz_cib_Helper<::A> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static __zz_cib_AbiType __zz_cib_new(::A* __zz_cib_h_) {
+  static __zz_cib_AbiType __zz_cib_new_0(::A* __zz_cib_h_) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::A*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_0>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy(::A* __zz_cib_h_, _Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_1(::A* __zz_cib_h_, _Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::A*, const __zz_cib_MethodTable*, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_1>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table(),
       __zz_cib_args...);
   }
-  static auto __zz_cib_delete(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
         __zz_cib_obj
         );
     }
   }
   template <typename _RT, typename ..._Args>
-  static auto setValue(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto setValue_3(const __zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_3>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -63,16 +63,16 @@ struct __zz_cib_Helper<::A> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto getIntValue(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto getIntValue_5(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue_5>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto getFloatValue(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto getFloatValue_6(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getFloatValue>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::getFloatValue_6>(
       __zz_cib_obj
       );
   }

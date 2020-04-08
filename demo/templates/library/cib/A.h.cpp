@@ -27,7 +27,7 @@ public:
   ::Value<float> getFloatValue() const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<::Value<float>>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Value<float>>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getFloatValue>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getFloatValue_0>(
         __zz_cib_h_
       )
     );
@@ -35,7 +35,7 @@ public:
   ::Value<int> getIntValue() const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<::Value<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Value<int>>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue_2>(
         __zz_cib_h_
       )
     );
@@ -43,7 +43,7 @@ public:
   int setValue(const ::Value<int>& intVal) const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(intVal)>);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_4>(
         __zz_cib_h_,
         __zz_cib_::__zz_cib_ToAbiType<decltype(intVal)>(intVal)
       )
@@ -52,7 +52,7 @@ public:
   float setValue(const ::Value<float>& floatVal) const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(floatVal)>);
     return __zz_cib_FromAbiType<float>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_3>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_1>(
         __zz_cib_h_,
         __zz_cib_::__zz_cib_ToAbiType<decltype(floatVal)>(floatVal)
       )
@@ -61,7 +61,7 @@ public:
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_3>(
       __zz_cib_h_
     );
   }
@@ -88,16 +88,16 @@ struct __zz_cib_Delegator<::A> : public ::A {
   using ::A::A;
 
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl);
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_1(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::A>(proxy, mtbl, *__zz_cib_obj);
   }
-  static void __zz_cib_decl __zz_cib_delete(__zz_cib_Delegatee* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl setValue(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<int>&> intVal) {
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl setValue_3(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<int>&> intVal) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->::A::setValue(
         __zz_cib_::__zz_cib_FromAbiType<const ::Value<int>&>(intVal)
@@ -111,12 +111,12 @@ struct __zz_cib_Delegator<::A> : public ::A {
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::Value<int>> __zz_cib_decl getIntValue(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<::Value<int>> __zz_cib_decl getIntValue_5(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<::Value<int>>(
       __zz_cib_obj->::A::getIntValue()
     );
   }
-  static __zz_cib_RValueAbiType_t<::Value<float>> __zz_cib_decl getFloatValue(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_RValueAbiType_t<::Value<float>> __zz_cib_decl getFloatValue_6(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<::Value<float>>(
       __zz_cib_obj->::A::getFloatValue()
     );
@@ -131,13 +131,13 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_new),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_delete),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::setValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_new_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_delete_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::setValue_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::setValue_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::getIntValue),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::getFloatValue),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::getIntValue_5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::getFloatValue_6),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_release_proxy)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 8 };

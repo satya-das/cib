@@ -320,18 +320,18 @@ public:
   static ::B* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
-  int VirtFunc() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc_3>(
-        __zz_cib_h_
-      )
-    );
-  }
   int G() override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::G_9>(
+        __zz_cib_h_
+      )
+    );
+  }
+  int VirtFunc() override {
+    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::VirtFunc_3>(
         __zz_cib_h_
       )
     );
@@ -369,14 +369,14 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::B> {
   using __zz_cib_Delegatee = ::B;
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl VirtFunc_0(::B* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
-      __zz_cib_obj->VirtFunc()
-    );
-  }
   static __zz_cib_RValueAbiType_t<int> __zz_cib_decl G_2(::B* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(
       __zz_cib_obj->G()
+    );
+  }
+  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl VirtFunc_0(::B* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<int>(
+      __zz_cib_obj->VirtFunc()
     );
   }
   static __zz_cib_RValueAbiType_t<int> __zz_cib_decl F_3(::B* __zz_cib_obj) {

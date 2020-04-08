@@ -44,10 +44,10 @@ CibCompound* CibFunctionHelper::getOwner() const
   return static_cast<CibCompound*>(func_->owner());
 }
 
-std::string CibFunctionHelper::signature(const CibHelper& helper) const
+std::string CibFunctionHelper::signature(const CibHelper& helper, FuncProtoPurpose purpose) const
 {
   std::stringstream tmpbuf;
-  emitSignature(tmpbuf, helper, kPurposeSignature);
+  emitSignature(tmpbuf, helper, purpose);
   tmpbuf << ';';
   return tmpbuf.str();
 }

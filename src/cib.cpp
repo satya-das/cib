@@ -82,6 +82,7 @@ static void emitType(std::ostream&      stm,
       return;
 
     case kPurposeSignature:
+    case kPurposeSigForVirtualFuncMatch:
     case kPurposeProxyDecl:
     case kPurposeProxyDefn:
     case kPurposeGenericProxy:
@@ -120,7 +121,8 @@ static void emitType(std::ostream&      stm,
       emitType(stm, varObj->varType(), purpose, helper, typeResolver);
     }
 
-    if ((purpose == kPurposeSignature) || (purpose == kPurposeCApi) || (purpose == kPurposeProxyCApi))
+    if ((purpose == kPurposeSignature) || (purpose == kPurposeSigForVirtualFuncMatch) || (purpose == kPurposeCApi)
+        || (purpose == kPurposeProxyCApi))
     {
       for (auto& arrSize : varObj->varDecl().arraySizes())
       {
@@ -173,12 +175,13 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
     }
 
     emitType(stm, var.get(), purpose, helper, getOwner());
-    if (purpose != kPurposeSignature)
+    if ((purpose != kPurposeSignature) && (purpose != kPurposeSigForVirtualFuncMatch))
     {
       stm << ' ';
       emitParamName(stm, var, i, !(purpose & kPurposeProxyDecl));
     }
-    if ((purpose != kPurposeSignature) && (purpose != kPurposeCApi) && (purpose != kPurposeProxyCApi))
+    if ((purpose != kPurposeSignature) && (purpose != kPurposeSigForVirtualFuncMatch) && (purpose != kPurposeCApi)
+        && (purpose != kPurposeProxyCApi))
     {
       if (param->objType_ == CppObjType::kVar)
       {
@@ -271,7 +274,7 @@ void CibFunctionHelper::emitSignature(std::ostream& stm, const CibHelper& helper
 {
   if (isTypeConverter())
     stm << "operator ";
-  if (returnType())
+  if ((purpose != kPurposeSigForVirtualFuncMatch) && returnType())
   {
     emitType(stm, returnType(), purpose, helper, getOwner());
     stm << ' ';
@@ -1555,7 +1558,8 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       CibFunctionHelper func(mem);
       if (!func.isVirtual() && !func.isDestructor())
         continue;
-      auto sig = func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper);
+      auto sig =
+        func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper, kPurposeSigForVirtualFuncMatch);
       if (func.isPureVirtual())
       {
         if (!func.isDestructor() || (ancestor == this))
@@ -1691,7 +1695,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     {
       CibFunctionHelper func(obj);
       if (func.isFunction() && func.isVirtual())
-        virtSigs.insert(func.signature(helper));
+        virtSigs.insert(func.signature(helper, kPurposeSigForVirtualFuncMatch));
     }
     for (auto func : allVirtuals_)
     {
@@ -1701,7 +1705,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if ((objNeedingBridge_.count(func) == 0))
       {
-        if (virtSigs.count(func.signature(helper)) == 0)
+        if (virtSigs.count(func.signature(helper, kPurposeSigForVirtualFuncMatch)) == 0)
         {
           objNeedingBridge_.insert(func);
           needsBridging_.push_back(func);
