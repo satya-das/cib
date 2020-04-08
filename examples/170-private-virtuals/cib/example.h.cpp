@@ -21,10 +21,10 @@ class __zz_cib_Generic<::IF> : public ::IF {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::IF>;
 
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl)
     : ::IF::IF()
-    , __zz_cib_h_(proxy)
-    , __zz_cib_mtbl_helper(mtbl)
+    , __zz_cib_h_(__zz_cib_proxy)
+    , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int PublicVirtual() override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
@@ -97,8 +97,8 @@ struct __zz_cib_Delegator<::IF> : public ::IF {
   using ::IF::IF;
 
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
-    return new __zz_cib_::__zz_cib_Generic<::IF>(proxy, mtbl);
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl) {
+    return new __zz_cib_::__zz_cib_Generic<::IF>(__zz_cib_proxy, __zz_cib_mtbl);
   }
   static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedPureVirtual_1(__zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToRValueAbiType<int>(

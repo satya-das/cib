@@ -78,6 +78,8 @@ bool CibHelper::isCopyable(const CppVar* var) const
   if (ptrLevel(var->varType()))
     return true;
   const auto& varType = baseType(var->varType());
+  if (isSmartPtr(varType))
+    return false;
   if (strstr(varType.c_str(), "unique_ptr"))
     return false;
   if (strstr(varType.c_str(), "atomic"))

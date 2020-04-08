@@ -14,15 +14,15 @@ class __zz_cib_Generic<::Interface> : public ::Interface {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Interface>;
 
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl)
     : ::Interface::Interface()
-    , __zz_cib_h_(proxy)
-    , __zz_cib_mtbl_helper(mtbl)
+    , __zz_cib_h_(__zz_cib_proxy)
+    , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const ::Interface& __zz_cib_param0)
+  __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl, const ::Interface& __zz_cib_param0)
     : ::Interface::Interface(    __zz_cib_param0)
-    , __zz_cib_h_(proxy)
-    , __zz_cib_mtbl_helper(mtbl)
+    , __zz_cib_h_(__zz_cib_proxy)
+    , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int DoFunc() const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
@@ -63,11 +63,11 @@ struct __zz_cib_Delegator<::Interface> : public ::Interface {
   using ::Interface::Interface;
 
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_0(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
-    return new __zz_cib_::__zz_cib_Generic<::Interface>(proxy, mtbl, *__zz_cib_obj);
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl, const __zz_cib_Delegatee* __zz_cib_obj) {
+    return new __zz_cib_::__zz_cib_Generic<::Interface>(__zz_cib_proxy, __zz_cib_mtbl, *__zz_cib_obj);
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
-    return new __zz_cib_::__zz_cib_Generic<::Interface>(proxy, mtbl);
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl) {
+    return new __zz_cib_::__zz_cib_Generic<::Interface>(__zz_cib_proxy, __zz_cib_mtbl);
   }
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;

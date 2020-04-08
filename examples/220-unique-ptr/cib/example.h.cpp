@@ -20,15 +20,15 @@ class __zz_cib_Generic<::I> : public ::I {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
 
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, std::unique_ptr<int> pi)
+  __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl, std::unique_ptr<int> pi)
     : ::I::I(    std::move(pi))
-    , __zz_cib_h_(proxy)
-    , __zz_cib_mtbl_helper(mtbl)
+    , __zz_cib_h_(__zz_cib_proxy)
+    , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
-  __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl)
+  __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl)
     : ::I::I()
-    , __zz_cib_h_(proxy)
-    , __zz_cib_mtbl_helper(mtbl)
+    , __zz_cib_h_(__zz_cib_proxy)
+    , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   std::unique_ptr<int> g() const override {
     using __zz_cib_proc = __zz_cib_RValueAbiType_t<std::unique_ptr<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
@@ -76,11 +76,11 @@ struct __zz_cib_Delegator<::I> : public ::I {
   using ::I::I;
 
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, __zz_cib_AbiType_t<std::unique_ptr<int>> pi) {
-    return new __zz_cib_::__zz_cib_Generic<::I>(proxy, mtbl,     __zz_cib_::__zz_cib_FromAbiType<std::unique_ptr<int>>(pi));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl, __zz_cib_AbiType_t<std::unique_ptr<int>> pi) {
+    return new __zz_cib_::__zz_cib_Generic<::I>(__zz_cib_proxy, __zz_cib_mtbl,     __zz_cib_::__zz_cib_FromAbiType<std::unique_ptr<int>>(pi));
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl) {
-    return new __zz_cib_::__zz_cib_Generic<::I>(proxy, mtbl);
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl) {
+    return new __zz_cib_::__zz_cib_Generic<::I>(__zz_cib_proxy, __zz_cib_mtbl);
   }
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;

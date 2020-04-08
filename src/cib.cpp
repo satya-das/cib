@@ -330,7 +330,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
   stm << capiName << '(';
   if ((purpose != kPurposeSignature) && isConstructor() && callingOwner->needsGenericProxyDefinition())
   {
-    stm << "__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl";
+    stm << "__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl";
     if (hasParams())
       stm << ", ";
   }
@@ -397,7 +397,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     }
     if (callingOwner->needsGenericProxyDefinition())
     {
-      stm << "__zz_cib_::__zz_cib_Generic<" << callingOwner->longName() << ">(proxy, mtbl";
+      stm << "__zz_cib_::__zz_cib_Generic<" << callingOwner->longName() << ">(__zz_cib_proxy, __zz_cib_mtbl";
       if (hasParams())
         stm << ", ";
     }
@@ -631,7 +631,7 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
   }
   else if (isConstructor() && (!isCopyConstructor() || getOwner()->isCopyCtorCallable()))
   {
-    stm << indentation << "__zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl";
+    stm << indentation << "__zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_mtbl";
     if (hasParams())
       stm << ", ";
     emitArgsForDecl(stm, kPurposeGenericProxy, helper);
@@ -640,8 +640,8 @@ void CibFunctionHelper::emitGenericProxyDefn(std::ostream&      stm,
     stm << indentation << ": " << getOwner()->longName() << "::" << funcName() << '(';
     emitArgsForCall(stm, helper, cibParams, kPurposeGenericProxyCtorInit, indentation);
     stm << ")\n";
-    stm << indentation << ", __zz_cib_h_(proxy)\n";
-    stm << indentation << ", __zz_cib_mtbl_helper(mtbl)\n";
+    stm << indentation << ", __zz_cib_h_(__zz_cib_proxy)\n";
+    stm << indentation << ", __zz_cib_mtbl_helper(__zz_cib_mtbl)\n";
     --indentation;
     stm << indentation << "{}\n";
   }
