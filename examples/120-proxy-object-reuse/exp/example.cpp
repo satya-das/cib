@@ -28,7 +28,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 A::A(int i)
   : A(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(i)>(i)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(i)>(std::move(i))))
   {}
 
 
@@ -62,7 +62,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 void B::SetA(::A* pA) {
   __zz_cib_MyHelper::SetA_3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(std::move(pA))
   );
 }
 

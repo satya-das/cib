@@ -26,7 +26,7 @@ C::C(const ::C& __zz_cib_param0)
 C::C(int x)
   : C(__zz_cib_MyHelper::__zz_cib_new_1(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
+    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
   {}
 
 C::~C() {

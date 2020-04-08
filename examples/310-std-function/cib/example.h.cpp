@@ -14,7 +14,7 @@ public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::C>;
 
   __zz_cib_Generic(__zz_cib_Proxy proxy, const __zz_cib_MethodTable* mtbl, int x)
-    : ::C::C(    x)
+    : ::C::C(    std::move(x))
     , __zz_cib_h_(proxy)
     , __zz_cib_mtbl_helper(mtbl)
   {}

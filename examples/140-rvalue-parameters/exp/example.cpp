@@ -16,7 +16,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 RValueExample::RValueExample(std::int32_t val)
   : RValueExample(__zz_cib_MyHelper::__zz_cib_new_1(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(val)>(val)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(val)>(std::move(val))))
   {}
 
 RValueExample::RValueExample(::RValueExample&& __zz_cib_param0)

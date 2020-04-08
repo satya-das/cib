@@ -65,7 +65,7 @@ void Example::A::SetInt(const ::Example::Value<::Example::Int>& y) {
 void Example::A::SetFloat(::Example::Value<float> f) {
   __zz_cib_MyHelper::SetFloat_7<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(f)>(f)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(f)>(std::move(f))
   );
 }
 

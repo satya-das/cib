@@ -92,7 +92,7 @@ int A::i(::I* p) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::i_6<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
     )
   );
 }

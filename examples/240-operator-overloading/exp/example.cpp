@@ -38,7 +38,7 @@ Example::A::A()
   return __zz_cib_::__zz_cib_FromRValueAbiType<::Example::A&>(
     __zz_cib_MyHelper::__zz_cib_OperatorLShift_3<__zz_cib_::__zz_cib_RValueAbiType_t<::Example::A&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
     )
   );
 }

@@ -146,7 +146,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline Example::Value<float>::Value(float x)
   : Example::Value<float>(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
   {}
 
 inline float Example::Value<float>::GetValue() const {
@@ -160,7 +160,7 @@ inline float Example::Value<float>::GetValue() const {
 inline void Example::Value<float>::SetValue(float x) {
   __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
   );
 }
 

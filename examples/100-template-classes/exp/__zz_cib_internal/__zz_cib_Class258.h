@@ -147,7 +147,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline Example::Value<::Example::Int>::Value(::Example::Int x)
   : Example::Value<::Example::Int>(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
   {}
 
 inline ::Example::Int Example::Value<::Example::Int>::GetValue() const {
@@ -161,7 +161,7 @@ inline ::Example::Int Example::Value<::Example::Int>::GetValue() const {
 inline void Example::Value<::Example::Int>::SetValue(::Example::Int x) {
   __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
   );
 }
 

@@ -136,8 +136,8 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline TemplateClassWithTwoParams<int, float>::TemplateClassWithTwoParams(int _a1, float _a2)
   : TemplateClassWithTwoParams<int, float>(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(_a1),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(_a2)>(_a2)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(std::move(_a1)),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(_a2)>(std::move(_a2))))
   {}
 
 inline int TemplateClassWithTwoParams<int, float>::get1() const {

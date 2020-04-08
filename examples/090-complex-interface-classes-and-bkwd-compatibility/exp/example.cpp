@@ -139,7 +139,7 @@ int A::SetInterface(::Interface1* pInterface1) const {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::SetInterface_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(pInterface1)>(pInterface1)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(pInterface1)>(std::move(pInterface1))
     )
   );
 }

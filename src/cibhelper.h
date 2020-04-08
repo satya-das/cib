@@ -99,6 +99,7 @@ public:
   bool isUniquePtr(const std::string& typeName) const;
   bool isUniquePtr(const CppVarType* varType) const;
   bool isUniquePtr(const CppVar* var) const;
+  bool isCopyable(const CppVar* var) const;
 
   std::string                 convertSmartPtr(const std::string& typeName) const;
   std::unique_ptr<CppVarType> convertSmartPtr(const CppVarType* typeObj) const;

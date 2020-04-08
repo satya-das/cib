@@ -307,7 +307,7 @@ inline std::vector<::C>::vector()
 
 inline std::vector<::C>::vector(::std::vector<::C>::size_type __n, const ::C& __value)
   : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_new_1(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n),
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n)),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__value)>(__value)))
   {}
 
@@ -349,7 +349,7 @@ inline ::std::vector<::C>& std::vector<::C>::operator=(::std::vector<::C>&& __x)
 inline void std::vector<::C>::assign(::std::vector<::C>::size_type __n, const ::C& __val) {
   __zz_cib_MyHelper::assign_7<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n)),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__val)>(__val)
   );
 }
@@ -373,7 +373,7 @@ inline ::std::vector<::C>::size_type std::vector<::C>::max_size() const {
 inline void std::vector<::C>::resize(::std::vector<::C>::size_type __new_size, const ::C& __x) {
   __zz_cib_MyHelper::resize_10<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(__new_size)>(__new_size),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__new_size)>(std::move(__new_size)),
     __zz_cib_::__zz_cib_ToAbiType<decltype(__x)>(__x)
   );
 }
@@ -403,7 +403,7 @@ inline bool std::vector<::C>::empty() const {
 inline void std::vector<::C>::reserve(::std::vector<::C>::size_type __n) {
   __zz_cib_MyHelper::reserve_14<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n))
   );
 }
 
@@ -411,7 +411,7 @@ inline ::C& std::vector<::C>::operator[](::std::vector<::C>::size_type __n) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
     __zz_cib_MyHelper::__zz_cib_OperatorIndex_15<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n))
     )
   );
 }
@@ -420,7 +420,7 @@ inline const ::C& std::vector<::C>::operator[](::std::vector<::C>::size_type __n
   return __zz_cib_::__zz_cib_FromRValueAbiType<const ::C&>(
     __zz_cib_MyHelper::__zz_cib_OperatorIndex_16<__zz_cib_::__zz_cib_RValueAbiType_t<const ::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n))
     )
   );
 }
@@ -429,7 +429,7 @@ inline ::C& std::vector<::C>::at(::std::vector<::C>::size_type __n) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::C&>(
     __zz_cib_MyHelper::at_17<__zz_cib_::__zz_cib_RValueAbiType_t<::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n))
     )
   );
 }
@@ -438,7 +438,7 @@ inline const ::C& std::vector<::C>::at(::std::vector<::C>::size_type __n) const 
   return __zz_cib_::__zz_cib_FromRValueAbiType<const ::C&>(
     __zz_cib_MyHelper::at_18<__zz_cib_::__zz_cib_RValueAbiType_t<const ::C&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(__n)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(__n)>(std::move(__n))
     )
   );
 }

@@ -31,7 +31,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 Example::Int::Int(int x)
   : Example::Int(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
   {}
 
 Example::Int::operator int() const {

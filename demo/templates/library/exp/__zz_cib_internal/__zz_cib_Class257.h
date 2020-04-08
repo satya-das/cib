@@ -128,7 +128,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 inline Value<float>::Value(float value)
   : Value<float>(__zz_cib_MyHelper::__zz_cib_new_2(
-        __zz_cib_::__zz_cib_ToAbiType<decltype(value)>(value)))
+        __zz_cib_::__zz_cib_ToAbiType<decltype(value)>(std::move(value))))
   {}
 
 inline float Value<float>::get() const {

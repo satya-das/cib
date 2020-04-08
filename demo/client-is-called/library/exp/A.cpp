@@ -62,7 +62,7 @@ int C::UseInterface(::I* pI) {
   return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
     __zz_cib_MyHelper::UseInterface<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(pI)>(pI)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(pI)>(std::move(pI))
     )
   );
 }

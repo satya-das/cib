@@ -376,7 +376,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
         cppCompound->setCantHaveDefaultCtor();
         cppCompound->setCantHaveDefaultCopyCtor();
       }
-      else if (isUniquePtr(var.get()))
+      else if (!isCopyable(var.get()))
       {
         cppCompound->setCantHaveDefaultCopyCtor();
       }

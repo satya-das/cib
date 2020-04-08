@@ -244,10 +244,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         emitParamName(stm, var, i);
         //        emitType(stm, var->varType(), kPurposeSignature, helper);
         stm << ")>(";
-        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
+        if (!isByRef(var))
           stm << "std::move(";
         emitParamName(stm, var, i);
-        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
+        if (!isByRef(var))
           stm << ')';
         stm << ')';
         break;
@@ -257,10 +257,10 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
         break;
 
       case kPurposeGenericProxyCtorInit:
-        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
+        if (!isByRef(var))
           stm << "std::move(";
         emitParamName(stm, var, i);
-        if (isByRValueRef(var) || (helper.isSmartPtr(var.get()) && !isByRef(var)))
+        if (!isByRef(var))
           stm << ')';
         break;
 

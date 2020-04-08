@@ -73,6 +73,19 @@ bool CibHelper::isUniquePtr(const CppVar* var) const
   return isUniquePtr(var->varType());
 }
 
+bool CibHelper::isCopyable(const CppVar* var) const
+{
+  if (ptrLevel(var->varType()))
+    return true;
+  const auto& varType = baseType(var->varType());
+  if (strstr(varType.c_str(), "unique_ptr"))
+    return false;
+  if (strstr(varType.c_str(), "atomic"))
+    return false;
+
+  return true;
+}
+
 std::string CibHelper::convertSmartPtr(const std::string& typeName) const
 {
   auto nameStartPos = typeName.find('<') + 1;

@@ -19,9 +19,9 @@ CPoint::CPoint(double _x, double _y, double _z)
 {
   __zz_cib_MyHelper::__zz_cib_new_2(
     this, 
-    __zz_cib_::__zz_cib_ToAbiType<decltype(_x)>(_x),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(_y)>(_y),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(_z)>(_z)
+    __zz_cib_::__zz_cib_ToAbiType<decltype(_x)>(std::move(_x)),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(_y)>(std::move(_y)),
+    __zz_cib_::__zz_cib_ToAbiType<decltype(_z)>(std::move(_z))
   );
 }
 
