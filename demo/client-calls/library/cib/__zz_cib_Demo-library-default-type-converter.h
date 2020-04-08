@@ -125,18 +125,18 @@ class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsValueType_
   _T m;
 
 public:
-  _T convert()
+  _T* convert()
   {
-    return std::move(m);
+    return &m;
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(_T x)
-    : m(std::move(x))
+  __zz_cib_LibraryTypeToAbiType(_T&& x)
+    : m(x)
   {
   }
 
-  operator _T()
+  operator _T*()
   {
     return convert();
   }
