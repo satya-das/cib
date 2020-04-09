@@ -2247,7 +2247,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   for (auto ctor : ctors())
   {
     CibFunctionHelper func = ctor;
-    if (!isPrivate(ctor))
+    if (!isPrivate(ctor) && !func.isDeleted())
     {
       func.emitGenericProxyDefn(stm, helper, cibParams, "__zz_cib", indentation);
     }
