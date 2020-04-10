@@ -492,21 +492,40 @@ struct __zz_cib_Delegator
 //! @def __ZZ_CIB_PROXY_CLASS_INTERNALS
 //! Macro that allows cib to add it's hook in proxy classes
 //! in a minimally invasive way.
-#define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
+#define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
 public:                                                                                                                \
   class __zz_cib_Opaque;                                                                                               \
   using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
-                                                                                                                       \
-protected:                                                                                                             \
-  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
-  explicit className(__zz_cib_AbiType h);                                                                              \
                                                                                                                        \
 private:                                                                                                               \
   friend class __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
   friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
   using __zz_cib_ThisClass = className;                                                                                \
   using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \
-  __zz_cib_AbiType __zz_cib_h_
+  __zz_cib_AbiType __zz_cib_h_;
+
+#define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
+  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                            \
+                                                                                                                       \
+protected:                                                                                                             \
+  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
+  explicit className(__zz_cib_AbiType h);
+
+#define __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(className, fullName)                                                         \
+  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                  \
+protected:                                                                                                             \
+  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
+  explicit className(__zz_cib_AbiType h)                                                                               \
+    : __zz_cib_h_(h)                                                                                                   \
+  {                                                                                                                    \
+    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
+  } /*                                                                                                                 \
+  className(className&& rhs)                                                                                           \
+    : __zz_cib_h_(rhs.__zz_cib_h_)                                                                                     \
+  {                                                                                                                    \
+    rhs.__zz_cib_h_ = nullptr;                                                                                         \
+    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
+  }*/
 
 //! @def __ZZ_CIB_CLASS_INTERNALS
 //! Macro that allows cib to add it's hook in proxy classes
@@ -541,10 +560,11 @@ We will now move to see the content of file that was #include'd at the end of pr
 
 namespace __zz_cib_ {
 using namespace ::Example;
-template <>
-struct __zz_cib_Helper<::Example::A> : public __zz_cib_MethodTableHelper {
-  using __zz_cib_AbiType = typename ::Example::A::__zz_cib_AbiType;
-  using _ProxyClass = ::Example::A;
+template <typename _T>
+struct __zz_cib_Helper<::Example::A, _T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<_T, ::Example::A>);
+  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
+  using _ProxyClass = _T;
   friend class ::Example::A;
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_methodid;
 
@@ -552,50 +572,53 @@ struct __zz_cib_Helper<::Example::A> : public __zz_cib_MethodTableHelper {
     : __zz_cib_MethodTableHelper(
       __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_classid))
   {}
-  static __zz_cib_Helper& instance() {
+  static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
     return helper;
+  }
+  static __zz_cib_MethodTableHelper& __zz_cib_mtbl() {
+    return __zz_cib_instance();
   }
 
   template <typename ..._Args>
   static __zz_cib_AbiType __zz_cib_copy_0(_Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_args...);
   }
   static auto __zz_cib_delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
+      return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
         __zz_cib_obj
         );
     }
   }
   static __zz_cib_AbiType __zz_cib_new_2() {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_2>(
       );
   }
   template <typename _RT>
   static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::SomeFunc_3>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::SomeFunc_3>(
       __zz_cib_obj
       );
   }
-  static ::Example::A* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
     return new ::Example::A(h);
   }
-  static ::Example::A __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return ::Example::A(h);
+  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return _T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const ::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(::Example::A* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;

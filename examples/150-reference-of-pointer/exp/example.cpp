@@ -114,6 +114,7 @@ public:
 }
 
 namespace __zz_cib_ {
+template<>
 ::A* __zz_cib_Helper<::A>::__zz_cib_create_proxy(__zz_cib_AbiType h) {
   switch(__zz_cib_get_class_id(&h)) {
   case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
@@ -156,6 +157,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
+template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::A>::__zz_cib_get_proxy_method_table() {
   return __zz_cib_::__zz_cib_Class257::__zz_cib_GetMethodTable();
 }
@@ -190,6 +192,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
+template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::B>::__zz_cib_get_proxy_method_table() {
   return __zz_cib_::__zz_cib_Class258::__zz_cib_GetMethodTable();
 }

@@ -7,7 +7,7 @@
 
 namespace __zz_cib_ {
 
-template <typename _ProxyClass>
+template <typename _ProxyClass, typename = _ProxyClass>
 struct __zz_cib_Helper
 {
 };

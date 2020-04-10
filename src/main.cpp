@@ -308,7 +308,7 @@ int main(int argc, const char* argv[])
   {
     CibConstCompoundEPtr cibCppCompound = cppAst;
     cibCppCompound->emitValueClassNames(valueClassStm, helper, cibParams);
-    cibCppCompound->emitUserHeader(helper, cibParams);
+    cibCppCompound->emitUserHeader(helper, cibParams, cibIdMgr);
     cibCppCompound->emitPredefHeader(helper, cibParams);
     cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
     cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);

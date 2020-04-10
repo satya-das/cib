@@ -17,21 +17,24 @@ __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
     __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Example_Global::__zz_cib_classid))
 {}
-static __zz_cib_Helper& instance() {
+static __zz_cib_Helper& __zz_cib_instance() {
   static __zz_cib_Helper helper;
   return helper;
+}
+static __zz_cib_MethodTableHelper& __zz_cib_mtbl() {
+  return __zz_cib_instance();
 }
 
   template <typename _RT>
   static auto GlobalFunction1_0() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction1_0>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction1_0>(
       );
   }
   template <typename _RT>
   static auto GlobalFunction2_1() {
     using __zz_cib_proc = _RT (__zz_cib_decl *) ();
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction2_1>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GlobalFunction2_1>(
       );
   }
 };

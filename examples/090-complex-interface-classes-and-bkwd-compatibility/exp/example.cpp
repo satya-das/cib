@@ -185,6 +185,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
+template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::Interface1>::__zz_cib_get_proxy_method_table() {
   return __zz_cib_::__zz_cib_Class257::__zz_cib_GetMethodTable();
 }
@@ -226,6 +227,7 @@ public:
 }
 
 namespace __zz_cib_ {
+template<>
 ::Interface2* __zz_cib_Helper<::Interface2>::__zz_cib_create_proxy(__zz_cib_AbiType h) {
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
@@ -268,6 +270,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
+template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::Interface2>::__zz_cib_get_proxy_method_table() {
   return __zz_cib_::__zz_cib_Class258::__zz_cib_GetMethodTable();
 }
@@ -309,6 +312,7 @@ public:
 }
 
 namespace __zz_cib_ {
+template<>
 ::Interface3* __zz_cib_Helper<::Interface3>::__zz_cib_create_proxy(__zz_cib_AbiType h) {
   switch(__zz_cib_get_class_id(&h)) {
   default: break;
@@ -351,6 +355,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 }}
 
 namespace __zz_cib_ {
+template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::Interface3>::__zz_cib_get_proxy_method_table() {
   return __zz_cib_::__zz_cib_Class259::__zz_cib_GetMethodTable();
 }

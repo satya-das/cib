@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,52 +1,44 @@
+@@ -1,52 +1,49 @@
  #pragma once
  #include <vector>
  
@@ -58,14 +58,14 @@
    //   ret.emplace_back(new int(15));
    //   return ret;
    // }
-+  std::vector<C*> c() const;
- 
--  std::vector<C*> c() const {
--    std::vector<C*> ret;
--    ret.emplace_back(new C(50));
--    ret.emplace_back(new C(150));
--    return ret;
--  }
+-
+   // std::vector<C*> c() const {
+   //   std::vector<C*> ret;
+   //   ret.emplace_back(new C(50));
+   //   ret.emplace_back(new C(150));
+   //   return ret;
+   // }
++
 +private:
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };

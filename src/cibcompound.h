@@ -532,7 +532,7 @@ public:
     return ret;
   }
   void emitValueClassNames(std::ostream& stm, const CibHelper& helper, const CibParams& cibParams) const;
-  void emitUserHeader(const CibHelper& helper, const CibParams& cibParams) const;
+  void emitUserHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const;
   void emitImplHeader(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr) const;
   void emitTemplateInstanceSpecializations(std::ostream&    stm,
@@ -667,10 +667,12 @@ private:
                 std::ostream&    stm,
                 const CibHelper& helper,
                 const CibParams& cibParams,
+                const CibIdMgr&  cibIdMgr,
                 CppIndent        indentation = CppIndent()) const;
   void emitDecl(std::ostream&    stm,
                 const CibHelper& helper,
                 const CibParams& cibParams,
+                const CibIdMgr&  cibIdMgr,
                 CppIndent        indentation = CppIndent()) const;
   void emitImplSource(std::ostream&    stm,
                       const CibHelper& helper,

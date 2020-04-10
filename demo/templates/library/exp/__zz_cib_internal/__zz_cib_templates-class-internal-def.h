@@ -23,21 +23,40 @@ struct __zz_cib_Delegator
 //! @def __ZZ_CIB_PROXY_CLASS_INTERNALS
 //! Macro that allows cib to add it's hook in proxy classes
 //! in a minimally invasive way.
-#define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
+#define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
 public:                                                                                                                \
   class __zz_cib_Opaque;                                                                                               \
   using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
-                                                                                                                       \
-protected:                                                                                                             \
-  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
-  explicit className(__zz_cib_AbiType h);                                                                              \
                                                                                                                        \
 private:                                                                                                               \
   friend class __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
   friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
   using __zz_cib_ThisClass = className;                                                                                \
   using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \
-  __zz_cib_AbiType __zz_cib_h_
+  __zz_cib_AbiType __zz_cib_h_;
+
+#define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
+  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                            \
+                                                                                                                       \
+protected:                                                                                                             \
+  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
+  explicit className(__zz_cib_AbiType h);
+
+#define __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(className, fullName)                                                         \
+  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                  \
+protected:                                                                                                             \
+  /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
+  explicit className(__zz_cib_AbiType h)                                                                               \
+    : __zz_cib_h_(h)                                                                                                   \
+  {                                                                                                                    \
+    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
+  } /*                                                                                                                 \
+  className(className&& rhs)                                                                                           \
+    : __zz_cib_h_(rhs.__zz_cib_h_)                                                                                     \
+  {                                                                                                                    \
+    rhs.__zz_cib_h_ = nullptr;                                                                                         \
+    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
+  }*/
 
 //! @def __ZZ_CIB_CLASS_INTERNALS
 //! Macro that allows cib to add it's hook in proxy classes

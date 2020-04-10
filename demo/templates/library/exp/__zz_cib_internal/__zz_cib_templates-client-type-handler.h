@@ -21,7 +21,7 @@ struct return_value
 template <typename _ValueType>
 struct return_value<_ValueType, std::enable_if_t<std::is_class_v<_ValueType>, void>>
 {
-  using type = _ValueType&;
+  using type = const _ValueType&;
 };
 
 template <typename _ValueType>
