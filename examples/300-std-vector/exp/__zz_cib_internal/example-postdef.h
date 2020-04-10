@@ -56,11 +56,9 @@ struct __zz_cib_Helper<::C> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj
       );
   }
-  static std::uint32_t __zz_cib_get_class_id(__zz_cib_AbiType* __zz_cib_obj) {
-    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_AbiType*);
-    return instance().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
+  static ::C* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new ::C(h);
   }
-  static ::C* __zz_cib_create_proxy(__zz_cib_AbiType h);
   static ::C __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return ::C(h);
   }

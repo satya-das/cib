@@ -10,3 +10,21 @@
 #include "__zz_cib_TemplateTests-client-proxy-type-converter.h"
 #include "__zz_cib_TemplateTests-client-smart-ptr-converter.h"
 #include "__zz_cib_TemplateTests-client-std-function-converter.h"
+
+namespace __zz_cib_ {
+
+template <typename _ValueType, typename = void>
+struct return_value
+{
+  using type = _ValueType;
+};
+template <typename _ValueType>
+struct return_value<_ValueType, std::enable_if_t<std::is_class_v<_ValueType>, void>>
+{
+  using type = _ValueType&;
+};
+
+template <typename _ValueType>
+using return_value_t = typename return_value<_ValueType>::type;
+
+} // namespace __zz_cib_

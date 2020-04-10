@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,38 +1,37 @@
+@@ -1,52 +1,44 @@
  #pragma once
  #include <vector>
  
@@ -41,14 +41,29 @@
    // std::vector<int> f() const {
    //   return {2, 3, 9};
    // }
-+  std::vector<C> g() const;
- 
+-
 -
 -public:
 -  std::vector<C> g() const {
 -    std::vector<C> ret;
 -    ret.emplace_back(11);
 -    ret.emplace_back(101);
+-    return ret;
+-  }
+-
++  std::vector<C> g() const;
+   // std::vector<int*> i() const {
+   //   std::vector<int*> ret;
+   //   ret.emplace_back(new int(5));
+   //   ret.emplace_back(new int(15));
+   //   return ret;
+   // }
++  std::vector<C*> c() const;
+ 
+-  std::vector<C*> c() const {
+-    std::vector<C*> ret;
+-    ret.emplace_back(new C(50));
+-    ret.emplace_back(new C(150));
 -    return ret;
 -  }
 +private:

@@ -120,33 +120,33 @@ struct __zz_cib_Helper<::B> : public __zz_cib_MethodTableHelper {
     return helper;
   }
 
-  static __zz_cib_AbiType __zz_cib_new_0(::B* __zz_cib_h_) {
-    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::B*, const __zz_cib_MethodTable*);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_0>(
-      __zz_cib_h_, __zz_cib_get_proxy_method_table()
-      );
-  }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_copy_1(::B* __zz_cib_h_, _Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_copy_0(::B* __zz_cib_h_, _Args... __zz_cib_args) {
     using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::B*, const __zz_cib_MethodTable*, _Args...);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_1>(
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_copy_0>(
       __zz_cib_h_, __zz_cib_get_proxy_method_table(),
       __zz_cib_args...);
   }
-  template <typename _RT>
-  static auto VirtualFunction_2(const __zz_cib_AbiType __zz_cib_obj) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::VirtualFunction_2>(
-      __zz_cib_obj
+  static __zz_cib_AbiType __zz_cib_new_1(::B* __zz_cib_h_) {
+    using __zz_cib_proc = __zz_cib_AbiType (__zz_cib_decl *) (::B*, const __zz_cib_MethodTable*);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_new_1>(
+      __zz_cib_h_, __zz_cib_get_proxy_method_table()
       );
   }
-  static auto __zz_cib_delete_3(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_proc = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_3>(
+      return instance().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
         __zz_cib_obj
         );
     }
+  }
+  template <typename _RT>
+  static auto VirtualFunction_3(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return instance().invoke<__zz_cib_proc, __zz_cib_methodid::VirtualFunction_3>(
+      __zz_cib_obj
+      );
   }
   static A::__zz_cib_AbiType __zz_cib_cast_to___zz_cib_Class257(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = A::__zz_cib_AbiType (__zz_cib_decl *) (__zz_cib_AbiType);

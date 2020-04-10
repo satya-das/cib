@@ -1,13 +1,6 @@
 #include "example.h"
 #include <vector>
 
-#include <typeinfo>
-#include <typeindex>
-#include <cstdint>
-#include <unordered_map>
-
-extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
-
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
@@ -83,17 +76,6 @@ struct __zz_cib_Delegator<::C> : public ::C {
       __zz_cib_obj->::C::f()
     );
   }
-  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::C** __zz_cib_obj) {
-    static bool classIdRepoPopulated = false;
-    if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::C))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
-      classIdRepoPopulated = true;
-    }
-    auto tdx = std::type_index(typeid(**__zz_cib_obj));
-    auto itr = __zz_cib_gClassIdRepo.find(tdx);
-    if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
-  }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
 }
@@ -108,10 +90,9 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_new_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_delete_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::f_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_release_proxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
   return &methodTable;
 }
 }}

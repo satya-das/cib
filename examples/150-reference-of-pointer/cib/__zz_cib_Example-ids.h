@@ -79,14 +79,14 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
-    //#= B();
-    __zz_cib_new_0 = 0,
     //#= B(const ::B&);
-    __zz_cib_copy_1 = 1,
-    //#= int VirtualFunction() const;
-    VirtualFunction_2 = 2,
+    __zz_cib_copy_0 = 0,
+    //#= B();
+    __zz_cib_new_1 = 1,
     //#= ~B();
-    __zz_cib_delete_3 = 3,
+    __zz_cib_delete_2 = 2,
+    //#= int VirtualFunction() const;
+    VirtualFunction_3 = 3,
     //#= __zz_cib_cast_to___zz_cib_Class257
     __zz_cib_cast_to___zz_cib_Class257 = 4,
     //#= __zz_cib_cast_from___zz_cib_Class257

@@ -59,30 +59,30 @@ B::B(B&& rhs)
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
 }
 
-B::B()
-  : B(__zz_cib_MyHelper::__zz_cib_new_0(
-    this))
-  {}
-
 B::B(const ::B& __zz_cib_param0)
-  : B(__zz_cib_MyHelper::__zz_cib_copy_1(
+  : B(__zz_cib_MyHelper::__zz_cib_copy_0(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
-int B::VirtualFunction() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::VirtualFunction_2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
-      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
-    )
-  );
-}
+B::B()
+  : B(__zz_cib_MyHelper::__zz_cib_new_1(
+    this))
+  {}
 
 B::~B() {
 __zz_cib_MyHelper::__zz_cib_release_proxy(this);
 auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete_3(
+  __zz_cib_MyHelper::__zz_cib_delete_2(
     h
+  );
+}
+
+int B::VirtualFunction() const {
+  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
+    __zz_cib_MyHelper::VirtualFunction_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
   );
 }
 

@@ -215,6 +215,14 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     if (isTypedefLike(cppObj))
     {
       auto* resolvedTypeAlias = resolveTypeAlias(cppObj);
+      // <HACK>
+      // Stop resolving a typedef is it is defined inside a template class and resolved type is a compound.
+      // TODO: maybe resolving typedef is no longer needed. Try removing it altogether.
+      CibConstCompoundEPtr resolvedCompound = resolvedTypeAlias;
+      CibConstCompoundEPtr ownerOfCppObj    = owner(cppObj);
+      if (resolvedCompound && ownerOfCppObj->isTemplateInstance())
+        return cppObj;
+      // </HACK>
       if (resolvedTypeAlias)
         cppObj = resolvedTypeAlias;
     }

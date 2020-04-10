@@ -21,10 +21,14 @@ class B : public ::A
 public:
   B(B&& rhs);
 public:
-  B();
   B(const B& );
-  virtual int VirtualFunction() const;
+  B();
   virtual ~B();
+  virtual int VirtualFunction() const;
+  // A*& getA()
+  // {
+  //   return mpA;
+  // }
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(B, B);

@@ -35,4 +35,18 @@ public:
     ret.emplace_back(101);
     return ret;
   }
+
+  // std::vector<int*> i() const {
+  //   std::vector<int*> ret;
+  //   ret.emplace_back(new int(5));
+  //   ret.emplace_back(new int(15));
+  //   return ret;
+  // }
+
+  // std::vector<C*> c() const {
+  //   std::vector<C*> ret;
+  //   ret.emplace_back(new C(50));
+  //   ret.emplace_back(new C(150));
+  //   return ret;
+  // }
 };

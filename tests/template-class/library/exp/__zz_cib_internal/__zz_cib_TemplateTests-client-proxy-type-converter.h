@@ -124,6 +124,29 @@ public:
 };
 
 template <typename _T>
+class __zz_cib_ClientTypeToAbiType<_T*&&, std::enable_if_t<__zz_cib_IsProxyClass_v<_T>, void>>
+{
+  _T*&& m;
+
+public:
+  auto convert() const
+  {
+    return &__zz_cib_::__zz_cib_Helper<std::remove_cv_t<_T>>::__zz_cib_get_handle(m);
+  }
+
+public:
+  __zz_cib_ClientTypeToAbiType(_T*&& x)
+    : m(std::move(x))
+  {
+  }
+
+  operator typename _T::__zz_cib_AbiType() const
+  {
+    return convert();
+  }
+};
+
+template <typename _T>
 class __zz_cib_ClientTypeToAbiType<_T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<_T>, void>>
 {
   _T*&                             m;

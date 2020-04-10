@@ -54,11 +54,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_delete_2 = 2,
     //#= int f() const;
     f_3 = 3,
-    //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 4,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_release_proxy = 4,
+    __zz_cib_next_method_id = 5
   };
 }}}
 
@@ -76,7 +74,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
   enum __zz_cib_methodid {
     //#= vector();
     __zz_cib_new_0 = 0,
-    //#= vector(::std::vector<::C>::size_type, const ::C&);
+    //#= vector(::std::vector<::C>::size_type, const ::std::vector<::C>::value_type&);
     __zz_cib_new_1 = 1,
     //#= vector(const ::std::vector<::C>&);
     __zz_cib_copy_2 = 2,
@@ -88,13 +86,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorEqual_5 = 5,
     //#= ::std::vector<::C>& operator=(::std::vector<::C>&&);
     __zz_cib_OperatorEqual_6 = 6,
-    //#= void assign(::std::vector<::C>::size_type, const ::C&);
+    //#= void assign(::std::vector<::C>::size_type, const ::std::vector<::C>::value_type&);
     assign_7 = 7,
     //#= ::std::vector<::C>::size_type size() const;
     size_8 = 8,
     //#= ::std::vector<::C>::size_type max_size() const;
     max_size_9 = 9,
-    //#= void resize(::std::vector<::C>::size_type, const ::C&);
+    //#= void resize(::std::vector<::C>::size_type, const ::std::vector<::C>::value_type&);
     resize_10 = 10,
     //#= void shrink_to_fit();
     shrink_to_fit_11 = 11,
@@ -104,33 +102,25 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     empty_13 = 13,
     //#= void reserve(::std::vector<::C>::size_type);
     reserve_14 = 14,
-    //#= ::C& operator[](::std::vector<::C>::size_type);
+    //#= const __zz_cib_::return_value_t<value_type> operator[](::std::vector<::C>::size_type) const;
     __zz_cib_OperatorIndex_15 = 15,
-    //#= const ::C& operator[](::std::vector<::C>::size_type) const;
-    __zz_cib_OperatorIndex_16 = 16,
-    //#= ::C& at(::std::vector<::C>::size_type);
-    at_17 = 17,
-    //#= const ::C& at(::std::vector<::C>::size_type) const;
-    at_18 = 18,
-    //#= ::C& front();
-    front_19 = 19,
-    //#= const ::C& front() const;
-    front_20 = 20,
-    //#= ::C& back();
-    back_21 = 21,
-    //#= const ::C& back() const;
-    back_22 = 22,
-    //#= void push_back(const ::C&);
-    push_back_23 = 23,
-    //#= void push_back(::C&&);
-    push_back_24 = 24,
+    //#= const __zz_cib_::return_value_t<value_type> at(::std::vector<::C>::size_type) const;
+    at_16 = 16,
+    //#= const __zz_cib_::return_value_t<value_type> front() const;
+    front_17 = 17,
+    //#= const __zz_cib_::return_value_t<value_type> back() const;
+    back_18 = 18,
+    //#= void push_back(const ::std::vector<::C>::value_type&);
+    push_back_19 = 19,
+    //#= void push_back(::std::vector<::C>::value_type&&);
+    push_back_20 = 20,
     //#= void pop_back();
-    pop_back_25 = 25,
+    pop_back_21 = 21,
     //#= void swap(::std::vector<::C>&);
-    swap_26 = 26,
+    swap_22 = 22,
     //#= void clear();
-    clear_27 = 27,
-    __zz_cib_next_method_id = 28
+    clear_23 = 23,
+    __zz_cib_next_method_id = 24
   };
 }}}}
 

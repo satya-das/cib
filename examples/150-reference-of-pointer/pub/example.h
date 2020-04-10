@@ -11,9 +11,18 @@ public:
 class B : public A
 {
 public:
+  B() : mpA(new A) {}
+  virtual ~B() {};
+
   virtual int VirtualFunction() const;
 
-  virtual ~B() {};
+  // A*& getA()
+  // {
+  //   return mpA;
+  // }
+
+private:
+  A* mpA;
 };
 
 int GetNewA(A*& pA);

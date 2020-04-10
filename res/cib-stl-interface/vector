@@ -1,3 +1,5 @@
+#include <type_traits>
+
 namespace std {
 
 template <typename _Tp /*, typename _Alloc = std::allocator<_Tp>*/>
@@ -74,20 +76,21 @@ public:
   size_type size() const;
   size_type max_size() const;
   // void              resize(size_type __new_size);
-  void              resize(size_type __new_size, const value_type& __x);
-  void              shrink_to_fit();
-  size_type         capacity() const;
-  bool              empty() const;
-  void              reserve(size_type __n);
-  value_type&       operator[](size_type __n);
-  const value_type& operator[](size_type __n) const;
+  void      resize(size_type __new_size, const value_type& __x);
+  void      shrink_to_fit();
+  size_type capacity() const;
+  bool      empty() const;
+  void      reserve(size_type __n);
 
-  value_type&       at(size_type __n);
-  const value_type& at(size_type __n) const;
-  value_type&       front();
-  const value_type& front() const;
-  value_type&       back();
-  const value_type& back() const;
+  const __zz_cib_::return_value_t<value_type> operator[](size_type __n) const;
+  const __zz_cib_::return_value_t<value_type> at(size_type __n) const;
+  const __zz_cib_::return_value_t<value_type> front() const;
+  const __zz_cib_::return_value_t<value_type> back() const;
+
+  // value_type&       operator[](size_type __n);
+  // value_type&       at(size_type __n);
+  // value_type&       front();
+  // value_type&       back();
 
   /*
   // CANNOT BE SUPPORTED IN GENERIC CASE
