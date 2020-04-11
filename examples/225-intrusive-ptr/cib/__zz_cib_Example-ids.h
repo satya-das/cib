@@ -106,11 +106,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
     unref_3 = 3,
     //#= void internal_dispose() const;
     internal_dispose_4 = 4,
-    //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 5,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 6,
-    __zz_cib_next_method_id = 7
+    __zz_cib_release_proxy = 5,
+    __zz_cib_next_method_id = 6
   };
 }}}
 

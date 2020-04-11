@@ -1,7 +1,4 @@
 #include "SkRefCnt.h"
-#include "example.h"
-
-#include "__zz_cib_internal/__zz_cib_Example-generic.h"
 
 
 SkRefCntBase::SkRefCntBase(__zz_cib_AbiType h)
@@ -41,46 +38,6 @@ void SkRefCntBase::internal_dispose() const {
   );
 }
 
-namespace __zz_cib_ {
-template<>
-class __zz_cib_Generic<::SkRefCntBase> : public ::SkRefCntBase {
-  __zz_cib_AbiType __zz_cib_h_;
-
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_methodid;
-  static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
-    static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
-      __zz_cib_ids::__zz_cib_Class257::__zz_cib_classid));
-    return mtableHelper;
-  }
-  explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::SkRefCntBase(h), __zz_cib_h_(h) {}
-public:
-  static ::SkRefCntBase* __zz_cib_from_handle(__zz_cib_AbiType h) {
-    return new __zz_cib_Generic(h);
-  }
-  void internal_dispose() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<void>(__zz_cib_decl *) (const __zz_cib_AbiType);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::internal_dispose_4>(
-      __zz_cib_h_
-    );
-  }
-};
-}
-
-namespace __zz_cib_ {
-template<>
-::SkRefCntBase* __zz_cib_Helper<::SkRefCntBase>::__zz_cib_create_proxy(__zz_cib_AbiType h) {
-  switch(__zz_cib_get_class_id(&h)) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
-    return __zz_cib_Helper<I>::__zz_cib_from_handle(
-      __zz_cib_Helper<I>::__zz_cib_cast_from___zz_cib_Class257(h)
-    );
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid:
-    return new ::SkRefCntBase(h);
-  default: break;
-  }
-  return ::__zz_cib_::__zz_cib_Generic<::SkRefCntBase>::__zz_cib_from_handle(h);
-}
-}
 namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::SkRefCntBase> {

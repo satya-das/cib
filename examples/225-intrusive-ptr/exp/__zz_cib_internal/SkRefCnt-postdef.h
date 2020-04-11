@@ -66,11 +66,9 @@ struct __zz_cib_Helper<::SkRefCntBase, _T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj
       );
   }
-  static std::uint32_t __zz_cib_get_class_id(__zz_cib_AbiType* __zz_cib_obj) {
-    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_AbiType*);
-    return __zz_cib_mtbl().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
+  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new ::SkRefCntBase(h);
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h);
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
   }

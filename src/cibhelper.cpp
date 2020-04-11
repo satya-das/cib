@@ -360,8 +360,11 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       {
         isInline = false;
       }
-      evaluateArgs(mem);
-      evaluateReturnType(mem);
+      if (!isPrivate(mem))
+      {
+        evaluateArgs(mem);
+        evaluateReturnType(mem);
+      }
       if (!(func.getAttr() & kStatic))
         isEmpty = false;
     }
@@ -375,11 +378,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
         if (cppObj && isClassLike(cppObj))
           isPodStruct = false;
       }
-      if (isByRef(var))
-      {
-        cppCompound->setCantHaveDefaultCtor();
-      }
-      else if (isByRValueRef(var))
+      if (isByRef(var) || isByRValueRef(var))
       {
         cppCompound->setCantHaveDefaultCtor();
         cppCompound->setCantHaveDefaultCopyCtor();

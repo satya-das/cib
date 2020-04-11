@@ -1,12 +1,4 @@
 #include "SkRefCnt.h"
-#include "example.h"
-
-#include <typeinfo>
-#include <typeindex>
-#include <cstdint>
-#include <unordered_map>
-
-extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
@@ -77,25 +69,6 @@ struct __zz_cib_Delegator<::SkRefCntBase> : public ::SkRefCntBase {
   static __zz_cib_RValueAbiType_t<void> __zz_cib_decl internal_dispose_4(const __zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::SkRefCntBase::internal_dispose();
   }
-  static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::SkRefCntBase** __zz_cib_obj) {
-    static bool classIdRepoPopulated = false;
-    if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::SkRefCntBase))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid;
-      classIdRepoPopulated = true;
-    }
-    auto tdx = std::type_index(typeid(**__zz_cib_obj));
-    auto itr = __zz_cib_gClassIdRepo.find(tdx);
-    if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    {
-      auto* obj = dynamic_cast<::I*>(*__zz_cib_obj);
-      if (obj) {
-        *__zz_cib_obj = obj;
-        return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
-      }
-    }
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid;
-  }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
 }
@@ -111,10 +84,9 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::SkRefCntBase>::ref_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::SkRefCntBase>::unref_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::SkRefCntBase>::internal_dispose_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::SkRefCntBase>::__zz_cib_get_class_id),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::SkRefCntBase>::__zz_cib_release_proxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;
 }
 }}
