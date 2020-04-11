@@ -39,7 +39,7 @@ class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsConstructi
   _T&& m;
 
 public:
-  _T* convert() const
+  _T* convert()
   {
     return &m;
   }
@@ -50,7 +50,7 @@ public:
   {
   }
 
-  operator _T*() const
+  operator _T*()
   {
     return convert();
   }
