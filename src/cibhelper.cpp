@@ -388,7 +388,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       {
         cppCompound->setCantHaveDefaultCopyCtor();
       }
-      else
+      else if (!usesTemplateType(var->varType()) || isPublic(var))
       {
         const auto* memType = resolveVarType(var->varType(), cppCompound);
         if (memType && (memType->objType_ == CibCompound::kObjectType))

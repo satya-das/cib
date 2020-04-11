@@ -120,7 +120,7 @@ public:
 };
 
 template <typename _T>
-class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<__zz_cib_IsValueType_v<_T> || !std::is_class_v<_T>, void>>
+class __zz_cib_LibraryTypeToAbiType<_T&&, std::enable_if_t<!std::is_class_v<_T>, void>>
 {
   _T m;
 
