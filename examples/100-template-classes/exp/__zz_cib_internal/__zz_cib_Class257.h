@@ -68,7 +68,7 @@ struct __zz_cib_Helper<::Example::Value<int>, _T> : public __zz_cib_MethodTableH
       __zz_cib_args...);
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::Example::Value<int>(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

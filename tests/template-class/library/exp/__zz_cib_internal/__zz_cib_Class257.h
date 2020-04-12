@@ -53,7 +53,7 @@ struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, _T> : public __zz_cib_M
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::TemplateClassWithOneParam<int>(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

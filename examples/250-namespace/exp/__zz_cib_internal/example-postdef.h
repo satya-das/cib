@@ -73,7 +73,7 @@ struct __zz_cib_Helper<::Example::Outer::Inner::A, _T> : public __zz_cib_MethodT
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::Example::Outer::Inner::A(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

@@ -57,7 +57,7 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::A(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
@@ -129,7 +129,7 @@ struct __zz_cib_Helper<::B, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::B(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
@@ -201,7 +201,7 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::C(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
@@ -314,7 +314,7 @@ struct __zz_cib_Helper<::T, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::T(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

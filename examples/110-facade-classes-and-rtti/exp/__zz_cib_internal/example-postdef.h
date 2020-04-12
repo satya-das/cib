@@ -148,7 +148,7 @@ struct __zz_cib_Helper<::PublicFacadeImpl, _T> : public __zz_cib_MethodTableHelp
     return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_cast_from___zz_cib_Class257>(__zz_cib_obj);
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::PublicFacadeImpl(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
@@ -254,7 +254,7 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::A(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

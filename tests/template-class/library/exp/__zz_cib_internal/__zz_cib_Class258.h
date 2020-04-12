@@ -60,7 +60,7 @@ struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, _T> : public __
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::TemplateClassWithTwoParams<int, float>(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

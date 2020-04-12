@@ -174,7 +174,7 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::A(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);

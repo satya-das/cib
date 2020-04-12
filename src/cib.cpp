@@ -1551,7 +1551,7 @@ void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibPara
   {
     stm << " {\n";
     ++indentation;
-    stm << indentation << "return new " << longName() << "(h);\n";
+    stm << indentation << "return new _T(h);\n";
     --indentation;
     stm << indentation << "}\n";
   }

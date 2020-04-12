@@ -53,7 +53,7 @@ struct __zz_cib_Helper<::Value<float>, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new ::Value<float>(h);
+    return new _T(h);
   }
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
