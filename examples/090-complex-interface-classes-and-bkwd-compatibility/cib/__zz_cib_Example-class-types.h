@@ -96,7 +96,8 @@ template <typename _T>
 constexpr bool __zz_cib_IsAbstractClass_v = (std::is_class_v<_T> && std::is_abstract_v<_T>);
 
 template <typename _T>
-constexpr bool __zz_cib_IsPlainClass_v = (!__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
+constexpr bool __zz_cib_IsPlainClass_v =
+  (!std::is_enum_v<_T> && !__zz_cib_IsSmartPtr_v<_T> && !__zz_cib_IsStdFunction_v<_T>);
 
 } // namespace __zz_cib_
 

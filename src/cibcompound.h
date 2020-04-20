@@ -364,7 +364,11 @@ public:
   }
   bool isInline() const
   {
-    return (props_ & kClassPropInline);
+    if (!(props_ & kClassPropInline))
+      return false;
+    if (!isClassLike(outer()))
+      return true;
+    return outer()->isInline();
   }
   bool isShared() const
   {

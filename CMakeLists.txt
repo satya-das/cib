@@ -60,6 +60,7 @@ set(RESFILES
 	__zz_cib_Module-class-types.h
 	__zz_cib_Module-client-type-handler.h
 	__zz_cib_Module-client-default-type-converter.h
+	__zz_cib_Module-client-enum-type-converter.h
 	__zz_cib_Module-client-proxy-type-converter.h
 	__zz_cib_Module-client-smart-ptr-converter.h
 	__zz_cib_Module-client-function-type-converter.h
@@ -75,6 +76,7 @@ set(RESFILES
 	__zz_cib_Module-library-type-handler.h
 	__zz_cib_Module-library-class-type-converter.h
 	__zz_cib_Module-library-default-type-converter.h
+	__zz_cib_Module-library-enum-type-converter.h
 	__zz_cib_Module-library-smart-ptr-converter.h
 	__zz_cib_Module-library-function-type-converter.h
 	__zz_cib_Module-library-std-function-converter.h

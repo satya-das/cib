@@ -7,6 +7,7 @@
 
 #include "__zz_cib_templates-library-class-type-converter.h"
 #include "__zz_cib_templates-library-default-type-converter.h"
+#include "__zz_cib_templates-library-enum-type-converter.h"
 #include "__zz_cib_templates-library-function-type-converter.h"
 #include "__zz_cib_templates-library-smart-ptr-converter.h"
 #include "__zz_cib_templates-library-std-function-converter.h"

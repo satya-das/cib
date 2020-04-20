@@ -455,8 +455,8 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     {
       stm << "::";
     }
-    else if (!forProxy
-             && (isStatic() || isFriend()
+    else if (!forProxy && !isFriend()
+             && (isStatic()
                  || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
                      && (accessType() != CppAccessType::kPrivate))))
     {
@@ -503,6 +503,9 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
   }
   else
   {
+    if (asInline && isFriend())
+      stm << "friend ";
+
     if (isFunction())
     {
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
@@ -1639,8 +1642,6 @@ static bool shallAddDefaultCtor(CibCompound* compound)
 
 void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
-  if (strcmp(name().c_str(), "SkTDArray<int>") == 0)
-    printf("blah\n");
   if (isTemplated())
   {
     forEachTemplateInstance([&](CibCompound* templateInstace) {

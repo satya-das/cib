@@ -6,6 +6,7 @@
 #pragma once
 
 #include "__zz_cib_templates-client-default-type-converter.h"
+#include "__zz_cib_templates-client-enum-type-converter.h"
 #include "__zz_cib_templates-client-function-type-converter.h"
 #include "__zz_cib_templates-client-proxy-type-converter.h"
 #include "__zz_cib_templates-client-smart-ptr-converter.h"
