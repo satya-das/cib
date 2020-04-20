@@ -156,6 +156,10 @@ public:
   {
     return (func_->attr() & kStatic) == kStatic;
   }
+  bool isFriend() const
+  {
+    return (func_->attr() & kFriend) == kFriend;
+  }
   bool isInline() const
   {
     return (func_->attr() & kInline) == kInline;

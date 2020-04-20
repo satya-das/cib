@@ -306,6 +306,8 @@ void CibFunctionHelper::emitOrigDecl(std::ostream&    stm,
   stm << indentation;
   if (isStatic())
     stm << "static ";
+  else if (isFriend())
+    stm << "friend ";
   else if (isVirtual())
     stm << "virtual ";
   /* inline will not remain inline.
@@ -340,7 +342,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
     if (hasParams())
       stm << ", ";
   }
-  else if (!isStatic() && (isMethod() || isDestructor() || isTypeConverter()))
+  else if (!isStatic() && !isFriend() && (isMethod() || isDestructor() || isTypeConverter()))
   {
     if (isConst())
       stm << "const ";
@@ -446,7 +448,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << ">(\n";
     }
     stm << ++indentation;
-    if (isClassLike(callingOwner) && !isStatic())
+    if (isClassLike(callingOwner) && !isStatic() && !isFriend())
       stm << "__zz_cib_obj->";
 
     if (isCppFile(callingOwner))
@@ -454,7 +456,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << "::";
     }
     else if (!forProxy
-             && (isStatic()
+             && (isStatic() || isFriend()
                  || ((!cibParams.noExactDelegation || callingOwner->isInterfaceLike()) && !isPureVirtual()
                      && (accessType() != CppAccessType::kPrivate))))
     {
@@ -506,7 +508,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ' ';
     }
-    if (!asInline && isNamespaceLike(callingOwner))
+    if (!asInline && !isFriend() && isNamespaceLike(callingOwner))
       stm << fullName(callingOwner) << "::";
     stm << funcName() << '(';
     emitArgsForDecl(stm, kPurposeProxyDefn, helper);
@@ -602,7 +604,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     {
       stm << indentation << "h";
     }
-    else if (isClassLike(callingOwner) && !isStatic())
+    else if (isClassLike(callingOwner) && !isStatic() && !isFriend())
     {
       stm << indentation << "__zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)";
       if (hasParams())
@@ -713,7 +715,7 @@ void CibFunctionHelper::emitProcType(std::ostream&    stm,
   }
 
   stm << "(__zz_cib_decl *) (";
-  if ((!isStatic() && (isDestructor() || isMethod() || isTypeConverter()))
+  if ((!isStatic() && !isFriend() && (isDestructor() || isMethod() || isTypeConverter()))
       || (isConstructor() && getOwner()->needsNoProxy()))
   {
     if (isConst())
@@ -1637,6 +1639,8 @@ static bool shallAddDefaultCtor(CibCompound* compound)
 
 void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
 {
+  if (strcmp(name().c_str(), "SkTDArray<int>") == 0)
+    printf("blah\n");
   if (isTemplated())
   {
     forEachTemplateInstance([&](CibCompound* templateInstace) {
@@ -1676,7 +1680,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if (func.isDeleted())
         continue;
-      if (func.hasAttr(kFriend))
+      if (func.isFriend() && !(func.hasDefinition() || isTemplateInstance()))
         continue;
       if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
         continue;
@@ -1802,7 +1806,7 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
     stm << "auto ";
 
   stm << cibIdData->getMethodCApiName(func.signature(helper)) << "(";
-  if (isClassLike(this) && !func.isStatic() && (!func.isConstructor() || needsNoProxy()))
+  if (isClassLike(this) && !func.isStatic() && !func.isFriend() && (!func.isConstructor() || needsNoProxy()))
   {
     if (func.isConst())
       stm << "const ";
@@ -1828,7 +1832,7 @@ void CibCompound::emitFunctionInvokeHelper(std::ostream&            stm,
   func.emitProcType(stm, helper, cibParams, kPurposeInvokeHelper, indentation);
   stm << indentation++ << "return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::"
       << cibIdData->getMethodCApiName(func.signature(helper)) << ">(";
-  if (isClassLike(this) && !func.isStatic() && (!func.isConstructor() || needsNoProxy()))
+  if (isClassLike(this) && !func.isStatic() && !func.isFriend() && (!func.isConstructor() || needsNoProxy()))
   {
     stm << '\n' << indentation << "__zz_cib_obj";
     if (func.hasParams())
