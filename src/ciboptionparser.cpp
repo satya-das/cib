@@ -81,8 +81,8 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             "If library is compiled with no exception option then CIB needs to know if"
             " it needs to avoid generating code to throw exception.");
   addOption(
-    "no-proxy,N",
-    noProxyClassNames,
+    "value-class,V",
+    valueClasses,
     false,
     "Share the object layout across component boundary and don't use proxies. This option can be used multiple times.");
   po::variables_map vm;

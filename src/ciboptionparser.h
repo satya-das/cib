@@ -50,7 +50,7 @@ private:
   bool         alwaysUseNsName{true};
   bool         noRtti{false};
   bool         noException{false};
-  StringVector noProxyClassNames;
+  StringVector valueClasses;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -75,5 +75,5 @@ inline CibParams CibOptionParser::getCibParams()
           alwaysUseNsName,
           noRtti,
           noException,
-          noProxyClassNames};
+          valueClasses};
 }
