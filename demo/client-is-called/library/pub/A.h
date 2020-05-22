@@ -12,7 +12,5 @@ public:
   C(const C&);
   ~C();
 
-  int UseInterface(I* pI) {
-    return pI->F();
-  }
+  int UseInterface(I* pI);
 };
