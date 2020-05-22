@@ -103,7 +103,7 @@ struct AbiFuncObjCallHelper<void, Args...>
 template <int kID, typename R, typename... Args>
 class __zz_cib_LibraryTypeToAbiTypeImpl
 {
-  using OrigFuncType = void (*)(Args...);
+  using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
 
 public:
