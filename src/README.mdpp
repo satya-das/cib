@@ -15,6 +15,14 @@ Component Interface Binder (CIB)
 A simple client library program to demonstrate CIB's capability of ABI stability to ensure an existing client remains compatible with new library.
 !VIDEO "https://www.youtube.com/embed/GcspVNO2EGI"
 
+### ABI stability when interface is changed
+A simple client library program to demonstrate CIB's capability that existing client remains compatible with new library even when interface used by library is changed.
+!VIDEO "https://www.youtube.com/embed/xEAxuferEyM"
+
+### ABI stability in case of templates
+A simple client library program to demonstrate CIB's capability in ensuring ABI stability when layout of template class is changed.
+!VIDEO "https://www.youtube.com/embed/n4ROTBPA4js"
+
 ## Jargon
 1. **ABI Compatibility**: Compatibility of binary C++ components even when they are built with different compilers.
 2. **API Stability**: Ability to compile client of a library with newer SDK headers without any change.
