@@ -13,7 +13,7 @@ struct __zz_cib_IsStaticCastable : std::false_type
 };
 
 template <typename _D, typename _B>
-struct __zz_cib_IsStaticCastable<_B, _D, std::void_t<decltype(static_cast<_D>(static_cast<_B>(0x1bad1dea)))>>
+struct __zz_cib_IsStaticCastable<_B, _D, std::void_t<decltype(static_cast<_D>(reinterpret_cast<_B>(nullptr)))>>
   : std::true_type
 {
 };
