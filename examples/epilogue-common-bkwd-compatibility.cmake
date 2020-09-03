@@ -3,8 +3,8 @@ set(NEW_LIBNAME  "${LIBRARY_PREFIX}${example}_lib${LIBRARY_SUFFIX}")
 set(CLIENT       "${PREV_TEST_NAME}${CLIENTSUFFIX}")
 set(TEST_NAME    "${example}-new-lib-with-old-client")
 
-add_custom_command(
-    OUTPUT ${EXAMPLES_BIN_DIR}/${TEST_NAME}/${CLIENT} ${EXAMPLES_BIN_DIR}/${TEST_NAME}/${PREV_LIBNAME}
+add_custom_target(
+    ${TEST_NAME} ALL
     ${CMAKE_COMMAND} -E make_directory ${TEST_NAME}
     COMMAND ${CMAKE_COMMAND} -E copy
         ${EXAMPLES_BIN_DIR}/${CLIENT} ${EXAMPLES_BIN_DIR}/${TEST_NAME}/${CLIENT}
