@@ -50,9 +50,11 @@ namespace bfs = boost::filesystem;
 
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
-  bfs::create_directories(cibParams.binderPath.string());
-  bfs::create_directories(cibParams.outputPath.string());
-  bfs::create_directories(cibParams.cibInternalDir().string());
+  bfs::create_directories(cibParams.binderPath);
+  bfs::create_directories(cibParams.outputPath);
+  bfs::create_directories(cibParams.cibInternalDir());
+  bfs::create_directories(cibParams.binderPath / cibParams.stlHelperDirName);
+  bfs::create_directories(cibParams.cibInternalDir() / cibParams.stlHelperDirName);
 }
 
 static void emitLibraryGatewayFunction(std::ostream&           stm,
@@ -209,17 +211,23 @@ std::string replaceModuleNameInTemplate(const std::string& resBuf, const std::st
   return ret;
 }
 
-static void processResourceFile(const std::string& filename, const bfs::path& outDir, const CibParams& cibParams)
+static void processResourceFile(const bfs::path& filepath, const bfs::path& outDir, const CibParams& cibParams)
 {
   {
+    const auto     filename = filepath.filename().string();
     std::stringbuf tmpbuf;
     std::ifstream((cibParams.resDir / filename).string(), std::ios_base::in) >> &tmpbuf;
     auto          buf         = tmpbuf.str();
     auto          outFilename = "__zz_cib_" + cibParams.moduleName + filename.substr(15);
     auto          cibcode     = replaceModuleNameInTemplate(buf.data(), cibParams.moduleName);
-    std::ofstream cibLibIncStm((outDir / outFilename).string(), std::ios_base::out);
+    std::ofstream cibLibIncStm((outDir / filepath.parent_path() / outFilename).string(), std::ios_base::out);
     cibLibIncStm << cibcode;
   }
+}
+
+static void copyResourceFile(const bfs::path& filepath, const bfs::path& outDir, const CibParams& cibParams)
+{
+  bfs::copy_file(cibParams.resDir / filepath, outDir / filepath, bfs::copy_option::overwrite_if_exists);
 }
 
 static void emitLibBoilerPlateCode(const CibParams& cibParams)
@@ -248,10 +256,15 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-std-function-converter-base.h",
                                            "__zz_cib_Module-value-types.h",
                                            nullptr};
+  const char* filesToCopyForBinder[]    = {"__zz_cib_stl-helpers/__zz_cib_vector-iterator.h",
+                                        "__zz_cib_stl-helpers/__zz_cib_vector-reverse_iterator.h",
+                                        nullptr};
+
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
-  {
     processResourceFile(filesToProcessForBinder[i], cibParams.binderPath, cibParams);
-  }
+
+  for (int i = 0; filesToCopyForBinder[i] != nullptr; ++i)
+    copyResourceFile(filesToCopyForBinder[i], cibParams.binderPath, cibParams);
 }
 
 static void emitClientBoilerPlateCode(const CibParams& cibParams)
@@ -281,10 +294,9 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-internal-proxy.h",
                                            "__zz_cib_Module-class-internal-def.h",
                                            nullptr};
+
   for (int i = 0; filesToProcessForClient[i] != nullptr; ++i)
-  {
-    processResourceFile(filesToProcessForClient[i], cibParams.outputPath / "__zz_cib_internal", cibParams);
-  }
+    processResourceFile(filesToProcessForClient[i], cibParams.cibInternalDir(), cibParams);
 }
 
 int main(int argc, const char* argv[])

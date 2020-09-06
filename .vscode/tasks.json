@@ -41,9 +41,9 @@
         // "240-operator-overloading",
         // "250-namespace",
         // "260-conditional-api-availability",
-        // "300-std-vector",
+        "300-std-vector",
         // "310-std-function",
-        "StdFunctionTestsClient",
+        // "StdFunctionTestsClient",
       ],
       "options": {
         "cwd": "${workspaceFolder}/builds"
@@ -56,21 +56,22 @@
         "clear": true // <-- this line
       },
       "problemMatcher": [
-        {
-          "owner": "cpp",
-          "fileLocation": [
-            "relative",
-            "${workspaceFolder}"
-          ],
-          "pattern": {
-            "regexp": "^(\\.\\./)(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-            "file": 2,
-            "line": 3,
-            "column": 4,
-            "severity": 5,
-            "message": 6
-          }
-        }
+        "$gcc",
+        // {
+        //   "owner": "cpp",
+        //   "fileLocation": [
+        //     "relative",
+        //     "${workspaceFolder}"
+        //   ],
+        //   "pattern": {
+        //     "regexp": "^(\\.\\./)(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+        //     "file": 2,
+        //     "line": 3,
+        //     "column": 4,
+        //     "severity": 5,
+        //     "message": 6
+        //   }
+        // }
       ]
     }
   ],

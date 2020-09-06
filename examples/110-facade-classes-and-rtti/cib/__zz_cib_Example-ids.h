@@ -1,41 +1,46 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 259 };
-}}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
-  //#= FullClassName: ::Facade
-  enum { __zz_cib_classid = 257 };
-}}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::Facade::__zz_cib_Generic
   enum { __zz_cib_classid = 260 };
-}}}}
+}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::PublicFacadeImpl
+  //#= FullClassName: ::Facade
   enum { __zz_cib_classid = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::PublicFacadeImpl::__zz_cib_Generic
+  //#= FullClassName: ::Facade::__zz_cib_Generic
   enum { __zz_cib_classid = 261 };
 }}}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
+  //#= FullClassName: ::PublicFacadeImpl
+  enum { __zz_cib_classid = 259 };
+}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::PublicFacadeImpl::__zz_cib_Generic
+  enum { __zz_cib_classid = 262 };
+}}}}
+
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
-  //#= FullClassName: ::std
+  //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 256 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 257 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 262 };
+  enum { __zz_cib_next_class_id = 263 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
     __zz_cib_copy_0 = 0,
@@ -53,7 +58,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= Facade();
     __zz_cib_new_0 = 0,
@@ -69,7 +74,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= void F();
     F_0 = 0,
@@ -79,7 +84,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
   };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= PublicFacadeImpl(const ::PublicFacadeImpl&);
     __zz_cib_copy_0 = 0,
@@ -89,17 +94,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_new_2 = 2,
     //#= void F();
     F_3 = 3,
-    //#= __zz_cib_cast_to___zz_cib_Class257
-    __zz_cib_cast_to___zz_cib_Class257 = 4,
-    //#= __zz_cib_cast_from___zz_cib_Class257
-    __zz_cib_cast_from___zz_cib_Class257 = 5,
+    //#= __zz_cib_cast_to___zz_cib_Class258
+    __zz_cib_cast_to___zz_cib_Class258 = 4,
+    //#= __zz_cib_cast_from___zz_cib_Class258
+    __zz_cib_cast_from___zz_cib_Class258 = 5,
     //#= __zz_cib_release_proxy
     __zz_cib_release_proxy = 6,
     __zz_cib_next_method_id = 7
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= void F();
     F_0 = 0,

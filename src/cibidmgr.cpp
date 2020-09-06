@@ -224,7 +224,7 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
         return std::make_pair(nextClassId_++, (const CibIdData*) nullptr);
       }();
       if (cibParams.alwaysUseNsName || compound->isTemplateInstance())
-        compound->setNsName("__zz_cib_Class" + std::to_string(clsId));
+        compound->setClassId(clsId);
       if (cibIdData == nullptr)
       {
         auto classNsName = compound->fullNsName();

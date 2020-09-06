@@ -15,13 +15,18 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
   enum { __zz_cib_classid = 259 };
 }}}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+  //#= FullClassName: ::__zz_cib_stl_helpers
+  enum { __zz_cib_classid = 260 };
+}}}
+
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::std
   enum { __zz_cib_classid = 256 };
 }}}
 
 namespace __zz_cib_ { namespace Demo {
-  enum { __zz_cib_next_class_id = 260 };
+  enum { __zz_cib_next_class_id = 261 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

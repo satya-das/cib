@@ -61,7 +61,9 @@
         "numeric": "cpp",
         "random": "cpp",
         "regex": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "*.ipp": "cpp",
+        "ios": "cpp"
     },
     "C_Cpp.clang_format_path": "/usr/bin/clang-format-6.0",
     "C_Cpp.default.configurationProvider": "go2sh.cmake-integration",

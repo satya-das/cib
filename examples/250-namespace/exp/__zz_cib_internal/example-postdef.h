@@ -18,11 +18,11 @@ struct __zz_cib_Helper<::Example::Outer::Inner::A, _T> : public __zz_cib_MethodT
   using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
   using _ProxyClass = _T;
   friend class ::Example::Outer::Inner::A;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Class260::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Class260::__zz_cib_Class261::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Class260::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Class260::__zz_cib_Class261::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;

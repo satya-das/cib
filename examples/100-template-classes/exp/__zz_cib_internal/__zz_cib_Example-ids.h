@@ -5,14 +5,14 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   enum { __zz_cib_classid = 256 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class261 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
   //#= FullClassName: ::Example::A
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classid = 262 };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
   //#= FullClassName: ::Example::Int
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classid = 263 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
@@ -31,16 +31,21 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  //#= FullClassName: ::std
+  //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 260 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 261 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 263 };
+  enum { __zz_cib_next_class_id = 264 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class261 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new_0 = 0,
@@ -64,7 +69,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
   };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
   enum __zz_cib_methodid {
     //#= Int(const ::Example::Int&);
     __zz_cib_copy_0 = 0,

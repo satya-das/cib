@@ -45,7 +45,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 
 
 B::B(__zz_cib_AbiType h)
-  : ::A(__zz_cib_MyHelper::__zz_cib_cast_to___zz_cib_Class257(h))
+  : ::A(__zz_cib_MyHelper::__zz_cib_cast_to___zz_cib_Class258(h))
   , __zz_cib_h_(h)
 {
   __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
@@ -91,10 +91,10 @@ template<>
 class __zz_cib_Generic<::A> : public ::A {
   __zz_cib_AbiType __zz_cib_h_;
 
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_methodid;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
-      __zz_cib_ids::__zz_cib_Class257::__zz_cib_classid));
+      __zz_cib_ids::__zz_cib_Class258::__zz_cib_classid));
     return mtableHelper;
   }
   explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::A(h), __zz_cib_h_(h) {}
@@ -117,11 +117,11 @@ namespace __zz_cib_ {
 template<>
 ::A* __zz_cib_Helper<::A>::__zz_cib_create_proxy(__zz_cib_AbiType h) {
   switch(__zz_cib_get_class_id(&h)) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid:
     return __zz_cib_Helper<B>::__zz_cib_from_handle(
-      __zz_cib_Helper<B>::__zz_cib_cast_from___zz_cib_Class257(h)
+      __zz_cib_Helper<B>::__zz_cib_cast_from___zz_cib_Class258(h)
     );
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
     return new ::A(h);
   default: break;
   }
@@ -145,7 +145,7 @@ struct __zz_cib_Delegator<::A> {
 };
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::VirtualFunction_0),
@@ -159,7 +159,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::A>::__zz_cib_get_proxy_method_table() {
-  return __zz_cib_::__zz_cib_Class257::__zz_cib_GetMethodTable();
+  return __zz_cib_::__zz_cib_Class258::__zz_cib_GetMethodTable();
 }
 }
 
@@ -180,7 +180,7 @@ struct __zz_cib_Delegator<::B> {
 };
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::B>::VirtualFunction_0),
@@ -194,7 +194,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::B>::__zz_cib_get_proxy_method_table() {
-  return __zz_cib_::__zz_cib_Class258::__zz_cib_GetMethodTable();
+  return __zz_cib_::__zz_cib_Class259::__zz_cib_GetMethodTable();
 }
 }
 

@@ -1,6 +1,6 @@
 #include "example.h"
 
-A::A() {}
+A::~A(){}
 
 C::C(int x)
     :m(x)

@@ -38,6 +38,7 @@ std::vector<std::string> collectAllInterfaceFiles(const CibParams& cibParams)
 {
   auto interfaceFiles = collectFiles(cibParams.inputPath.string(), selectHeadersOnly);
   collectFiles(interfaceFiles, cibParams.stlInterfacePath, selectAllFiles);
+  collectFiles(interfaceFiles, cibParams.stlHelpersPath, selectAllFiles);
 
   return interfaceFiles;
 }
@@ -117,8 +118,39 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CibCompound* begSco
   return resolveVarType(varType, program_->typeTreeNodeFromCppObj(begScope));
 }
 
+void CibHelper::markStlClasses()
+{
+  const auto* stlNode = program_->searchTypeNode("std");
+  if (stlNode == nullptr)
+    return;
+
+  for (auto cppObj : stlNode->cppObjSet)
+  {
+    CibCompoundEPtr compound = const_cast<CppObj*>(cppObj);
+    if (compound)
+      compound->setStlClass();
+  }
+}
+
+void CibHelper::markStlHelperClasses()
+{
+  const auto* stlNode = program_->searchTypeNode("__zz_cib_stl_helpers");
+  if (stlNode == nullptr)
+    return;
+
+  for (auto cppObj : stlNode->cppObjSet)
+  {
+    CibCompoundEPtr compound = const_cast<CppObj*>(cppObj);
+    if (compound)
+      compound->setStlHelperClass();
+  }
+}
+
 void CibHelper::buildCibCppObjTree()
 {
+  markStlClasses();
+  markStlHelperClasses();
+
   for (auto& fileAst : program_->getFileAsts())
     resolveInheritance(static_cast<CibCompound*>(fileAst.get()));
   for (auto& fileAst : program_->getFileAsts())
@@ -171,7 +203,7 @@ CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
   };
 
   auto* cppObj = typeAliasObj;
-  for (; isTypedefLike(cppObj);)
+  for (; cppObj && isTypedefLike(cppObj);)
   {
     const auto name = getName(cppObj);
     if (name.empty())
@@ -186,13 +218,83 @@ CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
   return cppObj;
 }
 
+/**
+ * e.g:
+ * --------------------------------------------------------------------
+ * | name                       |   Expected return value             |
+ * ====================================================================
+ * | std::vector<C>::iterator   |   position of '>', i.e. 13.         |
+ * | std::vector<C>             |   position of '>', i.e. 13.         |
+ * | std::vector<A<C>>          |   position of second '>', i.e. 16.  |
+ * --------------------------------------------------------------------
+ */
+static size_t getTopTemplateNameEndPos(const std::string& name, size_t angleBracketStartPos)
+{
+  size_t numNestedStartAngleBracket = 0;
+  for (auto i = angleBracketStartPos + 1; i < name.length(); ++i)
+  {
+    if (name[i] == '<')
+    {
+      ++numNestedStartAngleBracket;
+    }
+    else if (name[i] == '>')
+    {
+      if (numNestedStartAngleBracket)
+      {
+        --numNestedStartAngleBracket;
+      }
+      else
+      {
+        return i + 1;
+      }
+    }
+  }
+
+  assert(false && "Template name must have balanced angle brackets");
+  return name.size();
+}
+
+static size_t skipSpaces(const std::string& name, size_t startPos)
+{
+  for (auto i = startPos; i < name.length(); ++i)
+  {
+    if (!isspace(name[i]))
+      return i;
+  }
+
+  return name.size();
+}
+
+/**
+ * e.g:
+ * --------------------------------------------------------------------------------
+ * | name                       |   Expected return value                         |
+ * ================================================================================
+ * | std::vector<C>::iterator   |   start position of iterator, i.e. 16.          |
+ * | std::vector<C>             |   position of one past '>', i.e. 14             |
+ * | std::vector<A<C>>          |   position of one past second '>', i.e. 16.     |
+ * --------------------------------------------------------------------------------
+ */
+static size_t getNestedNameStartPos(const std::string& name, size_t topNameEndPos)
+{
+  size_t scopeResolutionStartPos = skipSpaces(name, topNameEndPos);
+
+  if (scopeResolutionStartPos == name.length())
+    return scopeResolutionStartPos;
+
+  assert(name[scopeResolutionStartPos + 0] == ':');
+  assert(name[scopeResolutionStartPos + 1] == ':');
+
+  return skipSpaces(name, scopeResolutionStartPos + 2);
+}
+
 CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
 {
   auto templateArgStart = name.find('<');
   auto typeNode         = [&]() -> const CppTypeTreeNode* {
     if (templateArgStart == name.npos)
     {
-      return program_->findTypeNode(name, startNode);
+      return program_->nameLookup(name, startNode);
     }
     else
     {
@@ -203,7 +305,8 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
       auto templateClassName = name.substr(0, classNameEnd);
       if (isSmartPtr(templateClassName))
         return nullptr;
-      return program_->findTypeNode(templateClassName, startNode);
+      const auto* resolvedOwner = program_->nameLookup(templateClassName, startNode);
+      return resolvedOwner;
     }
   }();
 
@@ -230,9 +333,20 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
     {
       if (templateArgStart != name.npos)
       {
-        auto* compound           = static_cast<CibCompound*>(cppObj);
-        auto* instantiationScope = static_cast<const CibCompound*>(*(startNode->cppObjSet.begin()));
-        return compound->getTemplateInstantiation(name, instantiationScope, *this);
+        auto*       compound           = static_cast<CibCompound*>(cppObj);
+        const auto* instantiationScope = static_cast<const CibCompound*>(*(startNode->cppObjSet.begin()));
+        const auto  topTemplNameEndPos = getTopTemplateNameEndPos(name, templateArgStart);
+        auto*       topTemplObj =
+          compound->getTemplateInstantiation(name.substr(0, topTemplNameEndPos), instantiationScope, *this);
+        const auto nestedNameStartPos = getNestedNameStartPos(name, topTemplNameEndPos);
+        if (nestedNameStartPos >= name.length())
+        {
+          if (topTemplObj->isStlHelpereClass())
+            return nullptr;
+          return topTemplObj;
+        }
+        auto* resolvedObj = resolveTypename(name.substr(nestedNameStartPos), topTemplObj);
+        return resolvedObj ? resolvedObj : cppObj;
       }
     }
   }

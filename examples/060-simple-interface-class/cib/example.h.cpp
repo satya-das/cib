@@ -43,7 +43,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -74,7 +74,7 @@ struct __zz_cib_Delegator<::Interface> : public ::Interface {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_new_0),
@@ -115,7 +115,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_0),

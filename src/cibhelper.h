@@ -113,6 +113,8 @@ private:
   void markNeedsGenericProxyDefinition(CibCompound* cppCompound);
   void setNeedsGenericProxyDefinition(CibCompound* cppCompound);
   void markNoProxyClasses();
+  void markStlClasses();
+  void markStlHelperClasses();
 
   /**
    * Evaluates argument function to detect attribute of classes used in args.

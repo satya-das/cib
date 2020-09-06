@@ -38,7 +38,7 @@ struct __zz_cib_Delegator<::CPoint> : public ::CPoint {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::CPoint>::__zz_cib_copy_0),

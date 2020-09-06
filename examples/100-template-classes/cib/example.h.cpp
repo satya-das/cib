@@ -63,7 +63,7 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
 namespace __zz_cib_ {
 namespace __zz_cib_Class256 {
 using namespace ::Example;
-namespace __zz_cib_Class261 {
+namespace __zz_cib_Class262 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_new_0),

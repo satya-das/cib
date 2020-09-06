@@ -75,6 +75,7 @@ public:
     {
       const auto allDataValid = (!signature.empty() && !methodName.empty());
       assert(allDataValid);
+      (void) allDataValid;
       const auto entryId  = data.size();
       idIndex[methodId]   = entryId;
       sigIndex[signature] = entryId;

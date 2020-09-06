@@ -21,12 +21,17 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  //#= FullClassName: ::std
+  //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 260 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 261 };
+}}}
+
 namespace __zz_cib_ { namespace TemplateTests {
-  enum { __zz_cib_next_class_id = 261 };
+  enum { __zz_cib_next_class_id = 262 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 

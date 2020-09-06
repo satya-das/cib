@@ -213,27 +213,32 @@ As you can guess these types are independent of headers that library wants to pu
 ```c++
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Example
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classid = 258 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Example::A
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 259 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
-  //#= FullClassName: ::std
+  //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 256 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 257 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 259 };
+  enum { __zz_cib_next_class_id = 260 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= A(const ::Example::A&);
     __zz_cib_copy_0 = 0,
@@ -304,9 +309,9 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
-using namespace ::Example;
 namespace __zz_cib_Class258 {
+using namespace ::Example;
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_copy_0),
@@ -340,14 +345,14 @@ If you notice the names of delegator functions in library glue code has suffix `
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-mtable.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Class257 { namespace __zz_cib_Class258 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
+namespace __zz_cib_ { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 
 extern "C" __zz_cib_export
 const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_Example_GetMethodTable(std::uint32_t classId)
 {
   switch(classId) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_classid:
-    return __zz_cib_::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_GetMethodTable();
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classid:
+    return __zz_cib_::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_GetMethodTable();
   default:
     return nullptr;
   }
@@ -569,11 +574,11 @@ struct __zz_cib_Helper<::Example::A, _T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
   using _ProxyClass = _T;
   friend class ::Example::A;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class257::__zz_cib_Class258::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;

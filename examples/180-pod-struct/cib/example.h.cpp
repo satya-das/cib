@@ -29,7 +29,7 @@ struct __zz_cib_Delegator<::NonPod1> : public ::NonPod1 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::NonPod1>::__zz_cib_new_0),
@@ -62,7 +62,7 @@ struct __zz_cib_Delegator<::NonPod2> : public ::NonPod2 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class260 {
+namespace __zz_cib_Class261 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::NonPod2>::__zz_cib_new_0),
@@ -95,7 +95,7 @@ struct __zz_cib_Delegator<::NonPod3> : public ::NonPod3 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class261 {
+namespace __zz_cib_Class262 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::NonPod3>::__zz_cib_new_0),
@@ -153,7 +153,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class262 {
+namespace __zz_cib_Class263 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_0),

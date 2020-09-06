@@ -32,6 +32,17 @@
 
 static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const TemplateArgValues& argValues);
 
+static CppVarTypePtr getSubstitutionVarType(const std::string& templateArg,
+                                            const CibCompound* instantiationScope,
+                                            const CibHelper&   helper)
+{
+  auto  varType     = parseType(templateArg);
+  auto* resolvedVar = instantiationScope->resolveTypeName(baseType(varType), helper);
+  if (resolvedVar)
+    varType->baseType(longName(resolvedVar));
+  return std::move(varType);
+}
+
 static TemplateArgValues resolveArguments(const TemplateArgs&         templateArgs,
                                           const CppTemplateParamList* templSpec,
                                           const CibCompound*          instantiationScope,
@@ -47,13 +58,7 @@ static TemplateArgValues resolveArguments(const TemplateArgs&         templateAr
       CppVarTypePtr substituteVar;
       if (argItr != templateArgs.end())
       {
-        auto  varType     = parseType(*argItr);
-        auto* resolvedVar = instantiationScope->resolveTypeName(baseType(varType), helper);
-        if (resolvedVar)
-        {
-          varType->baseType(longName(resolvedVar));
-        }
-        substituteVar = std::move(varType);
+        substituteVar = getSubstitutionVarType(*argItr, instantiationScope, helper);
         ++argItr;
       }
       else
@@ -92,7 +97,7 @@ static TemplateArgValues resolveArguments(const TemplateArgs&         templateAr
   return templArgSubstitution;
 }
 
-static std::string stringify(const CppVarType* varType)
+static std::string stringify(const CppConstVarTypeEPtr varType)
 {
   std::string ret = baseType(varType);
   for (unsigned short i = 0; i <= ptrLevel(varType); ++i)
@@ -139,11 +144,20 @@ std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t
     return s.substr(b, e - b);
   };
   auto replacedParam = [&](const std::string& param) {
-    auto itr = argValues.find(param);
+    auto arg = parseType(param);
+    auto itr = argValues.find(arg->baseType());
     if (itr == argValues.end())
+    {
       return param;
+    }
     else
-      return stringify(itr->second);
+    {
+      const CppVarTypeEPtr argVal = itr->second.get();
+      assert(argVal);
+      arg->baseType(argVal->baseType());
+      arg->typeModifier() = resolveTypeModifier(arg->typeModifier(), argVal->typeModifier());
+      return stringify(arg);
+    }
   };
   std::string ret = "<";
   for (size_t argStart = jumpToArgStart(); ++b <= e;)
@@ -178,7 +192,7 @@ std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t
   return ret;
 }
 
-const CppVarType* getSubstitutedVar(const TemplateArgValues& argValues, const std::string& type)
+const CppVarType* getVarArg(const TemplateArgValues& argValues, const std::string& type)
 {
   const auto  itr            = argValues.find(type);
   const auto* substitutedVar = ((itr == argValues.end()) || (itr->second->objType_ == CppExpr::kObjectType))
@@ -191,7 +205,7 @@ const CppVarType* getSubstitutedVar(const TemplateArgValues& argValues, const st
 static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const TemplateArgValues& argValues)
 {
   auto        type           = baseType(varType);
-  const auto* substitutedVar = getSubstitutedVar(argValues, type);
+  const auto* substitutedVar = getVarArg(argValues, type);
   if (substitutedVar == nullptr)
   {
     auto templStart = type.find('<');
@@ -270,9 +284,14 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   ret                  = getTemplateInstance(resolvedArgs);
   if (ret)
     return ret;
-  ret                 = new CibCompound(clsName, compoundType());
+  ret = new CibCompound(clsName, compoundType());
+  ret->setShared();
   ret->templateClass_ = this;
   ret->owner(owner());
+  if (isStlClass())
+    ret->setStlClass();
+  else if (isStlHelpereClass())
+    ret->setStlHelperClass();
   forEachMember(this, CppAccessType::kPublic, [&](const CppObj* mem) -> bool {
     if (isFunctionLike(mem))
     {

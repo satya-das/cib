@@ -48,7 +48,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -73,8 +73,8 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Facade** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::PublicFacadeImpl))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Facade))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::PublicFacadeImpl))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Facade))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
@@ -84,10 +84,10 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
       auto* obj = dynamic_cast<::PublicFacadeImpl*>(*__zz_cib_obj);
       if (obj) {
         *__zz_cib_obj = obj;
-        return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
+        return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
       }
     }
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
   }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
@@ -96,7 +96,7 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_new_0),
@@ -141,7 +141,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -166,10 +166,10 @@ struct __zz_cib_Delegator<::PublicFacadeImpl> : public ::PublicFacadeImpl {
   static __zz_cib_RValueAbiType_t<void> __zz_cib_decl F_3(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::PublicFacadeImpl::F();
   }
-  static ::Facade* __zz_cib_decl __zz_cib_cast_to___zz_cib_Class257(::PublicFacadeImpl* __zz_cib_obj) {
+  static ::Facade* __zz_cib_decl __zz_cib_cast_to___zz_cib_Class258(::PublicFacadeImpl* __zz_cib_obj) {
     return __zz_cib_obj;
   }
-  static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_cast_from___zz_cib_Class257(::Facade* __zz_cib_obj) {
+  static ::PublicFacadeImpl* __zz_cib_decl __zz_cib_cast_from___zz_cib_Class258(::Facade* __zz_cib_obj) {
     return __zz_cib_DownCast<::PublicFacadeImpl*>(__zz_cib_obj);
   }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -179,15 +179,15 @@ struct __zz_cib_Delegator<::PublicFacadeImpl> : public ::PublicFacadeImpl {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_copy_0),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_delete_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_new_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::F_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_cast_to___zz_cib_Class257),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_cast_from___zz_cib_Class257),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_cast_to___zz_cib_Class258),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_cast_from___zz_cib_Class258),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PublicFacadeImpl>::__zz_cib_release_proxy)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 7 };
@@ -231,7 +231,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_0),

@@ -1,51 +1,56 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 260 };
-}}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
-  //#= FullClassName: ::Interface1
-  enum { __zz_cib_classid = 257 };
-}}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::Interface1::__zz_cib_Generic
   enum { __zz_cib_classid = 261 };
-}}}}
+}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::Interface2
+  //#= FullClassName: ::Interface1
   enum { __zz_cib_classid = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::Interface2::__zz_cib_Generic
+  //#= FullClassName: ::Interface1::__zz_cib_Generic
   enum { __zz_cib_classid = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::Interface3
+  //#= FullClassName: ::Interface2
   enum { __zz_cib_classid = 259 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::Interface3::__zz_cib_Generic
+  //#= FullClassName: ::Interface2::__zz_cib_Generic
   enum { __zz_cib_classid = 263 };
 }}}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+  //#= FullClassName: ::Interface3
+  enum { __zz_cib_classid = 260 };
+}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
+  //#= FullClassName: ::Interface3::__zz_cib_Generic
+  enum { __zz_cib_classid = 264 };
+}}}}
+
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
-  //#= FullClassName: ::std
+  //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 256 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+  //#= FullClassName: ::std
+  enum { __zz_cib_classid = 257 };
+}}}
+
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 264 };
+  enum { __zz_cib_next_class_id = 265 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
     __zz_cib_copy_0 = 0,
@@ -59,7 +64,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_methodid {
     //#= Interface1();
     __zz_cib_new_0 = 0,
@@ -75,7 +80,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= ::Interface3& r();
     r_0 = 0,
@@ -87,7 +92,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 { nam
   };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= Interface2();
     __zz_cib_new_0 = 0,
@@ -103,7 +108,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int f();
     f_0 = 0,
@@ -113,7 +118,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
   };
 }}}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   enum __zz_cib_methodid {
     //#= Interface3();
     __zz_cib_new_0 = 0,
@@ -129,7 +134,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int g();
     g_0 = 0,

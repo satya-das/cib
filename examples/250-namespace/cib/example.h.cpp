@@ -47,13 +47,13 @@ struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer:
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
-using namespace ::Example;
 namespace __zz_cib_Class258 {
-using namespace ::Example::Outer;
+using namespace ::Example;
 namespace __zz_cib_Class259 {
-using namespace ::Example::Outer::Inner;
+using namespace ::Example::Outer;
 namespace __zz_cib_Class260 {
+using namespace ::Example::Outer::Inner;
+namespace __zz_cib_Class261 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::Outer::Inner::A>::__zz_cib_copy_0),

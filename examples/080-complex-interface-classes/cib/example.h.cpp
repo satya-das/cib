@@ -58,7 +58,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -94,7 +94,7 @@ struct __zz_cib_Delegator<::Interface1> : public ::Interface1 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class257 {
+namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::__zz_cib_new_0),
@@ -143,7 +143,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -170,13 +170,13 @@ struct __zz_cib_Delegator<::Interface2> : public ::Interface2 {
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Interface2** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface2))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface2))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
   }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
@@ -185,7 +185,7 @@ struct __zz_cib_Delegator<::Interface2> : public ::Interface2 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
+namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface2>::__zz_cib_new_0),
@@ -234,7 +234,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -261,13 +261,13 @@ struct __zz_cib_Delegator<::Interface3> : public ::Interface3 {
   static std::uint32_t __zz_cib_decl __zz_cib_get_class_id(::Interface3** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface3))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface3))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid;
   }
   static void __zz_cib_decl __zz_cib_release_proxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_release_proxy();
@@ -276,7 +276,7 @@ struct __zz_cib_Delegator<::Interface3> : public ::Interface3 {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface3>::__zz_cib_new_0),
@@ -318,7 +318,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class260 {
+namespace __zz_cib_Class261 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_0),

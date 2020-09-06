@@ -24,6 +24,7 @@
 #pragma once
 
 #include "cibparams.h"
+#include "cibtypes.h"
 
 #include "cibfunction_helper.h"
 #include "cppast.h"
@@ -95,6 +96,8 @@ enum CibClassPropFlags
   kClassPropCantHaveDefaultCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasVirtualParent        = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasVirtualAncestor      = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropStlClass                = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropStlHelperClass          = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 
 /**
@@ -127,22 +130,37 @@ private:
   CibCompound*      templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
   TemplateArgValues templateArgValues_;
   std::set<const CibCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
+  CibClassId                   clsId_{0};
   std::string                  nsName_;
 
 public:
-  bool isStlTemplateClass() const
+  void setStlClass()
   {
-    static const std::string kCibStlResSubDir = "cib-stl-interface";
-    return name().find(kCibStlResSubDir) != std::string::npos;
+    props_ |= kClassPropStlClass;
+    forEachNested([](CibCompound* nested) { nested->props_ |= kClassPropStlClass; });
+    outer()->props_ |= kClassPropStlClass;
   }
-  bool isStlNamespace() const
+  void setStlHelperClass()
   {
-    static const std::string kStlNamespaceName = "std";
-    return name().find(kStlNamespaceName) != std::string::npos;
+    props_ |= kClassPropStlHelperClass;
+    forEachNested([](CibCompound* nested) { nested->props_ |= kClassPropStlHelperClass; });
+    outer()->props_ |= kClassPropStlHelperClass;
+  }
+  bool isStlClass() const
+  {
+    return props_ & kClassPropStlClass;
+  }
+  bool isStlHelpereClass() const
+  {
+    return props_ & kClassPropStlHelperClass;
+  }
+  bool isStlRelated() const
+  {
+    return isStlClass() || isStlHelpereClass();
   }
   bool isUnusedStl() const
   {
-    if (!isStlTemplateClass())
+    if (!isStlClass())
       return false;
     bool isUsed = false;
     forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
@@ -167,6 +185,15 @@ public:
   bool isNsNameEmpty() const
   {
     return nsName_.empty();
+  }
+  CibClassId classId() const
+  {
+    return clsId_;
+  }
+  void setClassId(CibClassId clsId)
+  {
+    clsId_ = clsId;
+    setNsName("__zz_cib_Class" + std::to_string(clsId));
   }
   const std::string& nsName() const
   {
@@ -653,6 +680,8 @@ public:
   void forEachDescendent(std::function<void(CibCompound*)> callable);
   void forEachNested(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachNested(std::function<void(const CibCompound*)> callable) const;
+  void forEachNested(CppAccessType accessType, std::function<void(CibCompound*)> callable);
+  void forEachNested(std::function<void(CibCompound*)> callable);
   bool forEachOuter(std::function<bool(const CibCompound*)> callable) const;
   bool forEachOuter(std::function<bool(CibCompound*)> callable);
   void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
@@ -710,7 +739,7 @@ private:
   void                                collectFacades(std::set<const CibCompound*>& facades) const;
   static std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
   static std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                                const bfs::path&                    dependentPath);
+                                                                const CibParams&                    cibParams);
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
@@ -820,7 +849,7 @@ inline void CibCompound::forEachNested(CppAccessType                           m
   {
     if ((accessType(mem) == memAccessType) && isNamespaceLike(mem))
     {
-      CibCompoundEPtr nested = mem;
+      CibConstCompoundEPtr nested = mem;
       callable(nested);
       nested->forEachNested(memAccessType, callable);
     }
@@ -830,6 +859,32 @@ inline void CibCompound::forEachNested(CppAccessType                           m
 inline void CibCompound::forEachNested(std::function<void(const CibCompound*)> callable) const
 {
   for (const auto& mem : members())
+  {
+    if (isNamespaceLike(mem))
+    {
+      CibConstCompoundEPtr nested = mem;
+      callable(nested);
+      nested->forEachNested(callable);
+    }
+  }
+}
+
+inline void CibCompound::forEachNested(CppAccessType memAccessType, std::function<void(CibCompound*)> callable)
+{
+  for (auto& mem : members())
+  {
+    if ((accessType(mem) == memAccessType) && isNamespaceLike(mem))
+    {
+      CibCompoundEPtr nested = mem;
+      callable(nested);
+      nested->forEachNested(memAccessType, callable);
+    }
+  }
+}
+
+inline void CibCompound::forEachNested(std::function<void(CibCompound*)> callable)
+{
+  for (auto& mem : members())
   {
     if (isNamespaceLike(mem))
     {

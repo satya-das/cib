@@ -842,9 +842,14 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
   if (!isCppFile(this) || isUnusedStl())
     return;
 
-  bfs::path usrIncPath = isStlTemplateClass()
-                           ? bfs::temp_directory_path() / bfs::unique_path()
-                           : cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  const auto usrIncPath = [&]() {
+    if (isStlClass())
+      return bfs::temp_directory_path() / bfs::unique_path();
+    if (isStlHelpereClass())
+      return cibParams.outputPath / cibParams.stlHelperDirName / bfs::path(name()).filename();
+
+    return cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
+  }();
   bfs::create_directories(usrIncPath.parent_path());
   std::ofstream stm(usrIncPath.string(), std::ios_base::out);
 
@@ -889,7 +894,7 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
 
 void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
-  if (!isCppFile(this) || isStlTemplateClass())
+  if (!isCppFile(this) || isStlClass())
     return;
 
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
@@ -922,8 +927,8 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
     if (!compound->isTemplated() || compound->templateInstances_.empty())
       return;
     compound->forEachTemplateInstance([&](CibCompound* templCompound) {
-      if (!templCompound->isShared())
-        return;
+      // if (!templCompound->isShared())
+      //   return;
       auto          specializationFilename = templCompound->nsName() + ".h";
       auto          specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
       std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
@@ -933,19 +938,22 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
       auto fwdDecls = extractFwdDeclarations(dependencies);
       auto asts     = collectAstDependencies(dependencies);
       auto thisAst  = getFileAstObj(this);
-      if (!isStlTemplateClass())
+      if (!isStlClass() && !isStlHelpereClass())
         asts.insert(thisAst);
       else
         asts.erase(thisAst);
-      auto headers = collectHeaderDependencies(asts, cibParams.inputPath);
+      auto headers = collectHeaderDependencies(asts, cibParams);
       if (!headers.empty())
       {
         tmplStm << '\n';
         for (const auto& header : headers)
           tmplStm << "#include " << header << "\n";
       }
-      if (isStlTemplateClass())
+      if (isStlClass())
         tmplStm << "#include <" << bfs::path(name()).filename().string() << ">\n";
+      else if (isStlHelpereClass())
+        tmplStm << "#include \"" << cibParams.stlHelperDirName << '/' << bfs::path(name()).filename().string()
+                << "\"\n";
       for (auto cppObj : fwdDecls)
         gCppWriter.emit(cppObj, tmplStm);
       templCompound->emitHelperDefn(tmplStm, helper, cibParams, cibIdMgr);
@@ -959,11 +967,18 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
 
 void CibCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm) const
 {
+  std::map<CibClassId, std::string> dependentSpecializations;
   for (auto* usedAsArgIn : usedInTemplArg)
   {
     auto headerName = usedAsArgIn->nsName() + ".h";
     assert(headerName.find('<') == std::string::npos);
-    stm << "#include \"" << headerName << "\"\n";
+    dependentSpecializations.emplace(std::make_pair(usedAsArgIn->classId(), std::move(headerName)));
+  }
+
+  for (const auto& dependent : dependentSpecializations)
+  {
+    const auto& specializationFilename = dependent.second;
+    stm << "#include \"" << specializationFilename << "\"\n";
   }
 }
 
@@ -1142,7 +1157,7 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
 {
   if (!isCppFile(this) || isUnusedStl())
     return;
-  bfs::path usrSrcFile = isStlTemplateClass()
+  bfs::path usrSrcFile = isStlClass() || isStlHelpereClass()
                            ? bfs::temp_directory_path() / bfs::unique_path()
                            : cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
   bfs::path usrSrcPath = usrSrcFile.replace_extension(".cpp");
@@ -1281,14 +1296,17 @@ std::set<const CibCompound*> CibCompound::collectAstDependencies(const std::set<
 }
 
 std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                             const bfs::path&                    dependentPath)
+                                                             const CibParams&                    cibParams)
 {
+  const auto&           dependentPath = cibParams.inputPath;
   std::set<std::string> headers;
   for (auto compound : compoundObjs)
   {
     assert(isCppFile(compound));
-    if (compound->isStlTemplateClass())
+    if (compound->isStlClass())
       headers.emplace('<' + bfs::path(compound->name()).filename().string() + '>');
+    else if (compound->isStlHelpereClass())
+      headers.emplace('"' + cibParams.stlHelperDirName + '/' + bfs::path(compound->name()).filename().string() + '"');
     else
       headers.emplace('"' + bfs::relative(compound->name(), dependentPath).string() + '"');
   }
@@ -1297,7 +1315,7 @@ std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<cons
 
 bfs::path CibCompound::getImplDir(const CibParams& cibParams) const
 {
-  if (isStlTemplateClass())
+  if (isStlClass() || isStlHelpereClass())
     return cibParams.cibInternalDirName;
   bfs::path impl = name();
   return bfs::path(cibParams.cibInternalDirName) / bfs::relative(impl, cibParams.inputPath).remove_filename();
@@ -1378,7 +1396,17 @@ void CibCompound::emitDecl(std::ostream&    stm,
 {
   if (isInline() && (!isShared() || isTemplated()))
   {
-    gCppWriter.emit(this, stm, indentation);
+    if (!isStlHelpereClass())
+    {
+      gCppWriter.emit(this, stm, indentation);
+    }
+    else
+    {
+      gCppWriter.emitTemplSpec(templateParamList(), stm, indentation);
+      stm << indentation << compoundType() << ' ';
+      stm << name() << "{};\n";
+    }
+
     return;
   }
 
@@ -2390,7 +2418,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
   {
     auto asts = collectAstDependencies(dependencies);
     asts.insert(getFileAstObj(this));
-    for (const auto& header : collectHeaderDependencies(asts, cibParams.inputPath))
+    for (const auto& header : collectHeaderDependencies(asts, cibParams))
       stm << indentation << "#include " << header << "\n";
   }
   stm << '\n'; // Start in new line.
@@ -2421,8 +2449,14 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
     return;
 
   const bfs::path bndSrcPath = [&]() {
-    bfs::path relPath = isStlTemplateClass() ? name().substr(cibParams.stlInterfacePath.string().length())
-                                             : name().substr(cibParams.inputPath.string().length());
+    bfs::path relPath = [&]() {
+      if (isStlClass())
+        return name().substr(cibParams.stlInterfacePath.string().length());
+      else if (isStlHelpereClass())
+        return name().substr(cibParams.stlHelpersPath.string().length());
+      else
+        return name().substr(cibParams.inputPath.string().length());
+    }();
     relPath.replace_extension(relPath.extension().string() + ".cpp");
     return cibParams.binderPath / relPath.string();
   }();

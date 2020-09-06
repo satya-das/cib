@@ -47,19 +47,21 @@ using StringVector = std::vector<std::string>;
 struct CibParams
 {
 public:
+  std::string  cibInternalDirName;
+  std::string  stlHelperDirName;
+  std::string  copyCtorCAPIPrefix;
+  std::string  ctorCAPIPrefix;
+  std::string  dtorCAPIPrefix;
+  std::string  castToBasePrefix;
+  std::string  castFromBasePrefix;
   std::string  moduleName;
   bfs::path    inputPath;
   bfs::path    outputPath;
   bfs::path    binderPath;
   bfs::path    resDir;
   bfs::path    stlInterfacePath;
+  bfs::path    stlHelpersPath;
   bfs::path    inputCibIdFile;
-  std::string  cibInternalDirName;
-  std::string  copyCtorCAPIPrefix;
-  std::string  ctorCAPIPrefix;
-  std::string  dtorCAPIPrefix;
-  std::string  castToBasePrefix;
-  std::string  castFromBasePrefix;
   bool         noExactDelegation{false};
   bool         libraryManagedProxies;
   bool         alwaysUseNsName{true};
@@ -80,19 +82,21 @@ public:
             bool         t,
             bool         e,
             StringVector n)
-    : moduleName(std::move(m))
+    : cibInternalDirName("__zz_cib_internal")
+    , stlHelperDirName("__zz_cib_stl-helpers")
+    , copyCtorCAPIPrefix("__zz_cib_copy")
+    , ctorCAPIPrefix("__zz_cib_new")
+    , dtorCAPIPrefix("__zz_cib_delete")
+    , castToBasePrefix("__zz_cib_cast_to_")
+    , castFromBasePrefix("__zz_cib_cast_from_")
+    , moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
     , binderPath(std::move(b))
     , resDir(std::move(r))
-    , stlInterfacePath(resDir / "cib-stl-interface")
+    , stlInterfacePath(resDir / "__zz_cib_stl-interface")
+    , stlHelpersPath(resDir / stlHelperDirName)
     , inputCibIdFile(std::move(c))
-    , cibInternalDirName(CIBPREFIX "internal")
-    , copyCtorCAPIPrefix(CIBPREFIX "copy")
-    , ctorCAPIPrefix(CIBPREFIX "new")
-    , dtorCAPIPrefix(CIBPREFIX "delete")
-    , castToBasePrefix(CIBPREFIX "cast_to_")
-    , castFromBasePrefix(CIBPREFIX "cast_from_")
     , noExactDelegation(d)
     , libraryManagedProxies(p)
     , alwaysUseNsName(u)
