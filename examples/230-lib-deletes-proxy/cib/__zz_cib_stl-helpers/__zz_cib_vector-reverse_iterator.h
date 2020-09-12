@@ -41,7 +41,8 @@ public:
   using iterator_category = typename std::iterator_traits<_ValueType*>::iterator_category;
   using value_type        = typename std::iterator_traits<_ValueType*>::value_type;
   using difference_type   = typename std::iterator_traits<_ValueType*>::difference_type;
-  using reference         = typename std::iterator_traits<_ValueType*>::reference;
+  using reference         = typename std::
+    conditional<std::is_pointer_v<value_type>, value_type, typename std::iterator_traits<_ValueType*>::reference>::type;
 
   vector_reverse_iterator() noexcept {}
 

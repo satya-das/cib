@@ -15,11 +15,11 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
   using _ProxyClass = _T;
   friend class ::A;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class264::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class269::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class264::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class269::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
@@ -63,23 +63,30 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
       );
   }
   template <typename _RT>
-  static auto sumInLargeVector_5(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto getObjPtrVec_5(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::sumInLargeVector_5>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::getObjPtrVec_5>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto i_6(__zz_cib_AbiType __zz_cib_obj) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::i_6>(
+  static auto sumInLargeVector_6(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::sumInLargeVector_6>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
-  static auto r_7(__zz_cib_AbiType __zz_cib_obj) {
+  static auto i_7(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::r_7>(
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::i_7>(
+      __zz_cib_obj
+      );
+  }
+  template <typename _RT>
+  static auto r_8(__zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::r_8>(
       __zz_cib_obj
       );
   }

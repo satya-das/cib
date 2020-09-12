@@ -41,6 +41,10 @@ public:
     return largeVector_;
   }
 
+  std::vector<C*> getObjPtrVec() const {
+    return vectorObjPtr_;
+  }
+
   int sumInLargeVector() const {
     int s = 0;
     for (const auto& c : largeVector_) {
@@ -60,4 +64,5 @@ public:
 private:
   std::vector<C> vectorObj_;
   std::vector<C> largeVector_;
+  std::vector<C*> vectorObjPtr_;
 };

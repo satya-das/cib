@@ -59,7 +59,7 @@ struct __zz_cib_Delegator<::C> {
 };
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class263 {
+namespace __zz_cib_Class268 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::f_0),
@@ -73,7 +73,7 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
 namespace __zz_cib_ {
 template<>
 const __zz_cib_MethodTable* __zz_cib_Helper<::C>::__zz_cib_get_proxy_method_table() {
-  return __zz_cib_::__zz_cib_Class263::__zz_cib_GetMethodTable();
+  return __zz_cib_::__zz_cib_Class268::__zz_cib_GetMethodTable();
 }
 }
 

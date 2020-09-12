@@ -22,6 +22,7 @@ public:
   // }
   std::vector<C> g() const;
   std::vector<C> getLargeVector() const;
+  std::vector<C*> getObjPtrVec() const;
   int sumInLargeVector() const;
   iterator2 i();
   std::vector<C>::reverse_iterator r();

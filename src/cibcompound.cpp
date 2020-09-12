@@ -132,20 +132,20 @@ static std::string stringify(const TemplateArgPtr& templArg)
 std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t e, const TemplateArgValues& argValues)
 {
   assert((b < e) && (b < s.length()) && (s[b] == '<'));
-  auto jumpToArgStart = [&]() {
+  const auto jumpToArgStart = [&]() {
     while ((++b < e) && isspace(s[b]))
       ;
     return b;
   };
-  auto extractArg = [&s](size_t b, size_t e) {
+  const auto extractArg = [&s](size_t b, size_t e) {
     while (isspace(s[--e]))
       ;
     ++e;
     return s.substr(b, e - b);
   };
-  auto replacedParam = [&](const std::string& param) {
-    auto arg = parseType(param);
-    auto itr = argValues.find(arg->baseType());
+  const auto replacedParam = [&](const std::string& param) {
+    const auto arg = parseType(param);
+    const auto itr = argValues.find(arg->baseType());
     if (itr == argValues.end())
     {
       return param;
@@ -175,14 +175,17 @@ std::string ReplaceTemplateParamsWithArgs(const std::string& s, size_t b, size_t
     }
     else if (s[b] == '>')
     {
-      auto param = extractArg(argStart, b);
+      const auto param = extractArg(argStart, b);
       ret += replacedParam(param);
       ret += s[b];
       argStart = jumpToArgStart();
+      // Happens in case of nested template arguments
+      if (s[argStart] == ',')
+        ret += s[argStart++];
     }
     else if (s[b] == ',')
     {
-      auto param = extractArg(argStart, b);
+      const auto param = extractArg(argStart, b);
       ret += replacedParam(param);
       ret += ", ";
       argStart = jumpToArgStart();
