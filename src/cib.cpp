@@ -1370,7 +1370,7 @@ void CibCompound::emitDecl(const CppObj*    obj,
     CibFunctionHelper func = obj;
     if (objNeedingBridge_.count(obj) || func.isDeleted())
       func.emitOrigDecl(stm, helper, cibParams, kPurposeProxyDecl, indentation);
-    else if (func.isTemplated())
+    else if (func.isTemplated() && (strstr(func.funcName().c_str(), "::") == nullptr))
       gCppWriter.emit(obj, stm);
   }
   else if (isCompound(obj))

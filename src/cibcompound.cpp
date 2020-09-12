@@ -284,6 +284,8 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   ret                  = getTemplateInstance(resolvedArgs);
   if (ret)
     return ret;
+  if (strstr(name.c_str(), "__zz_cib_stl_helpers::vector_iterator<::PoDoFo::EPdfFilter>"))
+    printf("__zz_cib_stl_helpers::vector_iterator<::PoDoFo::EPdfFilter>");
   ret = new CibCompound(clsName, compoundType());
   ret->setShared();
   ret->templateClass_ = this;

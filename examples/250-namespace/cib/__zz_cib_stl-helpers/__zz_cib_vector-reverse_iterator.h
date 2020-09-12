@@ -37,13 +37,11 @@ private:
   }
 
 public:
-  using pointer           = _ValueType*;
-  using iterator_type     = pointer;
-  using __traits_type     = std::iterator_traits<pointer>;
-  using iterator_category = typename __traits_type::iterator_category;
-  using value_type        = typename __traits_type::value_type;
-  using difference_type   = typename __traits_type::difference_type;
-  using reference         = typename __traits_type::reference;
+  using pointer           = typename std::iterator_traits<_ValueType*>::pointer;
+  using iterator_category = typename std::iterator_traits<_ValueType*>::iterator_category;
+  using value_type        = typename std::iterator_traits<_ValueType*>::value_type;
+  using difference_type   = typename std::iterator_traits<_ValueType*>::difference_type;
+  using reference         = typename std::iterator_traits<_ValueType*>::reference;
 
   vector_reverse_iterator() noexcept {}
 

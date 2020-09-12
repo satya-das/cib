@@ -223,13 +223,11 @@ public:
       h
     );
   }
-  using pointer = ::C*;
-  using iterator_type = pointer;
-  using __traits_type = std::iterator_traits<pointer>;
-  using iterator_category = typename __traits_type::iterator_category;
-  using value_type = typename __traits_type::value_type;
-  using difference_type = typename __traits_type::difference_type;
-  using reference = typename __traits_type::reference;
+  using pointer = typename std::iterator_traits<::C*>::pointer;
+  using iterator_category = typename std::iterator_traits<::C*>::iterator_category;
+  using value_type = typename std::iterator_traits<::C*>::value_type;
+  using difference_type = typename std::iterator_traits<::C*>::difference_type;
+  using reference = typename std::iterator_traits<::C*>::reference;
   vector_iterator()
     : __zz_cib_stl_helpers::vector_iterator<::C>(__zz_cib_MyHelper::__zz_cib_new_2(
       ))

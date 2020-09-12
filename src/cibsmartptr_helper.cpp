@@ -86,6 +86,8 @@ bool CibHelper::isCopyable(const CppVar* var) const
     return false;
   if (strstr(varType.c_str(), "ostringstream"))
     return false;
+  if (strstr(varType.c_str(), "istringstream"))
+    return false;
 
   return true;
 }
