@@ -1609,7 +1609,7 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       if (!isFunctionLike(mem))
         continue;
       CibFunctionHelper func(mem);
-      if (!func.isVirtual() && !func.isDestructor())
+      if ((isTemplated() || isTemplateInstance()) && !func.isVirtual() && !func.isDestructor())
         continue;
       auto sig =
         func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper, kPurposeSigForVirtualFuncMatch);
@@ -1625,10 +1625,12 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       }
       else if (!func.isDestructor())
       {
-        unresolvedPureVirtSigs.erase(sig);
-        auto itr = virtSigToFunc.insert(std::make_pair(std::move(sig), func));
-        if (itr.second == false)
-          itr.first->second = func;
+        if (unresolvedPureVirtSigs.erase(sig) || func.isVirtual())
+        {
+          const auto itr = virtSigToFunc.insert(std::make_pair(std::move(sig), func));
+          if (itr.second == false)
+            itr.first->second = func;
+        }
       }
 
       if (lastUsedConditional)

@@ -1,13 +1,13 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classid = 259 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   //#= FullClassName: ::A::__zz_cib_Generic
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classid = 260 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
@@ -20,14 +20,14 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   enum { __zz_cib_classid = 256 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classid = 261 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classid = 258 };
 }}}
 
 namespace __zz_cib_ { namespace templates {
@@ -35,7 +35,7 @@ namespace __zz_cib_ { namespace templates {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_methodid {
     //#= A();
     __zz_cib_new_0 = 0,
@@ -57,18 +57,18 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= ::Value<float> getFloatValue() const;
     getFloatValue_0 = 0,
-    //#= ::Value<int> getIntValue() const;
-    getIntValue_1 = 1,
-    //#= int setValue(const ::Value<int>&) const;
-    setValue_2 = 2,
     //#= float setValue(const ::Value<float>&) const;
-    setValue_3 = 3,
+    setValue_1 = 1,
+    //#= ::Value<int> getIntValue() const;
+    getIntValue_2 = 2,
     //#= ~A();
-    __zz_cib_delete_4 = 4,
+    __zz_cib_delete_3 = 3,
+    //#= int setValue(const ::Value<int>&) const;
+    setValue_4 = 4,
     __zz_cib_next_method_id = 5
   };
 }}}}
