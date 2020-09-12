@@ -84,6 +84,8 @@ bool CibHelper::isCopyable(const CppVar* var) const
     return false;
   if (strstr(varType.c_str(), "atomic"))
     return false;
+  if (strstr(varType.c_str(), "ostringstream"))
+    return false;
 
   return true;
 }

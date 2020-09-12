@@ -458,9 +458,12 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       isPodStruct = false;
     if (CibCompoundEPtr nested = mem)
     {
-      markClassType(nested);
-      if (isPodStruct)
-        isPodStruct = nested->isPodStruct();
+      if (!isPrivate(mem))
+      {
+        markClassType(nested);
+        if (isPodStruct)
+          isPodStruct = nested->isPodStruct();
+      }
     }
     else if (CibFunctionHelper func = mem)
     {
@@ -501,7 +504,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       {
         cppCompound->setCantHaveDefaultCopyCtor();
       }
-      else if (!usesTemplateType(var->varType()) || isPublic(var))
+      else if (!usesTemplateType(var->varType()) && isPublic(var))
       {
         const auto* memType = resolveVarType(var->varType(), cppCompound);
         if (memType && (memType->objType_ == CibCompound::kObjectType))
