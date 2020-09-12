@@ -418,9 +418,6 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
 }
 void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
 {
-  if (strstr(func.funcName().c_str(), "operator->")
-      && strstr(func.getOwner()->name().c_str(), "vector_iterator<::PoDoFo::EPdfFilter"))
-    printf("vector_iterator<::PoDoFo::EPdfFilter");
   if (func.isTemplated())
     return;
   if (func.returnType())
