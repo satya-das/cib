@@ -30,7 +30,8 @@ script:
   - make CibCoverage
 
 after_success:
-  - cd ../..
-  - bash <(curl -s https://codecov.io/bash) -f build_results/GNU/examples/cib.info -t"66bf246c-fcae-4dcc-8101-44e7e66e467d" || echo "Codecov did not collect coverage reports"
+  - bash <(curl -s https://codecov.io/bash) -f cib.info -t"66bf246c-fcae-4dcc-8101-44e7e66e467d" || echo "Codecov did not collect coverage reports"
+  - export CODACY_PROJECT_TOKEN=17eabcd475514c49b5fbd1c9be7de818
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r cib.info
 
 
