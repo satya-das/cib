@@ -1266,7 +1266,8 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
     }
     else if (CppVarEPtr var = mem)
     {
-      addDependency(baseType(var));
+      if (isPublic(mem))
+        addDependency(baseType(var));
     }
     else if (CppFwdClsDeclEPtr fwdDecl = mem)
     {
