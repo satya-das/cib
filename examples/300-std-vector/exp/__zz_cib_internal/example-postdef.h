@@ -15,11 +15,11 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
   using _ProxyClass = _T;
   friend class ::A;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class274::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class284::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class274::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class284::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
@@ -94,6 +94,13 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
   static auto l_9(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::l_9>(
+      __zz_cib_obj
+      );
+  }
+  template <typename _RT>
+  static auto vl_10(const __zz_cib_AbiType __zz_cib_obj) {
+    using __zz_cib_proc = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
+    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::vl_10>(
       __zz_cib_obj
       );
   }

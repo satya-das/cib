@@ -17,11 +17,11 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::C;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class273::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class273::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
@@ -60,9 +60,11 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj
       );
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new _T(h);
+  static std::uint32_t __zz_cib_get_class_id(__zz_cib_AbiType* __zz_cib_obj) {
+    using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_AbiType*);
+    return __zz_cib_mtbl().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
   }
+  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h);
   static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
     return _T(h);
   }
@@ -118,3 +120,8 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
 #include "__zz_cib_Class270.h"
 #include "__zz_cib_Class271.h"
 #include "__zz_cib_Class272.h"
+#include "__zz_cib_Class273.h"
+#include "__zz_cib_Class274.h"
+#include "__zz_cib_Class275.h"
+#include "__zz_cib_Class276.h"
+#include "__zz_cib_Class277.h"

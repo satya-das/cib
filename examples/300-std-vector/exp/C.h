@@ -8,7 +8,7 @@ public:
   C(C&& rhs);
 public:
   C(const C& );
-  C(int x);
+  C(int x = 0);
   virtual ~C();
   virtual int f() const;
 

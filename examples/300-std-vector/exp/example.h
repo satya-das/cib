@@ -22,6 +22,7 @@ public:
   iterator i();
   std::vector<C>::reverse_iterator r();
   std::list<C> l() const;
+  std::vector<std::list<C*>> vl() const;
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);

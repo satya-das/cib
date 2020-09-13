@@ -7,17 +7,17 @@
 namespace __zz_cib_ {
 using namespace ::std;
 template <typename _T>
-struct __zz_cib_Helper<::std::list<::C>, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::std::list<::C>>);
+struct __zz_cib_Helper<::std::list<::C*>, _T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<_T, ::std::list<::C*>>);
   using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
   using _ProxyClass = _T;
-  friend class ::std::list<::C>;
+  friend class ::std::list<::C*>;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class272::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class277::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class272::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class277::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
@@ -410,38 +410,38 @@ struct __zz_cib_Helper<::std::list<::C>, _T> : public __zz_cib_MethodTableHelper
 }
  namespace std {
 template<>
-class list<::C>
+class list<::C*>
 {
 public:
-  using value_type = ::C;
-  using pointer = typename std::allocator_traits<std::allocator<::C>>::pointer;
-  using const_pointer = typename std::allocator_traits<std::allocator<::C>>::const_pointer;
-  using reference = typename __zz_cib_stl_helpers::bidirectional_iterator<::C>::reference;
+  using value_type = ::C*;
+  using pointer = typename std::allocator_traits<std::allocator<::C*>>::pointer;
+  using const_pointer = typename std::allocator_traits<std::allocator<::C*>>::const_pointer;
+  using reference = typename __zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference;
   using const_reference = const value_type&;
   using size_type = std::size_t;
-  using iterator = __zz_cib_stl_helpers::bidirectional_iterator<::C>;
-  using const_iterator = __zz_cib_stl_helpers::bidirectional_iterator<::C const >;
-  using reverse_iterator = __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>;
-  using const_reverse_iterator = __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >;
+  using iterator = __zz_cib_stl_helpers::bidirectional_iterator<::C*>;
+  using const_iterator = __zz_cib_stl_helpers::bidirectional_iterator<::C* const >;
+  using reverse_iterator = __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>;
+  using const_reverse_iterator = __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >;
   list()
-    : std::list<::C>(__zz_cib_MyHelper::__zz_cib_new_0(
+    : std::list<::C*>(__zz_cib_MyHelper::__zz_cib_new_0(
       ))
     {}
-  list(::std::list<::C>::size_type n)
-    : std::list<::C>(__zz_cib_MyHelper::__zz_cib_new_1(
+  list(::std::list<::C*>::size_type n)
+    : std::list<::C*>(__zz_cib_MyHelper::__zz_cib_new_1(
             __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(std::move(n))))
     {}
-  list(::std::list<::C>::size_type n, const ::C& value)
-    : std::list<::C>(__zz_cib_MyHelper::__zz_cib_new_2(
+  list(::std::list<::C*>::size_type n, ::C* const& value)
+    : std::list<::C*>(__zz_cib_MyHelper::__zz_cib_new_2(
             __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(std::move(n)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(value)>(value)))
     {}
-  list(const ::std::list<::C>& x)
-    : std::list<::C>(__zz_cib_MyHelper::__zz_cib_copy_3(
+  list(const ::std::list<::C*>& x)
+    : std::list<::C*>(__zz_cib_MyHelper::__zz_cib_copy_3(
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
     {}
-  list(::std::list<::C>&& x)
-    : std::list<::C>(__zz_cib_MyHelper::__zz_cib_new_4(
+  list(::std::list<::C*>&& x)
+    : std::list<::C*>(__zz_cib_MyHelper::__zz_cib_new_4(
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
     {}
   ~list() {
@@ -450,109 +450,109 @@ public:
       h
     );
   }
-  ::std::list<::C>& operator=(const ::std::list<::C>& x) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorEqual_6<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>&>>(
+  ::std::list<::C*>& operator=(const ::std::list<::C*>& x) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>&>(
+      __zz_cib_MyHelper::__zz_cib_OperatorEqual_6<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
       )
     );
   }
-  ::std::list<::C>& operator=(::std::list<::C>&& x) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorEqual_7<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>&>>(
+  ::std::list<::C*>& operator=(::std::list<::C*>&& x) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>&>(
+      __zz_cib_MyHelper::__zz_cib_OperatorEqual_7<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
       )
     );
   }
-  void assign(::std::list<::C>::size_type n, const ::C& t) {
+  void assign(::std::list<::C*>::size_type n, ::C* const& t) {
       __zz_cib_MyHelper::assign_8<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(std::move(n)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(t)>(t)
     );
   }
-  ::std::list<::C>::iterator begin() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::begin_9<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator begin() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::begin_9<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_iterator begin() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_iterator>(
-      __zz_cib_MyHelper::begin_10<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_iterator>>(
+  ::std::list<::C*>::const_iterator begin() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_iterator>(
+      __zz_cib_MyHelper::begin_10<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::iterator end() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::end_11<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator end() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::end_11<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_iterator end() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_iterator>(
-      __zz_cib_MyHelper::end_12<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_iterator>>(
+  ::std::list<::C*>::const_iterator end() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_iterator>(
+      __zz_cib_MyHelper::end_12<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::reverse_iterator rbegin() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::reverse_iterator>(
-      __zz_cib_MyHelper::rbegin_13<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::reverse_iterator>>(
+  ::std::list<::C*>::reverse_iterator rbegin() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::reverse_iterator>(
+      __zz_cib_MyHelper::rbegin_13<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reverse_iterator rbegin() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reverse_iterator>(
-      __zz_cib_MyHelper::rbegin_14<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reverse_iterator>>(
+  ::std::list<::C*>::const_reverse_iterator rbegin() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reverse_iterator>(
+      __zz_cib_MyHelper::rbegin_14<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::reverse_iterator rend() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::reverse_iterator>(
-      __zz_cib_MyHelper::rend_15<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::reverse_iterator>>(
+  ::std::list<::C*>::reverse_iterator rend() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::reverse_iterator>(
+      __zz_cib_MyHelper::rend_15<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reverse_iterator rend() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reverse_iterator>(
-      __zz_cib_MyHelper::rend_16<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reverse_iterator>>(
+  ::std::list<::C*>::const_reverse_iterator rend() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reverse_iterator>(
+      __zz_cib_MyHelper::rend_16<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_iterator cbegin() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_iterator>(
-      __zz_cib_MyHelper::cbegin_17<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_iterator>>(
+  ::std::list<::C*>::const_iterator cbegin() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_iterator>(
+      __zz_cib_MyHelper::cbegin_17<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_iterator cend() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_iterator>(
-      __zz_cib_MyHelper::cend_18<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_iterator>>(
+  ::std::list<::C*>::const_iterator cend() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_iterator>(
+      __zz_cib_MyHelper::cend_18<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reverse_iterator crbegin() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reverse_iterator>(
-      __zz_cib_MyHelper::crbegin_19<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reverse_iterator>>(
+  ::std::list<::C*>::const_reverse_iterator crbegin() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reverse_iterator>(
+      __zz_cib_MyHelper::crbegin_19<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reverse_iterator crend() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reverse_iterator>(
-      __zz_cib_MyHelper::crend_20<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reverse_iterator>>(
+  ::std::list<::C*>::const_reverse_iterator crend() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reverse_iterator>(
+      __zz_cib_MyHelper::crend_20<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reverse_iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
@@ -564,68 +564,68 @@ public:
       )
     );
   }
-  ::std::list<::C>::size_type size() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::size_type>(
-      __zz_cib_MyHelper::size_22<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::size_type>>(
+  ::std::list<::C*>::size_type size() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::size_type>(
+      __zz_cib_MyHelper::size_22<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::size_type>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::size_type max_size() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::size_type>(
-      __zz_cib_MyHelper::max_size_23<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::size_type>>(
+  ::std::list<::C*>::size_type max_size() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::size_type>(
+      __zz_cib_MyHelper::max_size_23<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::size_type>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  void resize(::std::list<::C>::size_type sz) {
+  void resize(::std::list<::C*>::size_type sz) {
       __zz_cib_MyHelper::resize_24<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(sz)>(std::move(sz))
     );
   }
-  void resize(::std::list<::C>::size_type sz, const ::C& c) {
+  void resize(::std::list<::C*>::size_type sz, ::C* const& c) {
       __zz_cib_MyHelper::resize_25<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(sz)>(std::move(sz)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(c)>(c)
     );
   }
-  ::std::list<::C>::reference front() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::reference>(
-      __zz_cib_MyHelper::front_26<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::reference>>(
+  ::std::list<::C*>::reference front() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::reference>(
+      __zz_cib_MyHelper::front_26<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reference front() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reference>(
-      __zz_cib_MyHelper::front_27<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reference>>(
+  ::std::list<::C*>::const_reference front() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reference>(
+      __zz_cib_MyHelper::front_27<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::reference back() {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::reference>(
-      __zz_cib_MyHelper::back_28<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::reference>>(
+  ::std::list<::C*>::reference back() {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::reference>(
+      __zz_cib_MyHelper::back_28<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  ::std::list<::C>::const_reference back() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::const_reference>(
-      __zz_cib_MyHelper::back_29<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::const_reference>>(
+  ::std::list<::C*>::const_reference back() const {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::const_reference>(
+      __zz_cib_MyHelper::back_29<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::const_reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  void push_front(const ::C& x) {
+  void push_front(::C* const& x) {
       __zz_cib_MyHelper::push_front_30<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
     );
   }
-  void push_front(::C&& x) {
+  void push_front(::C*&& x) {
       __zz_cib_MyHelper::push_front_31<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
@@ -636,13 +636,13 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     );
   }
-  void push_back(const ::C& x) {
+  void push_back(::C* const& x) {
       __zz_cib_MyHelper::push_back_33<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
     );
   }
-  void push_back(::C&& x) {
+  void push_back(::C*&& x) {
       __zz_cib_MyHelper::push_back_34<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
@@ -653,27 +653,27 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     );
   }
-  ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator position, const ::C& x) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::insert_36<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator position, ::C* const& x) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::insert_36<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
       )
     );
   }
-  ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator position, ::C&& x) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::insert_37<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator position, ::C*&& x) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::insert_37<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
       )
     );
   }
-  ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator position, ::std::list<::C>::size_type n, const ::C& x) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::insert_38<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator position, ::std::list<::C*>::size_type n, ::C* const& x) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::insert_38<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
         __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(std::move(n)),
@@ -681,24 +681,24 @@ public:
       )
     );
   }
-  ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator position) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::erase_39<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator erase(::std::list<::C*>::const_iterator position) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::erase_39<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position))
       )
     );
   }
-  ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator position, ::std::list<::C>::const_iterator last) {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>::iterator>(
-      __zz_cib_MyHelper::erase_40<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>::iterator>>(
+  ::std::list<::C*>::iterator erase(::std::list<::C*>::const_iterator position, ::std::list<::C*>::const_iterator last) {
+      return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C*>::iterator>(
+      __zz_cib_MyHelper::erase_40<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C*>::iterator>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
         __zz_cib_::__zz_cib_ToAbiType<decltype(last)>(std::move(last))
       )
     );
   }
-  void swap(::std::list<::C>& __zz_cib_param0) {
+  void swap(::std::list<::C*>& __zz_cib_param0) {
       __zz_cib_MyHelper::swap_41<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)
@@ -709,21 +709,21 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>& x) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>& x) {
       __zz_cib_MyHelper::splice_43<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>&& x) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>&& x) {
       __zz_cib_MyHelper::splice_44<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>& x, ::std::list<::C>::const_iterator i) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>& x, ::std::list<::C*>::const_iterator i) {
       __zz_cib_MyHelper::splice_45<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
@@ -731,7 +731,7 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(i)>(std::move(i))
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>&& x, ::std::list<::C>::const_iterator i) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>&& x, ::std::list<::C*>::const_iterator i) {
       __zz_cib_MyHelper::splice_46<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
@@ -739,7 +739,7 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(i)>(std::move(i))
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>& x, ::std::list<::C>::const_iterator first, ::std::list<::C>::const_iterator last) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>& x, ::std::list<::C*>::const_iterator first, ::std::list<::C*>::const_iterator last) {
       __zz_cib_MyHelper::splice_47<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
@@ -748,7 +748,7 @@ public:
       __zz_cib_::__zz_cib_ToAbiType<decltype(last)>(std::move(last))
     );
   }
-  void splice(::std::list<::C>::const_iterator position, ::std::list<::C>&& x, ::std::list<::C>::const_iterator first, ::std::list<::C>::const_iterator last) {
+  void splice(::std::list<::C*>::const_iterator position, ::std::list<::C*>&& x, ::std::list<::C*>::const_iterator first, ::std::list<::C*>::const_iterator last) {
       __zz_cib_MyHelper::splice_48<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(position)>(std::move(position)),
@@ -764,6 +764,11 @@ public:
   }
 
 private:
-  __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(__ZZ_CIB_CLASS_NAME(list<::C>), __ZZ_CIB_CLASS_NAME(std::list<::C>));
+  __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(__ZZ_CIB_CLASS_NAME(list<::C*>), __ZZ_CIB_CLASS_NAME(std::list<::C*>));
 };
 }
+#include "__zz_cib_Class278.h"
+#include "__zz_cib_Class279.h"
+#include "__zz_cib_Class280.h"
+#include "__zz_cib_Class281.h"
+#include "__zz_cib_Class282.h"

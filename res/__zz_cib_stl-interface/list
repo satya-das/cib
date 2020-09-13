@@ -13,7 +13,7 @@ public:
   using value_type      = T;
   using pointer         = typename std::allocator_traits<std::allocator<T>>::pointer;
   using const_pointer   = typename std::allocator_traits<std::allocator<T>>::const_pointer;
-  using reference       = value_type&;
+  using reference       = typename __zz_cib_stl_helpers::bidirectional_iterator<T>::reference;
   using const_reference = const value_type&;
   using size_type       = std::size_t;
   //   using difference_type        = std::difference_type;

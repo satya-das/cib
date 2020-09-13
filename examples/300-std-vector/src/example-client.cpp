@@ -70,3 +70,23 @@ TEST_CASE("list")
   ++itr;
   CHECK(itr->f() == 29);
 }
+
+TEST_CASE("vector of list of object pointer")
+{
+  A a;
+  auto vl = a.vl();
+  {
+    auto vitr = vl.begin();
+    auto litr = vitr->begin();
+    CHECK((*litr)->f() == 10);
+    ++litr;
+    CHECK((*litr)->f() == 20);
+  }
+  {
+    auto vitr = vl.begin() + 1;
+    auto litr = vitr->begin();
+    CHECK((*litr)->f() == 11);
+    ++litr;
+    CHECK((*litr)->f() == 21);
+  }
+}

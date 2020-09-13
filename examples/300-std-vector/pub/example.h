@@ -19,6 +19,8 @@ public:
 
     objList_.emplace_back(19);
     objList_.emplace_back(29);
+
+    vectorOfListOfObjPtr_ = {std::list({new C(10), new C(20)}), std::list({new C(11), new C(21)})};
   }
   ~A();
 
@@ -60,9 +62,14 @@ public:
     return objList_;
   }
 
+  std::vector<std::list<C*>> vl() const {
+    return vectorOfListOfObjPtr_;
+  }
+
 private:
   std::vector<C> vectorObj_;
   std::vector<C> largeVector_;
   std::vector<C*> vectorObjPtr_;
   std::list<C> objList_;
+  std::vector<std::list<C*>> vectorOfListOfObjPtr_;
 };

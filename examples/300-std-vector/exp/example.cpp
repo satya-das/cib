@@ -86,3 +86,11 @@ int A::sumInLargeVector() const {
   );
 }
 
+::std::vector<::std::list<::C*>> A::vl() const {
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::std::list<::C*>>>(
+    __zz_cib_MyHelper::vl_10<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::std::list<::C*>>>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
+

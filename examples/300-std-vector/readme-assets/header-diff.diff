@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,68 +1,30 @@
+@@ -1,75 +1,31 @@
  #pragma once
 -
  #include "C.h"
@@ -24,6 +24,8 @@
 -
 -    objList_.emplace_back(19);
 -    objList_.emplace_back(29);
+-
+-    vectorOfListOfObjPtr_ = {std::list({new C(10), new C(20)}), std::list({new C(11), new C(21)})};
 -  }
 +  A(A&& rhs);
 +public:
@@ -68,6 +70,10 @@
 -  std::list<C> l() const {
 -    return objList_;
 -  }
+-
+-  std::vector<std::list<C*>> vl() const {
+-    return vectorOfListOfObjPtr_;
+-  }
 +  std::vector<C> g() const;
 +  std::vector<C> getLargeVector() const;
 +  std::vector<C*> getObjPtrVec() const;
@@ -75,12 +81,14 @@
 +  iterator i();
 +  std::vector<C>::reverse_iterator r();
 +  std::list<C> l() const;
++  std::vector<std::list<C*>> vl() const;
  
  private:
 -  std::vector<C> vectorObj_;
 -  std::vector<C> largeVector_;
 -  std::vector<C*> vectorObjPtr_;
 -  std::list<C> objList_;
+-  std::vector<std::list<C*>> vectorOfListOfObjPtr_;
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
 +
