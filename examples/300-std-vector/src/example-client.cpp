@@ -60,3 +60,13 @@ TEST_CASE("large object")
   std::cerr << "XXXXXXXXXXX Delta time 1 = " << delta1.count() << std::endl;
   std::cerr << "XXXXXXXXXXX Delta time 2 = " << delta2.count() << std::endl;
 }
+
+TEST_CASE("list")
+{
+  A a;
+  auto l = a.l();
+  auto itr = l.begin();
+  CHECK(itr->f() == 19);
+  ++itr;
+  CHECK(itr->f() == 29);
+}

@@ -3,7 +3,7 @@
 class C
 {
 public:
-  C(int x);
+  C(int x = 0);
   virtual ~C() = default;
 
 public:

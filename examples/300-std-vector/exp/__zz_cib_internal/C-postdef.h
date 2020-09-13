@@ -17,11 +17,11 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::C;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class268::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class273::__zz_cib_methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class268::__zz_cib_classid))
+      __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Class273::__zz_cib_classid))
   {}
   static __zz_cib_Helper& __zz_cib_instance() {
     static __zz_cib_Helper helper;
@@ -113,3 +113,8 @@ struct __zz_cib_Helper<::C, _T> : public __zz_cib_MethodTableHelper {
 #include "__zz_cib_Class265.h"
 #include "__zz_cib_Class266.h"
 #include "__zz_cib_Class267.h"
+#include "__zz_cib_Class268.h"
+#include "__zz_cib_Class269.h"
+#include "__zz_cib_Class270.h"
+#include "__zz_cib_Class271.h"
+#include "__zz_cib_Class272.h"

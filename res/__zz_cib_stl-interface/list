@@ -1,0 +1,143 @@
+/**
+ * @file This is adapted from https://en.cppreference.com/w/cpp/header/list
+ */
+
+namespace std {
+template <class T /*, class Allocator = allocator<T>*/>
+class list
+{
+public:
+  // types
+  //   using allocator_type         = Allocator;
+
+  using value_type      = T;
+  using pointer         = typename std::allocator_traits<std::allocator<T>>::pointer;
+  using const_pointer   = typename std::allocator_traits<std::allocator<T>>::const_pointer;
+  using reference       = value_type&;
+  using const_reference = const value_type&;
+  using size_type       = std::size_t;
+  //   using difference_type        = std::difference_type;
+  using iterator               = __zz_cib_stl_helpers::bidirectional_iterator<T>;
+  using const_iterator         = __zz_cib_stl_helpers::bidirectional_iterator<const T>;
+  using reverse_iterator       = __zz_cib_stl_helpers::bidirectional_reverse_iterator<T>;
+  using const_reverse_iterator = __zz_cib_stl_helpers::bidirectional_reverse_iterator<const T>;
+
+  // construct/copy/destroy
+  list();
+  // explicit list(const Allocator&);
+  explicit list(size_type n /*, const Allocator& = Allocator()*/);
+  list(size_type n, const T& value /*, const Allocator& = Allocator()*/);
+  // template <class InputIt>
+  // list(InputIt first, InputIt last /*, const Allocator& = Allocator()*/);
+  list(const list& x);
+  list(list&& x);
+  // list(const list&, const Allocator&);
+  // list(list&&, const Allocator&);
+  // list(initializer_list<T> /*, const Allocator& = Allocator()*/);
+  ~list();
+  list& operator=(const list& x);
+  list& operator=(list&& x) noexcept;
+  // list& operator=(initializer_list<T>);
+  // template <class InputIt>
+  // void assign(InputIt first, InputIt last);
+  void assign(size_type n, const T& t);
+  // void           assign(initializer_list<T>);
+  //   allocator_type get_allocator() const noexcept;
+
+  // iterators
+  iterator               begin() noexcept;
+  const_iterator         begin() const noexcept;
+  iterator               end() noexcept;
+  const_iterator         end() const noexcept;
+  reverse_iterator       rbegin() noexcept;
+  const_reverse_iterator rbegin() const noexcept;
+  reverse_iterator       rend() noexcept;
+  const_reverse_iterator rend() const noexcept;
+
+  const_iterator         cbegin() const noexcept;
+  const_iterator         cend() const noexcept;
+  const_reverse_iterator crbegin() const noexcept;
+  const_reverse_iterator crend() const noexcept;
+
+  // capacity
+  bool      empty() const noexcept;
+  size_type size() const noexcept;
+  size_type max_size() const noexcept;
+  void      resize(size_type sz);
+  void      resize(size_type sz, const T& c);
+
+  // element access
+  reference       front();
+  const_reference front() const;
+  reference       back();
+  const_reference back() const;
+
+  // modifiers
+  /*
+  template <class... Args>
+  reference emplace_front(Args&&... args);
+  template <class... Args>
+  reference emplace_back(Args&&... args);
+  */
+  void push_front(const T& x);
+  void push_front(T&& x);
+  void pop_front();
+  void push_back(const T& x);
+  void push_back(T&& x);
+  void pop_back();
+
+  // template <class... Args>
+  // iterator emplace(const_iterator position, Args&&... args);
+  iterator insert(const_iterator position, const T& x);
+  iterator insert(const_iterator position, T&& x);
+  iterator insert(const_iterator position, size_type n, const T& x);
+  // template <class InputIt>
+  // iterator insert(const_iterator position, InputIt first, InputIt last);
+  // iterator insert(const_iterator position, initializer_list<T> il);
+
+  iterator erase(const_iterator position);
+  iterator erase(const_iterator position, const_iterator last);
+  void     swap(list&) noexcept;
+  void     clear() noexcept;
+
+  // list operations
+  void splice(const_iterator position, list& x);
+  void splice(const_iterator position, list&& x);
+  void splice(const_iterator position, list& x, const_iterator i);
+  void splice(const_iterator position, list&& x, const_iterator i);
+  void splice(const_iterator position, list& x, const_iterator first, const_iterator last);
+  void splice(const_iterator position, list&& x, const_iterator first, const_iterator last);
+
+  //   void remove(const T& value);
+
+  // template <class Predicate>
+  // size_type remove_if(Predicate pred);
+
+  //   void unique();
+
+  // template <class BinaryPredicate>
+  // size_type unique(BinaryPredicate binary_pred);
+
+  //   void merge(list& x);
+  //   void merge(list&& x);
+  // template <class Compare>
+  // void merge(list& x, Compare comp);
+  // template <class Compare>
+  // void merge(list&& x, Compare comp);
+
+  //   void sort();
+  // template <class Compare>
+  // void sort(Compare comp);
+
+  void reverse() noexcept;
+};
+
+/*
+template <class InputIt, class Allocator = allocator<iter-value-type<InputIt>>>
+list(InputIt, InputIt, Allocator = Allocator())->list<iter-value-type<InputIt>, Allocator>;
+
+// swap
+template <class T, class Allocator>
+void swap(list<T, Allocator>& x, list<T, Allocator>& y) noexcept(noexcept(x.swap(y)));
+*/
+} // namespace std

@@ -3,6 +3,7 @@
 #include "C.h"
 
 #include <assert.h>
+#include <list>
 #include <vector>
 
 class A
@@ -15,20 +16,14 @@ public:
 
     for (int i = 0; i < 1000000; ++i)
       largeVector_.emplace_back(i);
+
+    objList_.emplace_back(19);
+    objList_.emplace_back(29);
   }
   ~A();
 
-    //  typedef PdfObject                                       value_type;
-    // typedef value_type &                                    reference;
-    // typedef const value_type &                              const_reference;
-    typedef std::vector<C>::iterator               iterator2;
+  typedef std::vector<C>::iterator               iterator;
  
-public:
-  // std::vector<int> f() const {
-  //   return {2, 3, 9};
-  // }
-
-
 public:
   std::vector<C> g() const {
     std::vector<C> ret;
@@ -52,7 +47,7 @@ public:
     }
     return s;
   }
-  iterator2 i() {
+  iterator i() {
     return vectorObj_.begin();
   }
   std::vector<C>::reverse_iterator r() {
@@ -61,8 +56,13 @@ public:
     return itr;
   }
 
+  std::list<C> l() const {
+    return objList_;
+  }
+
 private:
   std::vector<C> vectorObj_;
   std::vector<C> largeVector_;
   std::vector<C*> vectorObjPtr_;
+  std::list<C> objList_;
 };

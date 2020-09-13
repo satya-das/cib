@@ -258,6 +258,8 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            nullptr};
   const char* filesToCopyForBinder[]    = {"__zz_cib_stl-helpers/__zz_cib_vector-iterator.h",
                                         "__zz_cib_stl-helpers/__zz_cib_vector-reverse_iterator.h",
+                                        "__zz_cib_stl-helpers/__zz_cib_bidirectional_iterator.h",
+                                        "__zz_cib_stl-helpers/__zz_cib_bidirectional_reverse_iterator.h",
                                         nullptr};
 
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)

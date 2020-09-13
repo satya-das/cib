@@ -93,8 +93,11 @@ set(RESFILES
 	__zz_cib_Module-value-types.h
 	__zz_cib_pointer_helper.h
 	__zz_cib_stl-interface/vector
+	__zz_cib_stl-interface/list
 	__zz_cib_stl-helpers/__zz_cib_vector-iterator.h
 	__zz_cib_stl-helpers/__zz_cib_vector-reverse_iterator.h
+	__zz_cib_stl-helpers/__zz_cib_bidirectional_iterator.h
+	__zz_cib_stl-helpers/__zz_cib_bidirectional_reverse_iterator.h
 )
 
 list(APPEND RESPATHS)

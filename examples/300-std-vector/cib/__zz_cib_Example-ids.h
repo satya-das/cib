@@ -1,24 +1,44 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class269 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class274 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 269 };
+  enum { __zz_cib_classid = 274 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class268 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class273 {
   //#= FullClassName: ::C
-  enum { __zz_cib_classid = 268 };
+  enum { __zz_cib_classid = 273 };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class268 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class273 { namespace __zz_cib_Generic {
   //#= FullClassName: ::C::__zz_cib_Generic
-  enum { __zz_cib_classid = 270 };
+  enum { __zz_cib_classid = 275 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
   enum { __zz_cib_classid = 256 };
 }}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class269 {
+  //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >
+  enum { __zz_cib_classid = 269 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class268 {
+  //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C>
+  enum { __zz_cib_classid = 268 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class271 {
+  //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >
+  enum { __zz_cib_classid = 271 };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class270 {
+  //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>
+  enum { __zz_cib_classid = 270 };
+}}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::C const >
@@ -65,6 +85,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   enum { __zz_cib_classid = 261 };
 }}}
 
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class272 {
+  //#= FullClassName: ::std::list<::C>
+  enum { __zz_cib_classid = 272 };
+}}}}
+
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class267 {
   //#= FullClassName: ::std::vector<::C*>
   enum { __zz_cib_classid = 267 };
@@ -76,11 +101,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 }}}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 271 };
+  enum { __zz_cib_next_class_id = 276 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class269 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class274 {
   enum __zz_cib_methodid {
     //#= A(const ::A&);
     __zz_cib_copy_0 = 0,
@@ -100,11 +125,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class269 {
     i_7 = 7,
     //#= ::std::vector<::C>::reverse_iterator r();
     r_8 = 8,
-    __zz_cib_next_method_id = 9
+    //#= ::std::list<::C> l() const;
+    l_9 = 9,
+    __zz_cib_next_method_id = 10
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class268 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class273 {
   enum __zz_cib_methodid {
     //#= C(const ::C&);
     __zz_cib_copy_0 = 0,
@@ -120,13 +147,125 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class268 {
   };
 }}}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class268 { namespace __zz_cib_Generic {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class273 { namespace __zz_cib_Generic {
   enum __zz_cib_methodid {
     //#= int f() const;
     f_0 = 0,
     //#= ~C();
     __zz_cib_delete_1 = 1,
     __zz_cib_next_method_id = 2
+  };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class269 {
+  enum __zz_cib_methodid {
+    //#= bidirectional_iterator(const bidirectional_iterator<::C const >&);
+    __zz_cib_copy_0 = 0,
+    //#= ~bidirectional_iterator();
+    __zz_cib_delete_1 = 1,
+    //#= bidirectional_iterator();
+    __zz_cib_new_2 = 2,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference operator*() const;
+    __zz_cib_OperatorMul_3 = 3,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer operator->() const;
+    __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >& operator++();
+    __zz_cib_OperatorInc_5 = 5,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const > operator++(int);
+    __zz_cib_OperatorInc_6 = 6,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >& operator--();
+    __zz_cib_OperatorDec_7 = 7,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const > operator--(int);
+    __zz_cib_OperatorDec_8 = 8,
+    //#= bool operator==(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&);
+    __zz_cib_OperatorCmpEq_9 = 9,
+    //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&);
+    __zz_cib_OperatorNotEq_10 = 10,
+    __zz_cib_next_method_id = 11
+  };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class268 {
+  enum __zz_cib_methodid {
+    //#= bidirectional_iterator(const bidirectional_iterator<::C>&);
+    __zz_cib_copy_0 = 0,
+    //#= ~bidirectional_iterator();
+    __zz_cib_delete_1 = 1,
+    //#= bidirectional_iterator();
+    __zz_cib_new_2 = 2,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference operator*() const;
+    __zz_cib_OperatorMul_3 = 3,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer operator->() const;
+    __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>& operator++();
+    __zz_cib_OperatorInc_5 = 5,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C> operator++(int);
+    __zz_cib_OperatorInc_6 = 6,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>& operator--();
+    __zz_cib_OperatorDec_7 = 7,
+    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C> operator--(int);
+    __zz_cib_OperatorDec_8 = 8,
+    //#= bool operator==(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&);
+    __zz_cib_OperatorCmpEq_9 = 9,
+    //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&);
+    __zz_cib_OperatorNotEq_10 = 10,
+    __zz_cib_next_method_id = 11
+  };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class271 {
+  enum __zz_cib_methodid {
+    //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C const >&);
+    __zz_cib_copy_0 = 0,
+    //#= ~bidirectional_reverse_iterator();
+    __zz_cib_delete_1 = 1,
+    //#= bidirectional_reverse_iterator();
+    __zz_cib_new_2 = 2,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >::reference operator*() const;
+    __zz_cib_OperatorMul_3 = 3,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >::pointer operator->() const;
+    __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >& operator++();
+    __zz_cib_OperatorInc_5 = 5,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const > operator++(int);
+    __zz_cib_OperatorInc_6 = 6,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >& operator--();
+    __zz_cib_OperatorDec_7 = 7,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const > operator--(int);
+    __zz_cib_OperatorDec_8 = 8,
+    //#= bool operator==(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >&);
+    __zz_cib_OperatorCmpEq_9 = 9,
+    //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >&);
+    __zz_cib_OperatorNotEq_10 = 10,
+    __zz_cib_next_method_id = 11
+  };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class270 {
+  enum __zz_cib_methodid {
+    //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C>&);
+    __zz_cib_copy_0 = 0,
+    //#= ~bidirectional_reverse_iterator();
+    __zz_cib_delete_1 = 1,
+    //#= bidirectional_reverse_iterator();
+    __zz_cib_new_2 = 2,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>::reference operator*() const;
+    __zz_cib_OperatorMul_3 = 3,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>::pointer operator->() const;
+    __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>& operator++();
+    __zz_cib_OperatorInc_5 = 5,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C> operator++(int);
+    __zz_cib_OperatorInc_6 = 6,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>& operator--();
+    __zz_cib_OperatorDec_7 = 7,
+    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C> operator--(int);
+    __zz_cib_OperatorDec_8 = 8,
+    //#= bool operator==(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>&);
+    __zz_cib_OperatorCmpEq_9 = 9,
+    //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>&);
+    __zz_cib_OperatorNotEq_10 = 10,
+    __zz_cib_next_method_id = 11
   };
 }}}}
 
@@ -511,6 +650,112 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
     __zz_cib_OperatorMinus_20 = 20,
     __zz_cib_next_method_id = 21
+  };
+}}}}
+
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class272 {
+  enum __zz_cib_methodid {
+    //#= list();
+    __zz_cib_new_0 = 0,
+    //#= list(::std::list<::C>::size_type);
+    __zz_cib_new_1 = 1,
+    //#= list(::std::list<::C>::size_type, const ::C&);
+    __zz_cib_new_2 = 2,
+    //#= list(const ::std::list<::C>&);
+    __zz_cib_copy_3 = 3,
+    //#= list(::std::list<::C>&&);
+    __zz_cib_new_4 = 4,
+    //#= ~list();
+    __zz_cib_delete_5 = 5,
+    //#= ::std::list<::C>& operator=(const ::std::list<::C>&);
+    __zz_cib_OperatorEqual_6 = 6,
+    //#= ::std::list<::C>& operator=(::std::list<::C>&&);
+    __zz_cib_OperatorEqual_7 = 7,
+    //#= void assign(::std::list<::C>::size_type, const ::C&);
+    assign_8 = 8,
+    //#= ::std::list<::C>::iterator begin();
+    begin_9 = 9,
+    //#= ::std::list<::C>::const_iterator begin() const;
+    begin_10 = 10,
+    //#= ::std::list<::C>::iterator end();
+    end_11 = 11,
+    //#= ::std::list<::C>::const_iterator end() const;
+    end_12 = 12,
+    //#= ::std::list<::C>::reverse_iterator rbegin();
+    rbegin_13 = 13,
+    //#= ::std::list<::C>::const_reverse_iterator rbegin() const;
+    rbegin_14 = 14,
+    //#= ::std::list<::C>::reverse_iterator rend();
+    rend_15 = 15,
+    //#= ::std::list<::C>::const_reverse_iterator rend() const;
+    rend_16 = 16,
+    //#= ::std::list<::C>::const_iterator cbegin() const;
+    cbegin_17 = 17,
+    //#= ::std::list<::C>::const_iterator cend() const;
+    cend_18 = 18,
+    //#= ::std::list<::C>::const_reverse_iterator crbegin() const;
+    crbegin_19 = 19,
+    //#= ::std::list<::C>::const_reverse_iterator crend() const;
+    crend_20 = 20,
+    //#= bool empty() const;
+    empty_21 = 21,
+    //#= ::std::list<::C>::size_type size() const;
+    size_22 = 22,
+    //#= ::std::list<::C>::size_type max_size() const;
+    max_size_23 = 23,
+    //#= void resize(::std::list<::C>::size_type);
+    resize_24 = 24,
+    //#= void resize(::std::list<::C>::size_type, const ::C&);
+    resize_25 = 25,
+    //#= ::std::list<::C>::reference front();
+    front_26 = 26,
+    //#= ::std::list<::C>::const_reference front() const;
+    front_27 = 27,
+    //#= ::std::list<::C>::reference back();
+    back_28 = 28,
+    //#= ::std::list<::C>::const_reference back() const;
+    back_29 = 29,
+    //#= void push_front(const ::C&);
+    push_front_30 = 30,
+    //#= void push_front(::C&&);
+    push_front_31 = 31,
+    //#= void pop_front();
+    pop_front_32 = 32,
+    //#= void push_back(const ::C&);
+    push_back_33 = 33,
+    //#= void push_back(::C&&);
+    push_back_34 = 34,
+    //#= void pop_back();
+    pop_back_35 = 35,
+    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, const ::C&);
+    insert_36 = 36,
+    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, ::C&&);
+    insert_37 = 37,
+    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, ::std::list<::C>::size_type, const ::C&);
+    insert_38 = 38,
+    //#= ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator);
+    erase_39 = 39,
+    //#= ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    erase_40 = 40,
+    //#= void swap(::std::list<::C>&);
+    swap_41 = 41,
+    //#= void clear();
+    clear_42 = 42,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&);
+    splice_43 = 43,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&);
+    splice_44 = 44,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&, ::std::list<::C>::const_iterator);
+    splice_45 = 45,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&, ::std::list<::C>::const_iterator);
+    splice_46 = 46,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&, ::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    splice_47 = 47,
+    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&, ::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    splice_48 = 48,
+    //#= void reverse();
+    reverse_49 = 49,
+    __zz_cib_next_method_id = 50
   };
 }}}}
 

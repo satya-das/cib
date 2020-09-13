@@ -1,4 +1,5 @@
 #include "example.h"
+#include <list>
 #include <vector>
 
 #include "__zz_cib_Example-class-down-cast.h"
@@ -56,11 +57,16 @@ struct __zz_cib_Delegator<::A> : public ::A {
       __zz_cib_obj->::A::r()
     );
   }
+  static __zz_cib_RValueAbiType_t<::std::list<::C>> __zz_cib_decl l_9(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToRValueAbiType<::std::list<::C>>(
+      __zz_cib_obj->::A::l()
+    );
+  }
 };
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class269 {
+namespace __zz_cib_Class274 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_copy_0),
@@ -71,9 +77,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::getObjPtrVec_5),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::sumInLargeVector_6),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::i_7),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::r_8)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::r_8),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::l_9)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 9 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 10 };
   return &methodTable;
 }
 }}

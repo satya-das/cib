@@ -1,4 +1,5 @@
 #include "example.h"
+#include <list>
 #include <vector>
 
 
@@ -72,6 +73,14 @@ int A::sumInLargeVector() const {
 ::std::vector<::C>::reverse_iterator A::r() {
   return __zz_cib_::__zz_cib_FromRValueAbiType<::std::vector<::C>::reverse_iterator>(
     __zz_cib_MyHelper::r_8<__zz_cib_::__zz_cib_RValueAbiType_t<::std::vector<::C>::reverse_iterator>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
+
+::std::list<::C> A::l() const {
+  return __zz_cib_::__zz_cib_FromRValueAbiType<::std::list<::C>>(
+    __zz_cib_MyHelper::l_9<__zz_cib_::__zz_cib_RValueAbiType_t<::std::list<::C>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
