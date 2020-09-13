@@ -19,29 +19,29 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 namespace __zz_cib_ {
 namespace __zz_cib_Example_Global {
 namespace __zz_cib_NsDelegator {
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewA_0(__zz_cib_AbiType_t<::A*&> pA) {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewA_0(__zz_cib_AbiType_t<::A*&> pA) {
+  return __zz_cib_ToAbiType<int>(
     ::GetNewA(
       __zz_cib_::__zz_cib_FromAbiType<::A*&>(pA)
     )
   );
 }
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewB_1(__zz_cib_AbiType_t<::A*&> pA) {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewB_1(__zz_cib_AbiType_t<::A*&> pA) {
+  return __zz_cib_ToAbiType<int>(
     ::GetNewB(
       __zz_cib_::__zz_cib_FromAbiType<::A*&>(pA)
     )
   );
 }
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewA_2(__zz_cib_AbiType_t<const ::A*&> pA) {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewA_2(__zz_cib_AbiType_t<const ::A*&> pA) {
+  return __zz_cib_ToAbiType<int>(
     ::GetNewA(
       __zz_cib_::__zz_cib_FromAbiType<const ::A*&>(pA)
     )
   );
 }
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl GetNewB_3(__zz_cib_AbiType_t<const ::A*&> pA) {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl GetNewB_3(__zz_cib_AbiType_t<const ::A*&> pA) {
+  return __zz_cib_ToAbiType<int>(
     ::GetNewB(
       __zz_cib_::__zz_cib_FromAbiType<const ::A*&>(pA)
     )

@@ -28,18 +28,18 @@ struct __zz_cib_Delegator<::Example::Outer::Inner::A> : public ::Example::Outer:
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<::Example::Int> __zz_cib_decl i_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::Example::Int>(
+  static __zz_cib_AbiType_t<::Example::Int> __zz_cib_decl i_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Example::Int>(
       __zz_cib_obj->::Example::Outer::Inner::A::i()
     );
   }
-  static __zz_cib_RValueAbiType_t<::Example::Outer::Inner::Float> __zz_cib_decl f_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::Example::Outer::Inner::Float>(
+  static __zz_cib_AbiType_t<::Example::Outer::Inner::Float> __zz_cib_decl f_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Example::Outer::Inner::Float>(
       __zz_cib_obj->::Example::Outer::Inner::A::f()
     );
   }
-  static __zz_cib_RValueAbiType_t<std::unique_ptr<Int>> __zz_cib_decl pi_5(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<std::unique_ptr<Int>>(
+  static __zz_cib_AbiType_t<std::unique_ptr<Int>> __zz_cib_decl pi_5(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<std::unique_ptr<Int>>(
       __zz_cib_obj->::Example::Outer::Inner::A::pi()
     );
   }

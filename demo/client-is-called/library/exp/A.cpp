@@ -59,8 +59,8 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 int C::UseInterface(::I* pI) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::UseInterface<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::UseInterface<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(pI)>(std::move(pI))
     )
@@ -71,8 +71,8 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::I> {
   using __zz_cib_Delegatee = ::I;
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl F(::I* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl F(::I* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->F()
     );
   }

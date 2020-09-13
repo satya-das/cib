@@ -17,32 +17,32 @@ IF::IF(IF&& rhs)
 }
 
 int IF::ProtectedVirtual() {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::ProtectedVirtual_2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::ProtectedVirtual_2<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 int IF::ProtectedNonVirtual() {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::ProtectedNonVirtual_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::ProtectedNonVirtual_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 int IF::PublicVirtual() {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::PublicVirtual_5<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::PublicVirtual_5<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 int IF::PublicNonVirtual() {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::PublicNonVirtual_6<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::PublicNonVirtual_6<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -90,8 +90,8 @@ A::A()
   {}
 
 int A::SetIF(::IF* pIF) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::SetIF_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::SetIF_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(pIF)>(std::move(pIF))
     )
@@ -99,8 +99,8 @@ int A::SetIF(::IF* pIF) {
 }
 
 ::IF* A::GetIF() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<::IF*>(
-    __zz_cib_MyHelper::GetIF_4<__zz_cib_::__zz_cib_RValueAbiType_t<::IF*>>(
+  return __zz_cib_::__zz_cib_FromAbiType<::IF*>(
+    __zz_cib_MyHelper::GetIF_4<__zz_cib_::__zz_cib_AbiType_t<::IF*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -123,7 +123,7 @@ public:
     return new __zz_cib_Generic(h);
   }
   int PublicVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicVirtual_5>(
         __zz_cib_h_
@@ -131,7 +131,7 @@ public:
     );
   }
   int ProtectedVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedVirtual_2>(
         __zz_cib_h_
@@ -139,7 +139,7 @@ public:
     );
   }
   int PublicPureVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PublicPureVirtual_4>(
         __zz_cib_h_
@@ -147,7 +147,7 @@ public:
     );
   }
   int ProtectedPureVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::ProtectedPureVirtual_1>(
         __zz_cib_h_
@@ -155,7 +155,7 @@ public:
     );
   }
   int PrivatePureVirtual() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual_8>(
         __zz_cib_h_
@@ -178,28 +178,28 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::IF> {
   using __zz_cib_Delegatee = ::IF;
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicVirtual_0(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl PublicVirtual_0(::IF* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->PublicVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedVirtual_1(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl ProtectedVirtual_1(::IF* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->ProtectedVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PublicPureVirtual_2(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl PublicPureVirtual_2(::IF* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->PublicPureVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl ProtectedPureVirtual_3(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl ProtectedPureVirtual_3(::IF* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->ProtectedPureVirtual()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl PrivatePureVirtual_4(::IF* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl PrivatePureVirtual_4(::IF* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->PrivatePureVirtual()
     );
   }

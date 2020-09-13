@@ -26,13 +26,13 @@ struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Func_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Func_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::Example::A::Func()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Func_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<float> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Func_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<float> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::Example::A::Func(
         __zz_cib_::__zz_cib_FromAbiType<float>(__zz_cib_param0)
       )

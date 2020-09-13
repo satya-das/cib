@@ -56,8 +56,8 @@ A::A()
   {}
 
 int A::UseInterface(::Interface* pInterface) const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::UseInterface_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::UseInterface_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(pInterface)>(std::move(pInterface))
     )
@@ -68,13 +68,13 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface> {
   using __zz_cib_Delegatee = ::Interface;
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Func_0(::Interface* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Func_0(::Interface* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->Func()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Gunc_2(::Interface* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Gunc_2(::Interface* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->Gunc()
     );
   }

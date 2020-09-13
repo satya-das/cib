@@ -123,21 +123,21 @@ public:
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
     {}
   int GetValue() const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+      return __zz_cib_::__zz_cib_FromAbiType<int>(
+      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
   void SetValue(int x) {
-      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
     );
   }
   bool operator ==(const ::Example::Value<int>& rhs) const {
-      return __zz_cib_::__zz_cib_FromRValueAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_RValueAbiType_t<bool>>(
+      return __zz_cib_::__zz_cib_FromAbiType<bool>(
+      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_AbiType_t<bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_ToAbiType<decltype(rhs)>(rhs)
       )

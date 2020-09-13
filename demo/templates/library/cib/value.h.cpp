@@ -25,8 +25,8 @@ struct __zz_cib_Delegator<::Value<float>> : public ::Value<float> {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<float> value) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<float>(value));
   }
-  static __zz_cib_RValueAbiType_t<float> __zz_cib_decl get_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<float>(
+  static __zz_cib_AbiType_t<float> __zz_cib_decl get_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<float>(
       __zz_cib_obj->::Value<float>::get()
     );
   }
@@ -64,8 +64,8 @@ struct __zz_cib_Delegator<::Value<int>> : public ::Value<int> {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<int> value) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<int>(value));
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl get_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl get_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::Value<int>::get()
     );
   }

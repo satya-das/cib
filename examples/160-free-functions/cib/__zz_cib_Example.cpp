@@ -16,8 +16,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 using namespace ::Example;
 namespace __zz_cib_NsDelegator {
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function1_0() {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl Function1_0() {
+  return __zz_cib_ToAbiType<int>(
     ::Example::Function1()
   );
 }
@@ -27,8 +27,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 using namespace ::Example;
 namespace __zz_cib_NsDelegator {
-static __zz_cib_RValueAbiType_t<int> __zz_cib_decl Function2_1() {
-  return __zz_cib_ToRValueAbiType<int>(
+static __zz_cib_AbiType_t<int> __zz_cib_decl Function2_1() {
+  return __zz_cib_ToAbiType<int>(
     ::Example::Function2()
   );
 }

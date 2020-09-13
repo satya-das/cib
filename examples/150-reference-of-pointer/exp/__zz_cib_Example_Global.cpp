@@ -52,32 +52,32 @@ static __zz_cib_MethodTableHelper& __zz_cib_mtbl() {
 }}
 
 int GetNewA(::A*& pA) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_0<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_0<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
 }
 
 int GetNewB(::A*& pA) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_1<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_1<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
 }
 
 int GetNewA(const ::A*& pA) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
 }
 
 int GetNewB(const ::A*& pA) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );

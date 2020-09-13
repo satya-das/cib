@@ -25,7 +25,7 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   ::Value<float> getFloatValue() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<::Value<float>>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<::Value<float>>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Value<float>>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getFloatValue_0>(
         __zz_cib_h_
@@ -33,7 +33,7 @@ public:
     );
   }
   ::Value<int> getIntValue() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<::Value<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<::Value<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Value<int>>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue_2>(
         __zz_cib_h_
@@ -41,7 +41,7 @@ public:
     );
   }
   int setValue(const ::Value<int>& intVal) const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(intVal)>);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(intVal)>);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_4>(
         __zz_cib_h_,
@@ -50,7 +50,7 @@ public:
     );
   }
   float setValue(const ::Value<float>& floatVal) const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(floatVal)>);
+    using __zz_cib_proc = __zz_cib_AbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(floatVal)>);
     return __zz_cib_FromAbiType<float>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_1>(
         __zz_cib_h_,
@@ -97,27 +97,27 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl setValue_3(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<int>&> intVal) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl setValue_3(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<int>&> intVal) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::setValue(
         __zz_cib_::__zz_cib_FromAbiType<const ::Value<int>&>(intVal)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<float> __zz_cib_decl setValue_4(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<float>&> floatVal) {
-    return __zz_cib_ToRValueAbiType<float>(
+  static __zz_cib_AbiType_t<float> __zz_cib_decl setValue_4(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Value<float>&> floatVal) {
+    return __zz_cib_ToAbiType<float>(
       __zz_cib_obj->::A::setValue(
         __zz_cib_::__zz_cib_FromAbiType<const ::Value<float>&>(floatVal)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::Value<int>> __zz_cib_decl getIntValue_5(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::Value<int>>(
+  static __zz_cib_AbiType_t<::Value<int>> __zz_cib_decl getIntValue_5(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Value<int>>(
       __zz_cib_obj->::A::getIntValue()
     );
   }
-  static __zz_cib_RValueAbiType_t<::Value<float>> __zz_cib_decl getFloatValue_6(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::Value<float>>(
+  static __zz_cib_AbiType_t<::Value<float>> __zz_cib_decl getFloatValue_6(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Value<float>>(
       __zz_cib_obj->::A::getFloatValue()
     );
   }

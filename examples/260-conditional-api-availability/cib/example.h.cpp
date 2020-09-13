@@ -25,7 +25,7 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int DoFunc() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::DoFunc_0>(
         __zz_cib_h_
@@ -72,57 +72,57 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f0_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f0_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f0()
     );
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f1_4(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f1_4(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f1()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f2_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f2_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f2()
     );
   }
 #elif  COND2 // OPTIONAL. Start of 2nd subgroup
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f3_6(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f3_6(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f3()
     );
   }
 #else 
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f4_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f4_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f4()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f5_8(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f5_8(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f5()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f6_9(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f6_9(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f6()
     );
   }
 #endif
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f7_10(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f7_10(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f7()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl func_11(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl func_11(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::func()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl DoFunc_12(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl DoFunc_12(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::DoFunc()
     );
   }
@@ -190,13 +190,13 @@ struct __zz_cib_Delegator<::B> : public ::B {
         delete __zz_cib_obj;
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::B::f1()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::B::f2()
     );
   }
@@ -243,19 +243,19 @@ struct __zz_cib_Delegator<::C> : public ::C {
         delete __zz_cib_obj;
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::C::f1()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::C::f2()
     );
   }
 #endif
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f3_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f3_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::C::f3()
     );
   }
@@ -299,7 +299,7 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int f3() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f3_0>(
         __zz_cib_h_
@@ -308,7 +308,7 @@ public:
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
   int f1() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f1_1>(
         __zz_cib_h_
@@ -316,7 +316,7 @@ public:
     );
   }
   int f2() override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f2_2>(
         __zz_cib_h_
@@ -364,19 +364,19 @@ struct __zz_cib_Delegator<::P> : public ::P {
         delete __zz_cib_obj;
   }
 #if  COND // Start of a conditional group, also start of 1st subgroup
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f1_3(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::P::f1()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f2_4(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::P::f2()
     );
   }
 #endif
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f3_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f3_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::P::f3()
     );
   }

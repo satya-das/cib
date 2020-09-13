@@ -443,7 +443,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   {
     if (!isVoid(returnType()))
     {
-      stm << ++indentation << "return __zz_cib_ToRValueAbiType<";
+      stm << ++indentation << "return __zz_cib_ToAbiType<";
       emitType(stm, returnType(), kPurposeSignature, helper, getOwner());
       stm << ">(\n";
     }
@@ -575,7 +575,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     stm << indentation;
     if (returnType() && !isVoid(returnType()))
     {
-      stm << ++indentation << "return __zz_cib_::__zz_cib_FromRValueAbiType<";
+      stm << ++indentation << "return __zz_cib_::__zz_cib_FromAbiType<";
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">(\n";
     }
@@ -597,7 +597,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     stm << capiName;
     if (!isDestructor())
     {
-      stm << "<__zz_cib_::__zz_cib_RValueAbiType_t<";
+      stm << "<__zz_cib_::__zz_cib_AbiType_t<";
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">>";
     }
@@ -761,7 +761,7 @@ void CibFunctionHelper::emitCAPIReturnType(std::ostream&    stm,
     stm << "void";
   else
   {
-    stm << "__zz_cib_RValueAbiType_t<";
+    stm << "__zz_cib_AbiType_t<";
     emitType(stm, returnType(), kPurposeSignature, helper, getOwner());
     stm << '>';
   }

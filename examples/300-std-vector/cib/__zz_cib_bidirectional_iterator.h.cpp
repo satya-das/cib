@@ -27,49 +27,49 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C con
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator*()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator->()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator++()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator++(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator--()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator--(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator==(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator!=(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&>(rhs)
       )
@@ -119,49 +119,49 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C* co
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator*()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::pointer>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::pointer>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator->()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator++()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator++(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator--()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator--(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator==(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator!=(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&>(rhs)
       )
@@ -211,49 +211,49 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> 
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator*()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::pointer>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::pointer>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator->()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator++()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator++(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator--()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator--(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator==(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator!=(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&>(rhs)
       )
@@ -303,49 +303,49 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> :
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator*()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer> __zz_cib_decl __zz_cib_OperatorArrow_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator->()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> __zz_cib_decl __zz_cib_OperatorInc_5(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator++()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> __zz_cib_decl __zz_cib_OperatorInc_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator++(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> __zz_cib_decl __zz_cib_OperatorDec_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator--()
     );
   }
-  static __zz_cib_RValueAbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
-    return __zz_cib_ToRValueAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>>(
+  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> __zz_cib_decl __zz_cib_OperatorDec_8(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<int> __zz_cib_param0) {
+    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator--(
         __zz_cib_::__zz_cib_FromAbiType<int>(__zz_cib_param0)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorCmpEq_9(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator==(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(rhs)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> rhs) {
-    return __zz_cib_ToRValueAbiType<bool>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl __zz_cib_OperatorNotEq_10(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&> rhs) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator!=(
         __zz_cib_::__zz_cib_FromAbiType<const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&>(rhs)
       )

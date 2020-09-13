@@ -64,24 +64,24 @@ A::A()
   {}
 
 std::unique_ptr<I> A::f() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<std::unique_ptr<I>>(
-    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_RValueAbiType_t<std::unique_ptr<I>>>(
+  return __zz_cib_::__zz_cib_FromAbiType<std::unique_ptr<I>>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<std::unique_ptr<I>>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 ::I* A::g() {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<::I*>(
-    __zz_cib_MyHelper::g_4<__zz_cib_::__zz_cib_RValueAbiType_t<::I*>>(
+  return __zz_cib_::__zz_cib_FromAbiType<::I*>(
+    __zz_cib_MyHelper::g_4<__zz_cib_::__zz_cib_AbiType_t<::I*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 int A::h(std::unique_ptr<I> p) const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::h_5<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::h_5<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
     )
@@ -89,8 +89,8 @@ int A::h(std::unique_ptr<I> p) const {
 }
 
 int A::i(::I* p) const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::i_6<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::i_6<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
     )
@@ -98,8 +98,8 @@ int A::i(::I* p) const {
 }
 
 int A::j(std::unique_ptr<I>* pp) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::j_7<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::j_7<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(pp)>(std::move(pp))
     )
@@ -123,7 +123,7 @@ public:
     return new __zz_cib_Generic(h);
   }
   std::unique_ptr<int> g() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<std::unique_ptr<int>>(__zz_cib_decl *) (const __zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<std::unique_ptr<int>>(__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_FromAbiType<std::unique_ptr<int>>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g_4>(
         __zz_cib_h_
@@ -131,7 +131,7 @@ public:
     );
   }
   int f() const override {
-    using __zz_cib_proc = __zz_cib_RValueAbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
+    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f_3>(
         __zz_cib_h_
@@ -154,13 +154,13 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::I> {
   using __zz_cib_Delegatee = ::I;
-  static __zz_cib_RValueAbiType_t<std::unique_ptr<int>> __zz_cib_decl g_0(const ::I* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<std::unique_ptr<int>>(
+  static __zz_cib_AbiType_t<std::unique_ptr<int>> __zz_cib_decl g_0(const ::I* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<std::unique_ptr<int>>(
       __zz_cib_obj->g()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f_1(const ::I* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_1(const ::I* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->f()
     );
   }

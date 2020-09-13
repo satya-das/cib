@@ -26,8 +26,8 @@ CPoint::CPoint(double _x, double _y, double _z)
 }
 
 const ::CPoint& CPoint::operator +=(const ::CPoint& p) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<const ::CPoint&>(
-    __zz_cib_MyHelper::__zz_cib_OperatorPlusEq_3<__zz_cib_::__zz_cib_RValueAbiType_t<const ::CPoint&>>(
+  return __zz_cib_::__zz_cib_FromAbiType<const ::CPoint&>(
+    __zz_cib_MyHelper::__zz_cib_OperatorPlusEq_3<__zz_cib_::__zz_cib_AbiType_t<const ::CPoint&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
     )

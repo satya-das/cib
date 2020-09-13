@@ -27,43 +27,43 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::C>> __zz_cib_decl g_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::C>>(
+  static __zz_cib_AbiType_t<::std::vector<::C>> __zz_cib_decl g_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::C>>(
       __zz_cib_obj->::A::g()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::C>> __zz_cib_decl getLargeVector_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::C>>(
+  static __zz_cib_AbiType_t<::std::vector<::C>> __zz_cib_decl getLargeVector_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::C>>(
       __zz_cib_obj->::A::getLargeVector()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::C*>> __zz_cib_decl getObjPtrVec_5(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::C*>>(
+  static __zz_cib_AbiType_t<::std::vector<::C*>> __zz_cib_decl getObjPtrVec_5(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::C*>>(
       __zz_cib_obj->::A::getObjPtrVec()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl sumInLargeVector_6(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl sumInLargeVector_6(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::sumInLargeVector()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::C>::iterator> __zz_cib_decl i_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::C>::iterator>(
+  static __zz_cib_AbiType_t<::std::vector<::C>::iterator> __zz_cib_decl i_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::C>::iterator>(
       __zz_cib_obj->::A::i()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::C>::reverse_iterator> __zz_cib_decl r_8(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::C>::reverse_iterator>(
+  static __zz_cib_AbiType_t<::std::vector<::C>::reverse_iterator> __zz_cib_decl r_8(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::C>::reverse_iterator>(
       __zz_cib_obj->::A::r()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::list<::C>> __zz_cib_decl l_9(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::list<::C>>(
+  static __zz_cib_AbiType_t<::std::list<::C>> __zz_cib_decl l_9(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::list<::C>>(
       __zz_cib_obj->::A::l()
     );
   }
-  static __zz_cib_RValueAbiType_t<::std::vector<::std::list<::C*>>> __zz_cib_decl vl_10(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::std::vector<::std::list<::C*>>>(
+  static __zz_cib_AbiType_t<::std::vector<::std::list<::C*>>> __zz_cib_decl vl_10(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::std::vector<::std::list<::C*>>>(
       __zz_cib_obj->::A::vl()
     );
   }

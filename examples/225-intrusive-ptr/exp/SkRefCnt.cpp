@@ -21,19 +21,19 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 void SkRefCntBase::ref() const {
-  __zz_cib_MyHelper::ref_2<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::ref_2<__zz_cib_::__zz_cib_AbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
 
 void SkRefCntBase::unref() const {
-  __zz_cib_MyHelper::unref_3<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::unref_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
 
 void SkRefCntBase::internal_dispose() const {
-  __zz_cib_MyHelper::internal_dispose_4<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::internal_dispose_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
@@ -42,7 +42,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::SkRefCntBase> {
   using __zz_cib_Delegatee = ::SkRefCntBase;
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl internal_dispose_0(const ::SkRefCntBase* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose_0(const ::SkRefCntBase* __zz_cib_obj) {
     __zz_cib_obj->internal_dispose();
   }
   static void __zz_cib_decl __zz_cib_delete_1(::SkRefCntBase* __zz_cib_obj) {

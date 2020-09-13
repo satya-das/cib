@@ -29,8 +29,8 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 int A::f() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -65,8 +65,8 @@ B::B(int x)
   {}
 
 int B::f() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -101,8 +101,8 @@ C::C(int x)
   {}
 
 int C::f() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
@@ -137,8 +137,8 @@ T::T()
   {}
 
 int T::passStdFunctionByValue(::TestCallback callback) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::passStdFunctionByValue_3<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::passStdFunctionByValue_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(std::move(callback))
     )
@@ -146,8 +146,8 @@ int T::passStdFunctionByValue(::TestCallback callback) {
 }
 
 int T::passStdFunctionByRValueRef(::TestCallback&& callback) {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::passStdFunctionByRValueRef_4<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::passStdFunctionByRValueRef_4<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(std::move(callback))
     )
@@ -155,38 +155,38 @@ int T::passStdFunctionByRValueRef(::TestCallback&& callback) {
 }
 
 void T::passStdFunctionByRef(::TestCallback& callback) {
-  __zz_cib_MyHelper::passStdFunctionByRef_5<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::passStdFunctionByRef_5<__zz_cib_::__zz_cib_AbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(callback)
   );
 }
 
 void T::passStdFunctionByPtr(::TestCallback* callback) {
-  __zz_cib_MyHelper::passStdFunctionByPtr_6<__zz_cib_::__zz_cib_RValueAbiType_t<void>>(
+  __zz_cib_MyHelper::passStdFunctionByPtr_6<__zz_cib_::__zz_cib_AbiType_t<void>>(
     __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
     __zz_cib_::__zz_cib_ToAbiType<decltype(callback)>(std::move(callback))
   );
 }
 
 int T::invokeSavedCallbackPassedByValue() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::invokeSavedCallbackPassedByValue_7<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::invokeSavedCallbackPassedByValue_7<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 int T::invokeSavedCallbackPassedByRValueRef() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<int>(
-    __zz_cib_MyHelper::invokeSavedCallbackPassedByRValueRef_8<__zz_cib_::__zz_cib_RValueAbiType_t<int>>(
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::invokeSavedCallbackPassedByRValueRef_8<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 ::TestCallback T::getCallback() const {
-  return __zz_cib_::__zz_cib_FromRValueAbiType<::TestCallback>(
-    __zz_cib_MyHelper::getCallback_9<__zz_cib_::__zz_cib_RValueAbiType_t<::TestCallback>>(
+  return __zz_cib_::__zz_cib_FromAbiType<::TestCallback>(
+    __zz_cib_MyHelper::getCallback_9<__zz_cib_::__zz_cib_AbiType_t<::TestCallback>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

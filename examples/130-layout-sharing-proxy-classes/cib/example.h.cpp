@@ -27,8 +27,8 @@ struct __zz_cib_Delegator<::CPoint> : public ::CPoint {
     __zz_cib_::__zz_cib_FromAbiType<double>(_y),
     __zz_cib_::__zz_cib_FromAbiType<double>(_z));
   }
-  static __zz_cib_RValueAbiType_t<const ::CPoint&> __zz_cib_decl __zz_cib_OperatorPlusEq_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::CPoint&> p) {
-    return __zz_cib_ToRValueAbiType<const ::CPoint&>(
+  static __zz_cib_AbiType_t<const ::CPoint&> __zz_cib_decl __zz_cib_OperatorPlusEq_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::CPoint&> p) {
+    return __zz_cib_ToAbiType<const ::CPoint&>(
       __zz_cib_obj->::CPoint::operator +=(
         __zz_cib_::__zz_cib_FromAbiType<const ::CPoint&>(p)
       )

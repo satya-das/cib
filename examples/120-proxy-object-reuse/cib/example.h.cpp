@@ -58,13 +58,13 @@ struct __zz_cib_Delegator<::B> : public ::B {
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::A*> pA) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl SetA_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::A*> pA) {
     __zz_cib_obj->::B::SetA(
       __zz_cib_::__zz_cib_FromAbiType<::A*>(pA)
     );
   }
-  static __zz_cib_RValueAbiType_t<::A*> __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::A*>(
+  static __zz_cib_AbiType_t<::A*> __zz_cib_decl GetA_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::A*>(
       __zz_cib_obj->::B::GetA()
     );
   }

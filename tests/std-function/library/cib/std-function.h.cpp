@@ -25,8 +25,8 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static void __zz_cib_decl __zz_cib_delete_2(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::A::f()
     );
   }
@@ -64,8 +64,8 @@ struct __zz_cib_Delegator<::B> : public ::B {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<int> x) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<int>(x));
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::B::f()
     );
   }
@@ -103,8 +103,8 @@ struct __zz_cib_Delegator<::C> : public ::C {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<int> x) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<int>(x));
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::C::f()
     );
   }
@@ -142,42 +142,42 @@ struct __zz_cib_Delegator<::T> : public ::T {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl passStdFunctionByValue_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback> callback) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl passStdFunctionByValue_3(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback> callback) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::T::passStdFunctionByValue(
         __zz_cib_::__zz_cib_FromAbiType<::TestCallback>(callback)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl passStdFunctionByRValueRef_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback&&> callback) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl passStdFunctionByRValueRef_4(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback&&> callback) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::T::passStdFunctionByRValueRef(
         __zz_cib_::__zz_cib_FromAbiType<::TestCallback&&>(callback)
       )
     );
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl passStdFunctionByRef_5(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback&> callback) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl passStdFunctionByRef_5(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback&> callback) {
     __zz_cib_obj->::T::passStdFunctionByRef(
       __zz_cib_::__zz_cib_FromAbiType<::TestCallback&>(callback)
     );
   }
-  static __zz_cib_RValueAbiType_t<void> __zz_cib_decl passStdFunctionByPtr_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback*> callback) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl passStdFunctionByPtr_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<::TestCallback*> callback) {
     __zz_cib_obj->::T::passStdFunctionByPtr(
       __zz_cib_::__zz_cib_FromAbiType<::TestCallback*>(callback)
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl invokeSavedCallbackPassedByValue_7(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl invokeSavedCallbackPassedByValue_7(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::T::invokeSavedCallbackPassedByValue()
     );
   }
-  static __zz_cib_RValueAbiType_t<int> __zz_cib_decl invokeSavedCallbackPassedByRValueRef_8(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<int>(
+  static __zz_cib_AbiType_t<int> __zz_cib_decl invokeSavedCallbackPassedByRValueRef_8(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::T::invokeSavedCallbackPassedByRValueRef()
     );
   }
-  static __zz_cib_RValueAbiType_t<::TestCallback> __zz_cib_decl getCallback_9(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToRValueAbiType<::TestCallback>(
+  static __zz_cib_AbiType_t<::TestCallback> __zz_cib_decl getCallback_9(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::TestCallback>(
       __zz_cib_obj->::T::getCallback()
     );
   }
