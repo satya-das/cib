@@ -155,7 +155,7 @@ public:
   }
   using pointer = ::C**;
   using value_type = ::C*;
-  using reference = typename std::conditional_t<std::is_pointer_v<value_type>, value_type, value_type&>;
+  using reference = typename std::conditional_t<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, value_type&>;
   bidirectional_reverse_iterator()
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>(__zz_cib_MyHelper::__zz_cib_new_2(
       ))

@@ -34,7 +34,8 @@ private:
 public:
   using pointer    = _ValueType*;
   using value_type = _ValueType;
-  using reference  = typename std::conditional_t<std::is_pointer_v<value_type>, value_type, value_type&>;
+  using reference =
+    typename std::conditional_t<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, value_type&>;
 
   bidirectional_iterator() noexcept {}
 
