@@ -1746,12 +1746,12 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     return;
   if (isFacadeLike())
   {
-    std::unordered_set<std::string> virtSigs;
+    std::unordered_set<std::string> funcSigs;
     for (auto obj : objNeedingBridge_)
     {
       CibFunctionHelper func(obj);
-      if (func.isFunction() && func.isVirtual())
-        virtSigs.insert(func.signature(helper, kPurposeSigForVirtualFuncMatch));
+      if (func.isFunction())
+        funcSigs.insert(func.signature(helper, kPurposeSigForVirtualFuncMatch));
     }
     for (auto func : allVirtuals_)
     {
@@ -1761,7 +1761,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         continue;
       if ((objNeedingBridge_.count(func) == 0))
       {
-        if (virtSigs.count(func.signature(helper, kPurposeSigForVirtualFuncMatch)) == 0)
+        if (funcSigs.count(func.signature(helper, kPurposeSigForVirtualFuncMatch)) == 0)
         {
           objNeedingBridge_.insert(func);
           needsBridging_.push_back(func);
