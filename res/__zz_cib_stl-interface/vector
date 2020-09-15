@@ -1,123 +1,83 @@
 #include <type_traits>
 
 namespace std {
-template <typename _Tp /*, typename _Alloc = std::allocator<_Tp>*/>
+template <typename T /*, typename _Alloc = std::allocator<T>*/>
 class vector
 {
 public:
-  using value_type             = _Tp;
-  using pointer                = _Tp*;
-  using iterator               = __zz_cib_stl_helpers::vector_iterator<_Tp>;
-  using const_iterator         = __zz_cib_stl_helpers::vector_iterator<const _Tp>;
-  using reverse_iterator       = __zz_cib_stl_helpers::vector_reverse_iterator<_Tp>;
-  using const_reverse_iterator = __zz_cib_stl_helpers::vector_reverse_iterator<const _Tp>;
-  using const_reference        = const value_type&;
+  using value_type             = T;
+  using pointer                = T*;
+  using iterator               = __zz_cib_stl_helpers::vector_iterator<T>;
+  using const_iterator         = __zz_cib_stl_helpers::vector_iterator<const T>;
+  using reverse_iterator       = __zz_cib_stl_helpers::vector_reverse_iterator<T>;
+  using const_reverse_iterator = __zz_cib_stl_helpers::vector_reverse_iterator<const T>;
+  using reference              = __zz_cib_stl_helpers::vector_iterator<T>::reference;
+  using const_reference        = __zz_cib_stl_helpers::vector_iterator<T>::const_reference;
   using size_type              = size_t;
 
 public:
+  // construct/copy/destroy
   vector();
-  // explicit vector(const allocator_type& __a);
-  // explicit vector(size_type __n /*, const allocator_type& __a = allocator_type()*/);
-
-  vector(size_type __n, const value_type& __value /*, const allocator_type& __a = allocator_type()*/);
-  vector(const vector<_Tp>& __x);
-  vector(vector<_Tp>&& __x) noexcept;
-  // vector(const vector<_Tp>& __x /*, const allocator_type& __a*/);
-  // vector(vector<_Tp>&& __rv /*, const allocator_type& __m*/) noexcept;
-
-  /*
-    vector(initializer_list<value_type> __l, const allocator_type& __a = allocator_type());
-
-    template <typename _InputIterator, typename = std::_RequireInputIter<_InputIterator>>
-    vector(_InputIterator __first, _InputIterator __last, const allocator_type& __a = allocator_type());
-  */
-
+  explicit vector(size_type n);
+  vector(size_type n, const T& value);
+  vector(const vector& x);
+  vector(vector&&) noexcept;
   ~vector();
+  vector& operator=(const vector& x);
+  vector& operator=(vector&& x) noexcept;
+  void    assign(size_type n, const T& u);
 
-  vector<_Tp>& operator=(const vector<_Tp>& __x);
-  vector<_Tp>& operator=(vector<_Tp>&& __x) noexcept;
+  // iterators
+  iterator               begin() noexcept;
+  const_iterator         begin() const noexcept;
+  iterator               end() noexcept;
+  const_iterator         end() const noexcept;
+  reverse_iterator       rbegin() noexcept;
+  const_reverse_iterator rbegin() const noexcept;
+  reverse_iterator       rend() noexcept;
+  const_reverse_iterator rend() const noexcept;
 
-  /*
-    vector<_Tp>& operator=(initializer_list<value_type> __l);
-  */
-
-  void assign(size_type __n, const value_type& __val);
-
-  /*
-    template <typename _InputIterator, typename = std::_RequireInputIter<_InputIterator>>
-    void assign(_InputIterator __first, _InputIterator __last);
-
-    void assign(initializer_list<value_type> __l)
-    {
-      this->_M_assign_aux(__l.begin(), __l.end(), random_access_iterator_tag());
-    }
-  */
-
-  iterator               begin();
-  const_iterator         begin() const;
-  iterator               end();
-  const_iterator         end() const;
-  reverse_iterator       rbegin();
-  const_reverse_iterator rbegin() const;
-  reverse_iterator       rend();
-  const_reverse_iterator rend() const;
   const_iterator         cbegin() const noexcept;
   const_iterator         cend() const noexcept;
   const_reverse_iterator crbegin() const noexcept;
   const_reverse_iterator crend() const noexcept;
 
-  size_type size() const;
-  size_type max_size() const;
-  // void              resize(size_type __new_size);
-  void      resize(size_type __new_size, const value_type& __x);
+  // capacity
+  bool      empty() const noexcept;
+  size_type size() const noexcept;
+  size_type max_size() const noexcept;
+  size_type capacity() const noexcept;
+  void      resize(size_type sz);
+  void      resize(size_type sz, const T& c);
+  void      reserve(size_type n);
   void      shrink_to_fit();
-  size_type capacity() const;
-  bool      empty() const;
-  void      reserve(size_type __n);
 
-  const __zz_cib_::return_value_t<value_type> operator[](size_type __n) const;
-  const __zz_cib_::return_value_t<value_type> at(size_type __n) const;
-  const __zz_cib_::return_value_t<value_type> front() const;
-  const __zz_cib_::return_value_t<value_type> back() const;
+  // element access
+  reference       operator[](size_type n);
+  const_reference operator[](size_type n) const;
+  const_reference at(size_type n) const;
+  reference       at(size_type n);
+  reference       front();
+  const_reference front() const;
+  reference       back();
+  const_reference back() const;
 
-  // value_type&       operator[](size_type __n);
-  // value_type&       at(size_type __n);
-  // value_type&       front();
-  // value_type&       back();
+  // data access
+  T*       data() noexcept;
+  const T* data() const noexcept;
 
-  /*
-  // CANNOT BE SUPPORTED IN GENERIC CASE
-    _Tp* data();
-    const _Tp* data() const;
-  */
-
-  void push_back(const value_type& __x);
-  void push_back(value_type&& __x);
-
-  /*
-    template <typename... _Args>
-    reference emplace_back(_Args&&... __args);
-  */
-
+  // modifiers
+  void push_back(const T& x);
+  void push_back(T&& x);
   void pop_back();
 
-  /*
-    template <typename... _Args>
-    iterator emplace(const_iterator __position, _Args&&... __args);
-
-    iterator insert(const_iterator __position, const value_type& __x);
-    iterator insert(const_iterator __position, value_type&& __x);
-    iterator insert(const_iterator __position, initializer_list<value_type> __l);
-    iterator insert(const_iterator __position, size_type __n, const value_type& __x);
-    void insert(iterator __position, size_type __n, const value_type& __x);
-    template <typename _InputIterator, typename = std::_RequireInputIter<_InputIterator>>
-    iterator insert(const_iterator __position, _InputIterator __first, _InputIterator __last);
-    iterator erase(const_iterator __position);
-    iterator erase(const_iterator __first, const_iterator __last);
-  */
-
-  void swap(vector<_Tp>& __x);
-  void clear();
+  iterator insert(const_iterator position, const T& x);
+  iterator insert(const_iterator position, T&& x);
+  iterator insert(const_iterator position, size_type n, const T& x);
+  iterator erase(const_iterator position);
+  iterator erase(const_iterator first, const_iterator last);
+  void     swap(vector&) noexcept;
+  void     clear() noexcept;
 };
 
 } // namespace std

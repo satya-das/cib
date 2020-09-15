@@ -44,6 +44,9 @@ public:
   using reference         = typename std::conditional<std::is_pointer_v<value_type>,
                                               std::remove_const_t<value_type>,
                                               typename std::iterator_traits<_ValueType*>::reference>::type;
+  using const_reference   = typename std::conditional<std::is_pointer_v<value_type>,
+                                                    std::remove_const_t<value_type>,
+                                                    typename std::iterator_traits<const _ValueType*>::reference>::type;
 
   vector_iterator() noexcept {}
 

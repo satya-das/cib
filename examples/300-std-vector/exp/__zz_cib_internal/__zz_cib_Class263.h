@@ -228,6 +228,7 @@ public:
   using value_type = typename std::iterator_traits<::C**>::value_type;
   using difference_type = typename std::iterator_traits<::C**>::difference_type;
   using reference = typename std::conditional<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, typename std::iterator_traits<::C**>::reference>::type;
+  using const_reference = typename std::conditional<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, typename std::iterator_traits<::C* const *>::reference>::type;
   vector_iterator()
     : __zz_cib_stl_helpers::vector_iterator<::C*>(__zz_cib_MyHelper::__zz_cib_new_2(
       ))
