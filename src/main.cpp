@@ -288,7 +288,6 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-def.h",
                                            "__zz_cib_Module-mtable.h",
                                            "__zz_cib_Module-mtable-helper.h",
-                                           "__zz_cib_Module-handle-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-import.h",
                                            "__zz_cib_Module-local-proxy-mgr.h",
