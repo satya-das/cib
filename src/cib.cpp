@@ -1501,7 +1501,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
       }
       else
       {
-        stm << ++indentation << "__ZZ_CIB_CLASS_INTERNALS(";
+        stm << ++indentation << "__ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS(";
       }
 
       if (isTemplateInstance())

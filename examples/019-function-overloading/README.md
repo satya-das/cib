@@ -535,10 +535,10 @@ protected:                                                                      
     __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
   }*/
 
-//! @def __ZZ_CIB_CLASS_INTERNALS
-//! Macro that allows cib to add it's hook in proxy classes
+//! @def __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS
+//! Macro that allows cib to add it's hook in classes that share layout with library
 //! in a minimally invasive way.
-#define __ZZ_CIB_CLASS_INTERNALS(className, fullName)                                                                  \
+#define __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS(className, fullName)                                                   \
 public:                                                                                                                \
   using __zz_cib_AbiType = className*;                                                                                 \
                                                                                                                        \

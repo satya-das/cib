@@ -14,7 +14,7 @@ public:
   double z;
 
 private:
-  __ZZ_CIB_CLASS_INTERNALS(CPoint, CPoint);
+  __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS(CPoint, CPoint);
 };
 
 #include "__zz_cib_internal/example-postdef.h"
