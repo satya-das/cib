@@ -466,6 +466,7 @@ Now, let's have a look at the `predef` file that is `#include`d in the beginning
 **File**: __zz_cib_internal/example-predef.h:
 
 ```c++
+#pragma once
 #include "__zz_cib_internal/__zz_cib_Example-class-internal-def.h"
 
 ```

@@ -33,11 +33,11 @@ auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
 }
 
 void Example::A::Set(const ::Example::Value<int>& x) {
-  __zz_cib_MyHelper::Set_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
-  );
-}
+    __zz_cib_MyHelper::Set_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)
+    );
+  }
 
 ::Example::Value<int> Example::A::Get() const {
   return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<int>>(
@@ -48,11 +48,11 @@ void Example::A::Set(const ::Example::Value<int>& x) {
 }
 
 void Example::A::SetInt(const ::Example::Value<::Example::Int>& y) {
-  __zz_cib_MyHelper::SetInt_5<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(y)>(y)
-  );
-}
+    __zz_cib_MyHelper::SetInt_5<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(y)>(y)
+    );
+  }
 
 ::Example::Value<::Example::Int> Example::A::GetInt() const {
   return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<::Example::Int>>(
@@ -63,11 +63,11 @@ void Example::A::SetInt(const ::Example::Value<::Example::Int>& y) {
 }
 
 void Example::A::SetFloat(::Example::Value<float> f) {
-  __zz_cib_MyHelper::SetFloat_7<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(f)>(std::move(f))
-  );
-}
+    __zz_cib_MyHelper::SetFloat_7<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(f)>(std::move(f))
+    );
+  }
 
 ::Example::Value<float> Example::A::GetFloat() const {
   return __zz_cib_::__zz_cib_FromAbiType<::Example::Value<float>>(

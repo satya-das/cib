@@ -46,10 +46,13 @@ class CibIdMgr;
 struct CppFunction;
 struct CibCompound;
 
-typedef std::vector<CibFunctionHelper>            CibFunctionHelperArray;
-typedef std::vector<CibCompound*>                 CibCompoundArray;
-typedef std::map<CppAccessType, CibCompoundArray> CibCppInheritInfo;
-typedef std::map<std::string, CppObj*>            TypeNameToCppObj;
+enum class TypeResolvingFlag : char;
+
+using CibFunctionHelperArray   = std::vector<CibFunctionHelper>;
+using CibCompoundArray         = std::vector<CibCompound*>;
+using CibCppInheritInfo        = std::map<CppAccessType, CibCompoundArray>;
+using TypenameAndResolvingFlag = std::pair<std::string, TypeResolvingFlag>;
+using TypeNameToCppObj         = std::map<TypenameAndResolvingFlag, CppObj*>;
 
 /**
  * Teplate args for creating template instances are unfortunately a bit complex.
@@ -100,6 +103,12 @@ enum CibClassPropFlags
   kClassPropStlHelperClass          = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 
+enum class TemplateArgType
+{
+  kAsObject,    // Object instance is used as template argument
+  kAsReference, // Reference (or pointer) is used as template argument
+};
+
 /**
  * Responsible for emitting code required for CIB functionality of C++ compound object.
  */
@@ -113,7 +122,8 @@ public:
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
 
 private:
-  using MemberConditionalMap = std::map<const CppObj*, const CppHashIf*>;
+  using MemberConditionalMap       = std::map<const CppObj*, const CppHashIf*>;
+  using DependentTemplateInstances = std::map<const CibCompound*, TemplateArgType>;
 
 private:
   std::uint32_t props_{0};
@@ -127,11 +137,11 @@ private:
   mutable TypeNameToCppObj       typeNameToCibCppObj_;
   TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
   TmplInstanceCache              tmplInstanceCache_;
-  CibCompound*      templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
-  TemplateArgValues templateArgValues_;
-  std::set<const CibCompound*> usedInTemplArg; ///< Set of al templateinstances that use this compound as ar
-  CibClassId                   clsId_{0};
-  std::string                  nsName_;
+  CibCompound*               templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  TemplateArgValues          templateArgValues_;
+  DependentTemplateInstances usedInTemplateInstaces_;
+  CibClassId                 clsId_{0};
+  std::string                nsName_;
 
 public:
   void setStlClass()
@@ -292,14 +302,19 @@ public:
                                                                 CppIndent        indentation) const;
 
   /// @return string that represents a sequence of all wrapping namespaces
-  std::string wrappingNamespaceDeclarations(const CibParams& cibParams) const
+  std::string wrappingNamespaceDeclarations() const
   {
     if (outer() == nullptr || isCppFile(outer()))
       return "";
-    if (isNamespace(outer()))
-      return outer()->wrappingNamespaceDeclarations(cibParams) + " namespace " + outer()->name() + " {";
-    else
+    if (!isNamespace(outer())) // Why? May not be needed.
       return "namespace " + outer()->name() + " {";
+
+    const auto  enclosingNamespaceDecl = outer()->wrappingNamespaceDeclarations();
+    std::string ret                    = enclosingNamespaceDecl;
+    if (!enclosingNamespaceDecl.empty())
+      ret += ' ';
+    ret += "namespace " + outer()->name() + " {";
+    return ret;
   }
 
   /// @return sequence of closing braces that closes all wrapping namespace definitions.
@@ -313,7 +328,9 @@ public:
       return "}";
   }
   ///@ return CppObj corresponding to name of a given type
-  CppObj* resolveTypeName(const std::string& typeName, const CibHelper& helper) const;
+  CppObj* resolveTypename(const std::string& typeName,
+                          const CibHelper&   helper,
+                          TypeResolvingFlag  typeResolvingFlag) const;
   /// Identifies mothods that need to be bridged
   void identifyMethodsToBridge(const CibHelper& helper);
   void identifyAbstract(const CibHelper& helper);
@@ -730,16 +747,33 @@ private:
                                const CibParams& cibParams,
                                const CibIdMgr&  cibIdMgr,
                                CppIndent        indentation = CppIndent()) const;
-  void emitDependentTemplateSpecilizationHeaders(std::ostream& stm) const;
+  void emitDependentTemplateSpecilizationHeaders(std::ostream& stm, bool onlyWhenUsedAsReference) const;
 
-  void collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
-  void collectTemplateInstancesTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
-  void collectTemplateInstanceTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const;
+  void collectTypeDependenciesInner(const CibHelper&         helper,
+                                    std::set<const CppObj*>& cppObjs,
+                                    std::set<const CppObj*>& excludeList,
+                                    TypeResolvingFlag        typeResolvingFlag) const;
+  void collectTypeDependencies(const CibHelper&         helper,
+                               std::set<const CppObj*>& cppObjs,
+                               TypeResolvingFlag        typeResolvingFlag) const;
+  void collectTemplateInstancesTypeDependencies(const CibHelper&         helper,
+                                                std::set<const CppObj*>& cppObjs,
+                                                TypeResolvingFlag        typeResolvingFlag) const;
+  void collectTemplateInstanceTypeDependencies(const CibHelper&         helper,
+                                               std::set<const CppObj*>& cppObjs,
+                                               TypeResolvingFlag        typeResolvingFlag) const;
+  void collectTemplateArgumentsTypeDependencies(const CibHelper&         helper,
+                                                std::set<const CppObj*>& cppObjs,
+                                                TypeResolvingFlag        typeResolvingFlag) const;
 
   void                                collectFacades(std::set<const CibCompound*>& facades) const;
   static std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
   static std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
                                                                 const CibParams&                    cibParams);
+  void                                emitUserImplDependencyHeaders(std::ostream&                  stm,
+                                                                    const CibHelper&               helper,
+                                                                    const CibParams&               cibParams,
+                                                                    const std::set<const CppObj*>& dependencies) const;
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
@@ -750,8 +784,11 @@ private:
 
   //! Makes itself aware about templates where this class is used as template argument
   void setupTemplateDependencies(const CibHelper& helper);
-  bool setupTemplateDependencies(const std::string& typeName, const CibHelper& helper) const;
-
+  bool setupTemplateDependencies(const CppVarType* varType, const CibHelper& helper) const;
+  void addDependentTemplateInstance(const CibCompound* templInstance, TemplateArgType argType);
+  bool usedReferenceInTemplateInstance(const CibCompound* compound) const;
+  void extractTemplateArgumentHardDependencies(std::set<const CppObj*>& argDependencies,
+                                               std::set<const CppObj*>& dependencies) const;
   void setHasProtectedMethods()
   {
     props_ |= kClassPropHasProtectedMethod;

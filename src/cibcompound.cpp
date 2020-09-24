@@ -36,8 +36,9 @@ static CppVarTypePtr getSubstitutionVarType(const std::string& templateArg,
                                             const CibCompound* instantiationScope,
                                             const CibHelper&   helper)
 {
-  auto  varType     = parseType(templateArg);
-  auto* resolvedVar = instantiationScope->resolveTypeName(baseType(varType), helper);
+  auto  varType = parseType(templateArg);
+  auto* resolvedVar =
+    instantiationScope->resolveTypename(baseType(varType), helper, TypeResolvingFlag::IgnoreStlHelpers);
   if (resolvedVar)
     varType->baseType(longName(resolvedVar));
   return std::move(varType);
@@ -338,28 +339,40 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   return ret;
 }
 
-bool CibCompound::setupTemplateDependencies(const std::string& typeName, const CibHelper& helper) const
+void CibCompound::addDependentTemplateInstance(const CibCompound* templInstance, TemplateArgType argType)
 {
-  bool  compositeTemplate = false;
-  auto* resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
+  auto itr = usedInTemplateInstaces_.find(templInstance);
+  if (itr == usedInTemplateInstaces_.end())
+    usedInTemplateInstaces_.insert(std::make_pair(templInstance, argType));
+  else if (itr->second == TemplateArgType::kAsReference)
+    itr->second = argType;
+}
+
+bool CibCompound::setupTemplateDependencies(const CppVarType* varType, const CibHelper& helper) const
+{
+  const std::string& typeName          = baseType(varType);
+  bool               compositeTemplate = false;
+  auto*              resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
   if (resolvedCppObj)
   {
     if (isClassLike(resolvedCppObj))
     {
-      auto* resolvedCompound = static_cast<CibCompound*>(resolvedCppObj);
-      resolvedCompound->usedInTemplArg.insert(this);
+      auto*      resolvedCompound = static_cast<CibCompound*>(resolvedCppObj);
+      const auto argType = effectivePtrLevel(varType) ? TemplateArgType::kAsReference : TemplateArgType::kAsObject;
+      resolvedCompound->addDependentTemplateInstance(this, argType);
       compositeTemplate = true;
     }
     else if (isTypedefLike(resolvedCppObj))
     {
       if (CppTypedefNameEPtr typedefObj = resolvedCppObj)
       {
-        compositeTemplate = setupTemplateDependencies(baseType(typedefObj->var_), helper);
+        compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType(), helper);
       }
       else if (CppUsingDeclEPtr usingObj = resolvedCppObj)
       {
-        CppVarTypeEPtr varType = usingObj->cppObj_;
-        compositeTemplate      = setupTemplateDependencies(baseType(varType), helper);
+        CppVarTypeEPtr temp = usingObj->cppObj_;
+        if (temp)
+          compositeTemplate = setupTemplateDependencies(temp, helper);
       }
     }
   }
@@ -375,7 +388,7 @@ void CibCompound::setupTemplateDependencies(const CibHelper& helper)
     if (arg.second->objType_ != CppVarType::kObjectType)
       continue;
     const auto* varType = static_cast<CppVarType*>(arg.second.get());
-    compositeTemplate   = setupTemplateDependencies(baseType(varType), helper) || compositeTemplate;
+    compositeTemplate   = setupTemplateDependencies(varType, helper) || compositeTemplate;
   }
 
   if (compositeTemplate)

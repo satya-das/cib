@@ -72,6 +72,7 @@ enum FuncProtoPurpose
   kPurposeGenericProxyProcType   = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeGlueCode,
   kPurposeInvokeHelper           = (1 << (__LINE__ - kPurposeBaseLine)),
   kPurposeGenericProxyCtorInit   = (1 << (__LINE__ - kPurposeBaseLine)),
+  kPurposeTemplateSpecialization = (1 << (__LINE__ - kPurposeBaseLine)) | kPurposeProxyDefn,
 };
 
 /*!

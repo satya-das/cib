@@ -123,37 +123,37 @@ A::A()
   {}
 
 void A::setPod(::Pod& p) {
-  __zz_cib_MyHelper::setPod_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
-  );
-}
+    __zz_cib_MyHelper::setPod_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(p)
+    );
+  }
 
 void A::setPod(::Pod* p) {
-  __zz_cib_MyHelper::setPod_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
-  );
-}
+    __zz_cib_MyHelper::setPod_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
+    );
+  }
 
 void A::setNonPod1(::NonPod1& n) {
-  __zz_cib_MyHelper::setNonPod1_5<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
-  );
-}
+    __zz_cib_MyHelper::setNonPod1_5<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
+    );
+  }
 
 void A::setNonPod2(::NonPod2& n) {
-  __zz_cib_MyHelper::setNonPod2_6<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
-  );
-}
+    __zz_cib_MyHelper::setNonPod2_6<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
+    );
+  }
 
 void A::setNonPod3(::NonPod3& n) {
-  __zz_cib_MyHelper::setNonPod3_7<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-    __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
-  );
-}
+    __zz_cib_MyHelper::setNonPod3_7<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(n)>(n)
+    );
+  }
 

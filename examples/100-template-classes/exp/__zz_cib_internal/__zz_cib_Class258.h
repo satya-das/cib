@@ -104,7 +104,7 @@ struct __zz_cib_Helper<::Example::Value<::Example::Int>, _T> : public __zz_cib_M
   }
 };
 }
- namespace Example {
+namespace Example {
 template<>
 class Value<::Example::Int>
 {
@@ -115,7 +115,7 @@ public:
     {}
   ~Value() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-      __zz_cib_MyHelper::__zz_cib_delete_1(
+    __zz_cib_MyHelper::__zz_cib_delete_1(
       h
     );
   }
@@ -123,24 +123,30 @@ public:
     : Example::Value<::Example::Int>(__zz_cib_MyHelper::__zz_cib_new_2(
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
     {}
+  template <typename _ThisClass = Value<::Example::Int>>
   ::Example::Int GetValue() const {
-      return __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(
-      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_AbiType_t<::Example::Int>>(
+    using __zz_cib_T  = std::pair<_ThisClass, Value<::Example::Int>>;
+    return __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(
+      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::Example::Int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
+  template <typename _ThisClass = Value<::Example::Int>>
   void SetValue(::Example::Int x) {
-      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_AbiType_t<void>>(
-      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
-    );
-  }
-  bool operator ==(const ::Example::Value<::Example::Int>& rhs) const {
-      return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    using __zz_cib_T  = std::pair<_ThisClass, Value<::Example::Int>>;
+      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_ToAbiType<decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(x)>(std::move(x))
+      );
+    }
+  template <typename _ThisClass = Value<::Example::Int>>
+  bool operator ==(const ::Example::Value<::Example::Int>& rhs) const {
+    using __zz_cib_T  = std::pair<_ThisClass, Value<::Example::Int>>;
+    return __zz_cib_::__zz_cib_FromAbiType<bool>(
+      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+        __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
       )
     );
   }

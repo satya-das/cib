@@ -65,10 +65,10 @@ PublicFacadeImpl::PublicFacadeImpl()
   {}
 
 void PublicFacadeImpl::F() {
-  __zz_cib_MyHelper::F_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
-  );
-}
+    __zz_cib_MyHelper::F_3<__zz_cib_::__zz_cib_AbiType_t<void>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    );
+  }
 
 
 A::A(__zz_cib_AbiType h)

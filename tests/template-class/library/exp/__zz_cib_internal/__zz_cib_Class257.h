@@ -99,7 +99,7 @@ public:
     {}
   ~TemplateClassWithOneParam() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-      __zz_cib_MyHelper::__zz_cib_delete_1(
+    __zz_cib_MyHelper::__zz_cib_delete_1(
       h
     );
   }
@@ -107,9 +107,11 @@ public:
     : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_new_2(
             __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(std::move(_a1))))
     {}
+  template <typename _ThisClass = TemplateClassWithOneParam<int>>
   int get() const {
-      return __zz_cib_::__zz_cib_FromAbiType<int>(
-      __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    using __zz_cib_T  = std::pair<_ThisClass, TemplateClassWithOneParam<int>>;
+    return __zz_cib_::__zz_cib_FromAbiType<int>(
+      __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );

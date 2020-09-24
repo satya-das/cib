@@ -55,7 +55,10 @@ static void emitType(std::ostream&      stm,
   const auto& typeObj = [&]() -> CppVarType {
     if (purpose == kPurposeProxyDecl)
       return *origTypeObj;
-    auto* resolvedCppObj = (typeResolver ? typeResolver->resolveTypeName(origTypeObj->baseType(), helper) : nullptr);
+    auto* resolvedCppObj =
+      (typeResolver
+         ? typeResolver->resolveTypename(origTypeObj->baseType(), helper, TypeResolvingFlag::IgnoreStlHelpers)
+         : nullptr);
     if (resolvedCppObj == nullptr)
       return *origTypeObj;
     const auto* resolvedType = isClassLike(resolvedCppObj) ? static_cast<const CibCompound*>(resolvedCppObj) : nullptr;
@@ -218,6 +221,18 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     return;
   const auto* params = getParams();
 
+  const auto emitArgForProxyDefn = [&](const CppConstVarEPtr& var, int i) {
+    stm << "decltype(";
+    emitParamName(stm, var, i);
+    stm << ")>(";
+    if (!isByRef(var))
+      stm << "std::move(";
+    emitParamName(stm, var, i);
+    if (!isByRef(var))
+      stm << ')';
+    stm << ')';
+  };
+
   for (size_t i = 0; i < params->size(); ++i)
   {
     if (i != 0)
@@ -240,16 +255,13 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
       case kPurposeGeneric:
       case kPurposeProxyDefn:
       case kPurposeGenericProxy:
-        stm << "__zz_cib_::__zz_cib_ToAbiType<decltype(";
-        emitParamName(stm, var, i);
-        //        emitType(stm, var->varType(), kPurposeSignature, helper);
-        stm << ")>(";
-        if (!isByRef(var))
-          stm << "std::move(";
-        emitParamName(stm, var, i);
-        if (!isByRef(var))
-          stm << ')';
-        stm << ')';
+        stm << "__zz_cib_::__zz_cib_ToAbiType<";
+        emitArgForProxyDefn(var, i);
+        break;
+
+      case kPurposeTemplateSpecialization:
+        stm << "__zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, ";
+        emitArgForProxyDefn(var, i);
         break;
 
       case kPurposeInvokeHelper:
@@ -494,6 +506,12 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
                                  const CibIdData*   cibIdData,
                                  CppIndent          indentation) const
 {
+  if (isMethod() && callingOwner->isTemplateInstance())
+  {
+    stm << indentation;
+    stm << "template <typename _ThisClass = " << callingOwner->name() << ">\n";
+  }
+
   stm << indentation;
   if (isTypeConverter())
   {
@@ -571,11 +589,18 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
         stm << indentation << "auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);\n";
       }
     }
+    else if (callingOwner->isTemplateInstance())
+    {
+      stm << ++indentation << "using __zz_cib_T  = std::pair<_ThisClass, " << callingOwner->name() << ">;\n";
+    }
+    else
+    {
+      ++indentation;
+    }
 
-    stm << indentation;
     if (returnType() && !isVoid(returnType()))
     {
-      stm << ++indentation << "return __zz_cib_::__zz_cib_FromAbiType<";
+      stm << indentation << "return __zz_cib_::__zz_cib_FromAbiType<";
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">(\n";
     }
@@ -597,7 +622,11 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     stm << capiName;
     if (!isDestructor())
     {
-      stm << "<__zz_cib_::__zz_cib_AbiType_t<";
+      if (callingOwner->isTemplateInstance())
+        stm << "<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ";
+      else
+        stm << "<__zz_cib_::__zz_cib_AbiType_t<";
+
       emitType(stm, returnType(), kPurposeProxyDefnReturnType, helper, callingOwner);
       stm << ">>";
     }
@@ -613,7 +642,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
       if (hasParams())
         stm << ",\n";
     }
-    emitArgsForCall(stm, helper, cibParams, kPurposeProxyDefn, indentation);
+    auto const argPurpose = callingOwner->isTemplateInstance() ? kPurposeTemplateSpecialization : kPurposeProxyDefn;
+    emitArgsForCall(stm, helper, cibParams, argPurpose, indentation);
     stm << '\n' << --indentation << ")";
     if (returnType() && !isVoid(returnType()))
       stm << '\n' << --indentation << ')';
@@ -779,14 +809,16 @@ void emitInheritanceList(std::ostream& stm, const CibCompoundArray& inhList, Cpp
     stm << sep << accessType << ' ' << (*itr)->longName();
 }
 
-CppObj* CibCompound::resolveTypeName(const std::string& typeName, const CibHelper& helper) const
+CppObj* CibCompound::resolveTypename(const std::string& typeName,
+                                     const CibHelper&   helper,
+                                     TypeResolvingFlag  typeResolvingFlag) const
 {
-  auto itr = typeNameToCibCppObj_.find(typeName);
+  const auto key = std::make_pair(typeName, typeResolvingFlag);
+  auto       itr = typeNameToCibCppObj_.find(key);
   if (itr != typeNameToCibCppObj_.end())
     return itr->second;
-
-  auto* resolvedType             = helper.resolveTypename(typeName, this);
-  typeNameToCibCppObj_[typeName] = resolvedType;
+  auto* resolvedType        = helper.resolveTypename(typeName, this, typeResolvingFlag);
+  typeNameToCibCppObj_[key] = resolvedType;
 
   return resolvedType;
 }
@@ -900,8 +932,20 @@ void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cib
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
   bfs::create_directories(implPath.parent_path());
   std::ofstream stm(implPath.string(), std::ios_base::out);
-
+  stm << "#pragma once\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-class-internal-def.h\"\n";
+
+  if (isStlHelpereClass())
+    return;
+  std::set<const CppObj*> cppObjs;
+  collectTypeDependencies(helper, cppObjs, TypeResolvingFlag::IgnoreStlHelpers);
+  for (auto cppObj : cppObjs)
+  {
+    CibConstCompoundEPtr compound = cppObj;
+    if (!compound)
+      continue;
+    compound->emitDependentTemplateSpecilizationHeaders(stm, true);
+  }
 }
 
 static std::set<const CppObj*> extractFwdDeclarations(std::set<const CppObj*>& dependencies)
@@ -918,6 +962,104 @@ static std::set<const CppObj*> extractFwdDeclarations(std::set<const CppObj*>& d
   return fwdDecls;
 }
 
+static void emitFwdDecl(std::ostream& stm, const CibCompound* compound)
+{
+  if (compound->isStlRelated())
+    return;
+  if (compound->isTemplated())
+    return;
+  if (!isClassLike(compound))
+    return;
+  if (compound->name().empty())
+    return;
+  if (isClassLike(compound->outer()))
+    return;
+
+  stm << '\n';
+  const auto enclosingNamespaceDecls = compound->wrappingNamespaceDeclarations();
+  if (!enclosingNamespaceDecls.empty())
+    stm << enclosingNamespaceDecls << ' ';
+  stm << compound->compoundType() << ' ' << compound->name() << ";";
+  if (!enclosingNamespaceDecls.empty())
+    stm << compound->closingBracesForWrappingNamespaces();
+}
+
+static void emitFwdDeclarations(std::ostream& stm, const std::set<const CppObj*>& dependencies)
+{
+  for (auto cppObj : dependencies)
+  {
+    CibConstCompoundEPtr compound = cppObj;
+    if (!compound)
+      continue;
+    emitFwdDecl(stm, compound);
+  }
+}
+
+void CibCompound::emitUserImplDependencyHeaders(std::ostream&                  stm,
+                                                const CibHelper&               helper,
+                                                const CibParams&               cibParams,
+                                                const std::set<const CppObj*>& dependencies) const
+{
+  auto asts    = collectAstDependencies(dependencies);
+  auto thisAst = getFileAstObj(this);
+  if (!isStlClass() && !isStlHelpereClass())
+    asts.insert(thisAst);
+  else
+    asts.erase(thisAst);
+  for (auto itr = asts.begin(); itr != asts.end();)
+  {
+    const auto ast = *itr;
+    if (ast->isStlHelpereClass())
+      itr = asts.erase(itr);
+    else
+      ++itr;
+  }
+  auto headers = collectHeaderDependencies(asts, cibParams);
+  if (!headers.empty())
+  {
+    stm << '\n';
+    for (const auto& header : headers)
+      stm << "#include " << header << "\n";
+  }
+
+  for (const auto dependent : dependencies)
+  {
+    CibConstCompoundEPtr dependentCompound = dependent;
+    if (!dependentCompound || !dependentCompound->isStlHelpereClass() || !dependentCompound->isTemplateInstance())
+      continue;
+    stm << "#include \"__zz_cib_internal/" << dependentCompound->nsName() << ".h\"\n";
+  }
+}
+
+bool CibCompound::usedReferenceInTemplateInstance(const CibCompound* compound) const
+{
+  const auto itr = usedInTemplateInstaces_.find(compound);
+  if (itr == usedInTemplateInstaces_.end())
+    return false;
+  return itr->second == TemplateArgType::kAsReference;
+}
+
+void CibCompound::extractTemplateArgumentHardDependencies(std::set<const CppObj*>& argDependencies,
+                                                          std::set<const CppObj*>& dependencies) const
+{
+  assert(isTemplateInstance());
+
+  for (auto itr = argDependencies.begin(); itr != argDependencies.end();)
+  {
+    CibConstCompoundEPtr compound = *itr;
+    if (compound && !compound->usedReferenceInTemplateInstance(this))
+    {
+      dependencies.insert(*itr);
+      itr = argDependencies.erase(itr);
+    }
+    else
+    {
+      dependencies.erase(*itr);
+      ++itr;
+    }
+  }
+}
+
 void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
                                                       const CibHelper& helper,
                                                       const CibParams& cibParams,
@@ -927,28 +1069,17 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
     if (!compound->isTemplated() || compound->templateInstances_.empty())
       return;
     compound->forEachTemplateInstance([&](CibCompound* templCompound) {
-      // if (!templCompound->isShared())
-      //   return;
       auto          specializationFilename = templCompound->nsName() + ".h";
       auto          specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
       std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
       tmplStm << "#pragma once\n\n";
-      std::set<const CppObj*> dependencies;
-      templCompound->collectTemplateInstanceTypeDependencies(helper, dependencies);
+      std::set<const CppObj*> dependencies, argDependencies;
+      templCompound->collectTypeDependencies(helper, dependencies, TypeResolvingFlag::ResolveTillLast);
+      templCompound->collectTemplateArgumentsTypeDependencies(
+        helper, argDependencies, TypeResolvingFlag::ResolveTillLast);
+      templCompound->extractTemplateArgumentHardDependencies(argDependencies, dependencies);
       auto fwdDecls = extractFwdDeclarations(dependencies);
-      auto asts     = collectAstDependencies(dependencies);
-      auto thisAst  = getFileAstObj(this);
-      if (!isStlClass() && !isStlHelpereClass())
-        asts.insert(thisAst);
-      else
-        asts.erase(thisAst);
-      auto headers = collectHeaderDependencies(asts, cibParams);
-      if (!headers.empty())
-      {
-        tmplStm << '\n';
-        for (const auto& header : headers)
-          tmplStm << "#include " << header << "\n";
-      }
+      emitUserImplDependencyHeaders(tmplStm, helper, cibParams, dependencies);
       if (isStlClass())
         tmplStm << "#include <" << bfs::path(name()).filename().string() << ">\n";
       else if (isStlHelpereClass())
@@ -956,23 +1087,29 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
                 << "\"\n";
       for (auto cppObj : fwdDecls)
         gCppWriter.emit(cppObj, tmplStm);
+      emitFwdDeclarations(tmplStm, argDependencies);
       templCompound->emitHelperDefn(tmplStm, helper, cibParams, cibIdMgr);
       templCompound->emitDecl(tmplStm, helper, cibParams, cibIdMgr);
-      templCompound->emitDependentTemplateSpecilizationHeaders(tmplStm);
+      templCompound->emitDependentTemplateSpecilizationHeaders(tmplStm, false);
       if (!templCompound->isCompositeTemplate())
         stm << "#include \"" << specializationFilename << "\"\n";
     });
   });
 }
 
-void CibCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm) const
+void CibCompound::emitDependentTemplateSpecilizationHeaders(std::ostream& stm, bool onlyWhenUsedAsReference) const
 {
   std::map<CibClassId, std::string> dependentSpecializations;
-  for (auto* usedAsArgIn : usedInTemplArg)
+  for (const auto& usedAsArgIn : usedInTemplateInstaces_)
   {
-    auto headerName = usedAsArgIn->nsName() + ".h";
+    auto const usedAsReference = (usedAsArgIn.second == TemplateArgType::kAsReference);
+    if (onlyWhenUsedAsReference && !usedAsReference)
+      continue;
+    if (usedAsArgIn.first->isStlHelpereClass())
+      continue;
+    auto headerName = usedAsArgIn.first->nsName() + ".h";
     assert(headerName.find('<') == std::string::npos);
-    dependentSpecializations.emplace(std::make_pair(usedAsArgIn->classId(), std::move(headerName)));
+    dependentSpecializations.emplace(std::make_pair(usedAsArgIn.first->classId(), std::move(headerName)));
   }
 
   for (const auto& dependent : dependentSpecializations)
@@ -1000,8 +1137,8 @@ void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibPa
   emitTemplateInstanceSpecializations(stm, helper, cibParams, cibIdMgr);
 
   forEachNested(CppAccessType::kPublic,
-                [&](const CibCompound* compound) { compound->emitDependentTemplateSpecilizationHeaders(stm); });
-  emitDependentTemplateSpecilizationHeaders(stm);
+                [&](const CibCompound* compound) { compound->emitDependentTemplateSpecilizationHeaders(stm, false); });
+  emitDependentTemplateSpecilizationHeaders(stm, false);
 }
 
 void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams)
@@ -1189,22 +1326,19 @@ void CibCompound::collectFacades(std::set<const CibCompound*>& facades) const
   }
 }
 
-void CibCompound::collectTemplateInstanceTypeDependencies(const CibHelper&         helper,
-                                                          std::set<const CppObj*>& cppObjs) const
+void CibCompound::collectTemplateArgumentsTypeDependencies(const CibHelper&         helper,
+                                                           std::set<const CppObj*>& cppObjs,
+                                                           TypeResolvingFlag        typeResolvingFlag) const
 {
-  if (!isTemplateInstance())
-    return;
   // TODO addDependency is duplicated in another function.
   // Remove duplication, may be by having dependecy collector as another class.
-  auto addDependency = [&](const std::string& typeName) {
-    auto* resolvedCppObj = resolveTypeName(typeName, helper);
+  const auto addDependency = [&](const std::string& typeName) {
+    auto* resolvedCppObj = resolveTypename(typeName, helper, typeResolvingFlag);
     if (!resolvedCppObj && helper.isSmartPtr(typeName))
-      resolvedCppObj = resolveTypeName(helper.convertSmartPtr(typeName), helper);
+      resolvedCppObj = resolveTypename(helper.convertSmartPtr(typeName), helper, typeResolvingFlag);
     if (resolvedCppObj)
       cppObjs.insert(resolvedCppObj);
   };
-
-  collectTypeDependencies(helper, cppObjs);
   for (auto& arg : templateArgValues_)
   {
     if (arg.second->objType_ == CppExpr::kObjectType)
@@ -1214,26 +1348,42 @@ void CibCompound::collectTemplateInstanceTypeDependencies(const CibHelper&      
   }
 }
 
+void CibCompound::collectTemplateInstanceTypeDependencies(const CibHelper&         helper,
+                                                          std::set<const CppObj*>& cppObjs,
+                                                          TypeResolvingFlag        typeResolvingFlag) const
+{
+  if (!isTemplateInstance())
+    return;
+
+  collectTypeDependencies(helper, cppObjs, typeResolvingFlag);
+  collectTemplateArgumentsTypeDependencies(helper, cppObjs, typeResolvingFlag);
+}
+
 void CibCompound::collectTemplateInstancesTypeDependencies(const CibHelper&         helper,
-                                                           std::set<const CppObj*>& cppObjs) const
+                                                           std::set<const CppObj*>& cppObjs,
+                                                           TypeResolvingFlag        typeResolvingFlag) const
 {
   if (!isTemplated())
     return;
-  forEachTemplateInstance(
-    [&](CibCompound* tmplInstance) { tmplInstance->collectTemplateInstanceTypeDependencies(helper, cppObjs); });
+  forEachTemplateInstance([&](CibCompound* tmplInstance) {
+    tmplInstance->collectTemplateInstanceTypeDependencies(helper, cppObjs, typeResolvingFlag);
+  });
 }
 
-void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<const CppObj*>& cppObjs) const
+void CibCompound::collectTypeDependenciesInner(const CibHelper&         helper,
+                                               std::set<const CppObj*>& cppObjs,
+                                               std::set<const CppObj*>& excludeList,
+                                               TypeResolvingFlag        typeResolvingFlag) const
 {
   // TODO: We still would like to collect dependencies that are not related to template arguments.
   if (isTemplated())
     return;
 
   auto addDependency = [&](const std::string& typeName) {
-    auto* resolvedCppObj = resolveTypeName(typeName, helper);
+    auto* resolvedCppObj = resolveTypename(typeName, helper, typeResolvingFlag);
     if (!resolvedCppObj && helper.isSmartPtr(typeName))
-      resolvedCppObj = resolveTypeName(helper.convertSmartPtr(typeName), helper);
-    if (resolvedCppObj)
+      resolvedCppObj = resolveTypename(helper.convertSmartPtr(typeName), helper, typeResolvingFlag);
+    if (resolvedCppObj && !excludeList.count(resolvedCppObj))
       cppObjs.insert(resolvedCppObj);
   };
 
@@ -1241,8 +1391,9 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
   {
     if (CibCompoundEPtr compound = mem)
     {
-      compound->collectTypeDependencies(helper, cppObjs);
-      compound->collectTemplateInstancesTypeDependencies(helper, cppObjs);
+      excludeList.insert(compound);
+      compound->collectTypeDependenciesInner(helper, cppObjs, excludeList, typeResolvingFlag);
+      compound->collectTemplateInstancesTypeDependencies(helper, cppObjs, typeResolvingFlag);
     }
     else if (isFunctionLike(mem))
     {
@@ -1273,6 +1424,15 @@ void CibCompound::collectTypeDependencies(const CibHelper& helper, std::set<cons
       addDependency(fwdDecl->name_);
     }
   }
+}
+
+void CibCompound::collectTypeDependencies(const CibHelper&         helper,
+                                          std::set<const CppObj*>& cppObjs,
+                                          TypeResolvingFlag        typeResolvingFlag) const
+{
+  std::set<const CppObj*> excludeList;
+  excludeList.insert(this);
+  collectTypeDependenciesInner(helper, cppObjs, excludeList, typeResolvingFlag);
 }
 
 const CibCompound* CibCompound::getFileAstObj(const CppObj* obj)
@@ -1415,7 +1575,7 @@ void CibCompound::emitDecl(std::ostream&    stm,
   {
     if (isTemplateInstance())
     {
-      stm << wrappingNamespaceDeclarations(cibParams) << '\n';
+      stm << wrappingNamespaceDeclarations() << '\n';
       stm << indentation << "template<>\n";
     }
     stm << indentation << compoundType() << ' ';
@@ -1932,7 +2092,7 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
 {
   if (!isClassLike(this))
   {
-    stm << indentation << "namespace __zz_cib_ { " << wrappingNamespaceDeclarations(cibParams);
+    stm << indentation << "namespace __zz_cib_ { " << wrappingNamespaceDeclarations();
     if (isNamespaceLike(this))
       stm << indentation << "namespace " << name();
     else
@@ -2405,7 +2565,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
   std::set<const CibCompound*> facades;
   collectFacades(facades);
   std::set<const CppObj*> dependencies;
-  collectTypeDependencies(helper, dependencies);
+  collectTypeDependencies(helper, dependencies, TypeResolvingFlag::IgnoreStlHelpers);
   dependencies.insert(this);
   if (!cibParams.noRtti)
   {
@@ -2416,13 +2576,12 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
                                 [&dependencies](const CibCompound* obj) { dependencies.insert(obj); });
     }
   }
-  if (!dependencies.empty())
-  {
-    auto asts = collectAstDependencies(dependencies);
-    asts.insert(getFileAstObj(this));
-    for (const auto& header : collectHeaderDependencies(asts, cibParams))
-      stm << indentation << "#include " << header << "\n";
-  }
+
+  auto asts = collectAstDependencies(dependencies);
+  asts.insert(getFileAstObj(this));
+  for (const auto& header : collectHeaderDependencies(asts, cibParams))
+    stm << indentation << "#include " << header << "\n";
+
   stm << '\n'; // Start in new line.
   if (!facades.empty() && !cibParams.noRtti)
   {

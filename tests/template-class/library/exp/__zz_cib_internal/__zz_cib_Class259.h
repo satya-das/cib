@@ -106,7 +106,7 @@ public:
     {}
   ~TemplateClassWithTwoParamsAndDefaultParameter() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-      __zz_cib_MyHelper::__zz_cib_delete_1(
+    __zz_cib_MyHelper::__zz_cib_delete_1(
       h
     );
   }
@@ -115,16 +115,20 @@ public:
             __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(std::move(_a1)),
       __zz_cib_::__zz_cib_ToAbiType<decltype(_a2)>(std::move(_a2))))
     {}
+  template <typename _ThisClass = TemplateClassWithTwoParamsAndDefaultParameter<int, int>>
   int get1() const {
-      return __zz_cib_::__zz_cib_FromAbiType<int>(
-      __zz_cib_MyHelper::get1_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    using __zz_cib_T  = std::pair<_ThisClass, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>;
+    return __zz_cib_::__zz_cib_FromAbiType<int>(
+      __zz_cib_MyHelper::get1_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
+  template <typename _ThisClass = TemplateClassWithTwoParamsAndDefaultParameter<int, int>>
   int get2() const {
-      return __zz_cib_::__zz_cib_FromAbiType<int>(
-      __zz_cib_MyHelper::get2_4<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    using __zz_cib_T  = std::pair<_ThisClass, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>;
+    return __zz_cib_::__zz_cib_FromAbiType<int>(
+      __zz_cib_MyHelper::get2_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );

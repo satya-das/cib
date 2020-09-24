@@ -99,7 +99,7 @@ public:
     {}
   ~Value() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-      __zz_cib_MyHelper::__zz_cib_delete_1(
+    __zz_cib_MyHelper::__zz_cib_delete_1(
       h
     );
   }
@@ -107,9 +107,11 @@ public:
     : Value<float>(__zz_cib_MyHelper::__zz_cib_new_2(
             __zz_cib_::__zz_cib_ToAbiType<decltype(value)>(std::move(value))))
     {}
+  template <typename _ThisClass = Value<float>>
   float get() const {
-      return __zz_cib_::__zz_cib_FromAbiType<float>(
-      __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_AbiType_t<float>>(
+    using __zz_cib_T  = std::pair<_ThisClass, Value<float>>;
+    return __zz_cib_::__zz_cib_FromAbiType<float>(
+      __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, float>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );

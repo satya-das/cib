@@ -45,6 +45,12 @@ class CibIdMgr;
 
 typedef std::set<std::string> stringset;
 
+enum class TypeResolvingFlag : char
+{
+  ResolveTillLast,
+  IgnoreStlHelpers,
+};
+
 /**
  * \brief Provides information about C++ program and related things needed by CIB.
  */
@@ -67,9 +73,11 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
   {
-    return resolveTypename(name, typeNode);
+    return resolveTypename(name, typeNode, TypeResolvingFlag::IgnoreStlHelpers);
   }
-  CppObj* resolveTypename(const std::string& name, const CibCompound* begScope) const;
+  CppObj* resolveTypename(const std::string& name,
+                          const CibCompound* begScope,
+                          TypeResolvingFlag  typeResolvingFlag) const;
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain zero or more scope resolution operators.
@@ -78,18 +86,18 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CibCompound* begScope) const
   {
-    return resolveTypename(name, begScope);
+    return resolveTypename(name, begScope, TypeResolvingFlag::IgnoreStlHelpers);
   }
 
   CppObj* getCppObjFromTypeName(const std::string& name) const
   {
-    return resolveTypename(name, (CibCompound*) nullptr);
+    return resolveTypename(name, (CibCompound*) nullptr, TypeResolvingFlag::IgnoreStlHelpers);
   }
 
   void onNewCompound(CibCompound* compound, const CibCompound* parent) const;
 
-  CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode);
-  CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope);
+  CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode, TypeResolvingFlag typeResolvingFlag);
+  CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag);
 
   bool isSmartPtr(const std::string& typeName) const;
   bool isSmartPtr(const CibCompound* compound) const;
@@ -126,8 +134,10 @@ private:
    */
   void evaluateReturnType(const CibFunctionHelper& func);
 
-  CppObj* resolveTypename(const std::string& name, const CppTypeTreeNode* typeNode) const;
-  CppObj* resolveTypeAlias(CppObj* typeAliasObj) const;
+  CppObj* resolveTypename(const std::string&     name,
+                          const CppTypeTreeNode* typeNode,
+                          TypeResolvingFlag      typeResolvingFlag) const;
+  CppObj* resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag) const;
 
   /**
    * Itmay happen a class is not directly identifiable as facades.

@@ -74,9 +74,11 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
   cibIdMgr_.assignNsName(compound, *this, cibParams_);
 }
 
-CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode)
+CppObj* CibHelper::resolveVarType(CppVarType*            varType,
+                                  const CppTypeTreeNode* typeNode,
+                                  TypeResolvingFlag      typeResolvingFlag)
 {
-  auto* cppObj = resolveTypename(baseType(varType), typeNode);
+  auto* cppObj = resolveTypename(baseType(varType), typeNode, typeResolvingFlag);
   if (cppObj == nullptr)
     return nullptr;
 
@@ -85,7 +87,7 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
     // TODO: We need to resolve typedefs fully only if it resolves to conpound object uniquely.
     // For cases when typedef uses non-compound types we need to know ptr and ref only.
     auto* typedefObj       = static_cast<CppTypedefName*>(cppObj);
-    auto* finalResolvedObj = resolveTypename(baseType(typedefObj->var_), typeNode);
+    auto* finalResolvedObj = resolveTypename(baseType(typedefObj->var_), typeNode, typeResolvingFlag);
     if (finalResolvedObj && isClassLike(finalResolvedObj))
     {
       varType->typeModifier().ptrLevel_ += ptrLevel(typedefObj->var_);
@@ -99,13 +101,15 @@ CppObj* CibHelper::resolveVarType(CppVarType* varType, const CppTypeTreeNode* ty
   return cppObj;
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name, const CibCompound* begScope) const
+CppObj* CibHelper::resolveTypename(const std::string& name,
+                                   const CibCompound* begScope,
+                                   TypeResolvingFlag  typeResolvingFlag) const
 {
-  CppObj* resolvedType = resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope));
+  CppObj* resolvedType = resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope), typeResolvingFlag);
   if (!resolvedType && begScope)
   {
     begScope->forEachParent(CppAccessType::kPublic, [&](const CibCompound* parent) {
-      resolvedType = parent->resolveTypeName(name, *this);
+      resolvedType = parent->resolveTypename(name, *this, typeResolvingFlag);
       return (resolvedType == nullptr);
     });
   }
@@ -113,9 +117,9 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CibCompound* b
   return resolvedType;
 }
 
-CppObj* CibHelper::resolveVarType(CppVarType* varType, const CibCompound* begScope)
+CppObj* CibHelper::resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag)
 {
-  return resolveVarType(varType, program_->typeTreeNodeFromCppObj(begScope));
+  return resolveVarType(varType, program_->typeTreeNodeFromCppObj(begScope), typeResolvingFlag);
 }
 
 void CibHelper::markStlClasses()
@@ -181,7 +185,7 @@ void CibHelper::markNoProxyClasses()
   }
 }
 
-CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
+CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag) const
 {
   const auto getName = [](const CppObj* typeAliasObj) -> std::string {
     if (typeAliasObj->objType_ == CppObjType::kTypedefName)
@@ -208,7 +212,7 @@ CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj) const
     const auto name = getName(cppObj);
     if (name.empty())
       return cppObj;
-    auto* nextResolvedObj = resolveTypename(name, owner(cppObj));
+    auto* nextResolvedObj = resolveTypename(name, owner(cppObj), typeResolvingFlag);
     if (nextResolvedObj)
       cppObj = nextResolvedObj;
     else
@@ -288,7 +292,9 @@ static size_t getNestedNameStartPos(const std::string& name, size_t topNameEndPo
   return skipSpaces(name, scopeResolutionStartPos + 2);
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNode* startNode) const
+CppObj* CibHelper::resolveTypename(const std::string&     name,
+                                   const CppTypeTreeNode* startNode,
+                                   TypeResolvingFlag      typeResolvingFlag) const
 {
   auto templateArgStart = name.find('<');
   auto typeNode         = [&]() -> const CppTypeTreeNode* {
@@ -317,13 +323,14 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
   {
     if (isTypedefLike(cppObj))
     {
-      auto* resolvedTypeAlias = resolveTypeAlias(cppObj);
+      auto* resolvedTypeAlias = resolveTypeAlias(cppObj, typeResolvingFlag);
       // <HACK>
       // Stop resolving a typedef is it is defined inside a template class and resolved type is a compound.
       // TODO: maybe resolving typedef is no longer needed. Try removing it altogether.
       CibConstCompoundEPtr resolvedCompound = resolvedTypeAlias;
       CibConstCompoundEPtr ownerOfCppObj    = owner(cppObj);
-      if (resolvedCompound && ownerOfCppObj->isTemplateInstance())
+      if (resolvedCompound && ownerOfCppObj->isTemplateInstance()
+          && (typeResolvingFlag != TypeResolvingFlag::ResolveTillLast))
         return cppObj;
       // </HACK>
       if (resolvedTypeAlias)
@@ -341,11 +348,11 @@ CppObj* CibHelper::resolveTypename(const std::string& name, const CppTypeTreeNod
         const auto nestedNameStartPos = getNestedNameStartPos(name, topTemplNameEndPos);
         if (nestedNameStartPos >= name.length())
         {
-          if (topTemplObj->isStlHelpereClass())
+          if (topTemplObj->isStlHelpereClass() && (typeResolvingFlag == TypeResolvingFlag::IgnoreStlHelpers))
             return nullptr;
           return topTemplObj;
         }
-        auto* resolvedObj = resolveTypename(name.substr(nestedNameStartPos), topTemplObj);
+        auto* resolvedObj = resolveTypename(name.substr(nestedNameStartPos), topTemplObj, typeResolvingFlag);
         return resolvedObj ? resolvedObj : cppObj;
       }
     }
@@ -361,7 +368,7 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritanceList()))
     {
-      auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode);
+      auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode, TypeResolvingFlag::IgnoreStlHelpers);
       auto* parentObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
       // here.
@@ -396,7 +403,7 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
       CppVarEPtr var = param;
       if (!var)
         continue; // TODO: FIXME param can be function pointer too.
-      auto* cppObj   = resolveVarType(var->varType(), func.getOwner());
+      auto* cppObj   = resolveVarType(var->varType(), func.getOwner(), TypeResolvingFlag::IgnoreStlHelpers);
       auto* paramObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       if (!paramObj)
         continue;
@@ -422,7 +429,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
     return;
   if (func.returnType())
   {
-    auto* cppObj    = resolveVarType(func.returnType(), func.getOwner());
+    auto* cppObj    = resolveVarType(func.returnType(), func.getOwner(), TypeResolvingFlag::IgnoreStlHelpers);
     auto* returnObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
     if (!returnObj)
       return;
@@ -491,7 +498,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
         isEmpty = false;
       if (isPodStruct)
       {
-        auto* cppObj = resolveVarType(var->varType(), cppCompound);
+        auto* cppObj = resolveVarType(var->varType(), cppCompound, TypeResolvingFlag::IgnoreStlHelpers);
         if (cppObj && isClassLike(cppObj))
           isPodStruct = false;
       }
@@ -506,7 +513,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       }
       else if (!usesTemplateType(var->varType()) && isPublic(var))
       {
-        const auto* memType = resolveVarType(var->varType(), cppCompound);
+        const auto* memType = resolveVarType(var->varType(), cppCompound, TypeResolvingFlag::IgnoreStlHelpers);
         if (memType && (memType->objType_ == CibCompound::kObjectType))
         {
           const auto* memObj = static_cast<const CibCompound*>(memType);

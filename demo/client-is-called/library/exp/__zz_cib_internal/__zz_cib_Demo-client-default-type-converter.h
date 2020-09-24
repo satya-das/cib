@@ -102,6 +102,20 @@ auto __zz_cib_ToAbiType(__zz_cib_ClientTypeToAbiType<_T> obj)
 template <typename _T>
 using __zz_cib_AbiType_t = decltype((static_cast<__zz_cib_ClientTypeToAbiType<_T>*>(nullptr))->convert());
 
+template <typename _T, typename D1, typename D2>
+using __zz_cib_LazyAbiTypeHelper = __zz_cib_AbiType_t<std::enable_if_t<std::is_same_v<D1, D2>, _T>>;
+
+template <typename D, typename _T>
+using __zz_cib_LazyAbiType_t = __zz_cib_LazyAbiTypeHelper<_T, typename D::first_type, typename D::second_type>;
+
+template <typename D, typename _T>
+auto __zz_cib_LazyAbiType(
+  __zz_cib_ClientTypeToAbiType<std::enable_if_t<std::is_same_v<typename D::first_type, typename D::second_type>, _T>>
+    obj)
+{
+  return obj.convert();
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
