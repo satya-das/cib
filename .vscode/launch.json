@@ -16,7 +16,7 @@
                 "-o",
                 "exp/",
                 "-m",
-                "PoDoFo",
+                "CibPoDoFo",
                 "--always-use-unique-namespace",
                 "true",
                 "-A",
@@ -508,6 +508,34 @@
                 "${workspaceFolder}/examples/300-std-vector/exp",
                 "-m",
                 "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for StlDependencyTest",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/tests/stl-dependency-test/library/pub",
+                "-b",
+                "${workspaceFolder}/tests/stl-dependency-test/library/cib",
+                "-o",
+                "${workspaceFolder}/tests/stl-dependency-test/library/exp",
+                "-m",
+                "StlDependencyTest"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds/",
@@ -1351,6 +1379,24 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/examples/120-proxy-object-reuse",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "240-operator-overloading",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/240-operator-overloading",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],
