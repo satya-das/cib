@@ -1,6 +1,6 @@
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
@@ -8,11 +8,11 @@
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
-template <typename _T>
-struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::A>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
-  using _ProxyClass = _T;
+template <typename T>
+struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::A>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::A;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
@@ -65,19 +65,19 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
         );
     }
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new _T(h);
+  static T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new T(h);
   }
-  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return _T(h);
+  static T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -110,11 +110,11 @@ struct __zz_cib_Helper<::A, _T> : public __zz_cib_MethodTableHelper {
 }
 
 namespace __zz_cib_ {
-template <typename _T>
-struct __zz_cib_Helper<::B, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::B>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
-  using _ProxyClass = _T;
+template <typename T>
+struct __zz_cib_Helper<::B, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::B>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_get_proxy_method_table();
   friend class ::B;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
@@ -185,17 +185,17 @@ struct __zz_cib_Helper<::B, _T> : public __zz_cib_MethodTableHelper {
     using __zz_cib_get_class_idProc = std::uint32_t (__zz_cib_decl *) (__zz_cib_AbiType*);
     return __zz_cib_mtbl().invoke<__zz_cib_get_class_idProc, __zz_cib_methodid::__zz_cib_get_class_id>(__zz_cib_obj);
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h);
-  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return _T(h);
+  static T* __zz_cib_create_proxy(__zz_cib_AbiType h);
+  static T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;

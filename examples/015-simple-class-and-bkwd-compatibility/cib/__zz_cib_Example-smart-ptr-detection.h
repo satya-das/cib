@@ -11,17 +11,17 @@
 
 namespace __zz_cib_ {
 
-template <typename _T, typename = void>
+template <typename T, typename = void>
 struct __zz_cib_IsSmartPtr : std::false_type
 {
 };
 
-template <typename _T>
-struct __zz_cib_IsSmartPtr<_T, std::void_t<decltype(__zz_cib_get(*((_T*) nullptr)))>> : std::true_type
+template <typename T>
+struct __zz_cib_IsSmartPtr<T, std::void_t<decltype(__zz_cib_get(*((T*) nullptr)))>> : std::true_type
 {
 };
 
-template <typename _T>
-constexpr bool __zz_cib_IsSmartPtr_v = __zz_cib_IsSmartPtr<_T>::value;
+template <typename T>
+constexpr bool __zz_cib_IsSmartPtr_v = __zz_cib_IsSmartPtr<T>::value;
 
 } // namespace __zz_cib_

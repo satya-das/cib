@@ -4,7 +4,7 @@
 #include "__zz_cib_TemplateTests-delegate-helper.h"
 #include "__zz_cib_TemplateTests-generic.h"
 #include "__zz_cib_TemplateTests-ids.h"
-#include "__zz_cib_TemplateTests-library-type-handler.h"
+#include "__zz_cib_TemplateTests-library-type-converters.h"
 #include "__zz_cib_TemplateTests-mtable-helper.h"
 
 namespace __zz_cib_ {

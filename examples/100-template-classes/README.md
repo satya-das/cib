@@ -8,19 +8,19 @@ Supporting template classes by CIB in ABI compatible and stable way is very inte
 
 namespace Example
 {
-template <typename _T>
+template <typename T>
 class Value
 {
 public:
-  Value(_T x = _T())
+  Value(T x = T())
     : x_(x)
   {
   }
-  _T GetValue() const
+  T GetValue() const
   {
     return x_;
   }
-  void SetValue(_T x)
+  void SetValue(T x)
   {
     x_ = x;
   }
@@ -31,7 +31,7 @@ public:
   }
 
 private:
-  _T x_;
+  T x_;
 };
 }
 
@@ -120,7 +120,7 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-library-type-handler.h"
+#include "__zz_cib_Example-library-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
@@ -308,19 +308,19 @@ Now we need to look what does client side glue code contain to make these types 
 +
  namespace Example
  {
- template <typename _T>
+ template <typename T>
  class Value
  {
  public:
-   Value(_T x = _T())
+   Value(T x = T())
      : x_(x)
    {
    }
-   _T GetValue() const
+   T GetValue() const
    {
      return x_;
    }
-   void SetValue(_T x)
+   void SetValue(T x)
    {
      x_ = x;
    }
@@ -331,7 +331,7 @@ Now we need to look what does client side glue code contain to make these types 
    }
 -
  private:
-   _T x_;
+   T x_;
  };
  }
 +
@@ -351,11 +351,11 @@ But, what we want is that when client code uses something like `Value<int>` or `
 
 namespace __zz_cib_ {
 using namespace ::Example;
-template <typename _T>
-struct __zz_cib_Helper<::Example::Value<int>, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::Example::Value<int>>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
-  using _ProxyClass = _T;
+template <typename T>
+struct __zz_cib_Helper<::Example::Value<int>, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::Example::Value<int>>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  using _ProxyClass = T;
   friend class ::Example::Value<int>;
   Example::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class257::__zz_cib_methodid;
@@ -413,19 +413,19 @@ struct __zz_cib_Helper<::Example::Value<int>, _T> : public __zz_cib_MethodTableH
       __zz_cib_obj,
       __zz_cib_args...);
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new _T(h);
+  static T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new T(h);
   }
-  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return _T(h);
+  static T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -454,9 +454,10 @@ template<>
 class Value<int>
 {
 public:
+  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
   Value(const ::Example::Value<int>& __zz_cib_param0)
     : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~Value() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
@@ -464,34 +465,32 @@ public:
       h
     );
   }
+  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
   Value(int x)
     : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_new_2(
-            __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
+            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))))
     {}
-  template <typename _ThisClass = Value<int>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
   int GetValue() const {
-    using __zz_cib_T  = std::pair<_ThisClass, Value<int>>;
     return __zz_cib_::__zz_cib_FromAbiType<int>(
-      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, int>>(
+      __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = Value<int>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
   void SetValue(int x) {
-    using __zz_cib_T  = std::pair<_ThisClass, Value<int>>;
-      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, void>>(
+      __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(x)>(std::move(x))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))
       );
     }
-  template <typename _ThisClass = Value<int>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
   bool operator ==(const ::Example::Value<int>& rhs) const {
-    using __zz_cib_T  = std::pair<_ThisClass, Value<int>>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
@@ -512,7 +511,7 @@ Let's see what that `value-postdef.h` contains:
 ```c++
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"

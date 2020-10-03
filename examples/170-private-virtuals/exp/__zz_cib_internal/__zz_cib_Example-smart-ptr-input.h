@@ -10,25 +10,25 @@
 
 namespace __zz_cib_ {
 
-template <typename _T>
-auto* __zz_cib_get(const std::unique_ptr<_T>& p)
+template <typename T>
+auto* __zz_cib_get(const std::unique_ptr<T>& p)
 {
   return p.get();
 }
 
-template <typename _T>
-auto* __zz_cib_release(std::unique_ptr<_T>& p)
+template <typename T>
+auto* __zz_cib_release(std::unique_ptr<T>& p)
 {
   return p.release();
 }
 
-template <typename _SmartPtrT, typename _T>
-_SmartPtrT __zz_cib_attach(_T* rawPtr)
+template <typename _SmartPtrT, typename T>
+_SmartPtrT __zz_cib_attach(T* rawPtr)
 {
   return _SmartPtrT(rawPtr);
 }
 
-template <typename _T>
-using __zz_cib_SmartPtrUnderlyingType_t = decltype(__zz_cib_get(_T()));
+template <typename T>
+using __zz_cib_SmartPtrUnderlyingType_t = decltype(__zz_cib_get(T()));
 
 } // namespace __zz_cib_

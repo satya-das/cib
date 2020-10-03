@@ -2,19 +2,19 @@
 
 namespace Example
 {
-template <typename _T>
+template <typename T>
 class Value
 {
 public:
-  Value(_T x = _T())
+  Value(T x = T())
     : x_(x)
   {
   }
-  _T GetValue() const
+  T GetValue() const
   {
     return x_;
   }
-  void SetValue(_T x)
+  void SetValue(T x)
   {
     x_ = x;
   }
@@ -25,6 +25,6 @@ public:
   }
 
 private:
-  _T x_;
+  T x_;
 };
 }

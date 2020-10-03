@@ -9,16 +9,16 @@ namespace __zz_cib_stl_helpers {
 template <typename _ValueType>
 class vector_iterator
 {
-  template <typename _T, typename = void>
+  template <typename T, typename = void>
   struct UnderlyingIterator
   {
-    using type = typename std::vector<_T>::iterator;
+    using type = typename std::vector<T>::iterator;
   };
 
-  template <typename _T>
-  struct UnderlyingIterator<_T, std::enable_if_t<std::is_const_v<_T>, void>>
+  template <typename T>
+  struct UnderlyingIterator<T, std::enable_if_t<std::is_const_v<T>, void>>
   {
-    using type = typename std::vector<std::remove_const_t<_T>>::const_iterator;
+    using type = typename std::vector<std::remove_const_t<T>>::const_iterator;
   };
 
   using UnderlyingIteratorType = typename UnderlyingIterator<_ValueType>::type;

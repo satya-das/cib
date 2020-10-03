@@ -5,11 +5,11 @@
 class ExampleClass;
 namespace __zz_cib_ {
 using namespace ::__zz_cib_stl_helpers;
-template <typename _T>
-struct __zz_cib_Helper<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
-  using _ProxyClass = _T;
+template <typename T>
+struct __zz_cib_Helper<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  using _ProxyClass = T;
   friend class ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >;
   StlDependencyTest::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class260::__zz_cib_methodid;
@@ -171,19 +171,19 @@ struct __zz_cib_Helper<::__zz_cib_stl_helpers::vector_reverse_iterator<::Example
       __zz_cib_obj,
       __zz_cib_args...);
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new _T(h);
+  static T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new T(h);
   }
-  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return _T(h);
+  static T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -212,9 +212,10 @@ template<>
 class vector_reverse_iterator<::ExampleClass* const >
 {
 public:
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   vector_reverse_iterator(const vector_reverse_iterator<::ExampleClass* const >& __zz_cib_param0)
     : __zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~vector_reverse_iterator() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
@@ -227,183 +228,166 @@ public:
   using value_type = typename std::iterator_traits<::ExampleClass* const *>::value_type;
   using difference_type = typename std::iterator_traits<::ExampleClass* const *>::difference_type;
   using reference = typename std::conditional<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, typename std::iterator_traits<::ExampleClass* const *>::reference>::type;
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   vector_reverse_iterator()
     : __zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >(__zz_cib_MyHelper::__zz_cib_new_2(
       ))
     {}
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference operator*() const {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>(
-      __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::pointer operator->() const {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::pointer>(
-      __zz_cib_MyHelper::__zz_cib_OperatorArrow_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::pointer>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorArrow_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::pointer>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& operator++() {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorInc_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorInc_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const > operator++(int __zz_cib_param0) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>(
-      __zz_cib_MyHelper::__zz_cib_OperatorInc_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorInc_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& operator--() {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorDec_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorDec_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const > operator--(int __zz_cib_param0) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>(
-      __zz_cib_MyHelper::__zz_cib_OperatorDec_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorDec_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type n) const {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>(
-      __zz_cib_MyHelper::__zz_cib_OperatorIndex_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorIndex_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(n)>(std::move(n))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type n) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorPlusEq_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorPlusEq_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(n)>(std::move(n))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const > operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type n) const {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>(
-      __zz_cib_MyHelper::__zz_cib_OperatorPlus_11<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorPlus_11<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(n)>(std::move(n))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type n) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>(
-      __zz_cib_MyHelper::__zz_cib_OperatorMinusEq_12<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorMinusEq_12<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >&>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(n)>(std::move(n))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const > operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type n) const {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>(
-      __zz_cib_MyHelper::__zz_cib_OperatorMinus_13<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorMinus_13<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(n)>(std::move(n))
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_14<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_14<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator!=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorNotEq_15<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorNotEq_15<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator<(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorLT_16<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorLT_16<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator>(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorGT_17<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorGT_17<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator<=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorLE_18<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorLE_18<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
-      __zz_cib_MyHelper::__zz_cib_OperatorGE_19<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, bool>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorGE_19<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }
-  template <typename _ThisClass = vector_reverse_iterator<::ExampleClass* const >>
+  template <typename __zz_cib_Dummy = std::pair<vector_reverse_iterator<::ExampleClass* const >, vector_reverse_iterator<::ExampleClass* const >>>
   ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >& rhs) {
-    using __zz_cib_T  = std::pair<_ThisClass, vector_reverse_iterator<::ExampleClass* const >>;
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type>(
-      __zz_cib_MyHelper::__zz_cib_OperatorMinus_20<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type>>(
+      __zz_cib_MyHelper::__zz_cib_OperatorMinus_20<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::difference_type>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
-        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_T, decltype(rhs)>(rhs)
+        __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(rhs)>(rhs)
       )
     );
   }

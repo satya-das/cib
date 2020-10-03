@@ -4,11 +4,11 @@
 #include "template.h"
 
 namespace __zz_cib_ {
-template <typename _T>
-struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::TemplateClassWithTwoParams<int, float>>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
-  using _ProxyClass = _T;
+template <typename T>
+struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::TemplateClassWithTwoParams<int, float>>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  using _ProxyClass = T;
   friend class ::TemplateClassWithTwoParams<int, float>;
   TemplateTests::__zz_cib_local_proxy_mgr<_ProxyClass> proxyMgr;
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_methodid;
@@ -59,19 +59,19 @@ struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, _T> : public __
       __zz_cib_obj
       );
   }
-  static _T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
-    return new _T(h);
+  static T* __zz_cib_create_proxy(__zz_cib_AbiType h) {
+    return new T(h);
   }
-  static _T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
-    return _T(h);
+  static T __zz_cib_obj_from_handle(__zz_cib_AbiType h) {
+    return T(h);
   }
-  static __zz_cib_AbiType& __zz_cib_get_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType& __zz_cib_get_handle(T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType const& __zz_cib_get_handle(const _T* __zz_cib_obj) {
+  static __zz_cib_AbiType const& __zz_cib_get_handle(const T* __zz_cib_obj) {
     return __zz_cib_obj->__zz_cib_h_;
   }
-  static __zz_cib_AbiType __zz_cib_release_handle(_T* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_release_handle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     __zz_cib_remove_proxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
@@ -100,9 +100,10 @@ template<>
 class TemplateClassWithTwoParams<int, float>
 {
 public:
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParams<int, float>, TemplateClassWithTwoParams<int, float>>>
   TemplateClassWithTwoParams(const ::TemplateClassWithTwoParams<int, float>& __zz_cib_param0)
     : TemplateClassWithTwoParams<int, float>(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~TemplateClassWithTwoParams() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
@@ -110,25 +111,24 @@ public:
       h
     );
   }
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParams<int, float>, TemplateClassWithTwoParams<int, float>>>
   TemplateClassWithTwoParams(int _a1, float _a2)
     : TemplateClassWithTwoParams<int, float>(__zz_cib_MyHelper::__zz_cib_new_2(
-            __zz_cib_::__zz_cib_ToAbiType<decltype(_a1)>(std::move(_a1)),
-      __zz_cib_::__zz_cib_ToAbiType<decltype(_a2)>(std::move(_a2))))
+            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a1)>(std::move(_a1)),
+      __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a2)>(std::move(_a2))))
     {}
-  template <typename _ThisClass = TemplateClassWithTwoParams<int, float>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParams<int, float>, TemplateClassWithTwoParams<int, float>>>
   int get1() const {
-    using __zz_cib_T  = std::pair<_ThisClass, TemplateClassWithTwoParams<int, float>>;
     return __zz_cib_::__zz_cib_FromAbiType<int>(
-      __zz_cib_MyHelper::get1_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, int>>(
+      __zz_cib_MyHelper::get1_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );
   }
-  template <typename _ThisClass = TemplateClassWithTwoParams<int, float>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParams<int, float>, TemplateClassWithTwoParams<int, float>>>
   float get2() const {
-    using __zz_cib_T  = std::pair<_ThisClass, TemplateClassWithTwoParams<int, float>>;
     return __zz_cib_::__zz_cib_FromAbiType<float>(
-      __zz_cib_MyHelper::get2_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_T, float>>(
+      __zz_cib_MyHelper::get2_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, float>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );

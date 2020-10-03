@@ -1,6 +1,6 @@
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Example-client-type-handler.h"
+#include "__zz_cib_internal/__zz_cib_Example-client-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
@@ -8,10 +8,10 @@
 #include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
-template <typename _T>
-struct __zz_cib_Helper<::CPoint, _T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<_T, ::CPoint>);
-  using __zz_cib_AbiType = typename _T::__zz_cib_AbiType;
+template <typename T>
+struct __zz_cib_Helper<::CPoint, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::CPoint>);
+  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   friend class ::CPoint;
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_methodid;
 

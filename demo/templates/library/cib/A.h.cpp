@@ -5,7 +5,7 @@
 #include "__zz_cib_templates-delegate-helper.h"
 #include "__zz_cib_templates-generic.h"
 #include "__zz_cib_templates-ids.h"
-#include "__zz_cib_templates-library-type-handler.h"
+#include "__zz_cib_templates-library-type-converters.h"
 #include "__zz_cib_templates-mtable-helper.h"
 
 namespace __zz_cib_ {
@@ -35,7 +35,7 @@ public:
   ::Value<int> getIntValue() const override {
     using __zz_cib_proc = __zz_cib_AbiType_t<::Value<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Value<int>>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue_2>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::getIntValue_1>(
         __zz_cib_h_
       )
     );
@@ -43,7 +43,7 @@ public:
   int setValue(const ::Value<int>& intVal) const override {
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(intVal)>);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_4>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_2>(
         __zz_cib_h_,
         __zz_cib_::__zz_cib_ToAbiType<decltype(intVal)>(intVal)
       )
@@ -52,7 +52,7 @@ public:
   float setValue(const ::Value<float>& floatVal) const override {
     using __zz_cib_proc = __zz_cib_AbiType_t<float>(__zz_cib_decl *) (const __zz_cib_Proxy, __zz_cib_AbiType_t<decltype(floatVal)>);
     return __zz_cib_FromAbiType<float>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_1>(
+      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::setValue_3>(
         __zz_cib_h_,
         __zz_cib_::__zz_cib_ToAbiType<decltype(floatVal)>(floatVal)
       )
@@ -61,7 +61,7 @@ public:
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_3>(
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_4>(
       __zz_cib_h_
     );
   }
@@ -75,7 +75,7 @@ private:
   const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
     return __zz_cib_mtbl_helper;
   }
-  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Generic::__zz_cib_methodid;
+  using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Generic::__zz_cib_methodid;
 };
 }
 namespace __zz_cib_ {
@@ -128,7 +128,7 @@ struct __zz_cib_Delegator<::A> : public ::A {
 }
 
 namespace __zz_cib_ {
-namespace __zz_cib_Class259 {
+namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_new_0),

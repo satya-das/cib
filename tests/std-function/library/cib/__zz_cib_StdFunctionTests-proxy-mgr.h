@@ -82,7 +82,7 @@ struct __zz_cib_ProxyRepo
 /**
  * Manages proxy objects and deletes them when original instance on library side is deleted.
  */
-template <typename _T>
+template <typename T>
 class __zz_cib_ProxyManager
 {
 public:

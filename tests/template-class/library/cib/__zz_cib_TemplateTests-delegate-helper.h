@@ -18,8 +18,8 @@ static const __zz_cib_MethodTable* __zz_cib_GetMethodTable();
 
 /*
 #define __ZZ_CIB_DELEGATOR_MEMBERS(className, parentName)                                                              \
-  template <typename _T>                                                                                               \
-  parentName& operator=(const _T& rhs)                                                                                 \
+  template <typename T>                                                                                               \
+  parentName& operator=(const T& rhs)                                                                                 \
   {                                                                                                                    \
     const auto& ret = this->parentName::operator=(rhs);                                                                \
     return const_cast<parentName&>(static_cast<const parentName&>(ret));                                               \
