@@ -44,6 +44,7 @@ public:
   void registerObj(OrigFuncType origFuncObj, AbiFuncType abiFuncObj)
   {
     mOrigToAbiMap.insert(std::make_pair(origFuncObj, abiFuncObj));
+    mAbiToOrigMap.insert(std::make_pair(abiFuncObj, origFuncObj));
   }
 
   AbiFuncType getAbiFunc(OrigFuncType origFuncObj) const
@@ -114,7 +115,7 @@ public:
     const auto  funcObj     = funcObjRepo.getOrigFunc(&AbiFunc);
     assert(funcObj != nullptr);
 
-    return AbiFuncObjCallHelper<R, Args...>::invoke(args...);
+    return AbiFuncObjCallHelper<R, Args...>::invoke(funcObj, args...);
   }
 
   AbiFuncType convert() const
@@ -140,7 +141,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename R, typename... Args>
-class __zz_cib_CoreTypeToAbiType<R(Args...)>
+class __zz_cib_CoreTypeToAbiType<R (*)(Args...)>
 {
   using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
@@ -266,7 +267,7 @@ template <int kID, typename R, typename... Args>
 class __zz_cib_AbiTypeToCoreTypeImpl
 {
   using OrigFuncType = R (*)(Args...);
-  using AbiFuncType  = void(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
+  using AbiFuncType  = R(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
 
 public:
   static R OrigFunc(Args... args)
@@ -299,10 +300,10 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToCoreType<R(Args...)>
+class __zz_cib_AbiTypeToCoreType<R (*)(Args...)>
 {
   using OrigFuncType = R (*)(Args...);
-  using AbiFuncType  = void(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
+  using AbiFuncType  = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
 
   static int& getNumFuncObjUsed()
   {
