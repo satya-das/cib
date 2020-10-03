@@ -6,6 +6,7 @@
 #pragma once
 
 #include "__zz_cib_StlDependencyTest-smart-ptr-detection.h"
+#include "__zz_cib_StlDependencyTest-type-traits.h"
 
 #include <functional>
 #include <type_traits>
@@ -102,6 +103,9 @@ constexpr bool __zz_cib_IsProxyClass_v = __zz_cib_IsProxyClass<T>::value;
 
 template <typename T>
 constexpr bool __zz_cib_IsProxiedClass_v = __zz_cib_IsProxiedClass<T>::value;
+
+template <typename T>
+constexpr bool __zz_cib_IsProxiedType_v = __zz_cib_IsProxiedClass<__zz_cib_RemoveAllDecorations_t<T>>::value;
 
 template <typename T>
 constexpr bool __zz_cib_IsConstructibleProxy_v = (__zz_cib_IsProxyClass_v<T> && !std::is_abstract_v<T>);
