@@ -12,8 +12,9 @@
  * It is recommended to use virtual function based interface rather using function object.
  */
 
+#include "__zz_cib_Module-type-converter-base.h"
+
 #include "__zz_cib_Module-decl.h"
-#include "__zz_cib_Module-library-default-type-converter.h"
 
 #include <map>
 #include <assert.h>
@@ -101,7 +102,7 @@ struct AbiFuncObjCallHelper<void, Args...>
 };
 
 template <int kID, typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiTypeImpl
+class __zz_cib_CoreTypeToAbiTypeImpl
 {
   using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
@@ -122,7 +123,7 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiTypeImpl(OrigFuncType origFuncObj)
+  __zz_cib_CoreTypeToAbiTypeImpl(OrigFuncType origFuncObj)
   {
     auto&      funcObjRepo = FuncObjRepo<R, Args...>::instance();
     const auto abiFuncObj  = funcObjRepo.getAbiFunc(origFuncObj);
@@ -139,7 +140,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiType<R(Args...)>
+class __zz_cib_CoreTypeToAbiType<R(Args...)>
 {
   using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
@@ -167,52 +168,52 @@ public:
     {
       case 0:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<0, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<0, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 1:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<1, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<1, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 2:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<2, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<2, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 3:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<3, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<3, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 4:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<4, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<4, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 5:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<5, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<5, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 6:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<6, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<6, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 7:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<7, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<7, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 8:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<8, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<8, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
       case 9:
       {
-        __zz_cib_LibraryTypeToAbiTypeImpl<9, R, Args...> impl(mFuncObj);
+        __zz_cib_CoreTypeToAbiTypeImpl<9, R, Args...> impl(mFuncObj);
         return impl.convert();
       }
 
@@ -223,7 +224,7 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(OrigFuncType funcObj)
+  __zz_cib_CoreTypeToAbiType(OrigFuncType funcObj)
     : mFuncObj(funcObj)
   {
   }
@@ -262,7 +263,7 @@ struct FuncObjCallHelper<void, Args...>
 };
 
 template <int kID, typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryTypeImpl
+class __zz_cib_AbiTypeToCoreTypeImpl
 {
   using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = void(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
@@ -283,7 +284,7 @@ public:
   }
 
 public:
-  __zz_cib_AbiTypeToLibraryTypeImpl(AbiFuncType abiFuncObj)
+  __zz_cib_AbiTypeToCoreTypeImpl(AbiFuncType abiFuncObj)
   {
     auto&      funcObjRepo = FuncObjRepo<R, Args...>::instance();
     const auto funcObj     = funcObjRepo.getOrigFunc(abiFuncObj);
@@ -298,7 +299,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryType<R(Args...)>
+class __zz_cib_AbiTypeToCoreType<R(Args...)>
 {
   using OrigFuncType = R (*)(Args...);
   using AbiFuncType  = void(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
@@ -326,52 +327,52 @@ public:
     {
       case 0:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<0, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<0, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 1:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<1, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<1, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 2:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<2, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<2, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 3:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<3, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<3, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 4:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<4, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<4, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 5:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<5, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<5, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 6:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<6, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<6, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 7:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<7, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<7, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 8:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<8, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<8, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
       case 9:
       {
-        __zz_cib_AbiTypeToLibraryTypeImpl<9, R, Args...> impl(mAbiFuncObj);
+        __zz_cib_AbiTypeToCoreTypeImpl<9, R, Args...> impl(mAbiFuncObj);
         return impl.convert();
       }
 
@@ -382,7 +383,7 @@ public:
   }
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiFuncType abiFuncObj)
+  __zz_cib_AbiTypeToCoreType(AbiFuncType abiFuncObj)
     : mAbiFuncObj(abiFuncObj)
   {
   }

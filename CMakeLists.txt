@@ -58,13 +58,12 @@ set(RESFILES
 	__zz_cib_Module-class-helper.h
 	__zz_cib_Module-class-proxy-detection.h
 	__zz_cib_Module-class-types.h
-	__zz_cib_Module-client-type-handler.h
-	__zz_cib_Module-client-default-type-converter.h
-	__zz_cib_Module-client-enum-type-converter.h
-	__zz_cib_Module-client-proxy-type-converter.h
-	__zz_cib_Module-client-smart-ptr-converter.h
-	__zz_cib_Module-client-function-type-converter.h
-	__zz_cib_Module-client-std-function-converter.h
+	__zz_cib_Module-client-type-converters.h
+	__zz_cib_Module-type-converter-base.h
+	__zz_cib_Module-type-converter-natives.h
+	__zz_cib_Module-client-type-converter-proxy.h
+	__zz_cib_Module-client-type-converter-std-function.h
+	__zz_cib_Module-type-converter-value-classes.h
 	__zz_cib_Module-std-function-converter-base.h
 	__zz_cib_Module-decl.h
 	__zz_cib_Module-def.h
@@ -73,13 +72,13 @@ set(RESFILES
 	__zz_cib_Module-import.h
 	__zz_cib_Module-internal.h
 	__zz_cib_Module-internal-proxy.h
-	__zz_cib_Module-library-type-handler.h
-	__zz_cib_Module-library-class-type-converter.h
-	__zz_cib_Module-library-default-type-converter.h
-	__zz_cib_Module-library-enum-type-converter.h
-	__zz_cib_Module-library-smart-ptr-converter.h
-	__zz_cib_Module-library-function-type-converter.h
-	__zz_cib_Module-library-std-function-converter.h
+	__zz_cib_Module-library-type-converter-class.h
+	__zz_cib_Module-type-converter-enum.h
+	__zz_cib_Module-type-converter-function-object.h
+	__zz_cib_Module-type-converter-smart-ptr.h
+	__zz_cib_Module-library-type-converter-std-function.h
+	__zz_cib_Module-type-converter-value-classes.h
+	__zz_cib_Module-library-type-converters.h
 	__zz_cib_Module-local-proxy-mgr.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
@@ -91,6 +90,7 @@ set(RESFILES
 	__zz_cib_Module-smart-ptr-detection.h
 	__zz_cib_Module-smart-ptr-input.h
 	__zz_cib_Module-value-types.h
+	__zz_cib_Module-type-traits.h
 	__zz_cib_pointer_helper.h
 	__zz_cib_stl-interface/vector
 	__zz_cib_stl-interface/list
@@ -161,7 +161,7 @@ set(EXAMPLES
 	150-reference-of-pointer
 	160-free-functions
 	170-private-virtuals
-	180-pod-struct
+	# 180-pod-struct
 	# 190-function-pointer
 	200-deleted-members
 	210-enum-parameters

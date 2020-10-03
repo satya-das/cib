@@ -5,15 +5,15 @@
 
 #pragma once
 
-#include "__zz_cib_Module-decl.h"
-#include "__zz_cib_Module-library-default-type-converter.h"
+#include "__zz_cib_Module-type-converter-base.h"
 
+#include "__zz_cib_Module-decl.h"
 #include "__zz_cib_Module-std-function-converter-base.h"
 
 namespace __zz_cib_ {
 
 template <typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>>
+class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor;
@@ -27,11 +27,11 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>& x)
+  __zz_cib_CoreTypeToAbiType(std::function<R(Args...)>& x)
     : mAbiFunctor(toAbiFunctor(x))
   {
   }
-  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>&& x)
+  __zz_cib_CoreTypeToAbiType(std::function<R(Args...)>&& x)
     : mAbiFunctor(toAbiFunctor(x))
   {
   }
@@ -43,7 +43,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>&>
+class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -58,13 +58,13 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>& x)
+  __zz_cib_CoreTypeToAbiType(std::function<R(Args...)>& x)
     : mAbiFunctor(toAbiFunctor(&x))
     , mOrigParam(x)
   {
   }
 
-  ~__zz_cib_LibraryTypeToAbiType()
+  ~__zz_cib_CoreTypeToAbiType()
   {
     if (AbiFunctor_getStdFunc(&mAbiFunctor) == &mOrigParam)
       return;
@@ -81,7 +81,45 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>*>
+class __zz_cib_CoreTypeToAbiType<const std::function<R(Args...)>&>
+{
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = AbiFunctor*;
+
+  AbiFunctor                       mAbiFunctor;
+  const std::function<R(Args...)>& mOrigParam;
+
+public:
+  AbiType convert()
+  {
+    return &mAbiFunctor;
+  }
+
+public:
+  __zz_cib_CoreTypeToAbiType(const std::function<R(Args...)>& x)
+    : mAbiFunctor(toAbiFunctor(&x))
+    , mOrigParam(x)
+  {
+  }
+
+  ~__zz_cib_CoreTypeToAbiType()
+  {
+    if (AbiFunctor_getStdFunc(&mAbiFunctor) == &mOrigParam)
+      return;
+    if (mAbiFunctor.proc == nullptr)
+      mOrigParam = nullptr;
+    else
+      mOrigParam = fromAbiFunctor(mAbiFunctor);
+  }
+
+  operator AbiType()
+  {
+    return convert();
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>*>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -96,13 +134,13 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>* x)
+  __zz_cib_CoreTypeToAbiType(std::function<R(Args...)>* x)
     : mAbiFunctor(toAbiFunctor(x))
     , mOrigParam(x)
   {
   }
 
-  ~__zz_cib_LibraryTypeToAbiType()
+  ~__zz_cib_CoreTypeToAbiType()
   {
     if (mOrigParam == nullptr)
       return;
@@ -121,7 +159,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_LibraryTypeToAbiType<std::function<R(Args...)>&&>
+class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -135,7 +173,7 @@ public:
   }
 
 public:
-  __zz_cib_LibraryTypeToAbiType(std::function<R(Args...)>&& x)
+  __zz_cib_CoreTypeToAbiType(std::function<R(Args...)>&& x)
     : mAbiFunctor(toAbiFunctor(x))
   {
   }
@@ -149,7 +187,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>>
+class __zz_cib_AbiTypeToCoreType<std::function<R(Args...)>>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor;
@@ -157,7 +195,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>>
   AbiFunctor mAbiFunctor;
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiType x)
+  __zz_cib_AbiTypeToCoreType(AbiType x)
     : mAbiFunctor(x)
   {
   }
@@ -169,7 +207,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&>
+class __zz_cib_AbiTypeToCoreType<std::function<R(Args...)>&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -178,7 +216,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&>
   std::function<R(Args...)> mStdFunc;
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiType x)
+  __zz_cib_AbiTypeToCoreType(AbiType x)
     : mAbiFunctor(x)
     , mStdFunc(fromAbiFunctor(*mAbiFunctor))
   {
@@ -186,7 +224,7 @@ public:
     // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
   }
 
-  ~__zz_cib_AbiTypeToLibraryType()
+  ~__zz_cib_AbiTypeToCoreType()
   {
     // const isStdFuncUnchanged = (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr);
     // if (isStdFuncUnchanged)
@@ -201,7 +239,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>*>
+class __zz_cib_AbiTypeToCoreType<const std::function<R(Args...)>&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -210,7 +248,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>*>
   std::function<R(Args...)> mStdFunc;
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiType x)
+  __zz_cib_AbiTypeToCoreType(AbiType x)
     : mAbiFunctor(x)
     , mStdFunc(fromAbiFunctor(*mAbiFunctor))
   {
@@ -218,7 +256,39 @@ public:
     // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
   }
 
-  ~__zz_cib_AbiTypeToLibraryType()
+  ~__zz_cib_AbiTypeToCoreType()
+  {
+    // const isStdFuncUnchanged = (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr);
+    // if (isStdFuncUnchanged)
+    //   return;
+    *mAbiFunctor = toAbiFunctor(mStdFunc);
+  }
+
+  operator const std::function<R(Args...)>&()
+  {
+    return mStdFunc;
+  }
+};
+
+template <typename R, typename... Args>
+class __zz_cib_AbiTypeToCoreType<std::function<R(Args...)>*>
+{
+  using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
+  using AbiType    = AbiFunctor*;
+
+  AbiFunctor*               mAbiFunctor;
+  std::function<R(Args...)> mStdFunc;
+
+public:
+  __zz_cib_AbiTypeToCoreType(AbiType x)
+    : mAbiFunctor(x)
+    , mStdFunc(fromAbiFunctor(*mAbiFunctor))
+  {
+    // It is used to detect change in stored callable object inside destructor.
+    // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
+  }
+
+  ~__zz_cib_AbiTypeToCoreType()
   {
     // const isStdFuncUnchanged = (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr);
     // if (isStdFuncUnchanged)
@@ -233,7 +303,7 @@ public:
 };
 
 template <typename R, typename... Args>
-class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&&>
+class __zz_cib_AbiTypeToCoreType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
   using AbiType    = AbiFunctor*;
@@ -241,7 +311,7 @@ class __zz_cib_AbiTypeToLibraryType<std::function<R(Args...)>&&>
   AbiFunctor* mAbiFunctor;
 
 public:
-  __zz_cib_AbiTypeToLibraryType(AbiFunctor* x)
+  __zz_cib_AbiTypeToCoreType(AbiFunctor* x)
     : mAbiFunctor(x)
   {
   }
