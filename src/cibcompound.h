@@ -748,7 +748,9 @@ private:
                                const CibIdMgr&  cibIdMgr,
                                CppIndent        indentation = CppIndent()) const;
   void emitDependentTemplateSpecilizationHeaders(std::ostream& stm, bool onlyWhenUsedAsReference) const;
-
+  void emitHelperHeader(const CibHelper& helper,
+                        const CibParams& cibParams,
+                        CppIndent        indentation /* = CppIndent */) const;
   void collectTypeDependenciesInner(const CibHelper&         helper,
                                     std::set<const CppObj*>& cppObjs,
                                     std::set<const CppObj*>& excludeList,
@@ -769,7 +771,8 @@ private:
   void                                collectFacades(std::set<const CibCompound*>& facades) const;
   static std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
   static std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                                const CibParams&                    cibParams);
+                                                                const CibParams&                    cibParams,
+                                                                bool                                forProxy);
   void                                emitUserImplDependencyHeaders(std::ostream&                  stm,
                                                                     const CibHelper&               helper,
                                                                     const CibParams&               cibParams,

@@ -76,6 +76,7 @@ set_target_properties(${LIBNAME} PROPERTIES
 target_include_directories(${LIBNAME}
     PRIVATE
         ${example_ROOT}/pub
+        ${example_ROOT}/cib
 )
 add_dependencies(${LIBNAME} cib ${example}GlueCode ${DEPENDS})
 

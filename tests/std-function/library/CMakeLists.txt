@@ -58,6 +58,7 @@ add_library(StdFunctionTestsLib
 target_include_directories(StdFunctionTestsLib
 	PRIVATE
 		pub
+		cib
 )
 add_dependencies(StdFunctionTestsLib cib)
 

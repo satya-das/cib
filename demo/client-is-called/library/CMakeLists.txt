@@ -56,6 +56,7 @@ set_target_properties(client-is-called-library_cibified
 target_include_directories(client-is-called-library_cibified
 	PRIVATE
 		pub
+		cib
 )
 add_dependencies(client-is-called-library_cibified cib)
 

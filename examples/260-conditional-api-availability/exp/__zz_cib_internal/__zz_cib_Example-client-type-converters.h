@@ -5,9 +5,11 @@
 
 #pragma once
 
+#include "__zz_cib_Example-class-proxy-detection.h"
+
 #include "__zz_cib_Example-client-type-converter-proxy.h"
+#include "__zz_cib_Example-type-converter-basic.h"
 #include "__zz_cib_Example-type-converter-function-object.h"
-#include "__zz_cib_Example-type-converter-natives.h"
 #include "__zz_cib_Example-type-converter-smart-ptr.h"
 #include "__zz_cib_Example-type-converter-std-function.h"
 #include "__zz_cib_Example-type-converter-value-classes.h"

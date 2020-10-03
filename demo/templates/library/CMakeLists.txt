@@ -57,6 +57,7 @@ set_target_properties(templates-library_cibified
 target_include_directories(templates-library_cibified
 	PRIVATE
 		pub
+		cib
 )
 add_dependencies(templates-library_cibified cib)
 

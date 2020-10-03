@@ -57,7 +57,7 @@ public:
   std::string  moduleName;
   bfs::path    inputPath;
   bfs::path    outputPath;
-  bfs::path    binderPath;
+  bfs::path    libGlueDir;
   bfs::path    resDir;
   bfs::path    stlInterfacePath;
   bfs::path    stlHelpersPath;
@@ -92,7 +92,7 @@ public:
     , moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
-    , binderPath(std::move(b))
+    , libGlueDir(std::move(b))
     , resDir(std::move(r))
     , stlInterfacePath(resDir / "__zz_cib_stl-interface")
     , stlHelpersPath(resDir / stlHelperDirName)

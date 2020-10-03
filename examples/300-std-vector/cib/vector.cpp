@@ -1,4 +1,4 @@
-#include "C.h"
+#include "__zz_cib_helpers/__zz_cib_helper-C.h"
 #include "__zz_cib_stl-helpers/__zz_cib_vector-iterator.h"
 #include <list>
 #include <vector>
@@ -7,7 +7,7 @@
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-library-type-converters.h"
+#include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {

@@ -50,10 +50,10 @@ namespace bfs = boost::filesystem;
 
 void ensureDirectoriesExist(const CibParams& cibParams)
 {
-  bfs::create_directories(cibParams.binderPath);
+  bfs::create_directories(cibParams.libGlueDir);
   bfs::create_directories(cibParams.outputPath);
   bfs::create_directories(cibParams.cibInternalDir());
-  bfs::create_directories(cibParams.binderPath / cibParams.stlHelperDirName);
+  bfs::create_directories(cibParams.libGlueDir / cibParams.stlHelperDirName);
   bfs::create_directories(cibParams.cibInternalDir() / cibParams.stlHelperDirName);
 }
 
@@ -147,7 +147,7 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     const auto& name      = bridgableNamespace.first;
     const auto& compounds = bridgableNamespace.second;
     auto fileName   = (name.empty() ? cibParams.globalNsName() : "__zz_cib_" + replaceString(name, "::", "-")) + ".cpp";
-    auto bndSrcPath = cibParams.binderPath / fileName;
+    auto bndSrcPath = cibParams.libGlueDir / fileName;
     auto gluSrcPath = cibParams.outputPath / fileName;
 
     auto* cmp = *(compounds.begin());
@@ -232,7 +232,9 @@ static void copyResourceFile(const bfs::path& filepath, const bfs::path& outDir,
 
 static void emitLibBoilerPlateCode(const CibParams& cibParams)
 {
-  const char* filesToProcessForBinder[] = {"__zz_cib_Module-class-types.h",
+  const char* filesToProcessForBinder[] = {"__zz_cib_Module-class-proxy-detection.h",
+                                           "__zz_cib_Module-class-types.h",
+                                           "__zz_cib_Module-class-helper.h",
                                            "__zz_cib_Module-class-down-cast.h",
                                            "__zz_cib_Module-smart-ptr-detection.h",
                                            "__zz_cib_Module-smart-ptr-input.h",
@@ -246,14 +248,14 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-proxy-mgr.cpp",
                                            "__zz_cib_Module-internal.h",
                                            "__zz_cib_Module-classId-repo.cpp",
-                                           "__zz_cib_Module-library-type-converters.h",
-                                           "__zz_cib_Module-library-type-converter-class.h",
+                                           "__zz_cib_Module-type-converters.h",
+                                           "__zz_cib_Module-type-converter-proxied-class.h",
+                                           "__zz_cib_Module-type-converter-proxy-class.h",
                                            "__zz_cib_Module-type-converter-base.h",
                                            "__zz_cib_Module-type-converter-smart-ptr.h",
                                            "__zz_cib_Module-type-converter-function-object.h",
-                                           "__zz_cib_Module-type-converter-natives.h",
+                                           "__zz_cib_Module-type-converter-basic.h",
                                            "__zz_cib_Module-type-converter-std-function.h",
-                                           "__zz_cib_Module-type-converter-value-classes.h",
                                            "__zz_cib_Module-std-function-converter-base.h",
                                            "__zz_cib_Module-value-types.h",
                                            "__zz_cib_Module-type-traits.h",
@@ -265,10 +267,10 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                         nullptr};
 
   for (int i = 0; filesToProcessForBinder[i] != nullptr; ++i)
-    processResourceFile(filesToProcessForBinder[i], cibParams.binderPath, cibParams);
+    processResourceFile(filesToProcessForBinder[i], cibParams.libGlueDir, cibParams);
 
   for (int i = 0; filesToCopyForBinder[i] != nullptr; ++i)
-    copyResourceFile(filesToCopyForBinder[i], cibParams.binderPath, cibParams);
+    copyResourceFile(filesToCopyForBinder[i], cibParams.libGlueDir, cibParams);
 }
 
 static void emitClientBoilerPlateCode(const CibParams& cibParams)
@@ -276,14 +278,14 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
   const char* filesToProcessForClient[] = {"__zz_cib_Module-class-proxy-detection.h",
                                            "__zz_cib_Module-class-helper.h",
                                            "__zz_cib_Module-class-types.h",
-                                           "__zz_cib_Module-client-type-converters.h",
+                                           "__zz_cib_Module-type-converters.h",
                                            "__zz_cib_Module-type-converter-base.h",
                                            "__zz_cib_Module-type-converter-function-object.h",
-                                           "__zz_cib_Module-type-converter-natives.h",
-                                           "__zz_cib_Module-client-type-converter-proxy.h",
+                                           "__zz_cib_Module-type-converter-basic.h",
+                                           "__zz_cib_Module-type-converter-proxy-class.h",
+                                           "__zz_cib_Module-type-converter-proxied-class.h",
                                            "__zz_cib_Module-type-converter-smart-ptr.h",
                                            "__zz_cib_Module-type-converter-std-function.h",
-                                           "__zz_cib_Module-type-converter-value-classes.h",
                                            "__zz_cib_Module-std-function-converter-base.h",
                                            "__zz_cib_Module-generic.h",
                                            "__zz_cib_Module-smart-ptr-detection.h",
@@ -319,7 +321,7 @@ int main(int argc, const char* argv[])
   emitLibBoilerPlateCode(cibParams);
   emitClientBoilerPlateCode(cibParams);
 
-  std::ofstream valueClassStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + "-value-types.h")).string(),
+  std::ofstream valueClassStm((cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-value-types.h")).string(),
                               std::ios_base::app);
 
   const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
@@ -335,7 +337,7 @@ int main(int argc, const char* argv[])
   }
   emitGlueCodeForNamespaces(fileAsts, helper, cibParams, cibIdMgr);
 
-  std::ofstream cibLibSrcStm((cibParams.binderPath / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
+  std::ofstream cibLibSrcStm((cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
                              std::ios_base::out);
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
   cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";

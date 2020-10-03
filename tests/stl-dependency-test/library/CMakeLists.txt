@@ -63,6 +63,7 @@ add_library(StlDependencyTestLib
 target_include_directories(StlDependencyTestLib
 	PRIVATE
 		pub
+		cib
 )
 add_dependencies(StlDependencyTestLib cib)
 

@@ -58,11 +58,9 @@ set(RESFILES
 	__zz_cib_Module-class-helper.h
 	__zz_cib_Module-class-proxy-detection.h
 	__zz_cib_Module-class-types.h
-	__zz_cib_Module-client-type-converters.h
+	__zz_cib_Module-type-converters.h
 	__zz_cib_Module-type-converter-base.h
-	__zz_cib_Module-type-converter-natives.h
-	__zz_cib_Module-client-type-converter-proxy.h
-	__zz_cib_Module-type-converter-value-classes.h
+	__zz_cib_Module-type-converter-basic.h
 	__zz_cib_Module-std-function-converter-base.h
 	__zz_cib_Module-decl.h
 	__zz_cib_Module-def.h
@@ -71,12 +69,11 @@ set(RESFILES
 	__zz_cib_Module-import.h
 	__zz_cib_Module-internal.h
 	__zz_cib_Module-internal-proxy.h
-	__zz_cib_Module-library-type-converter-class.h
+	__zz_cib_Module-type-converter-proxy-class.h
+	__zz_cib_Module-type-converter-proxied-class.h
 	__zz_cib_Module-type-converter-function-object.h
 	__zz_cib_Module-type-converter-smart-ptr.h
 	__zz_cib_Module-type-converter-std-function.h
-	__zz_cib_Module-type-converter-value-classes.h
-	__zz_cib_Module-library-type-converters.h
 	__zz_cib_Module-local-proxy-mgr.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
@@ -171,6 +168,7 @@ set(EXAMPLES
 	260-conditional-api-availability
 	300-std-vector
 	310-std-function
+	# 320-third-party-class
 )
 
 add_subdirectory(examples)

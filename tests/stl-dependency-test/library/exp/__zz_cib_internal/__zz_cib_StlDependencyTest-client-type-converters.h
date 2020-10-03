@@ -5,9 +5,11 @@
 
 #pragma once
 
+#include "__zz_cib_StlDependencyTest-class-proxy-detection.h"
+
 #include "__zz_cib_StlDependencyTest-client-type-converter-proxy.h"
+#include "__zz_cib_StlDependencyTest-type-converter-basic.h"
 #include "__zz_cib_StlDependencyTest-type-converter-function-object.h"
-#include "__zz_cib_StlDependencyTest-type-converter-natives.h"
 #include "__zz_cib_StlDependencyTest-type-converter-smart-ptr.h"
 #include "__zz_cib_StlDependencyTest-type-converter-std-function.h"
 #include "__zz_cib_StlDependencyTest-type-converter-value-classes.h"

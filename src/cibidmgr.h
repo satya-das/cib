@@ -216,7 +216,7 @@ public:
 
   ~CibIdMgr()
   {
-    saveIds((cibParams_.binderPath / cibParams_.cibIdFilename()).string(), cibParams_);
+    saveIds((cibParams_.libGlueDir / cibParams_.cibIdFilename()).string(), cibParams_);
     saveIds((cibParams_.outputPath / bfs::path(cibParams_.cibInternalDirName) / cibParams_.cibIdFilename()).string(),
             cibParams_);
   }

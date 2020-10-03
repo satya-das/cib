@@ -42,7 +42,7 @@ private:
   std::string  moduleName;
   std::string  inputPath;
   std::string  outputPath;
-  std::string  binderPath;
+  std::string  libGlueDir;
   std::string  resourcePath;
   std::string  cibIdFile;
   bool         noExactDelegation{false};
@@ -67,7 +67,7 @@ inline CibParams CibOptionParser::getCibParams()
   return {std::move(moduleName),
           std::move(inputPath),
           std::move(outputPath),
-          std::move(binderPath),
+          std::move(libGlueDir),
           std::move(resourcePath),
           std::move(cibIdFile),
           noExactDelegation,

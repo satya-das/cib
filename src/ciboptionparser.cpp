@@ -51,7 +51,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   desc.add_options()("help,h", "Produce this help message");
   addOption("input-folder,i", inputPath, true, "Input folder from where the headers and source files will be parsed.");
   addOption("output-folder,o", outputPath, true, "Output folder for emitting files for client.");
-  addOption("bind-folder,b", binderPath, true, "Folder where binding code will be emitted for library.");
+  addOption("bind-folder,b", libGlueDir, true, "Folder where binding code will be emitted for library.");
   addOption("module,m", moduleName, true, "Name of module/library.");
   addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
   addOption(

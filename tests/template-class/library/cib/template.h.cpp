@@ -1,10 +1,10 @@
-#include "template.h"
+#include "__zz_cib_helpers/__zz_cib_helper-template.h"
 
 #include "__zz_cib_TemplateTests-class-down-cast.h"
 #include "__zz_cib_TemplateTests-delegate-helper.h"
 #include "__zz_cib_TemplateTests-generic.h"
 #include "__zz_cib_TemplateTests-ids.h"
-#include "__zz_cib_TemplateTests-library-type-converters.h"
+#include "__zz_cib_TemplateTests-type-converters.h"
 #include "__zz_cib_TemplateTests-mtable-helper.h"
 
 namespace __zz_cib_ {

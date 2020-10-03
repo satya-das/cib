@@ -58,6 +58,7 @@ add_library(TemplateTestsLib
 target_include_directories(TemplateTestsLib
 	PRIVATE
 		pub
+		cib
 )
 add_dependencies(TemplateTestsLib cib)
 

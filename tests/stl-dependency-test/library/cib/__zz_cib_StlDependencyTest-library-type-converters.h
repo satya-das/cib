@@ -6,8 +6,8 @@
 #pragma once
 
 #include "__zz_cib_StlDependencyTest-library-type-converter-class.h"
+#include "__zz_cib_StlDependencyTest-type-converter-basic.h"
 #include "__zz_cib_StlDependencyTest-type-converter-function-object.h"
-#include "__zz_cib_StlDependencyTest-type-converter-natives.h"
 #include "__zz_cib_StlDependencyTest-type-converter-smart-ptr.h"
 #include "__zz_cib_StlDependencyTest-type-converter-std-function.h"
 

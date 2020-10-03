@@ -113,14 +113,14 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 
 **File**: examples/100-template-classes/cib/value.h.cpp
 ```c++
-#include "int.h"
-#include "value.h"
+#include "__zz_cib_helpers/__zz_cib_helper-int.h"
+#include "__zz_cib_helpers/__zz_cib_helper-value.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
 #include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
-#include "__zz_cib_Example-library-type-converters.h"
+#include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {

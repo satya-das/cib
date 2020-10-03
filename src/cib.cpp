@@ -1012,7 +1012,7 @@ void CibCompound::emitUserImplDependencyHeaders(std::ostream&                  s
     else
       ++itr;
   }
-  auto headers = collectHeaderDependencies(asts, cibParams);
+  auto headers = collectHeaderDependencies(asts, cibParams, true);
   if (!headers.empty())
   {
     stm << '\n';
@@ -1454,7 +1454,8 @@ std::set<const CibCompound*> CibCompound::collectAstDependencies(const std::set<
 }
 
 std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                             const CibParams&                    cibParams)
+                                                             const CibParams&                    cibParams,
+                                                             bool                                forProxy)
 {
   const auto&           dependentPath = cibParams.inputPath;
   std::set<std::string> headers;
@@ -1466,7 +1467,13 @@ std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<cons
     else if (compound->isStlHelpereClass())
       headers.emplace('"' + cibParams.stlHelperDirName + '/' + bfs::path(compound->name()).filename().string() + '"');
     else
-      headers.emplace('"' + bfs::relative(compound->name(), dependentPath).string() + '"');
+    {
+      auto helperHeaderPath = bfs::relative(compound->name(), dependentPath);
+      if (!forProxy)
+        helperHeaderPath = bfs::path("__zz_cib_helpers") / helperHeaderPath.parent_path()
+                           / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
+      headers.emplace('"' + helperHeaderPath.string() + '"');
+    }
   }
   return headers;
 }
@@ -2577,7 +2584,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
 
   auto asts = collectAstDependencies(dependencies);
   asts.insert(getFileAstObj(this));
-  for (const auto& header : collectHeaderDependencies(asts, cibParams))
+  for (const auto& header : collectHeaderDependencies(asts, cibParams, forProxy))
     stm << indentation << "#include " << header << "\n";
 
   stm << '\n'; // Start in new line.
@@ -2599,6 +2606,34 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
   }
 }
 
+void CibCompound::emitHelperHeader(const CibHelper& helper,
+                                   const CibParams& cibParams,
+                                   CppIndent        indentation /* = CppIndent */) const
+{
+  if (isStlClass() || isStlHelpereClass())
+    return;
+
+  const auto headerPath = bfs::relative(name(), cibParams.inputPath);
+
+  auto helperHeaderPath = cibParams.libGlueDir / "__zz_cib_helpers" / headerPath;
+  helperHeaderPath      = helperHeaderPath.parent_path() / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
+  bfs::create_directories(helperHeaderPath.parent_path());
+  std::ofstream stm(helperHeaderPath.string(), std::ios_base::out);
+
+  stm << "#pragma once\n\n";
+  stm << "#include \"" << headerPath.string() << "\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-types.h\"\n\n";
+
+  forEachNested([&stm](const CibCompound* compound) {
+    if (!isClassLike(compound) || compound->needsNoProxy() || compound->isTemplated())
+      return;
+
+    stm << "namespace __zz_cib_ {\n";
+    stm << "template <> struct __zz_cib_IsProxiedClass<" << fullName(compound) << "> : std::true_type {};\n";
+    stm << "}\n";
+  });
+}
+
 void CibCompound::emitLibGlueCode(const CibHelper& helper,
                                   const CibParams& cibParams,
                                   const CibIdMgr&  cibIdMgr,
@@ -2607,20 +2642,23 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
   if (!isCppFile(this) || isUnusedStl())
     return;
 
-  const bfs::path bndSrcPath = [&]() {
-    bfs::path relPath = [&]() {
+  emitHelperHeader(helper, cibParams, indentation);
+
+  const auto libGlueSrcPath = [&]() {
+    bfs::path binderSrc = [&]() {
       if (isStlClass())
-        return name().substr(cibParams.stlInterfacePath.string().length());
+        return bfs::relative(name(), cibParams.stlInterfacePath);
       else if (isStlHelpereClass())
-        return name().substr(cibParams.stlHelpersPath.string().length());
+        return bfs::relative(name(), cibParams.stlHelpersPath);
       else
-        return name().substr(cibParams.inputPath.string().length());
+        return bfs::relative(name(), cibParams.inputPath);
     }();
-    relPath.replace_extension(relPath.extension().string() + ".cpp");
-    return cibParams.binderPath / relPath.string();
+    binderSrc.replace_extension(binderSrc.extension().string() + ".cpp");
+
+    return cibParams.libGlueDir / binderSrc;
   }();
-  bfs::create_directories(bndSrcPath.parent_path());
-  std::ofstream stm(bndSrcPath.string(), std::ios_base::out);
+  bfs::create_directories(libGlueSrcPath.parent_path());
+  std::ofstream stm(libGlueSrcPath.string(), std::ios_base::out);
 
   emitDependecyHeaders(stm, helper, cibParams, cibIdMgr, indentation);
 
@@ -2666,7 +2704,7 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-library-type-converters.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
 
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   if (cibParams.libraryManagedProxies)
