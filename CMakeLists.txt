@@ -73,7 +73,6 @@ set(RESFILES
 	__zz_cib_Module-internal.h
 	__zz_cib_Module-internal-proxy.h
 	__zz_cib_Module-library-type-converter-class.h
-	__zz_cib_Module-type-converter-enum.h
 	__zz_cib_Module-type-converter-function-object.h
 	__zz_cib_Module-type-converter-smart-ptr.h
 	__zz_cib_Module-library-type-converter-std-function.h

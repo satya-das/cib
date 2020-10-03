@@ -7,7 +7,6 @@
 
 #include "__zz_cib_TemplateTests-library-type-converter-class.h"
 #include "__zz_cib_TemplateTests-library-type-converter-std-function.h"
-#include "__zz_cib_TemplateTests-type-converter-enum.h"
 #include "__zz_cib_TemplateTests-type-converter-function-object.h"
 #include "__zz_cib_TemplateTests-type-converter-natives.h"
 #include "__zz_cib_TemplateTests-type-converter-smart-ptr.h"

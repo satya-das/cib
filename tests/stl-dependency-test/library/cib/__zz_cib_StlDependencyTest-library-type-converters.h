@@ -7,7 +7,6 @@
 
 #include "__zz_cib_StlDependencyTest-library-type-converter-class.h"
 #include "__zz_cib_StlDependencyTest-library-type-converter-std-function.h"
-#include "__zz_cib_StlDependencyTest-type-converter-enum.h"
 #include "__zz_cib_StlDependencyTest-type-converter-function-object.h"
 #include "__zz_cib_StlDependencyTest-type-converter-natives.h"
 #include "__zz_cib_StlDependencyTest-type-converter-smart-ptr.h"

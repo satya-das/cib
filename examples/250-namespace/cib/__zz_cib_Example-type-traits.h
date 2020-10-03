@@ -49,6 +49,7 @@ template <typename T>
 constexpr bool __zz_cib_IsNativeType_v =
   std::is_integral_v<__zz_cib_RemoveAllDecorations_t<T>> ||
   std::is_floating_point_v<__zz_cib_RemoveAllDecorations_t<T>> ||
+  std::is_enum_v<__zz_cib_RemoveAllDecorations_t<T>> ||
   (std::is_pointer_v<T> && std::is_void_v<__zz_cib_RemoveAllDecorations_t<T>>);
 
 // clang-format on

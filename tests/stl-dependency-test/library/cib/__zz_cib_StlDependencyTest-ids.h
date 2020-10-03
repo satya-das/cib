@@ -69,43 +69,47 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_new_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::reference operator*() const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::pointer operator->() const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::const_reference operator*() const;
+    __zz_cib_OperatorMul_5 = 5,
+    //#= const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::pointer operator->() const;
+    __zz_cib_OperatorArrow_6 = 6,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >& operator++();
-    __zz_cib_OperatorInc_5 = 5,
+    __zz_cib_OperatorInc_7 = 7,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const > operator++(int);
-    __zz_cib_OperatorInc_6 = 6,
+    __zz_cib_OperatorInc_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >& operator--();
-    __zz_cib_OperatorDec_7 = 7,
+    __zz_cib_OperatorDec_9 = 9,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const > operator--(int);
-    __zz_cib_OperatorDec_8 = 8,
+    __zz_cib_OperatorDec_10 = 10,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type) const;
-    __zz_cib_OperatorIndex_9 = 9,
+    __zz_cib_OperatorIndex_11 = 11,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >& operator+=(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type);
-    __zz_cib_OperatorPlusEq_10 = 10,
+    __zz_cib_OperatorPlusEq_12 = 12,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const > operator+(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type) const;
-    __zz_cib_OperatorPlus_11 = 11,
+    __zz_cib_OperatorPlus_13 = 13,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >& operator-=(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type);
-    __zz_cib_OperatorMinusEq_12 = 12,
+    __zz_cib_OperatorMinusEq_14 = 14,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const > operator-(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type) const;
-    __zz_cib_OperatorMinus_13 = 13,
+    __zz_cib_OperatorMinus_15 = 15,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorCmpEq_14 = 14,
+    __zz_cib_OperatorCmpEq_16 = 16,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorNotEq_15 = 15,
+    __zz_cib_OperatorNotEq_17 = 17,
     //#= bool operator<(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorLT_16 = 16,
+    __zz_cib_OperatorLT_18 = 18,
     //#= bool operator>(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorGT_17 = 17,
+    __zz_cib_OperatorGT_19 = 19,
     //#= bool operator<=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorLE_18 = 18,
+    __zz_cib_OperatorLE_20 = 20,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorGE_19 = 19,
+    __zz_cib_OperatorGE_21 = 21,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >&);
-    __zz_cib_OperatorMinus_20 = 20,
-    __zz_cib_next_method_id = 21
+    __zz_cib_OperatorMinus_22 = 22,
+    __zz_cib_next_method_id = 23
   };
 }}}}
 
@@ -117,43 +121,47 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_new_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::reference operator*() const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::pointer operator->() const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::const_reference operator*() const;
+    __zz_cib_OperatorMul_5 = 5,
+    //#= const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::pointer operator->() const;
+    __zz_cib_OperatorArrow_6 = 6,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>& operator++();
-    __zz_cib_OperatorInc_5 = 5,
+    __zz_cib_OperatorInc_7 = 7,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*> operator++(int);
-    __zz_cib_OperatorInc_6 = 6,
+    __zz_cib_OperatorInc_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>& operator--();
-    __zz_cib_OperatorDec_7 = 7,
+    __zz_cib_OperatorDec_9 = 9,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*> operator--(int);
-    __zz_cib_OperatorDec_8 = 8,
+    __zz_cib_OperatorDec_10 = 10,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type) const;
-    __zz_cib_OperatorIndex_9 = 9,
+    __zz_cib_OperatorIndex_11 = 11,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>& operator+=(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type);
-    __zz_cib_OperatorPlusEq_10 = 10,
+    __zz_cib_OperatorPlusEq_12 = 12,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*> operator+(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type) const;
-    __zz_cib_OperatorPlus_11 = 11,
+    __zz_cib_OperatorPlus_13 = 13,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>& operator-=(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type);
-    __zz_cib_OperatorMinusEq_12 = 12,
+    __zz_cib_OperatorMinusEq_14 = 14,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*> operator-(::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type) const;
-    __zz_cib_OperatorMinus_13 = 13,
+    __zz_cib_OperatorMinus_15 = 15,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorCmpEq_14 = 14,
+    __zz_cib_OperatorCmpEq_16 = 16,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorNotEq_15 = 15,
+    __zz_cib_OperatorNotEq_17 = 17,
     //#= bool operator<(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorLT_16 = 16,
+    __zz_cib_OperatorLT_18 = 18,
     //#= bool operator>(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorGT_17 = 17,
+    __zz_cib_OperatorGT_19 = 19,
     //#= bool operator<=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorLE_18 = 18,
+    __zz_cib_OperatorLE_20 = 20,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorGE_19 = 19,
+    __zz_cib_OperatorGE_21 = 21,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>&);
-    __zz_cib_OperatorMinus_20 = 20,
-    __zz_cib_next_method_id = 21
+    __zz_cib_OperatorMinus_22 = 22,
+    __zz_cib_next_method_id = 23
   };
 }}}}
 

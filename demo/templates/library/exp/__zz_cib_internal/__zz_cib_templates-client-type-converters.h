@@ -7,7 +7,6 @@
 
 #include "__zz_cib_templates-client-type-converter-proxy.h"
 #include "__zz_cib_templates-client-type-converter-std-function.h"
-#include "__zz_cib_templates-type-converter-enum.h"
 #include "__zz_cib_templates-type-converter-function-object.h"
 #include "__zz_cib_templates-type-converter-natives.h"
 #include "__zz_cib_templates-type-converter-smart-ptr.h"

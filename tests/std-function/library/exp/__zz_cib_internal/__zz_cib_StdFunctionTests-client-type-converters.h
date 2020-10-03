@@ -7,7 +7,6 @@
 
 #include "__zz_cib_StdFunctionTests-client-type-converter-proxy.h"
 #include "__zz_cib_StdFunctionTests-client-type-converter-std-function.h"
-#include "__zz_cib_StdFunctionTests-type-converter-enum.h"
 #include "__zz_cib_StdFunctionTests-type-converter-function-object.h"
 #include "__zz_cib_StdFunctionTests-type-converter-natives.h"
 #include "__zz_cib_StdFunctionTests-type-converter-smart-ptr.h"
