@@ -62,10 +62,6 @@ public:
   {
     return *mIter;
   }
-  const pointer operator->() const noexcept
-  {
-    return mIter.operator->();
-  }
   vector_iterator& operator++() noexcept
   {
     ++mIter;
