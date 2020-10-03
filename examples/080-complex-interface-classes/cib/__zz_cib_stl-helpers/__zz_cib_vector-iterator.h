@@ -50,11 +50,19 @@ public:
 
   vector_iterator() noexcept {}
 
-  reference operator*() const noexcept
+  reference operator*() noexcept
   {
     return *mIter;
   }
-  pointer operator->() const noexcept
+  pointer operator->() noexcept
+  {
+    return mIter.operator->();
+  }
+  const_reference operator*() const noexcept
+  {
+    return *mIter;
+  }
+  const pointer operator->() const noexcept
   {
     return mIter.operator->();
   }
