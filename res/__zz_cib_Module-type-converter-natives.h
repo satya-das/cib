@@ -23,10 +23,11 @@ public:
 template <typename T>
 class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<!std::is_reference_v<T> && __zz_cib_IsNativeType_v<T>, void>>
 {
-  T m;
+  using AbiType = std::decay_t<T>;
+  AbiType m;
 
 public:
-  T convert()
+  AbiType convert()
   {
     return m;
   }
@@ -37,7 +38,7 @@ public:
   {
   }
 
-  operator T() const
+  operator AbiType() const
   {
     return convert();
   }
@@ -68,26 +69,52 @@ public:
   }
 };
 
+template <typename T>
+class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsNativeType_v<T>, void>>
+{
+  T& m;
+
+public:
+  using AbiType = T*;
+
+  T* convert()
+  {
+    return &m;
+  }
+
+public:
+  __zz_cib_CoreTypeToAbiType(T&& x)
+    : m(x)
+  {
+  }
+
+  operator T*()
+  {
+    return convert();
+  }
+};
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<!std::is_reference_v<T> && __zz_cib_IsNativeType_v<T>, void>>
 {
-  static_assert(std::is_same_v<__zz_cib_AbiType_t<T>, T>);
-  T m;
+  using AbiType = std::decay_t<T>;
+  static_assert(std::is_same_v<__zz_cib_AbiType_t<T>, AbiType>);
+  AbiType m;
 
 public:
-  __zz_cib_AbiTypeToCoreType(T x)
+  __zz_cib_AbiTypeToCoreType(AbiType x)
     : m(x)
   {
   }
 
-  T convert() const
+  AbiType convert() const
   {
     return m;
   }
 
-  operator T() const
+  operator AbiType() const
   {
     return convert();
   }
@@ -111,6 +138,29 @@ public:
   }
 
   operator T&()
+  {
+    return convert();
+  }
+};
+
+template <typename T>
+class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<__zz_cib_IsNativeType_v<T>, void>>
+{
+  static_assert(std::is_same_v<__zz_cib_AbiType_t<T&&>, T*>);
+  __zz_cib_AbiType_t<T&&> m;
+
+public:
+  __zz_cib_AbiTypeToCoreType(T* x)
+    : m(x)
+  {
+  }
+
+  T&& convert()
+  {
+    return std::move(*m);
+  }
+
+  operator T &&()
   {
     return convert();
   }
