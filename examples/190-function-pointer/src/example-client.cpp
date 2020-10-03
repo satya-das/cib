@@ -7,5 +7,5 @@
 TEST_CASE("Passed fptr should be invoked.")
 {
   A a;
-  CHECK(a.F1([]() {return 101;}) == 101);
+  CHECK(a.F2([](int) {return 101;}) == 101);
 }

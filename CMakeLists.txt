@@ -161,7 +161,7 @@ set(EXAMPLES
 	160-free-functions
 	170-private-virtuals
 	# 180-pod-struct
-	# 190-function-pointer
+	190-function-pointer
 	200-deleted-members
 	210-enum-parameters
 	220-unique-ptr
