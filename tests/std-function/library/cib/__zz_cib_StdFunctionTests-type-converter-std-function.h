@@ -5,10 +5,10 @@
 
 #pragma once
 
-#include "__zz_cib_Module-type-converter-base.h"
+#include "__zz_cib_StdFunctionTests-type-converter-base.h"
 
-#include "__zz_cib_Module-decl.h"
-#include "__zz_cib_Module-std-function-converter-base.h"
+#include "__zz_cib_StdFunctionTests-decl.h"
+#include "__zz_cib_StdFunctionTests-std-function-converter-base.h"
 
 namespace __zz_cib_ {
 
@@ -106,10 +106,6 @@ public:
   {
     if (AbiFunctor_getStdFunc(&mAbiFunctor) == &mOrigParam)
       return;
-    if (mAbiFunctor.proc == nullptr)
-      mOrigParam = nullptr;
-    else
-      mOrigParam = fromAbiFunctor(mAbiFunctor);
   }
 
   operator AbiType()
@@ -162,7 +158,7 @@ template <typename R, typename... Args>
 class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&&>
 {
   using AbiFunctor = __zz_cib_AbiFunctor<R, Args...>;
-  using AbiType    = AbiFunctor*;
+  using AbiType    = AbiFunctor;
 
   AbiFunctor mAbiFunctor;
 
@@ -178,7 +174,7 @@ public:
   {
   }
 
-  operator AbiType()
+  operator AbiFunctor*()
   {
     return convert();
   }

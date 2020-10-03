@@ -5,9 +5,9 @@
 
 #pragma once
 
-#include "__zz_cib_StdFunctionTests-decl.h"
 #include "__zz_cib_StdFunctionTests-type-converter-base.h"
 
+#include "__zz_cib_StdFunctionTests-decl.h"
 #include "__zz_cib_StdFunctionTests-std-function-converter-base.h"
 
 namespace __zz_cib_ {
@@ -163,9 +163,9 @@ class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&&>
   AbiFunctor mAbiFunctor;
 
 public:
-  AbiFunctor convert()
+  AbiFunctor* convert()
   {
-    return std::move(mAbiFunctor);
+    return &mAbiFunctor;
   }
 
 public:
@@ -174,9 +174,9 @@ public:
   {
   }
 
-  operator AbiFunctor()
+  operator AbiFunctor*()
   {
-    return std::move(mAbiFunctor);
+    return convert();
   }
 };
 
@@ -214,7 +214,7 @@ class __zz_cib_AbiTypeToCoreType<std::function<R(Args...)>&>
 public:
   __zz_cib_AbiTypeToCoreType(AbiType x)
     : mAbiFunctor(x)
-    , mStdFunc(fromAbiFunctor(mAbiFunctor))
+    , mStdFunc(fromAbiFunctor(*mAbiFunctor))
   {
     // It is used to detect change in stored callable object inside destructor.
     // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
@@ -246,7 +246,7 @@ class __zz_cib_AbiTypeToCoreType<const std::function<R(Args...)>&>
 public:
   __zz_cib_AbiTypeToCoreType(AbiType x)
     : mAbiFunctor(x)
-    , mStdFunc(fromAbiFunctor(mAbiFunctor))
+    , mStdFunc(fromAbiFunctor(*mAbiFunctor))
   {
     // It is used to detect change in stored callable object inside destructor.
     // assert((mAbiFunctor.proc == nullptr) || (mStdFunc.target<__zz_cib_SmartFunctor<R, Args...>>() != nullptr));
@@ -312,7 +312,7 @@ public:
   {
   }
 
-  operator std::function<R(Args...)>() const
+  operator std::function<R(Args...)>()
   {
     if (mAbiFunctor->proc == nullptr)
       return nullptr;

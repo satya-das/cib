@@ -62,7 +62,6 @@ set(RESFILES
 	__zz_cib_Module-type-converter-base.h
 	__zz_cib_Module-type-converter-natives.h
 	__zz_cib_Module-client-type-converter-proxy.h
-	__zz_cib_Module-client-type-converter-std-function.h
 	__zz_cib_Module-type-converter-value-classes.h
 	__zz_cib_Module-std-function-converter-base.h
 	__zz_cib_Module-decl.h
@@ -75,7 +74,7 @@ set(RESFILES
 	__zz_cib_Module-library-type-converter-class.h
 	__zz_cib_Module-type-converter-function-object.h
 	__zz_cib_Module-type-converter-smart-ptr.h
-	__zz_cib_Module-library-type-converter-std-function.h
+	__zz_cib_Module-type-converter-std-function.h
 	__zz_cib_Module-type-converter-value-classes.h
 	__zz_cib_Module-library-type-converters.h
 	__zz_cib_Module-local-proxy-mgr.h

@@ -6,10 +6,10 @@
 #pragma once
 
 #include "__zz_cib_Example-library-type-converter-class.h"
-#include "__zz_cib_Example-library-type-converter-std-function.h"
 #include "__zz_cib_Example-type-converter-function-object.h"
 #include "__zz_cib_Example-type-converter-natives.h"
 #include "__zz_cib_Example-type-converter-smart-ptr.h"
+#include "__zz_cib_Example-type-converter-std-function.h"
 
 namespace __zz_cib_ {
 

@@ -6,8 +6,8 @@
 #pragma once
 
 #include "__zz_cib_TemplateTests-client-type-converter-proxy.h"
-#include "__zz_cib_TemplateTests-client-type-converter-std-function.h"
 #include "__zz_cib_TemplateTests-type-converter-function-object.h"
 #include "__zz_cib_TemplateTests-type-converter-natives.h"
 #include "__zz_cib_TemplateTests-type-converter-smart-ptr.h"
+#include "__zz_cib_TemplateTests-type-converter-std-function.h"
 #include "__zz_cib_TemplateTests-type-converter-value-classes.h"
