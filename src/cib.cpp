@@ -392,8 +392,6 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
 {
   bool forProxy = ((purpose & kPurposeProxyCApi) == kPurposeProxyCApi);
 
-  if (forProxy && !isVirtual() && !isDestructor())
-    return;
   if (!forProxy)
   {
     if (isConstructorLike() && callingOwner->isAbstract() && !callingOwner->needsGenericProxyDefinition())
@@ -1240,7 +1238,7 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     const CppHashIf* lastUsedConditional = nullptr;
     for (auto func : allVirtuals_)
     {
-      if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
+      if (func.isFinal() || isPrivate(func))
         continue;
 
       const auto* conditional = getMemConditional(func);
@@ -1778,7 +1776,7 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       if (!isFunctionLike(mem))
         continue;
       CibFunctionHelper func(mem);
-      if ((isTemplated() || isTemplateInstance()) && !func.isVirtual() && !func.isDestructor())
+      if ((isTemplated() || isTemplateInstance()) && !func.isDestructor())
         continue;
       auto sig =
         func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper, kPurposeSigForVirtualFuncMatch);
@@ -1923,7 +1921,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     }
     for (auto func : allVirtuals_)
     {
-      if (isPrivate(func) && !func.isPureVirtual())
+      if (isPrivate(func))
         continue;
       if (!isPublic(func) && !isOverridable())
         continue;
@@ -2486,7 +2484,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   bool             dtorEmitted         = false;
   for (auto func : allVirtuals_)
   {
-    if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
+    if (func.isFinal() || (isPrivate(func)))
       continue;
 
     const auto* conditional = getMemConditional(func);
@@ -2556,7 +2554,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   bool  dtorEmitted = false;
   for (auto func : allVirtuals_)
   {
-    if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
+    if (func.isFinal() || isPrivate(func))
       continue;
     func.emitGenericDefn(
       stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
