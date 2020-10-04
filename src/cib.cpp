@@ -2483,6 +2483,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   }
 
   const CppHashIf* lastUsedConditional = nullptr;
+  bool             dtorEmitted         = false;
   for (auto func : allVirtuals_)
   {
     if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
@@ -2498,12 +2499,16 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
     lastUsedConditional = conditional;
     func.emitGenericProxyDefn(
       stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+    dtorEmitted = dtorEmitted || func.isDestructor();
   }
   if (lastUsedConditional)
     gCppWriter.emitEndIf(stm);
-
-  CibFunctionHelper func = dtor();
-  func.emitGenericProxyDefn(stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+  if (!dtorEmitted)
+  {
+    CibFunctionHelper func = dtor();
+    func.emitGenericProxyDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), indentation);
+  }
   stm << indentation << "void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }\n";
   stm << indentation << "__ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, " << longName() << ")\n\n";
   stm << --indentation << "private:\n";
@@ -2547,17 +2552,22 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "return new __zz_cib_Generic(h);\n";
   stm << --indentation << "}\n";
 
-  auto* cibIdData = cibIdMgr.getCibIdData(longName());
+  auto* cibIdData   = cibIdMgr.getCibIdData(longName());
+  bool  dtorEmitted = false;
   for (auto func : allVirtuals_)
   {
     if (func.isFinal() || (isPrivate(func) && !func.isPureVirtual()))
       continue;
     func.emitGenericDefn(
       stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+    dtorEmitted = dtorEmitted || func.isDestructor();
   }
-  CibFunctionHelper func = dtor();
-  func.emitGenericDefn(
-    stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+  if (!dtorEmitted)
+  {
+    CibFunctionHelper func = dtor();
+    func.emitGenericDefn(
+      stm, helper, cibParams, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeGeneric, indentation);
+  }
   --indentation;
   stm << indentation << "};\n";
   stm << indentation << "}\n\n";
