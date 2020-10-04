@@ -1,15 +1,6 @@
 #include "example.h"
 
 namespace Example {
-}
-namespace Example {
-namespace Outer {
-}}
-namespace Example {
-namespace Outer {
-namespace Inner {
-}}}
-namespace Example {
 namespace Outer {
 namespace Inner {
 

@@ -2,8 +2,6 @@
 #include "value.h"
 
 namespace Example {
-}
-namespace Example {
 
 Example::A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)

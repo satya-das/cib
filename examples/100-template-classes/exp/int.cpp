@@ -1,8 +1,6 @@
 #include "int.h"
 
 namespace Example {
-}
-namespace Example {
 
 Example::Int::Int(__zz_cib_AbiType h)
   : __zz_cib_h_(h)

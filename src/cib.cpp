@@ -1299,7 +1299,7 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
     std::ofstream stm(usrSrcPath.string(), std::ios_base::out);
     emitFacadeAndInterfaceDependecyHeaders(stm, helper, cibParams, cibIdMgr, true, CppIndent());
     forEachNested(CppAccessType::kPublic, [&](const CibCompound* compound) {
-      if (!compound->isTemplated() && (!compound->isInline() || compound->isShared()))
+      if (isClassLike(compound) && !compound->isTemplated() && (!compound->isInline() || compound->isShared()))
         compound->emitDefn(stm, false, helper, cibParams, cibIdMgr);
     });
     emitImplSource(stm, helper, cibParams, cibIdMgr);

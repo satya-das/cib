@@ -6,4 +6,6 @@ list(APPEND LIB_GLUE_SRCS
 list(APPEND EXP_SOURCES
 	${example_ROOT}/exp/__zz_cib_Example_Global.cpp
 	${example_ROOT}/exp/__zz_cib_Example.cpp
+	${example_ROOT}/exp/example-file1.cpp
+	${example_ROOT}/exp/example-file2.cpp
 )

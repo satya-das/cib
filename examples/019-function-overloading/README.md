@@ -654,8 +654,6 @@ We will next see use of this class in implementation of methods.
 #include "example.h"
 
 namespace Example {
-}
-namespace Example {
 
 Example::A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
