@@ -25,7 +25,7 @@ template <typename B, typename T>
 constexpr bool IsBasicConversionNeededHelper_v =
       (!std::is_class_v<B> && !std::is_function_v<B>)
   ||  (__zz_cib_IsPlainClass_v<B> && !__zz_cib_IsProxyClass_v<B> && !__zz_cib_IsProxiedClass_v<B>)
-  ||  (__zz_cib_IsProxiedClass_v<B> && (std::is_reference_v<T> || std::is_pointer_v<T>));
+  ||  (__zz_cib_IsProxiedClass_v<B> && !__zz_cib_IsProxyClass_v<B> && (std::is_reference_v<T> || std::is_pointer_v<T>));
 // clang-format on
 
 template <typename T>

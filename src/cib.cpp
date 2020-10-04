@@ -1141,7 +1141,7 @@ void CibCompound::emitImplHeader(const CibHelper& helper, const CibParams& cibPa
 
 void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibParams)
 {
-  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-client-type-converters.h\"\n";
+  stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-def.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-local-proxy-mgr.h\"\n";
@@ -1468,11 +1468,15 @@ std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<cons
       headers.emplace('"' + cibParams.stlHelperDirName + '/' + bfs::path(compound->name()).filename().string() + '"');
     else
     {
+#if EMIT_HELPER_HEADER
       auto helperHeaderPath = bfs::relative(compound->name(), dependentPath);
       if (!forProxy)
         helperHeaderPath = bfs::path("__zz_cib_helpers") / helperHeaderPath.parent_path()
                            / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
       headers.emplace('"' + helperHeaderPath.string() + '"');
+#else
+      headers.emplace('"' + bfs::relative(compound->name(), dependentPath).string() + '"');
+#endif
     }
   }
   return headers;
@@ -2624,14 +2628,14 @@ void CibCompound::emitHelperHeader(const CibHelper& helper,
   stm << "#include \"" << headerPath.string() << "\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-types.h\"\n\n";
 
-  forEachNested([&stm](const CibCompound* compound) {
-    if (!isClassLike(compound) || compound->needsNoProxy() || compound->isTemplated())
-      return;
+  // forEachNested([&stm](const CibCompound* compound) {
+  //   if (!isClassLike(compound) || compound->needsNoProxy() || compound->isTemplated())
+  //     return;
 
-    stm << "namespace __zz_cib_ {\n";
-    stm << "template <> struct __zz_cib_IsProxiedClass<" << fullName(compound) << "> : std::true_type {};\n";
-    stm << "}\n";
-  });
+  //   stm << "namespace __zz_cib_ {\n";
+  //   stm << "template <> struct __zz_cib_IsProxiedClass<" << fullName(compound) << "> : std::true_type {};\n";
+  //   stm << "}\n";
+  // });
 }
 
 void CibCompound::emitLibGlueCode(const CibHelper& helper,
@@ -2642,7 +2646,9 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
   if (!isCppFile(this) || isUnusedStl())
     return;
 
+#if EMIT_HELPER_HEADER
   emitHelperHeader(helper, cibParams, indentation);
+#endif
 
   const auto libGlueSrcPath = [&]() {
     bfs::path binderSrc = [&]() {

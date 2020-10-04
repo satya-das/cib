@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-C.h"
+#include "C.h"
 #include "__zz_cib_stl-helpers/__zz_cib_bidirectional_iterator.h"
 
 #include "__zz_cib_Example-class-down-cast.h"

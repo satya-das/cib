@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-int.h"
+#include "int.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"

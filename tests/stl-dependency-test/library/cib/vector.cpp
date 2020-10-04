@@ -1,5 +1,5 @@
-#include "__zz_cib_helpers/__zz_cib_helper-file-defining-class.h"
 #include "__zz_cib_stl-helpers/__zz_cib_vector-iterator.h"
+#include "file-defining-class.h"
 #include <vector>
 
 #include "__zz_cib_StlDependencyTest-class-down-cast.h"

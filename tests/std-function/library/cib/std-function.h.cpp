@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-std-function.h"
+#include "std-function.h"
 
 #include "__zz_cib_StdFunctionTests-class-down-cast.h"
 #include "__zz_cib_StdFunctionTests-delegate-helper.h"

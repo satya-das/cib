@@ -1,5 +1,5 @@
-#include "__zz_cib_helpers/__zz_cib_helper-int.h"
-#include "__zz_cib_helpers/__zz_cib_helper-value.h"
+#include "int.h"
+#include "value.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"

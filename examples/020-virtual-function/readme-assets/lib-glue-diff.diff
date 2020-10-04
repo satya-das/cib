@@ -1,7 +1,7 @@
 --- ../010-simple-class/cib/example.h.cpp
 +++ cib/example.h.cpp
 @@ -1,5 +1,12 @@
- #include "__zz_cib_helpers/__zz_cib_helper-example.h"
+ #include "example.h"
  
 +#include <typeinfo>
 +#include <typeindex>

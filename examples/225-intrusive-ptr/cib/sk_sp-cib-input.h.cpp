@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-sk_sp-cib-input.h"
+#include "sk_sp-cib-input.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"

@@ -113,8 +113,8 @@ Since, there are 2 concretized types of template `class Value` that crosses comp
 
 **File**: examples/100-template-classes/cib/value.h.cpp
 ```c++
-#include "__zz_cib_helpers/__zz_cib_helper-int.h"
-#include "__zz_cib_helpers/__zz_cib_helper-value.h"
+#include "int.h"
+#include "value.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
@@ -511,7 +511,7 @@ Let's see what that `value-postdef.h` contains:
 ```c++
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Example-client-type-converters.h"
+#include "__zz_cib_internal/__zz_cib_Example-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"

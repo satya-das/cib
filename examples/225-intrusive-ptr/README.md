@@ -269,7 +269,7 @@ CIB will generate library glue code and library is expected to compile these sou
 **File**: cib/example.h.cpp:
 
 ```c++
-#include "__zz_cib_helpers/__zz_cib_helper-example.h"
+#include "example.h"
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
@@ -556,7 +556,7 @@ We will now move to see the content of file that was #include'd at the end of pr
 ```c++
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Example-client-type-converters.h"
+#include "__zz_cib_internal/__zz_cib_Example-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
 #include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "__zz_cib_internal/__zz_cib_Demo-client-type-converters.h"
+#include "__zz_cib_internal/__zz_cib_Demo-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Demo-def.h"
 #include "__zz_cib_internal/__zz_cib_Demo-ids.h"
 #include "__zz_cib_internal/__zz_cib_Demo-local-proxy-mgr.h"

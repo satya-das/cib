@@ -20,7 +20,7 @@ struct __zz_cib_IsProxyClass : std::false_type
 };
 
 ///! If the class is used via a proxy class in another library.
-template <typename T>
+template <typename T, typename = void>
 struct __zz_cib_IsProxiedClass : std::false_type
 {
 };
@@ -115,6 +115,14 @@ constexpr bool __zz_cib_IsValueClass_v = __zz_cib_IsValueClass<T>::value;
 
 template <typename T>
 constexpr bool __zz_cib_IsFunctionPointer_v = std::is_pointer_v<T>&& std::is_function_v<std::remove_pointer_t<T>>;
+
+//! As of now treat all non-proxy class as proxied. It leaves out support of passing third party classes by value.
+template <typename T>
+struct __zz_cib_IsProxiedClass<T,
+                               std::enable_if_t<__zz_cib_IsPlainClass_v<T> && !__zz_cib_IsProxyClass<T>::value, void>>
+{
+  static constexpr bool value = true;
+};
 
 } // namespace __zz_cib_
 

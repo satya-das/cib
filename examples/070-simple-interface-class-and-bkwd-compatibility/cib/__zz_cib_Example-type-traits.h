@@ -57,6 +57,12 @@ struct __zz_cib_RemoveAllDecorations<va_list&>
 };
 
 template <>
+struct __zz_cib_RemoveAllDecorations<va_list&&>
+{
+  using type = va_list&&;
+};
+
+template <>
 struct __zz_cib_RemoveAllDecorations<va_list*>
 {
   using type = va_list*;

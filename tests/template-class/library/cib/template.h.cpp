@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-template.h"
+#include "template.h"
 
 #include "__zz_cib_TemplateTests-class-down-cast.h"
 #include "__zz_cib_TemplateTests-delegate-helper.h"

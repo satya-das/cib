@@ -1,4 +1,4 @@
-#include "__zz_cib_helpers/__zz_cib_helper-example.h"
+#include "example.h"
 #include <list>
 #include <vector>
 

@@ -5,7 +5,7 @@
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
 
-#include "__zz_cib_helpers/__zz_cib_helper-example.h"
+#include "example.h"
 
 #include <typeinfo>
 #include <typeindex>
