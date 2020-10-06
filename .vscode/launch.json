@@ -1095,6 +1095,34 @@
             ]
         },
         {
+            "name": "Run cib for 160-free-functions",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/160-free-functions/pub",
+                "-b",
+                "${workspaceFolder}/examples/160-free-functions/cib",
+                "-o",
+                "${workspaceFolder}/examples/160-free-functions/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for lib-deletes-proxy",
             "type": "cppdbg",
             "request": "launch",
@@ -1199,24 +1227,6 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/examples/225-intrusive-ptr",
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/builds",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "gdb",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ]
-        },
-        {
-            "name": "free-functions",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/builds/examples/160-free-functions",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],
@@ -1339,6 +1349,24 @@
             ]
         },
         {
+            "name": "160-free-functions",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/160-free-functions",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "310-std-function",
             "type": "cppdbg",
             "request": "launch",
@@ -1411,6 +1439,24 @@
             ]
         },
         {
+            "name": "150-reference-of-pointer",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/examples/150-reference-of-pointer",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "190-function-pointer",
             "type": "cppdbg",
             "request": "launch",
@@ -1469,6 +1515,24 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/tests/std-function/StdFunctionTestsClient",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "TemplateTestsClient",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/builds/tests/template-class//TemplateTestsClient",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],

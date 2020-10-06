@@ -12,18 +12,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   //#= FullClassName: ::I::__zz_cib_Generic
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classid = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::SkRefCntBase
   enum { __zz_cib_classid = 258 };
 }}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::SkRefCntBase::__zz_cib_Generic
-  enum { __zz_cib_classid = 262 };
-}}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::__zz_cib_
@@ -41,7 +36,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 264 };
+  enum { __zz_cib_next_class_id = 263 };
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
@@ -111,19 +106,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     unref_3 = 3,
     //#= void internal_dispose() const;
     internal_dispose_4 = 4,
-    //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_next_method_id = 5
   };
 }}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  enum __zz_cib_methodid {
-    //#= void internal_dispose() const;
-    internal_dispose_0 = 0,
-    //#= ~SkRefCntBase();
-    __zz_cib_delete_1 = 1,
-    __zz_cib_next_method_id = 2
-  };
-}}}}
 
