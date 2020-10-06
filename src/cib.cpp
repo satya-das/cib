@@ -2262,7 +2262,9 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
   if (needsProxyManager())
   {
     stm << indentation << "static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {\n";
-    stm << ++indentation << "auto&  dis   = __zz_cib_instance();\n";
+    stm << ++indentation << "if (h == nullptr)\n";
+    stm << ++indentation << "return nullptr;\n";
+    stm << --indentation << "auto&  dis   = __zz_cib_instance();\n";
     stm << indentation << "auto* proxy = dis.proxyMgr.findProxy(h);\n";
     if (!isAbstract() || isFacadeLike())
     {

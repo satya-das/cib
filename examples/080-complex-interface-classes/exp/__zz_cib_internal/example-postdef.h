@@ -65,6 +65,8 @@ struct __zz_cib_Helper<::Interface1, T> : public __zz_cib_MethodTableHelper {
     }
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
+    if (h == nullptr)
+      return nullptr;
     auto&  dis   = __zz_cib_instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     return proxy;
@@ -143,6 +145,8 @@ struct __zz_cib_Helper<::Interface2, T> : public __zz_cib_MethodTableHelper {
     }
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
+    if (h == nullptr)
+      return nullptr;
     auto&  dis   = __zz_cib_instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy == nullptr)
@@ -223,6 +227,8 @@ struct __zz_cib_Helper<::Interface3, T> : public __zz_cib_MethodTableHelper {
     }
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
+    if (h == nullptr)
+      return nullptr;
     auto&  dis   = __zz_cib_instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy == nullptr)

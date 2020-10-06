@@ -388,6 +388,8 @@ struct __zz_cib_Helper<::std::vector<::C*>, T> : public __zz_cib_MethodTableHelp
     return h;
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
+    if (h == nullptr)
+      return nullptr;
     auto&  dis   = __zz_cib_instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy == nullptr)

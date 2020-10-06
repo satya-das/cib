@@ -199,6 +199,8 @@ struct __zz_cib_Helper<::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>
     return h;
   }
   static _ProxyClass* __zz_cib_from_handle(__zz_cib_AbiType h) {
+    if (h == nullptr)
+      return nullptr;
     auto&  dis   = __zz_cib_instance();
     auto* proxy = dis.proxyMgr.findProxy(h);
     if (proxy == nullptr)

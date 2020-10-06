@@ -1564,5 +1564,47 @@
                 }
             ]
         },
+        {
+            "name": "podofotxtextract",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/dassat/github/tmp/cibified-podofo/dbg/tools/podofotxtextract/podofotxtextract",
+            "args": [
+                "~/github/podofo/test/TestFiles/PDFReference.pdf"
+            ],
+            "stopAtEntry": false,
+            "cwd": "/home/dassat/github/tmp/cibified-podofo/dbg",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "podofoincrementalupdates",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/dassat/github/tmp/cibified-podofo/dbg/tools/podofoincrementalupdates/podofoincrementalupdates",
+            "args": [
+                "~/github/podofo/test/TestFiles/pdf995.pdf"
+            ],
+            "stopAtEntry": false,
+            "cwd": "/home/dassat/github/tmp/cibified-podofo/dbg",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
     ]
 }
