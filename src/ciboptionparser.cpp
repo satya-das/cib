@@ -85,6 +85,11 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
     valueClasses,
     false,
     "Share the object layout across component boundary and don't use proxies. This option can be used multiple times.");
+  addOption("interface-class,F",
+            interfaceClasses,
+            false,
+            "Force a class to be treated as an interface class. Class must have atleast one public virtual method. "
+            "NOTE: Classes with at least one pure virtual method are automatically considered as interface class.");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
 

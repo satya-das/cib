@@ -64,13 +64,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     PublicNonVirtual_6 = 6,
     //#= ~IF();
     __zz_cib_delete_7 = 7,
-    //#= int PrivatePureVirtual();
-    PrivatePureVirtual_8 = 8,
     //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 9,
+    __zz_cib_get_class_id = 8,
     //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_release_proxy = 9,
+    __zz_cib_next_method_id = 10
   };
 }}}
 

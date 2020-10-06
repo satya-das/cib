@@ -51,6 +51,7 @@ private:
   bool         noRtti{false};
   bool         noException{false};
   StringVector valueClasses;
+  StringVector interfaceClasses;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -75,5 +76,6 @@ inline CibParams CibOptionParser::getCibParams()
           alwaysUseNsName,
           noRtti,
           noException,
-          valueClasses};
+          valueClasses,
+          interfaceClasses};
 }

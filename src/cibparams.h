@@ -68,6 +68,7 @@ public:
   bool         noRtti{false};
   bool         noException{false};
   StringVector layoutSharingClasses;
+  StringVector interfaceClasses;
 
 public:
   CibParams(std::string  m,
@@ -81,7 +82,8 @@ public:
             bool         u,
             bool         t,
             bool         e,
-            StringVector n)
+            StringVector n,
+            StringVector F)
     : cibInternalDirName("__zz_cib_internal")
     , stlHelperDirName("__zz_cib_stl-helpers")
     , copyCtorCAPIPrefix("__zz_cib_copy")
@@ -103,6 +105,7 @@ public:
     , noRtti(t)
     , noException(e)
     , layoutSharingClasses(std::move(n))
+    , interfaceClasses(F)
   {
   }
   CibParams(CibParams&&) = default;

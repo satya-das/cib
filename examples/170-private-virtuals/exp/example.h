@@ -8,7 +8,6 @@ class IF
 public:
   IF(IF&& rhs);
 private:
-  virtual int PrivatePureVirtual() = 0;
 protected:
   virtual int ProtectedPureVirtual() = 0;
   virtual int ProtectedVirtual();

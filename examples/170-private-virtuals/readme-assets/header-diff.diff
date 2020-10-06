@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,53 +1,46 @@
+@@ -1,53 +1,45 @@
 +#include "__zz_cib_internal/example-predef.h"
 +
  //! An abstract class that is an interface and also a facade.
@@ -11,7 +11,7 @@
 +public:
 +  IF(IF&& rhs);
  private:
-   virtual int PrivatePureVirtual() = 0;
+-  virtual int PrivatePureVirtual() = 0;
 -  virtual int PrivateVirtual()      { return 100; }
 -  int         PrivateNonVirtual()   { return 200; }
 -

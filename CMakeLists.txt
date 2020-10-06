@@ -142,7 +142,7 @@ set(EXAMPLES
 	050-inheritance-type-and-bkwd-compatibility
 	055-abstract-class
 	060-simple-interface-class
-	065-trivial-interface-class
+	065-force-make-interface-class
 	070-simple-interface-class-and-bkwd-compatibility
 	075-simple-interface-class-and-forwd-compatibility
 	080-complex-interface-classes
@@ -155,7 +155,7 @@ set(EXAMPLES
 	140-rvalue-parameters
 	150-reference-of-pointer
 	160-free-functions
-	170-private-virtuals
+	# 170-private-virtuals
 	# 180-pod-struct
 	190-function-pointer
 	200-deleted-members

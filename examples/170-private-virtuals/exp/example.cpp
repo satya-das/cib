@@ -154,14 +154,6 @@ public:
       )
     );
   }
-  int PrivatePureVirtual() override {
-    using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::PrivatePureVirtual_8>(
-        __zz_cib_h_
-      )
-    );
-  }
 };
 }
 
@@ -196,11 +188,6 @@ struct __zz_cib_Delegator<::IF> {
   static __zz_cib_AbiType_t<int> __zz_cib_decl ProtectedPureVirtual_3(::IF* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->ProtectedPureVirtual()
-    );
-  }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl PrivatePureVirtual_4(::IF* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
-      __zz_cib_obj->PrivatePureVirtual()
     );
   }
   static void __zz_cib_decl __zz_cib_delete_5(::IF* __zz_cib_obj) {

@@ -154,6 +154,7 @@ void CibHelper::buildCibCppObjTree()
 {
   markStlClasses();
   markStlHelperClasses();
+  forceMarkInterfaceClasses();
 
   for (auto& fileAst : program_->getFileAsts())
     resolveInheritance(static_cast<CibCompound*>(fileAst.get()));
@@ -176,12 +177,23 @@ void CibHelper::buildCibCppObjTree()
 
 void CibHelper::markNoProxyClasses()
 {
-  for (auto& noProxyClassName : cibParams_.layoutSharingClasses)
+  for (const auto& noProxyClassName : cibParams_.layoutSharingClasses)
   {
     CibCompoundEPtr noProxyClass = getCppObjFromTypeName(noProxyClassName);
 
     if (noProxyClass)
       noProxyClass->setNeedNoProxy();
+  }
+}
+
+void CibHelper::forceMarkInterfaceClasses()
+{
+  for (const auto& interfaceClassName : cibParams_.interfaceClasses)
+  {
+    CibCompoundEPtr interfaceClass = getCppObjFromTypeName(interfaceClassName);
+
+    if (interfaceClass)
+      interfaceClass->setInterfaceLike();
   }
 }
 
@@ -415,7 +427,8 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
       {
         if (paramObj && paramObj->hasPublicVirtualMethod())
         {
-          paramObj->setInterfaceLike();
+          if (paramObj->hasPureVirtual())
+            paramObj->setInterfaceLike();
           if ((effectivePtrLevel >= 2 || (func.getOwner()->isInterfaceLike() && func.isVirtual())))
             paramObj->setFacadeLike();
         }
@@ -437,7 +450,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
 
     if ((ptrLevel(func.returnType()) == 1) || (refType(func.returnType()) == CppRefType::kByRef))
     {
-      if (returnObj->hasPublicVirtualMethod())
+      if (returnObj->hasPureVirtual())
       {
         returnObj->setFacadeLike();
         if (func.getOwner()->isInterfaceLike()
@@ -475,12 +488,16 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     else if (CibFunctionHelper func = mem)
     {
       isPodStruct = false;
-      if (func.isVirtual())
+      if (func.isPureVirtual())
       {
         cppCompound->setInterfaceLike();
         isInline = false;
       }
       else if (!func.hasDefinition())
+      {
+        isInline = false;
+      }
+      else if (func.isVirtual())
       {
         isInline = false;
       }
