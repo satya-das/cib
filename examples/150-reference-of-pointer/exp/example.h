@@ -13,7 +13,7 @@ public:
   virtual ~A();
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(A, A);
 };
 
 class B : public ::A

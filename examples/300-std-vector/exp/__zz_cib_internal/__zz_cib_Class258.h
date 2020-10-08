@@ -222,10 +222,9 @@ template<>
 class vector_iterator<::C const >
 {
 public:
-  template <typename __zz_cib_Dummy = std::pair<vector_iterator<::C const >, vector_iterator<::C const >>>
   vector_iterator(const vector_iterator<::C const >& __zz_cib_param0)
     : __zz_cib_stl_helpers::vector_iterator<::C const >(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~vector_iterator() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);

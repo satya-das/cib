@@ -21,15 +21,15 @@ public:
   A();
 
   Facade* PublicFacade() {
-    return &mPublicFacade;
+    return new PublicFacadeImpl();
   }
 
   Facade* PrivateFacade1() {
-    return &mPrivateFacade1;
+    return new PrivateFacadeImpl1();
   }
 
   Facade* PrivateFacade2() {
-    return &mPrivateFacade2;
+    return new PrivateFacadeImpl2();
   }
 
 private:
@@ -42,9 +42,4 @@ private:
   {
     void F() override {}
   };
-
-private:
-  PublicFacadeImpl    mPublicFacade;
-  PrivateFacadeImpl1  mPrivateFacade1;
-  PrivateFacadeImpl2  mPrivateFacade2;
 };

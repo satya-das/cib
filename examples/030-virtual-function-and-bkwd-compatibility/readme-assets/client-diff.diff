@@ -1,6 +1,6 @@
 --- 020-virtual-function/src/example-client.cpp
 +++ 030-virtual-function-and-bkwd-compatibility/src/example-client.cpp
-@@ -1,20 +1,21 @@
+@@ -1,24 +1,25 @@
  #include "example.h"
  
  #include <catch/catch.hpp>
@@ -15,9 +15,13 @@
  TEST_CASE("ABI stable virtual function call across component boundary")
  {
    // Test for object created by client on heap
-   PerformTest(new B());
+   auto* pB1 = new B();
+   PerformTest(pB1);
+   delete pB1;
    // Test for object created by library
-   PerformTest(B::Create());
+   auto* pB2 = B::Create();
+   PerformTest(pB2);
+   delete pB2;
    // Test for object created on stack
    B b;
    PerformTest(&b);

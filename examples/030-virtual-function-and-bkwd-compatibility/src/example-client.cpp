@@ -12,9 +12,13 @@ void PerformTest(A* pA)
 TEST_CASE("ABI stable virtual function call across component boundary")
 {
   // Test for object created by client on heap
-  PerformTest(new B());
+  auto* pB1 = new B();
+  PerformTest(pB1);
+  delete pB1;
   // Test for object created by library
-  PerformTest(B::Create());
+  auto* pB2 = B::Create();
+  PerformTest(pB2);
+  delete pB2;
   // Test for object created on stack
   B b;
   PerformTest(&b);

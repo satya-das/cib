@@ -276,7 +276,7 @@ CIB will generate library glue code and library is expected to compile these sou
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-generic.h"
+#include "__zz_cib_Example-generic-impl-interface.h"
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
@@ -484,6 +484,7 @@ We see a #include and forward declarations of `struct __zz_cib_Helper`, and `str
 #pragma once
 
 #include "__zz_cib_Example-class-helper.h"
+#include "__zz_cib_Example-generic-impl-facade.h"
 
 namespace __zz_cib_ {
 
@@ -494,13 +495,17 @@ struct __zz_cib_Delegator
 
 } // namespace __zz_cib_
 
-//! @def __ZZ_CIB_CLASS_NAME
-//! Macro that helps passing template class name as parameter to anoher macro.
+/**
+ * @def __ZZ_CIB_CLASS_NAME
+ * Macro that helps passing template class name as parameter to anoher macro.
+ */
 #define __ZZ_CIB_CLASS_NAME(...) __VA_ARGS__
 
-//! @def __ZZ_CIB_PROXY_CLASS_INTERNALS
-//! Macro that allows cib to add it's hook in proxy classes
-//! in a minimally invasive way.
+/**
+ * @def __ZZ_CIB_PROXY_CLASS_INTERNALS
+ * Macro that allows cib to add it's hook in proxy classes
+ * in a minimally invasive way.
+ */
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
 public:                                                                                                                \
   class __zz_cib_Opaque;                                                                                               \
@@ -528,17 +533,13 @@ protected:                                                                      
     : __zz_cib_h_(h)                                                                                                   \
   {                                                                                                                    \
     __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
-  } /*                                                                                                                 \
-  className(className&& rhs)                                                                                           \
-    : __zz_cib_h_(rhs.__zz_cib_h_)                                                                                     \
-  {                                                                                                                    \
-    rhs.__zz_cib_h_ = nullptr;                                                                                         \
-    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
-  }*/
+  }
 
-//! @def __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS
-//! Macro that allows cib to add it's hook in classes that share layout with library
-//! in a minimally invasive way.
+/**
+ * @def __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS
+ * Macro that allows cib to add it's hook in classes that share layout with library
+ * in a minimally invasive way.
+ */
 #define __ZZ_CIB_LAYOUT_SHARING_CLASS_INTERNALS(className, fullName)                                                   \
 public:                                                                                                                \
   using __zz_cib_AbiType = className*;                                                                                 \
@@ -546,6 +547,15 @@ public:                                                                         
 private:                                                                                                               \
   using __zz_cib_ThisClass = className;                                                                                \
   using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>
+
+/**
+ * @def __ZZ_CIB_FACADE_CLASS_INTERNALS
+ * Macro that allows cib to add it's hook in classes that share layout with library
+ * in a minimally invasive way.
+ */
+#define __ZZ_CIB_FACADE_CLASS_INTERNALS(className, fullName)                                                           \
+  friend class __zz_cib_::__zz_cib_Generic<fullName>;                                                                  \
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))
 
 ```
 

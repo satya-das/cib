@@ -102,10 +102,9 @@ template<>
 class TemplateClassWithTwoParamsAndDefaultParameter<int, int>
 {
 public:
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>
   TemplateClassWithTwoParamsAndDefaultParameter(const ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>& __zz_cib_param0)
     : TemplateClassWithTwoParamsAndDefaultParameter<int, int>(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~TemplateClassWithTwoParamsAndDefaultParameter() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);

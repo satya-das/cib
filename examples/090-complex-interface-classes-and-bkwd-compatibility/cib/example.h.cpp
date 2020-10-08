@@ -9,7 +9,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-generic.h"
+#include "__zz_cib_Example-generic-impl-interface.h"
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
@@ -26,34 +26,38 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   ::Interface3& r() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<::Interface3&>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Interface3&>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::r_0>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   int disruptVTable() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable_3>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   ::Interface2* p() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Interface2*>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::p_1>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
-      __zz_cib_h_
+      __zz_cib_h
     );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
@@ -133,26 +137,29 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int f() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f_0>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   int disruptVTable() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable_2>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
-      __zz_cib_h_
+      __zz_cib_h
     );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }
@@ -238,26 +245,29 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int g() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g_0>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   int disruptVTable() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::disruptVTable_2>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
-      __zz_cib_h_
+      __zz_cib_h
     );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }

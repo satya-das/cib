@@ -40,7 +40,7 @@ Since, new library has an additional method and if new client calls this new met
 ```diff
 --- 020-virtual-function/src/example-client.cpp
 +++ 035-virtual-function-and-forwd-compatibility/src/example-client.cpp
-@@ -1,20 +1,29 @@
+@@ -1,24 +1,33 @@
  #include "example.h"
  
  #include <catch/catch.hpp>
@@ -64,9 +64,13 @@ Since, new library has an additional method and if new client calls this new met
  TEST_CASE("ABI stable virtual function call across component boundary")
  {
    // Test for object created by client on heap
-   PerformTest(new B());
+   auto* pB1 = new B();
+   PerformTest(pB1);
+   delete pB1;
    // Test for object created by library
-   PerformTest(B::Create());
+   auto* pB2 = B::Create();
+   PerformTest(pB2);
+   delete pB2;
    // Test for object created on stack
    B b;
    PerformTest(&b);

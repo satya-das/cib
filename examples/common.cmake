@@ -27,10 +27,10 @@ set(LIB_GLUE_SRCS
 )
 set(PUB_FILES "")
 set(EXP_SOURCES "")
-set(TEST_CMD ${CLIENTNAME})
 set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
 set(DEPENDS cib ${example}GlueCode)
 set(EXAMPLES_BIN_DIR ${CMAKE_BINARY_DIR}/examples)
+set(TEST_CMD ${EXAMPLES_BIN_DIR}/${CLIENTNAME})
 
 include("${example}/Prologue.cmake")
 
@@ -86,6 +86,10 @@ add_executable(${CLIENTNAME}
 )
 
 add_test(NAME ${CLIENTNAME} COMMAND ${TEST_CMD})
+
+if(NOT ${VALGRIND} MATCHES "VALGRIND-NOTFOUND")
+    add_test(NAME ${CLIENTNAME}-valgrind COMMAND ${VALGRIND} --leak-check=full --show-leak-kinds=definite --errors-for-leak-kinds=definite --error-exitcode=99 ${TEST_CMD})
+endif()
 
 add_custom_command(
     OUTPUT ${LIB_GLUE_SRCS} ${EXP_SOURCES}

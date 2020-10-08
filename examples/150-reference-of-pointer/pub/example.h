@@ -12,7 +12,9 @@ class B : public A
 {
 public:
   B() : mpA(new A) {}
-  virtual ~B() {};
+  virtual ~B() {
+    delete mpA;
+  };
 
   virtual int VirtualFunction() const;
 

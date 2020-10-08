@@ -144,10 +144,9 @@ template<>
 class bidirectional_reverse_iterator<::C* const >
 {
 public:
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::C* const >, bidirectional_reverse_iterator<::C* const >>>
   bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C* const >& __zz_cib_param0)
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >(__zz_cib_MyHelper::__zz_cib_copy_0(
-            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)))
+            __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
     {}
   ~bidirectional_reverse_iterator() {
   auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);

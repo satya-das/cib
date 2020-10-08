@@ -437,10 +437,9 @@ public:
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n)),
       __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(value)>(value)))
     {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::C>, vector<::C>>>
   vector(const ::std::vector<::C>& x)
     : std::vector<::C>(__zz_cib_MyHelper::__zz_cib_copy_3(
-            __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(x)))
+            __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
     {}
   template <typename __zz_cib_Dummy = std::pair<vector<::C>, vector<::C>>>
   vector(::std::vector<::C>&& __zz_cib_param0)

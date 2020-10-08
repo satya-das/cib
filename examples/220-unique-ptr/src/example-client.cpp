@@ -9,6 +9,7 @@ TEST_CASE("Client receives unique_ptr from library")
   A a;
   auto p = a.f();
   CHECK(p->f() == 5);
+  p.reset();
 }
 
 TEST_CASE("Client passes unique_ptr to library")

@@ -2,7 +2,7 @@
 
 #include "__zz_cib_Demo-class-down-cast.h"
 #include "__zz_cib_Demo-delegate-helper.h"
-#include "__zz_cib_Demo-generic.h"
+#include "__zz_cib_Demo-generic-impl-interface.h"
 #include "__zz_cib_Demo-ids.h"
 #include "__zz_cib_Demo-type-converters.h"
 #include "__zz_cib_Demo-mtable-helper.h"
@@ -19,18 +19,20 @@ public:
     , __zz_cib_mtbl_helper(__zz_cib_mtbl)
   {}
   int F() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::F_0>(
-        __zz_cib_h_
+        __zz_cib_h
       )
     );
   }
   ~__zz_cib_Generic() override {
     if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_Proxy);
     __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_1>(
-      __zz_cib_h_
+      __zz_cib_h
     );
   }
   void __zz_cib_release_proxy() { __zz_cib_h_ = nullptr; }

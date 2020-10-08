@@ -16,7 +16,7 @@ public:
   virtual std::unique_ptr<int> g() const = 0;
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(I, I);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(I, I);
 };
 
 class A

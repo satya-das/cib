@@ -13,7 +13,7 @@ public:
   virtual int f() const;
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(C, C);
 };
 
 #include "__zz_cib_internal/C-postdef.h"

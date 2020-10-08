@@ -32,7 +32,7 @@ protected:
   Interface2();
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(Interface2, Interface2);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(Interface2, Interface2);
 };
 
 class Interface3
@@ -47,7 +47,7 @@ protected:
   Interface3();
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(Interface3, Interface3);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(Interface3, Interface3);
 };
 
 class A

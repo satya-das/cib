@@ -13,7 +13,7 @@ protected:
   Facade();
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(Facade, Facade);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(Facade, Facade);
 };
 
 class PublicFacadeImpl : public ::Facade

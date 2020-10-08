@@ -16,4 +16,8 @@ TEST_CASE("RTTI of proxy class")
   CHECK(dynamic_cast<PublicFacadeImpl*>(p1) != nullptr);
   CHECK(dynamic_cast<PublicFacadeImpl*>(p2) == nullptr);
   CHECK(dynamic_cast<PublicFacadeImpl*>(p3) != nullptr);
+
+  delete p1;
+  delete p2;
+  delete p3;
 }

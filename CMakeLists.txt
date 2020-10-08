@@ -78,7 +78,8 @@ set(RESFILES
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
 	__zz_cib_Module-null-proxy-mgr.h
-	__zz_cib_Module-generic.h
+	__zz_cib_Module-generic-impl-facade.h
+	__zz_cib_Module-generic-impl-interface.h
 	__zz_cib_Module-proxy-mgr.cpp
 	__zz_cib_Module-proxy-mgr.h
 	__zz_cib_Module-remote-proxy-mgr.h
@@ -127,6 +128,12 @@ set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 find_program(
 	MARKDOWN_PP
 	"markdown-pp"
+	PATHS ENV PATH
+)
+
+find_program(
+	VALGRIND
+	"valgrind"
 	PATHS ENV PATH
 )
 
@@ -204,7 +211,7 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 		  ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.md
   )
 else()
-  message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
+  message("WARNING: Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
 
 # It is expected that cib is run for all targets already

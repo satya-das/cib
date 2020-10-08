@@ -1,6 +1,6 @@
 #include "example.h"
 
-#include "__zz_cib_internal/__zz_cib_Example-generic.h"
+#include "__zz_cib_internal/__zz_cib_Example-generic-impl-facade.h"
 
 
 Interface1::Interface1(__zz_cib_AbiType h)
@@ -164,25 +164,32 @@ const __zz_cib_MethodTable* __zz_cib_Helper<::Interface1>::__zz_cib_get_proxy_me
 namespace __zz_cib_ {
 template<>
 class __zz_cib_Generic<::Interface2> : public ::Interface2 {
-  __zz_cib_AbiType __zz_cib_h_;
-
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_methodid;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_ids::__zz_cib_Class259::__zz_cib_classid));
     return mtableHelper;
   }
-  explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::Interface2(h), __zz_cib_h_(h) {}
+  explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::Interface2(h) {}
 public:
   static ::Interface2* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
   int f() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::f_1>(
-        __zz_cib_h_
+        __zz_cib_h
       )
+    );
+  }
+  ~__zz_cib_Generic() override {
+    if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_Helper<::Interface2>::__zz_cib_release_handle(this);
+    using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_AbiType);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
+      __zz_cib_h
     );
   }
 };
@@ -235,25 +242,32 @@ const __zz_cib_MethodTable* __zz_cib_Helper<::Interface2>::__zz_cib_get_proxy_me
 namespace __zz_cib_ {
 template<>
 class __zz_cib_Generic<::Interface3> : public ::Interface3 {
-  __zz_cib_AbiType __zz_cib_h_;
-
   using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_methodid;
   static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_Example_GetMethodTable(
       __zz_cib_ids::__zz_cib_Class260::__zz_cib_classid));
     return mtableHelper;
   }
-  explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::Interface3(h), __zz_cib_h_(h) {}
+  explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::Interface3(h) {}
 public:
   static ::Interface3* __zz_cib_from_handle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
   int g() override {
+    auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_proc = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::g_1>(
-        __zz_cib_h_
+        __zz_cib_h
       )
+    );
+  }
+  ~__zz_cib_Generic() override {
+    if (!__zz_cib_h_) return;
+    auto __zz_cib_h = __zz_cib_Helper<::Interface3>::__zz_cib_release_handle(this);
+    using __zz_cib_proc = void(__zz_cib_decl *) (__zz_cib_AbiType);
+    __zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::__zz_cib_delete_2>(
+      __zz_cib_h
     );
   }
 };

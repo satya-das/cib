@@ -504,7 +504,7 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
                                  const CibIdData*   cibIdData,
                                  CppIndent          indentation) const
 {
-  if ((isMethod() || isConstructor()) && callingOwner->isTemplateInstance())
+  if (callingOwner->isTemplateInstance() && (isMethod() || (isConstructor() && !isCopyConstructor())))
   {
     stm << indentation;
     stm << "template <typename __zz_cib_Dummy = std::pair<" << callingOwner->name() << ", " << callingOwner->name()
@@ -557,7 +557,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
       if (hasParams())
         stm << ", \n";
     }
-    auto const argPurpose = callingOwner->isTemplateInstance() ? kPurposeTemplateSpecialization : kPurposeProxyDefn;
+    auto const argPurpose =
+      (callingOwner->isTemplateInstance() && !isCopyConstructor()) ? kPurposeTemplateSpecialization : kPurposeProxyDefn;
     emitArgsForCall(stm, helper, cibParams, argPurpose, indentation);
 
     if (callingOwner->needsNoProxy())
@@ -685,8 +686,6 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
 {
   if (!isVirtual())
     return;
-  if ((purpose == kPurposeGeneric) && isDestructor())
-    return; // base class dtor takes care of everything.
 
   stm << indentation;
   if (isDestructor())
@@ -698,7 +697,19 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   ++indentation;
   bool genericProxy = (purpose == kPurposeGenericProxy);
   if (isDestructor())
+  {
     stm << indentation << "if (!__zz_cib_h_) return;\n";
+    if (!genericProxy)
+      stm << indentation << "auto __zz_cib_h = __zz_cib_Helper<" << longName(getOwner())
+          << ">::__zz_cib_release_handle(this);\n";
+    else
+      stm << indentation << "auto __zz_cib_h = __zz_cib_h_;\n";
+  }
+  else
+  {
+    stm << indentation << "auto __zz_cib_h = __zz_cib_h_;\n";
+  }
+
   emitProcType(
     stm, helper, cibParams, genericProxy ? kPurposeGenericProxyProcType : kPurposeProxyProcType, indentation);
   if (returnType() && !isVoid(returnType()))
@@ -710,7 +721,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
   }
   stm << indentation << "__zz_cib_get_mtable_helper().invoke<__zz_cib_proc, __zz_cib_methodid::";
   stm << capiName << ">(\n";
-  stm << ++indentation << "__zz_cib_h_";
+  stm << ++indentation << "__zz_cib_h";
   if (hasParams())
   {
     stm << ",\n";
@@ -1663,6 +1674,8 @@ void CibCompound::emitDecl(std::ostream&    stm,
       {
         if (isTemplateInstance())
           stm << ++indentation << "__ZZ_CIB_TEMPLATE_CLASS_INTERNALS(";
+        else if (isFacadeLike())
+          stm << ++indentation << "__ZZ_CIB_FACADE_CLASS_INTERNALS(";
         else
           stm << ++indentation << "__ZZ_CIB_PROXY_CLASS_INTERNALS(";
       }
@@ -2537,8 +2550,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   emitWrappingNsNamespacesForHelper(stm, cibParams, indentation);
   stm << indentation << "template<>\n";
   stm << indentation << "class __zz_cib_Generic<" << longName() << "> : public " << longName() << " {\n";
-  stm << ++indentation << "__zz_cib_AbiType __zz_cib_h_;\n\n";
-  stm << indentation << "using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::" << fullNsName()
+  stm << ++indentation << "using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::" << fullNsName()
       << "::__zz_cib_methodid;\n";
   stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
   stm << ++indentation << "static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
@@ -2546,7 +2558,7 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << ++indentation << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
-  stm << indentation << "explicit __zz_cib_Generic(__zz_cib_AbiType h) : " << longName() << "(h), __zz_cib_h_(h) {}\n";
+  stm << indentation << "explicit __zz_cib_Generic(__zz_cib_AbiType h) : " << longName() << "(h) {}\n";
   stm << --indentation << "public:\n";
   stm << ++indentation << "static " << longName() << "* __zz_cib_from_handle(__zz_cib_AbiType h) {\n";
   stm << ++indentation << "return new __zz_cib_Generic(h);\n";
@@ -2615,7 +2627,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
     }
     else
     {
-      stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-generic.h\"\n\n";
+      stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-generic-impl-facade.h\"\n\n";
     }
   }
 }
@@ -2718,7 +2730,7 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-down-cast.h\"\n";
 
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic-impl-interface.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
 
