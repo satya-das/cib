@@ -126,6 +126,12 @@ private:
   using DependentTemplateInstances = std::map<const CibCompound*, TemplateArgType>;
 
 private:
+  enum class ProxyManagerType
+  {
+    Default,
+    Local,
+    Remote
+  };
   std::uint32_t props_{0};
   bool          needsGenericProxyDefinition_{false};
 
@@ -142,8 +148,21 @@ private:
   DependentTemplateInstances usedInTemplateInstaces_;
   CibClassId                 clsId_{0};
   std::string                nsName_;
+  ProxyManagerType           proxyManagerType_{ProxyManagerType::Default};
 
 public:
+  void setLibraryManagedProxy(bool libraryManaged)
+  {
+    proxyManagerType_ = libraryManaged ? ProxyManagerType::Remote : ProxyManagerType::Local;
+  }
+  bool needsRemoteProxyManager(const CibParams& cibParams) const
+  {
+    if (!needsProxyManager())
+      return false;
+    return ((proxyManagerType_ == ProxyManagerType::Default) && cibParams.defaultLibraryManagedProxies)
+           || (proxyManagerType_ == ProxyManagerType::Remote);
+  }
+
   void setStlClass()
   {
     props_ |= kClassPropStlClass;

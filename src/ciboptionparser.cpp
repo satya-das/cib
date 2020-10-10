@@ -54,8 +54,6 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   addOption("bind-folder,b", libGlueDir, true, "Folder where binding code will be emitted for library.");
   addOption("module,m", moduleName, true, "Name of module/library.");
   addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
-  addOption(
-    "library-managed-proxy,p", libraryManagedProxies, false, "Library should not manage proxy object lifecycle.");
   addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
   addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
   addOption("ignorable-macros,I", ignorableMacros, false, "Ignorable macros.");
@@ -80,16 +78,38 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             false,
             "If library is compiled with no exception option then CIB needs to know if"
             " it needs to avoid generating code to throw exception.");
-  addOption(
-    "value-class,V",
-    valueClasses,
-    false,
-    "Share the object layout across component boundary and don't use proxies. This option can be used multiple times.");
+  addOption("value-class,V",
+            valueClasses,
+            false,
+            "Share the object layout across component boundary and don't use proxies. "
+            "This option can be used multiple times.");
   addOption("interface-class,F",
             interfaceClasses,
             false,
             "Force a class to be treated as an interface class. Class must have atleast one public virtual method. "
             "NOTE: Classes with at least one pure virtual method are automatically considered as interface class.");
+  addOption("default-library-managed-proxy,l",
+            defaultLibraryManagedProxies,
+            false,
+            "By default proxy's life cycle is managed locally by the client. Set it to true to make library manage the "
+            "life cycle of the proxy. Note that library classes that need to manage the life cycle of it's proxies "
+            "will need a small modification.");
+  addOption("locally-managed-proxy-class,L",
+            localProxyManagedClasses,
+            false,
+            "Class whose non deletable references do not cross component boundary can be safely managed locally. Non "
+            "deletable references are the C++ references and also pointers which are not expected to be deleted.");
+  addOption("library-managed-proxy-class,R",
+            remoteProxyManagedClasses,
+            false,
+            "Class whose proxy's life cycle should be managed by library. "
+            "This is needed for classes whose proxy "
+            "instances should not be deleted by client code. "
+            "For example, if reference of a proxy class is returned by a "
+            "function then there is no way to delete the proxy object which was created by new'ing in cib layer. "
+            "By making the proxy class library managed the life cycle of such proxies can be tied to the object in the "
+            "library side.");
+
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
 

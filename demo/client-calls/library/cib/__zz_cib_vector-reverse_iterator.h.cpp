@@ -6,4 +6,5 @@
 #include "__zz_cib_Demo-ids.h"
 #include "__zz_cib_Demo-type-converters.h"
 #include "__zz_cib_Demo-mtable-helper.h"
+#include "__zz_cib_Demo-proxy-mgr.h"
 

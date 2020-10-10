@@ -59,7 +59,7 @@
                 "public/",
                 "-o",
                 "include/",
-                // "--library-managed-proxy", "true",
+                // "--default-library-managed-proxy", "true",
                 // "-c",
                 // "abi-ids.h",
                 "--always-use-unique-namespace",
@@ -1547,7 +1547,7 @@
             ]
         },
         {
-            "name": "std-vector-test",
+            "name": "300-std-vector",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/examples/300-std-vector",

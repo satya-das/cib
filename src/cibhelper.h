@@ -124,6 +124,7 @@ private:
   void forceMarkInterfaceClasses();
   void markStlClasses();
   void markStlHelperClasses();
+  void identifyLibraryManagedPoxies();
 
   /**
    * Evaluates argument function to detect attribute of classes used in args.

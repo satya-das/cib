@@ -60,6 +60,7 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   const auto files = collectAllInterfaceFiles(cibParams);
   program_.reset(new CppProgram(files, std::move(parser)));
   buildCibCppObjTree();
+  identifyLibraryManagedPoxies();
 }
 
 void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) const
@@ -194,6 +195,30 @@ void CibHelper::forceMarkInterfaceClasses()
 
     if (interfaceClass)
       interfaceClass->setInterfaceLike();
+  }
+}
+
+void CibHelper::identifyLibraryManagedPoxies()
+{
+  if (cibParams_.defaultLibraryManagedProxies)
+  {
+    for (const auto& className : cibParams_.localProxyManagedClasses)
+    {
+      CibCompoundEPtr compound = getCppObjFromTypeName(className);
+
+      if (compound)
+        compound->setLibraryManagedProxy(false);
+    }
+  }
+  else
+  {
+    for (const auto& className : cibParams_.remoteProxyManagedClasses)
+    {
+      CibCompoundEPtr compound = getCppObjFromTypeName(className);
+
+      if (compound)
+        compound->setLibraryManagedProxy(true);
+    }
   }
 }
 

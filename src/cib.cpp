@@ -2139,8 +2139,8 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
       stm << indentation << "using _ProxyClass = T;\n";
       if (needsProxyManager())
         proxyMgr = cibParams.moduleName
-                   + (cibParams.libraryManagedProxies ? "::__zz_cib_RemoteProxyManager<_ProxyClass, __zz_cib_Helper>"
-                                                      : "::__zz_cib_LocalProxyManager<_ProxyClass>");
+                   + (needsRemoteProxyManager(cibParams) ? "::__zz_cib_RemoteProxyManager<_ProxyClass, __zz_cib_Helper>"
+                                                         : "::__zz_cib_LocalProxyManager<_ProxyClass>");
 
       if (needsGenericProxyDefinition())
         stm << indentation << "static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();\n";
@@ -2342,7 +2342,7 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
 
   if (isClassLike(this) && (isShared() || !isEmpty()))
     emitHandleHelpers(stm, cibParams, cibIdData, indentation);
-  if (isShared() && cibParams.libraryManagedProxies)
+  if (isShared() && needsRemoteProxyManager(cibParams))
     emitRemoteProxyMethods(stm, indentation);
   emitHelperDefnEnd(stm, indentation);
 }
@@ -2738,8 +2738,7 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
 
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
-  if (cibParams.libraryManagedProxies)
-    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";
   stm << '\n';
 }
 
@@ -2747,7 +2746,7 @@ void CibCompound::emitProxyMgrDelegators(std::ostream&    stm,
                                          const CibParams& cibParams,
                                          CppIndent        indentation /* = CppIndent */) const
 {
-  if (!cibParams.libraryManagedProxies || !needsProxyManager())
+  if (!needsRemoteProxyManager(cibParams))
     return;
 
   stm << indentation << "static __zz_cib_Proxy __zz_cib_decl __zz_cib_FindProxy(" << longName()

@@ -326,7 +326,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
           cibIdData->addOrUpdateMethod("__zz_cib_ReleaseProxy", "__zz_cib_ReleaseProxy");
       }
 
-      if (cibParams.libraryManagedProxies && compound->needsProxyManager())
+      if (compound->needsRemoteProxyManager(cibParams))
       {
         for (int i = 0; i < 3; ++i)
         {

@@ -7,6 +7,7 @@
 #include "__zz_cib_StlDependencyTest-ids.h"
 #include "__zz_cib_StlDependencyTest-type-converters.h"
 #include "__zz_cib_StlDependencyTest-mtable-helper.h"
+#include "__zz_cib_StlDependencyTest-proxy-mgr.h"
 
 namespace __zz_cib_ {
 using namespace ::__zz_cib_stl_helpers;

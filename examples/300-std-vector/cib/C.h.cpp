@@ -13,6 +13,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
+#include "__zz_cib_Example-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <>
@@ -37,6 +38,15 @@ struct __zz_cib_Delegator<::C> : public ::C {
       __zz_cib_obj->::C::f()
     );
   }
+  static __zz_cib_Proxy __zz_cib_decl __zz_cib_FindProxy(::C* obj, __zz_cib_ClientId clientId) {
+    return __zz_cib_ProxyManagerDelegator::__zz_cib_FindProxy(obj, clientId);
+  }
+  static void __zz_cib_decl __zz_cib_RegisterProxy(::C* obj, __zz_cib_ClientId clientId, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
+    __zz_cib_ProxyManagerDelegator::__zz_cib_RegisterProxy(obj, clientId, proxy, deleter);
+  }
+  static void __zz_cib_decl __zz_cib_UnregisterProxy(::C* obj, __zz_cib_ClientId clientId) {
+    __zz_cib_ProxyManagerDelegator::__zz_cib_UnregisterProxy(obj, clientId);
+  }
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::C** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
@@ -59,9 +69,12 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_New_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_Delete_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::f_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_GetClassId)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_GetClassId),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_FindProxy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_RegisterProxy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_UnregisterProxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
   return &methodTable;
 }
 }}

@@ -1,7 +1,7 @@
 --- ../010-simple-class/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -8,14 +8,52 @@
- #include "__zz_cib_Example-mtable-helper.h"
+@@ -9,14 +9,52 @@
+ #include "__zz_cib_Example-proxy-mgr.h"
  
  namespace __zz_cib_ {
 -using namespace ::Example;
@@ -57,7 +57,7 @@
  
    static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
      return new __zz_cib_Delegatee(*__zz_cib_obj);
-@@ -26,26 +64,38 @@
+@@ -27,26 +65,38 @@
    static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
      return new __zz_cib_Delegatee();
    }

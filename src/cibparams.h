@@ -62,13 +62,15 @@ public:
   bfs::path    stlInterfacePath;
   bfs::path    stlHelpersPath;
   bfs::path    inputCibIdFile;
-  bool         noExactDelegation{false};
-  bool         libraryManagedProxies;
-  bool         alwaysUseNsName{true};
-  bool         noRtti{false};
-  bool         noException{false};
+  bool         noExactDelegation;
+  bool         alwaysUseNsName;
+  bool         noRtti;
+  bool         noException;
   StringVector layoutSharingClasses;
   StringVector interfaceClasses;
+  bool         defaultLibraryManagedProxies;
+  StringVector localProxyManagedClasses;
+  StringVector remoteProxyManagedClasses;
 
 public:
   CibParams(std::string  m,
@@ -78,12 +80,14 @@ public:
             bfs::path    r,
             bfs::path    c,
             bool         d,
-            bool         p,
             bool         u,
             bool         t,
             bool         e,
             StringVector n,
-            StringVector F)
+            StringVector F,
+            bool         l,
+            StringVector L,
+            StringVector R)
     : cibInternalDirName("__zz_cib_internal")
     , stlHelperDirName("__zz_cib_stl-helpers")
     , copyCtorCAPIPrefix("__zz_cib_Copy")
@@ -100,12 +104,14 @@ public:
     , stlHelpersPath(resDir / stlHelperDirName)
     , inputCibIdFile(std::move(c))
     , noExactDelegation(d)
-    , libraryManagedProxies(p)
     , alwaysUseNsName(u)
     , noRtti(t)
     , noException(e)
     , layoutSharingClasses(std::move(n))
-    , interfaceClasses(F)
+    , interfaceClasses(std::move(F))
+    , defaultLibraryManagedProxies(l)
+    , localProxyManagedClasses(std::move(L))
+    , remoteProxyManagedClasses(std::move(R))
   {
   }
   CibParams(CibParams&&) = default;
