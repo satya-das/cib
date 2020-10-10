@@ -55,9 +55,9 @@ struct __zz_cib_GlobalProxyRepo
 
   // clang-format off
   Proxy (*FindProxy)      (const ProxyManager*, __zz_cib_ClientId);
-  void  (*registerProxy)  (const ProxyManager*, __zz_cib_ClientId, Proxy, ProxyDeleter);
-  void  (*unregisterProxy)(const ProxyManager*, __zz_cib_ClientId);
-  void  (*deleteProxies)  (const ProxyManager*);
+  void  (*RegisterProxy)  (const ProxyManager*, __zz_cib_ClientId, Proxy, ProxyDeleter);
+  void  (*UnRegisterProxy)(const ProxyManager*, __zz_cib_ClientId);
+  void  (*DeleteProxies)  (const ProxyManager*);
   // clang-format on
 };
 
@@ -73,9 +73,9 @@ struct __zz_cib_ProxyRepo
 
   // clang-format off
   Proxy (*FindProxy)      (const ProxyManager*, __zz_cib_ClientId);
-  void  (*registerProxy)  (const ProxyManager*, __zz_cib_ClientId, Proxy, ProxyDeleter);
-  void  (*unregisterProxy)(const ProxyManager*, __zz_cib_ClientId);
-  void  (*deleteProxies)  (const ProxyManager*);
+  void  (*RegisterProxy)  (const ProxyManager*, __zz_cib_ClientId, Proxy, ProxyDeleter);
+  void  (*UnRegisterProxy)(const ProxyManager*, __zz_cib_ClientId);
+  void  (*DeleteProxies)  (const ProxyManager*);
   // clang-format on
 };
 
@@ -107,11 +107,11 @@ protected:
   // Destructor will ensure all proxies are deleted.
   ~__zz_cib_ProxyManager()
   {
-    __zz_cib_getProxyRepo()->deleteProxies(this);
+    __zz_cib_GetProxyRepo()->DeleteProxies(this);
   }
 
 private:
-  static __zz_cib_ProxyRepo<__zz_cib_ProxyManager>* __zz_cib_getProxyRepo()
+  static __zz_cib_ProxyRepo<__zz_cib_ProxyManager>* __zz_cib_GetProxyRepo()
   {
     static_assert(sizeof(__zz_cib_GlobalProxyRepo) == sizeof(__zz_cib_ProxyRepo<__zz_cib_ProxyManager>));
     return reinterpret_cast<__zz_cib_ProxyRepo<__zz_cib_ProxyManager>*>(__zz_cib_GetGlobalProxyRepo());
@@ -119,15 +119,15 @@ private:
 
   __zz_cib_Proxy __zz_cib_FindProxy(__zz_cib_ClientId clientId) const
   {
-    return __zz_cib_getProxyRepo()->FindProxy(this, clientId);
+    return __zz_cib_GetProxyRepo()->FindProxy(this, clientId);
   }
   void __zz_cib_RegisterProxy(__zz_cib_ClientId clientId, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter)
   {
-    __zz_cib_getProxyRepo()->registerProxy(this, clientId, proxy, deleter);
+    __zz_cib_GetProxyRepo()->RegisterProxy(this, clientId, proxy, deleter);
   }
   void __zz_cib_UnregisterProxy(__zz_cib_ClientId clientId)
   {
-    __zz_cib_getProxyRepo()->unregisterProxy(this, clientId);
+    __zz_cib_GetProxyRepo()->UnRegisterProxy(this, clientId);
   }
   friend class __zz_cib_ProxyManagerDelegator;
 };

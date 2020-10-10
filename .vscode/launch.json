@@ -1123,17 +1123,17 @@
             ]
         },
         {
-            "name": "Run cib for lib-deletes-proxy",
+            "name": "Run cib for lib-managed-proxies-proxy",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/230-lib-deletes-proxy/pub",
+                "${workspaceFolder}/examples/230-lib-managed-proxies-proxy/pub",
                 "-b",
-                "${workspaceFolder}/examples/230-lib-deletes-proxy/cib",
+                "${workspaceFolder}/examples/230-lib-managed-proxies-proxy/cib",
                 "-o",
-                "${workspaceFolder}/examples/230-lib-deletes-proxy/exp",
+                "${workspaceFolder}/examples/230-lib-managed-proxies-proxy/exp",
                 "-m",
                 "Example"
             ],
@@ -1241,10 +1241,10 @@
             ]
         },
         {
-            "name": "lib-deletes-proxy",
+            "name": "lib-managed-proxies-proxy",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/builds/examples/230-lib-deletes-proxy",
+            "program": "${workspaceFolder}/builds/examples/230-lib-managed-proxies-proxy",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],
