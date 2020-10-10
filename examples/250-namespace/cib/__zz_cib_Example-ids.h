@@ -36,13 +36,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 { namespace __zz_cib_Class260 { namespace __zz_cib_Class261 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A(const ::Example::Outer::Inner::A&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::Example::Int i() const;
     i_3 = 3,
     //#= ::Example::Outer::Inner::Float f() const;

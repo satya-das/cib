@@ -36,13 +36,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A(const ::A&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= A();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~A();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int f0();
     f0_3 = 3,
     //#= int f1();
@@ -68,13 +68,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= B(const ::B&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= B();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~B();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int f1();
     f1_3 = 3,
     //#= int f2();
@@ -84,13 +84,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= C(const ::C&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= C();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~C();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int f1();
     f1_3 = 3,
     //#= int f2();
@@ -102,13 +102,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= P(const ::P&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= P();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~P();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int f1();
     f1_3 = 3,
     //#= int f2();

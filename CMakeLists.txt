@@ -87,7 +87,6 @@ set(RESFILES
 	__zz_cib_Module-smart-ptr-input.h
 	__zz_cib_Module-value-types.h
 	__zz_cib_Module-type-traits.h
-	__zz_cib_pointer_helper.h
 	__zz_cib_stl-interface/vector
 	__zz_cib_stl-interface/list
 	__zz_cib_stl-helpers/__zz_cib_vector-iterator.h

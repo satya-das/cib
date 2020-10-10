@@ -1,6 +1,6 @@
 #pragma once
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_ExampleGlobal {
   //#= FullClassName: ::
   enum { __zz_cib_classid = 259 };
 }}}
@@ -25,8 +25,8 @@ namespace __zz_cib_ { namespace Example {
   enum { __zz_cib_internal_class_id = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global {
-  enum __zz_cib_methodid {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_ExampleGlobal {
+  enum __zz_cib_Methodid {
     //#= int GlobalFunction1();
     GlobalFunction1_0 = 0,
     //#= int GlobalFunction2();
@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Example_Global
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= int Function1();
     Function1_0 = 0,
     //#= int Function2();

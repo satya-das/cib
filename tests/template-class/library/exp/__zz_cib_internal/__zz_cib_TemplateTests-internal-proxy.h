@@ -34,21 +34,21 @@ namespace TemplateTests {
 
 using __zz_cib_ClientId = std::uint32_t;
 
-class __zz_cib_internal_proxy
+class __zz_cib_InternalProxy
 {
 public:
-  static __zz_cib_ClientId __zz_cib_get_client_id()
+  static __zz_cib_ClientId __zz_cib_GetClientId()
   {
-    using __zz_cib_get_next_client_id_proc   = __zz_cib_ClientId (*__zz_cib_decl)();
-    static const __zz_cib_ClientId clientId = internal_mtable().invoke<__zz_cib_get_next_client_id_proc, 0>();
+    using __zz_cib_GetNextClientIdProc      = __zz_cib_ClientId (*__zz_cib_decl)();
+    static const __zz_cib_ClientId clientId = GetMethodTable().Invoke<__zz_cib_GetNextClientIdProc, 0>();
     return clientId;
   }
 
 private:
-  static const __zz_cib_MethodTableHelper& internal_mtable()
+  static const __zz_cib_MethodTableHelper& GetMethodTable()
   {
     constexpr auto                           internalClassId = __zz_cib_::TemplateTests::__zz_cib_internal_class_id;
-    static const __zz_cib_MethodTableHelper& mtable          = __zz_cib_TemplateTests_GetMethodTable(internalClassId);
+    static const __zz_cib_MethodTableHelper& mtable          = __zz_cib_TemplateTestsGetMethodTable(internalClassId);
     return mtable;
   }
 };

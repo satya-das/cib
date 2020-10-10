@@ -72,7 +72,7 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << '\n';
   stm << indentation << "extern \"C\" __zz_cib_export\n"
       << "const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_" << cibParams.moduleName
-      << "_GetMethodTable(std::uint32_t classId)\n";
+      << "GetMethodTable(std::uint32_t classId)\n";
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {

@@ -30,10 +30,10 @@ namespace Example {
 
 using __zz_cib_ClientId = std::uint32_t;
 
-class __zz_cib_internal
+class __zz_cib_Internal
 {
 public:
-  static __zz_cib_ClientId __zz_cib_get_next_client_id()
+  static __zz_cib_ClientId __zz_cib_GetNextClientId()
   {
     static __zz_cib_ClientId nextClientId = 0;
     return nextClientId++;

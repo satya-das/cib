@@ -22,11 +22,11 @@ class __zz_cib_CoreTypeToAbiType
 public:
   __zz_cib_CoreTypeToAbiType(T x);
 
-  T convert() const;
+  T Convert() const;
 
   operator T() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -35,12 +35,12 @@ public:
 template <typename T>
 auto __zz_cib_ToAbiType(__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>> obj)
 {
-  return obj.convert();
+  return obj.Convert();
 }
 
 template <typename T>
 using __zz_cib_AbiType_t =
-  decltype((static_cast<__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>*>(nullptr))->convert());
+  decltype((static_cast<__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>*>(nullptr))->Convert());
 
 template <typename T, typename D1, typename D2>
 using __zz_cib_LazyAbiTypeHelper = __zz_cib_AbiType_t<std::enable_if_t<std::is_same_v<D1, D2>, T>>;
@@ -52,7 +52,7 @@ template <typename D, typename T>
 auto __zz_cib_LazyAbiType(
   __zz_cib_CoreTypeToAbiType<std::enable_if_t<std::is_same_v<typename D::first_type, typename D::second_type>, T>> obj)
 {
-  return obj.convert();
+  return obj.Convert();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +70,7 @@ class __zz_cib_AbiTypeToCoreType
 public:
   __zz_cib_AbiTypeToCoreType(__zz_cib_AbiType_t<T> x);
 
-  T convert() const;
+  T Convert() const;
     operator T() const;
 };
 

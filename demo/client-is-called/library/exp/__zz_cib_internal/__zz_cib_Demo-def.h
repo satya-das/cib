@@ -5,4 +5,4 @@
 #include "__zz_cib_Demo-mtable.h"
 
 extern "C" __zz_cib_import const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl
-                                                                  __zz_cib_Demo_GetMethodTable(std::uint32_t classId);
+                                                                  __zz_cib_DemoGetMethodTable(std::uint32_t classId);

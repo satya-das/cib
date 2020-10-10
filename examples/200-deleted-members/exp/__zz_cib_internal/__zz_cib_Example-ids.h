@@ -26,11 +26,11 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= ~A();
-    __zz_cib_delete_0 = 0,
+    __zz_cib_Delete_0 = 0,
     //#= A();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= int f();
     f_2 = 2,
     __zz_cib_next_method_id = 3
@@ -38,11 +38,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= ~B();
-    __zz_cib_delete_0 = 0,
+    __zz_cib_Delete_0 = 0,
     //#= B();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= int g();
     g_2 = 2,
     __zz_cib_next_method_id = 3

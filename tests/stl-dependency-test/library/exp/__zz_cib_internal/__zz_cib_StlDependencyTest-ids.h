@@ -46,13 +46,13 @@ namespace __zz_cib_ { namespace StlDependencyTest {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= ExampleClass(const ::ExampleClass&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ExampleClass();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~ExampleClass();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= ::std::vector<::ExampleClass*> get();
     get_3 = 3,
     //#= int value() const;
@@ -62,13 +62,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= vector_iterator(const vector_iterator<::ExampleClass* const >&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass* const >::pointer operator->();
@@ -112,13 +112,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= vector_iterator(const vector_iterator<::ExampleClass*>&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::ExampleClass*>::pointer operator->();
@@ -162,13 +162,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class260 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::ExampleClass* const >&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::pointer operator->() const;
@@ -212,13 +212,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::ExampleClass*>&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>::reference operator*();
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>::pointer operator->() const;
@@ -262,19 +262,19 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class262 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= vector();
-    __zz_cib_new_0 = 0,
+    __zz_cib_New_0 = 0,
     //#= vector(::std::vector<::ExampleClass*>::size_type);
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= vector(::std::vector<::ExampleClass*>::size_type, ::ExampleClass* const&);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= vector(const ::std::vector<::ExampleClass*>&);
-    __zz_cib_copy_3 = 3,
+    __zz_cib_Copy_3 = 3,
     //#= vector(::std::vector<::ExampleClass*>&&);
-    __zz_cib_new_4 = 4,
+    __zz_cib_New_4 = 4,
     //#= ~vector();
-    __zz_cib_delete_5 = 5,
+    __zz_cib_Delete_5 = 5,
     //#= ::std::vector<::ExampleClass*>& operator=(const ::std::vector<::ExampleClass*>&);
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::vector<::ExampleClass*>& operator=(::std::vector<::ExampleClass*>&&);

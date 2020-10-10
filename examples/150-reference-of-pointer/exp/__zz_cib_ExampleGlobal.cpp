@@ -7,44 +7,44 @@
 
 #include "example.h"
 
-namespace __zz_cib_ { namespace __zz_cib_Example_Global {
+namespace __zz_cib_ { namespace __zz_cib_ExampleGlobal {
 struct __zz_cib_Helper : public __zz_cib_MethodTableHelper {
-using __zz_cib_methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Example_Global::__zz_cib_methodid;
+using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_Methodid;
 
 __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
-    __zz_cib_Example_GetMethodTable(__zz_cib_ids::__zz_cib_Example_Global::__zz_cib_classid))
+    __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_classid))
 {}
-static __zz_cib_Helper& __zz_cib_instance() {
+static __zz_cib_Helper& __zz_cib_Instance() {
   static __zz_cib_Helper helper;
   return helper;
 }
-static __zz_cib_MethodTableHelper& __zz_cib_mtbl() {
-  return __zz_cib_instance();
+static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTable() {
+  return __zz_cib_Instance();
 }
 
   template <typename _RT, typename ..._Args>
   static auto GetNewA_0(_Args... __zz_cib_args) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA_0>(
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewA_0>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewB_1(_Args... __zz_cib_args) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB_1>(
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewB_1>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewA_2(_Args... __zz_cib_args) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewA_2>(
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewA_2>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewB_3(_Args... __zz_cib_args) {
-    using __zz_cib_proc = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_mtbl().invoke<__zz_cib_proc, __zz_cib_methodid::GetNewB_3>(
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewB_3>(
       __zz_cib_args...);
   }
 };
@@ -52,7 +52,7 @@ static __zz_cib_MethodTableHelper& __zz_cib_mtbl() {
 
 int GetNewA(::A*& pA) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_0<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    __zz_cib_::__zz_cib_ExampleGlobal::__zz_cib_Helper::GetNewA_0<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
@@ -60,7 +60,7 @@ int GetNewA(::A*& pA) {
 
 int GetNewB(::A*& pA) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_1<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    __zz_cib_::__zz_cib_ExampleGlobal::__zz_cib_Helper::GetNewB_1<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
@@ -68,7 +68,7 @@ int GetNewB(::A*& pA) {
 
 int GetNewA(const ::A*& pA) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewA_2<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    __zz_cib_::__zz_cib_ExampleGlobal::__zz_cib_Helper::GetNewA_2<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );
@@ -76,7 +76,7 @@ int GetNewA(const ::A*& pA) {
 
 int GetNewB(const ::A*& pA) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
-    __zz_cib_::__zz_cib_Example_Global::__zz_cib_Helper::GetNewB_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+    __zz_cib_::__zz_cib_ExampleGlobal::__zz_cib_Helper::GetNewB_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(pA)>(pA)
     )
   );

@@ -54,7 +54,7 @@ protected:                                                                      
   explicit className(__zz_cib_AbiType h)                                                                               \
     : __zz_cib_h_(h)                                                                                                   \
   {                                                                                                                    \
-    __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);                                                          \
+    __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);                                                           \
   }
 
 /**

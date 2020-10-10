@@ -26,13 +26,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A(const ::A&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= int f(std::function<int()>) const;
     f_3 = 3,
     //#= int g(const std::function<int()>&) const;
@@ -44,13 +44,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= C(const ::C&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= C(int);
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~C();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int value() const;
     value_3 = 3,
     __zz_cib_next_method_id = 4

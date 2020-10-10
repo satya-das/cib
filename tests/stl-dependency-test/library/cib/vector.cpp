@@ -19,23 +19,23 @@ struct __zz_cib_Delegator<::std::vector<::ExampleClass*>> : public ::std::vector
 
   using ::std::vector<::ExampleClass*>::vector;
 
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_0() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_1(__zz_cib_AbiType_t<::std::vector<::ExampleClass*>::size_type> n) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_1(__zz_cib_AbiType_t<::std::vector<::ExampleClass*>::size_type> n) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<::std::vector<::ExampleClass*>::size_type>(n));
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2(__zz_cib_AbiType_t<::std::vector<::ExampleClass*>::size_type> n, __zz_cib_AbiType_t<::ExampleClass* const&> value) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2(__zz_cib_AbiType_t<::std::vector<::ExampleClass*>::size_type> n, __zz_cib_AbiType_t<::ExampleClass* const&> value) {
     return new __zz_cib_Delegatee(    __zz_cib_::__zz_cib_FromAbiType<::std::vector<::ExampleClass*>::size_type>(n),
     __zz_cib_::__zz_cib_FromAbiType<::ExampleClass* const&>(value));
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_3(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_4(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_4(__zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(std::move(*__zz_cib_obj));
   }
-  static void __zz_cib_decl __zz_cib_delete_5(__zz_cib_Delegatee* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_Delete_5(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
   static __zz_cib_AbiType_t<::std::vector<::ExampleClass*>&> __zz_cib_decl __zz_cib_OperatorEqual_6(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::std::vector<::ExampleClass*>&> x) {
@@ -285,12 +285,12 @@ using namespace ::std;
 namespace __zz_cib_Class262 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_new_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_new_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_new_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_copy_3),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_new_4),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_delete_5),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_New_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_New_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_New_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_Copy_3),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_New_4),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_Delete_5),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_OperatorEqual_6),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::__zz_cib_OperatorEqual_7),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::std::vector<::ExampleClass*>>::assign_8),

@@ -14,18 +14,18 @@ Example::A::A(A&& rhs)
 }
 
 Example::A::A()
-  : Example::A(__zz_cib_MyHelper::__zz_cib_new_0(
+  : Example::A(__zz_cib_MyHelper::__zz_cib_New_0(
     ))
   {}
 
 Example::A::A(const ::Example::A& __zz_cib_param0)
-  : Example::A(__zz_cib_MyHelper::__zz_cib_copy_1(
+  : Example::A(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete_2(
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
 }

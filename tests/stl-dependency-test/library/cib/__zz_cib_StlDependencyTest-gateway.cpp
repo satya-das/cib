@@ -11,7 +11,7 @@ namespace __zz_cib_ { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 
 namespace __zz_cib_ { namespace __zz_cib_Class261 { namespace __zz_cib_Class262 { const __zz_cib_MethodTable* __zz_cib_GetMethodTable(); }}}
 
 extern "C" __zz_cib_export
-const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_StlDependencyTest_GetMethodTable(std::uint32_t classId)
+const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_StlDependencyTestGetMethodTable(std::uint32_t classId)
 {
   switch(classId) {
   case __zz_cib_::__zz_cib_ids::__zz_cib_Class263::__zz_cib_classid:

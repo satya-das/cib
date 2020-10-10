@@ -17,7 +17,7 @@
 //   T m;
 
 // public:
-//   T convert()
+//   T Convert()
 //   {
 //     return std::move(m);
 //   }
@@ -30,7 +30,7 @@
 
 //   operator T()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -41,7 +41,7 @@
 //   T* m;
 
 // public:
-//   T* convert()
+//   T* Convert()
 //   {
 //     return m;
 //   }
@@ -54,7 +54,7 @@
 
 //   operator T*()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -65,7 +65,7 @@
 //   T& m;
 
 // public:
-//   T* convert()
+//   T* Convert()
 //   {
 //     return &m;
 //   }
@@ -78,7 +78,7 @@
 
 //   operator T*()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -88,7 +88,7 @@
 //   T m;
 
 // public:
-//   T* convert()
+//   T* Convert()
 //   {
 //     return &m;
 //   }
@@ -101,7 +101,7 @@
 
 //   operator T*()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -112,7 +112,7 @@
 //   T* m;
 
 // public:
-//   T* convert()
+//   T* Convert()
 //   {
 //     return m;
 //   }
@@ -125,7 +125,7 @@
 
 //   operator T*() const
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -136,7 +136,7 @@
 //   T* m;
 
 // public:
-//   T* convert()
+//   T* Convert()
 //   {
 //     return m;
 //   }
@@ -149,7 +149,7 @@
 
 //   operator T*() const
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -166,14 +166,14 @@
 //   {
 //   }
 
-//   T convert() const
+//   T Convert() const
 //   {
 //     return m;
 //   }
 
 //   operator T() const
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -191,14 +191,14 @@
 //   {
 //   }
 
-//   T& convert()
+//   T& Convert()
 //   {
 //     return *m;
 //   }
 
 //   operator T&()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -216,14 +216,14 @@
 //   {
 //   }
 
-//   T& convert()
+//   T& Convert()
 //   {
 //     return *m;
 //   }
 
 //   operator T&()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -241,14 +241,14 @@
 //   {
 //   }
 
-//   T&& convert()
+//   T&& Convert()
 //   {
 //     return std::move(*m);
 //   }
 
 //   operator T &&()
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -258,7 +258,7 @@
 //   T* m;
 
 // public:
-//   T* convert() const
+//   T* Convert() const
 //   {
 //     return m;
 //   }
@@ -271,7 +271,7 @@
 
 //   operator T*() const
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 
@@ -281,7 +281,7 @@
 //   T* m;
 
 // public:
-//   T* convert() const
+//   T* Convert() const
 //   {
 //     return m;
 //   }
@@ -294,7 +294,7 @@
 
 //   operator T*() const
 //   {
-//     return convert();
+//     return Convert();
 //   }
 // };
 

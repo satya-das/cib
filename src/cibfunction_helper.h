@@ -263,11 +263,11 @@ public:
   {
     std::string pname;
     if (isCopyConstructor())
-      pname = "__zz_cib_copy";
+      pname = "__zz_cib_Copy";
     else if (isConstructor())
-      pname = "__zz_cib_new";
+      pname = "__zz_cib_New";
     else if (isDestructor())
-      pname = "__zz_cib_delete";
+      pname = "__zz_cib_Delete";
     else
       pname = modifyName(funcName());
 

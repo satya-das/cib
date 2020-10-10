@@ -36,12 +36,12 @@ template <typename _ProxyClass>
 class __zz_cib_null_proxy_mgr
 {
 public:
-  _ProxyClass* findProxy(__zz_cib_HANDLE*)
+  _ProxyClass* FindProxy(__zz_cib_HANDLE*)
   {
     return nullptr;
   }
-  void addProxy(_ProxyClass*, __zz_cib_HANDLE*) {}
-  void removeProxy(__zz_cib_HANDLE*) {}
+  void AddProxy(_ProxyClass*, __zz_cib_HANDLE*) {}
+  void RemoveProxy(__zz_cib_HANDLE*) {}
 };
 
 } // namespace Module

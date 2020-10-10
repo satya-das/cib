@@ -18,13 +18,13 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::Exam
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::vector_reverse_iterator;
 
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_Delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
   static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -159,9 +159,9 @@ using namespace ::__zz_cib_stl_helpers;
 namespace __zz_cib_Class260 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_new_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_Copy_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_Delete_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_New_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_OperatorMul_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_OperatorArrow_4),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass* const >>::__zz_cib_OperatorMul_5),
@@ -196,13 +196,13 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::Exam
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>::vector_reverse_iterator;
 
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_Delegatee(*__zz_cib_obj);
   }
-  static void __zz_cib_decl __zz_cib_delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+  static void __zz_cib_decl __zz_cib_Delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_new_2() {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
   static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(__zz_cib_Delegatee* __zz_cib_obj) {
@@ -337,9 +337,9 @@ using namespace ::__zz_cib_stl_helpers;
 namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_new_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_Copy_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_Delete_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_New_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_OperatorMul_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_OperatorArrow_4),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::ExampleClass*>>::__zz_cib_OperatorMul_5),

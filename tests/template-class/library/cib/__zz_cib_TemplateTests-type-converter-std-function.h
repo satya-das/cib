@@ -21,7 +21,7 @@ class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>>
   AbiFunctor mAbiFunctor;
 
 public:
-  AbiType convert() const
+  AbiType Convert() const
   {
     return mAbiFunctor;
   }
@@ -38,7 +38,7 @@ public:
 
   operator AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -52,7 +52,7 @@ class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&>
   std::function<R(Args...)>& mOrigParam;
 
 public:
-  AbiType convert()
+  AbiType Convert()
   {
     return &mAbiFunctor;
   }
@@ -76,7 +76,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -90,7 +90,7 @@ class __zz_cib_CoreTypeToAbiType<const std::function<R(Args...)>&>
   const std::function<R(Args...)>& mOrigParam;
 
 public:
-  AbiType convert()
+  AbiType Convert()
   {
     return &mAbiFunctor;
   }
@@ -110,7 +110,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -124,7 +124,7 @@ class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>*>
   std::function<R(Args...)>* mOrigParam;
 
 public:
-  AbiType convert()
+  AbiType Convert()
   {
     return &mAbiFunctor;
   }
@@ -150,7 +150,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -163,7 +163,7 @@ class __zz_cib_CoreTypeToAbiType<std::function<R(Args...)>&&>
   AbiFunctor mAbiFunctor;
 
 public:
-  AbiFunctor* convert()
+  AbiFunctor* Convert()
   {
     return &mAbiFunctor;
   }
@@ -176,7 +176,7 @@ public:
 
   operator AbiFunctor*()
   {
-    return convert();
+    return Convert();
   }
 };
 

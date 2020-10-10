@@ -31,13 +31,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A(const ::A&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= std::unique_ptr<I> f() const;
     f_3 = 3,
     //#= ::I* g();
@@ -53,33 +53,33 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= I(std::unique_ptr<int>);
-    __zz_cib_new_0 = 0,
+    __zz_cib_New_0 = 0,
     //#= I();
-    __zz_cib_new_1 = 1,
+    __zz_cib_New_1 = 1,
     //#= ~I();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= int f() const;
     f_3 = 3,
     //#= std::unique_ptr<int> g() const;
     g_4 = 4,
-    //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 5,
-    //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 6,
+    //#= __zz_cib_GetClassId
+    __zz_cib_GetClassId = 5,
+    //#= __zz_cib_ReleaseProxy
+    __zz_cib_ReleaseProxy = 6,
     __zz_cib_next_method_id = 7
   };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= std::unique_ptr<int> g() const;
     g_0 = 0,
     //#= int f() const;
     f_1 = 1,
     //#= ~I();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}

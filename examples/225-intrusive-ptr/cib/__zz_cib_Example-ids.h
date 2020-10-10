@@ -41,13 +41,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A(const ::A&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~A();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= A();
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= sk_sp<I> f() const;
     f_3 = 3,
     //#= ::I* g();
@@ -61,45 +61,45 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= I();
-    __zz_cib_new_0 = 0,
+    __zz_cib_New_0 = 0,
     //#= ~I();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= int f() const;
     f_2 = 2,
     //#= void internal_dispose() const;
     internal_dispose_3 = 3,
-    //#= __zz_cib_cast_to___zz_cib_Class258
-    __zz_cib_cast_to___zz_cib_Class258 = 4,
-    //#= __zz_cib_cast_from___zz_cib_Class258
-    __zz_cib_cast_from___zz_cib_Class258 = 5,
-    //#= __zz_cib_get_class_id
-    __zz_cib_get_class_id = 6,
-    //#= __zz_cib_release_proxy
-    __zz_cib_release_proxy = 7,
+    //#= __zz_cib_CastTo__zz_cib_Class258
+    __zz_cib_CastTo__zz_cib_Class258 = 4,
+    //#= __zz_cib_CastFrom__zz_cib_Class258
+    __zz_cib_CastFrom__zz_cib_Class258 = 5,
+    //#= __zz_cib_GetClassId
+    __zz_cib_GetClassId = 6,
+    //#= __zz_cib_ReleaseProxy
+    __zz_cib_ReleaseProxy = 7,
     __zz_cib_next_method_id = 8
   };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= int f() const;
     f_0 = 0,
     //#= void internal_dispose() const;
     internal_dispose_1 = 1,
     //#= ~I();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     __zz_cib_next_method_id = 3
   };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= SkRefCntBase();
-    __zz_cib_new_0 = 0,
+    __zz_cib_New_0 = 0,
     //#= ~SkRefCntBase();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= void ref() const;
     ref_2 = 2,
     //#= void unref() const;

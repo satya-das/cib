@@ -37,12 +37,12 @@ namespace templates {
 using __zz_cib_ClientId = std::uint32_t;
 
 template <typename _ProxyClass, typename _Helper>
-class __zz_cib_remote_proxy_mgr
+class __zz_cib_RemoteProxyManager
 {
 public:
-  __zz_cib_remote_proxy_mgr()
+  __zz_cib_RemoteProxyManager()
     /*/ TODO: Remove this comment
-    : clientId_(__zz_cib_internal_proxy::__zz_cib_get_client_id())
+    : clientId_(__zz_cib_InternalProxy::__zz_cib_GetClientId())
     /*/
     : clientId_(0)
   //*/
@@ -50,18 +50,18 @@ public:
   }
 
 public:
-  _ProxyClass* findProxy(typename _ProxyClass::__zz_cib_AbiType h)
+  _ProxyClass* FindProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
-    return _Helper::__zz_cib_findProxy(h, clientId_);
+    return _Helper::__zz_cib_FindProxy(h, clientId_);
   }
-  void addProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
+  void AddProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
   {
-    _Helper::__zz_cib_registerProxy(
-      h, clientId_, __zz_cib_obj, [](_ProxyClass* obj) { _Helper::__zz_cib_delete_only_proxy(obj); });
+    _Helper::__zz_cib_RegisterProxy(
+      h, clientId_, __zz_cib_obj, [](_ProxyClass* obj) { _Helper::__zz_cib_DeleteOnlyProxy(obj); });
   }
-  void removeProxy(typename _ProxyClass::__zz_cib_AbiType h)
+  void RemoveProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
-    _Helper::__zz_cib_unregisterProxy(h, clientId_);
+    _Helper::__zz_cib_UnregisterProxy(h, clientId_);
   }
 
 private:

@@ -46,13 +46,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= A();
-    __zz_cib_new_0 = 0,
+    __zz_cib_New_0 = 0,
     //#= A(const ::Example::A&);
-    __zz_cib_copy_1 = 1,
+    __zz_cib_Copy_1 = 1,
     //#= ~A();
-    __zz_cib_delete_2 = 2,
+    __zz_cib_Delete_2 = 2,
     //#= void Set(const ::Example::Value<int>&);
     Set_3 = 3,
     //#= ::Example::Value<int> Get() const;
@@ -70,13 +70,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= Int(const ::Example::Int&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~Int();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= Int(int);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= operator int () const;
     __zz_cib_Operator_3 = 3,
     __zz_cib_next_method_id = 4
@@ -84,13 +84,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= Value(const ::Example::Value<::Example::Int>&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~Value();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= Value(::Example::Int);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= ::Example::Int GetValue() const;
     GetValue_3 = 3,
     //#= void SetValue(::Example::Int);
@@ -102,13 +102,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= Value(const ::Example::Value<float>&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~Value();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= Value(float);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= float GetValue() const;
     GetValue_3 = 3,
     //#= void SetValue(float);
@@ -120,13 +120,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= Value(const ::Example::Value<int>&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~Value();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= Value(int);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= int GetValue() const;
     GetValue_3 = 3,
     //#= void SetValue(int);

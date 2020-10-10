@@ -19,9 +19,9 @@ public:
   //! @note Will throw std::bad_function_call() if MethodTable doesn't contain
   //! method or the fetched method is null.
   template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
-  auto invoke(_TArgs... args) const
+  auto Invoke(_TArgs... args) const
   {
-    auto method = getMethod<_MethodType>(methodId);
+    auto method = GetMethod<_MethodType>(methodId);
     if (method == nullptr)
 #ifndef __ZZ_CIB_NO_EXCEPTION
       throw std::bad_function_call();
@@ -37,7 +37,7 @@ private:
   //! @return Method of type specified as template parameter.
   //! @warning returned value can be a nullptr.
   template <typename _MethodType>
-  _MethodType getMethod(std::uint32_t methodId) const
+  _MethodType GetMethod(std::uint32_t methodId) const
   {
     return reinterpret_cast<_MethodType>(__zz_cib_GetMTableEntry(mtbl, methodId));
   }

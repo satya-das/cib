@@ -4,25 +4,25 @@
 A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {
-  __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 A::A(A&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
-  __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete_0(
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_0(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_new_1(
+  : A(__zz_cib_MyHelper::__zz_cib_New_1(
     ))
   {}
 
@@ -46,14 +46,14 @@ B::B(B&& rhs)
 }
 
 B::~B() {
-auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete_0(
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_0(
     h
   );
 }
 
 B::B()
-  : B(__zz_cib_MyHelper::__zz_cib_new_1(
+  : B(__zz_cib_MyHelper::__zz_cib_New_1(
     ))
   {}
 

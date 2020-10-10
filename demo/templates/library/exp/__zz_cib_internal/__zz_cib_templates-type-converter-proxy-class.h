@@ -33,9 +33,9 @@ class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsProxyClass_v<T>,
   T m;
 
 public:
-  typename T::__zz_cib_AbiType convert()
+  typename T::__zz_cib_AbiType Convert()
   {
-    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_release_handle(&m);
+    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_ReleaseHandle(&m);
   }
 
 public:
@@ -50,7 +50,7 @@ public:
 
   operator typename T::__zz_cib_AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -60,9 +60,9 @@ class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>
   T& m;
 
 public:
-  typename T::__zz_cib_AbiType convert() const
+  typename T::__zz_cib_AbiType Convert() const
   {
-    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(&m);
+    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(&m);
   }
 
 public:
@@ -73,7 +73,7 @@ public:
 
   operator typename T::__zz_cib_AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -83,9 +83,9 @@ class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T
   T& m;
 
 public:
-  typename T::__zz_cib_AbiType convert()
+  typename T::__zz_cib_AbiType Convert()
   {
-    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(&m);
+    return __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(&m);
   }
 
 public:
@@ -96,7 +96,7 @@ public:
 
   operator typename T::__zz_cib_AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -106,9 +106,9 @@ class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsProxyClass_v<T>
   T* m;
 
 public:
-  typename T::__zz_cib_AbiType convert() const
+  typename T::__zz_cib_AbiType Convert() const
   {
-    return m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(m) : nullptr;
+    return m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(m) : nullptr;
   }
 
 public:
@@ -119,7 +119,7 @@ public:
 
   operator typename T::__zz_cib_AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -129,9 +129,9 @@ class __zz_cib_CoreTypeToAbiType<T*&&, std::enable_if_t<__zz_cib_IsProxyClass_v<
   T*&& m;
 
 public:
-  auto convert() const
+  auto Convert() const
   {
-    return m ? &__zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(m) : nullptr;
+    return m ? &__zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(m) : nullptr;
   }
 
 public:
@@ -142,7 +142,7 @@ public:
 
   operator typename T::__zz_cib_AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -153,7 +153,7 @@ class __zz_cib_CoreTypeToAbiType<T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<T
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
 
 public:
-  auto convert()
+  auto Convert()
   {
     return &mHandle;
   }
@@ -161,17 +161,17 @@ public:
 public:
   __zz_cib_CoreTypeToAbiType(T*& x)
     : m(x)
-    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(m) : nullptr)
+    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(m) : nullptr)
   {
   }
   ~__zz_cib_CoreTypeToAbiType()
   {
-    m = __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_from_handle(mHandle);
+    m = __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_FromHandle(mHandle);
   }
 
   operator __zz_cib_ProxyClassAbiType_t<T>*()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -182,7 +182,7 @@ class __zz_cib_CoreTypeToAbiType<T* const&, std::enable_if_t<__zz_cib_IsProxyCla
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
 
 public:
-  auto convert()
+  auto Convert()
   {
     return mHandle;
   }
@@ -190,13 +190,13 @@ public:
 public:
   __zz_cib_CoreTypeToAbiType(T* x)
     : m(x)
-    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(m) : nullptr)
+    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(m) : nullptr)
   {
   }
 
   operator __zz_cib_ProxyClassAbiType_t<T>*()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -207,7 +207,7 @@ class __zz_cib_CoreTypeToAbiType<T**, std::enable_if_t<__zz_cib_IsProxyClass_v<T
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
 
 public:
-  auto convert()
+  auto Convert()
   {
     return &mHandle;
   }
@@ -215,17 +215,17 @@ public:
 public:
   __zz_cib_CoreTypeToAbiType(T** x)
     : m(x)
-    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_get_handle(*m) : nullptr)
+    , mHandle(m ? __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_GetHandle(*m) : nullptr)
   {
   }
   ~__zz_cib_CoreTypeToAbiType()
   {
-    *m = __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_from_handle(mHandle);
+    *m = __zz_cib_::__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_FromHandle(mHandle);
   }
 
   operator __zz_cib_ProxyClassAbiType_t<T>*()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -242,14 +242,14 @@ public:
   {
   }
 
-  T& convert() const
+  T& Convert() const
   {
-    return *__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_from_handle(m);
+    return *__zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_FromHandle(m);
   }
 
   operator T&() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -264,14 +264,14 @@ public:
   {
   }
 
-  T convert() const
+  T Convert() const
   {
-    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_obj_from_handle(m);
+    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_ObjectFromHandle(m);
   }
 
   operator T() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -286,14 +286,14 @@ public:
   {
   }
 
-  T* convert() const
+  T* Convert() const
   {
-    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_from_handle(m);
+    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_FromHandle(m);
   }
 
   operator T*() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -308,14 +308,14 @@ public:
   {
   }
 
-  T*& convert()
+  T*& Convert()
   {
-    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_from_handle(*m);
+    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_FromHandle(*m);
   }
 
   operator T*&()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -330,14 +330,14 @@ public:
   {
   }
 
-  T convert() const
+  T Convert() const
   {
-    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_obj_from_handle(m);
+    return __zz_cib_Helper<std::remove_cv_t<T>>::__zz_cib_ObjectFromHandle(m);
   }
 
   operator T() const
   {
-    return convert();
+    return Convert();
   }
 };
 

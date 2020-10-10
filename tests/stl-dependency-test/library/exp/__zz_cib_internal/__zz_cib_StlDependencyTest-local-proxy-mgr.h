@@ -29,19 +29,19 @@ namespace __zz_cib_ {
 namespace StlDependencyTest {
 
 template <typename _ProxyClass>
-class __zz_cib_local_proxy_mgr
+class __zz_cib_LocalProxyManager
 {
 public:
-  _ProxyClass* findProxy(typename _ProxyClass::__zz_cib_AbiType h)
+  _ProxyClass* FindProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
     auto itr = proxyRepo.find(h);
     return (itr == proxyRepo.end()) ? nullptr : itr->second;
   }
-  void addProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
+  void AddProxy(_ProxyClass* __zz_cib_obj, typename _ProxyClass::__zz_cib_AbiType h)
   {
     proxyRepo[h] = __zz_cib_obj;
   }
-  void removeProxy(typename _ProxyClass::__zz_cib_AbiType h)
+  void RemoveProxy(typename _ProxyClass::__zz_cib_AbiType h)
   {
     proxyRepo.erase(h);
   }

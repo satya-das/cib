@@ -86,11 +86,11 @@ public:
             StringVector F)
     : cibInternalDirName("__zz_cib_internal")
     , stlHelperDirName("__zz_cib_stl-helpers")
-    , copyCtorCAPIPrefix("__zz_cib_copy")
-    , ctorCAPIPrefix("__zz_cib_new")
-    , dtorCAPIPrefix("__zz_cib_delete")
-    , castToBasePrefix("__zz_cib_cast_to_")
-    , castFromBasePrefix("__zz_cib_cast_from_")
+    , copyCtorCAPIPrefix("__zz_cib_Copy")
+    , ctorCAPIPrefix("__zz_cib_New")
+    , dtorCAPIPrefix("__zz_cib_Delete")
+    , castToBasePrefix("__zz_cib_CastTo")
+    , castFromBasePrefix("__zz_cib_CastFrom")
     , moduleName(std::move(m))
     , inputPath(std::move(i))
     , outputPath(std::move(o))
@@ -121,7 +121,7 @@ public:
   }
   std::string globalNsName() const
   {
-    return "__zz_cib_" + moduleName + "_Global";
+    return "__zz_cib_" + moduleName + "Global";
   }
 
 private:

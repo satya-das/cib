@@ -21,13 +21,13 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_methodid {
+  enum __zz_cib_Methodid {
     //#= CPoint(const ::CPoint&);
-    __zz_cib_copy_0 = 0,
+    __zz_cib_Copy_0 = 0,
     //#= ~CPoint();
-    __zz_cib_delete_1 = 1,
+    __zz_cib_Delete_1 = 1,
     //#= CPoint(double, double, double);
-    __zz_cib_new_2 = 2,
+    __zz_cib_New_2 = 2,
     //#= const ::CPoint& operator +=(const ::CPoint&);
     __zz_cib_OperatorPlusEq_3 = 3,
     __zz_cib_next_method_id = 4

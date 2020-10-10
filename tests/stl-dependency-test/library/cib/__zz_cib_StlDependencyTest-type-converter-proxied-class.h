@@ -18,7 +18,7 @@ class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsProxiedClass_v<T
   T m;
 
 public:
-  T* convert()
+  T* Convert()
   {
     return new T(std::move(m));
   }
@@ -31,7 +31,7 @@ public:
 
   operator T*()
   {
-    return convert();
+    return Convert();
   }
 };
 

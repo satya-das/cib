@@ -15,7 +15,7 @@ template <>
 class __zz_cib_CoreTypeToAbiType<void>
 {
 public:
-  void convert() const {}
+  void Convert() const {}
 
   __zz_cib_CoreTypeToAbiType(void) {}
 };
@@ -38,7 +38,7 @@ class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<!std::is_reference_v<T> && 
   AbiType m;
 
 public:
-  AbiType convert()
+  AbiType Convert()
   {
     return m;
   }
@@ -51,7 +51,7 @@ public:
 
   operator AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -63,7 +63,7 @@ class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<IsBasicConversionNeeded_v<
 public:
   using AbiType = T*;
 
-  T* convert()
+  T* Convert()
   {
     return &m;
   }
@@ -76,7 +76,7 @@ public:
 
   operator T*()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -88,7 +88,7 @@ class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<IsBasicConversionNeeded_v
 public:
   using AbiType = T*;
 
-  T* convert()
+  T* Convert()
   {
     return &m;
   }
@@ -101,7 +101,7 @@ public:
 
   operator T*()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -120,14 +120,14 @@ public:
   {
   }
 
-  AbiType convert() const
+  AbiType Convert() const
   {
     return m;
   }
 
   operator AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -143,14 +143,14 @@ public:
   {
   }
 
-  T& convert()
+  T& Convert()
   {
     return *m;
   }
 
   operator T&()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -166,14 +166,14 @@ public:
   {
   }
 
-  T&& convert()
+  T&& Convert()
   {
     return std::move(*m);
   }
 
   operator T &&()
   {
-    return convert();
+    return Convert();
   }
 };
 

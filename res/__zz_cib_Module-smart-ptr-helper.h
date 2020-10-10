@@ -50,13 +50,13 @@ auto* release(SmartPtrT& smartPtr)
  * @note It is meant to be called mainly from implementation of proxy classes.
  */
 template <typename SmartPtrT, typename RawPtrBaseT>
-class __zz_cib_smart_to_raw_helper
+class __zz_cib_SmartPtrToRawPtrHelper
 {
   SmartPtrT*   smartPtr;
   RawPtrBaseT* rawPtr;
 
 public:
-  __zz_cib_smart_to_raw_helper(__zz_cib_smart_to_raw_helper&& rhs)
+  __zz_cib_SmartPtrToRawPtrHelper(__zz_cib_SmartPtrToRawPtrHelper&& rhs)
     : smartPtr(rhs.smartPtr)
     , rawPtr(rhs.rawPtr)
   {
@@ -65,13 +65,13 @@ public:
   }
 
 public:
-  __zz_cib_smart_to_raw_helper(SmartPtrT& _smartPtr)
+  __zz_cib_SmartPtrToRawPtrHelper(SmartPtrT& _smartPtr)
     : smartPtr(&_smartPtr)
     , rawPtr(nullptr)
   {
   }
 
-  RawPtrBaseT* convert()
+  RawPtrBaseT* Convert()
   {
     if (!smartPtr)
       return nullptr;
@@ -82,13 +82,13 @@ public:
 };
 
 template <typename SmartPtrT, typename RawPtrBaseT>
-class __zz_cib_smart_to_raw_helper<SmartPtrT*, RawPtrBaseT>
+class __zz_cib_SmartPtrToRawPtrHelper<SmartPtrT*, RawPtrBaseT>
 {
   SmartPtrT*   smartPtr;
   RawPtrBaseT* rawPtr;
 
 public:
-  __zz_cib_smart_to_raw_helper(__zz_cib_smart_to_raw_helper&& rhs)
+  __zz_cib_SmartPtrToRawPtrHelper(__zz_cib_SmartPtrToRawPtrHelper&& rhs)
     : smartPtr(rhs.smartPtr)
     , rawPtr(rhs.rawPtr)
   {
@@ -97,13 +97,13 @@ public:
   }
 
 public:
-  __zz_cib_smart_to_raw_helper(SmartPtrT* _smartPtr)
+  __zz_cib_SmartPtrToRawPtrHelper(SmartPtrT* _smartPtr)
     : smartPtr(_smartPtr)
     , rawPtr(nullptr)
   {
   }
 
-  RawPtrBaseT** convert()
+  RawPtrBaseT** Convert()
   {
     if (!smartPtr)
       return nullptr;
@@ -111,7 +111,7 @@ public:
     return &rawPtr;
   }
 
-  ~__zz_cib_smart_to_raw_helper()
+  ~__zz_cib_SmartPtrToRawPtrHelper()
   {
     if (rawPtr && smartPtr)
       attach(*smartPtr, rawPtr);
@@ -125,7 +125,7 @@ public:
  * @note It is meant to be called mainly from glue code of library.
  */
 template <typename SmartPtrT, typename RawPtrBaseT>
-class __zz_cib_raw_to_smart_helper
+class __zz_cib_RawPtrToSmartPtrHelper
 {
   SmartPtrT     smartPtr;
   RawPtrBaseT** rawPtr;
@@ -137,7 +137,7 @@ class __zz_cib_raw_to_smart_helper
   }
 
 public:
-  __zz_cib_raw_to_smart_helper(__zz_cib_raw_to_smart_helper&& rhs)
+  __zz_cib_RawPtrToSmartPtrHelper(__zz_cib_RawPtrToSmartPtrHelper&& rhs)
     : smartPtr(std::move(rhs.smartPtr))
     , rawPtr(rhs.rawPtr)
   {
@@ -145,7 +145,7 @@ public:
   }
 
 public:
-  __zz_cib_raw_to_smart_helper(RawPtrBaseT*& _rawPtr)
+  __zz_cib_RawPtrToSmartPtrHelper(RawPtrBaseT*& _rawPtr)
     : rawPtr(&_rawPtr)
   {
   }
@@ -164,7 +164,7 @@ public:
   }
 
 public:
-  __zz_cib_raw_to_smart_helper(RawPtrBaseT** _rawPtr)
+  __zz_cib_RawPtrToSmartPtrHelper(RawPtrBaseT** _rawPtr)
     : rawPtr(_rawPtr)
   {
   }
@@ -175,7 +175,7 @@ public:
     return &smartPtr;
   }
 
-  ~__zz_cib_raw_to_smart_helper()
+  ~__zz_cib_RawPtrToSmartPtrHelper()
   {
     if (rawPtr)
       *rawPtr = release(smartPtr);
@@ -183,39 +183,39 @@ public:
 };
 
 template <typename SmartPtrT, typename RawPtrBaseT>
-auto __zz_cib_make_smart_ptr_helper(SmartPtrT& smartPtr)
+auto __zz_cib_MakeSmartPtrHelper(SmartPtrT& smartPtr)
 {
-  return __zz_cib_smart_to_raw_helper<SmartPtrT, typename std::decay<RawPtrBaseT>::type>(smartPtr);
+  return __zz_cib_SmartPtrToRawPtrHelper<SmartPtrT, typename std::decay<RawPtrBaseT>::type>(smartPtr);
 }
 
 template <typename SmartPtrT, typename RawPtrBaseT>
-auto __zz_cib_make_smart_ptr_helper(SmartPtrT* smartPtr)
+auto __zz_cib_MakeSmartPtrHelper(SmartPtrT* smartPtr)
 {
-  return __zz_cib_smart_to_raw_helper<SmartPtrT*, typename std::decay<RawPtrBaseT>::type>(smartPtr);
+  return __zz_cib_SmartPtrToRawPtrHelper<SmartPtrT*, typename std::decay<RawPtrBaseT>::type>(smartPtr);
 }
 
 template <typename SmartPtrT>
-auto __zz_cib_make_smart_ptr_helper(SmartPtrT& smartPtr)
+auto __zz_cib_MakeSmartPtrHelper(SmartPtrT& smartPtr)
 {
-  return __zz_cib_make_smart_ptr_helper<SmartPtrT, decltype(*__zz_cib_::release(smartPtr))>(smartPtr);
+  return __zz_cib_MakeSmartPtrHelper<SmartPtrT, decltype(*__zz_cib_::release(smartPtr))>(smartPtr);
 }
 
 template <typename SmartPtrT>
-auto __zz_cib_make_smart_ptr_helper(SmartPtrT* smartPtr)
+auto __zz_cib_MakeSmartPtrHelper(SmartPtrT* smartPtr)
 {
-  return __zz_cib_make_smart_ptr_helper<SmartPtrT, decltype(*__zz_cib_::release(*smartPtr))>(smartPtr);
+  return __zz_cib_MakeSmartPtrHelper<SmartPtrT, decltype(*__zz_cib_::release(*smartPtr))>(smartPtr);
 }
 
 template <typename SmartPtrT, typename RawPtrBaseT>
 auto __zz_cib_to_smart_ptr(RawPtrBaseT* rawPtr)
 {
-  return __zz_cib_raw_to_smart_helper<SmartPtrT, RawPtrBaseT>(rawPtr);
+  return __zz_cib_RawPtrToSmartPtrHelper<SmartPtrT, RawPtrBaseT>(rawPtr);
 }
 
 template <typename SmartPtrT, typename RawPtrBaseT>
 auto __zz_cib_to_smart_ptr(RawPtrBaseT** rawPtr)
 {
-  return __zz_cib_raw_to_smart_helper<SmartPtrT, RawPtrBaseT>(rawPtr);
+  return __zz_cib_RawPtrToSmartPtrHelper<SmartPtrT, RawPtrBaseT>(rawPtr);
 }
 
 } // namespace __zz_cib_

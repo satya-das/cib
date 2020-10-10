@@ -17,7 +17,7 @@ struct __zz_cib_IsSmartPtr : std::false_type
 };
 
 template <typename T>
-struct __zz_cib_IsSmartPtr<T, std::void_t<decltype(__zz_cib_get(*((T*) nullptr)))>> : std::true_type
+struct __zz_cib_IsSmartPtr<T, std::void_t<decltype(__zz_cib_GetRawPtr(*((T*) nullptr)))>> : std::true_type
 {
 };
 

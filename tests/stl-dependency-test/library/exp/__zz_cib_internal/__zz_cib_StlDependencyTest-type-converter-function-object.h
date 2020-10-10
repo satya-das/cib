@@ -85,7 +85,7 @@ struct AbiFuncObjCallHelper
 {
   using OrigFuncType = R (*)(Args...);
 
-  static __zz_cib_AbiType_t<R> invoke(OrigFuncType funcObj, __zz_cib_AbiType_t<Args>... args)
+  static __zz_cib_AbiType_t<R> Invoke(OrigFuncType funcObj, __zz_cib_AbiType_t<Args>... args)
   {
     return __zz_cib_ToAbiType<R>(funcObj(__zz_cib_FromAbiType<Args>(args)...));
   }
@@ -96,7 +96,7 @@ struct AbiFuncObjCallHelper<void, Args...>
 {
   using OrigFuncType = void (*)(Args...);
 
-  static void invoke(OrigFuncType funcObj, __zz_cib_AbiType_t<Args>... args)
+  static void Invoke(OrigFuncType funcObj, __zz_cib_AbiType_t<Args>... args)
   {
     return funcObj(__zz_cib_FromAbiType<Args>(args)...);
   }
@@ -115,10 +115,10 @@ public:
     const auto  funcObj     = funcObjRepo.getOrigFunc(&AbiFunc);
     assert(funcObj != nullptr);
 
-    return AbiFuncObjCallHelper<R, Args...>::invoke(funcObj, args...);
+    return AbiFuncObjCallHelper<R, Args...>::Invoke(funcObj, args...);
   }
 
-  AbiFuncType convert() const
+  AbiFuncType Convert() const
   {
     return AbiFunc;
   }
@@ -134,7 +134,7 @@ public:
 
   operator AbiFuncType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -155,7 +155,7 @@ class __zz_cib_CoreTypeToAbiType<R (*)(Args...)>
   const OrigFuncType mFuncObj;
 
 public:
-  AbiFuncType convert() const
+  AbiFuncType Convert() const
   {
     const auto& funcObjRepo = FuncObjRepo<R, Args...>::instance();
     const auto  abiFuncObj  = funcObjRepo.getAbiFunc(mFuncObj);
@@ -170,52 +170,52 @@ public:
       case 0:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<0, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 1:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<1, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 2:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<2, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 3:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<3, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 4:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<4, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 5:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<5, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 6:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<6, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 7:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<7, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 8:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<8, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 9:
       {
         __zz_cib_CoreTypeToAbiTypeImpl<9, R, Args...> impl(mFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
 
       default:
@@ -232,7 +232,7 @@ public:
 
   operator AbiFuncType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -246,7 +246,7 @@ struct FuncObjCallHelper
 {
   using AbiFuncType = __zz_cib_AbiType_t<R>(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
 
-  static R invoke(AbiFuncType funcObj, std::add_lvalue_reference_t<Args>... args)
+  static R Invoke(AbiFuncType funcObj, std::add_lvalue_reference_t<Args>... args)
   {
     return __zz_cib_FromAbiType<R>(funcObj(__zz_cib_ToAbiType<Args>(args)...));
   }
@@ -257,7 +257,7 @@ struct FuncObjCallHelper<void, Args...>
 {
   using AbiFuncType = void(__zz_cib_decl*)(__zz_cib_AbiType_t<Args>...);
 
-  static void invoke(AbiFuncType funcObj, std::add_lvalue_reference_t<Args>... args)
+  static void Invoke(AbiFuncType funcObj, std::add_lvalue_reference_t<Args>... args)
   {
     return funcObj(__zz_cib_ToAbiType<Args>(args)...);
   }
@@ -276,10 +276,10 @@ public:
     const auto  abiFuncObj  = funcObjRepo.getAbiFunc(&OrigFunc);
     assert(abiFuncObj != nullptr);
 
-    return FuncObjCallHelper<R, Args...>::invoke(abiFuncObj, args...);
+    return FuncObjCallHelper<R, Args...>::Invoke(abiFuncObj, args...);
   }
 
-  OrigFuncType convert() const
+  OrigFuncType Convert() const
   {
     return OrigFunc;
   }
@@ -295,7 +295,7 @@ public:
 
   operator OrigFuncType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -314,7 +314,7 @@ class __zz_cib_AbiTypeToCoreType<R (*)(Args...)>
   const AbiFuncType mAbiFuncObj;
 
 public:
-  OrigFuncType convert() const
+  OrigFuncType Convert() const
   {
     const auto& funcObjRepo = FuncObjRepo<R, Args...>::instance();
     const auto  funcObj     = funcObjRepo.getOrigFunc(mAbiFuncObj);
@@ -329,52 +329,52 @@ public:
       case 0:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<0, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 1:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<1, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 2:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<2, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 3:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<3, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 4:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<4, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 5:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<5, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 6:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<6, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 7:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<7, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 8:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<8, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
       case 9:
       {
         __zz_cib_AbiTypeToCoreTypeImpl<9, R, Args...> impl(mAbiFuncObj);
-        return impl.convert();
+        return impl.Convert();
       }
 
       default:
@@ -391,7 +391,7 @@ public:
 
   operator OrigFuncType() const
   {
-    return convert();
+    return Convert();
   }
 };
 

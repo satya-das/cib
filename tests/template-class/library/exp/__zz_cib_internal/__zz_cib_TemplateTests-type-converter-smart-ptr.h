@@ -17,11 +17,11 @@ class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, v
   T& m;
 
 public:
-  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert());
+  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
 
-  auto convert()
+  auto Convert()
   {
-    return __zz_cib_CoreTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert();
+    return __zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert();
   }
 
 public:
@@ -36,7 +36,7 @@ public:
 
   operator AbiType() const
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -52,7 +52,7 @@ class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, 
   AbiTypeRef mRawPtr;
 
 public:
-  auto convert()
+  auto Convert()
   {
     return &mRawPtr;
   }
@@ -60,7 +60,7 @@ public:
 public:
   __zz_cib_CoreTypeToAbiType(T& x)
     : mSmartPtr(x)
-    , mRawPtr(__zz_cib_CoreTypeToAbiType<T>(x).convert())
+    , mRawPtr(__zz_cib_CoreTypeToAbiType<T>(x).Convert())
   {
   }
 
@@ -71,7 +71,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -87,7 +87,7 @@ class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, 
   AbiTypeRef mRawPtr;
 
 public:
-  auto convert()
+  auto Convert()
   {
     return &mRawPtr;
   }
@@ -95,7 +95,7 @@ public:
 public:
   __zz_cib_CoreTypeToAbiType(T* x)
     : mSmartPtr(x)
-    , mRawPtr(x ? __zz_cib_CoreTypeToAbiType<T>(*x).convert() : nullptr)
+    , mRawPtr(x ? __zz_cib_CoreTypeToAbiType<T>(*x).Convert() : nullptr)
   {
   }
 
@@ -107,7 +107,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -116,12 +116,12 @@ class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>,
 {
   T m;
 
-  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert());
+  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
 
 public:
-  auto convert()
+  auto Convert()
   {
-    return __zz_cib_CoreTypeToAbiType<decltype(__zz_cib_release(m))>(__zz_cib_release(m)).convert();
+    return __zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert();
   }
 
 public:
@@ -136,7 +136,7 @@ public:
 
   operator AbiType()
   {
-    return convert();
+    return Convert();
   }
 };
 
@@ -155,7 +155,7 @@ public:
 
   operator T()
   {
-    return __zz_cib_attach<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(m).convert());
+    return __zz_cib_AttachRawPtr<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(m).Convert());
   }
 };
 
@@ -165,21 +165,21 @@ class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, 
   T                     mSmartPtr;
   __zz_cib_AbiType_t<T> mRawPtr;
   using UnderlyingType =
-    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_release(mSmartPtr))>(__zz_cib_release(mSmartPtr)).convert());
+    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(mSmartPtr))>(__zz_cib_ReleaseRawPtr(mSmartPtr)).Convert());
   static_assert(std::is_same_v<__zz_cib_AbiType_t<T>, UnderlyingType*>);
 
 public:
   __zz_cib_AbiTypeToCoreType(__zz_cib_AbiType_t<T> x)
     : mRawPtr(x)
     , mSmartPtr(
-        __zz_cib_attach<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(*mRawPtr).convert()))
+        __zz_cib_AttachRawPtr<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(*mRawPtr).Convert()))
   {
   }
 
   ~__zz_cib_AbiTypeToCoreType()
   {
     if (mRawPtr)
-      *mRawPtr = __zz_cib_release(mSmartPtr);
+      *mRawPtr = __zz_cib_ReleaseRawPtr(mSmartPtr);
   }
 
   operator T&()
@@ -200,14 +200,14 @@ public:
   __zz_cib_AbiTypeToCoreType(__zz_cib_AbiType_t<T*> x)
     : mRawPtr(x)
     , mSmartPtr(
-        __zz_cib_attach<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(*mRawPtr).convert()))
+        __zz_cib_AttachRawPtr<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(*mRawPtr).Convert()))
   {
   }
 
   ~__zz_cib_AbiTypeToCoreType()
   {
     if (mRawPtr)
-      *mRawPtr = __zz_cib_release(mSmartPtr);
+      *mRawPtr = __zz_cib_ReleaseRawPtr(mSmartPtr);
   }
 
   operator T*()
@@ -229,7 +229,7 @@ public:
 
   operator T()
   {
-    return __zz_cib_attach<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(m).convert());
+    return __zz_cib_AttachRawPtr<T>(__zz_cib_AbiTypeToCoreType<__zz_cib_SmartPtrUnderlyingType_t<T>>(m).Convert());
   }
 };
 

@@ -4,28 +4,28 @@
 RValueExample::RValueExample(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {
-  __zz_cib_MyHelper::__zz_cib_add_proxy(this, __zz_cib_h_);
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 RValueExample::~RValueExample() {
-auto h = __zz_cib_MyHelper::__zz_cib_release_handle(this);
-  __zz_cib_MyHelper::__zz_cib_delete_0(
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_0(
     h
   );
 }
 
 RValueExample::RValueExample(std::int32_t val)
-  : RValueExample(__zz_cib_MyHelper::__zz_cib_new_1(
+  : RValueExample(__zz_cib_MyHelper::__zz_cib_New_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(val)>(std::move(val))))
   {}
 
 RValueExample::RValueExample(::RValueExample&& __zz_cib_param0)
-  : RValueExample(__zz_cib_MyHelper::__zz_cib_new_2(
+  : RValueExample(__zz_cib_MyHelper::__zz_cib_New_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))))
   {}
 
 RValueExample::RValueExample(const ::RValueExample& __zz_cib_param0)
-  : RValueExample(__zz_cib_MyHelper::__zz_cib_copy_3(
+  : RValueExample(__zz_cib_MyHelper::__zz_cib_Copy_3(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
