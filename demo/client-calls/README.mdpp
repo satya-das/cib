@@ -1,0 +1,3 @@
+### Forward compatibility of client
+A simple client library program to demonstrate CIB's capability of ABI stability to ensure an existing client remains compatible with new library.
+!VIDEO "https://www.youtube.com/embed/GcspVNO2EGI"

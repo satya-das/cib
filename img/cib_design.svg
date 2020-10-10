@@ -13,7 +13,7 @@
    height="339.9631"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    sodipodi:docname="cib_design.svg"
    inkscape:export-filename="/home/dassat/github/cib/img/cib_design.png"
    inkscape:export-xdpi="100.72"
@@ -28,15 +28,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.0385761"
-     inkscape:cx="474.54724"
+     inkscape:cx="306.52874"
      inkscape:cy="169.98155"
      inkscape:document-units="px"
      inkscape:current-layer="g4395"
      showgrid="false"
-     inkscape:window-width="1875"
-     inkscape:window-height="1056"
-     inkscape:window-x="45"
-     inkscape:window-y="24"
+     inkscape:window-width="1865"
+     inkscape:window-height="1025"
+     inkscape:window-x="55"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -96,7 +96,6 @@
              id="rect2985-7-4"
              style="fill:#e9b96e;stroke:#000000;stroke-opacity:1" />
           <text
-             sodipodi:linespacing="0%"
              id="text3041"
              y="732.53461"
              x="22.486691"
@@ -108,8 +107,7 @@
                sodipodi:role="line"
                style="font-size:40px;line-height:1.25;font-family:sans-serif">Library Core</tspan></text>
           <text
-             sodipodi:linespacing="0%"
-             transform="matrix(0,-1,1,0,0,0)"
+             transform="rotate(-90)"
              id="text3041-0"
              y="315.84677"
              x="-876.80347"
@@ -126,7 +124,6 @@
                x="-876.80347"
                sodipodi:role="line"> </tspan></text>
           <text
-             sodipodi:linespacing="0%"
              id="text3041-2"
              y="736.49945"
              x="745.52356"
@@ -153,7 +150,6 @@
                id="path3883" />
           </g>
           <text
-             sodipodi:linespacing="0%"
              id="text3930"
              y="602.51318"
              x="194.14211"
@@ -200,7 +196,6 @@
                id="path3883-6" />
           </g>
           <text
-             sodipodi:linespacing="0%"
              id="text3930-1"
              y="602.58179"
              x="798.50012"
@@ -237,7 +232,6 @@
              style="fill:#a40000;fill-opacity:1;stroke:#a40000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
              inkscape:connector-curvature="0" />
           <text
-             sodipodi:linespacing="0%"
              id="text3930-1-6"
              y="727.01099"
              x="496.22958"
@@ -247,7 +241,7 @@
                id="tspan3934-3-9"
                y="727.01099"
                x="496.22958"
-               sodipodi:role="line">Communication using CIB ABI</tspan></text>
+               sodipodi:role="line">Communication using C interface</tspan></text>
           <path
              sodipodi:nodetypes="cc"
              inkscape:connector-curvature="0"
@@ -266,8 +260,7 @@
              style="fill:#a40000;fill-opacity:1;stroke:#a40000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
              inkscape:connector-curvature="0" />
           <text
-             sodipodi:linespacing="0%"
-             transform="matrix(0,-1,1,0,0,0)"
+             transform="rotate(-90)"
              id="text3041-0-1"
              y="697.00873"
              x="-878.60034"

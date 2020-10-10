@@ -1,0 +1,3 @@
+### ABI stability in case of templates
+A simple client library program to demonstrate CIB's capability in ensuring ABI stability when layout of template class is changed.
+!VIDEO "https://www.youtube.com/embed/n4ROTBPA4js"

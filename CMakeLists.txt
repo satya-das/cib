@@ -137,81 +137,14 @@ find_program(
 	PATHS ENV PATH
 )
 
-set(EXAMPLES
-	010-simple-class
-	015-simple-class-and-bkwd-compatibility
-	018-simple-class-and-forwd-compatibility
-	019-function-overloading
-	020-virtual-function
-	030-virtual-function-and-bkwd-compatibility
-	035-virtual-function-and-forwd-compatibility
-	040-inheritance-change-and-bkwd-compatibility
-	050-inheritance-type-and-bkwd-compatibility
-	055-abstract-class
-	060-simple-interface-class
-	065-force-make-interface-class
-	070-simple-interface-class-and-bkwd-compatibility
-	075-simple-interface-class-and-forwd-compatibility
-	080-complex-interface-classes
-	090-complex-interface-classes-and-bkwd-compatibility
-	100-template-classes
-	110-facade-classes-and-rtti
-	115-protected-methods
-	120-proxy-object-reuse
-	130-layout-sharing-proxy-classes
-	140-rvalue-parameters
-	150-reference-of-pointer
-	160-free-functions
-	# 170-private-virtuals
-	# 180-pod-struct
-	190-function-pointer
-	200-deleted-members
-	210-enum-parameters
-	220-unique-ptr
-	225-intrusive-ptr
-	230-lib-deletes-proxy
-	240-operator-overloading
-	250-namespace
-	260-conditional-api-availability
-	300-std-vector
-	310-std-function
-	# 320-third-party-class
-)
-
 add_subdirectory(examples)
-
 add_subdirectory(demo)
-
+add_subdirectory(src)
 add_subdirectory(tests)
 
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
-	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.md
-		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.md
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.mdpp
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	)
-	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.md
-		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.md
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.mdpp
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	)
-	add_custom_command(
-		OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/README.mdpp ${RESPATHS} ${EXAMPLE_HEADERS} ExamplesReadme
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	)
-	add_custom_target(
-		ReadMeCib ALL
-		DEPENDS
-		  ${CMAKE_CURRENT_SOURCE_DIR}/README.md
-		  ${CMAKE_CURRENT_SOURCE_DIR}/examples/README.md
-		  ${CMAKE_CURRENT_SOURCE_DIR}/demo/README.md
-  )
 else()
-  message("WARNING: Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
+    message("WARNING: Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
 
 # It is expected that cib is run for all targets already

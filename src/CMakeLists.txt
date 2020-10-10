@@ -1,0 +1,21 @@
+if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+        COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/main.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/main.mdpp
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+    add_custom_command(
+        OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+        COMMAND ${MARKDOWN_PP} ${CMAKE_CURRENT_SOURCE_DIR}/progress.mdpp -o ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/progress.mdpp
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    )
+
+    add_custom_target(
+        MainDocs ALL
+        DEPENDS
+            ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+            ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+    )
+endif()
