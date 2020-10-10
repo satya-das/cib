@@ -10,6 +10,7 @@ Component Interface Binder (CIB)
 # CIB
 
 **CIB is an architecture to publish compiler independent and ABI stable C++ SDK**
+
 It can be said that CIB architecture is an [hourglass design pattern](https://www.slideshare.net/StefanusDuToit/cpp-con-2014-hourglass-interfaces-for-c-apis) on steroid.
 
 ## Jargon
@@ -73,14 +74,14 @@ The CIB layers of each components act like proxy to another component and so eac
 - These C style free functions are part of **MethodTable** which is crucial for ABI compatibility and stability.
 - When a cross component function call is made, all parameters are converted to their C equivalent types before making a cross component call.
 - When a cross component call is received then, before delegating, all parameters are converted back to their C++ equivalents.
-- Returned objects from cross component function calls also need to go through the transition between C and C++ types.
+- Returned objects from cross component function calls also go through the conversion between C and C++ types.
 
 [The rest of the details of CIB architecture can be understood with examples.](examples)
 
-# CIB Architecture Detail
-Please see [Examples](examples) to know the details.**
+## CIB Architecture Detail
+Please see [Examples](examples) to know the details.
 
-# Demo projects
+## Demo projects
 **There are few projects that are meant to demonstrate CIB's capability. Please see [Demo](demo) for details.**
 
 # Building CIB
@@ -129,25 +130,3 @@ cd builds
 cmake -G Ninja ..
 ninja && ninja test
 ```
-
-
-
-# Other Solutions
-I have come across some solutions that try to solve the same problem but none of them is good enough. Some wants you to write separate layer on top of existing classes so that vtable is exported across component boundary in a portable manner or some exploits how compiler behaves and uses hacks to achieve goals or some is too specific to the project it was developed for.
-
-- **CppComponent**: It basically uses hand written vtable to solve ABI problem. It looks like a clone of COM without idl. More details can be found here: https://github.com/jbandela/cppcomponents.
-- **DynObj**: It exploits how compiler implements vtable. For details here: http://dynobj.sourceforge.net.
-- **Libcef's translator**: Its a python script that parses C++ headers to produce automatic C layer for client and library. But it is too much specific to libcef and cannot be used in other project.
-
-**And none of these solutions I am aware of are for ABI stability, they only target ABI compatibility for different compilers.** This is my understanding, of course I can be wrong.
-
-# ABI Resilience
-Some changes are conceptually unimportant for clients of a library but they break binary compatiblity. CIB makes client resilient against such changes and so client and library remain binary compatible even when such changes are made. Below is a list of changes that don't affect compatibility of client and library if SDK is published using CIB:
-- Any change in internal data member of a class.
-- Addition of new virtual methods anywhere in the class.
-- Change in order of virtual functions of a class.
-- Change in inheritance that doesn't violate previous is-a relationship. For example:
-    - if a class starts deriving from one more base class without removing previous base class.
-    - if a class changes it's base class to another derived class of it's previous base class.
-    - inheritance type is changed to/from `virtual` inheritance.
-- Change in `inline`ness of a function. For CIB generated SDKs all inline functions are basically non-inlined and so it doesn't make any difference if `inline`ness of a function is changed.
