@@ -4,12 +4,15 @@
 
 #include <memory>
 
-class I : public __zz_cib_::__zz_cib_ProxyManager<I>
+class I
 {
 public:
   virtual ~I() {}
 public:
   virtual int f() const = 0;
+
+private:
+  __ZZ_CIB_MANAGE_PROXIES(I);
 };
 
 class A

@@ -2487,6 +2487,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << indentation-- << "class __zz_cib_Generic<" << longName() << "> : public " << longName() << " {\n";
   stm << indentation++ << "public:\n";
   stm << indentation << "using __zz_cib_Proxy = __zz_cib_Proxy_t<" << longName() << ">;\n\n";
+  stm << indentation << "using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<" << longName() << ">;\n\n";
 
   auto cibIdData = cibIdMgr.getCibIdData(longName() + "::__zz_cib_Generic");
   for (auto ctor : ctors())
@@ -2630,7 +2631,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
     }
     else
     {
-      stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-generic-impl-facade.h\"\n\n";
+      stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-generic.h\"\n\n";
     }
   }
 }
@@ -2733,7 +2734,7 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
     stm << "#include \"__zz_cib_" << cibParams.moduleName << "-class-down-cast.h\"\n";
 
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-delegate-helper.h\"\n";
-  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic-impl-interface.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
 
@@ -2798,13 +2799,18 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << " {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
     stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
-    stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n\n";
+    stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n";
+    if (needsGenericProxyDefinition() || needsRemoteProxyManager(cibParams))
+      stm << indentation << "using __zz_cib_Proxy = __zz_cib_Proxy_t<" << longName() << ">;\n";
+    if (needsRemoteProxyManager(cibParams))
+      stm << indentation << "using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<" << longName() << ">;\n";
 
     if (isOverridable())
-      stm << indentation << "using " << longName() << "::" << ctorName() << ";\n\n";
-
-    if (needsGenericProxyDefinition())
-      stm << indentation << "using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;\n";
+    {
+      stm << '\n';
+      stm << indentation << "using " << longName() << "::" << ctorName() << ";\n";
+    }
+    stm << '\n';
   }
   else
   {

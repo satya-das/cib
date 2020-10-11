@@ -1,6 +1,6 @@
 #include "C.h"
 
-#include "__zz_cib_internal/__zz_cib_Example-generic-impl-facade.h"
+#include "__zz_cib_internal/__zz_cib_Example-generic.h"
 
 
 C::C(__zz_cib_AbiType h)

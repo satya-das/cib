@@ -1,6 +1,6 @@
 #include "example.h"
 
-#include "__zz_cib_internal/__zz_cib_Example-generic-impl-facade.h"
+#include "__zz_cib_internal/__zz_cib_Example-generic.h"
 
 
 Interface1::Interface1(__zz_cib_AbiType h)

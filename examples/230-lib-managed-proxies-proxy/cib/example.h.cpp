@@ -9,7 +9,7 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-generic-impl-interface.h"
+#include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
@@ -20,6 +20,8 @@ template <>
 class __zz_cib_Generic<::I> : public ::I {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
+
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::I>;
 
   __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable)
     : ::I::I()
@@ -62,10 +64,11 @@ struct __zz_cib_Delegator<::I> : public ::I {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::I>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::I>;
 
   using ::I::I;
 
-  using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable) {
     return new __zz_cib_::__zz_cib_Generic<::I>(__zz_cib_proxy, __zz_cib_GetMethodTable);
   }
