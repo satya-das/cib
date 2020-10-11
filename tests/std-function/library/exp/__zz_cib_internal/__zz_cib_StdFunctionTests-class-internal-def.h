@@ -6,7 +6,7 @@
 #pragma once
 
 #include "__zz_cib_StdFunctionTests-class-helper.h"
-#include "__zz_cib_StdFunctionTests-generic-impl-facade.h"
+#include "__zz_cib_StdFunctionTests-generic.h"
 
 namespace __zz_cib_ {
 

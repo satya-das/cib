@@ -13,16 +13,24 @@ namespace __zz_cib_ {
 namespace {
 
 using __zz_cib_ProxyPtr =
-  std::unique_ptr<typename __zz_cib_GlobalProxyRepo::OpaqueProxy, typename __zz_cib_GlobalProxyRepo::ProxyDeleter>;
+  std::unique_ptr<__zz_cib_GlobalProxyRepo::GenericOpaqueType, __zz_cib_GlobalProxyRepo::GenericProxyDeleter>;
 using __zz_cib_ProxyInfo = std::map<__zz_cib_ClientId, __zz_cib_ProxyPtr>;
-using __zz_cib_ProxyRepo = std::map<const typename __zz_cib_GlobalProxyRepo::ProxyManager*, __zz_cib_ProxyInfo>;
+using __zz_cib_ProxyRepo = std::map<__zz_cib_GlobalProxyRepo::ClassKey, __zz_cib_ProxyInfo>;
 
 static __zz_cib_ProxyRepo __zz_cib_proxyRepo;
 
-typename __zz_cib_GlobalProxyRepo::Proxy __zz_cib_FindProxy(const typename __zz_cib_GlobalProxyRepo::ProxyManager* mgr,
-                                                            typename __zz_cib_GlobalProxyRepo::ClientId clientId)
+static __zz_cib_GlobalProxyRepo __zz_cib_globalProxyRepo;
+
+} // namespace
+
+__zz_cib_GlobalProxyRepo* __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()
 {
-  auto repoItr = __zz_cib_proxyRepo.find(mgr);
+  return &__zz_cib_globalProxyRepo;
+}
+
+__zz_cib_GlobalProxyRepo::GenericProxy __zz_cib_GlobalProxyRepo::FindProxy(ClassKey classKey, ClientId clientId)
+{
+  auto repoItr = __zz_cib_proxyRepo.find(classKey);
   if (repoItr == __zz_cib_proxyRepo.end())
     return nullptr;
   const auto& repoItem = repoItr->second;
@@ -32,18 +40,17 @@ typename __zz_cib_GlobalProxyRepo::Proxy __zz_cib_FindProxy(const typename __zz_
   return infoItr->second.get();
 }
 
-void __zz_cib_RegisterProxy(const typename __zz_cib_GlobalProxyRepo::ProxyManager* mgr,
-                            typename __zz_cib_GlobalProxyRepo::ClientId            clientId,
-                            typename __zz_cib_GlobalProxyRepo::Proxy               proxy,
-                            typename __zz_cib_GlobalProxyRepo::ProxyDeleter        deleter)
+void __zz_cib_GlobalProxyRepo::RegisterProxy(ClassKey            classKey,
+                                             ClientId            clientId,
+                                             GenericProxy        proxy,
+                                             GenericProxyDeleter deleter)
 {
-  __zz_cib_proxyRepo[mgr].emplace(clientId, __zz_cib_ProxyPtr(proxy, deleter));
+  __zz_cib_proxyRepo[classKey].emplace(clientId, __zz_cib_ProxyPtr(proxy, deleter));
 }
 
-void __zz_cib_UnregisterProxy(const typename __zz_cib_GlobalProxyRepo::ProxyManager* mgr,
-                              typename __zz_cib_GlobalProxyRepo::ClientId            clientId)
+void __zz_cib_GlobalProxyRepo::UnregisterProxy(ClassKey classKey, ClientId clientId)
 {
-  auto repoItr = __zz_cib_proxyRepo.find(mgr);
+  auto repoItr = __zz_cib_proxyRepo.find(classKey);
   if (repoItr == __zz_cib_proxyRepo.end())
     return;
   auto& repoItem = repoItr->second;
@@ -54,25 +61,13 @@ void __zz_cib_UnregisterProxy(const typename __zz_cib_GlobalProxyRepo::ProxyMana
   repoItem.erase(infoItr);
 }
 
-void __zz_cib_DeleteProxies(const typename __zz_cib_GlobalProxyRepo::ProxyManager* mgr)
+void __zz_cib_GlobalProxyRepo::DeleteProxies(ClassKey classKey)
 {
-  auto itr = __zz_cib_proxyRepo.find(mgr);
+  auto itr = __zz_cib_proxyRepo.find(classKey);
   if (itr == __zz_cib_proxyRepo.end())
     return;
   auto repo = std::move(itr->second);
   __zz_cib_proxyRepo.erase(itr);
-}
-
-static __zz_cib_GlobalProxyRepo __zz_cib_globalProxyRepo = {__zz_cib_FindProxy,
-                                                            __zz_cib_RegisterProxy,
-                                                            __zz_cib_UnregisterProxy,
-                                                            __zz_cib_DeleteProxies};
-
-} // namespace
-
-__zz_cib_GlobalProxyRepo* __zz_cib_GetGlobalProxyRepo()
-{
-  return &__zz_cib_globalProxyRepo;
 }
 
 } // namespace __zz_cib_

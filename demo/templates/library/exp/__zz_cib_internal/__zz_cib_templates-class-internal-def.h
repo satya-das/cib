@@ -6,7 +6,7 @@
 #pragma once
 
 #include "__zz_cib_templates-class-helper.h"
-#include "__zz_cib_templates-generic-impl-facade.h"
+#include "__zz_cib_templates-generic.h"
 
 namespace __zz_cib_ {
 

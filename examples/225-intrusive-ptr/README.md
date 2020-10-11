@@ -273,7 +273,7 @@ CIB will generate library glue code and library is expected to compile these sou
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-generic-impl-interface.h"
+#include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
@@ -482,7 +482,7 @@ We see a #include and forward declarations of `struct __zz_cib_Helper`, and `str
 #pragma once
 
 #include "__zz_cib_Example-class-helper.h"
-#include "__zz_cib_Example-generic-impl-facade.h"
+#include "__zz_cib_Example-generic.h"
 
 namespace __zz_cib_ {
 

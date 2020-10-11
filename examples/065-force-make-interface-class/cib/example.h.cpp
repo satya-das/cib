@@ -2,7 +2,7 @@
 
 #include "__zz_cib_Example-class-down-cast.h"
 #include "__zz_cib_Example-delegate-helper.h"
-#include "__zz_cib_Example-generic-impl-interface.h"
+#include "__zz_cib_Example-generic.h"
 #include "__zz_cib_Example-ids.h"
 #include "__zz_cib_Example-type-converters.h"
 #include "__zz_cib_Example-mtable-helper.h"
@@ -14,6 +14,8 @@ template <>
 class __zz_cib_Generic<::Interface> : public ::Interface {
 public:
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Interface>;
+
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Interface>;
 
   __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable)
     : ::Interface::Interface()
@@ -66,6 +68,7 @@ struct __zz_cib_Delegator<::Interface> : public ::Interface {
   using ::Interface::Interface;
 
   using __zz_cib_Proxy = __zz_cib_Delegatee::__zz_cib_Proxy;
+  using __zz_cib_ProxyDeleter = __zz_cib_Delegatee::__zz_cib_ProxyDeleter;
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable, const __zz_cib_Delegatee* __zz_cib_obj) {
     return new __zz_cib_::__zz_cib_Generic<::Interface>(__zz_cib_proxy, __zz_cib_GetMethodTable, *__zz_cib_obj);
   }

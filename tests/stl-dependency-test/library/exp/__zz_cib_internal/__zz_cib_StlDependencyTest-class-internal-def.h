@@ -6,7 +6,7 @@
 #pragma once
 
 #include "__zz_cib_StlDependencyTest-class-helper.h"
-#include "__zz_cib_StlDependencyTest-generic-impl-facade.h"
+#include "__zz_cib_StlDependencyTest-generic.h"
 
 namespace __zz_cib_ {
 
