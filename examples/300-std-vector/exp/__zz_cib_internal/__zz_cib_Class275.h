@@ -16,7 +16,7 @@ struct __zz_cib_Helper<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class275::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class275::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;

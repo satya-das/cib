@@ -720,7 +720,7 @@ void CibFunctionHelper::emitGenericDefn(std::ostream&      stm,
     stm << ">(\n";
     ++indentation;
   }
-  stm << indentation << "__zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::";
+  stm << indentation << "__zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::";
   stm << capiName << ">(\n";
   stm << ++indentation << "__zz_cib_h";
   if (hasParams())
@@ -1724,7 +1724,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
       {
         const auto castFromMethodName = compound->castFromBaseName(this, cibParams);
         const auto capiName           = cibIdData->getMethodCApiName(castFromMethodName);
-        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classid:\n";
+        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classId:\n";
         stm << ++indentation << "return __zz_cib_Helper<" << fullName(compound) << ">::__zz_cib_FromHandle(\n";
         stm << ++indentation << "__zz_cib_Helper<" << fullName(compound) << ">::" << capiName << "(h)\n";
         stm << --indentation << ");\n";
@@ -1737,7 +1737,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
       auto cibIdData = cibIdMgr.getCibIdData(longName());
       if (cibIdData)
       {
-        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid:\n";
+        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId:\n";
         stm << ++indentation << "return new " << longName() << "(h);\n";
         --indentation;
       }
@@ -2157,7 +2157,7 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
   stm << indentation << "__zz_cib_Helper()\n";
   stm << ++indentation << ": __zz_cib_MethodTableHelper(\n";
   stm << ++indentation << "__zz_cib_" << cibParams.moduleName << "GetMethodTable("
-      << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid))\n";
+      << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId))\n";
   --indentation;
   stm << --indentation << "{}\n";
   stm << indentation << "static __zz_cib_Helper& __zz_cib_Instance() {\n";
@@ -2531,7 +2531,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   stm << --indentation << "private:\n";
   stm << ++indentation << "__zz_cib_Proxy __zz_cib_h_;\n";
   stm << indentation << "const __zz_cib_MethodTableHelper __zz_cib_methodTableHelper;\n\n";
-  stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {\n";
+  stm << indentation << "const __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() const {\n";
   stm << ++indentation << "return __zz_cib_methodTableHelper;\n";
   stm << --indentation << "}\n";
   if (needsDelagatorClass())
@@ -2556,10 +2556,10 @@ void CibCompound::emitGenericDefn(std::ostream&    stm,
   stm << indentation << "class __zz_cib_Generic<" << longName() << "> : public " << longName() << " {\n";
   stm << ++indentation << "using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::" << fullNsName()
       << "::__zz_cib_Methodid;\n";
-  stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {\n";
+  stm << indentation << "static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() {\n";
   stm << ++indentation << "static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_" << cibParams.moduleName
       << "GetMethodTable(\n";
-  stm << ++indentation << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid));\n";
+  stm << ++indentation << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId));\n";
   stm << --indentation << "return mtableHelper;\n";
   stm << --indentation << "}\n";
   stm << indentation << "explicit __zz_cib_Generic(__zz_cib_AbiType h) : " << longName() << "(h) {}\n";
@@ -2877,11 +2877,11 @@ void CibCompound::emitDelegators(std::ostream&    stm,
       if (cibIdData)
       {
         stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << compound->longName() << "))] = ";
-        stm << "__zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classid;\n";
+        stm << "__zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classId;\n";
       }
     });
     stm << indentation << "__zz_cib_gClassIdRepo[std::type_index(typeid(" << longName() << "))] = ";
-    stm << "__zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid;\n";
+    stm << "__zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId;\n";
     stm << indentation << "classIdRepoPopulated = true;\n";
     --indentation;
     stm << indentation << "}\n";
@@ -2896,12 +2896,12 @@ void CibCompound::emitDelegators(std::ostream&    stm,
       stm << indentation << "if (obj) {\n";
       stm << ++indentation << "*__zz_cib_obj = obj;\n";
       stm << indentation << "return __zz_cib_gClassIdRepo[tdx] = "
-          << "__zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classid;\n";
+          << "__zz_cib_::__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classId;\n";
       stm << --indentation << "}\n";
       stm << --indentation << "}\n";
     });
 
-    stm << indentation << "return __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classid;\n";
+    stm << indentation << "return __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId;\n";
     stm << --indentation << "}\n";
   }
   if (needsGenericProxyDefinition())

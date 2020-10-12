@@ -52,13 +52,13 @@ struct __zz_cib_Delegator<::C> : public ::C {
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::C** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::C))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::C))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId;
   }
 };
 }

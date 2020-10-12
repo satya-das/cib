@@ -32,7 +32,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface3&>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Interface3&>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::r_0>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::r_0>(
         __zz_cib_h
       )
     );
@@ -41,7 +41,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_3>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_3>(
         __zz_cib_h
       )
     );
@@ -50,7 +50,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Interface2*>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
         __zz_cib_h
       )
     );
@@ -59,7 +59,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
       __zz_cib_h
     );
   }
@@ -70,7 +70,7 @@ private:
   __zz_cib_Proxy __zz_cib_h_;
   const __zz_cib_MethodTableHelper __zz_cib_methodTableHelper;
 
-  const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+  const __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() const {
     return __zz_cib_methodTableHelper;
   }
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_Methodid;
@@ -145,7 +145,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_0>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_0>(
         __zz_cib_h
       )
     );
@@ -154,7 +154,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_2>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_2>(
         __zz_cib_h
       )
     );
@@ -163,7 +163,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
       __zz_cib_h
     );
   }
@@ -174,7 +174,7 @@ private:
   __zz_cib_Proxy __zz_cib_h_;
   const __zz_cib_MethodTableHelper __zz_cib_methodTableHelper;
 
-  const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+  const __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() const {
     return __zz_cib_methodTableHelper;
   }
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Generic::__zz_cib_Methodid;
@@ -209,13 +209,13 @@ struct __zz_cib_Delegator<::Interface2> : public ::Interface2 {
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::Interface2** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface2))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface2))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId;
   }
   static void __zz_cib_decl __zz_cib_ReleaseProxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_ReleaseProxy();
@@ -255,7 +255,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_0>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_0>(
         __zz_cib_h
       )
     );
@@ -264,7 +264,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_2>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_2>(
         __zz_cib_h
       )
     );
@@ -273,7 +273,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
       __zz_cib_h
     );
   }
@@ -284,7 +284,7 @@ private:
   __zz_cib_Proxy __zz_cib_h_;
   const __zz_cib_MethodTableHelper __zz_cib_methodTableHelper;
 
-  const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+  const __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() const {
     return __zz_cib_methodTableHelper;
   }
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Generic::__zz_cib_Methodid;
@@ -319,13 +319,13 @@ struct __zz_cib_Delegator<::Interface3> : public ::Interface3 {
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::Interface3** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface3))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Interface3))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId;
   }
   static void __zz_cib_decl __zz_cib_ReleaseProxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_ReleaseProxy();

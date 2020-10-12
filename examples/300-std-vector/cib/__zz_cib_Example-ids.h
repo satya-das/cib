@@ -2,152 +2,152 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 284 };
+  enum { __zz_cib_classId = 284 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class283 {
   //#= FullClassName: ::C
-  enum { __zz_cib_classid = 283 };
+  enum { __zz_cib_classId = 283 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classId = 256 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class269 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >
-  enum { __zz_cib_classid = 269 };
+  enum { __zz_cib_classId = 269 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class274 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >
-  enum { __zz_cib_classid = 274 };
+  enum { __zz_cib_classId = 274 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class273 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>
-  enum { __zz_cib_classid = 273 };
+  enum { __zz_cib_classId = 273 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class268 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_iterator<::C>
-  enum { __zz_cib_classid = 268 };
+  enum { __zz_cib_classId = 268 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class271 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >
-  enum { __zz_cib_classid = 271 };
+  enum { __zz_cib_classId = 271 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class276 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >
-  enum { __zz_cib_classid = 276 };
+  enum { __zz_cib_classId = 276 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class275 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>
-  enum { __zz_cib_classid = 275 };
+  enum { __zz_cib_classId = 275 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class270 {
   //#= FullClassName: ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>
-  enum { __zz_cib_classid = 270 };
+  enum { __zz_cib_classId = 270 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::C const >
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classId = 258 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class264 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::C* const >
-  enum { __zz_cib_classid = 264 };
+  enum { __zz_cib_classId = 264 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::C*>
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classId = 263 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::C>
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classId = 257 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class279 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >
-  enum { __zz_cib_classid = 279 };
+  enum { __zz_cib_classId = 279 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class278 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>
-  enum { __zz_cib_classid = 278 };
+  enum { __zz_cib_classId = 278 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class260 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classId = 260 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class266 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >
-  enum { __zz_cib_classid = 266 };
+  enum { __zz_cib_classId = 266 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class265 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>
-  enum { __zz_cib_classid = 265 };
+  enum { __zz_cib_classId = 265 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classId = 259 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class281 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >
-  enum { __zz_cib_classid = 281 };
+  enum { __zz_cib_classId = 281 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class280 {
   //#= FullClassName: ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>
-  enum { __zz_cib_classid = 280 };
+  enum { __zz_cib_classId = 280 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classId = 261 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class277 {
   //#= FullClassName: ::std::list<::C*>
-  enum { __zz_cib_classid = 277 };
+  enum { __zz_cib_classId = 277 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class272 {
   //#= FullClassName: ::std::list<::C>
-  enum { __zz_cib_classid = 272 };
+  enum { __zz_cib_classId = 272 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class267 {
   //#= FullClassName: ::std::vector<::C*>
-  enum { __zz_cib_classid = 267 };
+  enum { __zz_cib_classId = 267 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class262 {
   //#= FullClassName: ::std::vector<::C>
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classId = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class282 {
   //#= FullClassName: ::std::vector<::std::list<::C*>>
-  enum { __zz_cib_classid = 282 };
+  enum { __zz_cib_classId = 282 };
 }}}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 285 };
-  enum { __zz_cib_internal_class_id = 1 };
+  enum { __zz_cib_nextClassId = 285 };
+  enum { __zz_cib_internalClassId = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
@@ -174,7 +174,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
     l_9 = 9,
     //#= ::std::vector<::std::list<::C*>> vl() const;
     vl_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}
 
@@ -196,7 +196,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class283 {
     __zz_cib_RegisterProxy = 6,
     //#= __zz_cib_UnregisterProxy
     __zz_cib_UnregisterProxy = 7,
-    __zz_cib_next_method_id = 8
+    __zz_cib_nextMethodId = 8
   };
 }}}
 
@@ -224,7 +224,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -252,7 +252,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -280,7 +280,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -308,7 +308,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_iterator<::C>&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -336,7 +336,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -364,7 +364,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -392,7 +392,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -420,7 +420,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorCmpEq_9 = 9,
     //#= bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>&);
     __zz_cib_OperatorNotEq_10 = 10,
-    __zz_cib_next_method_id = 11
+    __zz_cib_nextMethodId = 11
   };
 }}}}
 
@@ -470,7 +470,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -520,7 +520,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C* const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -570,7 +570,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C*>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -620,7 +620,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -670,7 +670,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -720,7 +720,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -770,7 +770,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -820,7 +820,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -870,7 +870,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -920,7 +920,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -970,7 +970,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -1020,7 +1020,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorGE_20 = 20,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorMinus_21 = 21,
-    __zz_cib_next_method_id = 22
+    __zz_cib_nextMethodId = 22
   };
 }}}}
 
@@ -1126,7 +1126,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     splice_48 = 48,
     //#= void reverse();
     reverse_49 = 49,
-    __zz_cib_next_method_id = 50
+    __zz_cib_nextMethodId = 50
   };
 }}}}
 
@@ -1232,7 +1232,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     splice_48 = 48,
     //#= void reverse();
     reverse_49 = 49,
-    __zz_cib_next_method_id = 50
+    __zz_cib_nextMethodId = 50
   };
 }}}}
 
@@ -1336,7 +1336,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     swap_47 = 47,
     //#= void clear();
     clear_48 = 48,
-    __zz_cib_next_method_id = 49
+    __zz_cib_nextMethodId = 49
   };
 }}}}
 
@@ -1440,7 +1440,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     swap_47 = 47,
     //#= void clear();
     clear_48 = 48,
-    __zz_cib_next_method_id = 49
+    __zz_cib_nextMethodId = 49
   };
 }}}}
 
@@ -1544,7 +1544,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     swap_47 = 47,
     //#= void clear();
     clear_48 = 48,
-    __zz_cib_next_method_id = 49
+    __zz_cib_nextMethodId = 49
   };
 }}}}
 

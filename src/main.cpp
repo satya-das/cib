@@ -76,7 +76,7 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
-    stm << indentation << "case __zz_cib_::__zz_cib_ids::" << nsName << "::__zz_cib_classid:\n";
+    stm << indentation << "case __zz_cib_::__zz_cib_ids::" << nsName << "::__zz_cib_classId:\n";
     stm << ++indentation << "return __zz_cib_::" << nsName << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   });

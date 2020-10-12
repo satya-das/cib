@@ -215,27 +215,27 @@ As you can guess these types are independent of headers that library wants to pu
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Example
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classId = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Example::A
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classId = 259 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classId = 256 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classId = 257 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 260 };
-  enum { __zz_cib_internal_class_id = 1 };
+  enum { __zz_cib_nextClassId = 260 };
+  enum { __zz_cib_internalClassId = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
@@ -248,7 +248,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
     __zz_cib_New_2 = 2,
     //#= int SomeFunc();
     SomeFunc_3 = 3,
-    __zz_cib_next_method_id = 4
+    __zz_cib_nextMethodId = 4
   };
 }}}}
 
@@ -352,7 +352,7 @@ extern "C" __zz_cib_export
 const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_ExampleGetMethodTable(std::uint32_t classId)
 {
   switch(classId) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classId:
     return __zz_cib_::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_GetMethodTable();
   default:
     return nullptr;
@@ -589,7 +589,7 @@ struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;

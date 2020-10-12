@@ -67,10 +67,10 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
       auto* enumObj = static_cast<const CppEnum*>(cppObj);
       if (!enumObj->itemList_)
         return false;
-      static const std::string kClassIdName       = "__zz_cib_classid";
+      static const std::string kClassIdName       = "__zz_cib_classId";
       static const std::string kMethodIdName      = "__zz_cib_Methodid";
-      static const std::string kNextClsIdName     = "__zz_cib_next_class_id";
-      static const std::string kInternalClsIdName = "__zz_cib_internal_class_id";
+      static const std::string kNextClsIdName     = "__zz_cib_nextClassId";
+      static const std::string kInternalClsIdName = "__zz_cib_internalClassId";
       auto                     extractClassName   = [](const CppCompound* classObj) -> std::string {
         if (!classObj->members().empty() && (classObj->members().front()->objType_ == CppObjType::kDocComment))
         {
@@ -370,12 +370,12 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     stm << "namespace __zz_cib_ { namespace __zz_cib_ids { " << expandNs(classNsName.begin(), classNsName.end())
         << '\n';
     stm << ++indentation << "//#= FullClassName: " << className << '\n';
-    stm << indentation << "enum { __zz_cib_classid = " << cibIdData.getId() << " };\n";
+    stm << indentation << "enum { __zz_cib_classId = " << cibIdData.getId() << " };\n";
     stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
   }
   stm << indentation << "namespace __zz_cib_ { namespace " << cibParams.moduleName << " {\n";
-  stm << ++indentation << "enum { __zz_cib_next_class_id = " << nextClassId_ << " };\n";
-  stm << indentation << "enum { __zz_cib_internal_class_id = " << internalClassId_ << " };\n";
+  stm << ++indentation << "enum { __zz_cib_nextClassId = " << nextClassId_ << " };\n";
+  stm << indentation << "enum { __zz_cib_internalClassId = " << internalClassId_ << " };\n";
   --indentation;
   stm << --indentation << "}}\n\n";
 
@@ -392,7 +392,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
       stm << indentation << "//#= " << methodIdEntry.sig << '\n';
       stm << indentation << methodIdEntry.name << " = " << methodIdEntry.id << ",\n";
     });
-    stm << indentation << "__zz_cib_next_method_id = " << nextMethodId << '\n';
+    stm << indentation << "__zz_cib_nextMethodId = " << nextMethodId << '\n';
     stm << --indentation << "};\n";
     stm << --indentation << closingNs(classNsName.begin(), classNsName.end()) << "}}\n\n";
   }

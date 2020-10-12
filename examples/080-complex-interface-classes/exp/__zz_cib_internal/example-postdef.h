@@ -20,7 +20,7 @@ struct __zz_cib_Helper<::Interface1, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
@@ -95,7 +95,7 @@ struct __zz_cib_Helper<::Interface2, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
@@ -177,7 +177,7 @@ struct __zz_cib_Helper<::Interface3, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
@@ -257,7 +257,7 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;

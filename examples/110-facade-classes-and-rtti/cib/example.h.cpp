@@ -31,7 +31,7 @@ public:
   void F() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::F_0>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::F_0>(
       __zz_cib_h
     );
   }
@@ -39,7 +39,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
       __zz_cib_h
     );
   }
@@ -50,7 +50,7 @@ private:
   __zz_cib_Proxy __zz_cib_h_;
   const __zz_cib_MethodTableHelper __zz_cib_methodTableHelper;
 
-  const __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() const {
+  const __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() const {
     return __zz_cib_methodTableHelper;
   }
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Generic::__zz_cib_Methodid;
@@ -78,8 +78,8 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::Facade** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::PublicFacadeImpl))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::Facade))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::PublicFacadeImpl))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Facade))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
@@ -89,10 +89,10 @@ struct __zz_cib_Delegator<::Facade> : public ::Facade {
       auto* obj = dynamic_cast<::PublicFacadeImpl*>(*__zz_cib_obj);
       if (obj) {
         *__zz_cib_obj = obj;
-        return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid;
+        return __zz_cib_gClassIdRepo[tdx] = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId;
       }
     }
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId;
   }
   static void __zz_cib_decl __zz_cib_ReleaseProxy(__zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->__zz_cib_ReleaseProxy();

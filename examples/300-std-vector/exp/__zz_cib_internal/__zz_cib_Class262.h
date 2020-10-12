@@ -21,7 +21,7 @@ struct __zz_cib_Helper<::std::vector<::C>, T> : public __zz_cib_MethodTableHelpe
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class262::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class262::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;

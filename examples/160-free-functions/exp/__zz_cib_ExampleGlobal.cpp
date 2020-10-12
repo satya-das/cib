@@ -14,7 +14,7 @@ using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_
 
 __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
-    __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_classid))
+    __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_classId))
 {}
 static __zz_cib_Helper& __zz_cib_Instance() {
   static __zz_cib_Helper helper;

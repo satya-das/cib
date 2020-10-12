@@ -2,47 +2,47 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::Example
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classId = 256 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
   //#= FullClassName: ::Example::A
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classId = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
   //#= FullClassName: ::Example::Int
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classId = 263 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Example::Value<::Example::Int>
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classId = 258 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Example::Value<float>
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classId = 259 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
   //#= FullClassName: ::Example::Value<int>
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classId = 257 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classId = 260 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classId = 261 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 264 };
-  enum { __zz_cib_internal_class_id = 1 };
+  enum { __zz_cib_nextClassId = 264 };
+  enum { __zz_cib_internalClassId = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class262 {
@@ -65,7 +65,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     SetFloat_7 = 7,
     //#= ::Example::Value<float> GetFloat() const;
     GetFloat_8 = 8,
-    __zz_cib_next_method_id = 9
+    __zz_cib_nextMethodId = 9
   };
 }}}}
 
@@ -79,7 +79,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_New_2 = 2,
     //#= operator int () const;
     __zz_cib_Operator_3 = 3,
-    __zz_cib_next_method_id = 4
+    __zz_cib_nextMethodId = 4
   };
 }}}}
 
@@ -97,7 +97,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     SetValue_4 = 4,
     //#= bool operator ==(const ::Example::Value<::Example::Int>&) const;
     __zz_cib_OperatorCmpEq_5 = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_nextMethodId = 6
   };
 }}}}
 
@@ -115,7 +115,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     SetValue_4 = 4,
     //#= bool operator ==(const ::Example::Value<float>&) const;
     __zz_cib_OperatorCmpEq_5 = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_nextMethodId = 6
   };
 }}}}
 
@@ -133,7 +133,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     SetValue_4 = 4,
     //#= bool operator ==(const ::Example::Value<int>&) const;
     __zz_cib_OperatorCmpEq_5 = 5,
-    __zz_cib_next_method_id = 6
+    __zz_cib_nextMethodId = 6
   };
 }}}}
 
