@@ -62,12 +62,12 @@ public:
 private:
   static __zz_cib_GlobalProxyRepo* __zz_cib_GetGlobalProxyRepo();
   friend class __zz_cib_ProxyManager;
+  friend class __zz_cib_ProxyManagerDelegator;
 };
 
 /**
- * Manages proxy objects and deletes them when original instance on library side is deleted.
+ * Manages proxy objects life cycle by deleting them when original instance on library side is deleted.
  */
-template <typename T>
 class __zz_cib_ProxyManager
 {
 public:
@@ -91,20 +91,7 @@ public:
   }
 
 private:
-  using __zz_cib_Proxy        = __zz_cib_Proxy_t<T>;
-  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<T>;
-
-  void __zz_cib_RegisterProxy(__zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter)
-  {
-    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->RegisterProxy(
-      this, proxy, reinterpret_cast<__zz_cib_GlobalProxyRepo::GenericProxyDeleter>(deleter));
-  }
-  void __zz_cib_UnregisterProxy(__zz_cib_Proxy proxy)
-  {
-    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->UnregisterProxy(this, proxy);
-  }
-
-  __zz_cib_ProxyManager<T>* __zz_cib_GetProxyMgr()
+  __zz_cib_ProxyManager* __zz_cib_GetProxyMgr()
   {
     return this;
   }
@@ -122,14 +109,15 @@ public:
   static void __zz_cib_RegisterProxy(T* obj, __zz_cib_Proxy_t<T> proxy, __zz_cib_ProxyDeleter_t<T> deleter)
   {
     auto* mgr = obj->__zz_cib_GetProxyMgr();
-    mgr->__zz_cib_RegisterProxy(proxy, deleter);
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->RegisterProxy(
+      mgr, proxy, reinterpret_cast<__zz_cib_GlobalProxyRepo::GenericProxyDeleter>(deleter));
   }
 
   template <typename T>
   static void __zz_cib_UnregisterProxy(T* obj, __zz_cib_Proxy_t<T> proxy)
   {
     auto* mgr = obj->__zz_cib_GetProxyMgr();
-    mgr->__zz_cib_UnregisterProxy(proxy);
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->UnregisterProxy(mgr, proxy);
   }
 };
 
