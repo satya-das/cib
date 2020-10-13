@@ -60,7 +60,7 @@ struct __zz_cib_Helper<::TemplateClassWithTwoParamsAndDefaultParameter<int, int>
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-auto* const __zz_cib_obj = new T(h);
+    auto* const __zz_cib_obj = new T(h);
     return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {

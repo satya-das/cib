@@ -147,7 +147,7 @@ struct __zz_cib_Helper<::Base, T> : public __zz_cib_MethodTableHelper {
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-auto* const __zz_cib_obj = new T(h);
+    auto* const __zz_cib_obj = new T(h);
     __zz_cib_RegisterProxy(h, __zz_cib_obj);
     return __zz_cib_obj;
   }
@@ -254,7 +254,7 @@ struct __zz_cib_Helper<::Derived, T> : public __zz_cib_MethodTableHelper {
     return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_CastFrom__zz_cib_Class259>(__zz_cib_obj);
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-auto* const __zz_cib_obj = new T(h);
+    auto* const __zz_cib_obj = new T(h);
     __zz_cib_RegisterProxy(h, __zz_cib_obj);
     return __zz_cib_obj;
   }
@@ -388,7 +388,7 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-auto* const __zz_cib_obj = new T(h);
+    auto* const __zz_cib_obj = new T(h);
     return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {

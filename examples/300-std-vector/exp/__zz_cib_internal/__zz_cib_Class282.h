@@ -370,7 +370,7 @@ struct __zz_cib_Helper<::std::vector<::std::list<::C*>>, T> : public __zz_cib_Me
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-auto* const __zz_cib_obj = new T(h);
+    auto* const __zz_cib_obj = new T(h);
     return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {

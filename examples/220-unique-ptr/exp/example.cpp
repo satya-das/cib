@@ -155,7 +155,6 @@ template<>
   switch(__zz_cib_GetClassId(&h)) {
   default: break;
   }
-  return ::__zz_cib_::__zz_cib_Generic<::I>::__zz_cib_FromHandle(h);
   auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::I>::__zz_cib_FromHandle(h);
   return __zz_cib_obj;
 }

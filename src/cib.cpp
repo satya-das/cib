@@ -1745,7 +1745,6 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
     stm << indentation << "}\n";
   }
 
-  stm << indentation << "return ::__zz_cib_::__zz_cib_Generic<" << longName() << ">::__zz_cib_FromHandle(h);\n";
   stm << indentation << "auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<" << longName()
       << ">::__zz_cib_FromHandle(h);\n";
   if (libraryManagesProxy(cibParams))
@@ -1769,7 +1768,7 @@ void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibPara
   {
     stm << " {\n";
     ++indentation;
-    stm << "auto* const __zz_cib_obj = new T(h);\n";
+    stm << indentation << "auto* const __zz_cib_obj = new T(h);\n";
     if (libraryManagesProxy(cibParams))
       stm << indentation << "__zz_cib_RegisterProxy(h, __zz_cib_obj);\n";
     stm << indentation << "return __zz_cib_obj;\n";

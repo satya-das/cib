@@ -33,19 +33,6 @@ void __zz_cib_GlobalProxyRepo::RegisterProxy(ClassKey classKey, GenericProxy pro
   __zz_cib_proxyRepo[classKey].emplace(proxy, __zz_cib_ProxyPtr(proxy, deleter));
 }
 
-void __zz_cib_GlobalProxyRepo::UnregisterProxy(ClassKey classKey, GenericProxy proxy)
-{
-  auto repoItr = __zz_cib_proxyRepo.find(classKey);
-  if (repoItr == __zz_cib_proxyRepo.end())
-    return;
-  auto& repoItem = repoItr->second;
-  auto  infoItr  = repoItem.find(proxy);
-  if (infoItr == repoItem.end())
-    return;
-  infoItr->second.release();
-  repoItem.erase(infoItr);
-}
-
 void __zz_cib_GlobalProxyRepo::DeleteProxies(ClassKey classKey)
 {
   auto itr = __zz_cib_proxyRepo.find(classKey);

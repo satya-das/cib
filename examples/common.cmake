@@ -87,9 +87,9 @@ add_executable(${CLIENTNAME}
 
 add_test(NAME ${CLIENTNAME} COMMAND ${TEST_CMD})
 
-# if(NOT ${VALGRIND} MATCHES "VALGRIND-NOTFOUND")
-#     add_test(NAME ${CLIENTNAME}-valgrind COMMAND ${VALGRIND} --leak-check=full --show-leak-kinds=definite --errors-for-leak-kinds=definite --error-exitcode=99 ${TEST_CMD})
-# endif()
+if(NOT ${VALGRIND} MATCHES "VALGRIND-NOTFOUND")
+    add_test(NAME ${CLIENTNAME}-valgrind COMMAND ${VALGRIND} --leak-check=full --show-leak-kinds=definite --errors-for-leak-kinds=definite --error-exitcode=99 ${TEST_CMD})
+endif()
 
 add_custom_command(
     OUTPUT ${LIB_GLUE_SRCS} ${EXP_SOURCES}
