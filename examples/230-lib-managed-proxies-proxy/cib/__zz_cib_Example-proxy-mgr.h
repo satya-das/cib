@@ -45,7 +45,7 @@ private:                                                                        
 
 namespace __zz_cib_ {
 
-class __zz_cib_ProxyManagerBase;
+class __zz_cib_ProxyManager;
 
 class __zz_cib_GlobalProxyRepo
 {
@@ -61,37 +61,20 @@ public:
 
 private:
   static __zz_cib_GlobalProxyRepo* __zz_cib_GetGlobalProxyRepo();
-  friend class __zz_cib_ProxyManagerBase;
-};
-
-class __zz_cib_ProxyManagerBase
-{
-protected:
-  static __zz_cib_GlobalProxyRepo* __zz_cib_GetGlobalProxyRepo()
-  {
-    return __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo();
-  }
+  friend class __zz_cib_ProxyManager;
 };
 
 /**
  * Manages proxy objects and deletes them when original instance on library side is deleted.
  */
 template <typename T>
-class __zz_cib_ProxyManager : private __zz_cib_ProxyManagerBase
+class __zz_cib_ProxyManager
 {
 public:
-  using __zz_cib_Proxy        = __zz_cib_Proxy_t<T>;
-  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<T>;
-
-  __zz_cib_ProxyManager<T>* __zz_cib_GetProxyMgr()
-  {
-    return this;
-  }
-
   // Destructor will ensure all proxies are deleted.
   ~__zz_cib_ProxyManager()
   {
-    __zz_cib_GetGlobalProxyRepo()->DeleteProxies(this);
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->DeleteProxies(this);
   }
 
   // All constructors and assignment operators have to be no-op.
@@ -108,14 +91,22 @@ public:
   }
 
 private:
+  using __zz_cib_Proxy        = __zz_cib_Proxy_t<T>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<T>;
+
   void __zz_cib_RegisterProxy(__zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter)
   {
-    __zz_cib_GetGlobalProxyRepo()->RegisterProxy(
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->RegisterProxy(
       this, proxy, reinterpret_cast<__zz_cib_GlobalProxyRepo::GenericProxyDeleter>(deleter));
   }
   void __zz_cib_UnregisterProxy(__zz_cib_Proxy proxy)
   {
-    __zz_cib_GetGlobalProxyRepo()->UnregisterProxy(this, proxy);
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->UnregisterProxy(this, proxy);
+  }
+
+  __zz_cib_ProxyManager<T>* __zz_cib_GetProxyMgr()
+  {
+    return this;
   }
 
   friend class __zz_cib_ProxyManagerDelegator;
