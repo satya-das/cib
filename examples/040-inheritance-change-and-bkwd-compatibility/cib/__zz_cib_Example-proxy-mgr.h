@@ -56,7 +56,6 @@ public:
   using GenericProxyDeleter = __zz_cib_ProxyDeleter_t<void>;
 
   void RegisterProxy(ClassKey objPtr, GenericProxy, GenericProxyDeleter);
-  void UnregisterProxy(ClassKey objPtr, GenericProxy proxy);
   void DeleteProxies(ClassKey objPtr);
 
 private:
@@ -111,13 +110,6 @@ public:
     auto* mgr = obj->__zz_cib_GetProxyMgr();
     __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->RegisterProxy(
       mgr, proxy, reinterpret_cast<__zz_cib_GlobalProxyRepo::GenericProxyDeleter>(deleter));
-  }
-
-  template <typename T>
-  static void __zz_cib_UnregisterProxy(T* obj, __zz_cib_Proxy_t<T> proxy)
-  {
-    auto* mgr = obj->__zz_cib_GetProxyMgr();
-    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->UnregisterProxy(mgr, proxy);
   }
 };
 
