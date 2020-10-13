@@ -1747,7 +1747,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
 
   stm << indentation << "auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<" << longName()
       << ">::__zz_cib_FromHandle(h);\n";
-  if (libraryManagesProxy(cibParams))
+  if (isSharedProxy() && libraryManagesProxy())
     stm << indentation << "__zz_cib_RegisterProxy(h, __zz_cib_obj);\n";
   stm << indentation << "return __zz_cib_obj;\n";
   stm << --indentation << "}\n}\n";
@@ -1769,7 +1769,7 @@ void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibPara
     stm << " {\n";
     ++indentation;
     stm << indentation << "auto* const __zz_cib_obj = new T(h);\n";
-    if (libraryManagesProxy(cibParams))
+    if (isSharedProxy() && libraryManagesProxy())
       stm << indentation << "__zz_cib_RegisterProxy(h, __zz_cib_obj);\n";
     stm << indentation << "return __zz_cib_obj;\n";
     stm << --indentation << "}\n";
@@ -2326,7 +2326,7 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
 
   if (isClassLike(this) && (isShared() || !isEmpty()))
     emitHandleHelpers(stm, cibParams, cibIdData, indentation);
-  if (isShared() && libraryManagesProxy(cibParams))
+  if (isSharedProxy() && libraryManagesProxy())
     emitRemoteProxyMethods(stm, indentation);
   emitHelperDefnEnd(stm, indentation);
 }
@@ -2731,7 +2731,7 @@ void CibCompound::emitProxyMgrDelegators(std::ostream&    stm,
                                          const CibParams& cibParams,
                                          CppIndent        indentation /* = CppIndent */) const
 {
-  if (!libraryManagesProxy(cibParams))
+  if (!isSharedProxy() || !libraryManagesProxy())
     return;
 
   stm << indentation << "static void __zz_cib_decl __zz_cib_RegisterProxy(" << longName()
@@ -2774,9 +2774,9 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
     stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
     stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n";
-    if (needsGenericProxyDefinition() || libraryManagesProxy(cibParams))
+    if (needsGenericProxyDefinition() || libraryManagesProxy())
       stm << indentation << "using __zz_cib_Proxy = __zz_cib_Proxy_t<" << longName() << ">;\n";
-    if (libraryManagesProxy(cibParams))
+    if (isSharedProxy() && libraryManagesProxy())
       stm << indentation << "using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<" << longName() << ">;\n";
 
     if (isOverridable())
