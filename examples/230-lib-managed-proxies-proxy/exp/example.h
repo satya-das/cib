@@ -3,18 +3,18 @@
 
 #include "__zz_cib_internal/example-predef.h"
 
-class I
+class Facade
 {
 public:
-  I(I&& rhs);
+  Facade(Facade&& rhs);
 public:
-  virtual ~I();
+  virtual ~Facade();
   virtual int f() const = 0;
 protected:
-  I();
+  Facade();
 
 private:
-  __ZZ_CIB_FACADE_CLASS_INTERNALS(I, I);
+  __ZZ_CIB_FACADE_CLASS_INTERNALS(Facade, Facade);
 };
 
 class A
@@ -25,10 +25,10 @@ public:
   A(const A& );
   ~A();
   A();
-  const I& f() const;
-  const I* g() const;
-  I* c() const;
-  void d(const I* p) const;
+  const Facade& f() const;
+  const Facade* g() const;
+  Facade* c() const;
+  void d(const Facade* p) const;
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);

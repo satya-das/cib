@@ -4,10 +4,10 @@
 
 #include <memory>
 
-class I : public __zz_cib_::__zz_cib_ProxyManager
+class Facade : public __zz_cib_::__zz_cib_ProxyManager
 {
 public:
-  virtual ~I() {}
+  virtual ~Facade() {}
 public:
   virtual int f() const = 0;
 };
@@ -18,7 +18,7 @@ public:
   A();
 
 private:
-  class M : public I {
+  class M : public Facade {
     int f() const override {
       return 909;
     }
@@ -26,19 +26,19 @@ private:
   M m;
 
 public:
-  const I& f() const {
+  const Facade& f() const {
     return m;
   }
 
-  const I* g() const {
+  const Facade* g() const {
     return &m;
   }
 
-  I* c() const {
+  Facade* c() const {
     return new M;
   }
 
-  void d(const I* p) const {
+  void d(const Facade* p) const {
     delete p;
   }
 };

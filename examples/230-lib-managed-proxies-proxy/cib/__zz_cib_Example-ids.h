@@ -6,12 +6,12 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::I
+  //#= FullClassName: ::Facade
   enum { __zz_cib_classId = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::I::__zz_cib_Generic
+  //#= FullClassName: ::Facade::__zz_cib_Generic
   enum { __zz_cib_classId = 260 };
 }}}}
 
@@ -38,13 +38,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
     __zz_cib_Delete_1 = 1,
     //#= A();
     __zz_cib_New_2 = 2,
-    //#= const ::I& f() const;
+    //#= const ::Facade& f() const;
     f_3 = 3,
-    //#= const ::I* g() const;
+    //#= const ::Facade* g() const;
     g_4 = 4,
-    //#= ::I* c() const;
+    //#= ::Facade* c() const;
     c_5 = 5,
-    //#= void d(const ::I*) const;
+    //#= void d(const ::Facade*) const;
     d_6 = 6,
     __zz_cib_nextMethodId = 7
   };
@@ -52,9 +52,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_Methodid {
-    //#= I();
+    //#= Facade();
     __zz_cib_New_0 = 0,
-    //#= ~I();
+    //#= ~Facade();
     __zz_cib_Delete_1 = 1,
     //#= int f() const;
     f_2 = 2,
@@ -72,7 +72,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
   enum __zz_cib_Methodid {
     //#= int f() const;
     f_0 = 0,
-    //#= ~I();
+    //#= ~Facade();
     __zz_cib_Delete_1 = 1,
     __zz_cib_nextMethodId = 2
   };

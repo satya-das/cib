@@ -17,14 +17,14 @@ extern std::unordered_map<std::type_index, std::uint32_t> __zz_cib_gClassIdRepo;
 
 namespace __zz_cib_ {
 template <>
-class __zz_cib_Generic<::I> : public ::I {
+class __zz_cib_Generic<::Facade> : public ::Facade {
 public:
-  using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
+  using __zz_cib_Proxy = __zz_cib_Proxy_t<::Facade>;
 
-  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::I>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Facade>;
 
   __zz_cib_Generic(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable)
-    : ::I::I()
+    : ::Facade::Facade()
     , __zz_cib_h_(__zz_cib_proxy)
     , __zz_cib_methodTableHelper(__zz_cib_GetMethodTable)
   {}
@@ -46,7 +46,7 @@ public:
     );
   }
   void __zz_cib_ReleaseProxy() { __zz_cib_h_ = nullptr; }
-  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::I)
+  __ZZ_CIB_DELEGATOR_MEMBERS(__zz_cib_Generic, ::Facade)
 
 private:
   __zz_cib_Proxy __zz_cib_h_;
@@ -60,17 +60,17 @@ private:
 }
 namespace __zz_cib_ {
 template <>
-struct __zz_cib_Delegator<::I> : public ::I {
-  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::I>;
+struct __zz_cib_Delegator<::Facade> : public ::Facade {
+  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Facade>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
-  using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
-  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::I>;
+  using __zz_cib_Proxy = __zz_cib_Proxy_t<::Facade>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Facade>;
 
-  using ::I::I;
+  using ::Facade::Facade;
 
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable) {
-    return new __zz_cib_::__zz_cib_Generic<::I>(__zz_cib_proxy, __zz_cib_GetMethodTable);
+    return new __zz_cib_::__zz_cib_Generic<::Facade>(__zz_cib_proxy, __zz_cib_GetMethodTable);
   }
   static void __zz_cib_decl __zz_cib_Delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
         delete __zz_cib_obj;
@@ -80,13 +80,13 @@ struct __zz_cib_Delegator<::I> : public ::I {
       __zz_cib_obj->f()
     );
   }
-  static void __zz_cib_decl __zz_cib_RegisterProxy(::I* obj, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
+  static void __zz_cib_decl __zz_cib_RegisterProxy(::Facade* obj, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
     __zz_cib_ProxyManagerDelegator::__zz_cib_RegisterProxy(obj, proxy, deleter);
   }
-  static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::I** __zz_cib_obj) {
+  static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::Facade** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::I))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::Facade))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
@@ -104,12 +104,12 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_New_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_Delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::f_2),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_GetClassId),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_ReleaseProxy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_RegisterProxy)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_New_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_Delete_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::f_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_GetClassId),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_ReleaseProxy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Facade>::__zz_cib_RegisterProxy)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;
@@ -133,24 +133,24 @@ struct __zz_cib_Delegator<::A> : public ::A {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<const ::I&> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<const ::I&>(
+  static __zz_cib_AbiType_t<const ::Facade&> __zz_cib_decl f_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<const ::Facade&>(
       __zz_cib_obj->::A::f()
     );
   }
-  static __zz_cib_AbiType_t<const ::I*> __zz_cib_decl g_4(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<const ::I*>(
+  static __zz_cib_AbiType_t<const ::Facade*> __zz_cib_decl g_4(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<const ::Facade*>(
       __zz_cib_obj->::A::g()
     );
   }
-  static __zz_cib_AbiType_t<::I*> __zz_cib_decl c_5(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::I*>(
+  static __zz_cib_AbiType_t<::Facade*> __zz_cib_decl c_5(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Facade*>(
       __zz_cib_obj->::A::c()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl d_6(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::I*> p) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl d_6(const __zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<const ::Facade*> p) {
     __zz_cib_obj->::A::d(
-      __zz_cib_::__zz_cib_FromAbiType<const ::I*>(p)
+      __zz_cib_::__zz_cib_FromAbiType<const ::Facade*>(p)
     );
   }
 };
