@@ -15,7 +15,7 @@ struct __zz_cib_Helper<::std::vector<::ExampleClass*>, T> : public __zz_cib_Meth
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::std::vector<::ExampleClass*>;
-  StlDependencyTest::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  StlDependencyTest::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class262::__zz_cib_Methodid;
 
   __zz_cib_Helper()
@@ -369,7 +369,8 @@ struct __zz_cib_Helper<::std::vector<::ExampleClass*>, T> : public __zz_cib_Meth
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

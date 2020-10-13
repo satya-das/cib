@@ -3,9 +3,8 @@
 #include "__zz_cib_internal/__zz_cib_StlDependencyTest-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_StlDependencyTest-def.h"
 #include "__zz_cib_internal/__zz_cib_StlDependencyTest-ids.h"
-#include "__zz_cib_internal/__zz_cib_StlDependencyTest-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_StlDependencyTest-handle-proxy-map.h"
 #include "__zz_cib_internal/__zz_cib_StlDependencyTest-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_StlDependencyTest-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <typename T>
@@ -14,7 +13,7 @@ struct __zz_cib_Helper<::ExampleClass, T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::ExampleClass;
-  StlDependencyTest::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  StlDependencyTest::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class263::__zz_cib_Methodid;
 
   __zz_cib_Helper()
@@ -63,7 +62,8 @@ struct __zz_cib_Helper<::ExampleClass, T> : public __zz_cib_MethodTableHelper {
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

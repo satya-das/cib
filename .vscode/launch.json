@@ -1135,7 +1135,9 @@
                 "-o",
                 "${workspaceFolder}/examples/230-lib-managed-proxies-proxy/exp",
                 "-m",
-                "Example"
+                "Example",
+                "--default-library-managed-proxy",
+                "true",
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",

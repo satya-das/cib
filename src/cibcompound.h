@@ -155,9 +155,9 @@ public:
   {
     proxyManagerType_ = libraryManaged ? ProxyManagerType::Remote : ProxyManagerType::Local;
   }
-  bool needsRemoteProxyManager(const CibParams& cibParams) const
+  bool libraryManagesProxy(const CibParams& cibParams) const
   {
-    if (!needsProxyManager())
+    if (!isSharedProxy())
       return false;
     return ((proxyManagerType_ == ProxyManagerType::Default) && cibParams.defaultLibraryManagedProxies)
            || (proxyManagerType_ == ProxyManagerType::Remote);
@@ -692,15 +692,16 @@ public:
     return hasProtectedMethods() && isOverridable() && !hasNonDefaultConstructableVirtualAncestor();
   }
 
-  bool needsProxyManager() const
+  bool isSharedProxy() const
   {
     if (isShared())
       return true;
     if (!needsNoProxy())
       return false;
-    auto isAncestorSharedFacade = forEachAncestor(CppAccessType::kPublic, [](const CibCompound* ancestor) -> bool {
-      return ancestor->isFacadeLike() && ancestor->isShared();
-    });
+    const auto isAncestorSharedFacade =
+      forEachAncestor(CppAccessType::kPublic, [](const CibCompound* ancestor) -> bool {
+        return ancestor->isFacadeLike() && ancestor->isShared();
+      });
     if (isAncestorSharedFacade)
       return true;
     // if (!isFacadeLike() && isAbstract())

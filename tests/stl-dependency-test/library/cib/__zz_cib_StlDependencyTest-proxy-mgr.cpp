@@ -14,7 +14,7 @@ namespace {
 
 using __zz_cib_ProxyPtr =
   std::unique_ptr<__zz_cib_GlobalProxyRepo::GenericOpaqueType, __zz_cib_GlobalProxyRepo::GenericProxyDeleter>;
-using __zz_cib_ProxyInfo = std::map<__zz_cib_ClientId, __zz_cib_ProxyPtr>;
+using __zz_cib_ProxyInfo = std::map<__zz_cib_GlobalProxyRepo::GenericProxy, __zz_cib_ProxyPtr>;
 using __zz_cib_ProxyRepo = std::map<__zz_cib_GlobalProxyRepo::ClassKey, __zz_cib_ProxyInfo>;
 
 static __zz_cib_ProxyRepo __zz_cib_proxyRepo;
@@ -28,33 +28,18 @@ __zz_cib_GlobalProxyRepo* __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo(
   return &__zz_cib_globalProxyRepo;
 }
 
-__zz_cib_GlobalProxyRepo::GenericProxy __zz_cib_GlobalProxyRepo::FindProxy(ClassKey classKey, ClientId clientId)
+void __zz_cib_GlobalProxyRepo::RegisterProxy(ClassKey classKey, GenericProxy proxy, GenericProxyDeleter deleter)
 {
-  auto repoItr = __zz_cib_proxyRepo.find(classKey);
-  if (repoItr == __zz_cib_proxyRepo.end())
-    return nullptr;
-  const auto& repoItem = repoItr->second;
-  auto        infoItr  = repoItem.find(clientId);
-  if (infoItr == repoItem.end())
-    return nullptr;
-  return infoItr->second.get();
+  __zz_cib_proxyRepo[classKey].emplace(proxy, __zz_cib_ProxyPtr(proxy, deleter));
 }
 
-void __zz_cib_GlobalProxyRepo::RegisterProxy(ClassKey            classKey,
-                                             ClientId            clientId,
-                                             GenericProxy        proxy,
-                                             GenericProxyDeleter deleter)
-{
-  __zz_cib_proxyRepo[classKey].emplace(clientId, __zz_cib_ProxyPtr(proxy, deleter));
-}
-
-void __zz_cib_GlobalProxyRepo::UnregisterProxy(ClassKey classKey, ClientId clientId)
+void __zz_cib_GlobalProxyRepo::UnregisterProxy(ClassKey classKey, GenericProxy proxy)
 {
   auto repoItr = __zz_cib_proxyRepo.find(classKey);
   if (repoItr == __zz_cib_proxyRepo.end())
     return;
   auto& repoItem = repoItr->second;
-  auto  infoItr  = repoItem.find(clientId);
+  auto  infoItr  = repoItem.find(proxy);
   if (infoItr == repoItem.end())
     return;
   infoItr->second.release();

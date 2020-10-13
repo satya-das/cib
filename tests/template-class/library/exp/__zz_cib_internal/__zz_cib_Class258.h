@@ -10,7 +10,7 @@ struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, T> : public __z
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::TemplateClassWithTwoParams<int, float>;
-  TemplateTests::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  TemplateTests::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
 
   __zz_cib_Helper()
@@ -60,7 +60,8 @@ struct __zz_cib_Helper<::TemplateClassWithTwoParams<int, float>, T> : public __z
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

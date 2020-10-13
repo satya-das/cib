@@ -3,9 +3,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
-#include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-proxy-map.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <typename T>
@@ -15,7 +14,7 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
   using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();
   friend class ::I;
-  Example::__zz_cib_RemoteProxyManager<_ProxyClass, __zz_cib_Helper> proxyMgr;
+  Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
 
   __zz_cib_Helper()
@@ -86,23 +85,16 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
-  using __zz_cib_ProxyDeleter    = void (__zz_cib_decl *) (_ProxyClass* proxy);
-  static _ProxyClass* __zz_cib_FindProxy(__zz_cib_AbiType obj, __zz_cib_ClientId clientId) {
-    using __zz_cib_FindProxyProc = _ProxyClass* (__zz_cib_decl *)(__zz_cib_AbiType, __zz_cib_ClientId);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_FindProxyProc, __zz_cib_Methodid::__zz_cib_FindProxy>(obj, clientId);
-  }
-  static void __zz_cib_RegisterProxy(__zz_cib_AbiType obj, __zz_cib_ClientId clientId, _ProxyClass* proxy, __zz_cib_ProxyDeleter deleter) {
-    using __zz_cib_RegisterProxyProc = void (__zz_cib_decl *)(__zz_cib_AbiType, __zz_cib_ClientId, _ProxyClass*, __zz_cib_ProxyDeleter);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_RegisterProxyProc, __zz_cib_Methodid::__zz_cib_RegisterProxy>(obj, clientId, proxy, deleter);
-  }
-  static void __zz_cib_UnregisterProxy(__zz_cib_AbiType obj, __zz_cib_ClientId clientId) {
-    using __zz_cib_UnregisterProxyProc = void (__zz_cib_decl *)(__zz_cib_AbiType, __zz_cib_ClientId);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_UnregisterProxyProc, __zz_cib_Methodid::__zz_cib_UnregisterProxy>(obj, clientId);
-  }
-  static void __zz_cib_DeleteOnlyProxy(_ProxyClass* obj) {
-    obj->__zz_cib_h_ = nullptr;
-    delete obj;
-  }
+  using __zz_cib_ProxyDeleter = void (__zz_cib_decl*) (_ProxyClass* proxy);
+  static void __zz_cib_RegisterProxy(__zz_cib_AbiType obj, _ProxyClass* proxy) {
+    using __zz_cib_RegisterProxyProc = void (__zz_cib_decl *)(__zz_cib_AbiType, _ProxyClass*, __zz_cib_ProxyDeleter);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_RegisterProxyProc, __zz_cib_Methodid::__zz_cib_RegisterProxy>(obj,
+      proxy, [](_ProxyClass* obj) {
+        obj->__zz_cib_h_ = nullptr;
+        delete obj;
+      }
+    );
+    }
 };
 }
 
@@ -175,7 +167,8 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

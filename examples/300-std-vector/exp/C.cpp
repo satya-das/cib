@@ -84,5 +84,8 @@ template<>
   default: break;
   }
   return ::__zz_cib_::__zz_cib_Generic<::C>::__zz_cib_FromHandle(h);
+  auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::C>::__zz_cib_FromHandle(h);
+  __zz_cib_RegisterProxy(h, __zz_cib_obj);
+  return __zz_cib_obj;
 }
 }

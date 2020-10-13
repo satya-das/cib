@@ -40,7 +40,7 @@
 
 namespace {
 
-std::string kProxyMgrMethods[3] = {"__zz_cib_FindProxy", "__zz_cib_RegisterProxy", "__zz_cib_UnregisterProxy"};
+std::string kProxyMgrMethods[3] = {"__zz_cib_RegisterProxy"};
 
 static CibId parseIdExpression(CppConstExprEPtr enumItemVal)
 {
@@ -326,9 +326,9 @@ void CibIdMgr::assignIds(CibCompound*     compound,
           cibIdData->addOrUpdateMethod("__zz_cib_ReleaseProxy", "__zz_cib_ReleaseProxy");
       }
 
-      if (compound->needsRemoteProxyManager(cibParams))
+      if (compound->libraryManagesProxy(cibParams))
       {
-        for (int i = 0; i < 3; ++i)
+        for (int i = 0; i < 1; ++i)
         {
           if (!cibIdData->hasMethod(kProxyMgrMethods[i]))
             cibIdData->addOrUpdateMethod(kProxyMgrMethods[i], kProxyMgrMethods[i]);

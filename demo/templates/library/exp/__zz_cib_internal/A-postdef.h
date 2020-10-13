@@ -3,9 +3,8 @@
 #include "__zz_cib_internal/__zz_cib_templates-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_templates-def.h"
 #include "__zz_cib_internal/__zz_cib_templates-ids.h"
-#include "__zz_cib_internal/__zz_cib_templates-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_templates-handle-proxy-map.h"
 #include "__zz_cib_internal/__zz_cib_templates-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_templates-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <typename T>
@@ -14,7 +13,7 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::A;
-  templates::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  templates::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Methodid;
 
   __zz_cib_Helper()
@@ -77,7 +76,8 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
       );
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

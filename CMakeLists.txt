@@ -74,14 +74,13 @@ set(RESFILES
 	__zz_cib_Module-type-converter-function-object.h
 	__zz_cib_Module-type-converter-smart-ptr.h
 	__zz_cib_Module-type-converter-std-function.h
-	__zz_cib_Module-local-proxy-mgr.h
+	__zz_cib_Module-handle-proxy-map.h
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
 	__zz_cib_Module-generic.h
 	__zz_cib_Module-proxy-mgr.cpp
 	__zz_cib_Module-proxy-mgr.h
 	__zz_cib_Module-proxy-types.h
-	__zz_cib_Module-remote-proxy-mgr.h
 	__zz_cib_Module-smart-ptr-detection.h
 	__zz_cib_Module-smart-ptr-input.h
 	__zz_cib_Module-value-types.h

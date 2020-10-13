@@ -62,13 +62,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_GetClassId = 3,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 4,
-    //#= __zz_cib_FindProxy
-    __zz_cib_FindProxy = 5,
     //#= __zz_cib_RegisterProxy
-    __zz_cib_RegisterProxy = 6,
-    //#= __zz_cib_UnregisterProxy
-    __zz_cib_UnregisterProxy = 7,
-    __zz_cib_nextMethodId = 8
+    __zz_cib_RegisterProxy = 5,
+    __zz_cib_nextMethodId = 6
   };
 }}}
 
