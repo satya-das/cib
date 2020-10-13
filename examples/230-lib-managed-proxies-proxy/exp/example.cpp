@@ -30,6 +30,86 @@ Facade::Facade()
   {}
 
 
+Base::Base(__zz_cib_AbiType h)
+  : __zz_cib_h_(h)
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
+
+Base::Base(Base&& rhs)
+  : __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
+
+Base::Base()
+  : Base(__zz_cib_MyHelper::__zz_cib_New_0(
+    ))
+  {}
+
+Base::Base(const ::Base& __zz_cib_param0)
+  : Base(__zz_cib_MyHelper::__zz_cib_Copy_1(
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
+  {}
+
+Base::~Base() {
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_2(
+    h
+  );
+}
+
+int Base::f() const {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
+
+
+Derived::Derived(__zz_cib_AbiType h)
+  : ::Base(__zz_cib_MyHelper::__zz_cib_CastTo__zz_cib_Class259(h))
+  , __zz_cib_h_(h)
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
+
+Derived::Derived(Derived&& rhs)
+  : ::Base(std::move(rhs))
+  , __zz_cib_h_(rhs.__zz_cib_h_)
+{
+  rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
+
+Derived::Derived()
+  : Derived(__zz_cib_MyHelper::__zz_cib_New_0(
+    ))
+  {}
+
+Derived::Derived(const ::Derived& __zz_cib_param0)
+  : Derived(__zz_cib_MyHelper::__zz_cib_Copy_1(
+        __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
+  {}
+
+Derived::~Derived() {
+auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_Delete_2(
+    h
+  );
+}
+
+int Derived::f() const {
+  return __zz_cib_::__zz_cib_FromAbiType<int>(
+    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
+
+
 A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
 {}
@@ -57,36 +137,52 @@ A::A()
     ))
   {}
 
-const ::Facade& A::f() const {
+const ::Facade& A::GetFacadeByRef() const {
   return __zz_cib_::__zz_cib_FromAbiType<const ::Facade&>(
-    __zz_cib_MyHelper::f_3<__zz_cib_::__zz_cib_AbiType_t<const ::Facade&>>(
+    __zz_cib_MyHelper::GetFacadeByRef_3<__zz_cib_::__zz_cib_AbiType_t<const ::Facade&>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
-const ::Facade* A::g() const {
+const ::Facade* A::GetFacadeByPtr() const {
   return __zz_cib_::__zz_cib_FromAbiType<const ::Facade*>(
-    __zz_cib_MyHelper::g_4<__zz_cib_::__zz_cib_AbiType_t<const ::Facade*>>(
+    __zz_cib_MyHelper::GetFacadeByPtr_4<__zz_cib_::__zz_cib_AbiType_t<const ::Facade*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
-::Facade* A::c() const {
+::Facade* A::GetNewFacade() const {
   return __zz_cib_::__zz_cib_FromAbiType<::Facade*>(
-    __zz_cib_MyHelper::c_5<__zz_cib_::__zz_cib_AbiType_t<::Facade*>>(
+    __zz_cib_MyHelper::GetNewFacade_5<__zz_cib_::__zz_cib_AbiType_t<::Facade*>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
-void A::d(const ::Facade* p) const {
-    __zz_cib_MyHelper::d_6<__zz_cib_::__zz_cib_AbiType_t<void>>(
+void A::DeleteFacade(const ::Facade* p) const {
+    __zz_cib_MyHelper::DeleteFacade_6<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(p)>(std::move(p))
     );
   }
+
+::Base& A::GetBase() {
+  return __zz_cib_::__zz_cib_FromAbiType<::Base&>(
+    __zz_cib_MyHelper::GetBase_7<__zz_cib_::__zz_cib_AbiType_t<::Base&>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
+
+::Derived& A::GetDerived() {
+  return __zz_cib_::__zz_cib_FromAbiType<::Derived&>(
+    __zz_cib_MyHelper::GetDerived_8<__zz_cib_::__zz_cib_AbiType_t<::Derived&>>(
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+    )
+  );
+}
 
 namespace __zz_cib_ {
 template<>
