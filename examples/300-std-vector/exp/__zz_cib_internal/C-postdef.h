@@ -98,8 +98,10 @@ struct __zz_cib_Helper<::C, T> : public __zz_cib_MethodTableHelper {
     using __zz_cib_RegisterProxyProc = void (__zz_cib_decl *)(__zz_cib_AbiType, _ProxyClass*, __zz_cib_ProxyDeleter);
     return __zz_cib_GetMethodTable().Invoke<__zz_cib_RegisterProxyProc, __zz_cib_Methodid::__zz_cib_RegisterProxy>(obj,
       proxy, [](_ProxyClass* obj) {
-        obj->__zz_cib_h_ = nullptr;
-        delete obj;
+        if (obj && obj->__zz_cib_h_) {
+          __zz_cib_ReleaseHandle(obj);
+          delete obj;
+        }
       }
     );
     }

@@ -2086,8 +2086,10 @@ void CibCompound::emitRemoteProxyMethods(std::ostream& stm, CppIndent indentatio
       << "return __zz_cib_GetMethodTable().Invoke<__zz_cib_RegisterProxyProc, "
          "__zz_cib_Methodid::__zz_cib_RegisterProxy>(obj,\n";
   stm << ++indentation << "proxy, [](_ProxyClass* obj) {\n";
-  stm << ++indentation << "obj->__zz_cib_h_ = nullptr;\n";
+  stm << ++indentation << "if (obj && obj->__zz_cib_h_) {\n";
+  stm << ++indentation << "__zz_cib_ReleaseHandle(obj);\n";
   stm << indentation << "delete obj;\n";
+  stm << --indentation << "}\n";
   stm << --indentation << "}\n";
   stm << --indentation << ");\n";
   stm << indentation << "}\n";
