@@ -1736,9 +1736,12 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
       auto cibIdData = cibIdMgr.getCibIdData(longName());
       if (cibIdData)
       {
-        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId:\n";
-        stm << ++indentation << "return new " << longName() << "(h);\n";
-        --indentation;
+        stm << indentation << "case __zz_cib_::__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId: {\n";
+        stm << ++indentation << "auto* const __zz_cib_obj = new " << longName() << "(h);\n";
+        if (isSharedProxy() && libraryManagesProxy())
+          stm << indentation << "__zz_cib_RegisterProxy(h, __zz_cib_obj);\n";
+        stm << indentation << "return __zz_cib_obj;\n";
+        stm << --indentation << "}\n";
       }
     }
     stm << indentation << "default: break;\n";
