@@ -79,8 +79,11 @@ namespace __zz_cib_ {
 template<>
 ::C* __zz_cib_Helper<::C>::__zz_cib_CreateProxy(__zz_cib_AbiType h) {
   switch(__zz_cib_GetClassId(&h)) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId:
-    return new ::C(h);
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId: {
+    auto* const __zz_cib_obj = new ::C(h);
+    __zz_cib_RegisterProxy(h, __zz_cib_obj);
+    return __zz_cib_obj;
+  }
   default: break;
   }
   auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::C>::__zz_cib_FromHandle(h);

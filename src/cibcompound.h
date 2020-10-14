@@ -683,6 +683,9 @@ public:
   void setFacadeLike()
   {
     props_ |= kClassPropFacade;
+    forEachDescendent([](auto* descendent) {
+      descendent->setShared();
+    });
   }
 
   bool needsDelagatorClass() const

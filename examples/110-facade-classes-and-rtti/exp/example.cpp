@@ -33,13 +33,16 @@ Facade::Facade()
 PublicFacadeImpl::PublicFacadeImpl(__zz_cib_AbiType h)
   : ::Facade(__zz_cib_MyHelper::__zz_cib_CastTo__zz_cib_Class258(h))
   , __zz_cib_h_(h)
-{}
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
 
 PublicFacadeImpl::PublicFacadeImpl(PublicFacadeImpl&& rhs)
   : ::Facade(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 PublicFacadeImpl::PublicFacadeImpl(const ::PublicFacadeImpl& __zz_cib_param0)
@@ -68,12 +71,15 @@ void PublicFacadeImpl::F() {
 
 A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
-{}
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
 
 A::A(A&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 A::A(const ::A& __zz_cib_param0)

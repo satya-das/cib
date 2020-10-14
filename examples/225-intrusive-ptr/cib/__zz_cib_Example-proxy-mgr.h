@@ -33,7 +33,7 @@
 #define __ZZ_CIB_MANAGE_PROXIES(className)                                                                             \
 private:                                                                                                               \
   friend class __zz_cib_::__zz_cib_ProxyManagerDelegator;                                                              \
-  using __zz_cib_ProxyManager = __zz_cib_::__zz_cib_ProxyManager<className>;                                           \
+  using __zz_cib_ProxyManager = __zz_cib_::__zz_cib_ProxyManager;                                                      \
   __zz_cib_ProxyManager  __zz_cib_proxyManager;                                                                        \
   __zz_cib_ProxyManager* __zz_cib_GetProxyMgr()                                                                        \
   {                                                                                                                    \

@@ -45,13 +45,16 @@ auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
 B::B(__zz_cib_AbiType h)
   : ::A(__zz_cib_MyHelper::__zz_cib_CastTo__zz_cib_Class258(h))
   , __zz_cib_h_(h)
-{}
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
 
 B::B(B&& rhs)
   : ::A(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 B::B(const ::B& __zz_cib_param0)
@@ -121,8 +124,10 @@ template<>
     return __zz_cib_Helper<B>::__zz_cib_FromHandle(
       __zz_cib_Helper<B>::__zz_cib_CastFrom__zz_cib_Class258(h)
     );
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId:
-    return new ::A(h);
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId: {
+    auto* const __zz_cib_obj = new ::A(h);
+    return __zz_cib_obj;
+  }
   default: break;
   }
   auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::A>::__zz_cib_FromHandle(h);
