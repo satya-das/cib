@@ -50,11 +50,12 @@ class __zz_cib_ProxyManager;
 class __zz_cib_GlobalProxyRepo
 {
 public:
-  using ClassKey            = const void*;
+  using ClassKey            = __zz_cib_ProxyManager*;
   using GenericOpaqueType   = __zz_cib_Opaque_t<void>;
   using GenericProxy        = __zz_cib_Proxy_t<void>;
   using GenericProxyDeleter = __zz_cib_ProxyDeleter_t<void>;
 
+  ~__zz_cib_GlobalProxyRepo();
   void RegisterProxy(ClassKey objPtr, GenericProxy, GenericProxyDeleter);
   void DeleteProxies(ClassKey objPtr);
 
@@ -71,10 +72,7 @@ class __zz_cib_ProxyManager
 {
 public:
   // Destructor will ensure all proxies are deleted.
-  ~__zz_cib_ProxyManager()
-  {
-    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->DeleteProxies(this);
-  }
+  ~__zz_cib_ProxyManager();
 
   // All constructors and assignment operators have to be no-op.
   __zz_cib_ProxyManager() {}

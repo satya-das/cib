@@ -2135,7 +2135,10 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
 
     stm << indentation << "friend " << compoundType() << ' ' << longName() << ";\n";
     if (!proxyMgr.empty())
+    {
+      stm << indentation << "static bool instanceDeleted_;\n";
       stm << indentation << proxyMgr << " proxyMgr;\n";
+    }
   }
   stm << indentation << "using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::" << fullNsName()
       << "::__zz_cib_Methodid;\n";
@@ -2147,6 +2150,12 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
       << "__zz_cib_ids::" << fullNsName() << "::__zz_cib_classId))\n";
   --indentation;
   stm << --indentation << "{}\n";
+  if (isSharedProxy() && !needsNoProxy())
+  {
+    stm << indentation << "~__zz_cib_Helper() {\n";
+    stm << ++indentation << "instanceDeleted_ = true;\n";
+    stm << --indentation << "}\n";
+  }
   stm << indentation << "static __zz_cib_Helper& __zz_cib_Instance() {\n";
   stm << ++indentation << "static __zz_cib_Helper helper;\n";
   stm << indentation << "return helper;\n";
@@ -2282,7 +2291,8 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << indentation << "dis.proxyMgr.AddProxy(__zz_cib_obj, h);\n";
     stm << --indentation << "}\n";
     stm << indentation << "static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {\n";
-    stm << ++indentation << "auto& dis = __zz_cib_Instance();\n";
+    stm << ++indentation << "if (instanceDeleted_) return;\n";
+    stm << indentation << "auto& dis = __zz_cib_Instance();\n";
     stm << indentation << "  dis.proxyMgr.RemoveProxy(h);\n";
     stm << --indentation << "}\n";
   }
@@ -2337,6 +2347,12 @@ void CibCompound::emitHelperDefn(std::ostream&    stm,
 void CibCompound::emitHelperDefnEnd(std::ostream& stm, CppIndent indentation) const
 {
   stm << --indentation << "};\n";
+
+  if (isSharedProxy() && !needsNoProxy())
+  {
+    stm << indentation << "template <typename T>\n";
+    stm << indentation << "bool __zz_cib_Helper<" << longName() << ", T>::instanceDeleted_ = false;\n";
+  }
   if (!isClassLike(this))
     stm << indentation << closingBracesForWrappingNamespaces() << '}';
   stm << indentation << "}\n";

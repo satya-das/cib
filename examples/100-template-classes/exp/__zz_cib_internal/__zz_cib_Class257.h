@@ -11,6 +11,7 @@ struct __zz_cib_Helper<::Example::Value<int>, T> : public __zz_cib_MethodTableHe
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::Example::Value<int>;
+  static bool instanceDeleted_;
   Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class257::__zz_cib_Methodid;
 
@@ -18,6 +19,9 @@ struct __zz_cib_Helper<::Example::Value<int>, T> : public __zz_cib_MethodTableHe
     : __zz_cib_MethodTableHelper(
       __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class257::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -101,10 +105,13 @@ struct __zz_cib_Helper<::Example::Value<int>, T> : public __zz_cib_MethodTableHe
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::Example::Value<int>, T>::instanceDeleted_ = false;
 }
 namespace Example {
 template<>

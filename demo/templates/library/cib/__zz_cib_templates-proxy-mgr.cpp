@@ -20,12 +20,18 @@ using __zz_cib_ProxyRepo = std::map<__zz_cib_GlobalProxyRepo::ClassKey, __zz_cib
 static __zz_cib_ProxyRepo __zz_cib_proxyRepo;
 
 static __zz_cib_GlobalProxyRepo __zz_cib_globalProxyRepo;
+static bool                     __zz_cib_globalProxyRepoExists = true;
 
 } // namespace
 
 __zz_cib_GlobalProxyRepo* __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()
 {
   return &__zz_cib_globalProxyRepo;
+}
+
+__zz_cib_GlobalProxyRepo::~__zz_cib_GlobalProxyRepo()
+{
+  __zz_cib_globalProxyRepoExists = false;
 }
 
 void __zz_cib_GlobalProxyRepo::RegisterProxy(ClassKey classKey, GenericProxy proxy, GenericProxyDeleter deleter)
@@ -40,6 +46,12 @@ void __zz_cib_GlobalProxyRepo::DeleteProxies(ClassKey classKey)
     return;
   auto repo = std::move(itr->second);
   __zz_cib_proxyRepo.erase(itr);
+}
+
+__zz_cib_ProxyManager::~__zz_cib_ProxyManager()
+{
+  if (__zz_cib_globalProxyRepoExists)
+    __zz_cib_GlobalProxyRepo::__zz_cib_GetGlobalProxyRepo()->DeleteProxies(this);
 }
 
 } // namespace __zz_cib_

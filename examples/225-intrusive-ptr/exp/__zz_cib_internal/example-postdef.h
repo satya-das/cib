@@ -14,6 +14,7 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
   using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();
   friend class ::I;
+  static bool instanceDeleted_;
   Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Methodid;
 
@@ -21,6 +22,9 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
     : __zz_cib_MethodTableHelper(
       __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -98,10 +102,13 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::I, T>::instanceDeleted_ = false;
 }
 
 namespace __zz_cib_ {

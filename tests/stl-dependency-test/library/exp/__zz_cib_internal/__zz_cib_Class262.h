@@ -15,6 +15,7 @@ struct __zz_cib_Helper<::std::vector<::ExampleClass*>, T> : public __zz_cib_Meth
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::std::vector<::ExampleClass*>;
+  static bool instanceDeleted_;
   StlDependencyTest::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class262::__zz_cib_Methodid;
 
@@ -22,6 +23,9 @@ struct __zz_cib_Helper<::std::vector<::ExampleClass*>, T> : public __zz_cib_Meth
     : __zz_cib_MethodTableHelper(
       __zz_cib_StlDependencyTestGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_Class262::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -402,10 +406,13 @@ struct __zz_cib_Helper<::std::vector<::ExampleClass*>, T> : public __zz_cib_Meth
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::std::vector<::ExampleClass*>, T>::instanceDeleted_ = false;
 }
 namespace std {
 template<>
