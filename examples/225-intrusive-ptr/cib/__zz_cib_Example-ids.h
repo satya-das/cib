@@ -78,7 +78,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
     __zz_cib_GetClassId = 6,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 7,
-    __zz_cib_nextMethodId = 8
+    //#= __zz_cib_RegisterProxy
+    __zz_cib_RegisterProxy = 8,
+    __zz_cib_nextMethodId = 9
   };
 }}}
 

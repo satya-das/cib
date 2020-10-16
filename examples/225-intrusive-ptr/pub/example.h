@@ -5,7 +5,9 @@
 #include <cassert>
 #include <memory>
 
-class I : public SkRefCntBase
+#include "../cib/__zz_cib_Example-proxy-mgr.h"
+
+class I : public SkRefCntBase, public __zz_cib_::__zz_cib_ProxyManager
 {
 public:
   virtual ~I() {}

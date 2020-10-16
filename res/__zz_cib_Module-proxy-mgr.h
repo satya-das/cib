@@ -30,7 +30,7 @@
  * @defn __ZZ_CIB_MANAGE_PROXIES
  * An easy way to make a class manage it's proxies.
  */
-#define __ZZ_CIB_MANAGE_PROXIES(className)                                                                             \
+#define __ZZ_CIB_MANAGE_PROXIES()                                                                                      \
 private:                                                                                                               \
   friend class __zz_cib_::__zz_cib_ProxyManagerDelegator;                                                              \
   using __zz_cib_ProxyManager = __zz_cib_::__zz_cib_ProxyManager;                                                      \

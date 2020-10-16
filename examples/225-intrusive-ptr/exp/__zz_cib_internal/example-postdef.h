@@ -106,6 +106,18 @@ struct __zz_cib_Helper<::I, T> : public __zz_cib_MethodTableHelper {
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
+  using __zz_cib_ProxyDeleter = void (__zz_cib_decl*) (_ProxyClass* proxy);
+  static void __zz_cib_RegisterProxy(__zz_cib_AbiType obj, _ProxyClass* proxy) {
+    using __zz_cib_RegisterProxyProc = void (__zz_cib_decl *)(__zz_cib_AbiType, _ProxyClass*, __zz_cib_ProxyDeleter);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_RegisterProxyProc, __zz_cib_Methodid::__zz_cib_RegisterProxy>(obj,
+      proxy, [](_ProxyClass* obj) {
+        if (obj && obj->__zz_cib_h_) {
+          __zz_cib_ReleaseHandle(obj);
+          delete obj;
+        }
+      }
+    );
+    }
 };
 template <typename T>
 bool __zz_cib_Helper<::I, T>::instanceDeleted_ = false;

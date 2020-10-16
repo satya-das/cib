@@ -72,6 +72,7 @@ struct __zz_cib_Delegator<::I> : public ::I {
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::I>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::I>;
 
   using ::I::I;
 
@@ -88,6 +89,9 @@ struct __zz_cib_Delegator<::I> : public ::I {
   }
   static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose_3(const __zz_cib_Delegatee* __zz_cib_obj) {
     __zz_cib_obj->::I::internal_dispose();
+  }
+  static void __zz_cib_decl __zz_cib_RegisterProxy(::I* obj, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
+    __zz_cib_ProxyManagerDelegator::__zz_cib_RegisterProxy(obj, proxy, deleter);
   }
   static ::SkRefCntBase* __zz_cib_decl __zz_cib_CastTo__zz_cib_Class258(::I* __zz_cib_obj) {
     return __zz_cib_obj;
@@ -123,9 +127,10 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_CastTo__zz_cib_Class258),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_CastFrom__zz_cib_Class258),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_GetClassId),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_ReleaseProxy)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_ReleaseProxy),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_RegisterProxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 9 };
   return &methodTable;
 }
 }}
