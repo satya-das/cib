@@ -60,7 +60,6 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   const auto files = collectAllInterfaceFiles(cibParams);
   program_.reset(new CppProgram(files, std::move(parser)));
   buildCibCppObjTree();
-  identifyLibraryManagedPoxies();
 }
 
 void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) const
@@ -195,30 +194,6 @@ void CibHelper::forceMarkInterfaceClasses()
 
     if (interfaceClass)
       interfaceClass->setInterfaceLike();
-  }
-}
-
-void CibHelper::identifyLibraryManagedPoxies()
-{
-  if (cibParams_.defaultLibraryManagedProxies)
-  {
-    for (const auto& className : cibParams_.localProxyManagedClasses)
-    {
-      CibCompoundEPtr compound = getCppObjFromTypeName(className);
-
-      if (compound)
-        compound->setLibraryManagedProxy(false);
-    }
-  }
-  else
-  {
-    for (const auto& className : cibParams_.remoteProxyManagedClasses)
-    {
-      CibCompoundEPtr compound = getCppObjFromTypeName(className);
-
-      if (compound)
-        compound->setLibraryManagedProxy(true);
-    }
   }
 }
 
@@ -405,7 +380,10 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
   {
     for (const auto& inh : *(cppCompound->inheritanceList()))
     {
-      auto* cppObj    = resolveTypename(inh.baseName, &ownerTypeNode, TypeResolvingFlag::IgnoreStlHelpers);
+      auto* cppObj = resolveTypename(inh.baseName, &ownerTypeNode, TypeResolvingFlag::IgnoreStlHelpers);
+      if ((cppObj == nullptr) && (strcmp(inh.baseName.c_str(), "__zz_cib_::__zz_cib_ProxyManager") == 0))
+        cppCompound->setLibraryManagedProxy();
+
       auto* parentObj = cppObj && isClassLike(cppObj) ? static_cast<CibCompound*>(cppObj) : nullptr;
       // assert(parentObj != nullptr); // we should actually give warning
       // here.
@@ -592,6 +570,13 @@ void CibHelper::markClassType(CibCompound* cppCompound)
       {
         descended->setCantHaveDefaultCopyCtor();
       }
+    });
+  }
+
+  if (cppCompound->libraryManagesProxy())
+  {
+    cppCompound->forEachDerived([](auto* derived) {
+      derived->setLibraryManagedProxy();
     });
   }
 }

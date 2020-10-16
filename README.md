@@ -15,10 +15,9 @@ It can be said that CIB architecture is an [hourglass design pattern](https://ww
 
 ## Jargon
 1. **ABI Compatibility**: Compatibility of binary C++ components even when they are built with different compilers.
-2. **API Stability**: Ability to compile client of a library with newer SDK headers without any change.
-3. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of a plugin (in binary form) of an application to seemlessly work with newer application.
-4. **Forward Compatibility**: It is specific ABI stability where older library can work with newer client.
-5. **Backward Compatibility**: It is specific ABI stability where newer library can work with older client.
+2. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of a plugin (in binary form) of an application to seemlessly work with newer application.
+3. **Forward Compatibility**: It is specific ABI stability where older library can work with newer client.
+4. **Backward Compatibility**: It is specific ABI stability where newer library can work with older client.
 
 In this document when _ABI Stability_ is mentioned we will mean both forward and backward compatibility.
 
@@ -92,8 +91,6 @@ git clone https://github.com/satya-das/common.git
 git clone https://github.com/satya-das/cppparser.git
 git clone https://github.com/satya-das/cib.git
 ```
-
-**Note**: On Windows you may need to use `git bash` to use `git`.
 
 ## Configure and build
 

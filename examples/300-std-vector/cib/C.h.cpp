@@ -21,6 +21,8 @@ struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::C>;
   using __zz_cib_ThisClass = __zz_cib_Delegatee;
   using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_Proxy = __zz_cib_Proxy_t<::C>;
+  using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::C>;
 
   using ::C::C;
 
@@ -38,25 +40,19 @@ struct __zz_cib_Delegator<::C> : public ::C {
       __zz_cib_obj->::C::f()
     );
   }
-  static __zz_cib_Proxy __zz_cib_decl __zz_cib_FindProxy(::C* obj, __zz_cib_ClientId clientId) {
-    return __zz_cib_ProxyManagerDelegator::__zz_cib_FindProxy(obj, clientId);
-  }
-  static void __zz_cib_decl __zz_cib_RegisterProxy(::C* obj, __zz_cib_ClientId clientId, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
-    __zz_cib_ProxyManagerDelegator::__zz_cib_RegisterProxy(obj, clientId, proxy, deleter);
-  }
-  static void __zz_cib_decl __zz_cib_UnregisterProxy(::C* obj, __zz_cib_ClientId clientId) {
-    __zz_cib_ProxyManagerDelegator::__zz_cib_UnregisterProxy(obj, clientId);
+  static void __zz_cib_decl __zz_cib_RegisterProxy(::C* obj, __zz_cib_Proxy proxy, __zz_cib_ProxyDeleter deleter) {
+    __zz_cib_ProxyManagerDelegator::__zz_cib_RegisterProxy(obj, proxy, deleter);
   }
   static std::uint32_t __zz_cib_decl __zz_cib_GetClassId(::C** __zz_cib_obj) {
     static bool classIdRepoPopulated = false;
     if (!classIdRepoPopulated) {
-      __zz_cib_gClassIdRepo[std::type_index(typeid(::C))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid;
+      __zz_cib_gClassIdRepo[std::type_index(typeid(::C))] = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId;
       classIdRepoPopulated = true;
     }
     auto tdx = std::type_index(typeid(**__zz_cib_obj));
     auto itr = __zz_cib_gClassIdRepo.find(tdx);
     if (itr != __zz_cib_gClassIdRepo.end()) return itr->second;
-    return __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid;
+    return __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId;
   }
 };
 }
@@ -70,11 +66,9 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_Delete_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::f_3),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_GetClassId),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_FindProxy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_RegisterProxy),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_UnregisterProxy)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::C>::__zz_cib_RegisterProxy)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 8 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
   return &methodTable;
 }
 }}

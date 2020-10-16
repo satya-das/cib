@@ -2,52 +2,52 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classId = 261 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::Interface1
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classId = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   //#= FullClassName: ::Interface1::__zz_cib_Generic
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classId = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   //#= FullClassName: ::Interface2
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classId = 259 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   //#= FullClassName: ::Interface2::__zz_cib_Generic
-  enum { __zz_cib_classid = 263 };
+  enum { __zz_cib_classId = 263 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   //#= FullClassName: ::Interface3
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classId = 260 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
   //#= FullClassName: ::Interface3::__zz_cib_Generic
-  enum { __zz_cib_classid = 264 };
+  enum { __zz_cib_classId = 264 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classId = 256 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classId = 257 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 265 };
-  enum { __zz_cib_internal_class_id = 1 };
+  enum { __zz_cib_nextClassId = 265 };
+  enum { __zz_cib_internalClassId = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
@@ -60,7 +60,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
     __zz_cib_New_2 = 2,
     //#= int SetInterface(::Interface1*) const;
     SetInterface_3 = 3,
-    __zz_cib_next_method_id = 4
+    __zz_cib_nextMethodId = 4
   };
 }}}
 
@@ -76,7 +76,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_Delete_3 = 3,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_nextMethodId = 5
   };
 }}}
 
@@ -88,7 +88,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
     p_1 = 1,
     //#= ~Interface1();
     __zz_cib_Delete_2 = 2,
-    __zz_cib_next_method_id = 3
+    __zz_cib_nextMethodId = 3
   };
 }}}}
 
@@ -104,7 +104,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
     __zz_cib_GetClassId = 3,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_nextMethodId = 5
   };
 }}}
 
@@ -114,7 +114,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { nam
     f_0 = 0,
     //#= ~Interface2();
     __zz_cib_Delete_1 = 1,
-    __zz_cib_next_method_id = 2
+    __zz_cib_nextMethodId = 2
   };
 }}}}
 
@@ -130,7 +130,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
     __zz_cib_GetClassId = 3,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_nextMethodId = 5
   };
 }}}
 
@@ -140,7 +140,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { nam
     g_0 = 0,
     //#= ~Interface3();
     __zz_cib_Delete_1 = 1,
-    __zz_cib_next_method_id = 2
+    __zz_cib_nextMethodId = 2
   };
 }}}}
 

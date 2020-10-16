@@ -45,13 +45,16 @@ auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
 B::B(__zz_cib_AbiType h)
   : ::A(__zz_cib_MyHelper::__zz_cib_CastTo__zz_cib_Class258(h))
   , __zz_cib_h_(h)
-{}
+{
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
+}
 
 B::B(B&& rhs)
   : ::A(std::move(rhs))
   , __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 B::B(const ::B& __zz_cib_param0)
@@ -83,9 +86,9 @@ namespace __zz_cib_ {
 template<>
 class __zz_cib_Generic<::A> : public ::A {
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
-  static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
+  static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_ExampleGetMethodTable(
-      __zz_cib_ids::__zz_cib_Class258::__zz_cib_classid));
+      __zz_cib_ids::__zz_cib_Class258::__zz_cib_classId));
     return mtableHelper;
   }
   explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::A(h) {}
@@ -97,7 +100,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::VirtualFunction_2>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::VirtualFunction_2>(
         __zz_cib_h
       )
     );
@@ -106,7 +109,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_Helper<::A>::__zz_cib_ReleaseHandle(this);
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_AbiType);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_3>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_3>(
       __zz_cib_h
     );
   }
@@ -117,14 +120,17 @@ namespace __zz_cib_ {
 template<>
 ::A* __zz_cib_Helper<::A>::__zz_cib_CreateProxy(__zz_cib_AbiType h) {
   switch(__zz_cib_GetClassId(&h)) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId:
     return __zz_cib_Helper<B>::__zz_cib_FromHandle(
       __zz_cib_Helper<B>::__zz_cib_CastFrom__zz_cib_Class258(h)
     );
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
-    return new ::A(h);
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId: {
+    auto* const __zz_cib_obj = new ::A(h);
+    return __zz_cib_obj;
+  }
   default: break;
   }
-  return ::__zz_cib_::__zz_cib_Generic<::A>::__zz_cib_FromHandle(h);
+  auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::A>::__zz_cib_FromHandle(h);
+  return __zz_cib_obj;
 }
 }

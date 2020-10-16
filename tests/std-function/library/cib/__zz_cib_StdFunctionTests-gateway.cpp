@@ -12,13 +12,13 @@ extern "C" __zz_cib_export
 const __zz_cib_::__zz_cib_MethodTable* __zz_cib_decl __zz_cib_StdFunctionTestsGetMethodTable(std::uint32_t classId)
 {
   switch(classId) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId:
     return __zz_cib_::__zz_cib_Class258::__zz_cib_GetMethodTable();
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId:
     return __zz_cib_::__zz_cib_Class259::__zz_cib_GetMethodTable();
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId:
     return __zz_cib_::__zz_cib_Class260::__zz_cib_GetMethodTable();
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_classid:
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class261::__zz_cib_classId:
     return __zz_cib_::__zz_cib_Class261::__zz_cib_GetMethodTable();
   default:
     return nullptr;

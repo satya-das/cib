@@ -2,42 +2,42 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
   //#= FullClassName: ::A
-  enum { __zz_cib_classid = 260 };
+  enum { __zz_cib_classId = 260 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   //#= FullClassName: ::I
-  enum { __zz_cib_classid = 259 };
+  enum { __zz_cib_classId = 259 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
   //#= FullClassName: ::I::__zz_cib_Generic
-  enum { __zz_cib_classid = 262 };
+  enum { __zz_cib_classId = 262 };
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   //#= FullClassName: ::SkRefCntBase
-  enum { __zz_cib_classid = 258 };
+  enum { __zz_cib_classId = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
   //#= FullClassName: ::__zz_cib_
-  enum { __zz_cib_classid = 261 };
+  enum { __zz_cib_classId = 261 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
-  enum { __zz_cib_classid = 256 };
+  enum { __zz_cib_classId = 256 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
   //#= FullClassName: ::std
-  enum { __zz_cib_classid = 257 };
+  enum { __zz_cib_classId = 257 };
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_next_class_id = 263 };
-  enum { __zz_cib_internal_class_id = 1 };
+  enum { __zz_cib_nextClassId = 263 };
+  enum { __zz_cib_internalClassId = 1 };
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
@@ -56,7 +56,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
     h_5 = 5,
     //#= int i(::I*) const;
     i_6 = 6,
-    __zz_cib_next_method_id = 7
+    __zz_cib_nextMethodId = 7
   };
 }}}
 
@@ -78,7 +78,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
     __zz_cib_GetClassId = 6,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 7,
-    __zz_cib_next_method_id = 8
+    //#= __zz_cib_RegisterProxy
+    __zz_cib_RegisterProxy = 8,
+    __zz_cib_nextMethodId = 9
   };
 }}}
 
@@ -90,7 +92,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { nam
     internal_dispose_1 = 1,
     //#= ~I();
     __zz_cib_Delete_2 = 2,
-    __zz_cib_next_method_id = 3
+    __zz_cib_nextMethodId = 3
   };
 }}}}
 
@@ -106,7 +108,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     unref_3 = 3,
     //#= void internal_dispose() const;
     internal_dispose_4 = 4,
-    __zz_cib_next_method_id = 5
+    __zz_cib_nextMethodId = 5
   };
 }}}
 

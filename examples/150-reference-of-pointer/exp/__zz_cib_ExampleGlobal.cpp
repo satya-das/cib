@@ -1,9 +1,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
-#include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-proxy-map.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 
 #include "example.h"
 
@@ -13,7 +12,7 @@ using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_
 
 __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
-    __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_classid))
+    __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_classId))
 {}
 static __zz_cib_Helper& __zz_cib_Instance() {
   static __zz_cib_Helper helper;

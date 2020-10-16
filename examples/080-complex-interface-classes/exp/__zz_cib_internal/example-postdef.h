@@ -3,9 +3,8 @@
 #include "__zz_cib_internal/__zz_cib_Example-type-converters.h"
 #include "__zz_cib_internal/__zz_cib_Example-def.h"
 #include "__zz_cib_internal/__zz_cib_Example-ids.h"
-#include "__zz_cib_internal/__zz_cib_Example-local-proxy-mgr.h"
+#include "__zz_cib_internal/__zz_cib_Example-handle-proxy-map.h"
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
-#include "__zz_cib_internal/__zz_cib_Example-remote-proxy-mgr.h"
 
 namespace __zz_cib_ {
 template <typename T>
@@ -15,13 +14,17 @@ struct __zz_cib_Helper<::Interface1, T> : public __zz_cib_MethodTableHelper {
   using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();
   friend class ::Interface1;
-  Example::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  static bool instanceDeleted_;
+  Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -76,10 +79,13 @@ struct __zz_cib_Helper<::Interface1, T> : public __zz_cib_MethodTableHelper {
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::Interface1, T>::instanceDeleted_ = false;
 }
 
 namespace __zz_cib_ {
@@ -90,13 +96,17 @@ struct __zz_cib_Helper<::Interface2, T> : public __zz_cib_MethodTableHelper {
   using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();
   friend class ::Interface2;
-  Example::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  static bool instanceDeleted_;
+  Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class259::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class259::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -158,10 +168,13 @@ struct __zz_cib_Helper<::Interface2, T> : public __zz_cib_MethodTableHelper {
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::Interface2, T>::instanceDeleted_ = false;
 }
 
 namespace __zz_cib_ {
@@ -172,13 +185,17 @@ struct __zz_cib_Helper<::Interface3, T> : public __zz_cib_MethodTableHelper {
   using _ProxyClass = T;
   static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();
   friend class ::Interface3;
-  Example::__zz_cib_LocalProxyManager<_ProxyClass> proxyMgr;
+  static bool instanceDeleted_;
+  Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class260::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -240,10 +257,13 @@ struct __zz_cib_Helper<::Interface3, T> : public __zz_cib_MethodTableHelper {
     dis.proxyMgr.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
       dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::Interface3, T>::instanceDeleted_ = false;
 }
 
 namespace __zz_cib_ {
@@ -257,7 +277,7 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_classid))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class261::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
@@ -294,7 +314,8 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
       __zz_cib_args...);
   }
   static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    return new T(h);
+    auto* const __zz_cib_obj = new T(h);
+    return __zz_cib_obj;
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);

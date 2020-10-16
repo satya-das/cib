@@ -47,7 +47,7 @@ public:
 private:
   static const __zz_cib_MethodTableHelper& GetMethodTable()
   {
-    constexpr auto                           internalClassId = __zz_cib_::Demo::__zz_cib_internal_class_id;
+    constexpr auto                           internalClassId = __zz_cib_::Demo::__zz_cib_internalClassId;
     static const __zz_cib_MethodTableHelper& mtable          = __zz_cib_DemoGetMethodTable(internalClassId);
     return mtable;
   }

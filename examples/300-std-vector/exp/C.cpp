@@ -45,9 +45,9 @@ namespace __zz_cib_ {
 template<>
 class __zz_cib_Generic<::C> : public ::C {
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_Methodid;
-  static __zz_cib_MethodTableHelper& __zz_cib_get_mtable_helper() {
+  static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_ExampleGetMethodTable(
-      __zz_cib_ids::__zz_cib_Class283::__zz_cib_classid));
+      __zz_cib_ids::__zz_cib_Class283::__zz_cib_classId));
     return mtableHelper;
   }
   explicit __zz_cib_Generic(__zz_cib_AbiType h) : ::C(h) {}
@@ -59,7 +59,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_3>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_3>(
         __zz_cib_h
       )
     );
@@ -68,7 +68,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_Helper<::C>::__zz_cib_ReleaseHandle(this);
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_AbiType);
-    __zz_cib_get_mtable_helper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
       __zz_cib_h
     );
   }
@@ -79,10 +79,15 @@ namespace __zz_cib_ {
 template<>
 ::C* __zz_cib_Helper<::C>::__zz_cib_CreateProxy(__zz_cib_AbiType h) {
   switch(__zz_cib_GetClassId(&h)) {
-  case __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classid:
-    return new ::C(h);
+  case __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_classId: {
+    auto* const __zz_cib_obj = new ::C(h);
+    __zz_cib_RegisterProxy(h, __zz_cib_obj);
+    return __zz_cib_obj;
+  }
   default: break;
   }
-  return ::__zz_cib_::__zz_cib_Generic<::C>::__zz_cib_FromHandle(h);
+  auto* const __zz_cib_obj = ::__zz_cib_::__zz_cib_Generic<::C>::__zz_cib_FromHandle(h);
+  __zz_cib_RegisterProxy(h, __zz_cib_obj);
+  return __zz_cib_obj;
 }
 }

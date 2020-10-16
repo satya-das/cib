@@ -76,7 +76,7 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << indentation << "{\n";
   stm << ++indentation << "switch(classId) {\n";
   cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
-    stm << indentation << "case __zz_cib_::__zz_cib_ids::" << nsName << "::__zz_cib_classid:\n";
+    stm << indentation << "case __zz_cib_::__zz_cib_ids::" << nsName << "::__zz_cib_classId:\n";
     stm << ++indentation << "return __zz_cib_::" << nsName << "::__zz_cib_GetMethodTable();\n";
     --indentation;
   });
@@ -296,8 +296,7 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-mtable-helper.h",
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-import.h",
-                                           "__zz_cib_Module-local-proxy-mgr.h",
-                                           "__zz_cib_Module-remote-proxy-mgr.h",
+                                           "__zz_cib_Module-handle-proxy-map.h",
                                            "__zz_cib_Module-internal-proxy.h",
                                            "__zz_cib_Module-class-internal-def.h",
                                            "__zz_cib_Module-type-traits.h",

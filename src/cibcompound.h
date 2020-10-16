@@ -148,19 +148,17 @@ private:
   DependentTemplateInstances usedInTemplateInstaces_;
   CibClassId                 clsId_{0};
   std::string                nsName_;
+  bool                       libraryManagesProxy_{false};
   ProxyManagerType           proxyManagerType_{ProxyManagerType::Default};
 
 public:
-  void setLibraryManagedProxy(bool libraryManaged)
+  void setLibraryManagedProxy()
   {
-    proxyManagerType_ = libraryManaged ? ProxyManagerType::Remote : ProxyManagerType::Local;
+    libraryManagesProxy_ = true;
   }
-  bool needsRemoteProxyManager(const CibParams& cibParams) const
+  bool libraryManagesProxy() const
   {
-    if (!needsProxyManager())
-      return false;
-    return ((proxyManagerType_ == ProxyManagerType::Default) && cibParams.defaultLibraryManagedProxies)
-           || (proxyManagerType_ == ProxyManagerType::Remote);
+    return libraryManagesProxy_;
   }
 
   void setStlClass()
@@ -685,6 +683,9 @@ public:
   void setFacadeLike()
   {
     props_ |= kClassPropFacade;
+    forEachDescendent([](auto* descendent) {
+      descendent->setShared();
+    });
   }
 
   bool needsDelagatorClass() const
@@ -692,15 +693,16 @@ public:
     return hasProtectedMethods() && isOverridable() && !hasNonDefaultConstructableVirtualAncestor();
   }
 
-  bool needsProxyManager() const
+  bool isSharedProxy() const
   {
     if (isShared())
       return true;
     if (!needsNoProxy())
       return false;
-    auto isAncestorSharedFacade = forEachAncestor(CppAccessType::kPublic, [](const CibCompound* ancestor) -> bool {
-      return ancestor->isFacadeLike() && ancestor->isShared();
-    });
+    const auto isAncestorSharedFacade =
+      forEachAncestor(CppAccessType::kPublic, [](const CibCompound* ancestor) -> bool {
+        return ancestor->isFacadeLike() && ancestor->isShared();
+      });
     if (isAncestorSharedFacade)
       return true;
     // if (!isFacadeLike() && isAbstract())
@@ -712,6 +714,7 @@ public:
   bool forEachAncestor(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const;
   bool forEachAncestor(std::function<bool(const CibCompound*)> callable) const;
   void forEachDerived(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
+  void forEachDerived(std::function<void(CibCompound*)> callable);
   void forEachDescendent(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
   void forEachDescendent(std::function<void(CibCompound*)> callable);
   void forEachNested(CppAccessType accessType, std::function<void(const CibCompound*)> callable) const;
@@ -874,6 +877,19 @@ inline void CibCompound::forEachDerived(CppAccessType                           
     return;
   for (auto child : childItr->second)
     callable(child);
+}
+
+inline void CibCompound::forEachDerived(std::function<void(CibCompound*)> callable)
+{
+  for (auto& derivedList : children_)
+  {
+    for (auto& derived : derivedList.second)
+    {
+      callable(derived);
+    }
+  }
+
+  return;
 }
 
 inline void CibCompound::forEachDescendent(CppAccessType                           accessType,
