@@ -33,20 +33,20 @@ struct __zz_cib_Helper<::CPoint, T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj,
       __zz_cib_args...);
   }
-  static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
+  template <typename ..._Args>
+  static __zz_cib_AbiType __zz_cib_New_1(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_1>(
+      __zz_cib_obj,
+      __zz_cib_args...);
+  }
+  static auto __zz_cib_Delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
         __zz_cib_obj
         );
     }
-  }
-  template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_New_2(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
-    using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_2>(
-      __zz_cib_obj,
-      __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto __zz_cib_OperatorPlusEq_3(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {

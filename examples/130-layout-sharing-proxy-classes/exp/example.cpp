@@ -9,19 +9,19 @@ CPoint::CPoint(const ::CPoint& __zz_cib_param0)
   );
 }
 
-CPoint::~CPoint() {
-  __zz_cib_MyHelper::__zz_cib_Delete_1(
-    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
-  );
-}
-
 CPoint::CPoint(double _x, double _y, double _z)
 {
-  __zz_cib_MyHelper::__zz_cib_New_2(
+  __zz_cib_MyHelper::__zz_cib_New_1(
     this, 
     __zz_cib_::__zz_cib_ToAbiType<decltype(_x)>(std::move(_x)),
     __zz_cib_::__zz_cib_ToAbiType<decltype(_y)>(std::move(_y)),
     __zz_cib_::__zz_cib_ToAbiType<decltype(_z)>(std::move(_z))
+  );
+}
+
+CPoint::~CPoint() {
+  __zz_cib_MyHelper::__zz_cib_Delete_2(
+    __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
   );
 }
 

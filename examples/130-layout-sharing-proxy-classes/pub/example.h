@@ -4,6 +4,8 @@ class CPoint
 {
 public:
   CPoint(double _x = 0, double _y = 0, double _z = 0);
+  ~CPoint() {}
+  
   const CPoint& operator += (const CPoint& p) {
     x += p.x;
     y += p.y;

@@ -31,11 +31,6 @@ private:
   {
   }
 
-  auto base() const noexcept
-  {
-    return mIter.base();
-  }
-
 public:
   using pointer           = typename std::iterator_traits<_ValueType*>::pointer;
   using iterator_category = typename std::iterator_traits<_ValueType*>::iterator_category;
@@ -107,33 +102,33 @@ public:
 
   bool operator==(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() == rhs.base();
+    return mIter == rhs.mIter;
   }
   bool operator!=(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() != rhs.base();
+    return mIter != rhs.mIter;
   }
 
   bool operator<(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() < rhs.base();
+    return mIter < rhs.mIter;
   }
   bool operator>(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() > rhs.base();
+    return mIter > rhs.mIter;
   }
   bool operator<=(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() <= rhs.base();
+    return mIter <= rhs.mIter;
   }
   bool operator>=(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() >= rhs.base();
+    return mIter >= rhs.mIter;
   }
 
   difference_type operator-(const vector_reverse_iterator& rhs) noexcept
   {
-    return base() - rhs.base();
+    return mIter - rhs.mIter;
   }
 };
 } // namespace __zz_cib_stl_helpers

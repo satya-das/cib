@@ -33,20 +33,20 @@ public:
     , __zz_cib_h_(__zz_cib_proxy)
     , __zz_cib_methodTableHelper(__zz_cib_GetMethodTable)
   {}
-  std::unique_ptr<int> g() const override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<std::unique_ptr<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
-    return __zz_cib_FromAbiType<std::unique_ptr<int>>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_0>(
-        __zz_cib_h
-      )
-    );
-  }
   int f() const override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_1>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_0>(
+        __zz_cib_h
+      )
+    );
+  }
+  std::unique_ptr<int> g() const override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<std::unique_ptr<int>>(__zz_cib_decl *) (const __zz_cib_Proxy);
+    return __zz_cib_FromAbiType<std::unique_ptr<int>>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_1>(
         __zz_cib_h
       )
     );

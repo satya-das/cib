@@ -148,19 +148,19 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface1> {
   using __zz_cib_Delegatee = ::Interface1;
-  static __zz_cib_AbiType_t<::Interface3&> __zz_cib_decl r_0(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::Interface3&>(
-      __zz_cib_obj->r()
-    );
-  }
   static __zz_cib_AbiType_t<int> __zz_cib_decl disruptVTable_3(::Interface1* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->disruptVTable()
     );
   }
-  static __zz_cib_AbiType_t<::Interface2*> __zz_cib_decl p_1(::Interface1* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<::Interface2*> __zz_cib_decl p_0(::Interface1* __zz_cib_obj) {
     return __zz_cib_ToAbiType<::Interface2*>(
       __zz_cib_obj->p()
+    );
+  }
+  static __zz_cib_AbiType_t<::Interface3&> __zz_cib_decl r_1(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Interface3&>(
+      __zz_cib_obj->r()
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::Interface1* __zz_cib_obj) {
@@ -174,8 +174,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::r_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::p_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::p_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::r_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::__zz_cib_Delete_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface1>::disruptVTable_3)
   };
@@ -205,20 +205,20 @@ public:
   static ::Interface2* __zz_cib_FromHandle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
-  int f() override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_1>(
-        __zz_cib_h
-      )
-    );
-  }
   int disruptVTable() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_5>(
+        __zz_cib_h
+      )
+    );
+  }
+  int f() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_1>(
         __zz_cib_h
       )
     );
@@ -248,14 +248,14 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface2> {
   using __zz_cib_Delegatee = ::Interface2;
-  static __zz_cib_AbiType_t<int> __zz_cib_decl f_0(::Interface2* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
-      __zz_cib_obj->f()
-    );
-  }
   static __zz_cib_AbiType_t<int> __zz_cib_decl disruptVTable_2(::Interface2* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->disruptVTable()
+    );
+  }
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_0(::Interface2* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
+      __zz_cib_obj->f()
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Interface2* __zz_cib_obj) {
@@ -299,20 +299,20 @@ public:
   static ::Interface3* __zz_cib_FromHandle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
-  int g() override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_1>(
-        __zz_cib_h
-      )
-    );
-  }
   int disruptVTable() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_5>(
+        __zz_cib_h
+      )
+    );
+  }
+  int g() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_AbiType);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::g_1>(
         __zz_cib_h
       )
     );
@@ -342,14 +342,14 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface3> {
   using __zz_cib_Delegatee = ::Interface3;
-  static __zz_cib_AbiType_t<int> __zz_cib_decl g_0(::Interface3* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<int>(
-      __zz_cib_obj->g()
-    );
-  }
   static __zz_cib_AbiType_t<int> __zz_cib_decl disruptVTable_2(::Interface3* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->disruptVTable()
+    );
+  }
+  static __zz_cib_AbiType_t<int> __zz_cib_decl g_0(::Interface3* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
+      __zz_cib_obj->g()
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Interface3* __zz_cib_obj) {

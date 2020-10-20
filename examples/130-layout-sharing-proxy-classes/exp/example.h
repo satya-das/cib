@@ -6,8 +6,8 @@ class CPoint
 {
 public:
   CPoint(const CPoint& );
-  ~CPoint();
   CPoint(double _x = 0, double _y = 0, double _z = 0);
+  ~CPoint();
   const CPoint& operator +=(const CPoint& p);
   double x;
   double y;

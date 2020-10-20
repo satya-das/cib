@@ -21,20 +21,20 @@ public:
     , __zz_cib_h_(__zz_cib_proxy)
     , __zz_cib_methodTableHelper(__zz_cib_GetMethodTable)
   {}
-  int Func() override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
-    return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::Func_0>(
-        __zz_cib_h
-      )
-    );
-  }
   int Gunc() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::Gunc_2>(
+        __zz_cib_h
+      )
+    );
+  }
+  int Func() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::Func_0>(
         __zz_cib_h
       )
     );
