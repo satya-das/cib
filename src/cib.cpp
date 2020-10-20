@@ -440,7 +440,12 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     stm << ++indentation;
     if (callingOwner->needsNoProxy())
     {
-      stm << "__zz_cib_obj->~" << callingOwner->name() << "();\n";
+      stm << "__zz_cib_obj->~";
+      if (callingOwner->isOverridable())
+        stm << "__zz_cib_Delegator<" << callingOwner->name() << ">";
+      else
+        stm << callingOwner->name();
+      stm << "();\n";
     }
     else
     {

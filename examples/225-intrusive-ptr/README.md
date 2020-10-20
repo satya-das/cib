@@ -510,7 +510,7 @@ public:                                                                         
   using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
                                                                                                                        \
 private:                                                                                                               \
-  friend class __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
+  friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
   friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
   using __zz_cib_ThisClass = className;                                                                                \
   using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \

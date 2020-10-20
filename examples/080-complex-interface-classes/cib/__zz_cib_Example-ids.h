@@ -82,10 +82,10 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_Methodid {
-    //#= ::Interface2* p();
-    p_0 = 0,
     //#= ::Interface3& r();
-    r_1 = 1,
+    r_0 = 0,
+    //#= ::Interface2* p();
+    p_1 = 1,
     //#= ~Interface1();
     __zz_cib_Delete_2 = 2,
     __zz_cib_nextMethodId = 3

@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,19 +1,20 @@
+@@ -1,21 +1,20 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -9,8 +9,9 @@
  {
  public:
 +  CPoint(const CPoint& );
-+  ~CPoint();
    CPoint(double _x = 0, double _y = 0, double _z = 0);
+-  ~CPoint() {}
+-  
 -  const CPoint& operator += (const CPoint& p) {
 -    x += p.x;
 -    y += p.y;
@@ -20,6 +21,7 @@
 -  }
 -
 -public:
++  ~CPoint();
 +  const CPoint& operator +=(const CPoint& p);
    double x;
    double y;
