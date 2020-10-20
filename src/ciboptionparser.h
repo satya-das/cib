@@ -51,9 +51,6 @@ private:
   bool         noException{false};
   StringVector valueClasses;
   StringVector interfaceClasses;
-  bool         defaultLibraryManagedProxies{false};
-  StringVector localProxyManagedClasses;
-  StringVector remoteProxyManagedClasses;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -78,8 +75,5 @@ inline CibParams CibOptionParser::getCibParams()
           noRtti,
           noException,
           valueClasses,
-          interfaceClasses,
-          defaultLibraryManagedProxies,
-          localProxyManagedClasses,
-          remoteProxyManagedClasses};
+          interfaceClasses};
 }

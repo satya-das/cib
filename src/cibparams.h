@@ -68,9 +68,6 @@ public:
   bool         noException;
   StringVector layoutSharingClasses;
   StringVector interfaceClasses;
-  bool         defaultLibraryManagedProxies;
-  StringVector localProxyManagedClasses;
-  StringVector remoteProxyManagedClasses;
 
 public:
   CibParams(std::string  m,
@@ -84,10 +81,7 @@ public:
             bool         t,
             bool         e,
             StringVector n,
-            StringVector F,
-            bool         l,
-            StringVector L,
-            StringVector R)
+            StringVector F)
     : cibInternalDirName("__zz_cib_internal")
     , stlHelperDirName("__zz_cib_stl-helpers")
     , copyCtorCAPIPrefix("__zz_cib_Copy")
@@ -109,9 +103,6 @@ public:
     , noException(e)
     , layoutSharingClasses(std::move(n))
     , interfaceClasses(std::move(F))
-    , defaultLibraryManagedProxies(l)
-    , localProxyManagedClasses(std::move(L))
-    , remoteProxyManagedClasses(std::move(R))
   {
   }
   CibParams(CibParams&&) = default;

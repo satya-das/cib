@@ -88,27 +88,6 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             false,
             "Force a class to be treated as an interface class. Class must have atleast one public virtual method. "
             "NOTE: Classes with at least one pure virtual method are automatically considered as interface class.");
-  addOption("default-library-managed-proxy,l",
-            defaultLibraryManagedProxies,
-            false,
-            "By default proxy's life cycle is managed locally by the client. Set it to true to make library manage the "
-            "life cycle of the proxy. Note that library classes that need to manage the life cycle of it's proxies "
-            "will need a small modification.");
-  addOption("locally-managed-proxy-class,L",
-            localProxyManagedClasses,
-            false,
-            "Class whose non deletable references do not cross component boundary can be safely managed locally. Non "
-            "deletable references are the C++ references and also pointers which are not expected to be deleted.");
-  addOption("library-managed-proxy-class,R",
-            remoteProxyManagedClasses,
-            false,
-            "Class whose proxy's life cycle should be managed by library. "
-            "This is needed for classes whose proxy "
-            "instances should not be deleted by client code. "
-            "For example, if reference of a proxy class is returned by a "
-            "function then there is no way to delete the proxy object which was created by new'ing in cib layer. "
-            "By making the proxy class library managed the life cycle of such proxies can be tied to the object in the "
-            "library side.");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
