@@ -36,43 +36,6 @@ bool CibHelper::isSmartPtr(const std::string& typeName) const
   return isSmartPtr(typeName.substr(0, nameEndPos));
 }
 
-bool CibHelper::isUniquePtr(const std::string& typeName) const
-{
-  if (uniquePtrNames_.count(typeName))
-    return true;
-  auto nameEndPos = typeName.find('<');
-  if (nameEndPos == typeName.npos)
-    return false;
-  return isSmartPtr(typeName.substr(0, nameEndPos));
-}
-
-bool CibHelper::isSmartPtr(const CibCompound* compound) const
-{
-  if (!isClassLike(compound))
-    return false;
-  return isSmartPtr(compound->name());
-}
-
-bool CibHelper::isSmartPtr(const CppVarType* varType) const
-{
-  return isSmartPtr(varType->baseType());
-}
-
-bool CibHelper::isSmartPtr(const CppVar* var) const
-{
-  return isSmartPtr(var->varType());
-}
-
-bool CibHelper::isUniquePtr(const CppVarType* varType) const
-{
-  return isUniquePtr(varType->baseType());
-}
-
-bool CibHelper::isUniquePtr(const CppVar* var) const
-{
-  return isUniquePtr(var->varType());
-}
-
 bool CibHelper::isCopyable(const CppVar* var) const
 {
   if (ptrLevel(var->varType()))
@@ -98,33 +61,4 @@ std::string CibHelper::convertSmartPtr(const std::string& typeName) const
   auto nameEndPos   = typeName.find_last_of('>');
 
   return typeName.substr(nameStartPos, nameEndPos - nameStartPos);
-}
-
-std::unique_ptr<CppVarType> CibHelper::convertSmartPtr(const CppVarType* typeObj) const
-{
-  const std::string& baseType = typeObj->baseType();
-  auto               newName  = convertSmartPtr(baseType);
-
-  CppTypeModifier typeModifier = typeObj->typeModifier();
-  if (typeModifier.constBits_ & 1)
-  {
-    typeModifier.refType_ = CppRefType::kNoRef;
-    typeModifier.constBits_ &= ~1;
-  }
-  else
-  {
-    typeModifier.ptrLevel_ += 1;
-  }
-  return std::make_unique<CppVarType>(newName, typeModifier);
-}
-
-std::string CibHelper::smartPtrName(const std::string& typeName) const
-{
-  auto smartPtrNameEnd = typeName.find('<');
-  return typeName.substr(0, smartPtrNameEnd);
-}
-
-std::string CibHelper::smartPtrName(const CppVar* var) const
-{
-  return smartPtrName(var->varType()->baseType());
 }

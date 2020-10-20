@@ -100,19 +100,10 @@ public:
   CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag);
 
   bool isSmartPtr(const std::string& typeName) const;
-  bool isSmartPtr(const CibCompound* compound) const;
-  bool isSmartPtr(const CppVarType* varType) const;
-  bool isSmartPtr(const CppVar* var) const;
 
-  bool isUniquePtr(const std::string& typeName) const;
-  bool isUniquePtr(const CppVarType* varType) const;
-  bool isUniquePtr(const CppVar* var) const;
   bool isCopyable(const CppVar* var) const;
 
-  std::string                 convertSmartPtr(const std::string& typeName) const;
-  std::unique_ptr<CppVarType> convertSmartPtr(const CppVarType* typeObj) const;
-  std::string                 smartPtrName(const std::string& typeName) const;
-  std::string                 smartPtrName(const CppVar* var) const;
+  std::string convertSmartPtr(const std::string& typeName) const;
 
 private:
   void resolveInheritance(CibCompound* cppCompound);
