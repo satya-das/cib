@@ -8,8 +8,8 @@ Component Interface Binder (CIB)
 
 Platform | CI Status
 ---------|:---------
-OSX      | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)
-Linux    | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)
+OSX      | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)](https://travis-ci.com/github/satya-das/cib)
+Linux    | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)](https://travis-ci.com/github/satya-das/cib)
 
 # CIB
 
