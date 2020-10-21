@@ -107,13 +107,6 @@ public:
   static ::I* __zz_cib_FromHandle(__zz_cib_AbiType h) {
     return new __zz_cib_Generic(h);
   }
-  void internal_dispose() const override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (const __zz_cib_AbiType);
-    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::internal_dispose_3>(
-      __zz_cib_h
-    );
-  }
   int f() const override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
@@ -121,6 +114,13 @@ public:
       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_2>(
         __zz_cib_h
       )
+    );
+  }
+  void internal_dispose() const override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<void>(__zz_cib_decl *) (const __zz_cib_AbiType);
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::internal_dispose_3>(
+      __zz_cib_h
     );
   }
   ~__zz_cib_Generic() override {
@@ -149,13 +149,13 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::I> {
   using __zz_cib_Delegatee = ::I;
-  static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose_0(const ::I* __zz_cib_obj) {
-    __zz_cib_obj->internal_dispose();
-  }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl f_1(const ::I* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl f_0(const ::I* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->f()
     );
+  }
+  static __zz_cib_AbiType_t<void> __zz_cib_decl internal_dispose_1(const ::I* __zz_cib_obj) {
+    __zz_cib_obj->internal_dispose();
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::I* __zz_cib_obj) {
     __zz_cib_Helper<::I>::__zz_cib_ReleaseHandle(__zz_cib_obj);
@@ -168,8 +168,8 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class259 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::internal_dispose_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::f_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::f_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::internal_dispose_1),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::I>::__zz_cib_Delete_2)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
