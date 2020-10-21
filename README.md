@@ -1,11 +1,16 @@
 Component Interface Binder (CIB)
 ================================
 
-[![Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master)](https://travis-ci.com/satya-das/cib)
 [![codecov](https://codecov.io/gh/satya-das/cib/branch/master/graph/badge.svg)](https://codecov.io/gh/satya-das/cib)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9389a24107d543888ba6b8356bf0a811)](https://app.codacy.com/app/satya-das/cib?utm_source=github.com&utm_medium=referral&utm_content=satya-das/cib&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5f8b2f6eae334da4bff3dffb9c86c02f)](https://www.codacy.com/manual/satya-das/cib?utm_source=github.com&utm_medium=referral&utm_content=satya-das/cib&utm_campaign=Badge_Coverage)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master)](https://travis-ci.com/satya-das/cib)
+Platform               | CI Status
+-----------------------|:---------
+OSX Build and Test     | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)](https://travis-ci.org/Arduino-CI/arduino_ci)
+Linux Build and Test   | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)](https://travis-ci.org/Arduino-CI/arduino_ci)
 
 # CIB
 

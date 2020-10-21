@@ -37,20 +37,20 @@ public:
       )
     );
   }
-  ::Interface2* p() override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
-    return __zz_cib_FromAbiType<::Interface2*>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
-        __zz_cib_h
-      )
-    );
-  }
   int disruptVTable() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::disruptVTable_3>(
+        __zz_cib_h
+      )
+    );
+  }
+  ::Interface2* p() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
+    return __zz_cib_FromAbiType<::Interface2*>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
         __zz_cib_h
       )
     );

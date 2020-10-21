@@ -153,14 +153,14 @@ struct __zz_cib_Delegator<::Interface1> {
       __zz_cib_obj->r()
     );
   }
-  static __zz_cib_AbiType_t<::Interface2*> __zz_cib_decl p_1(::Interface1* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::Interface2*>(
-      __zz_cib_obj->p()
-    );
-  }
   static __zz_cib_AbiType_t<int> __zz_cib_decl disruptVTable_3(::Interface1* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->disruptVTable()
+    );
+  }
+  static __zz_cib_AbiType_t<::Interface2*> __zz_cib_decl p_1(::Interface1* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::Interface2*>(
+      __zz_cib_obj->p()
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::Interface1* __zz_cib_obj) {
