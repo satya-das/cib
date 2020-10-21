@@ -1,9 +1,5 @@
 language: generic
 
-os:
-  - linux
-  - osx
-
 matrix:
   include:
     - os: linux
@@ -19,10 +15,12 @@ matrix:
             - ubuntu-toolchain-r-test
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+        - BADGE=linux
 
     - os: osx
       env:
         - MATRIX_EVAL="CC=gcc && CXX=g++"
+        - BADGE=osx
 
 before_install:
   - eval "${MATRIX_EVAL}"
