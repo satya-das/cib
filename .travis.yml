@@ -1,5 +1,12 @@
 language: generic
 
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+
 matrix:
   include:
     - os: linux
@@ -17,21 +24,22 @@ matrix:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 before_install:
-  - eval "${MATRIX_EVAL}"
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; eval "${MATRIX_EVAL}"
 
 script:
   - git clone https://github.com/satya-das/cib.git
   - git clone https://github.com/satya-das/cppparser.git
   - git clone https://github.com/satya-das/common.git
-  - mkdir -p build_results/GNU
-  - cd build_results/GNU
-  - cmake -DCMAKE_C_COMPILER=`which gcc-7` -DCMAKE_CXX_COMPILER=`which g++-7` ../../cib/
+  - mkdir -p build
+  - cd build
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; cmake -DCMAKE_C_COMPILER=`which gcc-7` -DCMAKE_CXX_COMPILER=`which g++-7` ../cib/
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; cmake ../cib/
   - make
-  - make CibCoverage
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; make CibCoverage
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -f cib.info -t"66bf246c-fcae-4dcc-8101-44e7e66e467d" || echo "Codecov did not collect coverage reports"
-  - export CODACY_PROJECT_TOKEN=17eabcd475514c49b5fbd1c9be7de818
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r cib.info
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; bash <(curl -s https://codecov.io/bash) -f cib.info -t"66bf246c-fcae-4dcc-8101-44e7e66e467d" || echo "Codecov did not collect coverage reports"
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; export CODACY_PROJECT_TOKEN=17eabcd475514c49b5fbd1c9be7de818
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r cib.info
 
 
