@@ -10,8 +10,8 @@ if(MSVC)
 	add_compile_options("/std:c++latest")
 endif(MSVC)
 
-set(CMAKE_INSTALL_RPATH "$ORIGIN")
-set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) # only if you want copy from the build tree
+#set(CMAKE_INSTALL_RPATH "$ORIGIN")
+#set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) # only if you want copy from the build tree
 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)

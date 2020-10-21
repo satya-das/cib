@@ -74,10 +74,10 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_Methodid {
-    //#= int f() const;
-    f_0 = 0,
     //#= std::unique_ptr<int> g() const;
-    g_1 = 1,
+    g_0 = 0,
+    //#= int f() const;
+    f_1 = 1,
     //#= ~I();
     __zz_cib_Delete_2 = 2,
     __zz_cib_nextMethodId = 3
