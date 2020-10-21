@@ -33,7 +33,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-auto __zz_cib_ToAbiType(__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>> obj)
+auto __zz_cib_ToAbiType(__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>&& obj)
 {
   return obj.Convert();
 }

@@ -221,7 +221,7 @@ void CibFunctionHelper::emitArgsForCall(std::ostream&    stm,
     return;
   const auto* params = getParams();
 
-  const auto emitArgForProxyDefn = [&](const CppConstVarEPtr& var, int i) {
+  const auto emitArgForProxyDefn = [&](const CppConstVarEPtr& var, size_t i) {
     stm << "decltype(";
     emitParamName(stm, var, i);
     stm << ")>(";
@@ -3056,7 +3056,7 @@ private:
       if (lastUsedConditional && (nextGroupStarts || prevGroupEnded))
       {
         const auto currentGroupNumMembers  = i - subgroupStartIndices.front();
-        auto       prevSubgroupsNumMembers = 0;
+        size_t     prevSubgroupsNumMembers = 0;
         for (size_t j = 0; j < subgroupStartIndices.size(); ++j)
         {
           const auto subgroupEndIndex = ((j == (subgroupStartIndices.size() - 1)) ? i : subgroupStartIndices[j + 1]);

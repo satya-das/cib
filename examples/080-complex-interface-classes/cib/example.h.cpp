@@ -28,20 +28,20 @@ public:
     , __zz_cib_h_(__zz_cib_proxy)
     , __zz_cib_methodTableHelper(__zz_cib_GetMethodTable)
   {}
-  ::Interface3& r() override {
-    auto __zz_cib_h = __zz_cib_h_;
-    using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface3&>(__zz_cib_decl *) (__zz_cib_Proxy);
-    return __zz_cib_FromAbiType<::Interface3&>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::r_0>(
-        __zz_cib_h
-      )
-    );
-  }
   ::Interface2* p() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<::Interface2*>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_0>(
+        __zz_cib_h
+      )
+    );
+  }
+  ::Interface3& r() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface3&>(__zz_cib_decl *) (__zz_cib_Proxy);
+    return __zz_cib_FromAbiType<::Interface3&>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::r_1>(
         __zz_cib_h
       )
     );
