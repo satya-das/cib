@@ -42,7 +42,7 @@ endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
 	COMMAND echo Running cib...
-	COMMAND ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m TemplateTests
+	COMMAND ${CIB} -i pub -o exp -b cib -m TemplateTests
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib CibResources ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

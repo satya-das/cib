@@ -31,7 +31,7 @@ set(LIB_GLUE_SRCS
 )
 set(PUB_FILES "")
 set(EXP_SOURCES "")
-set(CIBCMD ${CMAKE_BINARY_DIR}/cib -i pub -o exp -b cib -m Example)
+set(CIBCMD ${CIB} -i pub -o exp -b cib -m Example)
 set(DEPENDS cib ${example}GlueCode)
 set(EXAMPLES_BIN_DIR ${CMAKE_BINARY_DIR}/examples)
 set(TEST_CMD ${EXAMPLES_BIN_DIR}/${CLIENTNAME})
@@ -100,7 +100,7 @@ add_custom_command(
     COMMAND echo Running cib...
     COMMAND ${CIBCMD}
     COMMAND echo Generated files: ${LIB_GLUE_SRCS}
-    DEPENDS cib ${RESPATHS} ${PUB_FILES} ${DEPENDS}
+    DEPENDS cib CibResources ${RESPATHS} ${PUB_FILES} ${DEPENDS}
     WORKING_DIRECTORY ${example_ROOT}
 )
 add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})
