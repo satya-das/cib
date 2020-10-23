@@ -53,7 +53,7 @@
         // "180-pod-struct",
       ],
       "options": {
-        "cwd": "${workspaceFolder}/builds"
+        "cwd": "${workspaceFolder}/build"
       },
       "group": {
         "kind": "build",
