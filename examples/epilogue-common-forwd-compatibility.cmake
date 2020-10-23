@@ -2,7 +2,7 @@ set(TEST_NAME    "${example}-new-client-with-old-lib")
 
 add_custom_target(
     ${TEST_NAME} ALL
-    ${CMAKE_COMMAND} -E make_directory ${TEST_NAME}
+    ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:${example}>/${TEST_NAME}/
     COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:${example}> $<TARGET_FILE_DIR:${example}>/${TEST_NAME}/$<TARGET_FILE_NAME:${example}>
     COMMAND ${CMAKE_COMMAND} -E copy
