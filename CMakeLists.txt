@@ -47,25 +47,7 @@ set(CIB_HEADERS
 	src/ciboptionparser.h
 )
 
-add_executable(cib
-	${CIB_SOURCES}
-	${CIB_HEADERS}
-)
-target_link_libraries(cib
-	PRIVATE
-		cppparser
-		boost_filesystem
-)
-target_include_directories(cib
-	PRIVATE
-		../common
-)
-
-set(CIB $<TARGET_FILE:cib>)
-set(CIB_BIN_DIR $<TARGET_FILE_DIR:cib>)
-set(RESDIR ${CIB_BIN_DIR}/cibres)
-
-set(RESFILES
+set(RES_FILE_NAMES
 	__zz_cib_Module-class-down-cast.h
 	__zz_cib_Module-class-fwd-decl.h
 	__zz_cib_Module-classId-repo.cpp
@@ -108,20 +90,47 @@ set(RESFILES
 	__zz_cib_stl-helpers/__zz_cib_bidirectional_reverse_iterator.h
 )
 
-list(APPEND RESPATHS)
+list(APPEND RES_SRC_PATHS)
 
-foreach(RESFILE ${RESFILES})
+foreach(RES_FILE_NAME ${RES_FILE_NAMES})
+	list(APPEND RES_SRC_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/res/${RES_FILE_NAME})
+endforeach()
+
+add_executable(cib
+	${CIB_SOURCES}
+	${CIB_HEADERS}
+	${RES_SRC_PATHS}
+)
+target_link_libraries(cib
+	PRIVATE
+		cppparser
+		boost_filesystem
+)
+target_include_directories(cib
+	PRIVATE
+		../common
+)
+
+set(CIB $<TARGET_FILE:cib>)
+set(CIB_BIN_DIR $<TARGET_FILE_DIR:cib>)
+set(RESDIR ${CIB_BIN_DIR}/cibres)
+
+list(APPEND RESPATHS)
+list(APPEND RES_SRC_PATHS)
+
+foreach(RESFILE ${RES_FILE_NAMES})
 	add_custom_command(
 		TARGET cib PRE_BUILD
 		COMMAND echo Copying ${RESFILE}
-		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE} ${RESDIR}/${RESFILE}
+		COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE} $<TARGET_FILE_DIR:cib>/cibres/${RESFILE}
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/res/${RESFILE}
 	)
 	list(APPEND RESPATHS ${RESDIR}/${RESFILE})
-	endforeach()
-add_custom_target(CibResources DEPENDS ${RESPATHS})
+endforeach()
 
-add_dependencies(cib ${RESPATHS})
+#add_custom_target(CibResources DEPENDS ${RESPATHS})
+
+#add_dependencies(cib ${RES_SRC_PATHS})
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
 find_program(

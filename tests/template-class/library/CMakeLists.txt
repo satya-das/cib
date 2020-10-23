@@ -44,7 +44,7 @@ add_custom_command(
 	COMMAND echo Running cib...
 	COMMAND ${CIB} -i pub -o exp -b cib -m TemplateTests
 	COMMAND echo Generated files: ${CIB_OUTPUT}
-	DEPENDS cib CibResources ${LIBRARY_PUB_FILES}
+	DEPENDS cib ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

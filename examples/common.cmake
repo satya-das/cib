@@ -1,21 +1,6 @@
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-# These values are difficult to get using CMake and so hardcoding
-if (WIN32)
-	set(CLIENTSUFFIX ".exe")
-	set(LIBRARY_PREFIX "")
-	set(LIBRARY_SUFFIX ".dll")
-elseif (APPLE)
-	set(CLIENTSUFFIX "")
-	set(LIBRARY_PREFIX "lib")
-	set(LIBRARY_SUFFIX ".dylib")
-else ()
-	set(CLIENTSUFFIX "")
-	set(LIBRARY_PREFIX "lib")
-	set(LIBRARY_SUFFIX ".so")
-endif()
-
 set(PUB_FILE_BASE_NAMES
     example # File name without extension
 )
@@ -100,7 +85,7 @@ add_custom_command(
     COMMAND echo Running cib...
     COMMAND ${CIBCMD}
     COMMAND echo Generated files: ${LIB_GLUE_SRCS}
-    DEPENDS cib CibResources ${RESPATHS} ${PUB_FILES} ${DEPENDS}
+    DEPENDS cib ${RES_SRC_PATHS} ${PUB_FILES} ${DEPENDS}
     WORKING_DIRECTORY ${example_ROOT}
 )
 add_custom_target(${example}GlueCode DEPENDS ${LIB_GLUE_SRCS})

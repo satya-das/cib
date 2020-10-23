@@ -1,7 +1,7 @@
 --- ../080-complex-interface-classes/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -44,10 +44,19 @@
-       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
+@@ -35,10 +35,19 @@
+       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::r_0>(
          __zz_cib_h
        )
      );
@@ -15,11 +15,11 @@
 +      )
 +    );
 +  }
-   ~__zz_cib_Generic() override {
-     if (!__zz_cib_h_) return;
+   ::Interface2* p() override {
      auto __zz_cib_h = __zz_cib_h_;
-     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-     __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
+     using __zz_cib_ProcType = __zz_cib_AbiType_t<::Interface2*>(__zz_cib_decl *) (__zz_cib_Proxy);
+     return __zz_cib_FromAbiType<::Interface2*>(
+       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::p_1>(
 @@ -78,10 +87,15 @@
    using ::Interface1::Interface1;
  
