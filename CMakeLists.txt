@@ -128,9 +128,6 @@ foreach(RESFILE ${RES_FILE_NAMES})
 	list(APPEND RESPATHS ${RESDIR}/${RESFILE})
 endforeach()
 
-#add_custom_target(CibResources DEPENDS ${RESPATHS})
-
-#add_dependencies(cib ${RES_SRC_PATHS})
 set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE 1)
 
 find_program(
