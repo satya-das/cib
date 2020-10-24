@@ -17,7 +17,8 @@ class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, v
   T& m;
 
 public:
-  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
+  using AbiType =
+    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
 
   auto Convert()
   {
@@ -32,11 +33,6 @@ public:
   __zz_cib_CoreTypeToAbiType(T&& x)
     : m(x)
   {
-  }
-
-  operator AbiType() const
-  {
-    return Convert();
   }
 };
 
@@ -67,11 +63,6 @@ public:
   ~__zz_cib_CoreTypeToAbiType()
   {
     mSmartPtr = __zz_cib_FromAbiType<T>(mRawPtr);
-  }
-
-  operator AbiType()
-  {
-    return Convert();
   }
 };
 
@@ -104,11 +95,6 @@ public:
     if (mSmartPtr)
       *mSmartPtr = __zz_cib_FromAbiType<T>(mRawPtr);
   }
-
-  operator AbiType()
-  {
-    return Convert();
-  }
 };
 
 template <typename T>
@@ -116,7 +102,8 @@ class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>,
 {
   T m;
 
-  using AbiType = decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
+  using AbiType =
+    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(m))>(__zz_cib_ReleaseRawPtr(m)).Convert());
 
 public:
   auto Convert()
@@ -132,11 +119,6 @@ public:
   __zz_cib_CoreTypeToAbiType(T&& x)
     : m(std::move(x))
   {
-  }
-
-  operator AbiType()
-  {
-    return Convert();
   }
 };
 
@@ -165,7 +147,8 @@ class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, 
   T                     mSmartPtr;
   __zz_cib_AbiType_t<T> mRawPtr;
   using UnderlyingType =
-    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(mSmartPtr))>(__zz_cib_ReleaseRawPtr(mSmartPtr)).Convert());
+    decltype(__zz_cib_CoreTypeToAbiType<decltype(__zz_cib_ReleaseRawPtr(mSmartPtr))>(__zz_cib_ReleaseRawPtr(mSmartPtr))
+               .Convert());
   static_assert(std::is_same_v<__zz_cib_AbiType_t<T>, UnderlyingType*>);
 
 public:
