@@ -19,27 +19,20 @@ It can be said that CIB architecture is an [hourglass design pattern](https://ww
 
 ## Jargon
 1. **ABI Compatibility**: Compatibility of binary C++ components even when they are built with different compilers.
-2. **ABI Stability**: Ability of binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of a plugin (in binary form) of an application to seemlessly work with newer application.
-3. **Forward Compatibility**: It is specific ABI stability where older library can work with newer client.
-4. **Backward Compatibility**: It is specific ABI stability where newer library can work with older client.
+2. **ABI Stability**: Ability of a binary component to work with newer version of another component without recompiling. Example of ABI stability is the ability of a plugin (in binary form) of an application to seemlessly work with newer application.
+3. **Forward Compatibility**: It is a specific case of ABI stability where older library can work with newer client.
+4. **Backward Compatibility**: It is a specific case of ABI stability where newer library can work with older client.
 
 In this document when _ABI Stability_ is mentioned we will mean both forward and backward compatibility.
 
 # Overview
 CIB is an architecture to publish compiler independent and ABI stable C++ library.
 This project is also about a tool that implements `cib architecture` automatically for given library headers.
-CIB can also be used as plugin architecture of application.
-
-# CIB Features
-- **ABI Compatibility** aka Compiler Independence: Library and clients can use their own choice of compilers.
-- **ABI Stability**: Both new library with old client and old library with new client should be binary compatible.
-- **ABI Resilience**: Virtual functions can be reordered in SDK without breaking ABI stability. With CIB there are other cases of ABI resilience too.
-- **Perfect Isolation**: Clients can use library provided classes without access to original complete definition of library classes.
-- Platform and compiler agnostic.
-- Minimum footprint. Should not affect how developers write their program.
+CIB can also be used as a plugin architecture for an application.
+One of the goal of CIB is to have minimum footprint, i.e. it should not change the way how developers write their program.
 
 # Why C++ has ABI stability issues
-Actually even C has this problem, C++ has more features and so it has more difficult to achieve it.
+Actually even C has this problem, C++ has more features and so it is more difficult to achieve it with C++.
 Things that can cause ABI compatibility and stability issues in C++ are:
 1. Object layout.
 2. Function calling convention.
@@ -54,7 +47,7 @@ Things that can cause ABI compatibility and stability issues in C++ are:
 
 First 5 can be problems in C as well. But techniques are well known and used to cicumvent them to achieve ABI stability in C.
 For C++, problems start with name mangling, that's the first reason of misunderstanding that can happen between 2 components. Layout for C++ objects are far more complex than C. There can be different layout for virtual tables depending upon compiler. Same goes for RTTI and exception. So, ensuring ABI compatibility is hard in C++. Ensuring ABI stability is super hard in general.
-**One thing to note is that maintaining ABI compatibility and stability in C is largely a responsibility of library developers.** In C++, CIB can make ABI compatibility and stability achievable, but developers will have to be as reponsible as they need to be when pure C is used.
+**One thing to note is that maintaining ABI compatibility and stability in C is largely a responsibility of library developers.** In C++, CIB can make ABI compatibility and stability achievable, but developers will have to be reponsible in similar way as they need to be when pure C is used.
 
 # CIB Architecture
 
@@ -98,7 +91,7 @@ git clone https://github.com/satya-das/cib.git
 
 ## Configure and build
 
-### On Unix like platfomr, like Linux and MAC
+### On Unix like platforms, like Linux and MAC
 
 ```sh
 cd cib

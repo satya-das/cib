@@ -2,7 +2,7 @@
 
 #include <catch/catch.hpp>
 
-TEST_CASE("Operator calls should work seamlessly")
+TEST_CASE("Nested namespace tests")
 {
   Example::Outer::Inner::A a;
   CHECK(a.i() == 16);
