@@ -38,10 +38,10 @@ script:
   - cd build
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake -DCMAKE_C_COMPILER=`which gcc-7` -DCMAKE_CXX_COMPILER=`which g++-7` ../cib/ ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake ../cib/ ; fi
-  - if [ "$TRAVIS_OS_NAME" != "windows" ]; make; fi
-  - if [ "$TRAVIS_OS_NAME" != "windows" ]; make test; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; cp ../travis-build.bat ./; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; ./travis-build.bat ; fi
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; then make; fi
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; then make test; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then cp ../travis-build.bat ./; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then ./travis-build.bat ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make CibCoverage ; fi
 
 after_success:
