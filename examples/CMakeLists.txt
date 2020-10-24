@@ -34,7 +34,9 @@ set(EXAMPLES
 	160-free-functions
 	# 170-private-virtuals
 	# 180-pod-struct
-	190-function-pointer
+	# 190-function-pointer fails with Visual Studio 2017 that is used with travis-ci
+	# So, it is added later for other compilers
+	# 190-function-pointer
 	200-deleted-members
 	210-enum-parameters
 	220-unique-ptr
@@ -47,6 +49,10 @@ set(EXAMPLES
 	310-std-function
 	# 320-third-party-class
 )
+
+if (NOT MSVC_TOOLSET_VERSION MATCHES 141)
+    set(EXAMPLES ${EXAMPLES} 190-function-pointer)
+endif()
 
 foreach(example ${EXAMPLES})
     set(example_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/${example})

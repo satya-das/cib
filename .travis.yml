@@ -22,6 +22,11 @@ matrix:
         - MATRIX_EVAL="CC=gcc && CXX=g++"
         - BADGE=osx
 
+    - os: windows
+      env:
+        - MATRIX_EVAL="CC=CL && CXX=CL"
+        - BADGE=windows
+
 before_install:
   - eval "${MATRIX_EVAL}"
 
@@ -33,8 +38,10 @@ script:
   - cd build
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cmake -DCMAKE_C_COMPILER=`which gcc-7` -DCMAKE_CXX_COMPILER=`which g++-7` ../cib/ ; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then cmake ../cib/ ; fi
-  - make
-  - make test
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; make; fi
+  - if [ "$TRAVIS_OS_NAME" != "windows" ]; make test; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; cp ../travis-build.bat ./; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; ./travis-build.bat ; fi
   - if [ "$TRAVIS_OS_NAME" = "linux" ]; then make CibCoverage ; fi
 
 after_success:
