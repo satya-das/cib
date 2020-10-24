@@ -98,7 +98,7 @@ git clone https://github.com/satya-das/cib.git
 
 ## Configure and build
 
-### On Linux
+### On Unix like platfomr, like Linux and MAC
 
 ```sh
 cd cib
@@ -126,8 +126,8 @@ Following is what I use and works perfectly:
 cd path-to-cib
 md builds
 cd builds
-# The next line is immportant
-@call path to vsenv.bat
+# The next line is important
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\VsDevCmd.bat"
 cmake -G Ninja ..
 ninja && ninja test
 ```
