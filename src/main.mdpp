@@ -2,8 +2,7 @@ Component Interface Binder (CIB)
 ================================
 
 [![codecov](https://codecov.io/gh/satya-das/cib/branch/master/graph/badge.svg)](https://codecov.io/gh/satya-das/cib)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9389a24107d543888ba6b8356bf0a811)](https://app.codacy.com/app/satya-das/cib?utm_source=github.com&utm_medium=referral&utm_content=satya-das/cib&utm_campaign=Badge_Grade_Settings)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5f8b2f6eae334da4bff3dffb9c86c02f)](https://www.codacy.com/manual/satya-das/cib?utm_source=github.com&utm_medium=referral&utm_content=satya-das/cib&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/6170f28d64a1435098c91ac9610def4e)](https://www.codacy.com/gh/satya-das/cib/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=satya-das/cib&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Platform | CI Status
