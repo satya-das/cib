@@ -13,7 +13,7 @@
 ## Example - A Simple Class
 This example explains the basic building blocks of CIB architecture. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
 
-For details please see [A Simple Class example](010-simple-class)
+For details please see [A Simple Class example](0010-simple-class)
 
 ## Example - Simple Class and Backward Compatibility
 This example illustrates the fact that change in data member of a class doesn't affect ABI stability because CIB uses bridge pattern and that is known to isolate client and library from changes in object layout.
@@ -23,36 +23,36 @@ For details please see [Simple Class and Backward Compatibility](015-simple-clas
 ## Example - Simple Class and Forward Compatibility
 This example illustrates how library can be forward compatible with newer clients. This example also demonstrates how a client can work with older library even when it calls new functions that is not available in old library.
 
-For details please see [Simple Class and Forward Compatibility](018-simple-class-and-forwd-compatibility)
+For details please see [Simple Class and Forward Compatibility](0020-simple-class-and-bkwd-compatibility)
 
 ## Example - Virtual Function
 This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example is just to explain required building blocks. In the next example we will consider the ABI stability.
 
-For details please see [Virtual Function example](020-virtual-function)
+For details please see [Virtual Function example](0050-virtual-function)
 
 ## Example - Virtual Function and Backward Compatibility
 
 This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also the old client (i.e. the client of previous example) with the new library. Both clients should work as expected with the new library. That demostrates CIB ensures ABI stability when virtual table is disrupted.
 
-For details please see [Virtual Function and Backward Compatibility example](030-virtual-function-and-bkwd-compatibility)
+For details please see [Virtual Function and Backward Compatibility example](0060-virtual-function-and-bkwd-compatibility)
 
 ## Example - Virtual Function and Forward Compatibility
 
 This example too demonstrates how CIB ensures ABI stability even when virtual table is disrupted. But in this one new client is run with old library. Also, forward compatibility of library means backward complatibility of client and so if newer client calls function that is available only in new library then new client will not work properly with old library unless it takes precautions.
 
-For details please see [Virtual Function and Forward Compatibility example](035-virtual-function-and-forwd-compatibility)
+For details please see [Virtual Function and Forward Compatibility example](0070-virtual-function-and-forwd-compatibility)
 
 ## Example - Simple Interface Class
 
 In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
 
-For details please see [Simple Interface Class example](060-simple-interface-class)
+For details please see [Simple Interface Class example](0080-interface-class)
 
 ## Example - Interface Classes and Backward Compatibility
 
 In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
 
-For details please see [Interface Class And Backward Compatibility example](070-simple-interface-class-and-bkwd-compatibility)
+For details please see [Interface Class And Backward Compatibility example](0090-interface-class-and-bkwd-compatibility)
 
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
@@ -76,7 +76,7 @@ Please see example `private-virtuals` in `examples` folder.
 ## Layout Sharing Proxy Class
 In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
 
-!INCLUDECODE "130-layout-sharing-proxy-classes/pub/example.h" (c++)
+!INCLUDECODE "0500-layout-sharing-proxy-classes/pub/example.h" (c++)
 
 There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `CPoint` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
 1. Memory is saved as layout is shared between client and library.

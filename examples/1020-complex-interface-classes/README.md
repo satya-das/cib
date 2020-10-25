@@ -1,0 +1,16 @@
+## Interface Detection
+
+_This example is more of an automated test then an example to explain CIB architecture_. It is certainly also an example to explain what are interfaces as per CIB.
+
+For interface like classes CIB has to generate special glue code. So, it is important for CIB to correctly detect classes defined in library headers as interface classes. In example `simple-interface-class` it was pretty easy for CIB to detect `class Interface` was an interface like class. _Please see what exactly is an interface class as per CIB, in example `simple-interface-class`.
+
+In this example we cover some more cases to test that CIB correctly detects interface like classes in more complex cases.
+
+Let's consider the following example:
+
+If we look closer then we realize that `Interface1`, `Interface2`, and `Interface3` are all interface like classes because when Library makes a call on their methods then it is possible that the implementation provided by client gets invoked. As you may notice that it is not very straight forward to detect it and so this example ensures that CIB detects them correctly.
+
+Let's see what the client code is:
+
+Client code ensures that correct behavior must be provided by library with CIB generates glue code.
+

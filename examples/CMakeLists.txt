@@ -8,50 +8,47 @@ set(EXAMPLE_HEADERS "")
 # Because we do not want to make same change in all files if we have to do common change to all examples.
 
 set(EXAMPLES
-	010-simple-class
-	015-simple-class-and-bkwd-compatibility
-	018-simple-class-and-forwd-compatibility
-	019-function-overloading
-	020-virtual-function
-	030-virtual-function-and-bkwd-compatibility
-	035-virtual-function-and-forwd-compatibility
-	040-inheritance-change-and-bkwd-compatibility
-	050-inheritance-type-and-bkwd-compatibility
-	055-abstract-class
-	060-simple-interface-class
-	065-force-make-interface-class
-	070-simple-interface-class-and-bkwd-compatibility
-	075-simple-interface-class-and-forwd-compatibility
-	080-complex-interface-classes
-	090-complex-interface-classes-and-bkwd-compatibility
-	100-template-classes
-	110-facade-classes-and-rtti
-	115-protected-methods
-	120-proxy-object-reuse
-	130-layout-sharing-proxy-classes
-	140-rvalue-parameters
-	150-reference-of-pointer
-	160-free-functions
-	# 170-private-virtuals
-	# 180-pod-struct
-	# 190-function-pointer fails with Visual Studio 2017 that is used with travis-ci
+	0010-simple-class
+	0020-simple-class-and-bkwd-compatibility
+	0030-simple-class-and-forwd-compatibility
+	0040-shared-class-and-object-reuse
+	0050-virtual-function
+	0060-virtual-function-and-bkwd-compatibility
+	0070-virtual-function-and-forwd-compatibility
+	0080-interface-class
+	0090-interface-class-and-bkwd-compatibility
+	0100-interface-class-and-forwd-compatibility
+	0110-facade-class-and-rtti
+	0120-template-classes
+	0200-lib-managed-proxies
+	0210-rvalue-parameters
+	0220-reference-of-pointer
+	0300-unique-ptr
+	0310-intrusive-ptr
+	0400-stl-template-classes
+	0410-std-function
+	0500-layout-sharing-proxy-classes
+	0510-pod-struct
+	0600-free-functions
+	0610-namespace
+	0620-function-overloading
+	0630-operator-overloading
+	0640-protected-methods
+	# 0650-private-virtuals
+	0700-conditional-api-availability
+	0800-inheritance-change-and-bkwd-compatibility
+	0810-inheritance-type-and-bkwd-compatibility
+	0900-force-make-interface-class
+	1000-deleted-members
+	1010-enum-parameters
+	1020-complex-interface-classes
+	# 2000-function-pointer fails with Visual Studio 2017 that is used with travis-ci
 	# So, it is added later for other compilers
-	# 190-function-pointer
-	200-deleted-members
-	210-enum-parameters
-	220-unique-ptr
-	225-intrusive-ptr
-	230-lib-managed-proxies-proxy
-	240-operator-overloading
-	250-namespace
-	260-conditional-api-availability
-	300-std-vector
-	310-std-function
-	# 320-third-party-class
+	# 2000-function-pointer
 )
 
 if (NOT MSVC_TOOLSET_VERSION MATCHES 141)
-    set(EXAMPLES ${EXAMPLES} 190-function-pointer)
+    set(EXAMPLES ${EXAMPLES} 2000-function-pointer)
 endif()
 
 foreach(example ${EXAMPLES})

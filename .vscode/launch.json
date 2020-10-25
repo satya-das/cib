@@ -357,11 +357,11 @@
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/010-simple-class/pub",
+                "${workspaceFolder}/examples/0010-simple-class/pub",
                 "-b",
-                "${workspaceFolder}/examples/010-simple-class/cib",
+                "${workspaceFolder}/examples/0010-simple-class/cib",
                 "-o",
-                "${workspaceFolder}/examples/010-simple-class/exp",
+                "${workspaceFolder}/examples/0010-simple-class/exp",
                 "-m",
                 "Example"
             ],
@@ -407,17 +407,17 @@
             ]
         },
         {
-            "name": "Run cib for 020-virtual-function",
+            "name": "Run cib for 0050-virtual-function",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/020-virtual-function/pub",
+                "${workspaceFolder}/examples/0050-virtual-function/pub",
                 "-b",
-                "${workspaceFolder}/examples/020-virtual-function/cib",
+                "${workspaceFolder}/examples/0050-virtual-function/cib",
                 "-o",
-                "${workspaceFolder}/examples/020-virtual-function/exp",
+                "${workspaceFolder}/examples/0050-virtual-function/exp",
                 "-m",
                 "Example"
             ],
@@ -463,17 +463,17 @@
             ]
         },
         {
-            "name": "Run cib for 130-layout-sharing-proxy-classes",
+            "name": "Run cib for 0500-layout-sharing-proxy-classes",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/pub",
+                "${workspaceFolder}/examples/0500-layout-sharing-proxy-classes/pub",
                 "-b",
-                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/cib",
+                "${workspaceFolder}/examples/0500-layout-sharing-proxy-classes/cib",
                 "-o",
-                "${workspaceFolder}/examples/130-layout-sharing-proxy-classes/exp",
+                "${workspaceFolder}/examples/0500-layout-sharing-proxy-classes/exp",
                 "--no-proxy",
                 "CPoint",
                 "--no-proxy",
@@ -677,7 +677,7 @@
                 "-m",
                 "Example",
                 "-c",
-                "${workspaceFolder}/examples/010-simple-class/cib/__zz_cib_Example-ids.h"
+                "${workspaceFolder}/examples/0010-simple-class/cib/__zz_cib_Example-ids.h"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds/",
@@ -693,17 +693,17 @@
             ]
         },
         {
-            "name": "Run cib for 070-simple-interface-class-and-bkwd-compatibility",
+            "name": "Run cib for 0090-interface-class-and-bkwd-compatibility",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/pub",
+                "${workspaceFolder}/examples/0090-interface-class-and-bkwd-compatibility/pub",
                 "-b",
-                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/cib",
+                "${workspaceFolder}/examples/0090-interface-class-and-bkwd-compatibility/cib",
                 "-o",
-                "${workspaceFolder}/examples/070-simple-interface-class-and-bkwd-compatibility/exp",
+                "${workspaceFolder}/examples/0090-interface-class-and-bkwd-compatibility/exp",
                 "-m",
                 "Example"
             ],
@@ -749,17 +749,17 @@
             ]
         },
         {
-            "name": "Run cib for 020-virtual-function",
+            "name": "Run cib for 0050-virtual-function",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/020-virtual-function/pub",
+                "${workspaceFolder}/examples/0050-virtual-function/pub",
                 "-b",
-                "${workspaceFolder}/examples/020-virtual-function/cib",
+                "${workspaceFolder}/examples/0050-virtual-function/cib",
                 "-o",
-                "${workspaceFolder}/examples/020-virtual-function/exp",
+                "${workspaceFolder}/examples/0050-virtual-function/exp",
                 "-m",
                 "Example"
             ],
@@ -777,19 +777,19 @@
             ]
         },
         {
-            "name": "Run cib for 035-virtual-function-and-forwd-compatibility",
+            "name": "Run cib for 0070-virtual-function-and-forwd-compatibility",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/pub",
+                "${workspaceFolder}/examples/0070-virtual-function-and-forwd-compatibility/pub",
                 "-b",
-                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/cib",
+                "${workspaceFolder}/examples/0070-virtual-function-and-forwd-compatibility/cib",
                 "-o",
-                "${workspaceFolder}/examples/035-virtual-function-and-forwd-compatibility/exp",
+                "${workspaceFolder}/examples/0070-virtual-function-and-forwd-compatibility/exp",
                 "-c",
-                "${workspaceFolder}/examples/020-virtual-function/cib/__zz_cib_Example-ids.h",
+                "${workspaceFolder}/examples/0050-virtual-function/cib/__zz_cib_Example-ids.h",
                 "-m",
                 "Example"
             ],
@@ -807,17 +807,17 @@
             ]
         },
         {
-            "name": "Run cib for 030-virtual-function-and-bkwd-compatibility",
+            "name": "Run cib for 0060-virtual-function-and-bkwd-compatibility",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/pub",
+                "${workspaceFolder}/examples/0060-virtual-function-and-bkwd-compatibility/pub",
                 "-b",
-                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/cib",
+                "${workspaceFolder}/examples/0060-virtual-function-and-bkwd-compatibility/cib",
                 "-o",
-                "${workspaceFolder}/examples/030-virtual-function-and-bkwd-compatibility/exp",
+                "${workspaceFolder}/examples/0060-virtual-function-and-bkwd-compatibility/exp",
                 "-m",
                 "Example"
             ],
@@ -1315,10 +1315,10 @@
             ]
         },
         {
-            "name": "020-virtual-function",
+            "name": "0050-virtual-function",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/builds/examples/020-virtual-function",
+            "program": "${workspaceFolder}/builds/examples/0050-virtual-function",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],
@@ -1387,10 +1387,10 @@
             ]
         },
         {
-            "name": "035-virtual-function-and-forwd-compatibility-new-client-with-old-lib",
+            "name": "0070-virtual-function-and-forwd-compatibility-new-client-with-old-lib",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/builds/examples/035-virtual-function-and-forwd-compatibility-new-client-with-old-lib//035-virtual-function-and-forwd-compatibility",
+            "program": "${workspaceFolder}/builds/examples/0070-virtual-function-and-forwd-compatibility-new-client-with-old-lib//0070-virtual-function-and-forwd-compatibility",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],

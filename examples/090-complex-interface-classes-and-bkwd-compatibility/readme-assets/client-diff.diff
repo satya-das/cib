@@ -1,9 +1,0 @@
-45a46,53
-> 
-> TEST_CASE("New virtual functions should be available to new clients")
-> {
->   Implement1 i;
->   CHECK(i.disruptVTable() == 1);
->   CHECK(i.p()->disruptVTable() == 2);
->   CHECK(i.r().disruptVTable() == 3);
-> }

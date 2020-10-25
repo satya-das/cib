@@ -1,0 +1,24 @@
+--- 0010-simple-class/src/example-client.cpp
++++ 0030-simple-class-and-forwd-compatibility/src/example-client.cpp
+@@ -1,9 +1,20 @@
+ #include "example.h"
+ 
+ #include <catch/catch.hpp>
+ 
++#include <exception>
++
+ TEST_CASE("Method call")
+ {
+   Example::A a;
+-  CHECK(a.SomeFunc() == 1);
++  if(a.SomeFunc() == 2)
++  {
++    // When run with new library
++    CHECK(a.AnotherFunction() == 109);
++  }
++  else
++  {
++    // When run with old library
++    CHECK_THROWS_AS(a.AnotherFunction(), std::bad_function_call);
++  }
+ }
