@@ -44,7 +44,6 @@ void __zz_cib_GlobalProxyRepo::DeleteProxies(ClassKey classKey)
   auto itr = __zz_cib_proxyRepo.find(classKey);
   if (itr == __zz_cib_proxyRepo.end())
     return;
-  auto repo = std::move(itr->second);
   __zz_cib_proxyRepo.erase(itr);
 }
 

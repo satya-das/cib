@@ -379,17 +379,17 @@
             ]
         },
         {
-            "name": "Run cib for 100-template-classes",
+            "name": "Run cib for 0120-template-classes",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/100-template-classes/pub",
+                "${workspaceFolder}/examples/0120-template-classes/pub",
                 "-b",
-                "${workspaceFolder}/examples/100-template-classes/cib",
+                "${workspaceFolder}/examples/0120-template-classes/cib",
                 "-o",
-                "${workspaceFolder}/examples/100-template-classes/exp",
+                "${workspaceFolder}/examples/0120-template-classes/exp",
                 "-m",
                 "Example"
             ],
@@ -929,11 +929,11 @@
             "program": "${workspaceFolder}/builds/cib",
             "args": [
                 "-i",
-                "${workspaceFolder}/examples/100-template-classes/pub",
+                "${workspaceFolder}/examples/0120-template-classes/pub",
                 "-b",
-                "${workspaceFolder}/examples/100-template-classes/cib",
+                "${workspaceFolder}/examples/0120-template-classes/cib",
                 "-o",
-                "${workspaceFolder}/examples/100-template-classes/exp",
+                "${workspaceFolder}/examples/0120-template-classes/exp",
                 "-m",
                 "Example"
             ],
@@ -1264,7 +1264,7 @@
             "name": "template-classes",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/builds/examples/100-template-classes",
+            "program": "${workspaceFolder}/builds/examples/0120-template-classes",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],

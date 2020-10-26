@@ -7,12 +7,12 @@ For interface like classes CIB has to generate special glue code. So, it is impo
 In this example we cover some more cases to test that CIB correctly detects interface like classes in more complex cases.
 
 Let's consider the following example:
-!INCLUDECODE "examples/080-complex-interface-classes/pub/example.h" (c++)
+!INCLUDECODE "examples/1020-complex-interface-classes/pub/example.h" (c++)
 
 If we look closer then we realize that `Interface1`, `Interface2`, and `Interface3` are all interface like classes because when Library makes a call on their methods then it is possible that the implementation provided by client gets invoked. As you may notice that it is not very straight forward to detect it and so this example ensures that CIB detects them correctly.
 
 Let's see what the client code is:
-!INCLUDECODE "examples/080-complex-interface-classes/src/example-client.cpp" (c++)
+!INCLUDECODE "examples/1020-complex-interface-classes/src/example-client.cpp" (c++)
 
 Client code ensures that correct behavior must be provided by library with CIB generates glue code.
 

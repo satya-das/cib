@@ -57,7 +57,7 @@ For details please see [Interface Class And Backward Compatibility example](0090
 ## Example - C++ Template Classes
 In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
 
-For details please see [C++ Template Classes example](100-template-classes)
+For details please see [C++ Template Classes example](0120-template-classes)
 
 ## Example - Facade Classes and RTTI
 
