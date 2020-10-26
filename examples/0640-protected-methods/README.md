@@ -3,7 +3,7 @@ This is very first example that explains basic building blocks of CIB. Being the
 
 Let's consider the following example:
 
-[**File**: pub/example.h] _Public header of library_:
+**File**: pub/example.h _Public header of library_:
 
 ```c++
 #pragma once
@@ -29,7 +29,7 @@ namespace Example
 
 ```
 
-[**File**: src/example-client.cpp] _Client's expectation from library_:
+**File**: src/example-client.cpp _Client's expectation from library_:
 
 ```c++
 #include "example.h"
@@ -80,7 +80,7 @@ CIB's basic functioning is that it doesn't let compiler generated ABI of C++ fea
 
 **MethodTable and helper function**:
 
-[**File**: cib/__zz_cib_Example-mtable.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable.h]:
+**File**: cib/__zz_cib_Example-mtable.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable.h:
 
 ```c++
 #ifndef __zz_cib_MethodTable_defined
@@ -142,7 +142,7 @@ Like `__zz_cib_export` we will see `__zz_cib_import` used exactly once in genera
 
 #### MethodTableHelper class
 
-[**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h]:  
+**File**: cib/__zz_cib_Example-mtable-helper.h and also **File**: exp/__zz_cib_internal/__zz_cib_Example-mtable-helper.h:
 
 ```c++
 #ifndef __zz_cib_MethodTableHelper_defined

@@ -20,7 +20,7 @@ If it does then CIB throws `std::bad_function_call` exception that should be cau
 
 Since, cross component calls happen using `MethodTable` CIB can check for existence of function pointer in MethodTable and accordingly it can throw exception if the required function pointer is not present. Let's see how functions from MethodTable are invoked:
 
-[**File**: cib/__zz_cib_Example-mtable-helper.h]:
+**File**: cib/__zz_cib_Example-mtable-helper.h:
 
 !INCLUDECODE "examples/0010-simple-class/cib/__zz_cib_Example-mtable-helper.h" (c++)
 
