@@ -4,14 +4,14 @@
 
 #include <type_traits>
 
-TEST_CASE("Client receives unique_ptr from library")
+TEST_CASE("Client receives intrusive_ptr from library")
 {
   A a;
   auto p = a.f();
   CHECK(p->f() == 909);
 }
 
-TEST_CASE("Client passes unique_ptr to library")
+TEST_CASE("Client passes intrusive_ptr to library")
 {
   class N : public I {
     int f() const override {

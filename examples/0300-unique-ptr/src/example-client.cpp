@@ -37,5 +37,4 @@ TEST_CASE("Client passes pointer to unique ptr")
   A a;
   CHECK(a.j(&p) == 25);
   CHECK(p->f() == 909);
-
 }
