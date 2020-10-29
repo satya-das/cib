@@ -5,10 +5,10 @@ Component Interface Binder (CIB)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/6170f28d64a1435098c91ac9610def4e)](https://www.codacy.com/gh/satya-das/cib/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=satya-das/cib&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Platform | CI Status
----------|:---------
-OSX      | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)](https://travis-ci.com/github/satya-das/cib)
-Linux    | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)](https://travis-ci.com/github/satya-das/cib)
+| Platform | CI Status                                                                                                                                  |
+| -------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
+| OSX      | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)](https://travis-ci.com/github/satya-das/cib)     |
+| Linux    | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)](https://travis-ci.com/github/satya-das/cib) |
 
 # CIB
 
@@ -72,6 +72,11 @@ The CIB layers of each components act like proxy to another component and so eac
 - Returned objects from cross component function calls also go through the conversion between C and C++ types.
 
 [The rest of the details of CIB architecture can be understood with examples.](examples)
+
+### CIB's design principle
+  - Export only simple C like objects.
+  - Do it in separate layer so that developers don't have to directly work with it.
+  - Still allow use of all C++ features in the SDK.
 
 ## CIB Architecture Detail
 Please see [Examples](examples) to know the details.
