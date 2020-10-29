@@ -22,7 +22,7 @@ public:
   C(C&& rhs);
 public:
   C();
-  C(const C& );
+  C(const C&);
   ~C();
   int UseInterface(I* pI);
 

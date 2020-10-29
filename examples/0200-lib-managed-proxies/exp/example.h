@@ -23,7 +23,7 @@ public:
   Base(Base&& rhs);
 public:
   Base();
-  Base(const Base& );
+  Base(const Base&);
   ~Base();
     int f() const;
 
@@ -37,7 +37,7 @@ public:
   Derived(Derived&& rhs);
 public:
   Derived();
-  Derived(const Derived& );
+  Derived(const Derived&);
   ~Derived();
     int f() const;
 
@@ -50,7 +50,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   ~A();
   A();
   const Facade& GetFacadeByRef() const;

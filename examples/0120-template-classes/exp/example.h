@@ -14,7 +14,7 @@ namespace Example
     A(A&& rhs);
   public:
     A();
-    A(const A& );
+    A(const A&);
     ~A();
     void Set(const Value<int>& x);
     Value<int> Get() const;

@@ -12,8 +12,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::C>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::C::C;
 
@@ -51,8 +50,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::A::A;
 

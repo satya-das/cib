@@ -13,10 +13,14 @@ namespace Example
 {
   //! A vividly trivial class
   //! Contains just a simple method.
-  class A
+  class A final
   {
   public:
     A();
+    A(const A&) ;
+    A(A&&) = delete;
+    ~A();
+
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
     int SomeFunc() { return x; }
@@ -240,12 +244,12 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
   enum __zz_cib_Methodid {
-    //#= A(const ::Example::A&);
-    __zz_cib_Copy_0 = 0,
-    //#= ~A();
-    __zz_cib_Delete_1 = 1,
     //#= A();
-    __zz_cib_New_2 = 2,
+    __zz_cib_New_0 = 0,
+    //#= A(const ::Example::A&);
+    __zz_cib_Copy_1 = 1,
+    //#= ~A();
+    __zz_cib_Delete_2 = 2,
     //#= int SomeFunc();
     SomeFunc_3 = 3,
     __zz_cib_nextMethodId = 4
@@ -285,23 +289,20 @@ CIB will generate library glue code and library is expected to compile these sou
 namespace __zz_cib_ {
 using namespace ::Example;
 template <>
-struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
-  using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+struct __zz_cib_Delegator<::Example::A> {
+  using __zz_cib_Delegatee = ::Example::A;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
-  using ::Example::A::A;
-
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_0(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return new __zz_cib_Delegatee(*__zz_cib_obj);
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0() {
+    return new ::Example::A();
   }
-  static void __zz_cib_decl __zz_cib_Delete_1(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::Example::A&> __zz_cib_param0) {
+    return new ::Example::A(    __zz_cib_::__zz_cib_FromAbiType<const ::Example::A&>(__zz_cib_param0));
+  }
+  static void __zz_cib_decl __zz_cib_Delete_2(::Example::A* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
-    return new __zz_cib_Delegatee();
-  }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(__zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(::Example::A* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->::Example::A::SomeFunc()
     );
@@ -315,9 +316,9 @@ using namespace ::Example;
 namespace __zz_cib_Class259 {
 const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_Copy_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_Delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_New_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_New_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_Copy_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::__zz_cib_Delete_2),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Example::A>::SomeFunc_3)
   };
   static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
@@ -403,11 +404,10 @@ namespace Example
   class A
   {
   public:
-    A(A&& rhs);
-  public:
-    A(const A& );
-    ~A();
     A();
+    A(const A&);
+    A(A&&) = delete;
+    ~A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
     int SomeFunc();
@@ -426,7 +426,7 @@ You can notice certain differences between this class and the original class in 
 ```diff
 --- pub/example.h
 +++ exp/example.h
-@@ -1,20 +1,27 @@
+@@ -1,24 +1,26 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -436,14 +436,15 @@ You can notice certain differences between this class and the original class in 
  {
    //! A vividly trivial class
    //! Contains just a simple method.
-   class A
+-  class A final
++  class A
    {
    public:
-+    A(A&& rhs);
-+  public:
-+    A(const A& );
-+    ~A();
      A();
+     A(const A&) ;
+     A(A&&) = delete;
+     ~A();
+-
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
 -    int SomeFunc() { return x; }
@@ -513,10 +514,9 @@ public:                                                                         
   using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
                                                                                                                        \
 private:                                                                                                               \
-  friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
+  friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                  \
   friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
-  using __zz_cib_ThisClass = className;                                                                                \
-  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \
+  using __zz_cib_MyHelper = __zz_cib_::__zz_cib_Helper<fullName>;                                                      \
   __zz_cib_AbiType __zz_cib_h_;
 
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
@@ -546,8 +546,7 @@ public:                                                                         
   using __zz_cib_AbiType = className*;                                                                                 \
                                                                                                                        \
 private:                                                                                                               \
-  using __zz_cib_ThisClass = className;                                                                                \
-  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>
+  using __zz_cib_MyHelper = __zz_cib_::__zz_cib_Helper<fullName>
 
 /**
  * @def __ZZ_CIB_FACADE_CLASS_INTERNALS
@@ -584,12 +583,17 @@ struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::Example::A;
+  static bool instanceDeleted_;
+  Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
       __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classId))
   {}
+  ~__zz_cib_Helper() {
+    instanceDeleted_ = true;
+  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -598,24 +602,24 @@ struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
     return __zz_cib_Instance();
   }
 
+  static __zz_cib_AbiType __zz_cib_New_0() {
+    using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_0>(
+      );
+  }
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_Copy_0(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_Copy_1(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_1>(
       __zz_cib_args...);
   }
-  static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_Delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
         __zz_cib_obj
         );
     }
-  }
-  static __zz_cib_AbiType __zz_cib_New_2() {
-    using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_2>(
-      );
   }
   template <typename _RT>
   static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj) {
@@ -639,14 +643,32 @@ struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
   }
   static __zz_cib_AbiType __zz_cib_ReleaseHandle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
+    __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
-    return __zz_cib_CreateProxy(h);
+    if (h == nullptr)
+      return nullptr;
+    auto&  dis   = __zz_cib_Instance();
+    auto* proxy = dis.proxyMgr.FindProxy(h);
+    if (proxy == nullptr)
+      proxy = __zz_cib_CreateProxy(h);
+    return proxy;
+  }
+  static void __zz_cib_AddProxy(_ProxyClass* __zz_cib_obj, __zz_cib_AbiType h) {
+    auto& dis = __zz_cib_Instance();
+    dis.proxyMgr.AddProxy(__zz_cib_obj, h);
+  }
+  static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
+    if (instanceDeleted_) return;
+    auto& dis = __zz_cib_Instance();
+      dis.proxyMgr.RemoveProxy(h);
   }
 };
+template <typename T>
+bool __zz_cib_Helper<::Example::A, T>::instanceDeleted_ = false;
 }
 
 ```
@@ -668,30 +690,26 @@ namespace Example {
 
 Example::A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
-{}
-
-Example::A::A(A&& rhs)
-  : __zz_cib_h_(rhs.__zz_cib_h_)
 {
-  rhs.__zz_cib_h_ = nullptr;
+  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
+Example::A::A()
+  : Example::A(__zz_cib_MyHelper::__zz_cib_New_0(
+    ))
+  {}
+
 Example::A::A(const ::Example::A& __zz_cib_param0)
-  : Example::A(__zz_cib_MyHelper::__zz_cib_Copy_0(
+  : Example::A(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}
 
 Example::A::~A() {
 auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
-  __zz_cib_MyHelper::__zz_cib_Delete_1(
+  __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
 }
-
-Example::A::A()
-  : Example::A(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
 
 int Example::A::SomeFunc() {
   return __zz_cib_::__zz_cib_FromAbiType<int>(

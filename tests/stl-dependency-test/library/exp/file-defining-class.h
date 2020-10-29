@@ -9,7 +9,7 @@ class ExampleClass
 public:
   ExampleClass(ExampleClass&& rhs);
 public:
-  ExampleClass(const ExampleClass& );
+  ExampleClass(const ExampleClass&);
   ExampleClass();
   ~ExampleClass();
   VectorOfExampleClassPtr get();

@@ -48,7 +48,7 @@
 -    };
 -    return sk_sp<I>(new M);
 -  }
-+  A(const A& );
++  A(const A&);
 +  ~A();
 +  A();
 +  sk_sp<I> f() const;

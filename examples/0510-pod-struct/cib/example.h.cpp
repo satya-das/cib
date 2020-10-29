@@ -12,8 +12,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::NonPod1> : public ::NonPod1 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::NonPod1>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::NonPod1::NonPod1;
 
@@ -45,8 +44,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::NonPod2> : public ::NonPod2 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::NonPod2>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::NonPod2::NonPod2;
 
@@ -78,8 +76,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::NonPod3> : public ::NonPod3 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::NonPod3>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::NonPod3::NonPod3;
 
@@ -111,8 +108,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::A::A;
 

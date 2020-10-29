@@ -9,7 +9,7 @@ namespace Example
   public:
     Int(Int&& rhs);
   public:
-    Int(const Int& );
+    Int(const Int&);
     ~Int();
     Int(int x = 0);
     operator int () const;

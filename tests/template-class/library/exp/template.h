@@ -67,7 +67,7 @@ class TemplateTest
 public:
   TemplateTest(TemplateTest&& rhs);
 public:
-  TemplateTest(const TemplateTest& );
+  TemplateTest(const TemplateTest&);
   ~TemplateTest();
   TemplateTest();
   TemplateClassWithOneParam<int> getTemplateClassWithOneParam() const;

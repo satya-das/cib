@@ -14,8 +14,7 @@ using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::A> : public ::Example::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::Example::A::A;
 

@@ -15,8 +15,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::vector_reverse_iterator;
 
@@ -193,8 +192,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::vector_reverse_iterator;
 
@@ -371,8 +369,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::vector_reverse_iterator;
 
@@ -549,8 +546,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C>> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::C>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::vector_reverse_iterator;
 
@@ -727,8 +723,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::vector_reverse_iterator;
 
@@ -905,8 +900,7 @@ using namespace ::__zz_cib_stl_helpers;
 template <>
 struct __zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>> : public ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::vector_reverse_iterator;
 

@@ -20,7 +20,7 @@ public:
   NonPod1(NonPod1&& rhs);
 public:
   NonPod1();
-  NonPod1(const NonPod1& );
+  NonPod1(const NonPod1&);
   ~NonPod1();
 
 private:
@@ -33,7 +33,7 @@ public:
   NonPod2(NonPod2&& rhs);
 public:
   NonPod2();
-  NonPod2(const NonPod2& );
+  NonPod2(const NonPod2&);
   ~NonPod2();
 
 private:
@@ -46,7 +46,7 @@ public:
   NonPod3(NonPod3&& rhs);
 public:
   NonPod3();
-  NonPod3(const NonPod3& );
+  NonPod3(const NonPod3&);
   ~NonPod3();
 
 private:
@@ -58,7 +58,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   ~A();
   A();
   void setPod(Pod& p);

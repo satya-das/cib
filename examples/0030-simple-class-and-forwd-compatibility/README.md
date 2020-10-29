@@ -9,7 +9,7 @@ Consider the library of this example as next version of library of very first ex
 ```diff
 --- 0010-simple-class/pub/example.h
 +++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,20 +1,21 @@
+@@ -1,24 +1,21 @@
  #pragma once
  
  //! Contains example definitions to explain cib's functioning
@@ -17,10 +17,15 @@ Consider the library of this example as next version of library of very first ex
  {
    //! A vividly trivial class
    //! Contains just a simple method.
-   class A
+-  class A final
++  class A
    {
    public:
      A();
+-    A(const A&) ;
+-    A(A&&) = delete;
+-    ~A();
+-
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
      int SomeFunc() { return x; }

@@ -7,7 +7,7 @@ class Interface
 public:
   Interface(Interface&& rhs);
 public:
-  Interface(const Interface& );
+  Interface(const Interface&);
   Interface();
   virtual ~Interface();
   int Func();

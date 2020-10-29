@@ -8,10 +8,10 @@ public:
   A(A&& rhs);
 public:
   A();
-  A(const A& );
+  A(const A&);
   virtual ~A();
   int F();
-  int F(int );
+  int F(int);
   virtual int V();
 
 private:

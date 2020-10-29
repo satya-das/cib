@@ -16,7 +16,7 @@ namespace Example
       public:
         A(A&& rhs);
       public:
-        A(const A& );
+        A(const A&);
         ~A();
         A();
         Int i() const;

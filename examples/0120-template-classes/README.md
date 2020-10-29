@@ -129,8 +129,7 @@ using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::Value<::Example::Int>> : public ::Example::Value<::Example::Int> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::Value<::Example::Int>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::Example::Value<::Example::Int>::Value;
 
@@ -185,8 +184,7 @@ using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::Value<float>> : public ::Example::Value<float> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::Value<float>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::Example::Value<float>::Value;
 
@@ -241,8 +239,7 @@ using namespace ::Example;
 template <>
 struct __zz_cib_Delegator<::Example::Value<int>> : public ::Example::Value<int> {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Example::Value<int>>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::Example::Value<int>::Value;
 

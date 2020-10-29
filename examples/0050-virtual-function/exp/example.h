@@ -8,7 +8,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   A();
   //! This is to know what cib does with virtual functions.
   virtual int VirtFunc();
@@ -23,7 +23,7 @@ class B : public ::A
 public:
   B(B&& rhs);
 public:
-  B(const B& );
+  B(const B&);
   ~B();
   B();
   virtual int VirtFunc();

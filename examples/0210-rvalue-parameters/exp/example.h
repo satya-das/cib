@@ -8,8 +8,8 @@ class RValueExample
 public:
   ~RValueExample();
   RValueExample(std::int32_t val);
-  RValueExample(RValueExample&& );
-  RValueExample(const RValueExample& );
+  RValueExample(RValueExample&&);
+  RValueExample(const RValueExample&);
   RValueExample& operator=(RValueExample&& rhs);
   RValueExample& operator=(const RValueExample& rhs);
   std::int32_t Set(RValueExample&& x);

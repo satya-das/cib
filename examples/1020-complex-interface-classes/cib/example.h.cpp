@@ -71,8 +71,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface1> : public ::Interface1 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Interface1>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Interface1>;
 
   using ::Interface1::Interface1;
@@ -160,8 +159,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface2> : public ::Interface2 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Interface2>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Interface2>;
 
   using ::Interface2::Interface2;
@@ -255,8 +253,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface3> : public ::Interface3 {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Interface3>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Interface3>;
 
   using ::Interface3::Interface3;
@@ -307,8 +304,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::A::A;
 

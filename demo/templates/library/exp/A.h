@@ -9,7 +9,7 @@ public:
   A(A&& rhs);
 public:
   A();
-  A(const A& );
+  A(const A&);
   virtual ~A();
   virtual int setValue(const Value<int>& intVal) const;
   virtual float setValue(const Value<float>& floatVal) const;

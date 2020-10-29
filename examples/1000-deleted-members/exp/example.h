@@ -9,8 +9,8 @@ public:
 public:
   ~A();
   A();
-  A(const A& ) = delete;
-  const A& operator=(const A& ) = delete;
+  A(const A&) = delete;
+  const A& operator=(const A&) = delete;
   int f();
 
 private:

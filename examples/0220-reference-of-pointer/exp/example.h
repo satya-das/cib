@@ -8,7 +8,7 @@ public:
   A(A&& rhs);
 public:
   A();
-  A(const A& );
+  A(const A&);
   virtual int VirtualFunction() const;
   virtual ~A();
 
@@ -21,7 +21,7 @@ class B : public ::A
 public:
   B(B&& rhs);
 public:
-  B(const B& );
+  B(const B&);
   B();
   virtual ~B();
   virtual int VirtualFunction() const;

@@ -34,10 +34,9 @@ public:                                                                         
   using __zz_cib_AbiType = __zz_cib_Opaque*;                                                                           \
                                                                                                                        \
 private:                                                                                                               \
-  friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                   \
+  friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                  \
   friend struct __zz_cib_::__zz_cib_Delegator<fullName>;                                                               \
-  using __zz_cib_ThisClass = className;                                                                                \
-  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>;                                                     \
+  using __zz_cib_MyHelper = __zz_cib_::__zz_cib_Helper<fullName>;                                                      \
   __zz_cib_AbiType __zz_cib_h_;
 
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
@@ -67,8 +66,7 @@ public:                                                                         
   using __zz_cib_AbiType = className*;                                                                                 \
                                                                                                                        \
 private:                                                                                                               \
-  using __zz_cib_ThisClass = className;                                                                                \
-  using __zz_cib_MyHelper  = __zz_cib_::__zz_cib_Helper<fullName>
+  using __zz_cib_MyHelper = __zz_cib_::__zz_cib_Helper<fullName>
 
 /**
  * @def __ZZ_CIB_FACADE_CLASS_INTERNALS

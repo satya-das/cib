@@ -8,7 +8,7 @@
  class CPoint
  {
  public:
-+  CPoint(const CPoint& );
++  CPoint(const CPoint&);
    CPoint(double _x = 0, double _y = 0, double _z = 0);
 -  ~CPoint() {}
 -  

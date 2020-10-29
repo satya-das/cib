@@ -12,13 +12,13 @@ namespace Example
   public:
     A(A&& rhs);
   public:
-    A(const A& );
+    A(const A&);
     ~A();
     A();
     //! Doesn't do anything meaningful
     //! @note It is just for explaining how cib works.
     int Func();
-    int Func(float );
+    int Func(float);
 
   private:
     __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);

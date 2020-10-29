@@ -15,7 +15,7 @@
    public:
 +    A(A&& rhs);
 +  public:
-+    A(const A& );
++    A(const A&);
 +    ~A();
      A();
      //! Doesn't do anything meaningful
@@ -23,7 +23,7 @@
 -    int Func() { return x; }
 -    int Func(float) { return 2*x; }
 +    int Func();
-+    int Func(float );
++    int Func(float);
      
    private:
 -    int x {1};

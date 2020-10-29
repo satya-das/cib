@@ -7,7 +7,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   A();
   virtual ~A();
   int f0();
@@ -35,7 +35,7 @@ class B
 public:
   B(B&& rhs);
 public:
-  B(const B& );
+  B(const B&);
   B();
   ~B();
 #if  COND // Start of a conditional group, also start of 1st subgroup
@@ -52,7 +52,7 @@ class C
 public:
   C(C&& rhs);
 public:
-  C(const C& );
+  C(const C&);
   C();
   ~C();
 #if  COND // Start of a conditional group, also start of 1st subgroup
@@ -70,7 +70,7 @@ class P
 public:
   P(P&& rhs);
 public:
-  P(const P& );
+  P(const P&);
   P();
   virtual ~P();
 #if  COND // Start of a conditional group, also start of 1st subgroup

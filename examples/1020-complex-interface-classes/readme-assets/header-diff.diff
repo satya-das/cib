@@ -59,7 +59,7 @@
  public:
 +  A(A&& rhs);
 +public:
-+  A(const A& );
++  A(const A&);
 +  ~A();
    A();
 -  int SetInterface(Interface1* pInterface1) const

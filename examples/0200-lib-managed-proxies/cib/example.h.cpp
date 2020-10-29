@@ -62,8 +62,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Facade> : public ::Facade {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Generic<::Facade>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Facade>;
   using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Facade>;
 
@@ -119,8 +118,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Base> : public ::Base {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Base>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Base>;
   using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Base>;
 
@@ -164,8 +162,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Derived> : public ::Derived {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::Derived>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::Derived>;
   using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::Derived>;
 
@@ -217,8 +214,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::A> : public ::A {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::A>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
 
   using ::A::A;
 

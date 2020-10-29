@@ -21,7 +21,7 @@ class PublicFacadeImpl : public ::Facade
 public:
   PublicFacadeImpl(PublicFacadeImpl&& rhs);
 public:
-  PublicFacadeImpl(const PublicFacadeImpl& );
+  PublicFacadeImpl(const PublicFacadeImpl&);
   ~PublicFacadeImpl();
   PublicFacadeImpl();
   virtual void F();
@@ -35,7 +35,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   ~A();
   A();
   Facade* PublicFacade();

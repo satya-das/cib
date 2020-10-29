@@ -10,7 +10,7 @@
  public:
 +  A(A&& rhs);
 +public:
-+  A(const A& );
++  A(const A&);
    A();
 -  virtual ~A() {}
 -
@@ -60,7 +60,7 @@
  public:
 +  B(B&& rhs);
 +public:
-+  B(const B& );
++  B(const B&);
    B();
 -  ~B() {}
 -
@@ -82,7 +82,7 @@
  public:
 +  C(C&& rhs);
 +public:
-+  C(const C& );
++  C(const C&);
    C();
 -  ~C() {}
 -
@@ -106,7 +106,7 @@
  public:
 +  P(P&& rhs);
 +public:
-+  P(const P& );
++  P(const P&);
    P();
 -  virtual ~P() {}
 -

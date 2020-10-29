@@ -180,8 +180,11 @@ void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purp
     emitType(stm, var.get(), purpose, helper, getOwner());
     if ((purpose != kPurposeSignature) && (purpose != kPurposeSigForVirtualFuncMatch))
     {
-      stm << ' ';
-      emitParamName(stm, var, i, !(purpose & kPurposeProxyDecl));
+      if (!(purpose & kPurposeProxyDecl) || !var->name().empty())
+      {
+        stm << ' ';
+        emitParamName(stm, var, i);
+      }
     }
     if ((purpose != kPurposeSignature) && (purpose != kPurposeSigForVirtualFuncMatch) && (purpose != kPurposeCApi)
         && (purpose != kPurposeProxyCApi))
@@ -1603,6 +1606,8 @@ void CibCompound::emitDecl(std::ostream&    stm,
     }
     stm << indentation << compoundType() << ' ';
     stm << name();
+    if (hasAttr(kFinal))
+      stm << " final";
     if (isClassLike(this))
     {
       auto emitInheritance = [this, &stm](CppAccessType accessType, char& sep) {
@@ -2796,8 +2801,7 @@ void CibCompound::emitDelegators(std::ostream&    stm,
       stm << " : public " << longName();
     stm << " {\n";
     stm << indentation << "using __zz_cib_Delegatee = " << delegatee << ";\n";
-    stm << indentation << "using __zz_cib_ThisClass = __zz_cib_Delegatee;\n";
-    stm << indentation << "using __zz_cib_AbiType = __zz_cib_ThisClass*;\n";
+    stm << indentation << "using __zz_cib_AbiType = __zz_cib_Delegatee*;\n";
     if (needsGenericProxyDefinition() || libraryManagesProxy())
       stm << indentation << "using __zz_cib_Proxy = __zz_cib_Proxy_t<" << longName() << ">;\n";
     if (isSharedProxy() && libraryManagesProxy())

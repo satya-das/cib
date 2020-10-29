@@ -7,7 +7,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   ~A();
   A(int i = 0);
 
@@ -21,7 +21,7 @@ public:
   B(B&& rhs);
 public:
   B();
-  B(const B& );
+  B(const B&);
   ~B();
   void SetA(A* pA);
   A* GetA() const;

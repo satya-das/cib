@@ -8,7 +8,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   A(int x);
   ~A();
   int f() const;
@@ -22,7 +22,7 @@ class B
 public:
   B(B&& rhs);
 public:
-  B(const B& );
+  B(const B&);
   ~B();
   B(int x);
   int f() const;
@@ -36,7 +36,7 @@ class C
 public:
   C(C&& rhs);
 public:
-  C(const C& );
+  C(const C&);
   ~C();
   C(int x);
   int f() const;
@@ -51,7 +51,7 @@ class T
 public:
   T(T&& rhs);
 public:
-  T(const T& );
+  T(const T&);
   ~T();
   T();
   int passStdFunctionByValue(TestCallback callback);

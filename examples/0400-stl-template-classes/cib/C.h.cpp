@@ -19,8 +19,7 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::C> : public ::C {
   using __zz_cib_Delegatee = __zz_cib_::__zz_cib_Delegator<::C>;
-  using __zz_cib_ThisClass = __zz_cib_Delegatee;
-  using __zz_cib_AbiType = __zz_cib_ThisClass*;
+  using __zz_cib_AbiType = __zz_cib_Delegatee*;
   using __zz_cib_Proxy = __zz_cib_Proxy_t<::C>;
   using __zz_cib_ProxyDeleter = __zz_cib_ProxyDeleter_t<::C>;
 

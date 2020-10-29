@@ -29,22 +29,22 @@ struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
   }
 
   template <typename ..._Args>
-  static __zz_cib_AbiType __zz_cib_Copy_0(_Args... __zz_cib_args) {
+  static __zz_cib_AbiType __zz_cib_Copy_1(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_1>(
       __zz_cib_args...);
   }
-  static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
+  static auto __zz_cib_Delete_2(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
         __zz_cib_obj
         );
     }
   }
-  static __zz_cib_AbiType __zz_cib_New_2() {
+  static __zz_cib_AbiType __zz_cib_New_0() {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_2>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_0>(
       );
   }
   template <typename _RT>

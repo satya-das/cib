@@ -8,7 +8,7 @@ class C
 public:
   C(C&& rhs);
 public:
-  C(const C& );
+  C(const C&);
   C(int x);
   virtual ~C();
   virtual int value() const;
@@ -22,7 +22,7 @@ class A
 public:
   A(A&& rhs);
 public:
-  A(const A& );
+  A(const A&);
   ~A();
   A();
   int f(std::function<int()> callback) const;
