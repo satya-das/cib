@@ -1717,7 +1717,7 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
                                      const CibIdMgr&  cibIdMgr,
                                      CppIndent        indentation) const
 {
-  if (!isShared() || isEmpty() || needsNoProxy())
+  if (!isShared())
     return;
   stm << indentation << "namespace __zz_cib_ {\n";
   stm << indentation << "template<>\n";
@@ -1769,6 +1769,8 @@ void CibCompound::emitFromHandleDefn(std::ostream&    stm,
 void CibCompound::emitFromHandleDecl(std::ostream& stm, const CibParams& cibParams, CppIndent indentation) const
 {
   if (!isFacadeLike() && isAbstract())
+    return;
+  if (!isSharedProxy())
     return;
   stm << indentation << "static T* __zz_cib_CreateProxy(__zz_cib_AbiType h)";
   if (isFacadeLike())
@@ -2306,7 +2308,7 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << indentation << "  dis.proxyMgr.RemoveProxy(h);\n";
     stm << --indentation << "}\n";
   }
-  else if (isFacadeLike() || !isAbstract())
+  else if (isFacadeLike())
   {
     stm << indentation << "static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {\n";
     stm << ++indentation << "return __zz_cib_CreateProxy(h);\n";

@@ -9,9 +9,11 @@ Consider the library of this example as next version of library of very first ex
 ```diff
 --- 0010-simple-class/pub/example.h
 +++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,24 +1,21 @@
+@@ -1,25 +1,21 @@
  #pragma once
  
+-
+-
  //! Contains example definitions to explain cib's functioning
  namespace Example
  {
@@ -22,14 +24,13 @@ Consider the library of this example as next version of library of very first ex
    {
    public:
      A();
--    A(const A&) ;
+-    A(const A&);
 -    A(A&&) = delete;
 -    ~A();
--
      //! Doesn't do anything meaningful
      //! @note It is just for explaining how cib works.
      int SomeFunc() { return x; }
-     
+ 
    private:
 +    double f {0.0};
      int x {1};

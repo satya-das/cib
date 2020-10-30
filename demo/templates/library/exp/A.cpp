@@ -4,15 +4,12 @@
 
 A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
-{
-  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
-}
+{}
 
 A::A(A&& rhs)
   : __zz_cib_h_(rhs.__zz_cib_h_)
 {
   rhs.__zz_cib_h_ = nullptr;
-  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
 A::A()

@@ -149,10 +149,6 @@ struct __zz_cib_Helper<::B, T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj
       );
   }
-  static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    auto* const __zz_cib_obj = new T(h);
-    return __zz_cib_obj;
-  }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);
   }
@@ -167,9 +163,6 @@ struct __zz_cib_Helper<::B, T> : public __zz_cib_MethodTableHelper {
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
-  }
-  static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
-    return __zz_cib_CreateProxy(h);
   }
 };
 }

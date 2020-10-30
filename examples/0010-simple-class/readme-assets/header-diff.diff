@@ -22,7 +22,7 @@
      //! @note It is just for explaining how cib works.
 -    int SomeFunc() { return x; }
 +    int SomeFunc();
-     
+ 
    private:
 -    int x {1};
 +    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);

@@ -1,13 +1,8 @@
-Make skia-cibification public and explain the case study in README.md
-
-Add a detail page for building on Windows, Linux, and Mac.
+Make PoDoFo cibification public and explain the case study in README.md
 
 Add a detail page for illustrating cib tool and it's command line option.
 
 Add support for parsing function body as a blob.
 	This will avoid getting into many of parsing errors.
 
-Use __zz_cib_ClassName and __zz_cib_FunctionName naming style
-
-use valgrind to detect memory leaks:
-	valgrind --leak-check=full --show-leak-kinds=definite --errors-for-leak-kinds=definite --error-exitcode=99 ./0050-virtual-function
+Emit __zz_cib_ObjectFromHandle only for classes whose objects are passed as values.

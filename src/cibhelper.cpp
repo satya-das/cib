@@ -490,6 +490,8 @@ void CibHelper::markClassType(CibCompound* cppCompound)
     }
     else if (CibFunctionHelper func = mem)
     {
+      if (func.isCopyConstructor() || func.isMoveConstructor())
+        continue;
       isPodStruct = false;
       if (func.isPureVirtual())
       {
@@ -575,9 +577,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
 
   if (cppCompound->libraryManagesProxy())
   {
-    cppCompound->forEachDerived([](auto* derived) {
-      derived->setLibraryManagedProxy();
-    });
+    cppCompound->forEachDerived([](auto* derived) { derived->setLibraryManagedProxy(); });
   }
 }
 

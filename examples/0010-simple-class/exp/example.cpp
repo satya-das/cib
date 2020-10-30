@@ -4,9 +4,7 @@ namespace Example {
 
 Example::A::A(__zz_cib_AbiType h)
   : __zz_cib_h_(h)
-{
-  __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
-}
+{}
 
 Example::A::A()
   : Example::A(__zz_cib_MyHelper::__zz_cib_New_0(

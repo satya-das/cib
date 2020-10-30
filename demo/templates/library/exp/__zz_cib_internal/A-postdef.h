@@ -13,17 +13,12 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
   friend class ::A;
-  static bool instanceDeleted_;
-  templates::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
   using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class260::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
       __zz_cib_templatesGetMethodTable(__zz_cib_ids::__zz_cib_Class260::__zz_cib_classId))
   {}
-  ~__zz_cib_Helper() {
-    instanceDeleted_ = true;
-  }
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;
     return helper;
@@ -79,10 +74,6 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
       __zz_cib_obj
       );
   }
-  static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
-    auto* const __zz_cib_obj = new T(h);
-    return __zz_cib_obj;
-  }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);
   }
@@ -94,30 +85,9 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
   }
   static __zz_cib_AbiType __zz_cib_ReleaseHandle(T* __zz_cib_obj) {
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
-    __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
     return h;
   }
-  static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
-    if (h == nullptr)
-      return nullptr;
-    auto&  dis   = __zz_cib_Instance();
-    auto* proxy = dis.proxyMgr.FindProxy(h);
-    if (proxy == nullptr)
-      proxy = __zz_cib_CreateProxy(h);
-    return proxy;
-  }
-  static void __zz_cib_AddProxy(_ProxyClass* __zz_cib_obj, __zz_cib_AbiType h) {
-    auto& dis = __zz_cib_Instance();
-    dis.proxyMgr.AddProxy(__zz_cib_obj, h);
-  }
-  static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
-    if (instanceDeleted_) return;
-    auto& dis = __zz_cib_Instance();
-      dis.proxyMgr.RemoveProxy(h);
-  }
 };
-template <typename T>
-bool __zz_cib_Helper<::A, T>::instanceDeleted_ = false;
 }
