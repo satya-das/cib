@@ -1,13 +1,13 @@
 #include "example.h"
 
-Example::A::A()
+A::A()
 {
 }
 
-Example::A::A(const A&)
+A::A(const A&)
 {
 }
 
-Example::A::~A()
+A::~A()
 {
 }

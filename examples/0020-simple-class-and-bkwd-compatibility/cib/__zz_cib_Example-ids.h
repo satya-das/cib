@@ -1,14 +1,9 @@
 #pragma once
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::Example
+  //#= FullClassName: ::A
   enum { __zz_cib_classId = 258 };
 }}}
-
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::Example::A
-  enum { __zz_cib_classId = 259 };
-}}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
   //#= FullClassName: ::__zz_cib_stl_helpers
@@ -21,15 +16,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 }}}
 
 namespace __zz_cib_ { namespace Example {
-  enum { __zz_cib_nextClassId = 260 };
+  enum { __zz_cib_nextClassId = 259 };
   enum { __zz_cib_internalClassId = 1 };
 }}
 
-namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 {
+namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_Methodid {
     //#= A();
     __zz_cib_New_0 = 0,
-    //#= A(const ::Example::A&);
+    //#= A(const ::A&);
     __zz_cib_Copy_1 = 1,
     //#= ~A();
     __zz_cib_Delete_2 = 2,
@@ -37,5 +32,5 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
     SomeFunc_3 = 3,
     __zz_cib_nextMethodId = 4
   };
-}}}}
+}}}
 

@@ -7,18 +7,17 @@
 #include "__zz_cib_internal/__zz_cib_Example-mtable-helper.h"
 
 namespace __zz_cib_ {
-using namespace ::Example;
 template <typename T>
-struct __zz_cib_Helper<::Example::A, T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<T, ::Example::A>);
+struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::A>);
   using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
   using _ProxyClass = T;
-  friend class ::Example::A;
-  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_Methodid;
+  friend class ::A;
+  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
-      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_Class259::__zz_cib_classId))
+      __zz_cib_ExampleGetMethodTable(__zz_cib_ids::__zz_cib_Class258::__zz_cib_classId))
   {}
   static __zz_cib_Helper& __zz_cib_Instance() {
     static __zz_cib_Helper helper;

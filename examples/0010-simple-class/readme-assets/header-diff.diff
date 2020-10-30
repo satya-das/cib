@@ -1,32 +1,32 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,25 +1,26 @@
+@@ -1,21 +1,26 @@
  #pragma once
  
--
 +#include "__zz_cib_internal/example-predef.h"
  
- //! Contains example definitions to explain cib's functioning
- namespace Example
+-
++//! Contains example definitions to explain cib's functioning
++namespace Example
++{
+ //! A vividly trivial class
+ //! Contains just a simple method.
+ class A final
  {
-   //! A vividly trivial class
-   //! Contains just a simple method.
-   class A final
-   {
-   public:
-     A();
-     A(const A&);
-     A(A&&) = delete;
-     ~A();
-     //! Doesn't do anything meaningful
-     //! @note It is just for explaining how cib works.
--    int SomeFunc() { return x; }
+ public:
+   A();
+   A(const A&);
+   A(A&&) = delete;
+   ~A();
+   //! Doesn't do anything meaningful
+   //! @note It is just for explaining how cib works.
+-  int SomeFunc() { return x; }
 +    int SomeFunc();
  
-   private:
--    int x {1};
+ private:
+-  int x {1};
 +    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
-   };
- }
+ };
++}
  
 +#include "__zz_cib_internal/example-postdef.h"

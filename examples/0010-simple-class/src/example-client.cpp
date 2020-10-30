@@ -4,6 +4,6 @@
 
 TEST_CASE("Method call")
 {
-  Example::A a;
+  A a;
   CHECK(a.SomeFunc() == 1);
 }

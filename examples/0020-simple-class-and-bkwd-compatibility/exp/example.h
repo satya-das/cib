@@ -2,26 +2,21 @@
 
 #include "__zz_cib_internal/example-predef.h"
 
-//! Contains example definitions to explain cib's functioning
-namespace Example
+//! A vividly trivial class
+//! Contains just a simple method.
+class A
 {
-  //! A vividly trivial class
-  //! Contains just a simple method.
-  class A
-  {
-  public:
-    A(A&& rhs);
-  public:
-    A(const A&);
-    ~A();
-    A();
-    //! Doesn't do anything meaningful
-    //! @note It is just for explaining how cib works.
-    int SomeFunc();
+public:
+  A();
+  A(const A&);
+  A(A&&) = delete;
+  ~A();
+  //! Doesn't do anything meaningful
+  //! @note It is just for explaining how cib works.
+  int SomeFunc();
 
-  private:
-    __ZZ_CIB_PROXY_CLASS_INTERNALS(A, Example::A);
-  };
-}
+private:
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
+};
 
 #include "__zz_cib_internal/example-postdef.h"

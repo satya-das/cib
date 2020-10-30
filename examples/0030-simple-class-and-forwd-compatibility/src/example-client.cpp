@@ -6,7 +6,7 @@
 
 TEST_CASE("Method call")
 {
-  Example::A a;
+  A a;
   if(a.SomeFunc() == 2)
   {
     // When run with new library
