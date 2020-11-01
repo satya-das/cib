@@ -27,7 +27,7 @@ template <typename T>
 using __zz_cib_ProxyClassAbiType_t = typename __zz_cib_ProxyClassAbiType<T>::type;
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T m;
 
@@ -54,7 +54,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T& m;
 
@@ -77,7 +77,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T& m;
 
@@ -100,7 +100,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T* m;
 
@@ -123,7 +123,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T*&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T*&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T*&& m;
 
@@ -146,7 +146,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T*&                             m;
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
@@ -175,7 +175,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T* const&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T* const&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T*                              m;
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
@@ -200,7 +200,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T**, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T**, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   T**                             m;
   __zz_cib_ProxyClassAbiType_t<T> mHandle;
@@ -228,10 +228,10 @@ public:
   }
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   __zz_cib_AbiType_t<T&> m;
 
@@ -253,7 +253,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   __zz_cib_AbiType_t<T&&> m;
 
@@ -275,7 +275,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T*, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T*, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   __zz_cib_AbiType_t<T*> m;
 
@@ -297,7 +297,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T*&, std::enable_if_t<__zz_cib_IsProxyClass_v<T>>>
 {
   __zz_cib_AbiType_t<T*&> m;
 
@@ -319,7 +319,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsConstructibleProxy_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsConstructibleProxy_v<T>>>
 {
   __zz_cib_AbiType_t<T> m;
 

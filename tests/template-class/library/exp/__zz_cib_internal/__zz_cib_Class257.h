@@ -13,7 +13,7 @@ struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, T> : public __zz_cib_Me
   using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;
   friend class ::TemplateClassWithOneParam<int>;
   static bool instanceDeleted_;
-  TemplateTests::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
+  TemplateTests::__zz_cib_ImplProxyMap<_ProxyClass> implProxyMap_;
   using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_MethodId;
 
   __zz_cib_Helper()
@@ -82,19 +82,19 @@ struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, T> : public __zz_cib_Me
     if (h == nullptr)
       return nullptr;
     auto&  dis   = __zz_cib_Instance();
-    auto* proxy = dis.proxyMgr.FindProxy(h);
+    auto* proxy = dis.implProxyMap_.FindProxy(h);
     if (proxy == nullptr)
       proxy = __zz_cib_CreateProxy(h);
     return proxy;
   }
   static void __zz_cib_AddProxy(_ProxyClass* __zz_cib_obj, __zz_cib_AbiType h) {
     auto& dis = __zz_cib_Instance();
-    dis.proxyMgr.AddProxy(__zz_cib_obj, h);
+    dis.implProxyMap_.AddProxy(__zz_cib_obj, h);
   }
   static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {
     if (instanceDeleted_) return;
     auto& dis = __zz_cib_Instance();
-      dis.proxyMgr.RemoveProxy(h);
+      dis.implProxyMap_.RemoveProxy(h);
   }
 };
 template <typename T>

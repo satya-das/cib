@@ -16,7 +16,7 @@ class vector_iterator
   };
 
   template <typename T>
-  struct UnderlyingIterator<T, std::enable_if_t<std::is_const_v<T>, void>>
+  struct UnderlyingIterator<T, std::enable_if_t<std::is_const_v<T>>>
   {
     using type = typename std::vector<std::remove_const_t<T>>::const_iterator;
   };

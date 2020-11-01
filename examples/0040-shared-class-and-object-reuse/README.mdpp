@@ -1,1 +1,43 @@
-## Reusing Proxy Objects
+# Shared Class
+
+In cib terminology a class whose pointer (or reference) is passed to client from library side is called a shared class.
+
+Let's see the example of a shared class.
+
+**File**: pub/example.h _Public header of library_:
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/pub/example.h" (c++)
+
+**File**: pub/B.h _Public header of library_:
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/pub/B.h" (c++)
+
+`class A` is same as previous examples. `class B` has method `GetA()` that returns `A*`. This makes `A` a shared class because multiple calls of `GetA()` can return same pointer and so the instances are shared and so the name shared class. In this example `GetA()` indeed returns the same object each time that was set using `SetA()`. Let's see the client side code:
+
+**File**: src/example-client.cpp _Client's expectation from library_:
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/src/example-client.cpp" (c++)
+
+We know that client side class is not same as library side class. And here the expectation is that `GetA()` must return the exact same pointer that was passed to `SetA()`. And this is a valid expectation and must work without problem. Let's see how CIB makes it possible. We will look at the diff of implementation of `class A` from very first example to see what new things are added.
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/readme-assets/impl-diff.diff" (diff)
+
+We see that `__zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_)` is called from constructor of `A`. That's the only change in implementation of `class A`.
+
+Let's see the diff of helper class implementation:
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/readme-assets/helper-diff.diff" (diff)
+
+We see usage of `__zz_cib_ImplProxyMap` as new thing in `__zz_cib_Helper`. It's a map between implementation class aka Library side class and proxy class i.e. client side class.
+
+When an object of shared class is constructed an entry is added in the map because constructor of shared class calls `__zz_cib_AddProxy`.
+
+We will then see how the saved proxy object is later returned to make the expectation of client code work.
+
+Let's see implementation of `class B`.
+
+**File**: exp/B.cpp _Client's expectation from library_:
+
+!INCLUDECODE "examples/0040-shared-class-and-object-reuse/exp/B.cpp" (c++)
+
+Most method implementations are similar to what we have seen before for class A. But if we look at `GetA()` implementation then we see `__zz_cib_::__zz_cib_FromAbiType<::A*>` is called on return value of `__zz_cib_MyHelper::GetA_4()`. As we know `__zz_cib_MyHelper::GetA_4()` will actually return pointer of library class and so it needs to be converted to pointer of proxy class. And `__zz_cib_::__zz_cib_FromAbiType<::A*>` does exactly that, by eventually calling `__zz_cib_Helper::__zz_cib_FromHandle()`.

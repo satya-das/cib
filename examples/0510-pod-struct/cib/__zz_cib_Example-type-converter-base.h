@@ -9,14 +9,17 @@
 namespace __zz_cib_ {
 
 /**
- * Primary template __zz_cib_CoreTypeToAbiType
+ * Responsible for converting from objects of core types to objects
+ * of Abi types. Core types are types that are used by core of library and client. Abi types are types that cross
+ * component boundary.
+ *
+ * Every specializations of __zz_cib_CoreTypeToAbiType should have at least those members that are declared here.
+ * @note This is only a primary template and is never instantiated.
  */
 template <typename T, typename = void>
 class __zz_cib_CoreTypeToAbiType
 {
-  static_assert(std::is_same_v<T*, T>,
-                "Primary template must never be instantiated."
-                "Make sure specialization is available for specific types.");
+  static_assert(std::is_same_v<T*, T>, "Primary template is never instantiated.");
 
 public:
   __zz_cib_CoreTypeToAbiType(T x);
@@ -29,17 +32,19 @@ public:
   }
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
-template <typename T>
-auto __zz_cib_ToAbiType(__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>&& obj)
-{
-  return obj.Convert();
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 using __zz_cib_AbiType_t =
   decltype((static_cast<__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>*>(nullptr))->Convert());
+
+template <typename T>
+__zz_cib_AbiType_t<T> __zz_cib_ToAbiType(__zz_cib_CoreTypeToAbiType<std::remove_const_t<T>>&& obj)
+{
+  return obj.Convert();
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T, typename D1, typename D2>
 using __zz_cib_LazyAbiTypeHelper = __zz_cib_AbiType_t<std::enable_if_t<std::is_same_v<D1, D2>, T>>;
@@ -54,17 +59,18 @@ auto __zz_cib_LazyAbiType(
   return obj.Convert();
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Primary template __zz_cib_AbiTypeToCoreType
+ * Responsible for converting objects of Abi Type to objects of core type.
+ *
+ * All specializations should have at least those members that are declared here.
+ * @note This is only a primary template and is never instantiated.
  */
 template <typename T, typename = void>
 class __zz_cib_AbiTypeToCoreType
 {
-  static_assert(std::is_same_v<T*, T>,
-                "Primary template must never be instantiated."
-                "Make sure specialization is available for specific types.");
+  static_assert(std::is_same_v<T*, T>, "Primary template is never instantiated.");
 
 public:
   __zz_cib_AbiTypeToCoreType(__zz_cib_AbiType_t<T> x);
@@ -73,7 +79,7 @@ public:
     operator T() const;
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 auto __zz_cib_FromAbiType(__zz_cib_AbiType_t<std::remove_const_t<T>> obj)

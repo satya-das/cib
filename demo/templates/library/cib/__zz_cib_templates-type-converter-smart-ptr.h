@@ -11,7 +11,7 @@
 namespace __zz_cib_ {
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   T& m;
 
@@ -36,7 +36,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   T& mSmartPtr;
 
@@ -66,7 +66,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T*, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   T* mSmartPtr;
 
@@ -97,7 +97,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   T m;
 
@@ -121,10 +121,10 @@ public:
   }
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   __zz_cib_AbiType_t<T> m;
 
@@ -141,7 +141,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   T                     mSmartPtr;
   __zz_cib_AbiType_t<T> mRawPtr;
@@ -171,7 +171,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T*, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T*, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   __zz_cib_AbiType_t<T*> mRawPtr;
   T                      mSmartPtr;
@@ -199,7 +199,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<__zz_cib_IsSmartPtr_v<T>>>
 {
   __zz_cib_AbiType_t<T> m;
 

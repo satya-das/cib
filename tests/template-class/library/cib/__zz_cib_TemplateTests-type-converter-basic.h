@@ -31,7 +31,7 @@ template <typename T>
 constexpr bool IsBasicConversionNeeded_v = IsBasicConversionNeededHelper_v<__zz_cib_RemoveAllDecorations_t<T>, T>;
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<!std::is_reference_v<T> && IsBasicConversionNeeded_v<T>, void>>
+class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<!std::is_reference_v<T> && IsBasicConversionNeeded_v<T>>>
 {
   using AbiType = std::decay_t<T>;
   AbiType m;
@@ -55,7 +55,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<IsBasicConversionNeeded_v<T&>, void>>
+class __zz_cib_CoreTypeToAbiType<T&, std::enable_if_t<IsBasicConversionNeeded_v<T&>>>
 {
   T& m;
 
@@ -80,7 +80,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<IsBasicConversionNeeded_v<T&&>, void>>
+class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<IsBasicConversionNeeded_v<T&&>>>
 {
   T& m;
 
@@ -104,10 +104,10 @@ public:
   }
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<!std::is_reference_v<T> && IsBasicConversionNeeded_v<T>, void>>
+class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<!std::is_reference_v<T> && IsBasicConversionNeeded_v<T>>>
 {
   using AbiType = std::decay_t<T>;
   static_assert(std::is_same_v<__zz_cib_AbiType_t<T>, AbiType>);
@@ -131,7 +131,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<IsBasicConversionNeeded_v<T&>, void>>
+class __zz_cib_AbiTypeToCoreType<T&, std::enable_if_t<IsBasicConversionNeeded_v<T&>>>
 {
   static_assert(std::is_same_v<__zz_cib_AbiType_t<T&>, T*>);
   __zz_cib_AbiType_t<T&> m;
@@ -154,7 +154,7 @@ public:
 };
 
 template <typename T>
-class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<IsBasicConversionNeeded_v<T&&>, void>>
+class __zz_cib_AbiTypeToCoreType<T&&, std::enable_if_t<IsBasicConversionNeeded_v<T&&>>>
 {
   static_assert(std::is_same_v<__zz_cib_AbiType_t<T&&>, T*>);
   __zz_cib_AbiType_t<T&&> m;

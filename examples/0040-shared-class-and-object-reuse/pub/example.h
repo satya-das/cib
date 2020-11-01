@@ -17,13 +17,3 @@ public:
 private:
   int m {1};
 };
-
-class B
-{
-public:
-  void SetA(A* pA);
-  A*   GetA() const;
-
-private:
-  A* a_{nullptr};
-};

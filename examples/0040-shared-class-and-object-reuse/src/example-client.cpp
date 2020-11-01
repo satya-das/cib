@@ -1,3 +1,4 @@
+#include "B.h"
 #include "example.h"
 
 #include <catch/catch.hpp>

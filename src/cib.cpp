@@ -2144,21 +2144,21 @@ void CibCompound::emitHelperDefnStart(std::ostream&    stm,
     stm << indentation << "using _ProxyClass = T;\n";
     stm << indentation << "using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;\n";
 
-    std::string proxyMgr;
+    std::string implProxyMap_;
     if (!needsNoProxy())
     {
       if (isSharedProxy())
-        proxyMgr = cibParams.moduleName + "::__zz_cib_HandleProxyMap<_ProxyClass>";
+        implProxyMap_ = cibParams.moduleName + "::__zz_cib_ImplProxyMap<_ProxyClass>";
 
       if (needsGenericProxyDefinition())
         stm << indentation << "static const __zz_cib_MethodTable* __zz_cib_GetProxyMethodTable();\n";
     }
 
     stm << indentation << "friend " << compoundType() << ' ' << longName() << ";\n";
-    if (!proxyMgr.empty())
+    if (!implProxyMap_.empty())
     {
       stm << indentation << "static bool instanceDeleted_;\n";
-      stm << indentation << proxyMgr << " proxyMgr;\n";
+      stm << indentation << implProxyMap_ << " implProxyMap_;\n";
     }
   }
   stm << indentation << "using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::" << fullNsName()
@@ -2298,7 +2298,7 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << ++indentation << "if (h == nullptr)\n";
     stm << ++indentation << "return nullptr;\n";
     stm << --indentation << "auto&  dis   = __zz_cib_Instance();\n";
-    stm << indentation << "auto* proxy = dis.proxyMgr.FindProxy(h);\n";
+    stm << indentation << "auto* proxy = dis.implProxyMap_.FindProxy(h);\n";
     if (!isAbstract() || isFacadeLike())
     {
       stm << indentation << "if (proxy == nullptr)\n";
@@ -2309,12 +2309,12 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
     stm << --indentation << "}\n";
     stm << indentation << "static void __zz_cib_AddProxy(_ProxyClass* __zz_cib_obj, __zz_cib_AbiType h) {\n";
     stm << ++indentation << "auto& dis = __zz_cib_Instance();\n";
-    stm << indentation << "dis.proxyMgr.AddProxy(__zz_cib_obj, h);\n";
+    stm << indentation << "dis.implProxyMap_.AddProxy(__zz_cib_obj, h);\n";
     stm << --indentation << "}\n";
     stm << indentation << "static void __zz_cib_RemoveProxy(__zz_cib_AbiType h) {\n";
     stm << ++indentation << "if (instanceDeleted_) return;\n";
     stm << indentation << "auto& dis = __zz_cib_Instance();\n";
-    stm << indentation << "  dis.proxyMgr.RemoveProxy(h);\n";
+    stm << indentation << "  dis.implProxyMap_.RemoveProxy(h);\n";
     stm << --indentation << "}\n";
   }
   else if (isFacadeLike())

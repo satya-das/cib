@@ -29,7 +29,7 @@ namespace __zz_cib_ {
 namespace templates {
 
 template <typename _ProxyClass>
-class __zz_cib_HandleProxyMap
+class __zz_cib_ImplProxyMap
 {
 public:
   _ProxyClass* FindProxy(typename _ProxyClass::__zz_cib_AbiType h)

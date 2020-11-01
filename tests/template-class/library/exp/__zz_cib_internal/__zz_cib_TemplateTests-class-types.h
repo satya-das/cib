@@ -34,7 +34,7 @@ struct __zz_cib_UsesMethodTable<T, std::void_t<typename T::__zz_cib_AbiType>> : 
 {
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T, typename = void>
 struct __zz_cib_SharesLayout : std::false_type
@@ -44,18 +44,18 @@ struct __zz_cib_SharesLayout : std::false_type
 template <typename T>
 struct __zz_cib_SharesLayout<
   T,
-  std::enable_if_t<std::is_same_v<std::decay_t<T*>, typename std::decay_t<T>::__zz_cib_AbiType>, void>> : std::true_type
+  std::enable_if_t<std::is_same_v<std::decay_t<T*>, typename std::decay_t<T>::__zz_cib_AbiType>>> : std::true_type
 {
 };
 
 template <typename T>
 struct __zz_cib_SharesLayout<
   const T,
-  std::enable_if_t<std::is_same_v<std::decay_t<T*>, typename std::decay_t<T>::__zz_cib_AbiType>, void>> : std::true_type
+  std::enable_if_t<std::is_same_v<std::decay_t<T*>, typename std::decay_t<T>::__zz_cib_AbiType>>> : std::true_type
 {
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T, typename = void>
 struct __zz_cib_IsValueClass : std::false_type
@@ -67,7 +67,7 @@ struct __zz_cib_IsValueClass<T> : __zz_cib_SharesLayout<T>
 {
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T, typename = void>
 struct __zz_cib_IsStdFunction : std::false_type
@@ -79,7 +79,7 @@ struct __zz_cib_IsStdFunction<std::function<R(Args...)>> : std::true_type
 {
 };
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
 constexpr bool __zz_cib_UsesMethodTable_v = __zz_cib_UsesMethodTable<T>::value;
@@ -117,8 +117,7 @@ constexpr bool __zz_cib_IsFunctionPointer_v = std::is_pointer_v<T>&& std::is_fun
 
 //! As of now treat all non-proxy class as proxied. It leaves out support of passing third party classes by value.
 template <typename T>
-struct __zz_cib_IsProxiedClass<T,
-                               std::enable_if_t<__zz_cib_IsPlainClass_v<T> && !__zz_cib_IsProxyClass<T>::value, void>>
+struct __zz_cib_IsProxiedClass<T, std::enable_if_t<__zz_cib_IsPlainClass_v<T> && !__zz_cib_IsProxyClass<T>::value>>
 {
   static constexpr bool value = true;
 };

@@ -35,7 +35,7 @@ struct __zz_cib_DownCastHelper
 };
 
 template <typename _D, typename _B>
-struct __zz_cib_DownCastHelper<_D, _B, std::enable_if_t<__zz_cib_IsStaticCastable_v<_D, _B>, void>>
+struct __zz_cib_DownCastHelper<_D, _B, std::enable_if_t<__zz_cib_IsStaticCastable_v<_D, _B>>>
 {
   _B& p;
   __zz_cib_DownCastHelper(_B& _p)

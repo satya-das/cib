@@ -11,7 +11,7 @@
 // namespace __zz_cib_ {
 
 // template <typename T>
-// class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsValueClass_v<T>, void>>
+// class __zz_cib_CoreTypeToAbiType<T, std::enable_if_t<__zz_cib_IsValueClass_v<T>>>
 // {
 //   T m;
 
@@ -35,7 +35,7 @@
 
 // template <typename T>
 // class __zz_cib_CoreTypeToAbiType<T*,
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   T* m;
 
@@ -59,7 +59,7 @@
 
 // template <typename T>
 // class __zz_cib_CoreTypeToAbiType<T&,
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   T& m;
 
@@ -82,7 +82,7 @@
 // };
 
 // template <typename T>
-// class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsValueClass_v<T>, void>>
+// class __zz_cib_CoreTypeToAbiType<T&&, std::enable_if_t<__zz_cib_IsValueClass_v<T>>>
 // {
 //   T m;
 
@@ -106,7 +106,7 @@
 
 // template <typename T, int N>
 // class __zz_cib_CoreTypeToAbiType<T[N],
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   T* m;
 
@@ -130,7 +130,7 @@
 
 // template <typename T>
 // class __zz_cib_CoreTypeToAbiType<T[],
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   T* m;
 
@@ -155,7 +155,7 @@
 // /////////////////////////////////////////////////////////////////////////////////////////////
 
 // template <typename T>
-// class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsValueClass_v<T>, void>>
+// class __zz_cib_AbiTypeToCoreType<T, std::enable_if_t<__zz_cib_IsValueClass_v<T>>>
 // {
 //   __zz_cib_AbiType_t<T> m;
 
@@ -178,7 +178,7 @@
 
 // template <typename T>
 // class __zz_cib_AbiTypeToCoreType<T*,
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   static_assert(std::is_same_v<T*, __zz_cib_AbiType_t<T*>>);
 
@@ -203,7 +203,7 @@
 
 // template <typename T>
 // class __zz_cib_AbiTypeToCoreType<T&,
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   static_assert(std::is_same_v<T*, __zz_cib_AbiType_t<T&>>);
 
@@ -228,7 +228,7 @@
 
 // template <typename T>
 // class __zz_cib_AbiTypeToCoreType<T&&,
-//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>, void>>
+//                                  std::enable_if_t<__zz_cib_IsValueClass_v<__zz_cib_RemoveAllDecorations_t<T>>>>
 // {
 //   static_assert(std::is_same_v<T*, __zz_cib_AbiType_t<T&&>>);
 
@@ -252,7 +252,7 @@
 // };
 
 // template <typename T, int N>
-// class __zz_cib_AbiTypeToCoreType<T[N], std::enable_if_t<__zz_cib_IsValueClass_v<T>, void>>
+// class __zz_cib_AbiTypeToCoreType<T[N], std::enable_if_t<__zz_cib_IsValueClass_v<T>>>
 // {
 //   T* m;
 
@@ -275,7 +275,7 @@
 // };
 
 // template <typename T>
-// class __zz_cib_AbiTypeToCoreType<T[], std::enable_if_t<__zz_cib_IsValueClass_v<T>, void>>
+// class __zz_cib_AbiTypeToCoreType<T[], std::enable_if_t<__zz_cib_IsValueClass_v<T>>>
 // {
 //   T* m;
 
