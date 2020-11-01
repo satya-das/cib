@@ -45,11 +45,11 @@ void PdfReference::Write( PdfOutputDevice* pDevice, EPdfWriteMode eWriteMode, co
     if( (eWriteMode & ePdfWriteMode_Compact) == ePdfWriteMode_Compact ) 
     {
         // Write space before the reference
-        pDevice->Print( " %i %hi R", m_nObjectNo, m_nGenerationNo );
+        PRINT( pDevice, " %i %hi R", m_nObjectNo, m_nGenerationNo );
     }
     else
     {
-        pDevice->Print( "%i %hi R", m_nObjectNo, m_nGenerationNo );
+        PRINT( pDevice, "%i %hi R", m_nObjectNo, m_nGenerationNo );
     }
 }
 

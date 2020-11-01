@@ -267,7 +267,7 @@ class PODOFO_API PdfDictionary : public PdfOwnedDataType {
      *                 writing will stop right before this key!
      */
     void Write( PdfOutputDevice* pDevice, EPdfWriteMode eWriteMode, 
-                const PdfEncrypt* pEncrypt, const PdfName & keyStop = PdfName::KeyNull ) const;
+                const PdfEncrypt* pEncrypt, const PdfName & keyStop /*= PdfName::KeyNull*/ ) const;
 
     /**
     *  \returns the size of the internal map

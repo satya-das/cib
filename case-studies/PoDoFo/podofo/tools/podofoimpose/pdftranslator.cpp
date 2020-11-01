@@ -206,7 +206,7 @@ namespace PoDoFo
 						std::ostringstream oss;
 						oss << "Cycle detected: Object with ref " << o->Reference().ToString()
 							<< " is already pending migration to the target.\n";
-						PdfError::LogMessage( eLogSeverity_Warning, oss.str().c_str() );
+						// PdfError::LogMessage( eLogSeverity_Warning, oss.str().c_str() );
 						continue;
 					}
 					PdfObject *migrated = migrateResource ( o );
@@ -257,7 +257,7 @@ namespace PoDoFo
 					std::ostringstream oss;
 					oss << "Referenced object " << obj->GetReference().ToString()
 					    << " already migrated." << std::endl;
-					PdfError::DebugMessage( oss.str().c_str() );
+					// PdfError::DebugMessage( oss.str().c_str() );
 
 					const PdfObject* const found = migrateMap[ obj->GetReference().ToString() ];
 					return new PdfObject( found->Reference() );
@@ -272,7 +272,7 @@ namespace PoDoFo
 					std::ostringstream oss;
 					oss << "Cycle detected: Object with ref " << obj->GetReference().ToString()
 						<< " is already pending migration to the target.\n";
-					PdfError::LogMessage( eLogSeverity_Warning, oss.str().c_str() );	
+					// PdfError::LogMessage( eLogSeverity_Warning, oss.str().c_str() );	
 					return NULL; // skip this migration
 				}
 				PdfObject * o ( migrateResource ( to_migrate ) );
@@ -401,18 +401,18 @@ namespace PoDoFo
 			PdfInfo *sInfo ( sourceDoc->GetInfo() );
 			PdfInfo *tInfo ( targetDoc->GetInfo() );
 
-			if ( sInfo->GetAuthor() != PdfString::StringNull )
+			if ( sInfo->GetAuthor() != PdfString() )
 				tInfo->SetAuthor ( sInfo->GetAuthor() );
-			if ( sInfo->GetCreator() != PdfString::StringNull )
+			if ( sInfo->GetCreator() != PdfString() )
 				tInfo->SetCreator ( sInfo->GetCreator() );
-			if ( sInfo->GetSubject() != PdfString::StringNull )
+			if ( sInfo->GetSubject() != PdfString() )
 				tInfo->SetSubject ( sInfo->GetSubject() );
-			if ( sInfo->GetTitle() != PdfString::StringNull )
+			if ( sInfo->GetTitle() != PdfString() )
 				tInfo->SetTitle ( sInfo->GetTitle() );
-			if ( sInfo->GetKeywords() != PdfString::StringNull )
+			if ( sInfo->GetKeywords() != PdfString() )
 				tInfo->SetKeywords ( sInfo->GetKeywords() );
 
-			if ( sInfo->GetTrapped() != PdfName::KeyNull )
+			if ( sInfo->GetTrapped() != PdfName() )
 				tInfo->SetTrapped ( sInfo->GetTrapped() );
 
 

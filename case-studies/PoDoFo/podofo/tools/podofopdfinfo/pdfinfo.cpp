@@ -33,9 +33,20 @@ PdfInfo::~PdfInfo()
     }
 }
 
+static const char s_szPdfVersionNums[][4] = {
+    "1.0",
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5",
+    "1.6",
+    "1.7"
+};
+
 void PdfInfo::OutputDocumentInfo( std::ostream& sOutStream )
 {
-	sOutStream << "\tPDF Version: " << PoDoFo::s_szPdfVersionNums[static_cast<int>(mDoc->GetPdfVersion())] << std::endl;
+	sOutStream << "\tPDF Version: " << s_szPdfVersionNums[static_cast<int>(mDoc->GetPdfVersion())] << std::endl;
 	sOutStream << "\tPage Count: " << mDoc->GetPageCount() << std::endl;
 	sOutStream << "\tPage Size: " << GuessFormat() << std::endl; 
     sOutStream << std::endl;

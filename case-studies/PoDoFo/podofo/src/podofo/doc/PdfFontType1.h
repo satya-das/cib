@@ -82,7 +82,7 @@ class PdfFontType1 : public PdfFontSimple {
      */
     PdfFontType1( PdfFontType1* pFont, PdfFontMetrics* pMetrics, const char *pszSuffix, PdfVecObjects* pParent );
 
-    void InitBase14Font();
+    // void InitBase14Font();
 
   protected:
 

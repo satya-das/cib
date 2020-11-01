@@ -170,8 +170,6 @@ SET(PODOFO_BASE_HEADERS
 
 SET(PODOFO_BASE_HEADERS2 
     base/util/PdfMutex.h
-    base/util/PdfMutexImpl_noop.h
-    base/util/PdfMutexImpl_win32.h
     base/util/PdfMutexImpl_pthread.h
     base/util/PdfMutexWrapper.h
     )
@@ -256,9 +254,9 @@ INSTALL(FILES ${PODOFO_DOC_HEADERS}
     DESTINATION "include/podofo/doc"
     )
 
-IF(NOT PODOFO_BUILD_SHARED AND NOT PODOFO_BUILD_STATIC)
+IF(NOT PODOFO_BUILD_SHARED AND NOT PODOFO_BUILD_STATIC AND NOT PODOFO_BUILD_CIBIFIED)
     MESSAGE(FATAL_ERROR "At least one of PODOFO_BUILD_SHARED and PODOF_BUILD_STATIC must be set")
-ENDIF(NOT PODOFO_BUILD_SHARED AND NOT PODOFO_BUILD_STATIC)
+ENDIF(NOT PODOFO_BUILD_SHARED AND NOT PODOFO_BUILD_STATIC AND NOT PODOFO_BUILD_CIBIFIED)
 
 IF(PODOFO_BUILD_STATIC)
     MESSAGE("Building static PoDoFo library")
@@ -306,7 +304,6 @@ IF(PODOFO_BUILD_SHARED)
         ARCHIVE DESTINATION "${LIBDIRNAME}"
         )
 
-
       # Create a pkg-config file for linking against shared library
       # if pkg-config is available on the system.
       # Add a version to the file name corresponding to the API compatibility.
@@ -325,6 +322,91 @@ IF(PODOFO_BUILD_SHARED)
         MESSAGE("Pkg-config not found. No pkg-config file will be created.")
       ENDIF(PKG_CONFIG_FOUND)
 ENDIF(PODOFO_BUILD_SHARED)
+
+IF(PODOFO_BUILD_CIBIFIED)
+    include("cib-sources.cmake")
+    MESSAGE("Building shared PoDoFo library")
+    ADD_LIBRARY(podofo_cibified SHARED ${PODOFO_BASE_SOURCES} ${PODOFO_DOC_SOURCES} ${PODOFO_CIB_SOURCES} ${PODOFO_HEADER_FILES} ${PODOFO_CIB_HEADERS})
+    TARGET_LINK_LIBRARIES(podofo_cibified PRIVATE ${PODOFO_LIB_DEPENDS})
+    TARGET_INCLUDE_DIRECTORIES(podofo_cibified
+      BEFORE # before toolchain include dir (to ignore installed)
+      PRIVATE
+        ${PoDoFo_SOURCE_DIR}/src   # order will be reversed, so this is the second dir
+        ${PoDoFo_BINARY_DIR}   # because of BEFORE, this is the first include dir
+    )
+
+    TARGET_INCLUDE_DIRECTORIES(podofo_cibified
+      PRIVATE
+        ${PoDoFo_SOURCE_DIR}/src/podofo
+      PUBLIC
+        ${FREETYPE_INCLUDE_DIR}
+        ${ZLIB_INCLUDE_DIR}
+        ${EXTRA_INCLUDES}
+    )
+
+    target_precompile_headers(podofo_cibified
+      PRIVATE
+        base/PdfDefines.h
+    )
+    target_include_directories(podofo_cibified
+      PRIVATE
+        ${PoDoFo_SOURCE_DIR}/cib/
+    )
+
+    ADD_LIBRARY(podofo_proxy STATIC ${PODOFO_EXP_SOURCES} ${PODOFO_EXP_HEADERS})
+    TARGET_LINK_LIBRARIES(podofo_proxy
+      PRIVATE
+        podofo_cibified
+    )
+    # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -E -dI")
+    target_include_directories(podofo_proxy
+      PUBLIC
+        ${PoDoFo_SOURCE_DIR}/exp/
+        ${PoDoFo_SOURCE_DIR}/exp/__zz_cib_internal
+        ${PoDoFo_SOURCE_DIR}/exp/podofo
+        ${PoDoFo_BINARY_DIR}
+      PRIVATE
+        ${CMAKE_CURRENT_BINARY_DIR}
+      )
+
+    # TODO: set /wd4251 flag if we're doing a debug build with
+    # Visual Studio, since it produces invalid warnings about STL
+    # use.
+    SET_TARGET_PROPERTIES(podofo_cibified PROPERTIES
+        VERSION "${PODOFO_LIBVERSION}"
+        SOVERSION "${PODOFO_SOVERSION}"
+        CLEAN_DIRECT_OUTPUT 1
+        OUTPUT_NAME "podofo_cibified"
+        COMPILE_FLAGS "-DBUILDING_PODOFO"
+        )
+    SET(PODOFO_DEPEND_TARGET podofo_proxy
+        CACHE INTERNAL "Which PoDoFo library variant to depend on")
+    SET(USING_SHARED_PODOFO TRUE)
+    INSTALL(TARGETS podofo_cibified
+        RUNTIME DESTINATION "bin"
+        LIBRARY DESTINATION "${LIBDIRNAME}"
+        ARCHIVE DESTINATION "${LIBDIRNAME}"
+        )
+
+
+      # Create a pkg-config file for linking against shared library
+      # if pkg-config is available on the system.
+      # Add a version to the file name corresponding to the API compatibility.
+
+      FIND_PROGRAM(PKG_CONFIG_FOUND pkg-config)
+      IF(PKG_CONFIG_FOUND)
+        MESSAGE("Pkg-config found, creating a pkg-config file for linking against shared library.")
+        CONFIGURE_FILE(
+          "libpodofo.pc.in"
+          "${PoDoFo_BINARY_DIR}/libpodofo.pc"
+          @ONLY)
+        INSTALL(
+          FILES "${PoDoFo_BINARY_DIR}/libpodofo.pc"
+          DESTINATION "${LIBDIRNAME}/pkgconfig")
+      ELSE(PKG_CONFIG_FOUND)
+        MESSAGE("Pkg-config not found. No pkg-config file will be created.")
+      ENDIF(PKG_CONFIG_FOUND)
+ENDIF(PODOFO_BUILD_CIBIFIED)
 
 # Use these flags when compiling code that includes PoDoFo headers.
 # Failure to do so will result in compilation or link-time errors

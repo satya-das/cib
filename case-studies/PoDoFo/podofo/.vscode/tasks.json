@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                // "src/podofo/CMakeFiles/podofo_proxy.dir/__/__/exp/podofo/doc/PdfAction.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_proxy.dir/__/__/exp/podofo/doc/PdfAnnotation.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_shared.dir/__/__/cib/podofo/doc/PdfFontType1.h.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_shared.dir/__/__/cib/__zz_cib_vector-iterator.h.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_shared.dir/__/__/cib/podofo/doc/PdfPainter.h.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_shared.dir/__/__/cib/podofo/base/PdfError.h.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_proxy.dir/__/__/exp/podofo/doc/PdfFontCache.cpp.o",
+                // "src/podofo/CMakeFiles/podofo_proxy.dir/__/__/exp/podofo/base/PdfMemoryManagement.cpp.o",
+                "podofo_proxy",
+                // "podofo_cibified",
+            ],
+            "options": {
+                "cwd": "/home/dassat/github/tmp/cibified-podofo/rel/"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                // "fileLocation": ["relative", "${workspaceRoot}/build/rel"]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        }
+    ]
+}

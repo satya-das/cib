@@ -134,7 +134,7 @@ class PODOFO_DOC_API PdfXObject : public PdfElement, public PdfCanvas {
     /** Get the current page size in PDF Units
      *  \returns a PdfRect containing the page size available for drawing
      */
-    inline virtual const PdfRect GetPageSize() const;
+    inline virtual PdfRect GetPageSize() const;
 
     /** Get the identifier used for drawig this object
      *  \returns identifier
@@ -189,7 +189,7 @@ inline PdfObject* PdfXObject::GetResources() const
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
-inline const PdfRect PdfXObject::GetPageSize() const
+inline PdfRect PdfXObject::GetPageSize() const
 {
     return m_rRect;
 }

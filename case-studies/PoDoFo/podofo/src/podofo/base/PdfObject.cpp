@@ -219,11 +219,11 @@ void PdfObject::WriteObject( PdfOutputDevice* pDevice, EPdfWriteMode eWriteMode,
     {
         if( (eWriteMode & ePdfWriteMode_Clean) == ePdfWriteMode_Clean ) 
         {
-            pDevice->Print( "%i %i obj\n", m_reference.ObjectNumber(), m_reference.GenerationNumber() );
+            PRINT( pDevice, "%i %i obj\n", m_reference.ObjectNumber(), m_reference.GenerationNumber() );
         }
         else 
         {
-            pDevice->Print( "%i %i obj", m_reference.ObjectNumber(), m_reference.GenerationNumber() );
+            PRINT( pDevice, "%i %i obj", m_reference.ObjectNumber(), m_reference.GenerationNumber() );
         }
     }
 

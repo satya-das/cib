@@ -260,7 +260,7 @@ class PODOFO_API PdfString : public PdfDataType {
      *  \returns the string contents as wide-character string.
      *           returns an empty string if PdfString::IsValid() returns false
      */
-    const std::wstring GetStringW() const;
+    // const std::wstring GetStringW() const;
 #endif // _WIN32
 
     /** The length of the string data returned by GetString() 

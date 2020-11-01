@@ -52,7 +52,7 @@ void ImageExtractor::Init( const char* pszInput, const char* pszOutput, int* pnN
 
     m_pszOutputDirectory = const_cast<char*>(pszOutput);
 
-    TCIVecObjects it = document.GetObjects().begin();
+    auto it = document.GetObjects().begin();
 
     if( pnNum )
         *pnNum = 0;
@@ -61,12 +61,12 @@ void ImageExtractor::Init( const char* pszInput, const char* pszOutput, int* pnN
     {
         if( (*it)->IsDictionary() )
         {            
-            PdfObject* pObjType = (*it)->GetDictionary().GetKey( PdfName::KeyType );
-            PdfObject* pObjSubType = (*it)->GetDictionary().GetKey( PdfName::KeySubtype );
+            PdfObject* pObjType = (*it)->GetDictionary().GetKey( PdfName( "Type" ) );
+            PdfObject* pObjSubType = (*it)->GetDictionary().GetKey( PdfName( "Subtype" ) );
             if( ( pObjType && pObjType->IsName() && ( pObjType->GetName().GetName() == "XObject" ) ) ||
                 ( pObjSubType && pObjSubType->IsName() && ( pObjSubType->GetName().GetName() == "Image" ) ) )
             {
-                pObj = (*it)->GetDictionary().GetKey( PdfName::KeyFilter );
+                pObj = (*it)->GetDictionary().GetKey( PdfName( "Filter" ) );
                 if( pObj && pObj->IsArray() && pObj->GetArray().GetSize() == 1 && 
                     pObj->GetArray()[0].IsName() && (pObj->GetArray()[0].GetName().GetName() == "DCTDecode") )
                     pObj = &pObj->GetArray()[0];

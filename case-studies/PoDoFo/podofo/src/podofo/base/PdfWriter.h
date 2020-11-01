@@ -94,7 +94,7 @@ class PODOFO_API PdfWriter {
      *  with unicode characters. On Unix systems you can also path
      *  UTF-8 to the const char* overload.
      */
-    void Write( const wchar_t* pszFilename );
+    // void Write( const wchar_t* pszFilename );
 #endif // _WIN32
 
     /** Writes the complete document to a PdfOutputDevice

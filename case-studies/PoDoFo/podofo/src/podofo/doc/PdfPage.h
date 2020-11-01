@@ -45,6 +45,8 @@
 #include "PdfElement.h"
 #include "PdfField.h"
 
+#include "../../../cib/__zz_cib_CibPoDoFo-proxy-mgr.h"
+
 namespace PoDoFo {
 
 class PdfDocument;
@@ -92,7 +94,7 @@ class PODOFO_DOC_API PdfPage : public PdfElement, public PdfCanvas {
     /** Get the current page size in PDF Units
      *  \returns a PdfRect containing the page size available for drawing
      */
-    inline virtual const PdfRect GetPageSize() const;
+    inline virtual PdfRect GetPageSize() const;
 
     // added by Petr P. Petrov 21 Febrary 2010
     /** Set the current page width in PDF Units
@@ -157,27 +159,27 @@ class PODOFO_DOC_API PdfPage : public PdfElement, public PdfCanvas {
     /** Get the current MediaBox (physical page size) in PDF units.
      *  \returns PdfRect the page box
      */
-    virtual const PdfRect GetMediaBox() const { return GetPageBox( "MediaBox" ); }
+    virtual PdfRect GetMediaBox() const { return GetPageBox( "MediaBox" ); }
 
     /** Get the current CropBox (visible page size) in PDF units.
      *  \returns PdfRect the page box
      */
-    virtual const PdfRect GetCropBox() const { return GetPageBox( "CropBox" ); }
+    virtual PdfRect GetCropBox() const { return GetPageBox( "CropBox" ); }
 
     /** Get the current TrimBox (cut area) in PDF units.
      *  \returns PdfRect the page box
      */
-    virtual const PdfRect GetTrimBox() const { return GetPageBox( "TrimBox" ); }
+    virtual PdfRect GetTrimBox() const { return GetPageBox( "TrimBox" ); }
 
     /** Get the current BleedBox (extra area for printing purposes) in PDF units.
      *  \returns PdfRect the page box
      */
-    virtual const PdfRect GetBleedBox() const { return GetPageBox( "BleedBox" ); }
+    virtual PdfRect GetBleedBox() const { return GetPageBox( "BleedBox" ); }
 
     /** Get the current ArtBox in PDF units.
      *  \returns PdfRect the page box
      */
-    virtual const PdfRect GetArtBox() const { return GetPageBox( "ArtBox" ); }
+    virtual PdfRect GetArtBox() const { return GetPageBox( "ArtBox" ); }
 
     /** Get the current page rotation (if any).
      *  \returns int 0, 90, 180 or 270
@@ -334,7 +336,7 @@ inline PdfObject* PdfPage::GetResources() const
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
-inline const PdfRect PdfPage::GetPageSize() const
+inline PdfRect PdfPage::GetPageSize() const
 {
     return this->GetMediaBox();
 }

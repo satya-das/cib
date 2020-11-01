@@ -41,6 +41,8 @@
 
 #include <iterator>
 
+#include "../../../cib/__zz_cib_CibPoDoFo-proxy-mgr.h"
+
 namespace PoDoFo {
 
 class PdfDictionary;
@@ -55,7 +57,7 @@ class PdfObject;
  * PdfEncoding can also be used to convert strings from a
  * PDF file back into a PdfString.
  */
-class PODOFO_API PdfEncoding {
+class PODOFO_API PdfEncoding : public virtual __zz_cib_::__zz_cib_ProxyManager {
  protected:
     /** 
      *  Create a new PdfEncoding.
@@ -77,15 +79,11 @@ class PODOFO_API PdfEncoding {
 
  public:
 #if defined(_MSC_VER)  &&  _MSC_VER <= 1200			// ab Visualstudio 6
-    class PODOFO_API const_iterator : public std::iterator<
-                                             std::forward_iterator_tag, 
-						 int, ptrdiff_t> {
+    using const_iterator_base = std::iterator<std::forward_iterator_tag, int, ptrdiff_t>;
 #else
-    class PODOFO_API const_iterator : public std::iterator<
-                                             std::forward_iterator_tag, 
-						 int, std::ptrdiff_t, 
-						 const int *, const int &> {
+    using const_iterator_base = std::iterator<std::forward_iterator_tag, int, std::ptrdiff_t, const int *, const int &>;
 #endif
+    class PODOFO_API const_iterator : public const_iterator_base {
     public:
 	const_iterator( const PdfEncoding* pEncoding, int nCur )
 	    : m_pEncoding( pEncoding ), m_nCur( nCur )

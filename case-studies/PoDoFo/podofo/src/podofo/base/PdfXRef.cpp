@@ -337,13 +337,13 @@ void PdfXRef::WriteSubSection( PdfOutputDevice* pDevice, pdf_objnum nFirst, pdf_
 #ifdef DEBUG
     PdfError::DebugMessage("Writing XRef section: %u %u\n", nFirst, nCount );
 #endif // DEBUG
-    pDevice->Print( "%u %u\n", nFirst, nCount );
+    PRINT( pDevice, "%u %u\n", nFirst, nCount );
 }
 
 void PdfXRef::WriteXRefEntry( PdfOutputDevice* pDevice, pdf_uint64 offset, 
                               pdf_gennum generation, char cMode, pdf_objnum ) 
 {
-    pDevice->Print( "%0.10" PDF_FORMAT_UINT64 " %0.5hu %c \n", offset, generation, cMode );
+    PRINT( pDevice, "%0.10" PDF_FORMAT_UINT64 " %0.5hu %c \n", offset, generation, cMode );
 }
 
 void PdfXRef::EndWrite( PdfOutputDevice* ) 

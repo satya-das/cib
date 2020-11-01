@@ -196,7 +196,7 @@ void PdfWriter::Write( PdfOutputDevice* pDevice, bool bRewriteXRefTable )
                 trailer.WriteObject( pDevice, m_eWriteMode, NULL ); // Do not encrypt the trailer dictionary!!!
             }
             
-            pDevice->Print( "startxref\n%" PDF_FORMAT_UINT64 "\n%%%%EOF\n", pXRef->GetOffset() );
+            PRINT( pDevice, "startxref\n%" PDF_FORMAT_UINT64 "\n%%%%EOF\n", pXRef->GetOffset() );
             delete pXRef;
         } catch( PdfError & e ) {
             // Make sure pXRef is always deleted
@@ -352,7 +352,7 @@ void PdfWriter::WriteLinearized( PdfOutputDevice* /* pDevice */ )
 
 void PdfWriter::WritePdfHeader( PdfOutputDevice* pDevice )
 {
-    pDevice->Print( "%s\n%%%s", s_szPdfVersions[static_cast<int>(m_eVersion)], PDF_MAGIC );
+    PRINT( pDevice, "%s\n%%%s", s_szPdfVersions[static_cast<int>(m_eVersion)], PDF_MAGIC );
 }
 
 void PdfWriter::WritePdfObjects( PdfOutputDevice* pDevice, const PdfVecObjects& vecObjects, PdfXRef* pXref, bool bRewriteXRefTable )

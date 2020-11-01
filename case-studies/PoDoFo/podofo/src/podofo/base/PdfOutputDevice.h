@@ -91,7 +91,7 @@ class PODOFO_API PdfOutputDevice {
      *  with unicode characters. On Unix systes you can also path
      *  UTF-8 to the const char* overload.
      */
-    PdfOutputDevice( const wchar_t* pszFilename, bool bTruncate = true );
+    // PdfOutputDevice( const wchar_t* pszFilename, bool bTruncate = true );
 #endif // _WIN32
 
     /** Construct a new PdfOutputDevice that writes all data to a memory buffer.
@@ -151,7 +151,7 @@ class PODOFO_API PdfOutputDevice {
      *
      *  \see Write
      */
-    virtual void Print( const char* pszFormat, ... );
+    virtual void Print( const char* pszFormat);
 
     /** Write to the PdfOutputDevice. Usage is as the usage of printf.
      * 
@@ -214,6 +214,7 @@ class PODOFO_API PdfOutputDevice {
     /** Initialize all private members
      */
     void Init();
+    void PrintVA( const char* pszFormat, ... );
 
  protected:
     size_t        m_ulLength;
@@ -238,6 +239,14 @@ class PODOFO_API PdfOutputDevice {
 
     PdfRefCountedBuffer  m_printBuffer;
 };
+
+#define PRINT(device, ...)                      \
+do                                              \
+{                                               \
+    char sz[1024];                              \
+    snprintf(sz, sizeof(sz) -1, __VA_ARGS__);   \
+    device->Print(sz);                          \
+} while(false)
 
 // -----------------------------------------------------
 // 

@@ -187,7 +187,12 @@ void PdfOutputDevice::Init()
     m_pStreamOwned      = true;
 }
 
-void PdfOutputDevice::Print( const char* pszFormat, ... )
+void PdfOutputDevice::Print( const char* pszFormat )
+{
+    PrintVA(pszFormat);
+}
+
+void PdfOutputDevice::PrintVA( const char* pszFormat, ... )
 {
     va_list args;
     long lBytes;

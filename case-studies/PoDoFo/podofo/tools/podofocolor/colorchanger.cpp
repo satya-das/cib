@@ -250,19 +250,19 @@ void ColorChanger::ReplaceColorsInPage( PdfCanvas* pPage )
 
                         case ePdfColorSpace_Separation:
                         {
-                            PdfError::LogMessage( eLogSeverity_Error, "Separation color space not supported.\n" );                
+                            // PdfError::LogMessage( eLogSeverity_Error, "Separation color space not supported.\n" );                
                             PODOFO_RAISE_ERROR( ePdfError_CannotConvertColor );
                             break;
                         }
                         case ePdfColorSpace_CieLab:
                         {
-                            PdfError::LogMessage( eLogSeverity_Error, "CieLab color space not supported.\n" );                
+                            // PdfError::LogMessage( eLogSeverity_Error, "CieLab color space not supported.\n" );                
                             PODOFO_RAISE_ERROR( ePdfError_CannotConvertColor );
                             break;
                         }
                         case ePdfColorSpace_Indexed:
                         {
-                            PdfError::LogMessage( eLogSeverity_Error, "Indexed color space not supported.\n" );                
+                            // PdfError::LogMessage( eLogSeverity_Error, "Indexed color space not supported.\n" );                
                             PODOFO_RAISE_ERROR( ePdfError_CannotConvertColor );
                             break;
                         }
@@ -313,7 +313,7 @@ void ColorChanger::ReplaceColorsInPage( PdfCanvas* pPage )
 
                         default:
                         {
-                            PdfError::LogMessage( eLogSeverity_Error, "Unknown color space %i type.\n", graphicsStack.GetNonStrokingColorSpace() );
+                            // PdfError::LogMessage( eLogSeverity_Error, "Unknown color space %i type.\n", graphicsStack.GetNonStrokingColorSpace() );
                             PODOFO_RAISE_ERROR( ePdfError_CannotConvertColor );
                         }
                     }
