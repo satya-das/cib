@@ -127,7 +127,9 @@ Macro `__ZZ_CIB_PROXY_CLASS_INTERNALS`:
   4. adds a private data member `__zz_cib_h_`, and
   5. adds a protected constructor.
 
-The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. The type `__zz_cib_AbiType` is the type of object that crosses component boundary. It is the pointer to class defined on library side and never derefenced on client side.
+`__zz_cib_AbiType` is a pointer to incomplete nested type `class __zz_cib_Impl`. Client side `class A` is not same as library side `class A`. The incomplete type `A::__zz_cib_Impl` on client side is same as `class A` of library side. For client library side class is actually the implementation class and client side class uses that in the same way implementation class is used in bridge pattern or [pImpl idiom](https://en.cppreference.com/w/cpp/language/pimpl).
+
+The data member `__zz_cib_h_` is the opaque pointer of `class __zz_cib_Impl`. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. The type `__zz_cib_AbiType` is the type of object that crosses component boundary. It is the pointer to class defined on library side and never derefenced on client side.
 
 In this example we can skip `__zz_cib_Delegator` as it is needed only when the class is an interface class. Let's now see the the defintion of `__zz_cib_Helper`.
 

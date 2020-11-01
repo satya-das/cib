@@ -20,12 +20,11 @@ public:
   ~A();
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc() { return x; }
+  int SomeFunc(int x) { return m + x; }
 
 private:
-  int x {1};
+  int m {1};
 };
-
 
 ```
 
@@ -39,7 +38,7 @@ private:
 TEST_CASE("Method call")
 {
   A a;
-  CHECK(a.SomeFunc() == 1);
+  CHECK(a.SomeFunc(10) == 11);
 }
 
 ```
@@ -243,7 +242,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_Copy_1 = 1,
     //#= ~A();
     __zz_cib_Delete_2 = 2,
-    //#= int SomeFunc();
+    //#= int SomeFunc(int);
     SomeFunc_3 = 3,
     __zz_cib_nextMethodId = 4
   };
@@ -294,9 +293,11 @@ struct __zz_cib_Delegator<::A> {
   static void __zz_cib_decl __zz_cib_Delete_2(::A* __zz_cib_obj) {
         delete __zz_cib_obj;
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(::A* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(::A* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
     return __zz_cib_ToAbiType<int>(
-      __zz_cib_obj->::A::SomeFunc()
+      __zz_cib_obj->::A::SomeFunc(
+        __zz_cib_::__zz_cib_FromAbiType<int>(x)
+      )
     );
   }
 };
@@ -397,7 +398,7 @@ public:
   ~A();
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc();
+  int SomeFunc(int x);
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
@@ -412,7 +413,7 @@ You can notice certain differences between this class and the original class in 
 ```diff
 --- pub/example.h
 +++ exp/example.h
-@@ -1,20 +1,22 @@
+@@ -1,19 +1,22 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -428,14 +429,14 @@ You can notice certain differences between this class and the original class in 
    ~A();
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
--  int SomeFunc() { return x; }
-+  int SomeFunc();
+-  int SomeFunc(int x) { return m + x; }
++  int SomeFunc(int x);
  
  private:
--  int x {1};
+-  int m {1};
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
- 
++
 +#include "__zz_cib_internal/example-postdef.h"
 
 ```
@@ -479,12 +480,12 @@ We see a #include and forward declarations of `struct __zz_cib_Helper`, and `str
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @def __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC
+ * @def __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS
  * Defines common elements all proxy classes should have.
  */
-#define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
+#define __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                     \
 public:                                                                                                                \
-  using __zz_cib_AbiType = class __zz_cib_Opaque*;                                                                     \
+  using __zz_cib_AbiType = class __zz_cib_Impl*;                                                                       \
                                                                                                                        \
 private:                                                                                                               \
   friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                  \
@@ -499,7 +500,7 @@ private:                                                                        
  * Allows cib to add it's hook in proxy classes in a minimally invasive way.
  */
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                            \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                           \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h);
@@ -511,7 +512,7 @@ protected:                                                                      
  * Allows cib to add it's hook in proxy template specialization classes in a minimally invasive way.
  */
 #define __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(className, fullName)                                                         \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                  \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                 \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h)                                                                               \
@@ -603,12 +604,12 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
         );
     }
   }
-  template <typename _RT>
-  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj) {
-    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
+  template <typename _RT, typename ..._Args>
+  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SomeFunc_3>(
-      __zz_cib_obj
-      );
+      __zz_cib_obj,
+      __zz_cib_args...);
   }
   static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
     return T(h);
@@ -664,10 +665,11 @@ A::~A() {
   );
 }
 
-int A::SomeFunc() {
+int A::SomeFunc(int x) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
     __zz_cib_MyHelper::SomeFunc_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
-      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
     )
   );
 }
@@ -691,7 +693,7 @@ Let's see what happens when following code is executed by client program:
 TEST_CASE("Method call")
 {
   A a;
-  CHECK(a.SomeFunc() == 1);
+  CHECK(a.SomeFunc(10) == 11);
 }
 
 ```

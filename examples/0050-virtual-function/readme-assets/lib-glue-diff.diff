@@ -1,6 +1,6 @@
 --- ../0010-simple-class/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -10,24 +10,26 @@
+@@ -10,26 +10,26 @@
  
  namespace __zz_cib_ {
  template <>
@@ -25,10 +25,12 @@
 +  static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_1() {
 +    return new __zz_cib_Delegatee();
    }
--  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(::A* __zz_cib_obj) {
+-  static __zz_cib_AbiType_t<int> __zz_cib_decl SomeFunc_3(::A* __zz_cib_obj, __zz_cib_AbiType_t<int> x) {
 +  static __zz_cib_AbiType_t<int> __zz_cib_decl VirtFunc_2(__zz_cib_Delegatee* __zz_cib_obj) {
      return __zz_cib_ToAbiType<int>(
--      __zz_cib_obj->::A::SomeFunc()
+-      __zz_cib_obj->::A::SomeFunc(
+-        __zz_cib_::__zz_cib_FromAbiType<int>(x)
+-      )
 +      __zz_cib_obj->::A::VirtFunc()
      );
    }
@@ -38,7 +40,7 @@
  };
  }
  
-@@ -35,12 +37,64 @@
+@@ -37,12 +37,64 @@
  namespace __zz_cib_Class258 {
  const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
    static const __zz_cib_MTableEntry methodArray[] = {

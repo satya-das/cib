@@ -19,12 +19,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @def __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC
+ * @def __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS
  * Defines common elements all proxy classes should have.
  */
-#define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
+#define __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                     \
 public:                                                                                                                \
-  using __zz_cib_AbiType = class __zz_cib_Opaque*;                                                                     \
+  using __zz_cib_AbiType = class __zz_cib_Impl*;                                                                       \
                                                                                                                        \
 private:                                                                                                               \
   friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                  \
@@ -39,7 +39,7 @@ private:                                                                        
  * Allows cib to add it's hook in proxy classes in a minimally invasive way.
  */
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                            \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                           \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h);
@@ -51,7 +51,7 @@ protected:                                                                      
  * Allows cib to add it's hook in proxy template specialization classes in a minimally invasive way.
  */
 #define __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(className, fullName)                                                         \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                  \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                 \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h)                                                                               \

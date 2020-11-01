@@ -18,7 +18,7 @@
    static __zz_cib_Helper& __zz_cib_Instance() {
      static __zz_cib_Helper helper;
      return helper;
-@@ -29,32 +34,147 @@
+@@ -29,31 +34,146 @@
      return __zz_cib_Instance();
    }
  
@@ -40,15 +40,15 @@
 +    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
 +    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::VirtFunc_2>(
 +      __zz_cib_obj
-+      );
-+  }
+       );
+   }
 +  static auto __zz_cib_Delete_3(__zz_cib_AbiType __zz_cib_obj) {
 +    if (__zz_cib_obj) {
 +      using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
 +      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_3>(
 +        __zz_cib_obj
-       );
-   }
++        );
++    }
 +  }
 +  static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
 +    auto* const __zz_cib_obj = new T(h);
@@ -139,20 +139,24 @@
          );
      }
    }
+-  template <typename _RT, typename ..._Args>
+-  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+-    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
+-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SomeFunc_3>(
+-      __zz_cib_obj,
+-      __zz_cib_args...);
 +  static __zz_cib_AbiType __zz_cib_New_2() {
 +    using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
 +    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_New_2>(
 +      );
 +  }
-   template <typename _RT>
--  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj) {
++  template <typename _RT>
 +  static auto VirtFunc_3(__zz_cib_AbiType __zz_cib_obj) {
-     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
--    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SomeFunc_3>(
++    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
 +    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::VirtFunc_3>(
-       __zz_cib_obj
-       );
-   }
++      __zz_cib_obj
++      );
++  }
 +  template <typename _RT>
 +  static auto Create_4() {
 +    using __zz_cib_ProcType = _RT (__zz_cib_decl *) ();
@@ -170,10 +174,9 @@
 +  static T* __zz_cib_CreateProxy(__zz_cib_AbiType h) {
 +    auto* const __zz_cib_obj = new T(h);
 +    return __zz_cib_obj;
-+  }
+   }
    static T __zz_cib_ObjectFromHandle(__zz_cib_AbiType h) {
      return T(h);
-   }
 @@ -66,9 +186,31 @@
    }
    static __zz_cib_AbiType __zz_cib_ReleaseHandle(T* __zz_cib_obj) {

@@ -370,12 +370,12 @@ We see it includes __zz_cib_Example-class-internal-def.h. Lets look at this file
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @def __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC
+ * @def __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS
  * Defines common elements all proxy classes should have.
  */
-#define __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                      \
+#define __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                     \
 public:                                                                                                                \
-  using __zz_cib_AbiType = class __zz_cib_Opaque*;                                                                     \
+  using __zz_cib_AbiType = class __zz_cib_Impl*;                                                                       \
                                                                                                                        \
 private:                                                                                                               \
   friend struct __zz_cib_::__zz_cib_Helper<fullName>;                                                                  \
@@ -390,7 +390,7 @@ private:                                                                        
  * Allows cib to add it's hook in proxy classes in a minimally invasive way.
  */
 #define __ZZ_CIB_PROXY_CLASS_INTERNALS(className, fullName)                                                            \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(className, fullName)                                                            \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(className, fullName)                                                           \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h);
@@ -402,7 +402,7 @@ protected:                                                                      
  * Allows cib to add it's hook in proxy template specialization classes in a minimally invasive way.
  */
 #define __ZZ_CIB_TEMPLATE_CLASS_INTERNALS(className, fullName)                                                         \
-  __ZZ_CIB_PROXY_CLASS_INTERNALS_BASIC(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                  \
+  __ZZ_CIB_PROXY_CLASS_COMMON_INTERNALS(__ZZ_CIB_CLASS_NAME(className), __ZZ_CIB_CLASS_NAME(fullName))                 \
 protected:                                                                                                             \
   /** This constructor is for cib generated code, please don't try to use it directly.*/                               \
   explicit className(__zz_cib_AbiType h)                                                                               \
@@ -445,7 +445,9 @@ Macro `__ZZ_CIB_PROXY_CLASS_INTERNALS`:
   4. adds a private data member `__zz_cib_h_`, and
   5. adds a protected constructor.
 
-The data member `__zz_cib_h_` is the opaque pointer of original class that is created on library side. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. The type `__zz_cib_AbiType` is the type of object that crosses component boundary. It is the pointer to class defined on library side and never derefenced on client side.
+`__zz_cib_AbiType` is a pointer to incomplete nested type `class __zz_cib_Impl`. Client side `class A` is not same as library side `class A`. The incomplete type `A::__zz_cib_Impl` on client side is same as `class A` of library side. For client library side class is actually the implementation class and client side class uses that in the same way implementation class is used in bridge pattern or [pImpl idiom](https://en.cppreference.com/w/cpp/language/pimpl).
+
+The data member `__zz_cib_h_` is the opaque pointer of `class __zz_cib_Impl`. The constructor is to construct object from opaque pointer. We call client facing class as proxy class because the "real" object is on the library side and the proxy class only holds an opaque pointer of that. The type `__zz_cib_AbiType` is the type of object that crosses component boundary. It is the pointer to class defined on library side and never derefenced on client side.
 
 In this example we can skip `__zz_cib_Delegator` as it is needed only when the class is an interface class. Let's now see the the defintion of `__zz_cib_Helper`.
 
