@@ -287,3 +287,9 @@ void B::SetA(::A* pA) {
 ```
 
 Most method implementations are similar to what we have seen before for class A. But if we look at `GetA()` implementation then we see `__zz_cib_::__zz_cib_FromAbiType<::A*>` is called on return value of `__zz_cib_MyHelper::GetA_4()`. As we know `__zz_cib_MyHelper::GetA_4()` will actually return pointer of library class and so it needs to be converted to pointer of proxy class. And `__zz_cib_::__zz_cib_FromAbiType<::A*>` does exactly that, by eventually calling `__zz_cib_Helper::__zz_cib_FromHandle()`.
+
+Type conversion is described separately, but for this example it is sufficient to know that existing proxy object is reused when a pointer of library side class is converted to client side class and a new instance is created only when an existing proxy class does not exist.
+
+TODO: Make sure type conversion is covered in documentation as add a link here.
+
+That's it about this example.
