@@ -1,7 +1,14 @@
 #include "example.h"
 
-A::A(int i)
-  : i_(i)
+A::A()
+{
+}
+
+A::A(const A&)
+{
+}
+
+A::~A()
 {
 }
 

@@ -27,13 +27,15 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_MethodId {
+    //#= A();
+    __zz_cib_New_0 = 0,
     //#= A(const ::A&);
-    __zz_cib_Copy_0 = 0,
+    __zz_cib_Copy_1 = 1,
     //#= ~A();
-    __zz_cib_Delete_1 = 1,
-    //#= A(int);
-    __zz_cib_New_2 = 2,
-    __zz_cib_nextMethodId = 3
+    __zz_cib_Delete_2 = 2,
+    //#= int SomeFunc(int);
+    SomeFunc_3 = 3,
+    __zz_cib_nextMethodId = 4
   };
 }}}
 

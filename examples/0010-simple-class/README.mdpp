@@ -206,5 +206,5 @@ ABI Compatibility of library with client applications are possible because:
   - `__zz_cib_ToAbiType` and `__zz_cib_FromAbiType` are used to convert objects back and forth.
 
 
-**This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
+**This ends the explanation of our first example that shows how CIB achieves compiler independence. In other examples we will see CIB architecture in use in ascertaining ABI stability.**
 

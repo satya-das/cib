@@ -4,7 +4,7 @@
 
 //! A vividly trivial class
 //! Contains just a simple method.
-class A
+class A final
 {
 public:
   A();

@@ -1,8 +1,9 @@
 #pragma once
 
+
 //! A vividly trivial class
 //! Contains just a simple method.
-class A
+class A final
 {
 public:
   A();
@@ -13,7 +14,7 @@ public:
   //! @note It is just for explaining how cib works.
   int SomeFunc(int x) { return m + x; }
 
-  //! Adde method in new version
+  //! Added method in new version
   int AnotherFunction() { return 109; }
   
 private:

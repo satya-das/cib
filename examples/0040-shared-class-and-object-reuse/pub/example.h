@@ -1,12 +1,21 @@
 #pragma once
 
-class A
+
+//! A vividly trivial class
+//! Contains just a simple method.
+class A final
 {
 public:
-  A(int i = 0);
+  A();
+  A(const A& a);
+  A(A&&) = delete;
+  ~A();
+  //! Doesn't do anything meaningful
+  //! @note It is just for explaining how cib works.
+  int SomeFunc(int x) { return m + x; }
 
 private:
-  int i_;
+  int m {1};
 };
 
 class B

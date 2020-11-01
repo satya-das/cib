@@ -26,7 +26,6 @@ private:
   int m {1};
 };
 
-
 ```
 
 **File**: src/example-client.cpp _Client's expectation from library_:
@@ -301,7 +300,7 @@ You can notice certain differences between this class and the original class in 
 ```diff
 --- pub/example.h
 +++ exp/example.h
-@@ -1,20 +1,22 @@
+@@ -1,19 +1,22 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -318,13 +317,13 @@ You can notice certain differences between this class and the original class in 
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
 -  int SomeFunc(int x) { return m + x; }
-+  int SomeFunc();
++  int SomeFunc(int x);
  
  private:
 -  int m {1};
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
- 
++
 +#include "__zz_cib_internal/example-postdef.h"
 
 ```
@@ -725,5 +724,5 @@ ABI Compatibility of library with client applications are possible because:
   - `__zz_cib_ToAbiType` and `__zz_cib_FromAbiType` are used to convert objects back and forth.
 
 
-**This ends the explanation of our first example that shows how CIB achieves compiler independence. We will now move on to next example to see what happens to classes with virtual methods.**
+**This ends the explanation of our first example that shows how CIB achieves compiler independence. In other examples we will see CIB architecture in use in ascertaining ABI stability.**
 

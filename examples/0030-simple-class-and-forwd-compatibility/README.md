@@ -4,19 +4,18 @@ Forward compatiblity of library also means backward compatibility of client. If 
  1. **Forward compatibility**: New client is compatible with old library if it doesn't call functions that are only available in newer library,
  2. **Robustness**: An exception is thrown when client calls newer API not available in old library.
 
-Consider the library of this example as next version of library of very first example. So, let's see the diff of library header:
+Consider the library of this example as next version of library of very first example. So, let's see the diff of library headers:
 
 ```diff
 --- 0010-simple-class/pub/example.h
-+++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,20 +1,21 @@
++++ 0030-simple-class-and-forwd-compatibility/pub/example.h
+@@ -1,19 +1,23 @@
  #pragma once
  
  
  //! A vividly trivial class
  //! Contains just a simple method.
--class A final
-+class A
+ class A final
  {
  public:
    A();
@@ -27,107 +26,53 @@ Consider the library of this example as next version of library of very first ex
    //! @note It is just for explaining how cib works.
    int SomeFunc(int x) { return m + x; }
  
++  //! Added method in new version
++  int AnotherFunction() { return 109; }
++  
  private:
-+  double f {0.0};
-   int m {1};
+-  int m {1};
++  char c {0x1f};
++  int  m {2};
  };
- 
 
 ```
 
-There is a change in data members and that change is bound to cause ABI stability unless CIB is used. There is a new method added in the class. So, new client can access that method. But, this example is for forward compatibility of library, i.e. backward compatibility of client. So, lets see what does client do in this example:
+There is a change in data members and we have already seen in previous example that it doesn't cause ABI instability. There is a new method added in the class. So, new client can access that method. But, this example is for forward compatibility of library, i.e. backward compatibility of client. So, lets see what does client do in this example:
 
 ```c++
 #include "example.h"
 
 #include <catch/catch.hpp>
 
+#include <exception>
+
 TEST_CASE("Method call")
 {
   A a;
-  CHECK(a.SomeFunc(20) == 21);
+  if(a.SomeFunc(30) == 32)
+  {
+    // When run with new library
+    CHECK(a.AnotherFunction() == 109);
+  }
+  else
+  {
+    // When run with old library
+    CHECK_THROWS_AS(a.AnotherFunction(), std::bad_function_call);
+  }
 }
 
 ```
 
 Client first checks if new `AnotherFunction` is available in the library and if it does then invokes it and expects a particular return value. When the `AnotherFunction` is not available then also client is invoking it and expects `std::bad_function_call` to be thrown. And that's what exactly CIB ensures.
 
-**For baackward compatibility of a component, the component must ensure that it should not be calling functions that are not present in old version of component it depends upon.**
+**For backward compatibility of a component, the component must ensure that it either does not call functions that are not present in the old version of component it depends upon or it handles `std::bad_function_call` exception.**
 
-If it does then CIB throws `std::bad_function_call` exception that should be caught and handled by the components.
-
-Since, cross component calls happen using `MethodTable` CIB can check for existence of function pointer in MethodTable and accordingly it can throw exception if the required function pointer is not present. Let's see how functions from MethodTable are invoked:
-
-**File**: cib/__zz_cib_Example-mtable-helper.h:
-
-```c++
-#ifndef __zz_cib_MethodTableHelper_defined
-#define __zz_cib_MethodTableHelper_defined
-
-#include "__zz_cib_Example-mtable.h"
-
-#include <cassert>
-#include <functional>
-
-namespace __zz_cib_ {
-
-//! Helps in using MethodTable.
-class __zz_cib_MethodTableHelper
-{
-public:
-  __zz_cib_MethodTableHelper(const __zz_cib_MethodTable* _mtbl)
-    : mtbl(_mtbl)
-  {
-  }
-  //! Invokes function by fetching it from MethodTable using index value of method.
-  //! @tparam _MethodType Prototype of function that is present at given index.
-  //! @tparam methodId Id of the method to invoke, it is actualy the index at which the function is present in the
-  //! MethodTable.
-  //! @tparam _TArgs All parameters that have to be passed to the function getting invoked.
-  //! @note Throws std::bad_function_call() if MethodTable doesn't contain
-  //! method at specified index or the fetched method is null.
-  template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
-  auto Invoke(_TArgs... args) const
-  {
-    auto method = GetMethod<_MethodType>(methodId);
-    if (method == nullptr)
-#ifndef __ZZ_CIB_NO_EXCEPTION
-      throw std::bad_function_call();
-#else
-      assert(false && "Bad function call");
-#endif
-    return method(args...);
-  }
-
-private:
-  //! Utility method to get method from MethodTable.
-  //! @param methodId ID for which method has to be fetched.
-  //! @return Method of type specified as template parameter.
-  //! @warning returned value can be a nullptr.
-  template <typename _MethodType>
-  _MethodType GetMethod(std::uint32_t methodId) const
-  {
-    return reinterpret_cast<_MethodType>(__zz_cib_GetMTableEntry(mtbl, methodId));
-  }
-
-private:
-  const __zz_cib_MethodTable* const mtbl;
-};
-
-} // namespace __zz_cib_
-
-#endif
-
-```
-
-We see that when the fetched method from MethodTable is `nullptr` then `std::bad_function_call` exception is thrown. That's the way CIB let the caller know if it calls non-existing function which can happen when a component is used with older version of component on which it depends upon.
-
-So, backward compatibility is also a responsibility of developer and CIB can help in a great way to achieve this goal by ensuring ABI stability at the component boundary.
+Since, cross component calls happen using `MethodTable` CIB can check for existence of function pointer in MethodTable and accordingly it can throw exception. This is one of the reason why usage of `MethodTable` is chosen as a design decision.
 
 Below is the output when this test it run:
 
 ```sh
-dassat:~/github/cib/build$ ninja && ctest -R 0020-simple-class-and-bkwd-compatibility
+$ ninja && ctest -R 0020-simple-class-and-bkwd-compatibility
 Test project /home/dassat/github/cib/build
     Start 6: 0020-simple-class-and-bkwd-compatibility
 1/2 Test #6: 0020-simple-class-and-bkwd-compatibility ...........................   Passed    0.00 sec
@@ -141,5 +86,5 @@ Total Test time (real) =   0.01 sec
 
 We see total of 2 test runs, one of them has `new-client-with-old-lib` in it's name. This test runs the new client with old library and ensures it runs as expected.
 
-That's it about this example. Slowly we are understanding pieces of CIB architecture.
+That's it about this example.
 

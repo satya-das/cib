@@ -1,13 +1,12 @@
 --- 0010-simple-class/pub/example.h
 +++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,20 +1,21 @@
+@@ -1,19 +1,20 @@
  #pragma once
  
  
  //! A vividly trivial class
  //! Contains just a simple method.
--class A final
-+class A
+ class A final
  {
  public:
    A();
@@ -22,4 +21,3 @@
 +  double f {0.0};
    int m {1};
  };
- 

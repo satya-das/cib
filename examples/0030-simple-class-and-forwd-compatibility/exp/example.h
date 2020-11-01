@@ -4,7 +4,7 @@
 
 //! A vividly trivial class
 //! Contains just a simple method.
-class A
+class A final
 {
 public:
   A();
@@ -14,7 +14,7 @@ public:
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
   int SomeFunc(int x);
-  //! Adde method in new version
+  //! Added method in new version
   int AnotherFunction();
 
 private:

@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,20 +1,22 @@
+@@ -1,19 +1,22 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -17,11 +17,11 @@
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
 -  int SomeFunc(int x) { return m + x; }
-+  int SomeFunc();
++  int SomeFunc(int x);
  
  private:
 -  int m {1};
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
- 
++
 +#include "__zz_cib_internal/example-postdef.h"

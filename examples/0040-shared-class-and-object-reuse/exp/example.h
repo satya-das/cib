@@ -2,14 +2,18 @@
 
 #include "__zz_cib_internal/example-predef.h"
 
-class A
+//! A vividly trivial class
+//! Contains just a simple method.
+class A final
 {
 public:
-  A(A&& rhs);
-public:
-  A(const A&);
+  A();
+  A(const A& a);
+  A(A&&) = delete;
   ~A();
-  A(int i = 0);
+  //! Doesn't do anything meaningful
+  //! @note It is just for explaining how cib works.
+  int SomeFunc(int x);
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
