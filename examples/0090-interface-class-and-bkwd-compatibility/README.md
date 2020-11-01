@@ -83,7 +83,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 --- 0080-interface-class/cib/example.h.cpp
 +++ 0090-interface-class-and-bkwd-compatibility/cib/example.h.cpp
 @@ -28,10 +28,19 @@
-       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::Func_0>(
+       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Func_0>(
          __zz_cib_h
        )
      );
@@ -92,7 +92,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 +    auto __zz_cib_h = __zz_cib_h_;
 +    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
 +    return __zz_cib_FromAbiType<int>(
-+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::Gunc_2>(
++      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Gunc_2>(
 +        __zz_cib_h
 +      )
 +    );
@@ -101,8 +101,8 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
      if (!__zz_cib_h_) return;
      auto __zz_cib_h = __zz_cib_h_;
      using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-     __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
-@@ -62,10 +71,15 @@
+     __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
+@@ -61,10 +70,15 @@
    using ::Interface::Interface;
  
    static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable) {
@@ -118,7 +118,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
        __zz_cib_obj->Func()
      );
    }
-@@ -83,13 +97,14 @@
+@@ -82,13 +96,14 @@
  const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
    static const __zz_cib_MTableEntry methodArray[] = {
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_New_0),
