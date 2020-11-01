@@ -76,7 +76,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 ```diff
 --- ../0050-virtual-function/cib/example.h.cpp
 +++ cib/example.h.cpp
-@@ -21,10 +21,15 @@
+@@ -20,10 +20,15 @@
      return new __zz_cib_Delegatee(*__zz_cib_obj);
    }
    static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_1() {
@@ -92,7 +92,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
        __zz_cib_obj->::A::VirtFunc()
      );
    }
-@@ -39,13 +44,14 @@
+@@ -38,13 +43,14 @@
  const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
    static const __zz_cib_MTableEntry methodArray[] = {
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_Copy_0),

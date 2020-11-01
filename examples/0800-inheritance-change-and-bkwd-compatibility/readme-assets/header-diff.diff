@@ -10,7 +10,7 @@
  public:
 +  A(A&& rhs);
 +public:
-+  A(const A& );
++  A(const A&);
    A();
 -  virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
 -  virtual int VirtFunc() { return 1; }
@@ -35,7 +35,7 @@
 +  I1(I1&& rhs);
 +public:
 +  I1();
-+  I1(const I1& );
++  I1(const I1&);
 +  virtual int F();
 +  virtual ~I1();
  
@@ -52,7 +52,7 @@
 +  I2(I2&& rhs);
 +public:
 +  I2();
-+  I2(const I2& );
++  I2(const I2&);
 +  virtual int G();
 +  virtual ~I2();
  
@@ -67,7 +67,7 @@
  public:
 +  B(B&& rhs);
 +public:
-+  B(const B& );
++  B(const B&);
 +  ~B();
    B();
 -  int VirtFunc() override  { return 15; }

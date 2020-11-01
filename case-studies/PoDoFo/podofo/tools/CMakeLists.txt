@@ -1,0 +1,23 @@
+SUBDIRS(
+	podofobox
+	podofocolor
+        podofocountpages
+        podofocrop
+	podofoencrypt
+	podofogc
+	podofoimgextract
+	podofoimg2pdf
+	podofomerge
+	podofopages
+	podofopdfinfo
+	podofotxt2pdf
+	podofotxtextract
+	podofouncompress
+	podofoimpose
+	podofoincrementalupdates
+	podofoxmp
+	)
+
+IF(PODOFO_HAVE_OPENSSL)
+	SUBDIRS(podofosign)
+ENDIF(PODOFO_HAVE_OPENSSL)
