@@ -18,8 +18,8 @@
 -    return new ::A();
 +    return new __zz_cib_Delegatee();
    }
--  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::A&> __zz_cib_param0) {
--    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const ::A&>(__zz_cib_param0));
+-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::A&> a) {
+-    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const ::A&>(a));
 +  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(const __zz_cib_Delegatee* __zz_cib_obj) {
 +    return new __zz_cib_Delegatee(*__zz_cib_obj);
    }

@@ -9,10 +9,9 @@ Consider the library of this example as next version of library of very first ex
 ```diff
 --- 0010-simple-class/pub/example.h
 +++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,21 +1,20 @@
+@@ -1,20 +1,20 @@
  #pragma once
  
--
 -
  //! A vividly trivial class
  //! Contains just a simple method.
@@ -21,7 +20,7 @@ Consider the library of this example as next version of library of very first ex
  {
  public:
    A();
-   A(const A&);
+   A(const A& a);
    A(A&&) = delete;
    ~A();
    //! Doesn't do anything meaningful

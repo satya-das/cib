@@ -151,7 +151,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= A();
@@ -179,7 +179,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class283 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= C(const ::C&);
     __zz_cib_Copy_0 = 0,
     //#= C(int);
@@ -197,7 +197,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class283 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class269 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_iterator(const bidirectional_iterator<::C const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_iterator();
@@ -225,7 +225,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class274 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_iterator(const bidirectional_iterator<::C* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_iterator();
@@ -253,7 +253,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class273 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_iterator(const bidirectional_iterator<::C*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_iterator();
@@ -281,7 +281,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class268 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_iterator(const bidirectional_iterator<::C>&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_iterator();
@@ -309,7 +309,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class271 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_reverse_iterator();
@@ -337,7 +337,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class276 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_reverse_iterator();
@@ -365,7 +365,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class275 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_reverse_iterator();
@@ -393,7 +393,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class270 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C>&);
     __zz_cib_Copy_0 = 0,
     //#= ~bidirectional_reverse_iterator();
@@ -421,7 +421,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::C const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -471,7 +471,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class264 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::C* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -521,7 +521,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class263 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::C*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -571,7 +571,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::C>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -621,7 +621,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class279 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::std::list<::C*> const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -671,7 +671,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class278 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::std::list<::C*>>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -721,7 +721,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::C const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -771,7 +771,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class266 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::C* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -821,7 +821,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class265 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::C*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -871,7 +871,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::C>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -921,7 +921,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class281 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::std::list<::C*> const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -971,7 +971,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class280 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::std::list<::C*>>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -1021,7 +1021,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class277 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= list();
     __zz_cib_New_0 = 0,
     //#= list(::std::list<::C*>::size_type);
@@ -1127,7 +1127,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class272 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= list();
     __zz_cib_New_0 = 0,
     //#= list(::std::list<::C>::size_type);
@@ -1233,7 +1233,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class267 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
     //#= vector(::std::vector<::C*>::size_type);
@@ -1337,7 +1337,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class262 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
     //#= vector(::std::vector<::C>::size_type);
@@ -1441,7 +1441,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class282 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
     //#= vector(::std::vector<::std::list<::C*>>::size_type);

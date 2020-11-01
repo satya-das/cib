@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Class259 { namespace __zz_cib_Class260 { namespace __zz_cib_Class261 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::Example::Outer::Inner::A&);
     __zz_cib_Copy_0 = 0,
     //#= ~A();

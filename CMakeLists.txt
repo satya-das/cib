@@ -75,6 +75,7 @@ set(RES_FILE_NAMES
 	__zz_cib_Module-mtable.h
 	__zz_cib_Module-mtable-helper.h
 	__zz_cib_Module-generic.h
+	__zz_cib_Module-delegator.h
 	__zz_cib_Module-proxy-mgr.cpp
 	__zz_cib_Module-proxy-mgr.h
 	__zz_cib_Module-proxy-types.h

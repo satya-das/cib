@@ -46,7 +46,7 @@ namespace __zz_cib_ { namespace StlDependencyTest {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= ExampleClass(const ::ExampleClass&);
     __zz_cib_Copy_0 = 0,
     //#= ExampleClass();
@@ -62,7 +62,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::ExampleClass* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -112,7 +112,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class257 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_iterator(const vector_iterator<::ExampleClass*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_iterator();
@@ -162,7 +162,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::ExampleClass* const >&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -212,7 +212,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector_reverse_iterator(const vector_reverse_iterator<::ExampleClass*>&);
     __zz_cib_Copy_0 = 0,
     //#= ~vector_reverse_iterator();
@@ -262,7 +262,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { namespace __zz_cib_Class262 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
     //#= vector(::std::vector<::ExampleClass*>::size_type);

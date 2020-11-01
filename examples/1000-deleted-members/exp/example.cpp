@@ -15,16 +15,15 @@ A::A(A&& rhs)
 }
 
 A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_0(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_New_1(
-    ))
-  {}
+  : A(__zz_cib_MyHelper::__zz_cib_New_1())
+{}
 
 int A::f() {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
@@ -46,16 +45,15 @@ B::B(B&& rhs)
 }
 
 B::~B() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_0(
     h
   );
 }
 
 B::B()
-  : B(__zz_cib_MyHelper::__zz_cib_New_1(
-    ))
-  {}
+  : B(__zz_cib_MyHelper::__zz_cib_New_1())
+{}
 
 int B::g() {
   return __zz_cib_::__zz_cib_FromAbiType<int>(

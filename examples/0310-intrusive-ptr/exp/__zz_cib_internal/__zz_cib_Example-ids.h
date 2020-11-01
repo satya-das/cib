@@ -41,7 +41,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= ~A();
@@ -61,7 +61,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= I();
     __zz_cib_New_0 = 0,
     //#= ~I();
@@ -85,7 +85,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= int f() const;
     f_0 = 0,
     //#= void internal_dispose() const;
@@ -97,7 +97,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= SkRefCntBase();
     __zz_cib_New_0 = 0,
     //#= ~SkRefCntBase();

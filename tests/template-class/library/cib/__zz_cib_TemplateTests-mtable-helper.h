@@ -16,8 +16,13 @@ public:
     : mtbl(_mtbl)
   {
   }
-  //! @note Will throw std::bad_function_call() if MethodTable doesn't contain
-  //! method or the fetched method is null.
+  //! Invokes function by fetching it from MethodTable using index value of method.
+  //! @tparam _MethodType Prototype of function that is present at given index.
+  //! @tparam methodId Id of the method to invoke, it is actualy the index at which the function is present in the
+  //! MethodTable.
+  //! @tparam _TArgs All parameters that have to be passed to the function getting invoked.
+  //! @note Throws std::bad_function_call() if MethodTable doesn't contain
+  //! method at specified index or the fetched method is null.
   template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
   auto Invoke(_TArgs... args) const
   {

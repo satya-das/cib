@@ -15,17 +15,16 @@ Interface::Interface(Interface&& rhs)
 }
 
 Interface::~Interface() {
-__zz_cib_MyHelper::__zz_cib_ReleaseProxy(this);
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  __zz_cib_MyHelper::__zz_cib_ReleaseProxy(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
 }
 
 Interface::Interface()
-  : Interface(__zz_cib_MyHelper::__zz_cib_New_0(
-    this))
-  {}
+  : Interface(__zz_cib_MyHelper::__zz_cib_New_0(this))
+{}
 
 
 A::A(__zz_cib_AbiType h)
@@ -41,19 +40,18 @@ A::A(A&& rhs)
 A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
+  : A(__zz_cib_MyHelper::__zz_cib_New_2())
+{}
 
 int A::UseInterface(::Interface* pInterface) const {
   return __zz_cib_::__zz_cib_FromAbiType<int>(

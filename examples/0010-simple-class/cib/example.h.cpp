@@ -17,8 +17,8 @@ struct __zz_cib_Delegator<::A> {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0() {
     return new ::A();
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::A&> __zz_cib_param0) {
-    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const ::A&>(__zz_cib_param0));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::A&> a) {
+    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const ::A&>(a));
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::A* __zz_cib_obj) {
         delete __zz_cib_obj;

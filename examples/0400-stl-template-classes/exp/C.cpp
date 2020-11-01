@@ -19,15 +19,15 @@ C::C(C&& rhs)
 C::C(const ::C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 C::C(int x)
   : C(__zz_cib_MyHelper::__zz_cib_New_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
-  {}
+{}
 
 C::~C() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
@@ -44,7 +44,7 @@ int C::f() const {
 namespace __zz_cib_ {
 template<>
 class __zz_cib_Generic<::C> : public ::C {
-  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_Methodid;
+  using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class283::__zz_cib_MethodId;
   static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTableHelper() {
     static __zz_cib_MethodTableHelper mtableHelper(__zz_cib_ExampleGetMethodTable(
       __zz_cib_ids::__zz_cib_Class283::__zz_cib_classId));
@@ -59,7 +59,7 @@ public:
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (const __zz_cib_AbiType);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::f_3>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::f_3>(
         __zz_cib_h
       )
     );
@@ -68,7 +68,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_Helper<::C>::__zz_cib_ReleaseHandle(this);
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_AbiType);
-    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_2>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_2>(
       __zz_cib_h
     );
   }

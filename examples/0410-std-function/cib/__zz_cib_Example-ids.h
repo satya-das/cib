@@ -26,7 +26,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= ~A();
@@ -44,7 +44,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= C(const ::C&);
     __zz_cib_Copy_0 = 0,
     //#= C(int);

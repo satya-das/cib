@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace TemplateTests {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= TemplateClassWithOneParam(const ::TemplateClassWithOneParam<int>&);
     __zz_cib_Copy_0 = 0,
     //#= ~TemplateClassWithOneParam();
@@ -50,7 +50,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= TemplateClassWithTwoParams(const ::TemplateClassWithTwoParams<int, float>&);
     __zz_cib_Copy_0 = 0,
     //#= ~TemplateClassWithTwoParams();
@@ -66,7 +66,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= TemplateClassWithTwoParamsAndDefaultParameter(const ::TemplateClassWithTwoParamsAndDefaultParameter<int, int>&);
     __zz_cib_Copy_0 = 0,
     //#= ~TemplateClassWithTwoParamsAndDefaultParameter();
@@ -82,7 +82,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= TemplateTest(const ::TemplateTest&);
     __zz_cib_Copy_0 = 0,
     //#= ~TemplateTest();

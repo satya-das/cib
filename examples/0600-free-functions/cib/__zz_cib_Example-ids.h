@@ -26,7 +26,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_ExampleGlobal {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= int GlobalFunction1();
     GlobalFunction1_0 = 0,
     //#= int GlobalFunction2();
@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_ExampleGlobal 
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= int Function1();
     Function1_0 = 0,
     //#= int Function2();

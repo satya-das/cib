@@ -21,7 +21,7 @@ namespace __zz_cib_ { namespace Demo {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A();
     __zz_cib_New_0 = 0,
     //#= A(const ::A&);

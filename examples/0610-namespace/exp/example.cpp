@@ -17,19 +17,18 @@ Example::Outer::Inner::A::A(A&& rhs)
 Example::Outer::Inner::A::A(const ::Example::Outer::Inner::A& __zz_cib_param0)
   : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 Example::Outer::Inner::A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
 }
 
 Example::Outer::Inner::A::A()
-  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
+  : Example::Outer::Inner::A(__zz_cib_MyHelper::__zz_cib_New_2())
+{}
 
 ::Example::Int Example::Outer::Inner::A::i() const {
   return __zz_cib_::__zz_cib_FromAbiType<::Example::Int>(

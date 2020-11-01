@@ -18,15 +18,14 @@ ExampleClass::ExampleClass(ExampleClass&& rhs)
 ExampleClass::ExampleClass(const ::ExampleClass& __zz_cib_param0)
   : ExampleClass(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 ExampleClass::ExampleClass()
-  : ExampleClass(__zz_cib_MyHelper::__zz_cib_New_1(
-    ))
-  {}
+  : ExampleClass(__zz_cib_MyHelper::__zz_cib_New_1())
+{}
 
 ExampleClass::~ExampleClass() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );

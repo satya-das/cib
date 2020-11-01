@@ -9,11 +9,13 @@
 namespace __zz_cib_ {
 template <typename T>
 struct __zz_cib_Helper<::SkRefCntBase, T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<T, ::SkRefCntBase>);
-  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  static_assert(std::is_same_v<T, ::SkRefCntBase>,
+    "Parameter 'T' is only to delay instantiation of the specialization. It is always the same as first parameter.");
+
   using _ProxyClass = T;
+  using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;
   friend class ::SkRefCntBase;
-  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_Methodid;
+  using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class258::__zz_cib_MethodId;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -29,13 +31,13 @@ struct __zz_cib_Helper<::SkRefCntBase, T> : public __zz_cib_MethodTableHelper {
 
   static __zz_cib_AbiType __zz_cib_New_0() {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_New_0>(
       );
   }
   static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
         __zz_cib_obj
         );
     }
@@ -43,21 +45,21 @@ struct __zz_cib_Helper<::SkRefCntBase, T> : public __zz_cib_MethodTableHelper {
   template <typename _RT>
   static auto ref_2(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::ref_2>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::ref_2>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
   static auto unref_3(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::unref_3>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::unref_3>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
   static auto internal_dispose_4(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::internal_dispose_4>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::internal_dispose_4>(
       __zz_cib_obj
       );
   }

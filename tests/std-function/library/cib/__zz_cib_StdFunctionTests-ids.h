@@ -36,7 +36,7 @@ namespace __zz_cib_ { namespace StdFunctionTests {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= A(int);
@@ -50,7 +50,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= B(const ::B&);
     __zz_cib_Copy_0 = 0,
     //#= ~B();
@@ -64,7 +64,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= C(const ::C&);
     __zz_cib_Copy_0 = 0,
     //#= ~C();
@@ -78,7 +78,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= T(const ::T&);
     __zz_cib_Copy_0 = 0,
     //#= ~T();

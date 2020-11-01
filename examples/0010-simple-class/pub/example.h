@@ -1,14 +1,13 @@
 #pragma once
 
 
-
 //! A vividly trivial class
 //! Contains just a simple method.
 class A final
 {
 public:
   A();
-  A(const A&);
+  A(const A& a);
   A(A&&) = delete;
   ~A();
   //! Doesn't do anything meaningful

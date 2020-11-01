@@ -31,7 +31,7 @@ namespace __zz_cib_ { namespace templates {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A();
     __zz_cib_New_0 = 0,
     //#= A(const ::A&);
@@ -51,7 +51,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= Value(const ::Value<float>&);
     __zz_cib_Copy_0 = 0,
     //#= ~Value();
@@ -65,7 +65,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class257 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= Value(const ::Value<int>&);
     __zz_cib_Copy_0 = 0,
     //#= ~Value();

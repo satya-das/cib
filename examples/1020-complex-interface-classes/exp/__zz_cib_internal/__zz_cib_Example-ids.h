@@ -51,7 +51,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= ~A();
@@ -65,7 +65,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= Interface1();
     __zz_cib_New_0 = 0,
     //#= ::Interface2* p();
@@ -81,7 +81,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= ::Interface3& r();
     r_0 = 0,
     //#= ::Interface2* p();
@@ -93,7 +93,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= Interface2();
     __zz_cib_New_0 = 0,
     //#= int f();
@@ -109,7 +109,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { namespace __zz_cib_Generic {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= int f();
     f_0 = 0,
     //#= ~Interface2();
@@ -119,7 +119,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 { nam
 }}}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= Interface3();
     __zz_cib_New_0 = 0,
     //#= int g();
@@ -135,7 +135,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 { namespace __zz_cib_Generic {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= int g();
     g_0 = 0,
     //#= ~Interface3();

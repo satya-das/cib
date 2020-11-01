@@ -9,7 +9,7 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ExampleGlobal {
 struct __zz_cib_Helper : public __zz_cib_MethodTableHelper {
-using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_Methodid;
+using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_MethodId;
 
 __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
@@ -26,13 +26,13 @@ static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTable() {
   template <typename _RT>
   static auto GlobalFunction2_1() {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GlobalFunction2_1>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GlobalFunction2_1>(
       );
   }
   template <typename _RT>
   static auto GlobalFunction1_0() {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GlobalFunction1_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GlobalFunction1_0>(
       );
   }
 };

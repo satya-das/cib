@@ -8,7 +8,7 @@ class A
 {
 public:
   A();
-  A(const A&);
+  A(const A& a);
   A(A&&) = delete;
   ~A();
   //! Doesn't do anything meaningful

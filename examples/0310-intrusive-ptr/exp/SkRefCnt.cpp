@@ -6,12 +6,11 @@ SkRefCntBase::SkRefCntBase(__zz_cib_AbiType h)
 {}
 
 SkRefCntBase::SkRefCntBase()
-  : SkRefCntBase(__zz_cib_MyHelper::__zz_cib_New_0(
-    ))
-  {}
+  : SkRefCntBase(__zz_cib_MyHelper::__zz_cib_New_0())
+{}
 
 SkRefCntBase::~SkRefCntBase() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );

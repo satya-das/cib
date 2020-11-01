@@ -16,17 +16,16 @@ NonPod1::NonPod1(NonPod1&& rhs)
 }
 
 NonPod1::NonPod1()
-  : NonPod1(__zz_cib_MyHelper::__zz_cib_New_0(
-    ))
-  {}
+  : NonPod1(__zz_cib_MyHelper::__zz_cib_New_0())
+{}
 
 NonPod1::NonPod1(const ::NonPod1& __zz_cib_param0)
   : NonPod1(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 NonPod1::~NonPod1() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
@@ -47,17 +46,16 @@ NonPod2::NonPod2(NonPod2&& rhs)
 }
 
 NonPod2::NonPod2()
-  : NonPod2(__zz_cib_MyHelper::__zz_cib_New_0(
-    ))
-  {}
+  : NonPod2(__zz_cib_MyHelper::__zz_cib_New_0())
+{}
 
 NonPod2::NonPod2(const ::NonPod2& __zz_cib_param0)
   : NonPod2(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 NonPod2::~NonPod2() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
@@ -78,17 +76,16 @@ NonPod3::NonPod3(NonPod3&& rhs)
 }
 
 NonPod3::NonPod3()
-  : NonPod3(__zz_cib_MyHelper::__zz_cib_New_0(
-    ))
-  {}
+  : NonPod3(__zz_cib_MyHelper::__zz_cib_New_0())
+{}
 
 NonPod3::NonPod3(const ::NonPod3& __zz_cib_param0)
   : NonPod3(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 NonPod3::~NonPod3() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
@@ -108,19 +105,18 @@ A::A(A&& rhs)
 A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
 }
 
 A::A()
-  : A(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
+  : A(__zz_cib_MyHelper::__zz_cib_New_2())
+{}
 
 void A::setPod(::Pod& p) {
     __zz_cib_MyHelper::setPod_3<__zz_cib_::__zz_cib_AbiType_t<void>>(

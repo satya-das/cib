@@ -68,7 +68,7 @@ bool CibIdMgr::loadIds(const std::string& idsFilePath)
       if (!enumObj->itemList_)
         return false;
       static const std::string kClassIdName       = "__zz_cib_classId";
-      static const std::string kMethodIdName      = "__zz_cib_Methodid";
+      static const std::string kMethodIdName      = "__zz_cib_MethodId";
       static const std::string kNextClsIdName     = "__zz_cib_nextClassId";
       static const std::string kInternalClsIdName = "__zz_cib_internalClassId";
       auto                     extractClassName   = [](const CppCompound* classObj) -> std::string {
@@ -386,7 +386,7 @@ bool CibIdMgr::saveIds(const std::string& idsFilePath, const CibParams& cibParam
     const auto& cibIdData   = cls.second;
     const auto& classNsName = cibIdData.getFullNsName();
     stm << "namespace __zz_cib_ { namespace __zz_cib_ids { " << expandNs(classNsName.begin(), classNsName.end()) << '\n'
-        << ++indentation << "enum __zz_cib_Methodid {\n";
+        << ++indentation << "enum __zz_cib_MethodId {\n";
     ++indentation;
     auto nextMethodId = cibIdData.forEachMethod([&](const CibMethodIdTableEntry& methodIdEntry) {
       stm << indentation << "//#= " << methodIdEntry.sig << '\n';

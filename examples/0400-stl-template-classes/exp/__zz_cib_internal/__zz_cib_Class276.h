@@ -7,13 +7,15 @@ namespace __zz_cib_ {
 using namespace ::__zz_cib_stl_helpers;
 template <typename T>
 struct __zz_cib_Helper<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >, T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<T, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >>);
-  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  static_assert(std::is_same_v<T, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >>,
+    "Parameter 'T' is only to delay instantiation of the specialization. It is always the same as first parameter.");
+
   using _ProxyClass = T;
+  using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;
   friend class ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >;
   static bool instanceDeleted_;
   Example::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
-  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class276::__zz_cib_Methodid;
+  using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class256::__zz_cib_Class276::__zz_cib_MethodId;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -33,75 +35,75 @@ struct __zz_cib_Helper<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::
   template <typename ..._Args>
   static __zz_cib_AbiType __zz_cib_Copy_0(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Copy_0>(
       __zz_cib_args...);
   }
   static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
         __zz_cib_obj
         );
     }
   }
   static __zz_cib_AbiType __zz_cib_New_2() {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) ();
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_2>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_New_2>(
       );
   }
   template <typename _RT>
   static auto __zz_cib_OperatorMul_3(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorMul_3>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorMul_3>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
   static auto __zz_cib_OperatorArrow_4(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorArrow_4>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorArrow_4>(
       __zz_cib_obj
       );
   }
   template <typename _RT>
   static auto __zz_cib_OperatorInc_5(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorInc_5>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorInc_5>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
   static auto __zz_cib_OperatorInc_6(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorInc_6>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorInc_6>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
   static auto __zz_cib_OperatorDec_7(__zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorDec_7>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorDec_7>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
   static auto __zz_cib_OperatorDec_8(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorDec_8>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorDec_8>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto __zz_cib_OperatorCmpEq_9(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorCmpEq_9>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorCmpEq_9>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto __zz_cib_OperatorNotEq_10(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_OperatorNotEq_10>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_OperatorNotEq_10>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
@@ -155,9 +157,9 @@ public:
   bidirectional_reverse_iterator(const bidirectional_reverse_iterator<::C* const >& __zz_cib_param0)
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >(__zz_cib_MyHelper::__zz_cib_Copy_0(
             __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-    {}
+  {}
   ~bidirectional_reverse_iterator() {
-  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+    auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
     __zz_cib_MyHelper::__zz_cib_Delete_1(
       h
     );
@@ -167,9 +169,8 @@ public:
   using reference = typename std::conditional_t<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, value_type&>;
   template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::C* const >, bidirectional_reverse_iterator<::C* const >>>
   bidirectional_reverse_iterator()
-    : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >(__zz_cib_MyHelper::__zz_cib_New_2(
-      ))
-    {}
+    : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >(__zz_cib_MyHelper::__zz_cib_New_2())
+  {}
   template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::C* const >, bidirectional_reverse_iterator<::C* const >>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >::reference operator*() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >::reference>(

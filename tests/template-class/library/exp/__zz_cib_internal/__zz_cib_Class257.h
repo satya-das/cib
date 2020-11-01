@@ -6,13 +6,15 @@
 namespace __zz_cib_ {
 template <typename T>
 struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<T, ::TemplateClassWithOneParam<int>>);
-  using __zz_cib_AbiType = typename T::__zz_cib_AbiType;
+  static_assert(std::is_same_v<T, ::TemplateClassWithOneParam<int>>,
+    "Parameter 'T' is only to delay instantiation of the specialization. It is always the same as first parameter.");
+
   using _ProxyClass = T;
+  using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;
   friend class ::TemplateClassWithOneParam<int>;
   static bool instanceDeleted_;
   TemplateTests::__zz_cib_HandleProxyMap<_ProxyClass> proxyMgr;
-  using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_Methodid;
+  using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class257::__zz_cib_MethodId;
 
   __zz_cib_Helper()
     : __zz_cib_MethodTableHelper(
@@ -32,13 +34,13 @@ struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, T> : public __zz_cib_Me
   template <typename ..._Args>
   static __zz_cib_AbiType __zz_cib_Copy_0(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Copy_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Copy_0>(
       __zz_cib_args...);
   }
   static auto __zz_cib_Delete_1(__zz_cib_AbiType __zz_cib_obj) {
     if (__zz_cib_obj) {
       using __zz_cib_ProcType = void (__zz_cib_decl *) (__zz_cib_AbiType);
-      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_Delete_1>(
+      return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
         __zz_cib_obj
         );
     }
@@ -46,13 +48,13 @@ struct __zz_cib_Helper<::TemplateClassWithOneParam<int>, T> : public __zz_cib_Me
   template <typename ..._Args>
   static __zz_cib_AbiType __zz_cib_New_2(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = __zz_cib_AbiType (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::__zz_cib_New_2>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_New_2>(
       __zz_cib_args...);
   }
   template <typename _RT>
   static auto get_3(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::get_3>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::get_3>(
       __zz_cib_obj
       );
   }
@@ -106,9 +108,9 @@ public:
   TemplateClassWithOneParam(const ::TemplateClassWithOneParam<int>& __zz_cib_param0)
     : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_Copy_0(
             __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-    {}
+  {}
   ~TemplateClassWithOneParam() {
-  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+    auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
     __zz_cib_MyHelper::__zz_cib_Delete_1(
       h
     );
@@ -117,7 +119,7 @@ public:
   TemplateClassWithOneParam(int _a1)
     : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a1)>(std::move(_a1))))
-    {}
+  {}
   template <typename __zz_cib_Dummy = std::pair<TemplateClassWithOneParam<int>, TemplateClassWithOneParam<int>>>
   int get() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(

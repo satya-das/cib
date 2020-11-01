@@ -8,7 +8,7 @@
 
 namespace __zz_cib_ { namespace __zz_cib_ExampleGlobal {
 struct __zz_cib_Helper : public __zz_cib_MethodTableHelper {
-using __zz_cib_Methodid = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_Methodid;
+using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_ExampleGlobal::__zz_cib_MethodId;
 
 __zz_cib_Helper()
   : __zz_cib_MethodTableHelper(
@@ -25,25 +25,25 @@ static __zz_cib_MethodTableHelper& __zz_cib_GetMethodTable() {
   template <typename _RT, typename ..._Args>
   static auto GetNewA_0(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewA_0>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GetNewA_0>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewB_1(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewB_1>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GetNewB_1>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewA_2(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewA_2>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GetNewA_2>(
       __zz_cib_args...);
   }
   template <typename _RT, typename ..._Args>
   static auto GetNewB_3(_Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (_Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_Methodid::GetNewB_3>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GetNewB_3>(
       __zz_cib_args...);
   }
 };

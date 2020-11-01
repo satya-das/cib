@@ -14,19 +14,18 @@ TemplateTest::TemplateTest(TemplateTest&& rhs)
 TemplateTest::TemplateTest(const ::TemplateTest& __zz_cib_param0)
   : TemplateTest(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 TemplateTest::~TemplateTest() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
 }
 
 TemplateTest::TemplateTest()
-  : TemplateTest(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
+  : TemplateTest(__zz_cib_MyHelper::__zz_cib_New_2())
+{}
 
 ::TemplateClassWithOneParam<int> TemplateTest::getTemplateClassWithOneParam() const {
   return __zz_cib_::__zz_cib_FromAbiType<::TemplateClassWithOneParam<int>>(

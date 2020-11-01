@@ -46,7 +46,7 @@ namespace __zz_cib_ { namespace Example {
 }}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= A(const ::A&);
     __zz_cib_Copy_0 = 0,
     //#= ~A();
@@ -68,7 +68,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class263 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= NonPod1();
     __zz_cib_New_0 = 0,
     //#= NonPod1(const ::NonPod1&);
@@ -80,7 +80,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class260 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= NonPod2();
     __zz_cib_New_0 = 0,
     //#= NonPod2(const ::NonPod2&);
@@ -92,7 +92,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 {
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class262 {
-  enum __zz_cib_Methodid {
+  enum __zz_cib_MethodId {
     //#= NonPod3();
     __zz_cib_New_0 = 0,
     //#= NonPod3(const ::NonPod3&);

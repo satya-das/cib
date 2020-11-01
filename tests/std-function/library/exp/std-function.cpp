@@ -14,15 +14,15 @@ A::A(A&& rhs)
 A::A(const ::A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 A::A(int x)
   : A(__zz_cib_MyHelper::__zz_cib_New_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
-  {}
+{}
 
 A::~A() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_2(
     h
   );
@@ -50,10 +50,10 @@ B::B(B&& rhs)
 B::B(const ::B& __zz_cib_param0)
   : B(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 B::~B() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
@@ -62,7 +62,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
 B::B(int x)
   : B(__zz_cib_MyHelper::__zz_cib_New_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
-  {}
+{}
 
 int B::f() const {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
@@ -86,10 +86,10 @@ C::C(C&& rhs)
 C::C(const ::C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 C::~C() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
@@ -98,7 +98,7 @@ auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
 C::C(int x)
   : C(__zz_cib_MyHelper::__zz_cib_New_2(
         __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))))
-  {}
+{}
 
 int C::f() const {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
@@ -122,19 +122,18 @@ T::T(T&& rhs)
 T::T(const ::T& __zz_cib_param0)
   : T(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
-  {}
+{}
 
 T::~T() {
-auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
+  auto h = __zz_cib_MyHelper::__zz_cib_ReleaseHandle(this);
   __zz_cib_MyHelper::__zz_cib_Delete_1(
     h
   );
 }
 
 T::T()
-  : T(__zz_cib_MyHelper::__zz_cib_New_2(
-    ))
-  {}
+  : T(__zz_cib_MyHelper::__zz_cib_New_2())
+{}
 
 int T::passStdFunctionByValue(::TestCallback callback) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
