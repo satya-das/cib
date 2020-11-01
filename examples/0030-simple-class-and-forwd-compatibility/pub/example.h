@@ -11,12 +11,12 @@ public:
   ~A();
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc() { return x; }
+  int SomeFunc(int x) { return m + x; }
 
   //! Adde method in new version
   int AnotherFunction() { return 109; }
   
 private:
   char c {0x1f};
-  int  x {2};
+  int  m {2};
 };

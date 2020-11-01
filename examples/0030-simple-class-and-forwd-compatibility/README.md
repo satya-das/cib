@@ -9,10 +9,10 @@ Consider the library of this example as next version of library of very first ex
 ```diff
 --- 0010-simple-class/pub/example.h
 +++ 0020-simple-class-and-bkwd-compatibility/pub/example.h
-@@ -1,20 +1,20 @@
+@@ -1,20 +1,21 @@
  #pragma once
  
--
+ 
  //! A vividly trivial class
  //! Contains just a simple method.
 -class A final
@@ -25,11 +25,11 @@ Consider the library of this example as next version of library of very first ex
    ~A();
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
-   int SomeFunc() { return x; }
+   int SomeFunc(int x) { return m + x; }
  
  private:
 +  double f {0.0};
-   int x {1};
+   int m {1};
  };
  
 
@@ -45,7 +45,7 @@ There is a change in data members and that change is bound to cause ABI stabilit
 TEST_CASE("Method call")
 {
   A a;
-  CHECK(a.SomeFunc() == 1);
+  CHECK(a.SomeFunc(20) == 21);
 }
 
 ```
@@ -79,8 +79,13 @@ public:
     : mtbl(_mtbl)
   {
   }
-  //! @note Will throw std::bad_function_call() if MethodTable doesn't contain
-  //! method or the fetched method is null.
+  //! Invokes function by fetching it from MethodTable using index value of method.
+  //! @tparam _MethodType Prototype of function that is present at given index.
+  //! @tparam methodId Id of the method to invoke, it is actualy the index at which the function is present in the
+  //! MethodTable.
+  //! @tparam _TArgs All parameters that have to be passed to the function getting invoked.
+  //! @note Throws std::bad_function_call() if MethodTable doesn't contain
+  //! method at specified index or the fetched method is null.
   template <typename _MethodType, std::uint32_t methodId, typename... _TArgs>
   auto Invoke(_TArgs... args) const
   {

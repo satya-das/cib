@@ -7,7 +7,7 @@
 TEST_CASE("Method call")
 {
   A a;
-  if(a.SomeFunc() == 2)
+  if(a.SomeFunc(30) == 32)
   {
     // When run with new library
     CHECK(a.AnotherFunction() == 109);

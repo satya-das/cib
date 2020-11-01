@@ -12,9 +12,9 @@ public:
   ~A();
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc() { return x; }
+  int SomeFunc(int x) { return m + x; }
 
 private:
-  int x {1};
+  int m {1};
 };
 

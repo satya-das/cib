@@ -21,10 +21,11 @@ A::~A() {
   );
 }
 
-int A::SomeFunc() {
+int A::SomeFunc(int x) {
   return __zz_cib_::__zz_cib_FromAbiType<int>(
     __zz_cib_MyHelper::SomeFunc_3<__zz_cib_::__zz_cib_AbiType_t<int>>(
-      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
+      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
+      __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(std::move(x))
     )
   );
 }

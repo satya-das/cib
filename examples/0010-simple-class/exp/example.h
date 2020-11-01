@@ -13,7 +13,7 @@ public:
   ~A();
   //! Doesn't do anything meaningful
   //! @note It is just for explaining how cib works.
-  int SomeFunc();
+  int SomeFunc(int x);
 
 private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);

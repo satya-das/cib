@@ -48,12 +48,12 @@ struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
         );
     }
   }
-  template <typename _RT>
-  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj) {
-    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
+  template <typename _RT, typename ..._Args>
+  static auto SomeFunc_3(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
     return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SomeFunc_3>(
-      __zz_cib_obj
-      );
+      __zz_cib_obj,
+      __zz_cib_args...);
   }
   template <typename _RT>
   static auto AnotherFunction_4(__zz_cib_AbiType __zz_cib_obj) {

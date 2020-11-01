@@ -1,0 +1,13 @@
+--- 0010-simple-class/src/example-client.cpp
++++ 0020-simple-class-and-bkwd-compatibility/src/example-client.cpp
+@@ -1,9 +1,9 @@
+ #include "example.h"
+ 
+ #include <catch/catch.hpp>
+ 
+ TEST_CASE("Method call")
+ {
+   A a;
+-  CHECK(a.SomeFunc(10) == 11);
++  CHECK(a.SomeFunc(20) == 21);
+ }

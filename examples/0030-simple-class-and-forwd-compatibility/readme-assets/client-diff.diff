@@ -10,8 +10,8 @@
  TEST_CASE("Method call")
  {
    A a;
--  CHECK(a.SomeFunc() == 1);
-+  if(a.SomeFunc() == 2)
+-  CHECK(a.SomeFunc(10) == 11);
++  if(a.SomeFunc(30) == 32)
 +  {
 +    // When run with new library
 +    CHECK(a.AnotherFunction() == 109);

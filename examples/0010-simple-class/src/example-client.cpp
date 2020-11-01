@@ -5,5 +5,5 @@
 TEST_CASE("Method call")
 {
   A a;
-  CHECK(a.SomeFunc() == 1);
+  CHECK(a.SomeFunc(10) == 11);
 }

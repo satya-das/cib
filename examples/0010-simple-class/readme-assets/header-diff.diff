@@ -16,11 +16,11 @@
    ~A();
    //! Doesn't do anything meaningful
    //! @note It is just for explaining how cib works.
--  int SomeFunc() { return x; }
+-  int SomeFunc(int x) { return m + x; }
 +  int SomeFunc();
  
  private:
--  int x {1};
+-  int m {1};
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
  };
  

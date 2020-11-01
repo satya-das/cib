@@ -28,7 +28,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
     __zz_cib_Copy_1 = 1,
     //#= ~A();
     __zz_cib_Delete_2 = 2,
-    //#= int SomeFunc();
+    //#= int SomeFunc(int);
     SomeFunc_3 = 3,
     __zz_cib_nextMethodId = 4
   };
