@@ -10,117 +10,7 @@ All examples mentioned below are real programs, however tiny, they are working p
     - generates cibified headers that becomes part of the SDK.
 - Client is an executable that tests correct behavior of library.
 
-## Example - A Simple Class
-This example explains the basic building blocks of CIB architecture. This example doesn't demonstrate ABI stability yet, which is done in other examples, but it is just to explain the fundamentals of CIB architecture and CIB tool.
-
-For details please see [A Simple Class example](0010-simple-class)
-
-## Example - Simple Class and Backward Compatibility
-This example illustrates the fact that change in data member of a class doesn't affect ABI stability because CIB uses bridge pattern and that is known to isolate client and library from changes in object layout.
-
-For details please see [Simple Class and Backward Compatibility](015-simple-class-and-bkwd-compatibility)
-
-## Example - Simple Class and Forward Compatibility
-This example illustrates how library can be forward compatible with newer clients. This example also demonstrates how a client can work with older library even when it calls new functions that is not available in old library.
-
-For details please see [Simple Class and Forward Compatibility](0020-simple-class-and-bkwd-compatibility)
-
-## Example - Virtual Function
-This example explains how runtime polymorphic calls can be made across component boundary in an ABI stable way. This example is just to explain required building blocks. In the next example we will consider the ABI stability.
-
-For details please see [Virtual Function example](0050-virtual-function)
-
-## Example - Virtual Function and Backward Compatibility
-
-This is the example that demonstrates how CIB ensures ABI stability even when virtual table is disrupted. This example is built on the previous one and creates a new library with disrupted virtual table. Then it runs both, the new client and also the old client (i.e. the client of previous example) with the new library. Both clients should work as expected with the new library. That demostrates CIB ensures ABI stability when virtual table is disrupted.
-
-For details please see [Virtual Function and Backward Compatibility example](0060-virtual-function-and-bkwd-compatibility)
-
-## Example - Virtual Function and Forward Compatibility
-
-This example too demonstrates how CIB ensures ABI stability even when virtual table is disrupted. But in this one new client is run with old library. Also, forward compatibility of library means backward complatibility of client and so if newer client calls function that is available only in new library then new client will not work properly with old library unless it takes precautions.
-
-For details please see [Virtual Function and Forward Compatibility example](0070-virtual-function-and-forwd-compatibility)
-
-## Example - Interface Class
-
-In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
-
-For details please see [Interface Class example](0080-interface-class)
-
-## Example - Interface Classes and Backward Compatibility
-
-In this example we will see that how ABI stability is guaranteed when virtual table of interface class is disrupted.
-
-For details please see [Interface Class And Backward Compatibility example](0090-interface-class-and-bkwd-compatibility)
-
-## Example - C++ Template Classes
-In this example we consider what CIB architecture needs to do to support template classes and how concretized types of template class can cross component boundary in ABI compatible and stable way.
-
-For details please see [C++ Template Classes example](0120-template-classes)
-
-## Example - Facade Classes and RTTI
-
-Please see example `facade-classes-and-rtti` in `examples` folder.
-
-**TODO**: Add detail documentation.
-
-## Example - Non public virtual functions.
-
-Please see example `private-virtuals` in `examples` folder.
-
-**TODO**: Add detail documentation.
-
-# Possible Optimization
-
-## Layout Sharing Proxy Class
-In a program there can be classes for which an isolated proxy class may not make too much sense. For example consider the following example:
-
-```c++
-#pragma once
-
-class CPoint
-{
-public:
-  CPoint(double _x = 0, double _y = 0, double _z = 0);
-  ~CPoint() {}
-  
-  const CPoint& operator += (const CPoint& p) {
-    x += p.x;
-    y += p.y;
-    z += p.z;
-
-    return *this;
-  }
-
-public:
-  double x;
-  double y;
-  double z;
-};
-
-```
-
-There is almost no chance that object layout of this class will change in future. Isolated proxy class is needed to completely isolate layout of objects used by library and client. The reason is that a future change in library can alter the object layout and will enforce clients to recompile if layouts are not isolated. For a class like `CPoint` defined above such chance is meager if not completely ruled out. So, library developer can take a call to dictate to CIB to create layout sharing proxy class instead of isolated proxy class. That has some benefits:
-1. Memory is saved as layout is shared between client and library.
-2. It is possible to share raw object array across component boundary which is not possible for isolated proxy objects.
- 
-But library developer, when decide to use layout sharing proxy class for a particular class, must be careful as they would, had it been a struct in a C library.
-
-Please see example `layout-sharing-proxy-classes` for more detail.
-
-# Limitations of CIB Architecture
-CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
-
-| Limitation                                                         | Reason                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Workaround, if any                                                                 |
-| ------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------- |
-| Mandatory creation of proxy objects                                | The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too. | Use layout sharing proxy wherever applicable                                       |
-| Objects of library are always created on heap by the client        | This is not true for layout sharing proxy classes but when client creates an object of isolated proxy object the corresponding object on library side is always created on heap.                                                                                                                                                                                                                                                                        | Use layout sharing proxy wherever applicable                                       |
-| Increased binary size and memory usage                             | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                                                                                                                                                                                                                                                                                                      | Use layout sharing proxy wherever applicable                                       |
-| Impact on runtime performance                                      | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer.                                                                                                                                                                                                          | In practice these costs may not be significant.                                    |
-| No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                                                                                                                                                                                                                                                                                                          | Return a container object instead or use layout sharing proxy wherever applicable. |
-
-If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see [Possible Improvement](#possible-improvement).
+Please go through the examples to know the details of CIB architecture.
 
 # CIB Terminology
 ## Inline Class
@@ -145,8 +35,21 @@ Each isolated proxy class instance owns opaque pointer of the original class. Su
 ## Parsing Technique
 We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
-`
+```c++
 void ExampleFunction(wxInt32 i);
-`
+```
 
 cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
+
+# Limitations of CIB Architecture
+CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
+
+| Limitation                                                         | Reason                                                                                                                                                                                                                                                                                                                                                                                                                                                  | Workaround, if any                                                                 |
+| ------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------- |
+| Mandatory creation of proxy objects                                | The core philosophy of CIB is to not share internals with other components. For that reason each component have their own objects. The library objects used by client are used through proxies which are created at client side and act as if they are client side objects. So, for every library side object that client want to use, a corresponding proxy object is also created. It adds up to use of more memory and cost runtime performance too. | Use layout sharing proxy wherever applicable                                       |
+| Objects of library are always created on heap by the client        | This is not true for layout sharing proxy classes but when client creates an object of isolated proxy object the corresponding object on library side is always created on heap.                                                                                                                                                                                                                                                                        | Use layout sharing proxy wherever applicable                                       |
+| Increased binary size and memory usage                             | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                                                                                                                                                                                                                                                                                                      | Use layout sharing proxy wherever applicable                                       |
+| Impact on runtime performance                                      | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer.                                                                                                                                                                                                          | In practice these costs may not be significant.                                    |
+| No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                                                                                                                                                                                                                                                                                                          | Return a container object instead or use layout sharing proxy wherever applicable. |
+
+If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see [Possible Improvement](#possible-improvement).
