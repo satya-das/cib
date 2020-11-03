@@ -1,5 +1,4 @@
 ~/github/cib/builds/cib -m CibPoDoFo -b cib/.. -i src/ -o ../exp/                         \
---always-use-unique-namespace true                                                        \
 -A PODOFO_DEPRECATED                                                                      \
 -A PODOFO_API                                                                             \
 -A PODOFO_DOC_API                                                                         \

@@ -128,3 +128,10 @@ cd builds
 cmake -G Ninja ..
 ninja && ninja test
 ```
+
+# Case Study
+
+cib tool is used to cibify [PoDoFo](http://podofo.sourceforge.net/) library and the feasibility of CIB architecture and tool got tested.
+Also, the impact on binary size, runtime performance, and memroy usage measured and compared with original library that didn't use CIB architecture.
+
+See [PoDoFo case study](../case-studies/PoDoFo/podofo/cibification) for more details.
