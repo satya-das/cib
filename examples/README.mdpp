@@ -13,33 +13,36 @@ All examples mentioned below are real programs, however tiny, they are working p
 Please go through the examples to know the details of CIB architecture.
 
 # CIB Terminology
+
 ## Inline Class
 A class that has all methods inline. *For example a template class is surely an inline class*.
+
 ## Shared Class
-A C++ class whose instances cross component boundary: *When there exists at least one public function that returns or takes an object/pointer/reference of a C++ class then such class is called a shared class*.
+A C++ class whose reference cross component boundary: *When there exists a way for client to receive a pointer or reference of a C++ class from library then such class is called as a shared class*. The reason for this is that the client can get same reference multiple times and so the instances are shared.
+
 ## Facade Class
-A C++ class that acts as facade for other classes: *A class that has public virtual method and there exists public function/method that returns a pointer/reference of this class*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
+A C++ class that acts as facade for other classes: *A class that has at least one public virtual method and there exists a way for client to receive a pointer or reference of this class from library*. Since the returned object can actually be a type of any of derived class the return type acts as facade for all it's derived classes.
+
 ## Interface Class
 A C++ class that has public virtual method and there exists a way for library to call methods of an object of class defined by client.
-*A simplest example can be that when a C++ class that has public virtual method is used as pointer or reference parameter of a function*.
+
 ## Proxy Class
 For each public class of a library CIB produces another class with same name and behaviour. Such client usable classes are called proxy classes because they act as a proxy of original class to the client. There are 2 kinds of proxy classes:
   1. Isolated proxy class, that uses bridge patern (or pImpl pattern) across component boundary.
   2. Layout sharing proxy class. Both original and proxy class share same object layout.
 
-**Note**: When simply `proxy class` is used then it always means `isolated proxy class`.
-## Handle
-Each isolated proxy class instance owns opaque pointer of the original class. Such opaque pointer are called handle.
+When simply `proxy class` is used then it always means `isolated proxy class`.
 
 # Implementation Details
+
 ## Parsing Technique
-We use cppparser to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
+We use [cppparser](https://github.com/satya-das/cppparser) to parse C++ headers. Clang can be an option but since we do not need full and complete compiler level type resolution clang is not suitable for us. For example if a function is declared as:
 
 ```c++
 void ExampleFunction(wxInt32 i);
 ```
 
-cib doesn't need to resolve wxInt32. In-fact if it resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform and cib really should produce same definitions on all platforms. The idea of cib is that it should produce same headers for all platforms so that it can be used to publish SDK because different headers for different platforms don't sound like a good idea.
+cib doesn't need to resolve wxInt32. In-fact if cib resolves it completely then it will be a problem because wxInt32 can be an **int**, or a **long** depending upon platform or compiler and cib really should produce same definitions regardless of compiler or platform.
 
 # Limitations of CIB Architecture
 CIB Architecture is good for ensuring ABI compatibility and stability. But unfortunately these goodness are not free. CIB architecture has limitations too:
@@ -51,5 +54,3 @@ CIB Architecture is good for ensuring ABI compatibility and stability. But unfor
 | Increased binary size and memory usage                             | Because of proxy objects and their special implementation using **MethodTable** binary size and memory usage of both library and client increases.                                                                                                                                                                                                                                                                                                      | Use layout sharing proxy wherever applicable                                       |
 | Impact on runtime performance                                      | CIB layers costs runtime performance too because there is no inline function across component, multiple function calls involved for a single call across component, and cross component function calls happen always through function pointer.                                                                                                                                                                                                          | In practice these costs may not be significant.                                    |
 | No raw array of objects can cross component boundary in most cases | Except when the proxy class is layout sharing type it is not possible to share raw array of objects across component boundary.                                                                                                                                                                                                                                                                                                                          | Return a container object instead or use layout sharing proxy wherever applicable. |
-
-If the workaround mentioned above cannot be used then the only solution would be to explicitly delete those proxy objects using some special mechanism outside of regular program flow. Admittedly this will be dirty and so other solutions should be sought for, see [Possible Improvement](#possible-improvement).
