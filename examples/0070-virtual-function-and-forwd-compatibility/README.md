@@ -1,8 +1,8 @@
 ## Example - Virtual Function and Forward Compatibility
 
-**Please note that forward compatibility of library also means backward compatibility of client.**
+**Forward compatibility of library also means backward compatibility of client.**
 
-Like previous example the library of this too is next version of library of `virtual-function` example. In the new library there is one more virtual function added to an existing class:
+Like previous example the library of this too is next version of library of [`0050-virtual-function`](../0050-virtual-function) example. In the new library there is one more virtual function added to an existing class:
 
 ```diff
 --- 0050-virtual-function/pub/example.h
@@ -33,9 +33,9 @@ Like previous example the library of this too is next version of library of `vir
 
 ```
 
-In the previous example, i.e. in `virtual-function-and-bkwd-compatibility`, we saw that client remains compatible with newer library. But in this example we demonstrate that new client remains compatible with old library.
+In the previous example, i.e. in [`0060-virtual-function-and-bkwd-compatibility`](../0060-virtual-function-and-bkwd-compatibility), we saw that client remains compatible with newer library. But in this example we demonstrate that new client remains compatible with old library.
 
-Since, new library has an additional method and if new client calls this new method then it will not be compatible with old library. So, only thing that can be done is that the client should to not call new methods:
+Since, new library has an additional method and if new client calls this new method then it will, generally speaking, not be compatible with old library. But with CIB client has 2 options:
 
 ```diff
 --- 0050-virtual-function/src/example-client.cpp
@@ -78,7 +78,7 @@ Since, new library has an additional method and if new client calls this new met
 
 ```
 
-As we can see that when client invokes new method with old library then an exception is raised which client can catch and take necessary steps. Client can still take precaution before calling the new method. So, basically if new client wants to be backward compatible then it has to be the responsibility of the client developer to ensure compatibility.
+Either don't call new functions if client's backward compatibility is desired or be ready for `std::bad_function_call` exception and handle it properly.
 
 ### Running CIB
 To make CIB ensure ABI stability we need to run cib with additional parameter to supply ID file of previous version of library:
@@ -87,5 +87,5 @@ To make CIB ensure ABI stability we need to run cib with additional parameter to
 cib -i pub -o exp -b cib -m Example -c ../0050-virtual-function/cib/__zz_cib_Example-ids.h
 ```
 
-This makes cib understand that we want ABI stability with binaries of `virtual-function` example and CIB generates glue code accordingly.
+This makes cib understand that we want ABI stability with binaries of `0050-virtual-function` example and CIB generates glue code accordingly.
 

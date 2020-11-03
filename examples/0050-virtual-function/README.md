@@ -66,10 +66,10 @@ TEST_CASE("ABI stable virtual function call across component boundary")
 
 ```
 
-I will spare you from showing the CIB generated code, you can surely see the code yourself if you want. Only thing I want to add for this example is that the glue code generation is identical as previous example. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety).
+I am skipping to show generated code but glue code is very similar to what we have seen in previous examples. Glue code doesn't differentiate if the function is virtual (well, largely if we ignore some subtlety which we will see later).
 
 We see that runtime polymorphism works across component bounary. I hope you paid attention to the comment in above code: **// Compiler generated instruction will effectively call `pA->B::VirtFunc()`**.
-The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only MethodTable comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of ABI compatibility: don't share internals with other components.**
+The instruction generated for client-code takes the decision which virtual function needs to be called. Once the function of respective class is called then only MethodTable comes in play and makes the cross component call. In that ways the virtual table of one component isn't used by another component. Both components have virtual tables of their own. **This is the crux of the ABI compatibility: don't share internals with other components.**
 
 ### Things to note about MethodTable
 1. MethodTable is NOT replacement of virtual table.

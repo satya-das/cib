@@ -1,3 +1,3 @@
-## std::unique_ptr support
+# Life cycle management
 
-Documentation will be added later
+This example shows a solution to the problem that can happen only when CIB architectire is used.

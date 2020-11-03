@@ -33,7 +33,7 @@
 +      // new client
 +      return pInterface->Gunc();
 +    }
-+    catch (std::bad_function_call&)
++    catch (std::bad_function_call)
 +    {
 +      // old client
 +      return 0;

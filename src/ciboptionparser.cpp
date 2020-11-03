@@ -49,25 +49,36 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
     desc.add(boost::make_shared<po::option_description>(name, typedVal, doc));
   };
   desc.add_options()("help,h", "Produce this help message");
-  addOption("input-folder,i", inputPath, true, "Input folder from where the headers and source files will be parsed.");
-  addOption("output-folder,o", outputPath, true, "Output folder for emitting files for client.");
-  addOption("bind-folder,b", libGlueDir, true, "Folder where binding code will be emitted for library.");
-  addOption("module,m", moduleName, true, "Name of module/library.");
+  addOption("input-folder,i",
+            inputPath,
+            true,
+            "<REQUIRED> Input folder from where the headers and source files will be parsed.");
+  addOption("output-folder,o", outputPath, true, "<REQUIRED> Output folder for emitting files for client.");
+  addOption("bind-folder,b", libGlueDir, true, "<REQUIRED> Folder where binding code will be emitted for library.");
+  addOption("module,m", moduleName, true, "<REQUIRED> Name of module/library.");
   addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
-  addOption("macro,M", knownMacros, false, "List of comma separated known macro names.");
-  addOption("apidecor,A", knownApiDecor, false, "List of comma separated known api decoration names.");
+  addOption("macro,M",
+            knownMacros,
+            false,
+            "This can be used to make parser know about some macros so that parsing of C++ files can be done. This "
+            "option can be used multiple times.");
+  addOption("apidecor,A",
+            knownApiDecor,
+            false,
+            "Use this to make parser aware about API decorating macros, like DLLEXPORT which is defined as "
+            "__declspec(dllexport) on Windows. This option can be used multiple times.");
   addOption("ignorable-macros,I", ignorableMacros, false, "Ignorable macros.");
   addOption("no-exact-delegation,d",
             noExactDelegation,
             false,
             "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation");
-  addOption("always-use-unique-namespace,u",
-            alwaysUseNsName,
-            false,
-            "CIB generated glue code are placed in multi layer namespace. "
-            "Name of some namespaces are exactly same as class names unless "
-            "the class is an instantiation of a template class. "
-            "Use this option to always use unique names for namespaces rather than same as class names.");
+  // addOption("always-use-unique-namespace,u",
+  //           alwaysUseNsName,
+  //           false,
+  //           "CIB generated glue code are placed in multi layer namespace. "
+  //           "Name of some namespaces are exactly same as class names unless "
+  //           "the class is an instantiation of a template class. "
+  //           "Use this option to always use unique names for namespaces rather than same as class names.");
   addOption("no-rtti,t",
             noRtti,
             false,

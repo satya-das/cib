@@ -1,10 +1,10 @@
-## Simple Interface Class and Backward Compatibility
+## Interface Class and Backward Compatibility
 
-In example `Simple Interface Class` we have only tackled the cases that is very much expected from a C++ library/program. In this example we will see:
+In example [`0080-interface-class`](../0080-interface-class) we have only tackled the cases that is very much expected from a C++ library/program. In this example we will see:
  1. How CIB ensures ABI stability in the case when virtual table of it's interface class is disrupted, and
  2. What precaution library must take when invoking new method on interface to ascertain backward compatibility.
  
-This example is actually next version of previous example, i.e. `simple-interface-class`.
+This example is actually next version of previous example, i.e. [`0080-interface-class`](../0080-interface-class).
 
 Below I am showing the diff of new header with previous one.
 
@@ -44,7 +44,7 @@ Below I am showing the diff of new header with previous one.
 +      // new client
 +      return pInterface->Gunc();
 +    }
-+    catch (std::bad_function_call&)
++    catch (std::bad_function_call)
 +    {
 +      // old client
 +      return 0;
@@ -54,28 +54,43 @@ Below I am showing the diff of new header with previous one.
 
 ```
 
-As it can be seen that a new pure virtual method is added to an existing interface. But the new virtual method is added before the existing one and that is the key change. CIB architecture ensures that order of virtual method in class does not matter and ABI stability is ensured even when order of virtual table is changed. Also, use of new method is inside `try-catch` block because if library wants to be backward compatible then it must handle the case when old client is used which will not implementation of new method. Library should not call new method when run with old client, and if it does CIB has mechanism in place to throw `std::bad_function_call` exception. Notice that if CIB architecture is not used then such change will break the binary compatibility.
+As it can be seen that a new pure virtual method is added to an existing interface. But the new virtual method is added before the existing one and that is the key change. CIB architecture ensures that order of virtual method in class does not matter and ABI stability is ensured even when order of virtual table is changed. Also, use of new method is inside `try-catch` block because if library wants to be backward compatible then it must handle the case when old client is used which will not have implementation of new method. Library should not call new method when run with old client, and if it does CIB has mechanism in place to throw `std::bad_function_call` exception. Notice that if CIB architecture is not used then such change will break the binary compatibility.
 
 Below is the diff of client code from the previous example:
 
 ```diff
-7a8
->   int Gunc() override { return 193; };
-15c16
-<   CHECK(a.UseInterface(&i) == 167);
----
->   CHECK(a.UseInterface(&i) == 167 + 193);
-17a19,24
-> TEST_CASE("Interface callback: new method should be available to new clients")
-> {
->   A a;
->   Implement i;
->   CHECK(i.Gunc() == 193);
-> }
+--- 0080-interface-class/src/example-client.cpp
++++ 0090-interface-class-and-bkwd-compatibility/src/example-client.cpp
+@@ -1,17 +1,24 @@
+ #include "example.h"
+ 
+ #include <catch/catch.hpp>
+ 
+ class Implement : public Interface
+ {
+ public:
++  int Gunc() override { return 193; };
+   int Func() override { return 167; }
+ };
+ 
+ TEST_CASE("Interface callback: library should be able to call client implemented function")
+ {
+   A a;
+   Implement i;
+-  CHECK(a.UseInterface(&i) == 167);
++  CHECK(a.UseInterface(&i) == 167 + 193);
+ }
+ 
++TEST_CASE("Interface callback: new method should be available to new clients")
++{
++  A a;
++  Implement i;
++  CHECK(i.Gunc() == 193);
++}
 
 ```
 
-There is no surprise that this new client will work with new library. But the old client, the client of previous example `simple-interface-class`, should continue working with new library without any change or recompilation. The automated test `simple-interface-class-and-bkwd-compatibility` ensures the client of `simple-interface-class` works with library of this example.
+There is no surprise that this new client will work with new library. But the old client, the client of previous example [`0080-interface-class`](../0080-interface-class), should continue working with new library without any change or recompilation. The automated test `simple-interface-class-and-bkwd-compatibility` ensures the client of [`0080-interface-class`](../0080-interface-class) works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. As you know from many previous examples that CIB uses **MethodTable** to make cross component calls. Let's see the diff of MethodTable of new library:
 
@@ -138,7 +153,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 
 ```
 
-As it can be seen that the new method caused a new entry in MethodTable and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the MethodTable precisely how they expects it to be and that ensures ABI stability**.
+As it can be seen that the new method caused a new entry in MethodTable and that happened at the very end of the table, irrespective of the fact that new virtual function was added before the existing one. **So, the older client will continue seeing the MethodTable precisely how they expect it to be and that ensures ABI stability**.
 
 ### Running CIB
 To make CIB ensures ABI stability we needed to run cib with additional parameter and supply ID file of previous example:

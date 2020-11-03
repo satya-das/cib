@@ -1,4 +1,4 @@
-## Simple Interface Class
+## Interface Class
 
 In C++ there can be different definition of an interface class depending upon whom you ask. But, in context of CIB the interface class is defined as a class that has at least one virtual function and there is a way for library to call virtual function of a class implemented by it's client. Basically, if library can call a function implemented by client then the class to which that function belongs is an interface class.
 
@@ -53,7 +53,7 @@ TEST_CASE("Interface callback: library should be able to call client implemented
 
 ```
 
-So, basically client defines it's own class and pass that to library. Since library makes functions calls on client implemented class, client here knows what exactly `A::UseInterface()` should return and so it sets that expectation in the test.
+So, basically client defines it's own class and passees a pointer of that to library. Since library makes functions calls on client implemented class, client here knows what exactly `A::UseInterface()` should return and so it sets that expectation in the test.
 
 **TODO**: Add details.
 

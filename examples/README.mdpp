@@ -42,11 +42,11 @@ This example too demonstrates how CIB ensures ABI stability even when virtual ta
 
 For details please see [Virtual Function and Forward Compatibility example](0070-virtual-function-and-forwd-compatibility)
 
-## Example - Simple Interface Class
+## Example - Interface Class
 
 In this example we explore what pieces of architecture should be there to ensure calls made by library to client happens in ABI compatible and stable way.
 
-For details please see [Simple Interface Class example](0080-interface-class)
+For details please see [Interface Class example](0080-interface-class)
 
 ## Example - Interface Classes and Backward Compatibility
 

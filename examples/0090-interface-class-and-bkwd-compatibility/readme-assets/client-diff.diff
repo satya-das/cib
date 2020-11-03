@@ -1,13 +1,28 @@
-7a8
->   int Gunc() override { return 193; };
-15c16
-<   CHECK(a.UseInterface(&i) == 167);
----
->   CHECK(a.UseInterface(&i) == 167 + 193);
-17a19,24
-> TEST_CASE("Interface callback: new method should be available to new clients")
-> {
->   A a;
->   Implement i;
->   CHECK(i.Gunc() == 193);
-> }
+--- 0080-interface-class/src/example-client.cpp
++++ 0090-interface-class-and-bkwd-compatibility/src/example-client.cpp
+@@ -1,17 +1,24 @@
+ #include "example.h"
+ 
+ #include <catch/catch.hpp>
+ 
+ class Implement : public Interface
+ {
+ public:
++  int Gunc() override { return 193; };
+   int Func() override { return 167; }
+ };
+ 
+ TEST_CASE("Interface callback: library should be able to call client implemented function")
+ {
+   A a;
+   Implement i;
+-  CHECK(a.UseInterface(&i) == 167);
++  CHECK(a.UseInterface(&i) == 167 + 193);
+ }
+ 
++TEST_CASE("Interface callback: new method should be available to new clients")
++{
++  A a;
++  Implement i;
++  CHECK(i.Gunc() == 193);
++}

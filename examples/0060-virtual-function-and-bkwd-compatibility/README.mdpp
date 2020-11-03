@@ -13,7 +13,7 @@ Below is the diff of client code from the previous example:
 
 !INCLUDECODE "examples/0060-virtual-function-and-bkwd-compatibility/readme-assets/client-diff.diff" (diff)
 
-There is no surprises that this new client will work with new library. But the old client, the client of previous example `virtual-function`, should continue working with new library without any change or recompilation. The automated test `0060-virtual-function-and-bkwd-compatibility` ensures the client of `virtual-function` works with library of this example.
+There is no surprises that this new client will work with new library. But the old client, the client of previous example [`0050-virtual-function`](../0050-virtualfunction), should continue working with new library without any change or recompilation. The automated test `0060-virtual-function-and-bkwd-compatibility` ensures the client of `0050-virtual-function` works with library of this example.
 
 The reason of this **ABI stability** is that virtual tables are not shared across components. In previous example we learnt how runtime polymorphism works across component boundary using MethodTable. Let's see the diff of MethodTable of new library:
 
