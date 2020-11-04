@@ -50,13 +50,18 @@ For C++, problems start with name mangling, that's the first reason of misunders
 
 # CIB Architecture
 
-## Core architecture concept
-At the core CIB architecture is basically an hourglass design pattern. And it is a complete solution for supporting most feaures of C++.
+## Design principle
+  - Export only simple C like objects.
+  - Do it in separate layer so that developers don't have to directly work with it.
+  - Still allow use of all C++ features in the SDK.
+
 ![Integration architecture produced by CIB](img/cib_design.png "Integration architecture produced by CIB")
 
-The CIB layers of each components act like proxy to another component and so each component "feels" like it is interacting directly with another component. The language feature implementation detail is absorved within CIB layers and doesn't cross component boundary. So, each component can be compiled using different compilers and still they will work together.
+It's basically an hourglass pattern with slightly different implementation than described in [CppCon talk](https://www.youtube.com/watch?v=PVYdHDm0q6Y), with the aim of:
+  - supporting all (well almost all) C++ features
+  - support backward and forward compatibility
 
-## CIB Architecture Elements
+## Architecture Elements
 
  Following are the broad elements of CIB architecture:
 
@@ -66,19 +71,14 @@ The CIB layers of each components act like proxy to another component and so eac
 - Library side glue code defines C style free functions for all functions including class methods, constructors, and destructors.
 - Client side glue code also defines C style free functions but only for virtual methods of interface classes.
 - Implementation of such C style free functions are just to delegate the call to original function/method/constructor/destructor/etc.
-- These C style free functions are part of **MethodTable** which is crucial for ABI compatibility and stability.
+- These C style free functions are part of [**MethodTable**](xtra-docs/#why-methodtable) which is crucial for ABI compatibility and stability.
 - When a cross component function call is made, all parameters are converted to their C equivalent types before making a cross component call.
 - When a cross component call is received then, before delegating, all parameters are converted back to their C++ equivalents.
 - Returned objects from cross component function calls also go through the conversion between C and C++ types.
 
 [The rest of the details of CIB architecture can be understood with examples.](examples)
 
-### CIB's design principle
-  - Export only simple C like objects.
-  - Do it in separate layer so that developers don't have to directly work with it.
-  - Still allow use of all C++ features in the SDK.
-
-## CIB Architecture Detail
+## Architecture Detail
 Please see [Examples](examples) to know the details.
 
 ## Demo projects
