@@ -1,4 +1,4 @@
-project(client-is-called-client)
+project(client-is-called)
 
 cmake_minimum_required(VERSION 3.4)
 
@@ -18,36 +18,36 @@ set(LIBRARY_EXP_SOURCES
 
 set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../library/exp/A.cpp GENERATED)
 
-add_executable(client-is-called-client_cibified
+add_executable(client-is-called_cibified
 	${CLIENT_SOURCES}
 	${LIBRARY_EXP_SOURCES}
 )
-target_include_directories(client-is-called-client_cibified
+target_include_directories(client-is-called_cibified
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/../library/exp
 )
 
-target_link_libraries(client-is-called-client_cibified
+target_link_libraries(client-is-called_cibified
 	PRIVATE
 		client-is-called-library_cibified
 )
 
-add_executable(client-is-called-client
+add_executable(client-is-called
 	${CLIENT_SOURCES}
 )
-set_target_properties(client-is-called-client
+set_target_properties(client-is-called
 	PROPERTIES
 		COMPILE_DEFINITIONS LIBRARYAPI=${DLLIMPORT}
 )
-target_link_libraries(client-is-called-client
+target_link_libraries(client-is-called
 	PRIVATE
 		client-is-called-library
 )
-target_include_directories(client-is-called-client
+target_include_directories(client-is-called
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/../library/pub
 )
 if(MSVC)
-    set_target_properties(client-is-called-client PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
-    set_target_properties(client-is-called-client_cibified PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+    set_target_properties(client-is-called PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
+    set_target_properties(client-is-called_cibified PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
 endif()

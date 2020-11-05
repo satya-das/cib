@@ -36,9 +36,7 @@ foreach(CIBOUTFILE ${CIB_OUTPUT})
 endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
-	COMMAND echo Running cib...
-	COMMAND ${CIB} -i pub -o exp -b cib -m Demo -c ${CMAKE_CURRENT_SOURCE_DIR}/abi/__zz_cib_Demo-ids.h
-	COMMAND echo Generated files: ${CIB_OUTPUT}
+	COMMAND ${CIB} -i pub -o exp -b cib -m Demo -c ${CMAKE_CURRENT_SOURCE_DIR}/abi/__zz_cib_Demo-ids.h >/dev/null
 	DEPENDS cib ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )

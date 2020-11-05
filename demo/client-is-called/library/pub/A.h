@@ -2,8 +2,9 @@
 
 class LIBRARYAPI I {
 public:
-  virtual int F() = 0;
   virtual ~I() {}
+
+  virtual int F() = 0;
 };
 
 class LIBRARYAPI C {
