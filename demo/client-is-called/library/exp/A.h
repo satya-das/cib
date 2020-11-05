@@ -7,8 +7,8 @@ class I
 public:
   I(I&& rhs);
 public:
-  virtual int F() = 0;
   virtual ~I();
+  virtual int F() = 0;
 protected:
   I();
 
