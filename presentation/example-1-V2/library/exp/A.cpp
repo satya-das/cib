@@ -19,6 +19,10 @@ int A::F(int x) {
   return gMethodTableA.F2(pImpl, x);
 }
 
+int A::U() {
+  return gMethodTableA.U(pImpl);
+}
+
 int A::V() {
   return gMethodTableA.V(pImpl);
 }

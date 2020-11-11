@@ -36,7 +36,7 @@ int V(A* objA) {
 
 
 extern "C" {
-  MethodTableA LIBRARYAPI gMethodTableA = {
+  MethodTableA DLLEXPORT gMethodTableA = {
     &CreateA,
     &CopyA,
     &DeleteA,

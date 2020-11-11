@@ -17,7 +17,7 @@ add_custom_command(
 	COMMAND ${CMAKE_COMMAND} -E copy ${OLD_CLIENT_PATH} ${TEST_CLIENT_PATH}
 	COMMAND ${CMAKE_COMMAND} -E copy ${OLD_CLIENT_PATH} ${CMAKE_BINARY_DIR}/presentation/example-1-V2/example-1-dummy
 
-	DEPENDS example-1-library-V2
+	DEPENDS example-1-library-V2 example-1-client
 )
 add_custom_target(
 	example-1-client-V2 ALL

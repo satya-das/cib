@@ -10,5 +10,4 @@ extern "C" struct MethodTableA {
   int       (*F)      (ImplA*);
   int       (*F2)     (ImplA*, int);
   int       (*V)      (ImplA*);
-  int       (*U)      (ImplA*);
 };

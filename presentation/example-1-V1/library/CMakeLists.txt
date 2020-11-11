@@ -22,7 +22,7 @@ add_library(example-1-library
 )
 set_target_properties(example-1-library
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLEXPORT}
+		COMPILE_DEFINITIONS DLLEXPORT=${DLLEXPORT}
 )
 target_include_directories(example-1-library
 	PRIVATE

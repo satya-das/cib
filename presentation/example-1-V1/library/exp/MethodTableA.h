@@ -2,6 +2,7 @@
 
 class ImplA;
 
+
 extern "C" struct MethodTableA {
   ImplA*    (*Create) ();
   ImplA*    (*Copy)   (const ImplA*);
