@@ -1,16 +1,18 @@
 #pragma once
 
+
+
 class A {
 public:
   A();
   A(const A&);
   virtual ~A();
 
-  int         F()     { return m1; }
-  int         F(int)  { return m2; }
-  virtual int V()     { return 5;  }
+  int         F();
+  int         F(int);
+  virtual int V();
 
 private:
-  int   m1 {1};
-  int   m2 {2};
+  int   m1;
+  int   m2;
 };

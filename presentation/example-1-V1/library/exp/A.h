@@ -6,9 +6,8 @@ class A {
 public:
   A();
   A(const A&);
-  ~A();
+  virtual ~A();
 
-public:
   int         F();
   int         F(int);
   virtual int V();
