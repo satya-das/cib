@@ -10,10 +10,6 @@ set(LIBRARY_PUB_FILE_NAMES
 
 include("../../../../common/cmake/conf.cmake")
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests/template-class)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests/template-class)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests/template-class)
-
 set(LIBRARY_PUB_FILE_BASENAMES "")
 foreach(PUBFILE ${LIBRARY_PUB_FILE_NAMES})
   get_filename_component(PUBFILE_BASENAME ${PUBFILE} NAME_WE)

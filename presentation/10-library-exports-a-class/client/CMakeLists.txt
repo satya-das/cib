@@ -1,4 +1,4 @@
-project(library-exports-a-class-V1-client)
+project(10-library-exports-a-class-client)
 
 cmake_minimum_required(VERSION 3.4)
 

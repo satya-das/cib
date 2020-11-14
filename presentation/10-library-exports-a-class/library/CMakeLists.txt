@@ -1,4 +1,4 @@
-project(library-exports-a-class-library)
+project(10-library-exports-a-class-library)
 
 cmake_minimum_required(VERSION 3.4)
 
