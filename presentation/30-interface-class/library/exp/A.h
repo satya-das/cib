@@ -26,7 +26,7 @@ struct A {
 
   virtual int UseI(I* pI);
 
-protected:
+private:
   A(ImplA* pImplA)
     : pImpl(pImplA)
   {}
