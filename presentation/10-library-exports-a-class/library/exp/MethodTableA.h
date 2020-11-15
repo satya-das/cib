@@ -1,9 +1,12 @@
 #pragma once
+#include <stddef.h>
 
 class ImplA;
 
 
 extern "C" struct MethodTableA {
+  const size_t numMethods;
+
   ImplA*    (*Create) ();
   ImplA*    (*Copy)   (const ImplA*);
   void      (*Delete) (ImplA*);

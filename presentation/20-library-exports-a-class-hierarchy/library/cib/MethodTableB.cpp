@@ -22,6 +22,7 @@ static A* CastToA(B* objB) {
 
 extern "C" {
   MethodTableB DLLEXPORT gMethodTableB = {
+    4,
     &CreateB,
     &DeleteB,
     &CastToA,

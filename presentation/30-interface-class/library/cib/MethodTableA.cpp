@@ -18,6 +18,7 @@ static int UseI(A* objA, I* pI) {
 
 extern "C" {
   MethodTableA DLLEXPORT gMethodTableA = {
+    3,
     &CreateA,
     &DeleteA,
     &UseI

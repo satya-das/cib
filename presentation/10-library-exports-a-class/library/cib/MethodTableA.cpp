@@ -33,6 +33,7 @@ int V(A* objA) {
 
 extern "C" {
   MethodTableA DLLEXPORT gMethodTableA = {
+    6,
     &CreateA,
     &CopyA,
     &DeleteA,

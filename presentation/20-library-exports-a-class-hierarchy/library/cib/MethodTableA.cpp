@@ -18,6 +18,7 @@ static int F(A* objA) {
 
 extern "C" {
   MethodTableA DLLEXPORT gMethodTableA = {
+    3,
     &CreateA,
     &DeleteA,
     &F

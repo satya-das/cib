@@ -30,6 +30,7 @@ static void DeleteGenericI(GenericI* pGenericI) {
 
 extern "C" {
   MethodTableGenericI DLLEXPORT gMethodTableGenericI = {
+    2,
     &CreateGenericI,
     &DeleteGenericI
   };
