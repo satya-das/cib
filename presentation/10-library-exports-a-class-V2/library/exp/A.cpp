@@ -1,6 +1,8 @@
 #include "A.h"
 #include "MethodTableA.h"
 
+#include <functional>
+
 extern "C" MethodTableA DLLIMPORT gMethodTableA;
 
 A::A(ImplA* pImplA)
@@ -28,6 +30,9 @@ int A::F(int x) {
 }
 
 int A::U() {
+  if (gMethodTableA.numMethods < 7)
+    throw std::bad_function_call();
+
   return gMethodTableA.U(pImpl);
 }
 
