@@ -1,6 +1,6 @@
-add_subdirectory(client-calls)
-add_subdirectory(client-is-called)
-add_subdirectory(templates)
+add_subdirectory(1-simple-class)
+add_subdirectory(2-interface-class)
+add_subdirectory(3-template-class)
 
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
     add_custom_command(
