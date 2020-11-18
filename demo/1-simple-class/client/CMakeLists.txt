@@ -37,7 +37,7 @@ add_executable(simple-class
 )
 set_target_properties(simple-class
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLIMPORT}
+		COMPILE_DEFINITIONS EXAMPLE_API=${DLLIMPORT}
 )
 target_link_libraries(simple-class
 	PRIVATE

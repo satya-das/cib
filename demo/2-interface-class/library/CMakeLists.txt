@@ -49,7 +49,7 @@ add_library(interface-class-library_cibified
 )
 set_target_properties(interface-class-library_cibified
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=
+		COMPILE_DEFINITIONS EXAMPLE_API=
 )
 target_include_directories(interface-class-library_cibified
 	PRIVATE
@@ -65,7 +65,7 @@ add_library(interface-class-library
 )
 set_target_properties(interface-class-library
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLEXPORT}
+		COMPILE_DEFINITIONS EXAMPLE_API=${DLLEXPORT}
 )
 
 target_include_directories(interface-class-library

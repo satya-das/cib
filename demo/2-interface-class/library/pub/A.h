@@ -1,17 +1,17 @@
 #pragma once
 
-class LIBRARYAPI I {
+class EXAMPLE_API I {
 public:
   virtual ~I() {}
 
   virtual int F() = 0;
 };
 
-class LIBRARYAPI C {
+class EXAMPLE_API A {
 public:
-  C();
-  C(const C&);
-  ~C();
+  A();
+  A(const A&);
+  ~A();
 
-  int UseInterface(I* pI);
+  int UseI(I* pI);
 };

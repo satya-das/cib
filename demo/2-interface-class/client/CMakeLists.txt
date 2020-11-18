@@ -37,7 +37,7 @@ add_executable(interface-class
 )
 set_target_properties(interface-class
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLIMPORT}
+		COMPILE_DEFINITIONS EXAMPLE_API=${DLLIMPORT}
 )
 target_link_libraries(interface-class
 	PRIVATE

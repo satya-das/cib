@@ -1,7 +1,7 @@
 #pragma once
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::C
+  //#= FullClassName: ::A
   enum { __zz_cib_classId = 259 };
 }}}
 
@@ -32,13 +32,13 @@ namespace __zz_cib_ { namespace Demo {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_MethodId {
-    //#= C();
+    //#= A();
     __zz_cib_New_0 = 0,
-    //#= C(const ::C&);
+    //#= A(const ::A&);
     __zz_cib_Copy_1 = 1,
-    //#= ~C();
+    //#= ~A();
     __zz_cib_Delete_2 = 2,
-    //#= int UseInterface(::I*);
+    //#= int UseI(::I*);
     UseInterface_3 = 3,
     __zz_cib_nextMethodId = 4
   };

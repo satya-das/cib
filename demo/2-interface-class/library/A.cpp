@@ -1,11 +1,11 @@
 #include "A.h"
 
-C::C() {}
+A::A() {}
 
-C::C(const C&) {}
+A::A(const A&) {}
 
-C::~C() {}
+A::~A() {}
 
-int C::UseInterface(I* pI) {
-    return pI->F();
+int A::UseI(I* pI) {
+    return 1+pI->F();
 }

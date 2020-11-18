@@ -2,7 +2,7 @@
 
 #include "value.h"
 
-class LIBRARYAPI A {
+class EXAMPLE_API A {
 public:
   A();
   A(const A&);

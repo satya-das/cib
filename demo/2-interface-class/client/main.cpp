@@ -2,20 +2,20 @@
 
 #include <iostream>
 
-class A : public I {
+class M : public I {
 public:
   int F() override { return 100; }
 };
 
-void TestLibraryCallingClient(C& c)
+void TestLibraryCallingClient(A& a)
 {
-  A a;
-  std::cout << "C::UseInterface() returns:" << c.UseInterface(&a) << std::endl;
+  M m;
+  std::cout << "C::UseI() returns:" << a.UseI(&m) << std::endl;
 }
 
 int main(int argc, char* argv[])
 {
-  C c;
-  TestLibraryCallingClient(c);
+  A a;
+  TestLibraryCallingClient(a);
   return 0;
 }

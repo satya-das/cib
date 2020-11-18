@@ -37,7 +37,7 @@ add_executable(template-class-client
 )
 set_target_properties(template-class-client
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLIMPORT}
+		COMPILE_DEFINITIONS EXAMPLE_API=${DLLIMPORT}
 )
 target_link_libraries(template-class-client
 	PRIVATE

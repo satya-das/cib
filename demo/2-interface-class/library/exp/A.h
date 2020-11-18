@@ -16,18 +16,18 @@ private:
   __ZZ_CIB_PROXY_CLASS_INTERNALS(I, I);
 };
 
-class C
+class A
 {
 public:
-  C(C&& rhs);
+  A(A&& rhs);
 public:
-  C();
-  C(const C&);
-  ~C();
-  int UseInterface(I* pI);
+  A();
+  A(const A&);
+  ~A();
+  int UseI(I* pI);
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(C, C);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
 };
 
 #include "__zz_cib_internal/A-postdef.h"

@@ -50,7 +50,7 @@ add_library(template-class-library_cibified
 )
 set_target_properties(template-class-library_cibified
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=
+		COMPILE_DEFINITIONS EXAMPLE_API=
 )
 target_include_directories(template-class-library_cibified
 	PRIVATE
@@ -66,7 +66,7 @@ add_library(template-class-library
 )
 set_target_properties(template-class-library
 	PROPERTIES
-		COMPILE_DEFINITIONS LIBRARYAPI=${DLLEXPORT}
+		COMPILE_DEFINITIONS EXAMPLE_API=${DLLEXPORT}
 )
 
 target_include_directories(template-class-library

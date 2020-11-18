@@ -92,13 +92,13 @@ bool __zz_cib_Helper<::I, T>::instanceDeleted_ = false;
 
 namespace __zz_cib_ {
 template <typename T>
-struct __zz_cib_Helper<::C, T> : public __zz_cib_MethodTableHelper {
-  static_assert(std::is_same_v<T, ::C>,
+struct __zz_cib_Helper<::A, T> : public __zz_cib_MethodTableHelper {
+  static_assert(std::is_same_v<T, ::A>,
     "Parameter 'T' is only to delay instantiation of the specialization. It is always the same as first parameter.");
 
   using _ProxyClass = T;
   using __zz_cib_AbiType = typename _ProxyClass::__zz_cib_AbiType;
-  friend class ::C;
+  friend class ::A;
   using __zz_cib_MethodId = __zz_cib_::__zz_cib_ids::__zz_cib_Class259::__zz_cib_MethodId;
 
   __zz_cib_Helper()
