@@ -39,6 +39,7 @@ set(EXAMPLES
 	0800-inheritance-change-and-bkwd-compatibility
 	0810-inheritance-type-and-bkwd-compatibility
 	0900-force-make-interface-class
+	0910-interface-class-with-implementation
 	1000-deleted-members
 	1010-enum-parameters
 	1020-complex-interface-classes
