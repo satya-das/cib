@@ -2,32 +2,28 @@
 
 #include "A.h"
 
-namespace {
-
-A* CreateA() {
+static A* CreateA() {
   return new A;
 }
 
-A* CopyA(const A* objA) {
+static A* CopyA(const A* objA) {
   return new A(*objA);
 }
 
-void DeleteA(A* objA) {
+static void DeleteA(A* objA) {
   delete objA;
 }
 
-int F(A* objA) {
+static int F(A* objA) {
   return objA->F();
 }
 
-int F2(A* objA, int x) {
+static int F2(A* objA, int x) {
   return objA->F(x);
 }
 
-int V(A* objA) {
+static int V(A* objA) {
   return objA->V();
-}
-
 }
 
 

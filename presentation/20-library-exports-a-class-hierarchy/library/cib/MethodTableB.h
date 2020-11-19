@@ -14,4 +14,5 @@ extern "C" struct MethodTableB {
   void      (*Delete) (ImplB*);
   ImplA*    (*CastToA)(ImplB*);
   int       (*G)      (ImplB*);
+  int       (*H)      (ImplB*);
 };

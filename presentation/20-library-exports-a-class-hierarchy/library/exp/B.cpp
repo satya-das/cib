@@ -20,3 +20,7 @@ B::~B() {
 int B::G() {
   return gMethodTableB.G(pImpl);
 }
+
+int B::H() {
+  return gMethodTableB.H(pImpl);
+}

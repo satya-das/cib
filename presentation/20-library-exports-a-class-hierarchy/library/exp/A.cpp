@@ -18,3 +18,7 @@ A::~A() {
 int A::F() {
   return gMethodTableA.F(pImpl);
 }
+
+int A::G() {
+  return gMethodTableA.G(pImpl);
+}

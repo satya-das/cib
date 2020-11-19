@@ -8,6 +8,7 @@ struct B : A {
   virtual ~B();
 
   virtual int G();
+  virtual int H();
 
 private:
   B(ImplB* pImplB);

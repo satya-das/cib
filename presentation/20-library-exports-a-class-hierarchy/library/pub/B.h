@@ -7,5 +7,6 @@ struct B : A {
   B() {}
   virtual ~B() {};
 
-  virtual int G() { return 2; }
+  virtual int G() { return 3; }
+  virtual int H() { return 4; }
 };

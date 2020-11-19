@@ -11,16 +11,21 @@ static void DeleteA(A* objA) {
 }
 
 static int F(A* objA) {
-  return objA->F();
+  return objA->A::F();
+}
+
+static int G(A* objA) {
+  return objA->A::G();
 }
 
 
 
 extern "C" {
   MethodTableA DLLEXPORT gMethodTableA = {
-    3,
+    4,
     &CreateA,
     &DeleteA,
-    &F
+    &F,
+    &G
   };
 }

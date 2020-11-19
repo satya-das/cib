@@ -12,7 +12,11 @@ static void DeleteB(B* objB) {
 }
 
 static int G(B* objB) {
-  return objB->G();
+  return objB->B::G();
+}
+
+static int H(B* objB) {
+  return objB->B::H();
 }
 
 static A* CastToA(B* objB) {
@@ -22,10 +26,11 @@ static A* CastToA(B* objB) {
 
 extern "C" {
   MethodTableB DLLEXPORT gMethodTableB = {
-    4,
+    5,
     &CreateB,
     &DeleteB,
     &CastToA,
-    &G
+    &G,
+    &H
   };
 }

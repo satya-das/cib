@@ -6,6 +6,9 @@
 TEST_CASE("Use class hierarchy")
 {
   B b;
-  CHECK(b.F() == 1);
-  CHECK(b.G() == 2);
+  A* pA = &b;
+  CHECK(pA->F() == 1);
+  CHECK(pA->A::G() == 2);
+  CHECK(pA->G() == 3);
+  CHECK(b.H() == 4);
 }
