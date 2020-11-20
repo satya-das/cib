@@ -7,7 +7,7 @@ struct B : A {
   B();
   virtual ~B();
 
-  virtual int G();
+  int G() override;
   virtual int H();
 
 private:

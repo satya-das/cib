@@ -7,6 +7,6 @@ struct B : A {
   B() {}
   virtual ~B() {};
 
-  virtual int G() { return 3; }
-  virtual int H() { return 4; }
+  int G() override { return 3; }
+  virtual int H()  { return 4; }
 };
