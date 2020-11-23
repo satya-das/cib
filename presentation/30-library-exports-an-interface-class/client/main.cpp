@@ -3,12 +3,14 @@
 #include <assert.h>
 #include <iostream>
 
-struct M : I {
-  int F() override { return 100; }
+class DrawLogger : public Context {
+  void DrawCircle(float r) override {
+    std::cout << "DrawCircle(" << r << ")";
+  }
 };
 
 int main() {
-  M m;
-  A a;
-  assert(a.UseI(&m) == 100);
+  DrawLogger logger;
+  Circle c(5.0);
+  c.Draw(&logger);
 }

@@ -13,10 +13,10 @@ set(CLIENT_SOURCES
 )
 
 set(LIBRARY_EXP_SOURCES
-	${CMAKE_CURRENT_SOURCE_DIR}/../library/exp/A.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/../library/exp/Circle.cpp
 )
 
-set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../library/exp/A.cpp GENERATED)
+set_source_files_properties(${CMAKE_CURRENT_SOURCE_DIR}/../library/exp/Circle.cpp GENERATED)
 
 add_executable(simple-class_cibified
 	${CLIENT_SOURCES}

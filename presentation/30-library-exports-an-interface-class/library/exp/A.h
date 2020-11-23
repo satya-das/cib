@@ -1,34 +1,33 @@
 #pragma once
 
-struct ImplGenericI;
+class ContextImpl;
 
-struct I {
-  virtual ~I();
+class Context {
+public:
+  virtual ~Context();
 
-  virtual int F() = 0;
+  virtual void DrawCircle(float r) = 0;
 
-  ImplGenericI* const pImpl;
+  ContextImpl* const pImpl;
 
 protected:
-  I();
+  Context();
 
 private:
-  I(ImplGenericI* pImplI)
-    : pImpl(pImplI)
-  {}
+  Context(ContextImpl* pCtxImpl);
 };
 
-struct ImplA;
 
-struct A {
-  A();
-  virtual ~A();
+class CircleImpl;
 
-  virtual int UseI(I* pI);
+class Circle {
+public:
+  Circle(float r);
+  ~Circle();
+
+  void Draw(Context* pCtx) const;
 
 private:
-  A(ImplA* pImplA)
-    : pImpl(pImplA)
-  {}
-  ImplA* pImpl;
+  Circle(CircleImpl* pCircleImpl);
+  CircleImpl* pImpl;
 };

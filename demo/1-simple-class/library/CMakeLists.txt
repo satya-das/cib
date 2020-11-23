@@ -9,7 +9,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/demo)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/demo)
 
 set(LIBRARY_PUB_FILE_NAMES
-	A.h
+	Circle.h
 )
 
 set(CIB_OUTPUT
@@ -22,9 +22,9 @@ set(CIB_OUTPUT
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-classId-repo.cpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cib/__zz_cib_Demo-proxy-mgr.h
 	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/__zz_cib_Demo-ids.h
-	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/A-postdef.h
-	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/A-predef.h
-	${CMAKE_CURRENT_SOURCE_DIR}/exp/A.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/Circle-postdef.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/__zz_cib_internal/Circle-predef.h
+	${CMAKE_CURRENT_SOURCE_DIR}/exp/Circle.h
 )
 set(LIBRARY_PUB_FILES "")
 foreach(PUBFILE ${LIBRARY_PUB_FILE_NAMES})
@@ -42,7 +42,7 @@ add_custom_command(
 )
 
 set(LIBRARY_SOURCES
-	A.cpp
+	Circle.cpp
 )
 add_library(simple-class-library_cibified
 	SHARED

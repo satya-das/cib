@@ -1,13 +1,20 @@
 #pragma once
 
-struct I {
-  virtual ~I() {}
+class Context {
+public:
+  virtual ~Context() {}
 
-  virtual int F() = 0;
+  virtual void DrawCircle(float r) = 0;
 };
 
-struct A {
-  int UseI(I* pI) {
-    return pI->F();
+class Circle {
+public:
+  Circle(float r) : mRadius(r) {}
+
+  void Draw(Context* pCtx) const {
+    pCtx->DrawCircle(mRadius);
   }
+
+private:
+  float mRadius;
 };

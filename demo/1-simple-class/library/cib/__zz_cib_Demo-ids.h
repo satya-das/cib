@@ -1,7 +1,7 @@
 #pragma once
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::A
+  //#= FullClassName: ::Circle
   enum { __zz_cib_classId = 258 };
 }}}
 
@@ -22,18 +22,18 @@ namespace __zz_cib_ { namespace Demo {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_MethodId {
-    //#= A();
+    //#= Circle(float);
     __zz_cib_New_0 = 0,
-    //#= A(const ::A&);
+    //#= Circle(const ::Circle&);
     __zz_cib_Copy_1 = 1,
-    //#= ~A();
+    //#= ~Circle();
     __zz_cib_Delete_2 = 2,
-    //#= int F();
-    F_3 = 3,
-    //#= int F(int);
-    F_4 = 4,
-    //#= int V();
-    V_5 = 5,
+    //#= float Radius() const;
+    Radius_3 = 3,
+    //#= void SetRadius(float);
+    SetRadius_4 = 4,
+    //#= float Area() const;
+    Area_5 = 5,
     __zz_cib_nextMethodId = 6
   };
 }}}

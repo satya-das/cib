@@ -2,32 +2,32 @@
 
 #include "__zz_cib_internal/A-predef.h"
 
-class I
+class Context
 {
 public:
-  I(I&& rhs);
+  Context(Context&& rhs);
 public:
-  virtual ~I();
-  virtual int F() = 0;
+  virtual ~Context();
+  virtual void DrawCircle(float r) = 0;
 protected:
-  I();
+  Context();
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(I, I);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(Context, Context);
 };
 
-class A
+class Circle
 {
 public:
-  A(A&& rhs);
+  Circle(Circle&& rhs);
 public:
-  A();
-  A(const A&);
-  ~A();
-  int UseI(I* pI);
+  Circle(const Circle&);
+  ~Circle();
+  Circle(float r);
+  void Draw(Context* pCtx) const;
 
 private:
-  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
+  __ZZ_CIB_PROXY_CLASS_INTERNALS(Circle, Circle);
 };
 
 #include "__zz_cib_internal/A-postdef.h"

@@ -1,17 +1,18 @@
-#include "A.h"
+#include "Circle.h"
 
 #include <iostream>
 
-void TestClientCallingLibrary(A* pA)
+void TestClientCallingLibrary(Circle* pCircle)
 {
-  std::cout << "a.F()  returned " << pA->F() << std::endl;
-  std::cout << "a.F(5) returned " << pA->F(5) << std::endl;
-  std::cout << "a.V()  returned " << pA->V() << std::endl;
+  std::cout << "Radius of circle = " << pCircle->Radius() << std::endl;
+  std::cout << "Area of circle   = " << pCircle->Area() << std::endl;
+
+  std::cout << std::endl;
 }
 
 int main(int argc, char* argv[])
 {
-  A a;
-  TestClientCallingLibrary(&a);
+  Circle c(10);
+  TestClientCallingLibrary(&c);
   return 0;
 }

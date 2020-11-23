@@ -1,17 +1,17 @@
 #pragma once
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
-  //#= FullClassName: ::A
+  //#= FullClassName: ::Circle
   enum { __zz_cib_classId = 259 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
-  //#= FullClassName: ::I
+  //#= FullClassName: ::Context
   enum { __zz_cib_classId = 258 };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
-  //#= FullClassName: ::I::__zz_cib_Generic
+  //#= FullClassName: ::Context::__zz_cib_Generic
   enum { __zz_cib_classId = 260 };
 }}}}
 
@@ -32,26 +32,26 @@ namespace __zz_cib_ { namespace Demo {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class259 {
   enum __zz_cib_MethodId {
-    //#= A();
-    __zz_cib_New_0 = 0,
-    //#= A(const ::A&);
-    __zz_cib_Copy_1 = 1,
-    //#= ~A();
-    __zz_cib_Delete_2 = 2,
-    //#= int UseI(::I*);
-    UseInterface_3 = 3,
+    //#= Circle(const ::Circle&);
+    __zz_cib_Copy_0 = 0,
+    //#= ~Circle();
+    __zz_cib_Delete_1 = 1,
+    //#= Circle(float);
+    __zz_cib_New_2 = 2,
+    //#= void Draw(::Context*) const;
+    Draw_3 = 3,
     __zz_cib_nextMethodId = 4
   };
 }}}
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_MethodId {
-    //#= I();
+    //#= Context();
     __zz_cib_New_0 = 0,
-    //#= int F();
-    F_1 = 1,
-    //#= ~I();
-    __zz_cib_Delete_2 = 2,
+    //#= ~Context();
+    __zz_cib_Delete_1 = 1,
+    //#= void DrawCircle(float);
+    DrawCircle_2 = 2,
     //#= __zz_cib_ReleaseProxy
     __zz_cib_ReleaseProxy = 3,
     __zz_cib_nextMethodId = 4
@@ -60,9 +60,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_MethodId {
-    //#= int F();
-    F_0 = 0,
-    //#= ~I();
+    //#= void DrawCircle(float);
+    DrawCircle_0 = 0,
+    //#= ~Context();
     __zz_cib_Delete_1 = 1,
     __zz_cib_nextMethodId = 2
   };

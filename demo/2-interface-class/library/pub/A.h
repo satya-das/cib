@@ -1,17 +1,18 @@
 #pragma once
 
-class EXAMPLE_API I {
+class EXAMPLE_API Context {
 public:
-  virtual ~I() {}
+  virtual ~Context() {}
 
-  virtual int F() = 0;
+  virtual void DrawCircle(float r) = 0;
 };
 
-class EXAMPLE_API A {
+class EXAMPLE_API Circle {
 public:
-  A();
-  A(const A&);
-  ~A();
+  Circle(float r) : mRadius(r) {}
 
-  int UseI(I* pI);
+  void Draw(Context* pCtx) const;
+
+private:
+  float mRadius;
 };

@@ -8,16 +8,21 @@ include("../../../common/cmake/conf.cmake")
 
 
 set(LIBRARY_PUB_FILES
-	library/pub/A.h
+	library/pub/Circle.h
+)
+
+set(LIBRARY_SRC_FILES
+	library/src/Circle.cpp
 )
 
 set(CIB_SOURCES
-	library/cib/MethodTableA.cpp
+	library/cib/MethodTableCircle.cpp
 )
 
 add_library(library-exports-a-class-library
 	SHARED
 		${LIBRARY_PUB_FILES}
+		${LIBRARY_SRC_FILES}
 		${CIB_SOURCES}
 )
 set_target_properties(library-exports-a-class-library
@@ -45,7 +50,7 @@ set(CLIENT_SOURCES
 )
 
 set(LIBRARY_EXP_SOURCES
-	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/A.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/Circle.cpp
 )
 
 add_executable(library-exports-a-class-client

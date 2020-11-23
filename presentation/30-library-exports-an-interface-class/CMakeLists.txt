@@ -10,8 +10,8 @@ set(LIBRARY_PUB_FILES
 set(LIBRARY_SOURCES
 )
 set(CIB_SOURCES
-	library/cib/MethodTableA.cpp
-	library/cib/MethodTableGenericI.cpp
+	library/cib/MethodTableCircle.cpp
+	library/cib/MethodTableGenericCtx.cpp
 )
 
 add_library(library-exports-an-interface-class-library

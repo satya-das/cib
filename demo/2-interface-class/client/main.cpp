@@ -2,20 +2,14 @@
 
 #include <iostream>
 
-class M : public I {
-public:
-  int F() override { return 100; }
+class DrawLogger : public Context {
+  void DrawCircle(float r) override {
+    std::cout << "DrawCircle(" << r << ")\n\n";
+  }
 };
 
-void TestLibraryCallingClient(A& a)
-{
-  M m;
-  std::cout << "C::UseI() returns:" << a.UseI(&m) << std::endl;
-}
-
-int main(int argc, char* argv[])
-{
-  A a;
-  TestLibraryCallingClient(a);
-  return 0;
+int main() {
+  DrawLogger logger;
+  Circle c(5.0);
+  c.Draw(&logger);
 }

@@ -5,14 +5,14 @@ cmake_minimum_required(VERSION 3.4)
 include("../../../common/cmake/conf.cmake")
 
 set(LIBRARY_PUB_FILES
-	library/pub/A.h
-	library/pub/B.h
+	library/pub/Base.h
+	library/pub/Derived.h
 )
 set(LIBRARY_SOURCES
 )
 set(CIB_SOURCES
-	library/cib/MethodTableA.cpp
-	library/cib/MethodTableB.cpp
+	library/cib/MethodTableBase.cpp
+	library/cib/MethodTableDerived.cpp
 )
 
 add_library(library-exports-a-class-hierarchy-library
@@ -48,8 +48,8 @@ set(CLIENT_SOURCES
 )
 
 set(LIBRARY_EXP_SOURCES
-	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/A.cpp
-	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/B.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/Base.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/library/exp/Derived.cpp
 )
 
 add_executable(library-exports-a-class-hierarchy-client
