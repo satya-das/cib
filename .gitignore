@@ -52,6 +52,7 @@ local.properties
 x64/
 build/
 builds/
+**/build.*/**
 [Bb]in/
 [Oo]bj/
 
@@ -222,3 +223,4 @@ pip-log.txt
 **/.vs/*
 CMakeSettings.json
 
+*.html

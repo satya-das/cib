@@ -1621,5 +1621,77 @@
                 }
             ]
         },
+        {
+            "name": "example-1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "/home/dassat/github/cib/build/presentation/example-1/client/example-1",
+            "stopAtEntry": false,
+            "cwd": "/home/dassat/github/cib/build/presentation/example-1",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "library-exports-a-class-hierarchy",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/presentation/library-exports-a-class-hierarchy/library-exports-a-class-hierarchy-client",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "interface-class",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/presentation/interface-class/interface-class-client",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "0085-interface-class-with-implementation",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/examples/0085-interface-class-with-implementation",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
     ]
 }

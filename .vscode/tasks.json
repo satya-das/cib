@@ -5,6 +5,10 @@
       "label": "Build All",
       "command": "ninja",
       "args": [
+        // "library-exports-a-class-library",
+        // "library-exports-a-class-hierarchy-client",
+        // "interface-class-client",
+        // "example-1",
         // "cib",
         // "client-calls_cibified",
         // "client-is-called-client_cibified",
