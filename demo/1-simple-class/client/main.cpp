@@ -4,8 +4,9 @@
 
 void TestClientCallingLibrary(Circle* pCircle)
 {
-  std::cout << "Radius of circle = " << pCircle->Radius() << std::endl;
-  std::cout << "Area of circle   = " << pCircle->Area() << std::endl;
+  std::cout
+    << "Radius of circle = " << pCircle->Radius() << '\n'
+    << "Area of circle   = " << pCircle->Area() << '\n';
 
   std::cout << std::endl;
 }

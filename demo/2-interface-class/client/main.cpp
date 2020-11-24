@@ -4,7 +4,9 @@
 
 class DrawLogger : public Context {
   void DrawCircle(float r) override {
-    std::cout << "DrawCircle(" << r << ")\n\n";
+    std::cout << "DrawCircle(" << r << ")\n";
+
+    std::cout << std::endl;
   }
 };
 
