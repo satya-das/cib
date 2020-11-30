@@ -11,7 +11,7 @@ static void DeleteBase(Base* pBase) {
 }
 
 static int F(Base* pBase) {
-  return pBase->Base::F();
+  return pBase->F();
 }
 
 static int G(Base* pBase) {

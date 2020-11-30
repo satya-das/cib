@@ -12,11 +12,11 @@ static void DeleteDerived(Derived* pDerived) {
 }
 
 static int G(Derived* pDerived) {
-  return pDerived->Derived::G();
+  return pDerived->G();
 }
 
 static int H(Derived* pDerived) {
-  return pDerived->Derived::H();
+  return pDerived->H();
 }
 
 static Base* CastToBase(Derived* pDerived) {
