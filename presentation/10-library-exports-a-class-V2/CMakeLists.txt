@@ -1,4 +1,4 @@
-project(library-exports-a-class-library-V2)
+project(library-exports-a-class-V2)
 
 cmake_minimum_required(VERSION 3.4)
 

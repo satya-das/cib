@@ -75,4 +75,4 @@ if(MSVC)
     set_target_properties(library-exports-a-class-hierarchy-client PROPERTIES LINK_FLAGS "${LINK_FLAGS} /INCREMENTAL:NO")
 endif()
 
-add_test(NAME library-exports-a-class-hierarchy COMMAND $<TARGET_FILE:library-exports-a-class-hierarchy-client>)
+add_test(NAME library-exports-a-class-hierarchy-V1 COMMAND $<TARGET_FILE:library-exports-a-class-hierarchy-client>)
