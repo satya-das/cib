@@ -1,5 +1,3 @@
-Make PoDoFo cibification public and explain the case study in README.md
-
 Add a detail page for illustrating cib tool and it's command line option.
 
 Add support for parsing function body as a blob.
