@@ -57,6 +57,9 @@ set(RES_FILE_NAMES
 	__zz_cib_Module-class-internal-def.h
 	__zz_cib_Module-class-helper.h
 	__zz_cib_Module-class-proxy-detection.h
+	__zz_cib_Module-exception-abi-type.h
+	__zz_cib_Module-exception-convert-to-error.h
+	__zz_cib_Module-exception-throw-on-error.h
 	__zz_cib_Module-class-types.h
 	__zz_cib_Module-type-converters.h
 	__zz_cib_Module-type-converter-base.h
@@ -68,7 +71,6 @@ set(RES_FILE_NAMES
 	__zz_cib_Module-export.h
 	__zz_cib_Module-import.h
 	__zz_cib_Module-internal.h
-	__zz_cib_Module-internal-proxy.h
 	__zz_cib_Module-type-converter-proxy-class.h
 	__zz_cib_Module-type-converter-proxied-class.h
 	__zz_cib_Module-type-converter-function-object.h

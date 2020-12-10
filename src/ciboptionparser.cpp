@@ -84,11 +84,15 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             false,
             "If library is compiled with no rtti option then CIB needs to know if"
             " it needs to avoid generating code that uses RTTI.");
-  addOption("no-exception,e",
-            noException,
+  addOption("handle-exception,e",
+            handleException,
             false,
-            "If library is compiled with no exception option then CIB needs to know if"
-            " it needs to avoid generating code to throw exception.");
+            "If library throws exceptions then it should be handled in an ABI stable manner.");
+  addOption("exception-class,E",
+            exceptionClasses,
+            false,
+            "To handle exception properly CIB needs to know what are the custom exception classes. Using this option "
+            "also means '--handle-exception' option is used.");
   addOption("value-class,V",
             valueClasses,
             false,

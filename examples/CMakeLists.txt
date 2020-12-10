@@ -36,7 +36,7 @@ set(EXAMPLES
 	0640-protected-methods
 	# 0650-private-virtuals
 	0700-conditional-api-availability
-	# 0710-exceptions
+	0710-exceptions
 	0800-inheritance-change-and-bkwd-compatibility
 	0810-inheritance-type-and-bkwd-compatibility
 	0900-force-make-interface-class

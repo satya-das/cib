@@ -48,9 +48,10 @@ private:
   bool         noExactDelegation{false};
   bool         alwaysUseNsName{true};
   bool         noRtti{false};
-  bool         noException{false};
+  bool         handleException{false};
   StringVector valueClasses;
   StringVector interfaceClasses;
+  StringVector exceptionClasses;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -73,7 +74,8 @@ inline CibParams CibOptionParser::getCibParams()
           noExactDelegation,
           alwaysUseNsName,
           noRtti,
-          noException,
+          handleException || !exceptionClasses.empty(),
           valueClasses,
-          interfaceClasses};
+          interfaceClasses,
+          exceptionClasses};
 }

@@ -791,10 +791,6 @@ private:
                                                 TypeResolvingFlag        typeResolvingFlag) const;
 
   void                                collectFacades(std::set<const CibCompound*>& facades) const;
-  static std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
-  static std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                                const CibParams&                    cibParams,
-                                                                bool                                forProxy);
   void                                emitUserImplDependencyHeaders(std::ostream&                  stm,
                                                                     const CibHelper&               helper,
                                                                     const CibParams&               cibParams,

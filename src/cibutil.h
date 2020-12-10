@@ -24,6 +24,7 @@
 #pragma once
 
 #include "cibcompound.h"
+#include "cibhelper.h"
 
 #include "cppast.h"
 #include "cppconst.h"
@@ -131,3 +132,17 @@ using StringVector = std::vector<std::string>;
 using TemplateArgs = StringVector;
 
 TemplateArgs CollectTemplateArgs(const std::string& s);
+
+std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*>& cppObjs);
+std::string                  getHeaderPath(const CibCompound* fileAst, const CibParams& cibParams, bool forProxy);
+std::string                  getHeaderPath(const std::string& className,
+                                           const CibHelper&   helper,
+                                           const CibParams&   cibParams,
+                                           bool               forProxy);
+std::set<std::string>        collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
+                                                       const CibParams&                    cibParams,
+                                                       bool                                forProxy);
+std::set<std::string>        collectHeaderDependencies(const StringVector& classNames,
+                                                       const CibHelper&    helper,
+                                                       const CibParams&    cibParams,
+                                                       bool                forProxy);

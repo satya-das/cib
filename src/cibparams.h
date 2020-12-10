@@ -65,9 +65,10 @@ public:
   bool         noExactDelegation;
   bool         alwaysUseNsName;
   bool         noRtti;
-  bool         noException;
+  bool         handleException;
   StringVector layoutSharingClasses;
   StringVector interfaceClasses;
+  StringVector exceptionClasses;
 
 public:
   CibParams(std::string  m,
@@ -81,7 +82,8 @@ public:
             bool         t,
             bool         e,
             StringVector n,
-            StringVector F)
+            StringVector F,
+            StringVector E)
     : cibInternalDirName("__zz_cib_internal")
     , stlHelperDirName("__zz_cib_stl-helpers")
     , copyCtorCAPIPrefix("__zz_cib_Copy")
@@ -100,9 +102,10 @@ public:
     , noExactDelegation(d)
     , alwaysUseNsName(u)
     , noRtti(t)
-    , noException(e)
+    , handleException(e)
     , layoutSharingClasses(std::move(n))
     , interfaceClasses(std::move(F))
+    , exceptionClasses(std::move(E))
   {
   }
   CibParams(CibParams&&) = default;

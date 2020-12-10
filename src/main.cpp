@@ -57,11 +57,18 @@ void ensureDirectoriesExist(const CibParams& cibParams)
   bfs::create_directories(cibParams.cibInternalDir() / cibParams.stlHelperDirName);
 }
 
-static void emitLibraryGatewayFunction(std::ostream&           stm,
-                                       const CppCompoundArray& fileAsts,
+static void emitLibraryGatewayFunction(const CppCompoundArray& fileAsts,
                                        const CibParams&        cibParams,
                                        const CibIdMgr&         cibIdMgr)
 {
+  std::ofstream stm((cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
+                    std::ios_base::out);
+
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";
+  stm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n\n";
+
   CppIndent indentation;
   cibIdMgr.forEachCompound([&](const CibFullClassName&, const CibFullClassNsName& nsName, const CibIdData&) {
     stm << "namespace __zz_cib_ { " << expandNs(nsName.begin(), nsName.end());
@@ -84,6 +91,108 @@ static void emitLibraryGatewayFunction(std::ostream&           stm,
   stm << ++indentation << "return nullptr;\n";
   stm << --indentation << "}\n";
   stm << --indentation << "}\n";
+}
+
+static void emitExceptionToErrorConverter(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+{
+  if (!cibParams.handleException)
+    return;
+
+  std::ofstream stm(
+    (cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-exception-convert-to-error.cpp")).string(),
+    std::ios_base::out);
+
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-convert-to-error.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n\n";
+
+  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, helper, cibParams, false);
+  for (const auto& header : exceptionHeaders)
+    stm << "#include " << header << "\n";
+  stm << '\n';
+
+  CppIndent indentation;
+  stm << "namespace __zz_cib_ {\n\n";
+  stm << "__zz_cib_AbiException* __zz_cib_ConvertException() {\n";
+
+  stm << ++indentation << "try { throw;\n";
+
+  const auto convertToError = [&stm, &indentation](const CibCompound* compound) {
+    stm << indentation << "} catch (const " << fullName(compound) << "& e) {\n";
+    stm << ++indentation << "return __zz_cib_AbiExceptionNew("
+        << "__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classId"
+        << ", new " << fullName(compound) << "(e));\n";
+    --indentation;
+  };
+
+  for (const auto& ex : cibParams.exceptionClasses)
+  {
+    auto* cppObj = helper.getCppObjFromTypeName(ex);
+    assert(cppObj->objType_ == CppCompound::kObjectType);
+    auto* compound = static_cast<CibCompound*>(cppObj);
+
+    compound->forEachDescendent([&convertToError](auto* descendent) { convertToError(descendent); });
+    convertToError(compound);
+  }
+
+  stm << indentation << "} catch (...) {\n";
+  stm << ++indentation << "return __zz_cib_AbiExceptionNew(0, nullptr);\n";
+  stm << --indentation << "}\n";
+  stm << indentation << "return nullptr;\n";
+  stm << --indentation << "}\n";
+  stm << --indentation << "\n}\n";
+}
+
+static void emitThrowOnError(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+{
+  if (!cibParams.handleException)
+    return;
+
+  std::ofstream stm(
+    (cibParams.cibInternalDir() / ("__zz_cib_" + cibParams.moduleName + "-exception-throw-on-error.cpp")).string(),
+    std::ios_base::out);
+
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-throw-on-error.h\"\n";
+  stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n\n";
+
+  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, helper, cibParams, false);
+  for (const auto& header : exceptionHeaders)
+    stm << "#include " << header << "\n";
+  stm << '\n';
+
+  CppIndent indentation;
+  stm << "namespace __zz_cib_ {\n\n";
+  stm << "void __zz_cib_ThrowExceptionOnError(__zz_cib_AbiException* __zz_cib_exception) {\n";
+  stm << ++indentation << "const auto classId = __zz_cib_exception->classId;\n";
+  stm << indentation << "const auto handle = __zz_cib_exception->handle;\n";
+  stm << indentation << "__zz_cib_AbiExceptionDelete(__zz_cib_exception);\n";
+
+  const auto throwOnError = [&stm, &indentation](const CibCompound* compound) {
+    stm << indentation << "case "
+        << "__zz_cib_ids::" << compound->fullNsName() << "::__zz_cib_classId: {\n";
+    stm << ++indentation << "auto __zz_cib_obj = reinterpret_cast<__zz_cib_AbiType_t<" << fullName(compound)
+        << ">>(handle);\n";
+    stm << indentation << "throw __zz_cib_AbiTypeToCoreType<" << fullName(compound) << ">(__zz_cib_obj).Convert();\n";
+    stm << --indentation << "}\n";
+  };
+
+  if (!cibParams.exceptionClasses.empty())
+  {
+    stm << indentation << "switch(classId) {\n";
+    ++indentation;
+    for (const auto& ex : cibParams.exceptionClasses)
+    {
+      auto* cppObj = helper.getCppObjFromTypeName(ex);
+      assert(cppObj->objType_ == CppCompound::kObjectType);
+      auto* compound = static_cast<CibCompound*>(cppObj);
+
+      compound->forEachDescendent([&throwOnError](auto* descendent) { throwOnError(descendent); });
+      throwOnError(compound);
+    }
+    stm << --indentation << "}\n";
+  }
+  stm << indentation << "throw __zz_cib_UnknownException();\n";
+  stm << --indentation << "}\n";
+  stm << --indentation << "\n}\n";
 }
 
 using BridgableNamespaces = std::map<CibFullClassName, std::set<const CibCompound*> >;
@@ -236,6 +345,9 @@ static void emitLibBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-class-types.h",
                                            "__zz_cib_Module-class-helper.h",
                                            "__zz_cib_Module-class-down-cast.h",
+                                           "__zz_cib_Module-exception-abi-type.h",
+                                           "__zz_cib_Module-exception-convert-to-error.h",
+                                           "__zz_cib_Module-exception-throw-on-error.h",
                                            "__zz_cib_Module-smart-ptr-detection.h",
                                            "__zz_cib_Module-smart-ptr-input.h",
                                            "__zz_cib_Module-mtable.h",
@@ -280,6 +392,9 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
   const char* filesToProcessForClient[] = {"__zz_cib_Module-class-proxy-detection.h",
                                            "__zz_cib_Module-class-helper.h",
                                            "__zz_cib_Module-class-types.h",
+                                           "__zz_cib_Module-exception-abi-type.h",
+                                           "__zz_cib_Module-exception-convert-to-error.h",
+                                           "__zz_cib_Module-exception-throw-on-error.h",
                                            "__zz_cib_Module-type-converters.h",
                                            "__zz_cib_Module-type-converter-base.h",
                                            "__zz_cib_Module-type-converter-function-object.h",
@@ -299,7 +414,6 @@ static void emitClientBoilerPlateCode(const CibParams& cibParams)
                                            "__zz_cib_Module-decl.h",
                                            "__zz_cib_Module-import.h",
                                            "__zz_cib_Module-handle-proxy-map.h",
-                                           "__zz_cib_Module-internal-proxy.h",
                                            "__zz_cib_Module-class-internal-def.h",
                                            "__zz_cib_Module-type-traits.h",
                                            nullptr};
@@ -339,13 +453,10 @@ int main(int argc, const char* argv[])
   }
   emitGlueCodeForNamespaces(fileAsts, helper, cibParams, cibIdMgr);
 
-  std::ofstream cibLibSrcStm((cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-gateway.cpp")).string(),
-                             std::ios_base::out);
-  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-decl.h\"\n";
-  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-export.h\"\n";
-  cibLibSrcStm << "#include \"" << cibParams.cibIdFilename() << "\"\n";
-  cibLibSrcStm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable.h\"\n\n";
-  emitLibraryGatewayFunction(cibLibSrcStm, fileAsts, cibParams, cibIdMgr);
+  emitExceptionToErrorConverter(helper, cibParams, cibIdMgr);
+  emitThrowOnError(helper, cibParams, cibIdMgr);
+
+  emitLibraryGatewayFunction(fileAsts, cibParams, cibIdMgr);
 
   return 0;
 }

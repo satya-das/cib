@@ -345,6 +345,7 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
   emitCAPIReturnType(stm, helper);
   stm << " __zz_cib_decl ";
   stm << capiName << '(';
+
   if ((purpose != kPurposeSignature) && isConstructor() && callingOwner->needsGenericProxyDefinition())
   {
     stm << "__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable";
@@ -372,17 +373,25 @@ void CibFunctionHelper::emitCAPIDecl(std::ostream&      stm,
   }
   if ((purpose == kPurposeCApi) && isCopyConstructor() && getOwner()->isOverridable())
   {
-    stm << "const __zz_cib_Delegatee* __zz_cib_obj)";
+    stm << "const __zz_cib_Delegatee* __zz_cib_obj";
   }
   else if ((purpose == kPurposeCApi) && isMoveConstructor() && getOwner()->isOverridable())
   {
-    stm << "__zz_cib_Delegatee* __zz_cib_obj)";
+    stm << "__zz_cib_Delegatee* __zz_cib_obj";
   }
   else
   {
     emitArgsForDecl(stm, purpose, helper);
-    stm << ')';
   }
+
+  if (emitCodeToHandleException(cibParams))
+  {
+    if (hasParams() || (!isConstructor() && !isStatic()))
+      stm << ", ";
+    stm << "__zz_cib_AbiException** __zz_cib_exception";
+  }
+
+  stm << ')';
 }
 
 void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
@@ -403,6 +412,10 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
   stm << indentation << "static ";
   emitCAPIDecl(stm, helper, cibParams, callingOwner, capiName, purpose);
   stm << " {\n";
+
+  if (emitCodeToHandleException(cibParams))
+    stm << ++indentation << "try {\n";
+
   if (isConstructor())
   {
     stm << ++indentation << "return new ";
@@ -501,6 +514,17 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
       stm << '\n' << --indentation << ")";
     stm << ";\n";
   }
+
+  if (emitCodeToHandleException(cibParams))
+  {
+    stm << --indentation << "} catch(...) {\n";
+    stm << ++indentation << "*__zz_cib_exception = __zz_cib_ConvertException();\n";
+    stm << --indentation << "}\n";
+    stm << indentation << "return ";
+    emitCAPIReturnType(stm, helper, CppIndent());
+    stm << "{};\n";
+  }
+
   stm << --indentation << "}\n";
 }
 
@@ -654,6 +678,14 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
     }
     auto const argPurpose = callingOwner->isTemplateInstance() ? kPurposeTemplateSpecialization : kPurposeProxyDefn;
     emitArgsForCall(stm, helper, cibParams, argPurpose, indentation);
+
+    if (emitCodeToHandleException(cibParams))
+    {
+      if (hasParams() || (!isConstructor() && !isStatic()))
+        stm << ",\n";
+      stm << indentation << "__zz_cib_::__zz_cib_ThrowOnError().Convert()";
+    }
+
     stm << '\n' << --indentation << ")";
     if (returnType() && !isVoid(returnType()))
       stm << '\n' << --indentation << ')';
@@ -1169,6 +1201,11 @@ void CibCompound::emitCommonExpHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-handle-proxy-map.h\"\n";
   stm << "#include \"__zz_cib_internal/__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
+  if (cibParams.handleException)
+  {
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-throw-on-error.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-convert-to-error.h\"\n";
+  }
 }
 
 std::ostream& CibCompound::emitWrappingNsNamespacesForHelper(std::ostream&    stm,
@@ -1462,46 +1499,6 @@ const CibCompound* CibCompound::getFileAstObj(const CppObj* obj)
   while (parent->owner())
     parent = parent->owner();
   return static_cast<const CibCompound*>(parent);
-}
-
-std::set<const CibCompound*> CibCompound::collectAstDependencies(const std::set<const CppObj*>& cppObjs)
-{
-  std::set<const CibCompound*> asts;
-  for (auto obj : cppObjs)
-  {
-    auto* ast = getFileAstObj(obj);
-    asts.insert(ast);
-  }
-  return asts;
-}
-
-std::set<std::string> CibCompound::collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                             const CibParams&                    cibParams,
-                                                             bool                                forProxy)
-{
-  const auto&           dependentPath = cibParams.inputPath;
-  std::set<std::string> headers;
-  for (auto compound : compoundObjs)
-  {
-    assert(isCppFile(compound));
-    if (compound->isStlClass())
-      headers.emplace('<' + bfs::path(compound->name()).filename().string() + '>');
-    else if (compound->isStlHelpereClass())
-      headers.emplace('"' + cibParams.stlHelperDirName + '/' + bfs::path(compound->name()).filename().string() + '"');
-    else
-    {
-#if EMIT_HELPER_HEADER
-      auto helperHeaderPath = bfs::relative(compound->name(), dependentPath);
-      if (!forProxy)
-        helperHeaderPath = bfs::path("__zz_cib_helpers") / helperHeaderPath.parent_path()
-                           / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
-      headers.emplace('"' + helperHeaderPath.string() + '"');
-#else
-      headers.emplace('"' + bfs::relative(compound->name(), dependentPath).string() + '"');
-#endif
-    }
-  }
-  return headers;
 }
 
 bfs::path CibCompound::getImplDir(const CibParams& cibParams) const
@@ -1978,7 +1975,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   }
   if (!hasDtor() && (!isAbstract() || isFacadeLike() || needsGenericProxyDefinition()))
   {
-    auto defaultDtor = new CppDestructor(CppAccessType::kPublic, "~" + ctorName(), 0);
+    auto defaultDtor = new CppDestructor(CppAccessType::kPublic, "~" + ctorName(), CppIdentifierAttrib::kNoExcept);
     addMemberAtFront(defaultDtor);
     CibFunctionHelper func(defaultDtor);
     needsBridging_.insert(needsBridging_.begin(), func);
@@ -1992,7 +1989,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamVector;
     paramList->emplace_back(param);
-    auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, 0);
+    auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, CppIdentifierAttrib::kNoExcept);
     addMemberAtFront(copyCtor);
     CibFunctionHelper func(copyCtor);
     needsBridging_.insert(needsBridging_.begin(), func);
@@ -2001,7 +1998,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (shallAddDefaultCtor(this))
   {
     auto ctorProtection = isAbstract() ? CppAccessType::kProtected : CppAccessType::kPublic;
-    auto defaultCtor    = new CppConstructor(ctorProtection, ctorName(), nullptr, nullptr, 0);
+    auto defaultCtor = new CppConstructor(ctorProtection, ctorName(), nullptr, nullptr, CppIdentifierAttrib::kNoExcept);
     if (isAbstract())
       addMember(defaultCtor);
     else
@@ -2761,6 +2758,11 @@ void CibCompound::emitCommonCibHeaders(std::ostream& stm, const CibParams& cibPa
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-generic.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-type-converters.h\"\n";
+  if (cibParams.handleException)
+  {
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-throw-on-error.h\"\n";
+    stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-convert-to-error.h\"\n";
+  }
 
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-mtable-helper.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-proxy-mgr.h\"\n";

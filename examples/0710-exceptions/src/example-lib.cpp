@@ -1,13 +1,21 @@
 #include "example.h"
 
-A::A()
+A::A() noexcept
 {
 }
 
-A::A(const A&)
+A::A(const A&) noexcept
 {
 }
 
 A::~A()
+{
+}
+
+CustomBaseException::~CustomBaseException()
+{
+}
+
+CustomDerivedException::~CustomDerivedException()
 {
 }

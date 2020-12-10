@@ -252,6 +252,17 @@ public:
       return nullptr;
   }
 
+  bool canThrow() const
+  {
+    return hasAttr(CppIdentifierAttrib::kNoExceptFalse)
+           || (!hasAttr(CppIdentifierAttrib::kNoExcept) && !isDestructor());
+  }
+
+  bool emitCodeToHandleException(const CibParams& cibParams) const
+  {
+    return cibParams.handleException && canThrow();
+  }
+
   /// Name of function.
   const std::string& funcName() const
   {

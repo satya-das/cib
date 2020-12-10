@@ -491,6 +491,36 @@
             ]
         },
         {
+            "name": "Run cib for 0710-exceptions",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/0710-exceptions/pub",
+                "-b",
+                "${workspaceFolder}/examples/0710-exceptions/cib",
+                "-o",
+                "${workspaceFolder}/examples/0710-exceptions/exp",
+                "-m",
+                "Example",
+                "--exception-class",
+                "CustomBaseException",
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for 300-std-vector",
             "type": "cppdbg",
             "request": "launch",
