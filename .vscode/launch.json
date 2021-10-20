@@ -577,6 +577,34 @@
             ]
         },
         {
+            "name": "Run cib for template-class test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/tests/template-class/library/pub",
+                "-b",
+                "${workspaceFolder}/tests/template-class/library/cib",
+                "-o",
+                "${workspaceFolder}/tests/template-class/library/exp",
+                "-m",
+                "StlDependencyTest"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for 150-reference-of-pointer",
             "type": "cppdbg",
             "request": "launch",
@@ -1556,9 +1584,9 @@
             "name": "TemplateTestsClient",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tests/template-class//TemplateTestsClient",
+            "program": "${workspaceFolder}/build/tests/TemplateTestsClient",
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/builds",
+            "cwd": "${workspaceFolder}/build",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

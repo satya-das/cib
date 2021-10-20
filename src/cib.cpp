@@ -1989,7 +1989,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
     auto param     = new CppVar(paramType, CppVarDecl{std::string()});
     auto paramList = new CppParamVector;
     paramList->emplace_back(param);
-    auto copyCtor = new CppConstructor(ctorProtection, ctorName(), paramList, nullptr, CppIdentifierAttrib::kNoExcept);
+    auto copyCtor = new CppConstructor(
+      ctorProtection, ctorName(), paramList, makeEmptyCppMemInitList(), CppIdentifierAttrib::kNoExcept);
     addMemberAtFront(copyCtor);
     CibFunctionHelper func(copyCtor);
     needsBridging_.insert(needsBridging_.begin(), func);
@@ -1998,7 +1999,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
   if (shallAddDefaultCtor(this))
   {
     auto ctorProtection = isAbstract() ? CppAccessType::kProtected : CppAccessType::kPublic;
-    auto defaultCtor = new CppConstructor(ctorProtection, ctorName(), nullptr, nullptr, CppIdentifierAttrib::kNoExcept);
+    auto defaultCtor    = new CppConstructor(
+      ctorProtection, ctorName(), nullptr, makeEmptyCppMemInitList(), CppIdentifierAttrib::kNoExcept);
     if (isAbstract())
       addMember(defaultCtor);
     else

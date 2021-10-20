@@ -21,7 +21,7 @@ extern "C" struct __zz_cib_AbiException
   __zz_cib_AbiExceptionDestructor Destroy;
 };
 
-///{ Asserts to ensure AbiFunctor is compatible for all compilers
+///{ Asserts to ensure __zz_cib_AbiException is compatible for all compilers
 static_assert(std::is_standard_layout_v<__zz_cib_AbiException>);
 static_assert(sizeof(__zz_cib_AbiException) == 4 * sizeof(std::uintptr_t));
 ///}

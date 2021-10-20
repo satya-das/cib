@@ -9,20 +9,21 @@ namespace Example
   {
   public:
     Value(T x = T())
-      : x_(x)
+      :  x_(x)
     {
+
     }
     T GetValue() const
     {
-      return x_;
+    return x_;
     }
     void SetValue(T x)
     {
-      x_ = x;
+    x_ = x;
     }
     bool operator ==(const Value& rhs) const
     {
-      return x_ == rhs.x_;
+    return x_ == rhs.x_;
     }
   private:
     T x_;

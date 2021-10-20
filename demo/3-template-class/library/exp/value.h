@@ -7,12 +7,12 @@ class Value
 {
 public:
   Value(_ValueType value)
-    : mValue(value)
+    :  mValue(value)
   {
   }
   _ValueType get() const
   {
-    return mValue;
+ return mValue;
   }
 private:
   _ValueType mValue;

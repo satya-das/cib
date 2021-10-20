@@ -1,0 +1,82 @@
+--- pub/example.h
++++ exp/example.h
+@@ -1,44 +1,64 @@
+ #pragma once
+ 
++#include "__zz_cib_internal/example-predef.h"
++
+ class A
+ {
+ public:
++  A(A&& rhs);
++public:
++  A(const A&);
+   A();
+-  virtual int AnotherVirtFunc() { return 100; } // New virtual added before existing one.
+-  virtual int VirtFunc() { return 1; }
+-  int SomeFunc() { return 10; }
+-
+-  virtual ~A() {}
++  virtual int AnotherVirtFunc();
++  virtual int VirtFunc();
++  int SomeFunc();
++  virtual ~A();
+ 
+ private:
+-  int x {100};
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(A, A);
+ };
+ 
+ class I1
+ {
+ public:
+-  virtual int F() { return 1; }
+-  virtual ~I1() {}
++  I1(I1&& rhs);
++public:
++  I1();
++  I1(const I1&);
++  virtual int F();
++  virtual ~I1();
+ 
+ private:
+-  int y {100};
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(I1, I1);
+ };
+ 
+ class I2
+ {
+ public:
+-  virtual int G() { return 2; }
+-  virtual ~I2() {}
++  I2(I2&& rhs);
++public:
++  I2();
++  I2(const I2&);
++  virtual int G();
++  virtual ~I2();
+ 
+ private:
+-  int z {100};
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(I2, I2);
+ };
+ 
+-class B : public I1, public A, public I2
++class B : public ::I1,public ::A,public ::I2
+ {
+ public:
++  B(B&& rhs);
++public:
++  B(const B&);
++  ~B();
+   B();
+-  int VirtFunc() override  { return 15; }
++  virtual int VirtFunc();
++  static B* Create();
+ 
+-  static B* Create() { return new B; }
++private:
++  __ZZ_CIB_PROXY_CLASS_INTERNALS(B, B);
+ };
++
++#include "__zz_cib_internal/example-postdef.h"

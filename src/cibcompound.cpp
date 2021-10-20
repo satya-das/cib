@@ -307,7 +307,7 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
         newMem = new CppConstructor(CppAccessType::kPublic,
                                     this->name(),
                                     instantiateParams(func.getParams(), resolvedArgVals),
-                                    nullptr,
+                                    makeEmptyCppMemInitList(),
                                     func.getAttr());
       else if (func.isDestructor())
         newMem = new CppDestructor(CppAccessType::kPublic, "~" + this->name(), func.getAttr());

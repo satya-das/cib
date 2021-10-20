@@ -7,7 +7,7 @@ class TemplateClassWithOneParam
 {
 public:
   TemplateClassWithOneParam(T1 _a1)
-    : a1(_a1)
+    :  a1(_a1)
   {
   }
   T1 get() const
@@ -23,7 +23,7 @@ class TemplateClassWithTwoParams
 {
 public:
   TemplateClassWithTwoParams(T1 _a1, T2 _a2)
-    : a1(_a1)
+    :  a1(_a1)
     , a2(_a2)
   {
   }
@@ -45,7 +45,7 @@ class TemplateClassWithTwoParamsAndDefaultParameter
 {
 public:
   TemplateClassWithTwoParamsAndDefaultParameter(T1 _a1, T2 _a2)
-    : a1(_a1)
+    :  a1(_a1)
     , a2(_a2)
   {
   }
