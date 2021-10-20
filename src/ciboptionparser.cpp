@@ -30,6 +30,7 @@
 
 static bfs::path getResDir(const char* progPath)
 {
+  // TODO: Use https://www.boost.org/doc/libs/1_76_0/doc/html/boost/dll/program_location.html
   auto      progDir = bfs::path(progPath).parent_path();
   bfs::path resDir  = progDir / "cibres";
   return resDir;

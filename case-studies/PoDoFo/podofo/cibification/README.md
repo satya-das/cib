@@ -97,7 +97,7 @@ ninja
 
 ## To Run all tests
 
-Whild in `build` folder, do:
+While in `build` folder, do:
 
 ```sh
 mkdir tmp
