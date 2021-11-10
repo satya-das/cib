@@ -94,6 +94,11 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             false,
             "To handle exception properly CIB needs to know what are the custom exception classes. Using this option "
             "also means '--handle-exception' option is used.");
+  addOption("no-copy-class",
+            noCopyClasses,
+            false,
+            "Class that cannot be copied."
+            "This option can be used multiple times.");
   addOption("value-class,V",
             valueClasses,
             false,

@@ -112,6 +112,7 @@ private:
   void markNeedsGenericProxyDefinition(CibCompound* cppCompound);
   void setNeedsGenericProxyDefinition(CibCompound* cppCompound);
   void markNoProxyClasses();
+  void markNoCopyClasses();
   void forceMarkInterfaceClasses();
   void markStlClasses();
   void markStlHelperClasses();

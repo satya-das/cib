@@ -52,6 +52,7 @@ private:
   StringVector valueClasses;
   StringVector interfaceClasses;
   StringVector exceptionClasses;
+  StringVector noCopyClasses;
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
@@ -77,5 +78,6 @@ inline CibParams CibOptionParser::getCibParams()
           handleException || !exceptionClasses.empty(),
           valueClasses,
           interfaceClasses,
-          exceptionClasses};
+          exceptionClasses,
+          noCopyClasses};
 }

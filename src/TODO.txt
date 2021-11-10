@@ -1,8 +1,5 @@
 Add a detail page for illustrating cib tool and it's command line option.
 
-Add support for parsing function body as a blob.
-	This will avoid getting into many of parsing errors.
-
 Emit __zz_cib_ObjectFromHandle only for classes whose objects are passed as values.
 
 Investigate why we need ~__zz_cib_AbiFunctor()

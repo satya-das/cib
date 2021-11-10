@@ -308,7 +308,7 @@ Now we need to look what does client side glue code contain to make these types 
 ```diff
 --- pub/value.h
 +++ exp/value.h
-@@ -1,30 +1,33 @@
+@@ -1,30 +1,32 @@
  #pragma once
  
 +#include "__zz_cib_internal/value-predef.h"
@@ -322,7 +322,6 @@ Now we need to look what does client side glue code contain to make these types 
    Value(T x = T())
      : x_(x)
    {
-+
    }
    T GetValue() const
    {

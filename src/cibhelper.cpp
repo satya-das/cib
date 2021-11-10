@@ -158,6 +158,9 @@ void CibHelper::buildCibCppObjTree()
 
   for (auto& fileAst : program_->getFileAsts())
     resolveInheritance(static_cast<CibCompound*>(fileAst.get()));
+
+  markNoCopyClasses();
+
   for (auto& fileAst : program_->getFileAsts())
     markClassType(static_cast<CibCompound*>(fileAst.get()));
   // In some cases detecting facades need detection of interfaces.
@@ -172,6 +175,7 @@ void CibHelper::buildCibCppObjTree()
     markNeedsGenericProxyDefinition(static_cast<CibCompound*>(fileAst.get()));
   for (auto& fileAst : program_->getFileAsts())
     static_cast<CibCompound*>(fileAst.get())->identifyMethodsToBridge(*this);
+
   markNoProxyClasses();
 }
 
@@ -183,6 +187,19 @@ void CibHelper::markNoProxyClasses()
 
     if (noProxyClass)
       noProxyClass->setNeedNoProxy();
+  }
+}
+
+void CibHelper::markNoCopyClasses()
+{
+  for (const auto& noCopyClassName : cibParams_.noCopyClasses)
+  {
+    CibCompoundEPtr noCopyClass = getCppObjFromTypeName(noCopyClassName);
+
+    if (noCopyClass)
+    {
+      noCopyClass->setCantHaveDefaultCopyCtor();
+    }
   }
 }
 

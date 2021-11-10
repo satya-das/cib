@@ -1,6 +1,6 @@
 --- pub/value.h
 +++ exp/value.h
-@@ -1,30 +1,33 @@
+@@ -1,30 +1,32 @@
  #pragma once
  
 +#include "__zz_cib_internal/value-predef.h"
@@ -14,7 +14,6 @@
    Value(T x = T())
      : x_(x)
    {
-+
    }
    T GetValue() const
    {
