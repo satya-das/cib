@@ -56,12 +56,20 @@ private:
   // C++ parser options.
   StringVector knownMacros;
   StringVector knownApiDecor;
+  StringVector undefinedMacros;
+  StringVector definedMacros;
   StringVector ignorableMacros;
+  StringVector renamedKeywords;
 };
 
 inline CppParserOptions CibOptionParser::getCppParserOptions()
 {
-  return {std::move(knownMacros), std::move(knownApiDecor), std::move(ignorableMacros)};
+  return {std::move(knownMacros),
+          std::move(knownApiDecor),
+          std::move(undefinedMacros),
+          std::move(definedMacros),
+          std::move(ignorableMacros),
+          std::move(renamedKeywords)};
 }
 
 inline CibParams CibOptionParser::getCibParams()

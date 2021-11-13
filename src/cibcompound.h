@@ -99,7 +99,7 @@ enum CibClassPropFlags
   kClassPropCantHaveDefaultCopyCtor = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasVirtualParent        = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropHasVirtualAncestor      = (1 << (__LINE__ - kClassPropBaseLine)),
-  kClassPropStlClass                = (1 << (__LINE__ - kClassPropBaseLine)),
+  kClassPropStlHeader               = (1 << (__LINE__ - kClassPropBaseLine)),
   kClassPropStlHelperClass          = (1 << (__LINE__ - kClassPropBaseLine)),
 };
 
@@ -161,11 +161,9 @@ public:
     return libraryManagesProxy_;
   }
 
-  void setStlClass()
+  void setStlHeader()
   {
-    props_ |= kClassPropStlClass;
-    forEachNested([](CibCompound* nested) { nested->props_ |= kClassPropStlClass; });
-    outer()->props_ |= kClassPropStlClass;
+    props_ |= kClassPropStlHeader;
   }
   void setStlHelperClass()
   {
@@ -173,9 +171,9 @@ public:
     forEachNested([](CibCompound* nested) { nested->props_ |= kClassPropStlHelperClass; });
     outer()->props_ |= kClassPropStlHelperClass;
   }
-  bool isStlClass() const
+  bool isStlHeader() const
   {
-    return props_ & kClassPropStlClass;
+    return props_ & kClassPropStlHeader;
   }
   bool isStlHelpereClass() const
   {
@@ -183,11 +181,11 @@ public:
   }
   bool isStlRelated() const
   {
-    return isStlClass() || isStlHelpereClass();
+    return isStlHeader() || isStlHelpereClass();
   }
   bool isUnusedStl() const
   {
-    if (!isStlClass())
+    if (!isStlHeader())
       return false;
     bool isUsed = false;
     forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
@@ -683,9 +681,7 @@ public:
   void setFacadeLike()
   {
     props_ |= kClassPropFacade;
-    forEachDescendent([](auto* descendent) {
-      descendent->setShared();
-    });
+    forEachDescendent([](auto* descendent) { descendent->setShared(); });
   }
 
   bool needsDelagatorClass() const
@@ -725,6 +721,7 @@ public:
   bool forEachOuter(std::function<bool(CibCompound*)> callable);
   void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
 
+  static CibCompound*       getFileAstObj(CppObj* obj);
   static const CibCompound* getFileAstObj(const CppObj* obj);
 
   void emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
@@ -790,11 +787,11 @@ private:
                                                 std::set<const CppObj*>& cppObjs,
                                                 TypeResolvingFlag        typeResolvingFlag) const;
 
-  void                                collectFacades(std::set<const CibCompound*>& facades) const;
-  void                                emitUserImplDependencyHeaders(std::ostream&                  stm,
-                                                                    const CibHelper&               helper,
-                                                                    const CibParams&               cibParams,
-                                                                    const std::set<const CppObj*>& dependencies) const;
+  void collectFacades(std::set<const CibCompound*>& facades) const;
+  void emitUserImplDependencyHeaders(std::ostream&                  stm,
+                                     const CibHelper&               helper,
+                                     const CibParams&               cibParams,
+                                     const std::set<const CppObj*>& dependencies) const;
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;

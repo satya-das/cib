@@ -209,7 +209,7 @@ std::string getHeaderPath(const CibCompound* fileAst, const CibParams& cibParams
 {
   assert(isCppFile(fileAst));
 
-  if (fileAst->isStlClass())
+  if (fileAst->isStlHeader())
     return '<' + bfs::path(fileAst->name()).filename().string() + '>';
   else if (fileAst->isStlHelpereClass())
     return '"' + cibParams.stlHelperDirName + '/' + bfs::path(fileAst->name()).filename().string() + '"';

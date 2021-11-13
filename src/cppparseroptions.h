@@ -29,5 +29,8 @@ struct CppParserOptions
 {
   const StringVector knownMacros;
   const StringVector knownApiDecor;
+  const StringVector undefinedMacros;
+  const StringVector definedMacros;
   const StringVector ignorableMacros;
+  const StringVector renamedKeywords;
 };

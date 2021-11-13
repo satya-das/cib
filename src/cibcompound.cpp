@@ -292,8 +292,8 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   ret->setShared();
   ret->templateClass_ = this;
   ret->owner(owner());
-  if (isStlClass())
-    ret->setStlClass();
+  if (isStlHeader())
+    ret->setStlHeader();
   else if (isStlHelpereClass())
     ret->setStlHelperClass();
   forEachMember(this, CppAccessType::kPublic, [&](const CppObj* mem) -> bool {

@@ -29,6 +29,7 @@
 #include "cibutil.h"
 #include "cppparser.h"
 #include "cppparseroptions.h"
+#include <cstdlib>
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -56,7 +57,22 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   parser.parseEnumBodyAsBlob();
   parser.addKnownMacros(parserOptions.knownMacros);
   parser.addKnownApiDecors(parserOptions.knownApiDecor);
+  parser.addUndefinedNames(parserOptions.undefinedMacros);
   parser.addIgnorableMacros(parserOptions.ignorableMacros);
+
+  for (const auto& definedNameVal : parserOptions.definedMacros)
+  {
+    const auto colonPos = definedNameVal.find(':');
+    const auto val      = (colonPos != std::string::npos) ? std::atoi(definedNameVal.c_str() + colonPos + 1) : 0;
+    parser.addDefinedName(definedNameVal.substr(0, colonPos), val);
+  }
+
+  for (const auto& definedNameVal : parserOptions.renamedKeywords)
+  {
+    const auto colonPos = definedNameVal.find(':');
+    parser.addRenamedKeyword(definedNameVal.substr(0, colonPos), definedNameVal.substr(colonPos + 1));
+  }
+
   const auto files = collectAllInterfaceFiles(cibParams);
   program_.reset(new CppProgram(files, std::move(parser)));
   buildCibCppObjTree();
@@ -128,11 +144,15 @@ void CibHelper::markStlClasses()
   if (stlNode == nullptr)
     return;
 
+  const auto stlInterfacePath = cibParams_.stlInterfacePath.string();
   for (auto cppObj : stlNode->cppObjSet)
   {
     CibCompoundEPtr compound = const_cast<CppObj*>(cppObj);
-    if (compound)
-      compound->setStlClass();
+    if (!compound)
+      continue;
+    auto* fileAst = CibCompound::getFileAstObj((CppObj*) compound);
+    if (fileAst->name().compare(0, stlInterfacePath.size(), stlInterfacePath) == 0)
+      fileAst->setStlHeader();
   }
 }
 
@@ -369,10 +389,10 @@ CppObj* CibHelper::resolveTypename(const std::string&     name,
     {
       if (templateArgStart != name.npos)
       {
-        auto*       compound           = static_cast<CibCompound*>(cppObj);
-        const auto* instantiationScope = static_cast<const CibCompound*>(*(startNode->cppObjSet.begin()));
-        const auto  topTemplNameEndPos = getTopTemplateNameEndPos(name, templateArgStart);
-        auto*       topTemplObj =
+        auto* compound           = static_cast<CibCompound*>(cppObj);
+        auto* instantiationScope = static_cast<const CibCompound*>(startNode->getObjInSet(CppCompound::kObjectType));
+        const auto topTemplNameEndPos = getTopTemplateNameEndPos(name, templateArgStart);
+        auto*      topTemplObj =
           compound->getTemplateInstantiation(name.substr(0, topTemplNameEndPos), instantiationScope, *this);
         const auto nestedNameStartPos = getNestedNameStartPos(name, topTemplNameEndPos);
         if (nestedNameStartPos >= name.length())

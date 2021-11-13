@@ -66,9 +66,35 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   addOption("apidecor,A",
             knownApiDecor,
             false,
-            "Use this to make parser aware about API decorating macros, like DLLEXPORT which is defined as "
+            "Use this to make parser aware about API decorating macros, like DLLEXPORT which can be defined as "
             "__declspec(dllexport) on Windows. This option can be used multiple times.");
-  addOption("ignorable-macros,I", ignorableMacros, false, "Ignorable macros.");
+  addOption("undefined-macro",
+            undefinedMacros,
+            false,
+            "Use this to make parser aware about undefined macros that must be taken into account while parsing C++ "
+            "headers.\n"
+            "Example:\n\t  --undefined-macro SWIG\n"
+            "This option can be used multiple times.");
+  addOption("defined-macro",
+            definedMacros,
+            false,
+            "Use this to make parser aware about defined macros that must be taken into account while parsing C++ "
+            "headers.\n"
+            "Example:\n\t  --defined-macro USE_UNICODE:1\n"
+            "This option can be used multiple times.");
+  addOption("ignorable-macro,I",
+            ignorableMacros,
+            false,
+            "Use this to make parser aware about ignorable macros that must be taken into account while parsing C++ "
+            "headers.\n"
+            "Example:\n\t  --ignorable-macro UNUSED_PARAM\n"
+            "This option can be used multiple times.");
+  addOption("renamed-keyword",
+            renamedKeywords,
+            false,
+            "Use this to make parser aware about keywords that are renamed.\n"
+            "Example:\n\t  --renamed-keyword override:OVERRIDE\n"
+            "This option can be used multiple times.");
   addOption("no-exact-delegation,d",
             noExactDelegation,
             false,
@@ -97,7 +123,8 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   addOption("no-copy-class",
             noCopyClasses,
             false,
-            "Class that cannot be copied."
+            "If the copy constructor is deleted or private then cib already knows about non-copyability of the class. "
+            "This option can be used to make cib aware if some other method is used to make a class non-copyable."
             "This option can be used multiple times.");
   addOption("value-class,V",
             valueClasses,

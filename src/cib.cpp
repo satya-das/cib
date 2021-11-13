@@ -928,7 +928,7 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
     return;
 
   const auto usrIncPath = [&]() {
-    if (isStlClass())
+    if (isStlHeader())
       return bfs::temp_directory_path() / bfs::unique_path();
     if (isStlHelpereClass())
       return cibParams.outputPath / cibParams.stlHelperDirName / bfs::path(name()).filename();
@@ -979,7 +979,7 @@ void CibCompound::emitUserHeader(const CibHelper& helper, const CibParams& cibPa
 
 void CibCompound::emitPredefHeader(const CibHelper& helper, const CibParams& cibParams) const
 {
-  if (!isCppFile(this) || isStlClass())
+  if (!isCppFile(this) || isStlHeader())
     return;
 
   auto implPath = cibParams.outputPath / (getImplPath(cibParams) + "-predef.h");
@@ -1055,7 +1055,7 @@ void CibCompound::emitUserImplDependencyHeaders(std::ostream&                  s
 {
   auto asts    = collectAstDependencies(dependencies);
   auto thisAst = getFileAstObj(this);
-  if (!isStlClass() && !isStlHelpereClass())
+  if (!isStlHeader() && !isStlHelpereClass())
     asts.insert(thisAst);
   else
     asts.erase(thisAst);
@@ -1133,7 +1133,7 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&    stm,
       templCompound->extractTemplateArgumentHardDependencies(argDependencies, dependencies);
       auto fwdDecls = extractFwdDeclarations(dependencies);
       emitUserImplDependencyHeaders(tmplStm, helper, cibParams, dependencies);
-      if (isStlClass())
+      if (isStlHeader())
         tmplStm << "#include <" << bfs::path(name()).filename().string() << ">\n";
       else if (isStlHelpereClass())
         tmplStm << "#include \"" << cibParams.stlHelperDirName << '/' << bfs::path(name()).filename().string()
@@ -1350,7 +1350,7 @@ void CibCompound::emitImplSource(const CibHelper& helper, const CibParams& cibPa
 {
   if (!isCppFile(this) || isUnusedStl())
     return;
-  bfs::path usrSrcFile = isStlClass() || isStlHelpereClass()
+  bfs::path usrSrcFile = isStlHeader() || isStlHelpereClass()
                            ? bfs::temp_directory_path() / bfs::unique_path()
                            : cibParams.outputPath / name().substr(cibParams.inputPath.string().length());
   bfs::path usrSrcPath = usrSrcFile.replace_extension(".cpp");
@@ -1492,18 +1492,22 @@ void CibCompound::collectTypeDependencies(const CibHelper&         helper,
   collectTypeDependenciesInner(helper, cppObjs, excludeList, typeResolvingFlag);
 }
 
-const CibCompound* CibCompound::getFileAstObj(const CppObj* obj)
+CibCompound* CibCompound::getFileAstObj(CppObj* obj)
 {
-  const CppCompound* parent =
-    obj->objType_ == CppObjType::kCompound ? static_cast<const CppCompound*>(obj) : obj->owner();
+  CppCompound* parent = obj->objType_ == CppObjType::kCompound ? static_cast<CppCompound*>(obj) : obj->owner();
   while (parent->owner())
     parent = parent->owner();
-  return static_cast<const CibCompound*>(parent);
+  return static_cast<CibCompound*>(parent);
+}
+
+const CibCompound* CibCompound::getFileAstObj(const CppObj* obj)
+{
+  return getFileAstObj(const_cast<CppObj*>(obj));
 }
 
 bfs::path CibCompound::getImplDir(const CibParams& cibParams) const
 {
-  if (isStlClass() || isStlHelpereClass())
+  if (isStlHeader() || isStlHelpereClass())
     return cibParams.cibInternalDirName;
   bfs::path impl = name();
   return bfs::path(cibParams.cibInternalDirName) / bfs::relative(impl, cibParams.inputPath).remove_filename();
@@ -2663,7 +2667,7 @@ void CibCompound::emitHelperHeader(const CibHelper& helper,
                                    const CibParams& cibParams,
                                    CppIndent        indentation /* = CppIndent */) const
 {
-  if (isStlClass() || isStlHelpereClass())
+  if (isStlHeader() || isStlHelpereClass())
     return;
 
   const auto headerPath = bfs::relative(name(), cibParams.inputPath);
@@ -2701,7 +2705,7 @@ void CibCompound::emitLibGlueCode(const CibHelper& helper,
 
   const auto libGlueSrcPath = [&]() {
     bfs::path binderSrc = [&]() {
-      if (isStlClass())
+      if (isStlHeader())
         return bfs::relative(name(), cibParams.stlInterfacePath);
       else if (isStlHelpereClass())
         return bfs::relative(name(), cibParams.stlHelpersPath);
