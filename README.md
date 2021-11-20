@@ -83,6 +83,9 @@ It's basically an hourglass pattern with slightly different implementation than 
 ## Architecture Detail
 Please see [Examples](examples) to know the details.
 
+## Presentation
+CIB was [presented at meeting C++ conference](https://www.youtube.com/watch?v=cp-MtGe-f6M) in 2020.
+
 ## Demo projects
 **There are few projects that are meant to demonstrate CIB's capability. Please see [Demo](demo) for details.**
 
