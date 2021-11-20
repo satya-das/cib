@@ -10,6 +10,8 @@ Component Interface Binder (CIB)
 | OSX      | [![OSX Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=osx)](https://travis-ci.com/github/satya-das/cib)     |
 | Linux    | [![Linux Build Status](https://travis-ci.com/satya-das/cib.svg?branch=master&env=BADGE=linux)](https://travis-ci.com/github/satya-das/cib) |
 
+[![Meeting C++ presentation video](https://img.youtube.com/vi/cp-MtGe-f6M/0.jpg)](https://www.youtube.com/watch?v=cp-MtGe-f6M)
+
 # CIB
 
 **CIB is an architecture to publish compiler independent and ABI stable C++ SDK**
