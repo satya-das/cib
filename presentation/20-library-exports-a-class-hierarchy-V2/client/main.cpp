@@ -15,7 +15,7 @@ TEST_CASE("Use class hierarchy")
   try {
     const auto expectedEVal = pBase->E();
     CHECK(expectedEVal == 9);
-  } catch(std::bad_function_call) {
+  } catch(const std::bad_function_call&) {
     std::clog << "New client with old library used Base::E() method" << std::endl;
   } catch(...) {
     // fail spectacularly. Should never happen.

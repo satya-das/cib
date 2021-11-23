@@ -20,7 +20,7 @@ TEST_CASE("Client should be able to use library class")
   try {
     Circle c2(1, 1, 5);
     CHECK(c2.Radius() == 5);
-  } catch(std::bad_function_call) {
+  } catch(const std::bad_function_call&) {
     std::clog << "New client with old library used new Circle constructor" << std::endl;
   } catch(...) {
     // fail spectacularly. Should never happen.
@@ -31,7 +31,7 @@ TEST_CASE("Client should be able to use library class")
     const auto p = c.Perimeter();
     const float expectedPerimeter = 2 * 3.1416 * c.Radius();
     CHECK(p == expectedPerimeter);
-  } catch(std::bad_function_call) {
+  } catch(const std::bad_function_call&) {
     std::clog << "New client with old library used Perimeter() method" << std::endl;
   } catch(...) {
     // fail spectacularly. Should never happen.
@@ -49,7 +49,7 @@ TEST_CASE("Client should be able to use library class")
       const float expectedPerimeter = 2 * 3.1416 * c.Radius();
       CHECK(p == expectedPerimeter);
 
-    } catch(std::bad_function_call) {
+    } catch(const std::bad_function_call&) {
 
       std::clog << "New client with old library" << std::endl;
 
