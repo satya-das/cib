@@ -12,6 +12,8 @@ public:
   int Func() override { return 167; }
 
   bool mGuncCalled {false};
+private:
+  int PrivateVirtualFunc() override { return 168; }
 };
 
 TEST_CASE("Interface callback: library should be able to call client implemented function")
@@ -20,7 +22,7 @@ TEST_CASE("Interface callback: library should be able to call client implemented
   Implement i;
   auto ret = a.UseInterface(&i);
   if (i.mGuncCalled) // With new library
-    CHECK(ret == 167 + 193);
+    CHECK(ret == 167 + 168 + 193);
   else // With old library
-    CHECK(ret == 167);
+    CHECK(ret == 167 + 168);
 }

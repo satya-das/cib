@@ -13,6 +13,10 @@ class Interface
 public:
   virtual int Func() = 0;
   virtual ~Interface() {}
+private:
+  virtual int PrivateVirtualFunc() = 0;
+
+  friend class A;
 };
 
 class A
@@ -21,7 +25,7 @@ public:
   A();
   int UseInterface(Interface* pInterface) const
   {
-    return pInterface->Func();
+    return pInterface->Func() + pInterface->PrivateVirtualFunc();
   }
 };
 
@@ -41,13 +45,15 @@ class Implement : public Interface
 {
 public:
   int Func() override { return 167; }
+private:
+  int PrivateVirtualFunc() override { return 168; }
 };
 
 TEST_CASE("Interface callback: library should be able to call client implemented function")
 {
   A a;
   Implement i;
-  CHECK(a.UseInterface(&i) == 167);
+  CHECK(a.UseInterface(&i) == 167+168);
 }
 
 

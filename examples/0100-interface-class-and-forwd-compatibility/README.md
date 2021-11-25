@@ -7,7 +7,7 @@ Below I am showing the diff of new header with previous one.
 ```diff
 --- 0080-interface-class/pub/example.h
 +++ 0090-interface-class-and-bkwd-compatibility/pub/example.h
-@@ -1,18 +1,38 @@
+@@ -1,22 +1,42 @@
  #pragma once
  
 +#include <functional>
@@ -20,6 +20,10 @@ Below I am showing the diff of new header with previous one.
    virtual int Func() = 0;
 +
    virtual ~Interface() {}
+ private:
+   virtual int PrivateVirtualFunc() = 0;
+ 
+   friend class A;
  };
  
  class A
@@ -28,8 +32,8 @@ Below I am showing the diff of new header with previous one.
    A();
    int UseInterface(Interface* pInterface) const
    {
--    return pInterface->Func();
-+    return pInterface->Func() + CallNewMethod(pInterface);
+-    return pInterface->Func() + pInterface->PrivateVirtualFunc();
++    return pInterface->Func() + pInterface->PrivateVirtualFunc() + CallNewMethod(pInterface);
 +  }
 +
 +private:
@@ -57,7 +61,7 @@ Below is the diff of client code from the previous example:
 ```diff
 --- 0080-interface-class/src/example-client.cpp
 +++ 0090-interface-class-and-bkwd-compatibility/src/example-client.cpp
-@@ -1,17 +1,24 @@
+@@ -1,19 +1,26 @@
  #include "example.h"
  
  #include <catch/catch.hpp>
@@ -67,14 +71,16 @@ Below is the diff of client code from the previous example:
  public:
 +  int Gunc() override { return 193; };
    int Func() override { return 167; }
+ private:
+   int PrivateVirtualFunc() override { return 168; }
  };
  
  TEST_CASE("Interface callback: library should be able to call client implemented function")
  {
    A a;
    Implement i;
--  CHECK(a.UseInterface(&i) == 167);
-+  CHECK(a.UseInterface(&i) == 167 + 193);
+-  CHECK(a.UseInterface(&i) == 167+168);
++  CHECK(a.UseInterface(&i) == 167 + 168 + 193);
  }
  
 +TEST_CASE("Interface callback: new method should be available to new clients")

@@ -1,6 +1,6 @@
 --- 0080-interface-class/pub/example.h
 +++ 0090-interface-class-and-bkwd-compatibility/pub/example.h
-@@ -1,18 +1,38 @@
+@@ -1,22 +1,42 @@
  #pragma once
  
 +#include <functional>
@@ -13,6 +13,10 @@
    virtual int Func() = 0;
 +
    virtual ~Interface() {}
+ private:
+   virtual int PrivateVirtualFunc() = 0;
+ 
+   friend class A;
  };
  
  class A
@@ -21,8 +25,8 @@
    A();
    int UseInterface(Interface* pInterface) const
    {
--    return pInterface->Func();
-+    return pInterface->Func() + CallNewMethod(pInterface);
+-    return pInterface->Func() + pInterface->PrivateVirtualFunc();
++    return pInterface->Func() + pInterface->PrivateVirtualFunc() + CallNewMethod(pInterface);
 +  }
 +
 +private:

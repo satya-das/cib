@@ -6,11 +6,11 @@
 8a13,14
 > 
 >   bool mGuncCalled {false};
-15c21,25
-<   CHECK(a.UseInterface(&i) == 167);
+17c23,27
+<   CHECK(a.UseInterface(&i) == 167+168);
 ---
 >   auto ret = a.UseInterface(&i);
 >   if (i.mGuncCalled) // With new library
->     CHECK(ret == 167 + 193);
+>     CHECK(ret == 167 + 168 + 193);
 >   else // With old library
->     CHECK(ret == 167);
+>     CHECK(ret == 167 + 168);

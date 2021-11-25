@@ -60,11 +60,13 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 { namespace __zz_cib_Generic {
   enum __zz_cib_MethodId {
+    //#= int PrivateVirtualFunc();
+    PrivateVirtualFunc_0 = 0,
     //#= int Func();
-    Func_0 = 0,
+    Func_1 = 1,
     //#= ~Interface();
-    __zz_cib_Delete_1 = 1,
-    __zz_cib_nextMethodId = 2
+    __zz_cib_Delete_2 = 2,
+    __zz_cib_nextMethodId = 3
   };
 }}}}
 

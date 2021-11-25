@@ -1,6 +1,6 @@
 --- pub/example.h
 +++ exp/example.h
-@@ -1,18 +1,33 @@
+@@ -1,22 +1,35 @@
  #pragma once
  
 +#include "__zz_cib_internal/example-predef.h"
@@ -13,9 +13,12 @@
    virtual int Func() = 0;
 -  virtual ~Interface() {}
 +  virtual ~Interface();
+ private:
+   virtual int PrivateVirtualFunc() = 0;
 +protected:
 +  Interface();
-+
+ 
+-  friend class A;
 +private:
 +  __ZZ_CIB_PROXY_CLASS_INTERNALS(Interface, Interface);
  };
@@ -30,7 +33,7 @@
    A();
 -  int UseInterface(Interface* pInterface) const
 -  {
--    return pInterface->Func();
+-    return pInterface->Func() + pInterface->PrivateVirtualFunc();
 -  }
 +  int UseInterface(Interface* pInterface) const;
 +

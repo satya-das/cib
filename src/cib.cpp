@@ -1299,7 +1299,7 @@ void CibCompound::emitImplSource(std::ostream&    stm,
     const CppHashIf* lastUsedConditional = nullptr;
     for (auto func : allVirtuals_)
     {
-      if (func.isFinal() || isPrivate(func))
+      if (func.isFinal())
         continue;
 
       const auto* conditional = getMemConditional(func);
@@ -1905,8 +1905,7 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
         lastUsedConditional = nullptr;
       continue;
     }
-    if (isPrivate(mem))
-      continue;
+
     if (isFunctionLike(mem))
     {
       CibFunctionHelper func(mem);
@@ -1921,6 +1920,8 @@ void CibCompound::identifyMethodsToBridge(const CibHelper& helper)
       if (func.isFriend() && !(func.hasDefinition() || isTemplateInstance()))
         continue;
       if (func.isConstructorLike() && isAbstract() && !needsGenericProxyDefinition())
+        continue;
+      if (isPrivate(func) && !func.isVirtual())
         continue;
       if (func.isPureVirtual() && !isFacadeLike() && !isInterfaceLike() && !isAncestorFacadeLike()
           && !func.isDestructor())
@@ -2530,7 +2531,7 @@ void CibCompound::emitGenericProxyDefn(std::ostream&    stm,
   bool             dtorEmitted         = false;
   for (auto func : allVirtuals_)
   {
-    if (func.isFinal() || (isPrivate(func)))
+    if (func.isFinal())
       continue;
 
     const auto* conditional = getMemConditional(func);
@@ -2851,6 +2852,8 @@ void CibCompound::emitDelegators(std::ostream&    stm,
     if (conditional && (conditional != lastUsedConditional))
       gCppWriter.emit(conditional, stm);
     lastUsedConditional = conditional;
+    if (isPrivate(func))
+      continue;
     if (funcSignatures.insert(func.signature(helper)).second)
       func.emitCAPIDefn(
         stm, helper, cibParams, this, cibIdData->getMethodCApiName(func.signature(helper)), kPurposeCApi, indentation);

@@ -11,7 +11,7 @@ Below I am showing the diff of new header with previous one.
 ```diff
 --- 0080-interface-class/pub/example.h
 +++ 0090-interface-class-and-bkwd-compatibility/pub/example.h
-@@ -1,18 +1,38 @@
+@@ -1,22 +1,42 @@
  #pragma once
  
 +#include <functional>
@@ -24,6 +24,10 @@ Below I am showing the diff of new header with previous one.
    virtual int Func() = 0;
 +
    virtual ~Interface() {}
+ private:
+   virtual int PrivateVirtualFunc() = 0;
+ 
+   friend class A;
  };
  
  class A
@@ -32,8 +36,8 @@ Below I am showing the diff of new header with previous one.
    A();
    int UseInterface(Interface* pInterface) const
    {
--    return pInterface->Func();
-+    return pInterface->Func() + CallNewMethod(pInterface);
+-    return pInterface->Func() + pInterface->PrivateVirtualFunc();
++    return pInterface->Func() + pInterface->PrivateVirtualFunc() + CallNewMethod(pInterface);
 +  }
 +
 +private:
@@ -61,7 +65,7 @@ Below is the diff of client code from the previous example:
 ```diff
 --- 0080-interface-class/src/example-client.cpp
 +++ 0090-interface-class-and-bkwd-compatibility/src/example-client.cpp
-@@ -1,17 +1,24 @@
+@@ -1,19 +1,26 @@
  #include "example.h"
  
  #include <catch/catch.hpp>
@@ -71,14 +75,16 @@ Below is the diff of client code from the previous example:
  public:
 +  int Gunc() override { return 193; };
    int Func() override { return 167; }
+ private:
+   int PrivateVirtualFunc() override { return 168; }
  };
  
  TEST_CASE("Interface callback: library should be able to call client implemented function")
  {
    A a;
    Implement i;
--  CHECK(a.UseInterface(&i) == 167);
-+  CHECK(a.UseInterface(&i) == 167 + 193);
+-  CHECK(a.UseInterface(&i) == 167+168);
++  CHECK(a.UseInterface(&i) == 167 + 168 + 193);
  }
  
 +TEST_CASE("Interface callback: new method should be available to new clients")
@@ -98,7 +104,7 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 --- 0080-interface-class/cib/example.h.cpp
 +++ 0090-interface-class-and-bkwd-compatibility/cib/example.h.cpp
 @@ -28,10 +28,19 @@
-       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Func_0>(
+       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::PrivateVirtualFunc_0>(
          __zz_cib_h
        )
      );
@@ -107,23 +113,23 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
 +    auto __zz_cib_h = __zz_cib_h_;
 +    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
 +    return __zz_cib_FromAbiType<int>(
-+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Gunc_2>(
++      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Gunc_3>(
 +        __zz_cib_h
 +      )
 +    );
 +  }
-   ~__zz_cib_Generic() override {
-     if (!__zz_cib_h_) return;
+   int Func() override {
      auto __zz_cib_h = __zz_cib_h_;
-     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-     __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
-@@ -61,10 +70,15 @@
+     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+     return __zz_cib_FromAbiType<int>(
+       __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Func_1>(
+@@ -70,10 +79,15 @@
    using ::Interface::Interface;
  
    static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0(__zz_cib_Proxy __zz_cib_proxy, const __zz_cib_MethodTable* __zz_cib_GetMethodTable) {
      return new __zz_cib_::__zz_cib_Generic<::Interface>(__zz_cib_proxy, __zz_cib_GetMethodTable);
    }
-+  static __zz_cib_AbiType_t<int> __zz_cib_decl Gunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
++  static __zz_cib_AbiType_t<int> __zz_cib_decl Gunc_5(__zz_cib_Delegatee* __zz_cib_obj) {
 +    return __zz_cib_ToAbiType<int>(
 +      __zz_cib_obj->Gunc()
 +    );
@@ -133,18 +139,18 @@ The reason of this **ABI stability** is that virtual tables are not shared acros
        __zz_cib_obj->Func()
      );
    }
-@@ -82,13 +96,14 @@
- const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
+@@ -97,13 +111,14 @@
    static const __zz_cib_MTableEntry methodArray[] = {
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_New_0),
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Func_1),
      reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_Delete_2),
+     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::PrivateVirtualFunc_3),
 -    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_ReleaseProxy)
 +    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_ReleaseProxy),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Gunc_4)
++    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Gunc_5)
    };
--  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
-+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
+-  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
++  static const __zz_cib_MethodTable methodTable = { methodArray, 6 };
    return &methodTable;
  }
  }}

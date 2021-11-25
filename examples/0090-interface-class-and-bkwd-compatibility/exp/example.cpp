@@ -66,17 +66,22 @@ namespace __zz_cib_ {
 template <>
 struct __zz_cib_Delegator<::Interface> {
   using __zz_cib_Delegatee = ::Interface;
-  static __zz_cib_AbiType_t<int> __zz_cib_decl Func_0(::Interface* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl PrivateVirtualFunc_0(::Interface* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
-      __zz_cib_obj->Func()
+      __zz_cib_obj->PrivateVirtualFunc()
     );
   }
-  static __zz_cib_AbiType_t<int> __zz_cib_decl Gunc_2(::Interface* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Gunc_3(::Interface* __zz_cib_obj) {
     return __zz_cib_ToAbiType<int>(
       __zz_cib_obj->Gunc()
     );
   }
-  static void __zz_cib_decl __zz_cib_Delete_1(::Interface* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<int> __zz_cib_decl Func_1(::Interface* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<int>(
+      __zz_cib_obj->Func()
+    );
+  }
+  static void __zz_cib_decl __zz_cib_Delete_2(::Interface* __zz_cib_obj) {
     __zz_cib_Helper_t<::Interface>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
@@ -87,11 +92,12 @@ namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
 static const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
   static const __zz_cib_MTableEntry methodArray[] = {
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Func_0),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_Delete_1),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Gunc_2)
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::PrivateVirtualFunc_0),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Func_1),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::__zz_cib_Delete_2),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::Interface>::Gunc_3)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 3 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
   return &methodTable;
 }
 }}

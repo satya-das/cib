@@ -9,6 +9,8 @@ public:
 public:
   virtual int Func() = 0;
   virtual ~Interface();
+private:
+  virtual int PrivateVirtualFunc() = 0;
 protected:
   Interface();
 

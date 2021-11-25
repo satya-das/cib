@@ -293,6 +293,8 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     {
       if (isPrivate(func) && !func.isPureVirtual())
         continue;
+      if (!forGenericProxy && !isPublic(func) && func.isPureVirtual())
+        continue;
       addMethod(func);
     }
     if (forGenericProxy)

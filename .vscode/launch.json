@@ -2435,6 +2435,34 @@
             ]
         },
         {
+            "name": "Run cib for 0080-interface-class",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/0080-interface-class/pub",
+                "-b",
+                "${workspaceFolder}/examples/0080-interface-class/cib",
+                "-o",
+                "${workspaceFolder}/examples/0080-interface-class/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for 0090-interface-class-and-bkwd-compatibility",
             "type": "cppdbg",
             "request": "launch",
@@ -2446,6 +2474,34 @@
                 "${workspaceFolder}/examples/0090-interface-class-and-bkwd-compatibility/cib",
                 "-o",
                 "${workspaceFolder}/examples/0090-interface-class-and-bkwd-compatibility/exp",
+                "-m",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Run cib for 0100-interface-class-and-forwd-compatibility",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/examples/0100-interface-class-and-forwd-compatibility/pub",
+                "-b",
+                "${workspaceFolder}/examples/0100-interface-class-and-forwd-compatibility/cib",
+                "-o",
+                "${workspaceFolder}/examples/0100-interface-class-and-forwd-compatibility/exp",
                 "-m",
                 "Example"
             ],

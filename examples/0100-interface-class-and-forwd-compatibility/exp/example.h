@@ -12,6 +12,8 @@ public:
   virtual int Gunc() = 0;
   virtual int Func() = 0;
   virtual ~Interface();
+private:
+  virtual int PrivateVirtualFunc() = 0;
 protected:
   Interface();
 

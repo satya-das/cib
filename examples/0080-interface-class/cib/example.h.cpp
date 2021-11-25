@@ -21,11 +21,20 @@ public:
     , __zz_cib_h_(__zz_cib_proxy)
     , __zz_cib_methodTableHelper(__zz_cib_GetMethodTable)
   {}
+  int PrivateVirtualFunc() override {
+    auto __zz_cib_h = __zz_cib_h_;
+    using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
+    return __zz_cib_FromAbiType<int>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::PrivateVirtualFunc_0>(
+        __zz_cib_h
+      )
+    );
+  }
   int Func() override {
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = __zz_cib_AbiType_t<int>(__zz_cib_decl *) (__zz_cib_Proxy);
     return __zz_cib_FromAbiType<int>(
-      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Func_0>(
+      __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::Func_1>(
         __zz_cib_h
       )
     );
@@ -34,7 +43,7 @@ public:
     if (!__zz_cib_h_) return;
     auto __zz_cib_h = __zz_cib_h_;
     using __zz_cib_ProcType = void(__zz_cib_decl *) (__zz_cib_Proxy);
-    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_1>(
+    __zz_cib_GetMethodTableHelper().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::__zz_cib_Delete_2>(
       __zz_cib_h
     );
   }
