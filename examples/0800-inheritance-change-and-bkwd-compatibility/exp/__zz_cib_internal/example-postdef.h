@@ -413,9 +413,9 @@ struct __zz_cib_Helper<::B, T> : public __zz_cib_MethodTableHelper {
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::I1>::__zz_cib_ReleaseHandle(__zz_cib_obj);
-    __zz_cib_::__zz_cib_Helper<::A>::__zz_cib_ReleaseHandle(__zz_cib_obj);
-    __zz_cib_::__zz_cib_Helper<::I2>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::I1, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::A, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::I2, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {

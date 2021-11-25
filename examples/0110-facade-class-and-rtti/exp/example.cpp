@@ -174,7 +174,7 @@ struct __zz_cib_Delegator<::Facade> {
     __zz_cib_obj->F();
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Facade* __zz_cib_obj) {
-    __zz_cib_Helper<::Facade>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::Facade>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

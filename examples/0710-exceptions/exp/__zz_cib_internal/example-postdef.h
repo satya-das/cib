@@ -154,7 +154,7 @@ struct __zz_cib_Helper<::CustomDerivedException, T> : public __zz_cib_MethodTabl
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::CustomBaseException>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::CustomBaseException, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };

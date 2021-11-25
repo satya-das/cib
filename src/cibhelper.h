@@ -25,6 +25,8 @@
 
 #include "cppprog.h"
 
+#include <boost/filesystem.hpp>
+
 #include <map>
 #include <memory>
 #include <set>
@@ -105,6 +107,16 @@ public:
 
   std::string convertSmartPtr(const std::string& typeName) const;
 
+  bool isHeaderPresent(const std::string& fileName) const
+  {
+    return headersSet_.find(fileName) != headersSet_.end();
+  }
+
+  /**
+   * @brief Returns a non empty string if the parent folder contains the same named file.
+   */
+  std::string wxStyleParentHeader(const boost::filesystem::path& headerPath) const;
+
 private:
   void resolveInheritance(CibCompound* cppCompound);
   void buildCibCppObjTree();
@@ -141,6 +153,8 @@ private:
   void identifyAbstract(CibCompound* compound);
 
 private:
+  using HeadersSet = std::unordered_set<std::string>;
+
   bool cibCppObjTreeCreated_;
 
   std::unique_ptr<CppProgram> program_;
@@ -148,6 +162,7 @@ private:
   CibIdMgr&                   cibIdMgr_;
   std::set<std::string>       smartPtrNames_;
   std::set<std::string>       uniquePtrNames_;
+  HeadersSet                  headersSet_;
 };
 
 //////////////////////////////////////////////////////////////////////////

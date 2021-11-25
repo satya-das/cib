@@ -177,7 +177,7 @@ struct __zz_cib_Helper<::PublicFacadeImpl, T> : public __zz_cib_MethodTableHelpe
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::Facade>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::Facade, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {

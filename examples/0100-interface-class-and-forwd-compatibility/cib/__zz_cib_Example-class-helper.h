@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <type_traits>
+
 namespace __zz_cib_ {
 
 /**
@@ -15,5 +17,14 @@ template <typename _ProxyClass, typename _SpecializationDelayer = _ProxyClass>
 struct __zz_cib_Helper
 {
 };
+
+/**
+ * @brief Resolves to __zz_cib_Helper<ProxyClass>
+
+ * @note This is only to delay the instantiation of __zz_cib_Helper<ProxyClass> until it is really needed.
+ */
+template <typename ProxyClass, typename Delayer = ProxyClass>
+using __zz_cib_Helper_t =
+  __zz_cib_Helper<std::conditional_t<!std::is_same_v<ProxyClass, Delayer>, ProxyClass, Delayer>>;
 
 } // namespace __zz_cib_

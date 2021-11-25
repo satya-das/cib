@@ -205,25 +205,30 @@ std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*
   return asts;
 }
 
-std::string getHeaderPath(const CibCompound* fileAst, const CibParams& cibParams, bool forProxy)
+std::string getHeaderPath(const CibCompound* fileAst,
+                          const CibHelper&   helper,
+                          const CibParams&   cibParams,
+                          bool               forProxy)
 {
   assert(isCppFile(fileAst));
 
+  const auto fileAstPath = bfs::path(fileAst->name());
   if (fileAst->isStlHeader())
-    return '<' + bfs::path(fileAst->name()).filename().string() + '>';
+    return '<' + bfs::path(fileAstPath).filename().string() + '>';
   else if (fileAst->isStlHelpereClass())
-    return '"' + cibParams.stlHelperDirName + '/' + bfs::path(fileAst->name()).filename().string() + '"';
+    return '"' + cibParams.stlHelperDirName + '/' + bfs::path(fileAstPath).filename().string() + '"';
   else
   {
-    const auto& dependentPath = cibParams.inputPath;
+    const auto& dependentPath = forProxy ? fileAstPath.parent_path() : cibParams.inputPath;
 #if EMIT_HELPER_HEADER
-    auto helperHeaderPath = bfs::relative(fileAst->name(), dependentPath);
+    auto helperHeaderPath = bfs::relative(fileAstPath, dependentPath);
     if (!forProxy)
       helperHeaderPath = bfs::path("__zz_cib_helpers") / helperHeaderPath.parent_path()
                          / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
     return '"' + helperHeaderPath.string() + '"';
 #else
-    return '"' + bfs::relative(fileAst->name(), dependentPath).string() + '"';
+    const auto parentHeader = helper.wxStyleParentHeader(fileAstPath);
+    return '"' + bfs::relative(parentHeader.empty() ? fileAstPath : parentHeader, dependentPath).string() + '"';
 #endif
   }
 }
@@ -236,16 +241,17 @@ std::string getHeaderPath(const std::string& className,
   const auto* compound = helper.getCppObjFromTypeName(className);
   if (compound == nullptr)
     return std::string();
-  return getHeaderPath(CibCompound::getFileAstObj(compound), cibParams, forProxy);
+  return getHeaderPath(CibCompound::getFileAstObj(compound), helper, cibParams, forProxy);
 }
 
 std::set<std::string> collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
+                                                const CibHelper&                    helper,
                                                 const CibParams&                    cibParams,
                                                 bool                                forProxy)
 {
   std::set<std::string> headers;
   for (const auto* compound : compoundObjs)
-    headers.insert(getHeaderPath(compound, cibParams, forProxy));
+    headers.insert(getHeaderPath(compound, helper, cibParams, forProxy));
 
   return headers;
 }

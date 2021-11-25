@@ -40,7 +40,7 @@ Below I am showing the diff of new header with previous one.
 +      // new client
 +      return pInterface->Gunc();
 +    }
-+    catch (std::bad_function_call)
++    catch (const std::bad_function_call&)
 +    {
 +      // old client
 +      return 0;

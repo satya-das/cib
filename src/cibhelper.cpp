@@ -74,6 +74,9 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   }
 
   const auto files = collectAllInterfaceFiles(cibParams);
+  for (const auto& file : files)
+    headersSet_.insert(file);
+
   program_.reset(new CppProgram(files, std::move(parser)));
   buildCibCppObjTree();
 }
@@ -408,6 +411,16 @@ CppObj* CibHelper::resolveTypename(const std::string&     name,
   }
 
   return cppObj;
+}
+
+std::string CibHelper::wxStyleParentHeader(const bfs::path& headerPath) const
+{
+  if (!cibParams_.wxStyleHeaderDependency)
+    return {};
+
+  const auto parentDir             = headerPath.parent_path().parent_path();
+  auto       sameNamedFileInParent = (parentDir / headerPath.filename()).string();
+  return isHeaderPresent(sameNamedFileInParent) ? sameNamedFileInParent : std::string();
 }
 
 void CibHelper::resolveInheritance(CibCompound* cppCompound)

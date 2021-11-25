@@ -71,7 +71,7 @@ struct __zz_cib_Delegator<::Context> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Context* __zz_cib_obj) {
-    __zz_cib_Helper<::Context>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::Context>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

@@ -115,6 +115,14 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             handleException,
             false,
             "If library throws exceptions then it should be handled in an ABI stable manner.");
+  addOption(
+    "wx-style-header-dependency",
+    wxStyleHeaderDependency,
+    false,
+    "It should be set to true if the header dependency is same as what is used in the wxWidgets. In wxWidgets "
+    "library, platform specific implementation headers are in separate folders. Although the platform specific headers "
+    "depend on the same named file in the parent folder but that file in not included in the platform specific header "
+    "file. The same named header in the parent folder includes the platform specific file at the very end.");
   addOption("exception-class,E",
             exceptionClasses,
             false,

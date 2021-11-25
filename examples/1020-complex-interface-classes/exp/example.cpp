@@ -131,7 +131,7 @@ struct __zz_cib_Delegator<::Interface1> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::Interface1* __zz_cib_obj) {
-    __zz_cib_Helper<::Interface1>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::Interface1>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
@@ -211,7 +211,7 @@ struct __zz_cib_Delegator<::Interface2> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Interface2* __zz_cib_obj) {
-    __zz_cib_Helper<::Interface2>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::Interface2>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
@@ -290,7 +290,7 @@ struct __zz_cib_Delegator<::Interface3> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::Interface3* __zz_cib_obj) {
-    __zz_cib_Helper<::Interface3>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::Interface3>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

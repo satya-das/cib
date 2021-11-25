@@ -66,6 +66,7 @@ public:
   bool         alwaysUseNsName;
   bool         noRtti;
   bool         handleException;
+  bool         wxStyleHeaderDependency;
   StringVector layoutSharingClasses;
   StringVector interfaceClasses;
   StringVector exceptionClasses;
@@ -82,6 +83,7 @@ public:
             bool         u,
             bool         t,
             bool         e,
+            bool         w,
             StringVector n,
             StringVector F,
             StringVector E,
@@ -105,6 +107,7 @@ public:
     , alwaysUseNsName(u)
     , noRtti(t)
     , handleException(e)
+    , wxStyleHeaderDependency(w)
     , layoutSharingClasses(std::move(n))
     , interfaceClasses(std::move(F))
     , exceptionClasses(std::move(E))

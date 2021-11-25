@@ -175,7 +175,7 @@ struct __zz_cib_Delegator<::I> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::I* __zz_cib_obj) {
-    __zz_cib_Helper<::I>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::I>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

@@ -6,23 +6,12 @@
 #include "__zz_cib_Example-mtable-helper.h"
 #include "__zz_cib_Example-proxy-mgr.h"
 
-#include "example-file1.h"
-
-#include "example-file1.h"
 #include "example-file2.h"
 
 #include "example-file2.h"
+#include "example-file1.h"
 
-namespace __zz_cib_ {
-namespace __zz_cib_Class258 {
-using namespace ::Example;
-namespace __zz_cib_NsDelegator {
-static __zz_cib_AbiType_t<int> __zz_cib_decl Function1_0() {
-  return __zz_cib_ToAbiType<int>(
-    ::Example::Function1()
-  );
-}
-}}}
+#include "example-file1.h"
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class258 {
@@ -31,6 +20,17 @@ namespace __zz_cib_NsDelegator {
 static __zz_cib_AbiType_t<int> __zz_cib_decl Function2_1() {
   return __zz_cib_ToAbiType<int>(
     ::Example::Function2()
+  );
+}
+}}}
+
+namespace __zz_cib_ {
+namespace __zz_cib_Class258 {
+using namespace ::Example;
+namespace __zz_cib_NsDelegator {
+static __zz_cib_AbiType_t<int> __zz_cib_decl Function1_0() {
+  return __zz_cib_ToAbiType<int>(
+    ::Example::Function1()
   );
 }
 }}}

@@ -1867,6 +1867,36 @@
             ]
         },
         {
+            "name": "Run cib for wxStyleHeaderDependencyTest",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/tests/wx-style-header-dependency/library/pub",
+                "-b",
+                "${workspaceFolder}/tests/wx-style-header-dependency/library/cib",
+                "-o",
+                "${workspaceFolder}/tests/wx-style-header-dependency/library/exp",
+                "-m",
+                "wxStyleHeaderDependencyTests",
+                "--wx-style-header-dependency",
+                "true"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for TemplateTests",
             "type": "cppdbg",
             "request": "launch",

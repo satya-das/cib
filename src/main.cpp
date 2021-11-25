@@ -428,6 +428,8 @@ int main(int argc, const char* argv[])
   auto            cibParams = optionParser.getCibParams();
   auto            cppParams = optionParser.getCppParserOptions();
 
+  // if (cibParams.wxStyleHeaderDependency)
+  //   return 0;
   ensureDirectoriesExist(cibParams);
 
   CibIdMgr  cibIdMgr(cibParams);

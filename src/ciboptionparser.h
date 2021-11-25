@@ -49,6 +49,7 @@ private:
   bool         alwaysUseNsName{true};
   bool         noRtti{false};
   bool         handleException{false};
+  bool         wxStyleHeaderDependency{false};
   StringVector valueClasses;
   StringVector interfaceClasses;
   StringVector exceptionClasses;
@@ -84,6 +85,7 @@ inline CibParams CibOptionParser::getCibParams()
           alwaysUseNsName,
           noRtti,
           handleException || !exceptionClasses.empty(),
+          wxStyleHeaderDependency,
           valueClasses,
           interfaceClasses,
           exceptionClasses,

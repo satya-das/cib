@@ -466,7 +466,7 @@ void CibFunctionHelper::emitCAPIDefn(std::ostream&      stm,
     else
     {
       if (forProxy)
-        stm << "__zz_cib_Helper<" << longName(callingOwner) << ">::__zz_cib_ReleaseHandle(__zz_cib_obj);\n";
+        stm << "__zz_cib_Helper_t<" << longName(callingOwner) << ">::__zz_cib_ReleaseHandle(__zz_cib_obj);\n";
       stm << indentation << "delete __zz_cib_obj;\n";
     }
   }
@@ -1067,7 +1067,7 @@ void CibCompound::emitUserImplDependencyHeaders(std::ostream&                  s
     else
       ++itr;
   }
-  auto headers = collectHeaderDependencies(asts, cibParams, true);
+  auto headers = collectHeaderDependencies(asts, helper, cibParams, true);
   if (!headers.empty())
   {
     stm << '\n';
@@ -2274,8 +2274,8 @@ void CibCompound::emitHandleHelpers(std::ostream&    stm,
   forEachParent(CppAccessType::kPublic, [&stm, &indentation](const CibCompound* baseCompound) {
     if (baseCompound->needsBridging())
     {
-      stm << indentation << "__zz_cib_::__zz_cib_Helper<" << baseCompound->longName()
-          << ">::__zz_cib_ReleaseHandle(__zz_cib_obj);\n";
+      stm << indentation << "__zz_cib_::__zz_cib_Helper_t<" << baseCompound->longName()
+          << ", T>::__zz_cib_ReleaseHandle(__zz_cib_obj);\n";
     }
     return true;
   });
@@ -2641,7 +2641,7 @@ void CibCompound::emitFacadeAndInterfaceDependecyHeaders(std::ostream&    stm,
 
   auto asts = collectAstDependencies(dependencies);
   asts.insert(getFileAstObj(this));
-  for (const auto& header : collectHeaderDependencies(asts, cibParams, forProxy))
+  for (const auto& header : collectHeaderDependencies(asts, helper, cibParams, forProxy))
     stm << indentation << "#include " << header << "\n";
 
   stm << '\n'; // Start in new line.
