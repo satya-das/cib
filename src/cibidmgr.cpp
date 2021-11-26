@@ -293,7 +293,8 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     {
       if (isPrivate(func) && !func.isPureVirtual())
         continue;
-      if (!forGenericProxy && !isPublic(func) && func.isPureVirtual())
+      // TODO: revisit here, we probably should not need protected too but wxWidgets had some issues.
+      if (!forGenericProxy && isPrivate(func) && func.isPureVirtual())
         continue;
       addMethod(func);
     }
