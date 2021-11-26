@@ -539,8 +539,8 @@ void CibFunctionHelper::emitDefn(std::ostream&      stm,
   if (callingOwner->isTemplateInstance() && (isMethod() || (isConstructor() && !isCopyConstructor())))
   {
     stm << indentation;
-    stm << "template <typename __zz_cib_Dummy = std::pair<" << callingOwner->name() << ", " << callingOwner->name()
-        << ">>\n";
+    stm << "template <typename __zz_cib_Dummy = std::pair<" << callingOwner->name() << "*, " << callingOwner->name()
+        << "*>>\n";
   }
 
   stm << indentation;
@@ -1816,7 +1816,7 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       if (!isFunctionLike(mem))
         continue;
       CibFunctionHelper func(mem);
-      if ((isTemplated() || isTemplateInstance()) && !func.isDestructor())
+      if (!func.isVirtual())
         continue;
       auto sig =
         func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper, kPurposeSigForVirtualFuncMatch);
@@ -1862,7 +1862,7 @@ void CibCompound::identifyAbstract(const CibHelper& helper)
 
 static bool shallAddCopyCtor(CibCompound* compound)
 {
-  if (compound->isTemplateInstance() && !shallAddCopyCtor(compound->templateClass()))
+  if (compound->isTemplateInstance() && (!shallAddCopyCtor(compound->templateClass()) || compound->isAbstract()))
     return false;
   return compound->isCopyCtorCallable() && !compound->hasCopyCtor() && !compound->hasMoveCtor()
          && !compound->isAbstract();
@@ -1871,7 +1871,7 @@ static bool shallAddCopyCtor(CibCompound* compound)
 static bool shallAddDefaultCtor(CibCompound* compound)
 {
   if (compound->isTemplateInstance())
-    return shallAddDefaultCtor(compound->templateClass());
+    return shallAddDefaultCtor(compound->templateClass()) && !compound->isAbstract();
 
   return !compound->cantHaveDefaultCtor() && !compound->hasCtor()
          && (!compound->isAbstract() || compound->needsGenericProxyDefinition());

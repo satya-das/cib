@@ -115,12 +115,12 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   Value(int value)
     : Value<int>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(value)>(std::move(value))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   int get() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(
       __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(

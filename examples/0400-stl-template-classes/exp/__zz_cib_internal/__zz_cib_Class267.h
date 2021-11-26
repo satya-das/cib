@@ -430,16 +430,16 @@ public:
   using reference = __zz_cib_stl_helpers::vector_iterator<::C*>::reference;
   using const_reference = __zz_cib_stl_helpers::vector_iterator<::C*>::const_reference;
   using size_type = size_t;
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   vector()
     : std::vector<::C*>(__zz_cib_MyHelper::__zz_cib_New_0())
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   vector(::std::vector<::C*>::size_type n)
     : std::vector<::C*>(__zz_cib_MyHelper::__zz_cib_New_1(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   vector(::std::vector<::C*>::size_type n, ::C* const& value)
     : std::vector<::C*>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n)),
@@ -449,7 +449,7 @@ public:
     : std::vector<::C*>(__zz_cib_MyHelper::__zz_cib_Copy_3(
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   vector(::std::vector<::C*>&& __zz_cib_param0)
     : std::vector<::C*>(__zz_cib_MyHelper::__zz_cib_New_4(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))))
@@ -460,7 +460,7 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>& operator=(const ::std::vector<::C*>& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorEqual_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>&>>(
@@ -469,7 +469,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>& operator=(::std::vector<::C*>&& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorEqual_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>&>>(
@@ -478,7 +478,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void assign(::std::vector<::C*>::size_type n, ::C* const& u) {
       __zz_cib_MyHelper::assign_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -486,7 +486,7 @@ public:
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(u)>(u)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator begin() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::begin_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -494,7 +494,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_iterator begin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_iterator>(
       __zz_cib_MyHelper::begin_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_iterator>>(
@@ -502,7 +502,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator end() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::end_11<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -510,7 +510,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_iterator end() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_iterator>(
       __zz_cib_MyHelper::end_12<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_iterator>>(
@@ -518,7 +518,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::reverse_iterator rbegin() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::reverse_iterator>(
       __zz_cib_MyHelper::rbegin_13<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::reverse_iterator>>(
@@ -526,7 +526,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_reverse_iterator rbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_reverse_iterator>(
       __zz_cib_MyHelper::rbegin_14<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_reverse_iterator>>(
@@ -534,7 +534,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::reverse_iterator rend() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::reverse_iterator>(
       __zz_cib_MyHelper::rend_15<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::reverse_iterator>>(
@@ -542,7 +542,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_reverse_iterator rend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_reverse_iterator>(
       __zz_cib_MyHelper::rend_16<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_reverse_iterator>>(
@@ -550,7 +550,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_iterator cbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_iterator>(
       __zz_cib_MyHelper::cbegin_17<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_iterator>>(
@@ -558,7 +558,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_iterator cend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_iterator>(
       __zz_cib_MyHelper::cend_18<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_iterator>>(
@@ -566,7 +566,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_reverse_iterator crbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_reverse_iterator>(
       __zz_cib_MyHelper::crbegin_19<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_reverse_iterator>>(
@@ -574,7 +574,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::const_reverse_iterator crend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::const_reverse_iterator>(
       __zz_cib_MyHelper::crend_20<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::const_reverse_iterator>>(
@@ -582,7 +582,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   bool empty() const {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::empty_21<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
@@ -590,7 +590,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::size_type size() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::size_type>(
       __zz_cib_MyHelper::size_22<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::size_type>>(
@@ -598,7 +598,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::size_type max_size() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::size_type>(
       __zz_cib_MyHelper::max_size_23<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::size_type>>(
@@ -606,7 +606,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::size_type capacity() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::size_type>(
       __zz_cib_MyHelper::capacity_24<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::size_type>>(
@@ -614,14 +614,14 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void resize(::std::vector<::C*>::size_type sz) {
       __zz_cib_MyHelper::resize_25<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(sz)>(std::move(sz))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void resize(::std::vector<::C*>::size_type sz, ::C* const& c) {
       __zz_cib_MyHelper::resize_26<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -629,20 +629,20 @@ public:
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(c)>(c)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void reserve(::std::vector<::C*>::size_type n) {
       __zz_cib_MyHelper::reserve_27<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void shrink_to_fit() {
       __zz_cib_MyHelper::shrink_to_fit_28<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference operator[](::std::vector<::C*>::size_type n) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorIndex_29<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>>(
@@ -651,7 +651,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference operator[](::std::vector<::C*>::size_type n) const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorIndex_30<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>>(
@@ -660,7 +660,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference at(::std::vector<::C*>::size_type n) const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>(
       __zz_cib_MyHelper::at_31<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>>(
@@ -669,7 +669,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference at(::std::vector<::C*>::size_type n) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>(
       __zz_cib_MyHelper::at_32<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>>(
@@ -678,7 +678,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference front() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>(
       __zz_cib_MyHelper::front_33<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>>(
@@ -686,7 +686,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference front() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>(
       __zz_cib_MyHelper::front_34<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>>(
@@ -694,7 +694,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference back() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>(
       __zz_cib_MyHelper::back_35<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference>>(
@@ -702,7 +702,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference back() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>(
       __zz_cib_MyHelper::back_36<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference>>(
@@ -710,7 +710,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::C** data() {
     return __zz_cib_::__zz_cib_FromAbiType<::C**>(
       __zz_cib_MyHelper::data_37<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::C**>>(
@@ -718,7 +718,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::C* const * data() const {
     return __zz_cib_::__zz_cib_FromAbiType<::C* const *>(
       __zz_cib_MyHelper::data_38<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::C* const *>>(
@@ -726,27 +726,27 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void push_back(::C* const& x) {
       __zz_cib_MyHelper::push_back_39<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(x)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void push_back(::C*&& x) {
       __zz_cib_MyHelper::push_back_40<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void pop_back() {
       __zz_cib_MyHelper::pop_back_41<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator position, ::C* const& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::insert_42<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -756,7 +756,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator position, ::C*&& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::insert_43<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -766,7 +766,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator position, ::std::vector<::C*>::size_type n, ::C* const& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::insert_44<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -777,7 +777,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator erase(::std::vector<::C*>::const_iterator position) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::erase_45<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -786,7 +786,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   ::std::vector<::C*>::iterator erase(::std::vector<::C*>::const_iterator first, ::std::vector<::C*>::const_iterator last) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C*>::iterator>(
       __zz_cib_MyHelper::erase_46<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::C*>::iterator>>(
@@ -796,14 +796,14 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void swap(::std::vector<::C*>& __zz_cib_param0) {
       __zz_cib_MyHelper::swap_47<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::C*>, vector<::C*>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::C*>*, vector<::C*>*>>
   void clear() {
       __zz_cib_MyHelper::clear_48<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)

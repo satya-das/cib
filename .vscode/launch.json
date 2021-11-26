@@ -1867,6 +1867,34 @@
             ]
         },
         {
+            "name": "Run cib for BaseTemplateInterfaceTest",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "-i",
+                "${workspaceFolder}/tests/base-template-interface/library/pub",
+                "-b",
+                "${workspaceFolder}/tests/base-template-interface/library/cib",
+                "-o",
+                "${workspaceFolder}/tests/base-template-interface/library/exp",
+                "-m",
+                "BaseTemplateInterfaceTest"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for wxStyleHeaderDependencyTest",
             "type": "cppdbg",
             "request": "launch",
@@ -3311,6 +3339,24 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/tests/std-function/StdFunctionTestsClient",
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/builds",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "base-template-interface-test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/tests/base-template-interface/BaseTemplateInterfaceTestsClient",
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/builds",
             "environment": [],

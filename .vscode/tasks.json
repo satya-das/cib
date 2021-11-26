@@ -9,7 +9,7 @@
         // "library-exports-a-class-hierarchy-client",
         // "interface-class-client",
         // "example-1",
-        // "cib",
+        "cib",
         // "client-calls_cibified",
         // "client-is-called-client_cibified",
         // "templates-client_cibified",
@@ -54,6 +54,8 @@
         // "TemplateTestsClient",
         // "wxStyleHeaderDependencyTestsLib",
         // "wxStyleHeaderDependencyTestsClient",
+        "BaseTemplateInterfaceTestsLib",
+        "BaseTemplateInterfaceTestsClient",
         ////////////////////
         // "180-pod-struct",
       ],

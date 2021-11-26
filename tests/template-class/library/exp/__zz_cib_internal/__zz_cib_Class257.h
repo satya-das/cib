@@ -115,12 +115,12 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithOneParam<int>, TemplateClassWithOneParam<int>>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithOneParam<int>*, TemplateClassWithOneParam<int>*>>
   TemplateClassWithOneParam(int _a1)
     : TemplateClassWithOneParam<int>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a1)>(std::move(_a1))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithOneParam<int>, TemplateClassWithOneParam<int>>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithOneParam<int>*, TemplateClassWithOneParam<int>*>>
   int get() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(
       __zz_cib_MyHelper::get_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(

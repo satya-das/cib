@@ -122,13 +122,13 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>*, TemplateClassWithTwoParamsAndDefaultParameter<int, int>*>>
   TemplateClassWithTwoParamsAndDefaultParameter(int _a1, int _a2)
     : TemplateClassWithTwoParamsAndDefaultParameter<int, int>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a1)>(std::move(_a1)),
       __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(_a2)>(std::move(_a2))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>*, TemplateClassWithTwoParamsAndDefaultParameter<int, int>*>>
   int get1() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(
       __zz_cib_MyHelper::get1_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(
@@ -136,7 +136,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>, TemplateClassWithTwoParamsAndDefaultParameter<int, int>>>
+  template <typename __zz_cib_Dummy = std::pair<TemplateClassWithTwoParamsAndDefaultParameter<int, int>*, TemplateClassWithTwoParamsAndDefaultParameter<int, int>*>>
   int get2() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(
       __zz_cib_MyHelper::get2_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(

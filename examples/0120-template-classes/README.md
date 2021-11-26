@@ -483,12 +483,12 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   Value(int x)
     : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   int GetValue() const {
     return __zz_cib_::__zz_cib_FromAbiType<int>(
       __zz_cib_MyHelper::GetValue_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, int>>(
@@ -496,14 +496,14 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   void SetValue(int x) {
       __zz_cib_MyHelper::SetValue_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<Value<int>, Value<int>>>
+  template <typename __zz_cib_Dummy = std::pair<Value<int>*, Value<int>*>>
   bool operator ==(const ::Example::Value<int>& rhs) const {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(

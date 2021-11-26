@@ -296,6 +296,27 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
     ret->setStlHeader();
   else if (isStlHelpereClass())
     ret->setStlHelperClass();
+
+  const auto& templateClassParents = inheritanceList();
+  if (templateClassParents != nullptr)
+  {
+    auto parents = std::make_unique<CppInheritanceList>();
+    for (const auto& parent : *(templateClassParents.get()))
+    {
+      if (CibCompoundEPtr base = helper.resolveTypename(parent.baseName, outer(), TypeResolvingFlag::IgnoreStlHelpers))
+      {
+        parents->emplace_back(base->name(), parent.inhType, parent.isVirtual);
+        continue;
+      }
+      auto resolvedArgItr = resolvedArgVals.find(parent.baseName);
+      if (resolvedArgItr == resolvedArgVals.end())
+        continue;
+      if (CppVarTypeEPtr base = resolvedArgItr->second.get())
+        parents->emplace_back(base->baseType(), parent.inhType, parent.isVirtual);
+    }
+    ret->inheritanceList(std::move(parents));
+  }
+
   forEachMember(this, CppAccessType::kPublic, [&](const CppObj* mem) -> bool {
     if (isFunctionLike(mem))
     {
@@ -332,7 +353,7 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
 
   auto itr = addTemplateInstance(ret);
   tmplInstanceCache_.insert(std::make_pair(templateArgs, itr));
-  tmplInstanceCache_.insert(std::make_pair(resolvedArgs, itr));
+  tmplInstanceCache_.insert(std::make_pair(std::move(resolvedArgs), itr));
   ret->templateArgValues_.swap(resolvedArgVals);
   helper.onNewCompound(ret, outer());
   ret->setupTemplateDependencies(helper);

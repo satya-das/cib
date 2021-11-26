@@ -798,7 +798,7 @@ private:
   bfs::path   getImplDir(const CibParams& cibParams) const;
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;
-  TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance = nullptr);
+  TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance);
 
   //! Makes itself aware about templates where this class is used as template argument
   void setupTemplateDependencies(const CibHelper& helper);
