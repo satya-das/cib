@@ -1,3 +1,12 @@
+CURRENT ROADMAP:
+----------------
+Improve and finalize CppParser APIs. - InProgress.
+
+Add features to cib so that it supports wxWidgets entirely.
+Stretch goal: It appears CppParser can be improved to parse entire wxWidgets headers as-is, witout any modification.
+
+=========================================================================
+
 Add a detail page for illustrating cib tool and it's command line option.
 
 Emit __zz_cib_ObjectFromHandle only for classes whose objects are passed as values.
