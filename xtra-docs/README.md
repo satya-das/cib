@@ -11,7 +11,7 @@ We see CIB generated code contain lots of symbols that start with `__zz_cib_` an
   - This has nothing to do with name mangling, I am mentioning because someone thought `cib` does some name mangling of it's own because of this weird looking symbol.
 
 ## Why MethodTable
-For calling library functions we do not strictly need MethodTable. We could have just exported functions with extern "C" declrations. But there are reasons why I chose MethodTable:
+For calling library functions we do not strictly need MethodTable. We could have just exported functions with extern "C" declrations. But there are reasons why MethodTable is chosen:
   - It is helpful in supporting overload functions.
   - We don't need to have unique names for every functions in entire library.
   - Helps supporting backward compatibility
