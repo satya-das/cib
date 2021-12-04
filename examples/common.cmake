@@ -16,7 +16,7 @@ set(LIB_GLUE_SRCS
 )
 set(PUB_FILES "")
 set(EXP_SOURCES "")
-set(CIBCMD ${CIB} -i pub -o exp -b cib -m Example)
+set(CIBCMD ${CIB} --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example)
 set(DEPENDS cib ${example}GlueCode)
 set(EXAMPLES_BIN_DIR ${CMAKE_BINARY_DIR}/examples)
 set(TEST_CMD ${EXAMPLES_BIN_DIR}/${CLIENTNAME})

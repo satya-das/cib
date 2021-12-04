@@ -1,2 +1,2 @@
-set(CIBCMD ${CIB} -i pub -o exp -b cib -m Example)
+set(CIBCMD ${CIB} --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example)
 

@@ -43,7 +43,7 @@ endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
 	COMMAND echo Running cib...
-	COMMAND ${CIB} -i pub -o exp -b cib -m wxStyleHeaderDependencyTests --wx-style-header-dependency true
+	COMMAND ${CIB} --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module wxStyleHeaderDependencyTests --wx-style-header-dependency true
 	COMMAND echo Generated files: ${CIB_OUTPUT}
 	DEPENDS cib ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

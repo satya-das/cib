@@ -55,7 +55,7 @@ Assuming `pub/` is the folder that contains public headers that library wants to
 Assuming current working directory is `examples/0010-simple-class/` we can run CIB as shown below:
 
 ```shell
-cib -i pub/ -o exp/ -b cib/ -m Example
+cib --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example
 ```
 
 After above command we will see quite a good number of files created in folder cib/ and exp/.

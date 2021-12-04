@@ -34,7 +34,7 @@ foreach(CIBOUTFILE ${CIB_OUTPUT})
 endforeach()
 add_custom_command(
 	OUTPUT ${CIB_OUTPUT}
-	COMMAND ${CIB} -i pub -o exp -b cib -m Demo --apidecor=EXAMPLE_API -c ${CMAKE_CURRENT_SOURCE_DIR}/abi/__zz_cib_template-class-ids.h >${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/dev.null
+	COMMAND ${CIB} --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Demo --apidecor=EXAMPLE_API --cib-ids-file ${CMAKE_CURRENT_SOURCE_DIR}/abi/__zz_cib_template-class-ids.h >${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/dev.null
 	DEPENDS cib ${LIBRARY_PUB_FILES}
 	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )

@@ -11,7 +11,7 @@ Let's now run CIB:
 **Running cib**
 
 ```sh
-cib -i pub/ -o exp/ -b cib/ -m Example
+cib --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example
 ```
 
 Below is what client of library can expect. It is trivial and there is no surprise but it is being done in **ABI compatible and stable** way.

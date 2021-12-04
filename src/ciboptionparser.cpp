@@ -50,20 +50,18 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
     desc.add(boost::make_shared<po::option_description>(name, typedVal, doc));
   };
   desc.add_options()("help,h", "Produce this help message");
-  addOption("input-folder,i",
-            inputPath,
-            true,
-            "<REQUIRED> Input folder from where the headers and source files will be parsed.");
-  addOption("output-folder,o", outputPath, true, "<REQUIRED> Output folder for emitting files for client.");
-  addOption("bind-folder,b", libGlueDir, true, "<REQUIRED> Folder where binding code will be emitted for library.");
-  addOption("module,m", moduleName, true, "<REQUIRED> Name of module/library.");
-  addOption("cib-ids-file,c", cibIdFile, false, "Previously created cib-ids-file.");
-  addOption("macro,M",
+  addOption(
+    "input-folder", inputPath, true, "<REQUIRED> Input folder from where the headers and source files will be parsed.");
+  addOption("output-folder", outputPath, true, "<REQUIRED> Output folder for emitting files for client.");
+  addOption("bind-folder", libGlueDir, true, "<REQUIRED> Folder where binding code will be emitted for library.");
+  addOption("module", moduleName, true, "<REQUIRED> Name of module/library.");
+  addOption("cib-ids-file", cibIdFile, false, "Previously created cib-ids-file.");
+  addOption("macro",
             knownMacros,
             false,
             "This can be used to make parser know about some macros so that parsing of C++ files can be done. This "
             "option can be used multiple times.");
-  addOption("apidecor,A",
+  addOption("apidecor",
             knownApiDecor,
             false,
             "Use this to make parser aware about API decorating macros, like DLLEXPORT which can be defined as "
@@ -82,7 +80,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             "headers.\n"
             "Example:\n\t  --defined-macro USE_UNICODE:1\n"
             "This option can be used multiple times.");
-  addOption("ignorable-macro,I",
+  addOption("ignorable-macro",
             ignorableMacros,
             false,
             "Use this to make parser aware about ignorable macros that must be taken into account while parsing C++ "
@@ -95,7 +93,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             "Use this to make parser aware about keywords that are renamed.\n"
             "Example:\n\t  --renamed-keyword override:OVERRIDE\n"
             "This option can be used multiple times.");
-  addOption("no-exact-delegation,d",
+  addOption("no-exact-delegation",
             noExactDelegation,
             false,
             "Whether the delegation for non pure virtual function should be exact. Default is to use exact delegation");
@@ -106,12 +104,12 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
   //           "Name of some namespaces are exactly same as class names unless "
   //           "the class is an instantiation of a template class. "
   //           "Use this option to always use unique names for namespaces rather than same as class names.");
-  addOption("no-rtti,t",
+  addOption("no-rtti",
             noRtti,
             false,
             "If library is compiled with no rtti option then CIB needs to know if"
             " it needs to avoid generating code that uses RTTI.");
-  addOption("handle-exception,e",
+  addOption("handle-exception",
             handleException,
             false,
             "If library throws exceptions then it should be handled in an ABI stable manner.");
@@ -123,7 +121,7 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
     "library, platform specific implementation headers are in separate folders. Although the platform specific headers "
     "depend on the same named file in the parent folder but that file in not included in the platform specific header "
     "file. The same named header in the parent folder includes the platform specific file at the very end.");
-  addOption("exception-class,E",
+  addOption("exception-class",
             exceptionClasses,
             false,
             "To handle exception properly CIB needs to know what are the custom exception classes. Using this option "
@@ -134,12 +132,12 @@ CibOptionParser::CibOptionParser(int argc, const char* argv[])
             "If the copy constructor is deleted or private then cib already knows about non-copyability of the class. "
             "This option can be used to make cib aware if some other method is used to make a class non-copyable."
             "This option can be used multiple times.");
-  addOption("value-class,V",
+  addOption("value-class",
             valueClasses,
             false,
             "Share the object layout across component boundary and don't use proxies. "
             "This option can be used multiple times.");
-  addOption("interface-class,F",
+  addOption("interface-class",
             interfaceClasses,
             false,
             "Force a class to be treated as an interface class. Class must have atleast one public virtual method. "

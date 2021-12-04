@@ -165,7 +165,7 @@ As it can be seen that the new method caused a new entry in MethodTable and that
 To make CIB ensures ABI stability we needed to run cib with additional parameter and supply ID file of previous example:
 
 ```sh
-cib -i pub -o exp -b cib -m Example -c ../0080-interface-class/cib/__zz_cib_Example-ids.h
+cib --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example -c ../0080-interface-class/cib/__zz_cib_Example-ids.h
 ```
 
 This makes cib understand that we want ABI stability with previous example and CIB generates glue code accordingly.

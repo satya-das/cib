@@ -18,7 +18,7 @@ Either don't call new functions if client's backward compatibility is desired or
 To make CIB ensure ABI stability we need to run cib with additional parameter to supply ID file of previous version of library:
 
 ```sh
-cib -i pub -o exp -b cib -m Example -c ../0050-virtual-function/cib/__zz_cib_Example-ids.h
+cib --input-folder pub/ --output-folder exp/ --bind-folder cib/ --module Example -c ../0050-virtual-function/cib/__zz_cib_Example-ids.h
 ```
 
 This makes cib understand that we want ABI stability with binaries of `0050-virtual-function` example and CIB generates glue code accordingly.
