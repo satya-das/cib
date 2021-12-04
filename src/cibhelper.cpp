@@ -659,12 +659,6 @@ void CibHelper::identifyAbstract(CibCompound* cppCompound)
   if (cppCompound->isTemplateInstance())
   {
     cppCompound->identifyAbstract(*this);
-    auto* templClass = cppCompound->templateClass();
-    if (templClass->numTemplateInstances() == 1)
-      templClass->identifyAbstract(*this);
-    if (templClass->isAbstract())
-      cppCompound->setAbstract();
-
     return;
   }
 

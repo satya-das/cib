@@ -1816,9 +1816,8 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
       if (!isFunctionLike(mem))
         continue;
       CibFunctionHelper func(mem);
-      if (!func.isVirtual())
-        continue;
-      auto sig =
+
+      const auto sig =
         func.isDestructor() ? std::string("__zz_cib_dtor") : func.signature(helper, kPurposeSigForVirtualFuncMatch);
       if (func.isPureVirtual())
       {
@@ -1846,6 +1845,7 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
 
     return false;
   };
+
   forEachAncestor(CppAccessType::kPublic, processClass);
   processClass(this);
 
@@ -1856,6 +1856,8 @@ bool CibCompound::collectAllVirtuals(const CibHelper& helper, CibFunctionHelperA
 
 void CibCompound::identifyAbstract(const CibHelper& helper)
 {
+  if (isTemplated())
+    return;
   if (isClassLike(this) && collectAllVirtuals(helper, allVirtuals_))
     setAbstract();
 }
