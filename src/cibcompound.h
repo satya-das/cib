@@ -30,8 +30,8 @@
 #include "cppast.h"
 #include "cppindent.h"
 
-#include "cppcompound-accessor.h"
-#include "cppobj-accessor.h"
+#include "cppcompound-info-accessor.h"
+#include "cppobj-info-accessor.h"
 
 #include <boost/filesystem.hpp>
 

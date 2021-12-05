@@ -14,8 +14,9 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 
     add_custom_target(
         MainDocs ALL
+
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
-            ${CMAKE_CURRENT_SOURCE_DIR}/README.md
+        ${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+        ${CMAKE_CURRENT_SOURCE_DIR}/README.md
     )
 endif()

@@ -28,7 +28,7 @@
 
 #include "cppparser.h"
 
-#include "cppcompound-accessor.h"
+#include "cppcompound-info-accessor.h"
 
 #include <boost/tokenizer.hpp>
 

@@ -28,8 +28,8 @@
 #include "cppast.h"
 #include "cppindent.h"
 
-#include "cppfunc-accessor.h"
-#include "cppvar-accessor.h"
+#include "cppfunc-info-accessor.h"
+#include "cppvar-info-accessor.h"
 
 #include <string>
 

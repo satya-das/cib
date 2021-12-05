@@ -27,10 +27,10 @@
 #include "cibidmgr.h"
 #include "cibutil.h"
 
-#include "cppcompound-accessor.h"
-#include "cppfunc-accessor.h"
-#include "cppobj-accessor.h"
-#include "cppvar-accessor.h"
+#include "cppcompound-info-accessor.h"
+#include "cppfunc-info-accessor.h"
+#include "cppobj-info-accessor.h"
+#include "cppvar-info-accessor.h"
 
 #include "cppwriter.h"
 

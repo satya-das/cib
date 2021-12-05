@@ -30,7 +30,7 @@
 #include "cppconst.h"
 #include "cpputil.h"
 
-#include "cppcompound-accessor.h"
+#include "cppcompound-info-accessor.h"
 
 #include <string>
 
