@@ -30,6 +30,8 @@
 #include "cibparams.h"
 #include "cibtypes.h"
 
+#include <boost/filesystem.hpp>
+
 #include <cstdint>
 #include <map>
 #include <unordered_set>
@@ -225,8 +227,10 @@ public:
 
   ~CibIdMgr()
   {
+    using path = boost::filesystem::path;
+
     saveIds((cibParams_.libGlueDir / cibParams_.cibIdFilename()).string(), cibParams_);
-    saveIds((cibParams_.outputPath / bfs::path(cibParams_.cibInternalDirName) / cibParams_.cibIdFilename()).string(),
+    saveIds((cibParams_.outputPath / path(cibParams_.cibInternalDirName) / cibParams_.cibIdFilename()).string(),
             cibParams_);
   }
 

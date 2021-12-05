@@ -26,6 +26,8 @@
 #include "cibparams.h"
 #include "cppparseroptions.h"
 
+#include <boost/filesystem.hpp>
+
 #include <string>
 #include <vector>
 
@@ -39,12 +41,14 @@ public:
   CibParams        getCibParams();
 
 private:
+  using path = boost::filesystem::path;
+
   std::string  moduleName;
-  std::string  inputPath;
-  std::string  outputPath;
-  std::string  libGlueDir;
-  std::string  resourcePath;
-  std::string  cibIdFile;
+  path         inputPath;
+  path         outputPath;
+  path         libGlueDir;
+  path         resourcePath;
+  path         cibIdFile;
   bool         noExactDelegation{false};
   bool         alwaysUseNsName{true};
   bool         noRtti{false};

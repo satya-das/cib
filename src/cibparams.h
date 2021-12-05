@@ -34,8 +34,6 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-namespace bfs = boost::filesystem;
-
 using StringVector = std::vector<std::string>;
 
 /**
@@ -47,6 +45,8 @@ using StringVector = std::vector<std::string>;
 struct CibParams
 {
 public:
+  using path = boost::filesystem::path;
+
   std::string  cibInternalDirName;
   std::string  stlHelperDirName;
   std::string  copyCtorCAPIPrefix;
@@ -55,13 +55,13 @@ public:
   std::string  castToBasePrefix;
   std::string  castFromBasePrefix;
   std::string  moduleName;
-  bfs::path    inputPath;
-  bfs::path    outputPath;
-  bfs::path    libGlueDir;
-  bfs::path    resDir;
-  bfs::path    stlInterfacePath;
-  bfs::path    stlHelpersPath;
-  bfs::path    inputCibIdFile;
+  path         inputPath;
+  path         outputPath;
+  path         libGlueDir;
+  path         resDir;
+  path         stlInterfacePath;
+  path         stlHelpersPath;
+  path         inputCibIdFile;
   bool         noExactDelegation;
   bool         alwaysUseNsName;
   bool         noRtti;
@@ -74,11 +74,11 @@ public:
 
 public:
   CibParams(std::string  m,
-            bfs::path    i,
-            bfs::path    o,
-            bfs::path    b,
-            bfs::path    r,
-            bfs::path    c,
+            path         i,
+            path         o,
+            path         b,
+            path         r,
+            path         c,
             bool         d,
             bool         u,
             bool         t,
@@ -117,7 +117,7 @@ public:
   CibParams(CibParams&&) = default;
 
 public:
-  bfs::path cibInternalDir() const
+  path cibInternalDir() const
   {
     return outputPath / cibInternalDirName;
   }

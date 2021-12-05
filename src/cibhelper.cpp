@@ -35,6 +35,8 @@
 
 namespace {
 
+namespace bfs = boost::filesystem;
+
 std::vector<std::string> collectAllInterfaceFiles(const CibParams& cibParams)
 {
   auto interfaceFiles = collectFiles(cibParams.inputPath.string(), selectHeadersOnly);

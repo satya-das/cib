@@ -41,13 +41,17 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-static CppWriter gCppWriter;
+namespace {
 
-static void emitType(std::ostream&      stm,
-                     const CppVarType*  origTypeObj,
-                     FuncProtoPurpose   purpose,
-                     const CibHelper&   helper,
-                     const CibCompound* typeResolver = nullptr)
+namespace bfs = boost::filesystem;
+
+CppWriter gCppWriter;
+
+void emitType(std::ostream&      stm,
+              const CppVarType*  origTypeObj,
+              FuncProtoPurpose   purpose,
+              const CibHelper&   helper,
+              const CibCompound* typeResolver = nullptr)
 {
   if (origTypeObj == nullptr)
     return;
@@ -99,11 +103,11 @@ static void emitType(std::ostream&      stm,
   }
 }
 
-static void emitType(std::ostream&      stm,
-                     const CppVar*      varObj,
-                     FuncProtoPurpose   purpose,
-                     const CibHelper&   helper,
-                     const CibCompound* typeResolver = nullptr)
+void emitType(std::ostream&      stm,
+              const CppVar*      varObj,
+              FuncProtoPurpose   purpose,
+              const CibHelper&   helper,
+              const CibCompound* typeResolver = nullptr)
 {
   if ((purpose == kPurposeProxyProcType) || (purpose == kPurposeGenericProxyProcType))
   {
@@ -154,6 +158,8 @@ inline void emitParamName(std::ostream& stm, const CppVar* var, size_t paramName
     stm << "__zz_cib_param" << paramName;
   }
 }
+
+} // namespace
 
 void CibFunctionHelper::emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purpose, const CibHelper& helper) const
 {

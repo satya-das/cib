@@ -30,6 +30,11 @@
 
 #include <cctype>
 
+namespace {
+
+namespace bfs = boost::filesystem;
+}
+
 CppVarTypePtr parseType(std::string s)
 {
   do

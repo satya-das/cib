@@ -33,6 +33,8 @@
 #include "cppcompound-accessor.h"
 #include "cppobj-accessor.h"
 
+#include <boost/filesystem.hpp>
+
 #include <map>
 #include <set>
 #include <vector>
@@ -732,6 +734,8 @@ public:
                                               CppIndent        indentation) const;
 
 private:
+  using path = boost::filesystem::path;
+
   void emitDecl(const CppObj*,
                 std::ostream&    stm,
                 const CibHelper& helper,
@@ -795,7 +799,7 @@ private:
   //! @return true if there is any unresolved pure virtual function.
   //! @note It doesn't collect destructor but if it is pure virtual then it returns true.
   bool        collectAllVirtuals(const CibHelper& helper, CibFunctionHelperArray& allVirtuals) const;
-  bfs::path   getImplDir(const CibParams& cibParams) const;
+  path        getImplDir(const CibParams& cibParams) const;
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;
   TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance);

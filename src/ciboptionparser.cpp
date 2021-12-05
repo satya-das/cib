@@ -28,6 +28,11 @@
 
 #include <iostream>
 
+namespace {
+
+namespace po  = boost::program_options;
+namespace bfs = boost::filesystem;
+
 static bfs::path getResDir(const char* progPath)
 {
   // TODO: Use https://www.boost.org/doc/libs/1_76_0/doc/html/boost/dll/program_location.html
@@ -36,19 +41,36 @@ static bfs::path getResDir(const char* progPath)
   return resDir;
 }
 
+template <typename ValueType>
+void processInput(ValueType& value)
+{
+}
+
+template <>
+void processInput(bfs::path& value)
+{
+  if (value.is_relative())
+    value = bfs::absolute(value);
+}
+
+} // namespace
+
 CibOptionParser::CibOptionParser(int argc, const char* argv[])
   : resourcePath(getResDir(argv[0]).string())
 {
-  namespace po = boost::program_options;
   po::options_description desc("Allowed options");
   auto                    addOption = [&](const char* name, auto& value, bool isRequired, const char* doc) {
     using valueType = typename std::decay<decltype(value)>::type;
     auto* typedVal  = po::value<valueType>();
     if (isRequired)
       typedVal->required();
-    typedVal->notifier([&value](valueType val) { value = val; });
+    typedVal->notifier([&value](valueType inputVal) {
+      processInput(inputVal);
+      value = std::move(inputVal);
+    });
     desc.add(boost::make_shared<po::option_description>(name, typedVal, doc));
   };
+
   desc.add_options()("help,h", "Produce this help message");
   addOption(
     "input-folder", inputPath, true, "<REQUIRED> Input folder from where the headers and source files will be parsed.");
