@@ -224,17 +224,17 @@ std::string getHeaderPath(const CibCompound* fileAst,
     return '"' + cibParams.stlHelperDirName + '/' + bfs::path(fileAstPath).filename().string() + '"';
   else
   {
-    const auto& dependentPath = forProxy ? fileAstPath.parent_path() : cibParams.inputPath;
-#if EMIT_HELPER_HEADER
-    auto helperHeaderPath = bfs::relative(fileAstPath, dependentPath);
-    if (!forProxy)
-      helperHeaderPath = bfs::path("__zz_cib_helpers") / helperHeaderPath.parent_path()
-                         / ("__zz_cib_helper-" + helperHeaderPath.filename().string());
-    return '"' + helperHeaderPath.string() + '"';
-#else
     const auto parentHeader = helper.wxStyleParentHeader(fileAstPath);
-    return '"' + bfs::relative(parentHeader.empty() ? fileAstPath : parentHeader, dependentPath).string() + '"';
-#endif
+    if (parentHeader.empty())
+      return '"' + bfs::relative(fileAstPath, cibParams.inputPath).string() + '"';
+    if (!forProxy)
+      return '"' + bfs::relative(parentHeader, cibParams.inputPath).string() + '"';
+
+    const auto relativeHeader    = bfs::relative(parentHeader, cibParams.inputPath);
+    const auto relativeHeaderDir = relativeHeader.parent_path();
+    if (!relativeHeaderDir.empty())
+      return '"' + relativeHeader.string() + '"';
+    return '"' + (bfs::path("..") / relativeHeader.filename()).string() + '"';
   }
 }
 
