@@ -46,7 +46,7 @@ namespace PoDoFo
   enum EPdfStringConversion {
     ePdfStringConversion_Strict,
     ePdfStringConversion_Lenient
-};
+  };
   /** A string that can be written to a PDF document.
    *  If it contains binary data it is automatically 
    *  converted into a hex string, otherwise a normal PDF 

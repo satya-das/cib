@@ -303,9 +303,9 @@ void PoDoFo::PdfObject::SetVariantOwner(::PoDoFo::EPdfDataType eDataType) {
   }
 
 #if  defined(PODOFO_EXTRA_CHECKS)
-PODOFO_NOTHROW PoDoFo::PdfObject::DelayedStreamLoadInProgress() const {
-  return __zz_cib_::__zz_cib_FromAbiType<PODOFO_NOTHROW>(
-    __zz_cib_MyHelper::DelayedStreamLoadInProgress_38<__zz_cib_::__zz_cib_AbiType_t<PODOFO_NOTHROW>>(
+bool PoDoFo::PdfObject::DelayedStreamLoadInProgress() const {
+  return __zz_cib_::__zz_cib_FromAbiType<bool>(
+    __zz_cib_MyHelper::DelayedStreamLoadInProgress_38<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

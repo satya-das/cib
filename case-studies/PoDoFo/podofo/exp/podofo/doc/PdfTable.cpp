@@ -748,7 +748,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfTableModel> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_13(::PoDoFo::PdfTableModel* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfTableModel>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfTableModel>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

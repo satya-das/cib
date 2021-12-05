@@ -489,9 +489,9 @@ const ::PoDoFo::PdfArray& PoDoFo::PdfVariant::GetArray_NoDL() const {
 }
 
 #if  defined(PODOFO_EXTRA_CHECKS)
-PODOFO_NOTHROW PoDoFo::PdfVariant::DelayedLoadInProgress() const {
-  return __zz_cib_::__zz_cib_FromAbiType<PODOFO_NOTHROW>(
-    __zz_cib_MyHelper::DelayedLoadInProgress_63<__zz_cib_::__zz_cib_AbiType_t<PODOFO_NOTHROW>>(
+bool PoDoFo::PdfVariant::DelayedLoadInProgress() const {
+  return __zz_cib_::__zz_cib_FromAbiType<bool>(
+    __zz_cib_MyHelper::DelayedLoadInProgress_63<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

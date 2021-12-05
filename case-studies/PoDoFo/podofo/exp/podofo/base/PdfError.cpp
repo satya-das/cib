@@ -466,7 +466,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfError::LogMessageCallback> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::PoDoFo::PdfError::LogMessageCallback* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfError::LogMessageCallback>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfError::LogMessageCallback>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

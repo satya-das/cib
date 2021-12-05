@@ -194,7 +194,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfFileOutputStream, T> : public __zz_cib_Metho
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfOutputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfOutputStream, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -329,7 +329,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfMemoryOutputStream, T> : public __zz_cib_Met
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfOutputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfOutputStream, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -444,7 +444,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfDeviceOutputStream, T> : public __zz_cib_Met
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfOutputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfOutputStream, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -566,7 +566,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfBufferOutputStream, T> : public __zz_cib_Met
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfOutputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfOutputStream, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {

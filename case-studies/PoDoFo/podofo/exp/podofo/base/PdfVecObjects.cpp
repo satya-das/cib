@@ -461,7 +461,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfVecObjects::Observer> {
     __zz_cib_obj->ParentDestructed();
   }
   static void __zz_cib_decl __zz_cib_Delete_5(::PoDoFo::PdfVecObjects::Observer* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfVecObjects::Observer>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfVecObjects::Observer>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };
@@ -506,7 +506,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfVecObjects::StreamFactory> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::PoDoFo::PdfVecObjects::StreamFactory* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfVecObjects::StreamFactory>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfVecObjects::StreamFactory>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

@@ -1,4 +1,3 @@
-#include "podofo/base/PdfArray.h"
 #include "podofo/base/PdfCompilerCompat.h"
 #include "podofo/base/PdfName.h"
 #include "podofo/base/PdfObject.h"
@@ -909,54 +908,47 @@ struct __zz_cib_Delegator<::PoDoFo::PdfListField> : public ::PoDoFo::PdfListFiel
       __zz_cib_obj->::PoDoFo::PdfListField::GetSelectedItem()
     );
   }
-#if  0
-  static __zz_cib_AbiType_t<::PoDoFo::PdfArray> __zz_cib_decl GetSelectedItems_14(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::PoDoFo::PdfArray>(
-      __zz_cib_obj->::PoDoFo::PdfListField::GetSelectedItems()
-    );
-  }
-#endif
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsComboBox_15(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsComboBox_14(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfListField::IsComboBox()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl SetSpellcheckingEnabled_16(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bSpellcheck) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl SetSpellcheckingEnabled_15(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bSpellcheck) {
     __zz_cib_obj->::PoDoFo::PdfListField::SetSpellcheckingEnabled(
       __zz_cib_::__zz_cib_FromAbiType<bool>(bSpellcheck)
     );
   }
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsSpellcheckingEnabled_17(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsSpellcheckingEnabled_16(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfListField::IsSpellcheckingEnabled()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl SetSorted_18(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bSorted) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl SetSorted_17(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bSorted) {
     __zz_cib_obj->::PoDoFo::PdfListField::SetSorted(
       __zz_cib_::__zz_cib_FromAbiType<bool>(bSorted)
     );
   }
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsSorted_19(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsSorted_18(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfListField::IsSorted()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl SetMultiSelect_20(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bMulti) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl SetMultiSelect_19(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bMulti) {
     __zz_cib_obj->::PoDoFo::PdfListField::SetMultiSelect(
       __zz_cib_::__zz_cib_FromAbiType<bool>(bMulti)
     );
   }
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsMultiSelect_21(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsMultiSelect_20(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfListField::IsMultiSelect()
     );
   }
-  static __zz_cib_AbiType_t<void> __zz_cib_decl SetCommitOnSelectionChange_22(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bCommit) {
+  static __zz_cib_AbiType_t<void> __zz_cib_decl SetCommitOnSelectionChange_21(__zz_cib_Delegatee* __zz_cib_obj, __zz_cib_AbiType_t<bool> bCommit) {
     __zz_cib_obj->::PoDoFo::PdfListField::SetCommitOnSelectionChange(
       __zz_cib_::__zz_cib_FromAbiType<bool>(bCommit)
     );
   }
-  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsCommitOnSelectionChange_23(const __zz_cib_Delegatee* __zz_cib_obj) {
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl IsCommitOnSelectionChange_22(const __zz_cib_Delegatee* __zz_cib_obj) {
     return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfListField::IsCommitOnSelectionChange()
     );
@@ -990,24 +982,19 @@ const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::GetItemCount_11),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetSelectedItem_12),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::GetSelectedItem_13),
-#if  0
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::GetSelectedItems_14),
-#else 
-    reinterpret_cast<__zz_cib_MTableEntry> (0),
-#endif
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsComboBox_15),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetSpellcheckingEnabled_16),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsSpellcheckingEnabled_17),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetSorted_18),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsSorted_19),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetMultiSelect_20),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsMultiSelect_21),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetCommitOnSelectionChange_22),
-    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsCommitOnSelectionChange_23),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsComboBox_14),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetSpellcheckingEnabled_15),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsSpellcheckingEnabled_16),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetSorted_17),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsSorted_18),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetMultiSelect_19),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsMultiSelect_20),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::SetCommitOnSelectionChange_21),
+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::IsCommitOnSelectionChange_22),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::__zz_cib_CastTo__zz_cib_Class421),
     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::PoDoFo::PdfListField>::__zz_cib_CastFrom__zz_cib_Class421)
   };
-  static const __zz_cib_MethodTable methodTable = { methodArray, 26 };
+  static const __zz_cib_MethodTable methodTable = { methodArray, 25 };
   return &methodTable;
 }
 }}}

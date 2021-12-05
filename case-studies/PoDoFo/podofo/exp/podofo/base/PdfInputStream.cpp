@@ -258,7 +258,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfInputStream> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_1(::PoDoFo::PdfInputStream* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfInputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfInputStream>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

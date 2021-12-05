@@ -50,7 +50,7 @@ namespace PoDoFo
     ePdfContentsType_Keyword, /**< The token is a PDF keyword. */
     ePdfContentsType_Variant, /**< The token is a PDF variant. A variant is usually a parameter to a keyword */
     ePdfContentsType_ImageData /**< The "token" is raw inline image data found between ID and EI tags (see PDF ref section 4.8.6) */
-};
+  };
   /** This class is a parser for content streams in PDF documents.
    *
    *  The parsed content stream can be used and modified in various ways.

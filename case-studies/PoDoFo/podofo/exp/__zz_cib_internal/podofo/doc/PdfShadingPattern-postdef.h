@@ -95,7 +95,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfShadingPattern, T> : public __zz_cib_MethodT
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfElement>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfElement, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -212,7 +212,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfAxialShadingPattern, T> : public __zz_cib_Me
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfShadingPattern>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfShadingPattern, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -297,7 +297,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfFunctionBaseShadingPattern, T> : public __zz
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfShadingPattern>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfShadingPattern, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -382,7 +382,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfRadialShadingPattern, T> : public __zz_cib_M
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfShadingPattern>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfShadingPattern, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -467,7 +467,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfTriangleShadingPattern, T> : public __zz_cib
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfShadingPattern>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfShadingPattern, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };

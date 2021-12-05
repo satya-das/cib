@@ -372,7 +372,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfFilter> {
     __zz_cib_obj->EndEncodeImpl();
   }
   static void __zz_cib_decl __zz_cib_Delete_9(::PoDoFo::PdfFilter* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfFilter>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfFilter>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

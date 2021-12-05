@@ -48,7 +48,7 @@ namespace PoDoFo
     ePdfNameLimits_Before,
     ePdfNameLimits_Inside,
     ePdfNameLimits_After
-};
+  };
   class PdfNamesTree : public ::PoDoFo::PdfElement
   {
   public:

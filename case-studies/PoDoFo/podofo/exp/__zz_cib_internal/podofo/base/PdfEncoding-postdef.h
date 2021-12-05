@@ -433,7 +433,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfSimpleEncoding, T> : public __zz_cib_MethodT
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static void __zz_cib_ReleaseProxy(::PoDoFo::PdfSimpleEncoding* __zz_cib_obj) {
@@ -568,7 +568,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfDocEncoding, T> : public __zz_cib_MethodTabl
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -703,7 +703,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfWinAnsiEncoding, T> : public __zz_cib_Method
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -831,7 +831,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfMacRomanEncoding, T> : public __zz_cib_Metho
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -959,7 +959,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfMacExpertEncoding, T> : public __zz_cib_Meth
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1087,7 +1087,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfStandardEncoding, T> : public __zz_cib_Metho
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1215,7 +1215,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfSymbolEncoding, T> : public __zz_cib_MethodT
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1343,7 +1343,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfZapfDingbatsEncoding, T> : public __zz_cib_M
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfSimpleEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfSimpleEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1486,7 +1486,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfWin1250Encoding, T> : public __zz_cib_Method
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfWinAnsiEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfWinAnsiEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1629,7 +1629,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfIso88592Encoding, T> : public __zz_cib_Metho
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfWinAnsiEncoding>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfWinAnsiEncoding, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {

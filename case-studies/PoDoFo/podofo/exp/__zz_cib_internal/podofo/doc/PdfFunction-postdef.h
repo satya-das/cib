@@ -93,7 +93,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfFunction, T> : public __zz_cib_MethodTableHe
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfElement>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfElement, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -210,7 +210,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfSampledFunction, T> : public __zz_cib_Method
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfFunction>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfFunction, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -295,7 +295,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfExponentialFunction, T> : public __zz_cib_Me
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfFunction>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfFunction, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -380,7 +380,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfStitchingFunction, T> : public __zz_cib_Meth
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfFunction>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfFunction, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };

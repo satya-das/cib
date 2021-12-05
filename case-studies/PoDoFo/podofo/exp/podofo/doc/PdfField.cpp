@@ -1,4 +1,3 @@
-#include "podofo/base/PdfArray.h"
 #include "podofo/base/PdfCompilerCompat.h"
 #include "podofo/base/PdfName.h"
 #include "podofo/base/PdfObject.h"
@@ -994,26 +993,16 @@ int PoDoFo::PdfListField::GetSelectedItem() const {
   );
 }
 
-#if  0
-::PoDoFo::PdfArray PoDoFo::PdfListField::GetSelectedItems() {
-  return __zz_cib_::__zz_cib_FromAbiType<::PoDoFo::PdfArray>(
-    __zz_cib_MyHelper::GetSelectedItems_14<__zz_cib_::__zz_cib_AbiType_t<::PoDoFo::PdfArray>>(
-      __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
-    )
-  );
-}
-#endif
-
 bool PoDoFo::PdfListField::IsComboBox() const {
   return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::IsComboBox_15<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    __zz_cib_MyHelper::IsComboBox_14<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void PoDoFo::PdfListField::SetSpellcheckingEnabled(bool bSpellcheck) {
-    __zz_cib_MyHelper::SetSpellcheckingEnabled_16<__zz_cib_::__zz_cib_AbiType_t<void>>(
+    __zz_cib_MyHelper::SetSpellcheckingEnabled_15<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(bSpellcheck)>(std::move(bSpellcheck))
     );
@@ -1021,14 +1010,14 @@ void PoDoFo::PdfListField::SetSpellcheckingEnabled(bool bSpellcheck) {
 
 bool PoDoFo::PdfListField::IsSpellcheckingEnabled() const {
   return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::IsSpellcheckingEnabled_17<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    __zz_cib_MyHelper::IsSpellcheckingEnabled_16<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void PoDoFo::PdfListField::SetSorted(bool bSorted) {
-    __zz_cib_MyHelper::SetSorted_18<__zz_cib_::__zz_cib_AbiType_t<void>>(
+    __zz_cib_MyHelper::SetSorted_17<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(bSorted)>(std::move(bSorted))
     );
@@ -1036,14 +1025,14 @@ void PoDoFo::PdfListField::SetSorted(bool bSorted) {
 
 bool PoDoFo::PdfListField::IsSorted() const {
   return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::IsSorted_19<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    __zz_cib_MyHelper::IsSorted_18<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void PoDoFo::PdfListField::SetMultiSelect(bool bMulti) {
-    __zz_cib_MyHelper::SetMultiSelect_20<__zz_cib_::__zz_cib_AbiType_t<void>>(
+    __zz_cib_MyHelper::SetMultiSelect_19<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(bMulti)>(std::move(bMulti))
     );
@@ -1051,14 +1040,14 @@ void PoDoFo::PdfListField::SetMultiSelect(bool bMulti) {
 
 bool PoDoFo::PdfListField::IsMultiSelect() const {
   return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::IsMultiSelect_21<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    __zz_cib_MyHelper::IsMultiSelect_20<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
 void PoDoFo::PdfListField::SetCommitOnSelectionChange(bool bCommit) {
-    __zz_cib_MyHelper::SetCommitOnSelectionChange_22<__zz_cib_::__zz_cib_AbiType_t<void>>(
+    __zz_cib_MyHelper::SetCommitOnSelectionChange_21<__zz_cib_::__zz_cib_AbiType_t<void>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
       __zz_cib_::__zz_cib_ToAbiType<decltype(bCommit)>(std::move(bCommit))
     );
@@ -1066,7 +1055,7 @@ void PoDoFo::PdfListField::SetCommitOnSelectionChange(bool bCommit) {
 
 bool PoDoFo::PdfListField::IsCommitOnSelectionChange() const {
   return __zz_cib_::__zz_cib_FromAbiType<bool>(
-    __zz_cib_MyHelper::IsCommitOnSelectionChange_23<__zz_cib_::__zz_cib_AbiType_t<bool>>(
+    __zz_cib_MyHelper::IsCommitOnSelectionChange_22<__zz_cib_::__zz_cib_AbiType_t<bool>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

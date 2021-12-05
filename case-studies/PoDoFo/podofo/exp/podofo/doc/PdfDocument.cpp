@@ -718,7 +718,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfDocument> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_11(::PoDoFo::PdfDocument* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfDocument>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfDocument>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

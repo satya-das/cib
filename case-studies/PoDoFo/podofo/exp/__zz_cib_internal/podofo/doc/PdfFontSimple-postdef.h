@@ -99,7 +99,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfFontSimple, T> : public __zz_cib_MethodTable
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfFont>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfFont, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static void __zz_cib_ReleaseProxy(::PoDoFo::PdfFontSimple* __zz_cib_obj) {

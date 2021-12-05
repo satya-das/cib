@@ -614,8 +614,8 @@ struct __zz_cib_Helper<::PoDoFo::PdfEncryptMD5Base, T> : public __zz_cib_MethodT
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncrypt>::__zz_cib_ReleaseHandle(__zz_cib_obj);
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncryptRC4Base>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncrypt, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncryptRC4Base, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static void __zz_cib_ReleaseProxy(::PoDoFo::PdfEncryptMD5Base* __zz_cib_obj) {
@@ -815,8 +815,8 @@ struct __zz_cib_Helper<::PoDoFo::PdfEncryptAESV2, T> : public __zz_cib_MethodTab
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncryptMD5Base>::__zz_cib_ReleaseHandle(__zz_cib_obj);
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncryptAESBase>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncryptMD5Base, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncryptAESBase, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {
@@ -1001,7 +1001,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfEncryptRC4, T> : public __zz_cib_MethodTable
     __zz_cib_RemoveProxy(__zz_cib_obj->__zz_cib_h_);
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfEncryptMD5Base>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfEncryptMD5Base, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
   static _ProxyClass* __zz_cib_FromHandle(__zz_cib_AbiType h) {

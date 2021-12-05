@@ -49,7 +49,7 @@ namespace PoDoFo
     ePdfTokenType_Token,
 
     ePdfTokenType_Unknown = 0xFF
-};
+  };
   typedef std::pair<std::string,EPdfTokenType> TTokenizerPair;
   typedef std::deque<TTokenizerPair> TTokenizerQueque;
   typedef TTokenizerQueque::iterator TITokenizerQueque;

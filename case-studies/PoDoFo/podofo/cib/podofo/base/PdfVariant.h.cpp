@@ -333,8 +333,8 @@ struct __zz_cib_Delegator<::PoDoFo::PdfVariant> : public ::PoDoFo::PdfVariant {
     );
   }
 #if  defined(PODOFO_EXTRA_CHECKS)
-  static __zz_cib_AbiType_t<PODOFO_NOTHROW> __zz_cib_decl DelayedLoadInProgress_63(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<PODOFO_NOTHROW>(
+  static __zz_cib_AbiType_t<bool> __zz_cib_decl DelayedLoadInProgress_63(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<bool>(
       __zz_cib_obj->::PoDoFo::PdfVariant::DelayedLoadInProgress()
     );
   }

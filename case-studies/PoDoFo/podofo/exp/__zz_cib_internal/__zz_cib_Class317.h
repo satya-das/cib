@@ -431,16 +431,16 @@ public:
   using reference = __zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference;
   using const_reference = __zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference;
   using size_type = size_t;
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   vector()
     : std::vector<::PoDoFo::PdfString>(__zz_cib_MyHelper::__zz_cib_New_0())
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   vector(::std::vector<::PoDoFo::PdfString>::size_type n)
     : std::vector<::PoDoFo::PdfString>(__zz_cib_MyHelper::__zz_cib_New_1(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))))
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   vector(::std::vector<::PoDoFo::PdfString>::size_type n, const ::PoDoFo::PdfString& value)
     : std::vector<::PoDoFo::PdfString>(__zz_cib_MyHelper::__zz_cib_New_2(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n)),
@@ -450,7 +450,7 @@ public:
     : std::vector<::PoDoFo::PdfString>(__zz_cib_MyHelper::__zz_cib_Copy_3(
             __zz_cib_::__zz_cib_ToAbiType<decltype(x)>(x)))
   {}
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   vector(::std::vector<::PoDoFo::PdfString>&& __zz_cib_param0)
     : std::vector<::PoDoFo::PdfString>(__zz_cib_MyHelper::__zz_cib_New_4(
             __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(std::move(__zz_cib_param0))))
@@ -461,7 +461,7 @@ public:
       h
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>& operator=(const ::std::vector<::PoDoFo::PdfString>& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorEqual_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>&>>(
@@ -470,7 +470,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>& operator=(::std::vector<::PoDoFo::PdfString>&& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorEqual_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>&>>(
@@ -479,7 +479,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void assign(::std::vector<::PoDoFo::PdfString>::size_type n, const ::PoDoFo::PdfString& u) {
       __zz_cib_MyHelper::assign_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -487,7 +487,7 @@ public:
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(u)>(u)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator begin() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::begin_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -495,7 +495,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_iterator begin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_iterator>(
       __zz_cib_MyHelper::begin_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_iterator>>(
@@ -503,7 +503,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator end() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::end_11<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -511,7 +511,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_iterator end() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_iterator>(
       __zz_cib_MyHelper::end_12<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_iterator>>(
@@ -519,7 +519,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::reverse_iterator rbegin() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::reverse_iterator>(
       __zz_cib_MyHelper::rbegin_13<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::reverse_iterator>>(
@@ -527,7 +527,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator rbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>(
       __zz_cib_MyHelper::rbegin_14<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>>(
@@ -535,7 +535,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::reverse_iterator rend() {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::reverse_iterator>(
       __zz_cib_MyHelper::rend_15<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::reverse_iterator>>(
@@ -543,7 +543,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator rend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>(
       __zz_cib_MyHelper::rend_16<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>>(
@@ -551,7 +551,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_iterator cbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_iterator>(
       __zz_cib_MyHelper::cbegin_17<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_iterator>>(
@@ -559,7 +559,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_iterator cend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_iterator>(
       __zz_cib_MyHelper::cend_18<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_iterator>>(
@@ -567,7 +567,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator crbegin() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>(
       __zz_cib_MyHelper::crbegin_19<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>>(
@@ -575,7 +575,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator crend() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>(
       __zz_cib_MyHelper::crend_20<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::const_reverse_iterator>>(
@@ -583,7 +583,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   bool empty() const {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::empty_21<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
@@ -591,7 +591,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::size_type size() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::size_type>(
       __zz_cib_MyHelper::size_22<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::size_type>>(
@@ -599,7 +599,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::size_type max_size() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::size_type>(
       __zz_cib_MyHelper::max_size_23<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::size_type>>(
@@ -607,7 +607,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::size_type capacity() const {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::size_type>(
       __zz_cib_MyHelper::capacity_24<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::size_type>>(
@@ -615,14 +615,14 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void resize(::std::vector<::PoDoFo::PdfString>::size_type sz) {
       __zz_cib_MyHelper::resize_25<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(sz)>(std::move(sz))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void resize(::std::vector<::PoDoFo::PdfString>::size_type sz, const ::PoDoFo::PdfString& c) {
       __zz_cib_MyHelper::resize_26<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
@@ -630,20 +630,20 @@ public:
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(c)>(c)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void reserve(::std::vector<::PoDoFo::PdfString>::size_type n) {
       __zz_cib_MyHelper::reserve_27<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(n)>(std::move(n))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void shrink_to_fit() {
       __zz_cib_MyHelper::shrink_to_fit_28<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference operator[](::std::vector<::PoDoFo::PdfString>::size_type n) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorIndex_29<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>>(
@@ -652,7 +652,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference operator[](::std::vector<::PoDoFo::PdfString>::size_type n) const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorIndex_30<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>>(
@@ -661,7 +661,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference at(::std::vector<::PoDoFo::PdfString>::size_type n) const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>(
       __zz_cib_MyHelper::at_31<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>>(
@@ -670,7 +670,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference at(::std::vector<::PoDoFo::PdfString>::size_type n) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>(
       __zz_cib_MyHelper::at_32<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>>(
@@ -679,7 +679,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference front() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>(
       __zz_cib_MyHelper::front_33<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>>(
@@ -687,7 +687,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference front() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>(
       __zz_cib_MyHelper::front_34<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>>(
@@ -695,7 +695,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference back() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>(
       __zz_cib_MyHelper::back_35<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::reference>>(
@@ -703,7 +703,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference back() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>(
       __zz_cib_MyHelper::back_36<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::vector_iterator<::PoDoFo::PdfString>::const_reference>>(
@@ -711,7 +711,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::PoDoFo::PdfString* data() {
     return __zz_cib_::__zz_cib_FromAbiType<::PoDoFo::PdfString*>(
       __zz_cib_MyHelper::data_37<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::PoDoFo::PdfString*>>(
@@ -719,7 +719,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   const ::PoDoFo::PdfString* data() const {
     return __zz_cib_::__zz_cib_FromAbiType<const ::PoDoFo::PdfString*>(
       __zz_cib_MyHelper::data_38<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, const ::PoDoFo::PdfString*>>(
@@ -727,27 +727,27 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void push_back(const ::PoDoFo::PdfString& x) {
       __zz_cib_MyHelper::push_back_39<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(x)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void push_back(::PoDoFo::PdfString&& x) {
       __zz_cib_MyHelper::push_back_40<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(x)>(std::move(x))
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void pop_back() {
       __zz_cib_MyHelper::pop_back_41<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator insert(::std::vector<::PoDoFo::PdfString>::const_iterator position, const ::PoDoFo::PdfString& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::insert_42<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -757,7 +757,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator insert(::std::vector<::PoDoFo::PdfString>::const_iterator position, ::PoDoFo::PdfString&& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::insert_43<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -767,7 +767,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator insert(::std::vector<::PoDoFo::PdfString>::const_iterator position, ::std::vector<::PoDoFo::PdfString>::size_type n, const ::PoDoFo::PdfString& x) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::insert_44<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -778,7 +778,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator erase(::std::vector<::PoDoFo::PdfString>::const_iterator position) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::erase_45<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -787,7 +787,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   ::std::vector<::PoDoFo::PdfString>::iterator erase(::std::vector<::PoDoFo::PdfString>::const_iterator first, ::std::vector<::PoDoFo::PdfString>::const_iterator last) {
     return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::PoDoFo::PdfString>::iterator>(
       __zz_cib_MyHelper::erase_46<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::std::vector<::PoDoFo::PdfString>::iterator>>(
@@ -797,14 +797,14 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void swap(::std::vector<::PoDoFo::PdfString>& __zz_cib_param0) {
       __zz_cib_MyHelper::swap_47<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this),
         __zz_cib_::__zz_cib_LazyAbiType<__zz_cib_Dummy, decltype(__zz_cib_param0)>(__zz_cib_param0)
       );
     }
-  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>, vector<::PoDoFo::PdfString>>>
+  template <typename __zz_cib_Dummy = std::pair<vector<::PoDoFo::PdfString>*, vector<::PoDoFo::PdfString>*>>
   void clear() {
       __zz_cib_MyHelper::clear_48<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, void>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)

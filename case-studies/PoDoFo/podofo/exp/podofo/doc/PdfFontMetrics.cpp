@@ -622,7 +622,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfFontMetrics> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_22(::PoDoFo::PdfFontMetrics* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfFontMetrics>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfFontMetrics>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

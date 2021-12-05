@@ -74,7 +74,7 @@ namespace PoDoFo
     ePdfAction_RichMediaExecute,
     
     ePdfAction_Unknown = 0xff
-};
+  };
   /** An action that can be performed in a PDF document
    */
   class PdfAction : public ::PoDoFo::PdfElement

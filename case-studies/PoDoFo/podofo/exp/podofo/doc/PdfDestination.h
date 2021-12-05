@@ -53,7 +53,7 @@ namespace PoDoFo
     ePdfDestinationFit_FitBV,
 
     ePdfDestinationFit_Unknown = 0xFF
-};
+  };
   /** Destination type, as per 12.3.2.2 of the Pdf spec.
    *
    *  (see table 151 in the pdf spec)
@@ -69,7 +69,7 @@ namespace PoDoFo
   ePdfDestinationType_FitBV,
   
   ePdfDestinationType_Unknown = 0xFF
-};
+  };
   /** A destination in a PDF file.
    *  A destination can either be a page or an action.
    *

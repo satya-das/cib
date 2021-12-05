@@ -289,7 +289,7 @@ namespace PoDoFo
      */
     void SetVariantOwner(EPdfDataType eDataType);
 #  if  defined(PODOFO_EXTRA_CHECKS)
-    PODOFO_NOTHROW DelayedStreamLoadInProgress() const;
+    bool DelayedStreamLoadInProgress() const;
 #  endif
     bool DelayedStreamLoadDone() const;
 

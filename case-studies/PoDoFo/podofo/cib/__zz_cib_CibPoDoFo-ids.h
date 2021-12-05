@@ -4639,31 +4639,29 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class333 { nam
     SetSelectedItem_12 = 12,
     //#= int GetSelectedItem() const;
     GetSelectedItem_13 = 13,
-    //#= ::PoDoFo::PdfArray GetSelectedItems();
-    GetSelectedItems_14 = 14,
     //#= bool IsComboBox() const;
-    IsComboBox_15 = 15,
+    IsComboBox_14 = 14,
     //#= void SetSpellcheckingEnabled(bool);
-    SetSpellcheckingEnabled_16 = 16,
+    SetSpellcheckingEnabled_15 = 15,
     //#= bool IsSpellcheckingEnabled() const;
-    IsSpellcheckingEnabled_17 = 17,
+    IsSpellcheckingEnabled_16 = 16,
     //#= void SetSorted(bool);
-    SetSorted_18 = 18,
+    SetSorted_17 = 17,
     //#= bool IsSorted() const;
-    IsSorted_19 = 19,
+    IsSorted_18 = 18,
     //#= void SetMultiSelect(bool);
-    SetMultiSelect_20 = 20,
+    SetMultiSelect_19 = 19,
     //#= bool IsMultiSelect() const;
-    IsMultiSelect_21 = 21,
+    IsMultiSelect_20 = 20,
     //#= void SetCommitOnSelectionChange(bool);
-    SetCommitOnSelectionChange_22 = 22,
+    SetCommitOnSelectionChange_21 = 21,
     //#= bool IsCommitOnSelectionChange() const;
-    IsCommitOnSelectionChange_23 = 23,
+    IsCommitOnSelectionChange_22 = 22,
     //#= __zz_cib_CastTo__zz_cib_Class421
-    __zz_cib_CastTo__zz_cib_Class421 = 24,
+    __zz_cib_CastTo__zz_cib_Class421 = 23,
     //#= __zz_cib_CastFrom__zz_cib_Class421
-    __zz_cib_CastFrom__zz_cib_Class421 = 25,
-    __zz_cib_nextMethodId = 26
+    __zz_cib_CastFrom__zz_cib_Class421 = 24,
+    __zz_cib_nextMethodId = 25
   };
 }}}}
 
@@ -5071,7 +5069,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class333 { nam
     AfterDelayedLoad_36 = 36,
     //#= void SetVariantOwner(::PoDoFo::EPdfDataType);
     SetVariantOwner_37 = 37,
-    //#= PODOFO_NOTHROW DelayedStreamLoadInProgress() const;
+    //#= bool DelayedStreamLoadInProgress() const;
     DelayedStreamLoadInProgress_38 = 38,
     //#= bool DelayedStreamLoadDone() const;
     DelayedStreamLoadDone_39 = 39,
@@ -6977,7 +6975,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class333 { nam
     GetArray_NoDL_61 = 61,
     //#= ::PoDoFo::PdfArray& GetArray_NoDL();
     GetArray_NoDL_62 = 62,
-    //#= PODOFO_NOTHROW DelayedLoadInProgress() const;
+    //#= bool DelayedLoadInProgress() const;
     DelayedLoadInProgress_63 = 63,
     //#= __zz_cib_GetClassId
     __zz_cib_GetClassId = 64,

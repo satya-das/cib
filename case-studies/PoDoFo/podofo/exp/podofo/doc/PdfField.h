@@ -63,7 +63,7 @@ namespace PoDoFo
     ePdfField_Signature,
 
     ePdfField_Unknown = 0xff
-};
+  };
   /** The possible highlighting modes
    *  for a PdfField. I.e the visual effect
    *  that is to be used when the mouse 
@@ -79,7 +79,7 @@ namespace PoDoFo
     ePdfHighlightingMode_Push,           ///< Display the fields down appearance (requires an additional appearance stream to be set)
 
     ePdfHighlightingMode_Unknown = 0xff
-};
+  };
   class PdfField
   {
   public:
@@ -405,7 +405,8 @@ namespace PoDoFo
     PdfButton(const PdfButton&);
     ~PdfButton();
   protected:
-    enum { ePdfButton_NoToggleOff      = 0x0004000,
+    enum {
+ ePdfButton_NoToggleOff      = 0x0004000,
            ePdfButton_Radio            = 0x0008000,
            ePdfButton_PushButton       = 0x0010000,
            ePdfButton_RadioInUnison    = 0x2000000
@@ -773,7 +774,8 @@ namespace PoDoFo
     PdfListField(const PdfListField&);
     ~PdfListField();
   protected:
-    enum { ePdfListField_Combo         = 0x0020000,
+    enum {
+ ePdfListField_Combo         = 0x0020000,
            ePdfListField_Edit          = 0x0040000,
            ePdfListField_Sort          = 0x0080000,
            ePdfListField_MultiSelect   = 0x0200000,
@@ -841,10 +843,6 @@ namespace PoDoFo
      *  \returns the selected item or -1 if no item was selected
      */
     int GetSelectedItem() const;
-    // TODO:
-#  if  0
-    PdfArray GetSelectedItems();
-#  endif
     /** 
      * \returns true if this PdfListField is a PdfComboBox and false
      *               if it is a PdfListBox

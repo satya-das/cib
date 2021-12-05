@@ -56,7 +56,7 @@ namespace PoDoFo
     ePdfOutlineFormat_BoldItalic = 0x03,   /**< Bold Italic */
 
     ePdfOutlineFormat_Unknown    = 0xFF
-};
+  };
   /**
    * A PDF outline item has an title and a destination.
    * It is an element in the documents outline which shows

@@ -85,7 +85,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfContentsTokenizer, T> : public __zz_cib_Meth
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfTokenizer>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfTokenizer, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };

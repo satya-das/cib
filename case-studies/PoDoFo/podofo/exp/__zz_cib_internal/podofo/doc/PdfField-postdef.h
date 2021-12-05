@@ -545,7 +545,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfButton, T> : public __zz_cib_MethodTableHelp
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfField>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfField, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -676,7 +676,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfPushButton, T> : public __zz_cib_MethodTable
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfButton>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfButton, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -807,7 +807,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfCheckBox, T> : public __zz_cib_MethodTableHe
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfButton>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfButton, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -1028,7 +1028,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfTextField, T> : public __zz_cib_MethodTableH
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfField>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfField, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -1151,75 +1151,66 @@ struct __zz_cib_Helper<::PoDoFo::PdfListField, T> : public __zz_cib_MethodTableH
       __zz_cib_obj
       );
   }
-#if  0
   template <typename _RT>
-  static auto GetSelectedItems_14(__zz_cib_AbiType __zz_cib_obj) {
-    using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::GetSelectedItems_14>(
-      __zz_cib_obj
-      );
-  }
-#endif
-  template <typename _RT>
-  static auto IsComboBox_15(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto IsComboBox_14(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsComboBox_15>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsComboBox_14>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto SetSpellcheckingEnabled_16(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto SetSpellcheckingEnabled_15(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetSpellcheckingEnabled_16>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetSpellcheckingEnabled_15>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto IsSpellcheckingEnabled_17(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto IsSpellcheckingEnabled_16(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsSpellcheckingEnabled_17>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsSpellcheckingEnabled_16>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto SetSorted_18(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto SetSorted_17(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetSorted_18>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetSorted_17>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto IsSorted_19(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto IsSorted_18(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsSorted_19>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsSorted_18>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto SetMultiSelect_20(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto SetMultiSelect_19(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetMultiSelect_20>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetMultiSelect_19>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto IsMultiSelect_21(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto IsMultiSelect_20(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsMultiSelect_21>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsMultiSelect_20>(
       __zz_cib_obj
       );
   }
   template <typename _RT, typename ..._Args>
-  static auto SetCommitOnSelectionChange_22(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
+  static auto SetCommitOnSelectionChange_21(__zz_cib_AbiType __zz_cib_obj, _Args... __zz_cib_args) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (__zz_cib_AbiType, _Args...);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetCommitOnSelectionChange_22>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::SetCommitOnSelectionChange_21>(
       __zz_cib_obj,
       __zz_cib_args...);
   }
   template <typename _RT>
-  static auto IsCommitOnSelectionChange_23(const __zz_cib_AbiType __zz_cib_obj) {
+  static auto IsCommitOnSelectionChange_22(const __zz_cib_AbiType __zz_cib_obj) {
     using __zz_cib_ProcType = _RT (__zz_cib_decl *) (const __zz_cib_AbiType);
-    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsCommitOnSelectionChange_23>(
+    return __zz_cib_GetMethodTable().Invoke<__zz_cib_ProcType, __zz_cib_MethodId::IsCommitOnSelectionChange_22>(
       __zz_cib_obj
       );
   }
@@ -1244,7 +1235,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfListField, T> : public __zz_cib_MethodTableH
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfField>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfField, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -1361,7 +1352,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfComboBox, T> : public __zz_cib_MethodTableHe
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfListField>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfListField, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };
@@ -1464,7 +1455,7 @@ struct __zz_cib_Helper<::PoDoFo::PdfListBox, T> : public __zz_cib_MethodTableHel
     if (__zz_cib_obj->__zz_cib_h_ == nullptr) return nullptr;
     auto h = __zz_cib_obj->__zz_cib_h_;
     __zz_cib_obj->__zz_cib_h_ = nullptr;
-    __zz_cib_::__zz_cib_Helper<::PoDoFo::PdfListField>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_::__zz_cib_Helper_t<::PoDoFo::PdfListField, T>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     return h;
   }
 };

@@ -166,11 +166,11 @@ public:
   using pointer = char*;
   using value_type = char;
   using reference = typename std::conditional_t<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, value_type&>;
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   bidirectional_reverse_iterator()
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<char>(__zz_cib_MyHelper::__zz_cib_New_2())
   {}
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::reference operator*() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::reference>>(
@@ -178,7 +178,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::pointer operator->() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::pointer>(
       __zz_cib_MyHelper::__zz_cib_OperatorArrow_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>::pointer>>(
@@ -186,7 +186,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>& operator++() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorInc_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>&>>(
@@ -194,7 +194,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char> operator++(int __zz_cib_param0) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>>(
       __zz_cib_MyHelper::__zz_cib_OperatorInc_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>>>(
@@ -203,7 +203,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>& operator--() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>&>(
       __zz_cib_MyHelper::__zz_cib_OperatorDec_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>&>>(
@@ -211,7 +211,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char> operator--(int __zz_cib_param0) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>>(
       __zz_cib_MyHelper::__zz_cib_OperatorDec_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>>>(
@@ -220,7 +220,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   bool operator==(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>& rhs) {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
@@ -229,7 +229,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>, bidirectional_reverse_iterator<char>>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<char>*, bidirectional_reverse_iterator<char>*>>
   bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<char>& rhs) {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::__zz_cib_OperatorNotEq_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(

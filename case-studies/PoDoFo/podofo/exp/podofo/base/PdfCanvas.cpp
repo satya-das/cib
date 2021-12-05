@@ -174,7 +174,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfCanvas> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_4(::PoDoFo::PdfCanvas* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfCanvas>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfCanvas>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

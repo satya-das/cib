@@ -167,11 +167,11 @@ public:
   using pointer = ::PoDoFo::PdfReference* const *;
   using value_type = ::PoDoFo::PdfReference* const;
   using reference = typename std::conditional_t<std::is_pointer_v<value_type>, std::remove_const_t<value_type>, value_type&>;
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   bidirectional_reverse_iterator()
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >(__zz_cib_MyHelper::__zz_cib_New_2())
   {}
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::reference operator*() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::reference>(
       __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::reference>>(
@@ -179,7 +179,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::pointer operator->() const {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::pointer>(
       __zz_cib_MyHelper::__zz_cib_OperatorArrow_4<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >::pointer>>(
@@ -187,7 +187,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >& operator++() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >&>(
       __zz_cib_MyHelper::__zz_cib_OperatorInc_5<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >&>>(
@@ -195,7 +195,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const > operator++(int __zz_cib_param0) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>(
       __zz_cib_MyHelper::__zz_cib_OperatorInc_6<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>(
@@ -204,7 +204,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >& operator--() {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >&>(
       __zz_cib_MyHelper::__zz_cib_OperatorDec_7<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >&>>(
@@ -212,7 +212,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const > operator--(int __zz_cib_param0) {
     return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>(
       __zz_cib_MyHelper::__zz_cib_OperatorDec_8<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>(
@@ -221,7 +221,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   bool operator==(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >& rhs) {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::__zz_cib_OperatorCmpEq_9<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(
@@ -230,7 +230,7 @@ public:
       )
     );
   }
-  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >>>
+  template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*, bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >*>>
   bool operator!=(const ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::PoDoFo::PdfReference* const >& rhs) {
     return __zz_cib_::__zz_cib_FromAbiType<bool>(
       __zz_cib_MyHelper::__zz_cib_OperatorNotEq_10<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, bool>>(

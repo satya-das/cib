@@ -104,7 +104,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfFontSimple> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_8(::PoDoFo::PdfFontSimple* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfFontSimple>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfFontSimple>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

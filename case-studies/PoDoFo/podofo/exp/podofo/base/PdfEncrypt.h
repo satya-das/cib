@@ -93,7 +93,7 @@ namespace PoDoFo
 #ifdef PODOFO_HAVE_LIBIDN
         ,ePdfKeyLength_256 = 256
 #endif //PODOFO_HAVE_LIBIDN
-    } EPdfKeyLength;
+} EPdfKeyLength;
     /** Set user permissions/restrictions on a document
      */
     typedef enum {
@@ -105,7 +105,7 @@ namespace PoDoFo
         ePdfPermissions_Accessible	= 0x00000200,  ///< Extract text and graphics to support user with disabillities
         ePdfPermissions_DocAssembly	= 0x00000400,  ///< Assemble the document: insert, create, rotate delete pages or add bookmarks
         ePdfPermissions_HighPrint	= 0x00000800   ///< Print a high resolution version of the document
-    } EPdfPermissions;
+} EPdfPermissions;
     /**
      * The encryption algorithm.
      */
@@ -118,7 +118,7 @@ namespace PoDoFo
 #ifdef PODOFO_HAVE_LIBIDN
         ,ePdfEncryptAlgorithm_AESV3 = 8 ///< AES encryption with a 256 bit key (PDF1.7 extension 3) - Support added by P. Zent
 #endif //PODOFO_HAVE_LIBIDN
-    } EPdfEncryptAlgorithm;
+} EPdfEncryptAlgorithm;
     /** Create a PdfEncrypt object which can be used to encrypt a PDF file.
      * 
      *  \param userPassword the user password (if empty the user does not have 

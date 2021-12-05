@@ -881,7 +881,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfEncrypt> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_4(::PoDoFo::PdfEncrypt* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfEncrypt>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfEncrypt>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
   static __zz_cib_AbiType_t<::PoDoFo::pdf_long> __zz_cib_decl CalculateStreamOffset_5(const ::PoDoFo::PdfEncrypt* __zz_cib_obj) {
@@ -917,7 +917,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfEncrypt> {
     );
   }
 };
-}
+};
 
 namespace __zz_cib_ {
 namespace __zz_cib_Class333 {
@@ -1174,7 +1174,7 @@ struct __zz_cib_Delegator<::PoDoFo::PdfEncryptMD5Base> {
     );
   }
   static void __zz_cib_decl __zz_cib_Delete_11(::PoDoFo::PdfEncryptMD5Base* __zz_cib_obj) {
-    __zz_cib_Helper<::PoDoFo::PdfEncryptMD5Base>::__zz_cib_ReleaseHandle(__zz_cib_obj);
+    __zz_cib_Helper_t<::PoDoFo::PdfEncryptMD5Base>::__zz_cib_ReleaseHandle(__zz_cib_obj);
     delete __zz_cib_obj;
   }
 };

@@ -43,7 +43,7 @@ namespace PoDoFo
   enum EPdfAcroFormDefaulAppearance {
   ePdfAcroFormDefaultAppearance_None, ///< Do not add a default appearrance
   ePdfAcroFormDefaultAppearance_BlackText12pt ///< Add a default appearance with Arial embedded and black text 12pt if no other DA key is present
-};
+  };
   class PdfAcroForm : public ::PoDoFo::PdfElement
   {
   public:

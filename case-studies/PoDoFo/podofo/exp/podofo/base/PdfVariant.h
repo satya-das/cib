@@ -405,7 +405,7 @@ namespace PoDoFo
      */
     PdfArray& GetArray_NoDL();
 #  if  defined(PODOFO_EXTRA_CHECKS)
-    PODOFO_NOTHROW DelayedLoadInProgress() const;
+    bool DelayedLoadInProgress() const;
 #  endif
 
   private:

@@ -127,7 +127,7 @@ namespace PoDoFo
     ePdfError_CannotEncryptedForUpdate, /**< Cannot load encrypted documents for update. */
 
     ePdfError_Unknown = 0xffff          /**< Unknown error */
-};
+  };
   /**
    * Used in PdfError::LogMessage to specify the log level.
    *
@@ -142,7 +142,7 @@ namespace PoDoFo
     eLogSeverity_None,                /**< No specified level */
 
     eLogSeverity_Unknown = 0xffff     /**< Unknown log level */
-};
+  };
   /** \def PODOFO_RAISE_ERROR( x )
    *  
    *  Throw an exception of type PdfError with the error code x, which should be

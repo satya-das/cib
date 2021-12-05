@@ -52,7 +52,7 @@ namespace PoDoFo
     ePdfShadingPatternType_LatticeForm   = 5,
     ePdfShadingPatternType_CoonsPatch    = 6,
     ePdfShadingPatternType_TensorProduct = 7
-};
+  };
   /** 
    * This class defined a shading pattern which can be used
    * to fill abitrary shapes with a pattern using PdfPainter.
