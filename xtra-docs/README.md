@@ -23,6 +23,5 @@ For calling library functions we do not strictly need MethodTable. We could have
 MethodTable can have alternate design choice of being a `struct` of function pointers instead of array of function pointers. And that too can serve the purpose and in some cases be better. But CIB uses array for following reasons:
 - Array helps in reducing total number of constructs. In case MethodTable is a struct of function pointers we will need many structs.
 - Using array we can fetch function pointer by an index. Those index can be treated as function ID. If those ID is changed or removed it will be easy to detect and warn the library author of breaking the compatibility.
-- With array we only export one function from library. In case of struct all the structs would have to be exported.
-
-_Nevertheless `struct` MethodTable would have benefits too but I decided to use array._
+- With array we only export one function from library. In case of struct all the structs and their getter functions need to be exported.
+- Class methods may use parameter types defined within the class itself which in some cases may not accessible from outside. Creating a `struct` of function pointers whose parameters are of such types will be tricky.
