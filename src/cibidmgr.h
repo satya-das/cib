@@ -102,6 +102,14 @@ public:
     return &data[sigItr->second];
   }
 
+  CibMethodId getMethodId(const CibMethodSignature& uniqName) const
+  {
+    const auto* entry = find(uniqName);
+    if (entry == nullptr)
+      return kInvalidMethodId;
+    return entry->id;
+  }
+
   void forEachMethod(MethodIdVisitor methodIdVisitor) const
   {
     for (const auto& item : idIndex)
@@ -170,16 +178,17 @@ public:
                          CibMethodId        methodId = kInvalidMethodId)
   {
     if (methodId == kInvalidMethodId)
+      methodId = methodIdTable.getMethodId(signature);
+    if (methodId == kInvalidMethodId)
     {
       methodId = nextMethodId;
-      // if (allCApiNames.count(methodName) != 0)
       if (signature != methodName)
         methodName += "_" + std::to_string(methodId);
-      assert(allCApiNames.count(methodName) == 0);
     }
     allCApiNames.insert(methodName);
     methodIdTable.addOrUpdateMethod(methodId, obj, std::move(signature), std::move(methodName));
-    ++nextMethodId;
+    if (nextMethodId <= methodId)
+      nextMethodId = methodId + 1;
   }
 
   void setNextMethodId(CibMethodId methodId)

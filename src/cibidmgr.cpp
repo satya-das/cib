@@ -285,9 +285,8 @@ void CibIdMgr::assignIds(CibCompound*     compound,
 
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
     auto        addMethod = [&](const CibFunctionHelper& func) {
-      auto sig = func.signature(helper);
-      if (!cibIdData->hasMethod(sig))
-        cibIdData->addOrUpdateMethod(std::move(sig), func.procName(), func);
+      const auto sig = func.signature(helper);
+      cibIdData->addOrUpdateMethod(std::move(sig), func.procName(), func);
     };
     for (auto& func : methods)
     {
