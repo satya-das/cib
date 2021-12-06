@@ -21,8 +21,8 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "cib-program.h"
 #include "cibcompound.h"
-#include "cibhelper.h"
 #include "cibidmgr.h"
 #include "ciboptionparser.h"
 #include "cibutil.h"
@@ -93,7 +93,9 @@ static void emitLibraryGatewayFunction(const CppCompoundArray& fileAsts,
   stm << --indentation << "}\n";
 }
 
-static void emitExceptionToErrorConverter(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+static void emitExceptionToErrorConverter(const CibProgram& cibProgram,
+                                          const CibParams&  cibParams,
+                                          const CibIdMgr&   cibIdMgr)
 {
   if (!cibParams.handleException)
     return;
@@ -105,7 +107,7 @@ static void emitExceptionToErrorConverter(const CibHelper& helper, const CibPara
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-convert-to-error.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n\n";
 
-  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, helper, cibParams, false);
+  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, cibProgram, cibParams, false);
   for (const auto& header : exceptionHeaders)
     stm << "#include " << header << "\n";
   stm << '\n';
@@ -126,7 +128,7 @@ static void emitExceptionToErrorConverter(const CibHelper& helper, const CibPara
 
   for (const auto& ex : cibParams.exceptionClasses)
   {
-    auto* cppObj = helper.getCppObjFromTypeName(ex);
+    auto* cppObj = cibProgram.getCppObjFromTypeName(ex);
     assert(cppObj->objType_ == CppCompound::kObjectType);
     auto* compound = static_cast<CibCompound*>(cppObj);
 
@@ -142,7 +144,7 @@ static void emitExceptionToErrorConverter(const CibHelper& helper, const CibPara
   stm << --indentation << "\n}\n";
 }
 
-static void emitThrowOnError(const CibHelper& helper, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
+static void emitThrowOnError(const CibProgram& cibProgram, const CibParams& cibParams, const CibIdMgr& cibIdMgr)
 {
   if (!cibParams.handleException)
     return;
@@ -154,7 +156,7 @@ static void emitThrowOnError(const CibHelper& helper, const CibParams& cibParams
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-exception-throw-on-error.h\"\n";
   stm << "#include \"__zz_cib_" << cibParams.moduleName << "-ids.h\"\n\n";
 
-  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, helper, cibParams, false);
+  const auto& exceptionHeaders = collectHeaderDependencies(cibParams.exceptionClasses, cibProgram, cibParams, false);
   for (const auto& header : exceptionHeaders)
     stm << "#include " << header << "\n";
   stm << '\n';
@@ -181,7 +183,7 @@ static void emitThrowOnError(const CibHelper& helper, const CibParams& cibParams
     ++indentation;
     for (const auto& ex : cibParams.exceptionClasses)
     {
-      auto* cppObj = helper.getCppObjFromTypeName(ex);
+      auto* cppObj = cibProgram.getCppObjFromTypeName(ex);
       assert(cppObj->objType_ == CppCompound::kObjectType);
       auto* compound = static_cast<CibCompound*>(cppObj);
 
@@ -225,7 +227,7 @@ using FunctionRepo = std::unordered_set<std::string>;
 
 static void emitHelperDefinitionForNamespace(std::ostream&                       stm,
                                              const std::set<const CibCompound*>& nameSpaceCompounds,
-                                             const CibHelper&                    cibHelper,
+                                             const CibProgram&                   cibHelper,
                                              const CibParams&                    cibParams,
                                              const CibIdData*                    cibIdData,
                                              CppIndent                           indentation = CppIndent())
@@ -246,7 +248,7 @@ static void emitHelperDefinitionForNamespace(std::ostream&                      
 }
 
 static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
-                                      const CibHelper&        helper,
+                                      const CibProgram&       cibProgram,
                                       const CibParams&        cibParams,
                                       const CibIdMgr&         cibIdMgr)
 {
@@ -267,15 +269,15 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     for (auto* compound : compounds)
     {
       auto* ast = root(compound);
-      compound->emitFacadeAndInterfaceDependecyHeaders(bindSrcStm, helper, cibParams, cibIdMgr, false, CppIndent());
+      compound->emitFacadeAndInterfaceDependecyHeaders(bindSrcStm, cibProgram, cibParams, cibIdMgr, false, CppIndent());
       bindSrcStm << "#include \"" << bfs::relative(ast->name(), cibParams.inputPath).string() << "\"\n";
     }
     bindSrcStm << '\n';
     for (auto* compound : compounds)
     {
-      compound->emitDelegators(bindSrcStm, helper, cibParams, cibIdMgr);
+      compound->emitDelegators(bindSrcStm, cibProgram, cibParams, cibIdMgr);
     }
-    cmp->emitMethodTableGetterDefn(bindSrcStm, helper, cibParams, cibIdMgr, false);
+    cmp->emitMethodTableGetterDefn(bindSrcStm, cibProgram, cibParams, cibIdMgr, false);
 
     std::ofstream glueSrcStm(gluSrcPath.string(), std::ios_base::out);
     CibCompound::emitCommonExpHeaders(glueSrcStm, cibParams);
@@ -287,16 +289,16 @@ static void emitGlueCodeForNamespaces(const CppCompoundArray& fileAsts,
     }
     glueSrcStm << '\n';
     auto cibIdData = cibIdMgr.getCibIdData(cmp->longName());
-    emitHelperDefinitionForNamespace(glueSrcStm, compounds, helper, cibParams, cibIdData);
+    emitHelperDefinitionForNamespace(glueSrcStm, compounds, cibProgram, cibParams, cibIdData);
     FunctionRepo funcRepo;
     for (auto* compound : compounds)
     {
       for (auto func : compound->getNeedsBridgingMethods())
       {
-        if (funcRepo.insert(func.signature(helper)).second)
+        if (funcRepo.insert(func.signature(cibProgram)).second)
         {
           glueSrcStm << '\n'; // Start in new line.
-          func.emitDefn(glueSrcStm, false, helper, cibParams, compound, cibIdData);
+          func.emitDefn(glueSrcStm, false, cibProgram, cibParams, compound, cibIdData);
         }
       }
     }
@@ -430,9 +432,9 @@ int main(int argc, const char* argv[])
 
   ensureDirectoriesExist(cibParams);
 
-  CibIdMgr  cibIdMgr(cibParams);
-  CibHelper helper(cibParams, cppParams, cibIdMgr);
-  cibIdMgr.assignIds(helper, cibParams);
+  CibIdMgr   cibIdMgr(cibParams);
+  CibProgram cibProgram(cibParams, cppParams, cibIdMgr);
+  cibIdMgr.assignIds(cibProgram, cibParams);
 
   emitLibBoilerPlateCode(cibParams);
   emitClientBoilerPlateCode(cibParams);
@@ -440,21 +442,21 @@ int main(int argc, const char* argv[])
   std::ofstream valueClassStm((cibParams.libGlueDir / ("__zz_cib_" + cibParams.moduleName + "-value-types.h")).string(),
                               std::ios_base::app);
 
-  const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
+  const CppCompoundArray& fileAsts = cibProgram.getFileAsts();
   for (auto& cppAst : fileAsts)
   {
     CibConstCompoundEPtr cibCppCompound = cppAst;
-    cibCppCompound->emitValueClassNames(valueClassStm, helper, cibParams);
-    cibCppCompound->emitUserHeader(helper, cibParams, cibIdMgr);
-    cibCppCompound->emitPredefHeader(helper, cibParams);
-    cibCppCompound->emitImplHeader(helper, cibParams, cibIdMgr);
-    cibCppCompound->emitImplSource(helper, cibParams, cibIdMgr);
-    cibCppCompound->emitLibGlueCode(helper, cibParams, cibIdMgr);
+    cibCppCompound->emitValueClassNames(valueClassStm, cibProgram, cibParams);
+    cibCppCompound->emitUserHeader(cibProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitPredefHeader(cibProgram, cibParams);
+    cibCppCompound->emitImplHeader(cibProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitImplSource(cibProgram, cibParams, cibIdMgr);
+    cibCppCompound->emitLibGlueCode(cibProgram, cibParams, cibIdMgr);
   }
-  emitGlueCodeForNamespaces(fileAsts, helper, cibParams, cibIdMgr);
+  emitGlueCodeForNamespaces(fileAsts, cibProgram, cibParams, cibIdMgr);
 
-  emitExceptionToErrorConverter(helper, cibParams, cibIdMgr);
-  emitThrowOnError(helper, cibParams, cibIdMgr);
+  emitExceptionToErrorConverter(cibProgram, cibParams, cibIdMgr);
+  emitThrowOnError(cibProgram, cibParams, cibIdMgr);
 
   emitLibraryGatewayFunction(fileAsts, cibParams, cibIdMgr);
 

@@ -22,8 +22,8 @@
  */
 
 #include "cibutil.h"
+#include "cib-program.h"
 #include "cibcompound.h"
-#include "cibhelper.h"
 
 #include "cppast.h"
 #include "cppparser.h"
@@ -211,7 +211,7 @@ std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*
 }
 
 std::string getHeaderPath(const CibCompound* fileAst,
-                          const CibHelper&   helper,
+                          const CibProgram&  cibProgram,
                           const CibParams&   cibParams,
                           bool               forProxy)
 {
@@ -224,7 +224,7 @@ std::string getHeaderPath(const CibCompound* fileAst,
     return '"' + cibParams.stlHelperDirName + '/' + bfs::path(fileAstPath).filename().string() + '"';
   else
   {
-    const auto parentHeader = helper.wxStyleParentHeader(fileAstPath);
+    const auto parentHeader = cibProgram.wxStyleParentHeader(fileAstPath);
     if (parentHeader.empty())
       return '"' + bfs::relative(fileAstPath, cibParams.inputPath).string() + '"';
     if (!forProxy)
@@ -239,37 +239,37 @@ std::string getHeaderPath(const CibCompound* fileAst,
 }
 
 std::string getHeaderPath(const std::string& className,
-                          const CibHelper&   helper,
+                          const CibProgram&  cibProgram,
                           const CibParams&   cibParams,
                           bool               forProxy)
 {
-  const auto* compound = helper.getCppObjFromTypeName(className);
+  const auto* compound = cibProgram.getCppObjFromTypeName(className);
   if (compound == nullptr)
     return std::string();
-  return getHeaderPath(CibCompound::getFileAstObj(compound), helper, cibParams, forProxy);
+  return getHeaderPath(CibCompound::getFileAstObj(compound), cibProgram, cibParams, forProxy);
 }
 
 std::set<std::string> collectHeaderDependencies(const std::set<const CibCompound*>& compoundObjs,
-                                                const CibHelper&                    helper,
+                                                const CibProgram&                   cibProgram,
                                                 const CibParams&                    cibParams,
                                                 bool                                forProxy)
 {
   std::set<std::string> headers;
   for (const auto* compound : compoundObjs)
-    headers.insert(getHeaderPath(compound, helper, cibParams, forProxy));
+    headers.insert(getHeaderPath(compound, cibProgram, cibParams, forProxy));
 
   return headers;
 }
 
 std::set<std::string> collectHeaderDependencies(const StringVector& classNames,
-                                                const CibHelper&    helper,
+                                                const CibProgram&   cibProgram,
                                                 const CibParams&    cibParams,
                                                 bool                forProxy)
 
 {
   std::set<std::string> headers;
   for (const auto& className : classNames)
-    headers.insert(getHeaderPath(className, helper, cibParams, forProxy));
+    headers.insert(getHeaderPath(className, cibProgram, cibParams, forProxy));
 
   return headers;
 }

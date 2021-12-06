@@ -34,11 +34,11 @@ static CppVarTypePtr instantiateVarType(CppConstVarTypeEPtr varType, const Templ
 
 static CppVarTypePtr getSubstitutionVarType(const std::string& templateArg,
                                             const CibCompound* instantiationScope,
-                                            const CibHelper&   helper)
+                                            const CibProgram&  cibProgram)
 {
   auto  varType = parseType(templateArg);
   auto* resolvedVar =
-    instantiationScope->resolveTypename(baseType(varType), helper, TypeResolvingFlag::IgnoreStlHelpers);
+    instantiationScope->resolveTypename(baseType(varType), cibProgram, TypeResolvingFlag::IgnoreStlHelpers);
   if (resolvedVar)
     varType->baseType(longName(resolvedVar));
   return std::move(varType);
@@ -47,7 +47,7 @@ static CppVarTypePtr getSubstitutionVarType(const std::string& templateArg,
 static TemplateArgValues resolveArguments(const TemplateArgs&         templateArgs,
                                           const CppTemplateParamList* templSpec,
                                           const CibCompound*          instantiationScope,
-                                          const CibHelper&            helper)
+                                          const CibProgram&           cibProgram)
 {
   assert(templSpec);
   TemplateArgValues templArgSubstitution;
@@ -59,7 +59,7 @@ static TemplateArgValues resolveArguments(const TemplateArgs&         templateAr
       CppVarTypePtr substituteVar;
       if (argItr != templateArgs.end())
       {
-        substituteVar = getSubstitutionVarType(*argItr, instantiationScope, helper);
+        substituteVar = getSubstitutionVarType(*argItr, instantiationScope, cibProgram);
         ++argItr;
       }
       else
@@ -276,13 +276,13 @@ TemplateInstances::const_iterator CibCompound::addTemplateInstance(CibCompound* 
 
 CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
                                                    const CibCompound* instantiationScope,
-                                                   const CibHelper&   helper)
+                                                   const CibProgram&  cibProgram)
 {
   auto  templateArgs = CollectTemplateArgs(name);
   auto* ret          = getTemplateInstance(templateArgs);
   if (ret)
     return ret;
-  auto resolvedArgVals = resolveArguments(templateArgs, templateParamList(), instantiationScope, helper);
+  auto resolvedArgVals = resolveArguments(templateArgs, templateParamList(), instantiationScope, cibProgram);
   auto clsName         = canonicalName(this, templateParamList(), resolvedArgVals);
   auto resolvedArgs    = CollectTemplateArgs(clsName);
   ret                  = getTemplateInstance(resolvedArgs);
@@ -303,7 +303,8 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
     auto parents = std::make_unique<CppInheritanceList>();
     for (const auto& parent : *(templateClassParents.get()))
     {
-      if (CibCompoundEPtr base = helper.resolveTypename(parent.baseName, outer(), TypeResolvingFlag::IgnoreStlHelpers))
+      if (CibCompoundEPtr base =
+            cibProgram.resolveTypename(parent.baseName, outer(), TypeResolvingFlag::IgnoreStlHelpers))
       {
         parents->emplace_back(base->name(), parent.inhType, parent.isVirtual);
         continue;
@@ -355,8 +356,8 @@ CibCompound* CibCompound::getTemplateInstantiation(const std::string& name,
   tmplInstanceCache_.insert(std::make_pair(templateArgs, itr));
   tmplInstanceCache_.insert(std::make_pair(std::move(resolvedArgs), itr));
   ret->templateArgValues_.swap(resolvedArgVals);
-  helper.onNewCompound(ret, outer());
-  ret->setupTemplateDependencies(helper);
+  cibProgram.onNewCompound(ret, outer());
+  ret->setupTemplateDependencies(cibProgram);
   return ret;
 }
 
@@ -369,11 +370,11 @@ void CibCompound::addDependentTemplateInstance(const CibCompound* templInstance,
     itr->second = argType;
 }
 
-bool CibCompound::setupTemplateDependencies(const CppVarType* varType, const CibHelper& helper) const
+bool CibCompound::setupTemplateDependencies(const CppVarType* varType, const CibProgram& cibProgram) const
 {
   const std::string& typeName          = baseType(varType);
   bool               compositeTemplate = false;
-  auto*              resolvedCppObj    = helper.getCppObjFromTypeName(typeName, this);
+  auto*              resolvedCppObj    = cibProgram.getCppObjFromTypeName(typeName, this);
   if (resolvedCppObj)
   {
     if (isClassLike(resolvedCppObj))
@@ -387,13 +388,13 @@ bool CibCompound::setupTemplateDependencies(const CppVarType* varType, const Cib
     {
       if (CppTypedefNameEPtr typedefObj = resolvedCppObj)
       {
-        compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType(), helper);
+        compositeTemplate = setupTemplateDependencies(typedefObj->var_->varType(), cibProgram);
       }
       else if (CppUsingDeclEPtr usingObj = resolvedCppObj)
       {
         CppVarTypeEPtr temp = usingObj->cppObj_;
         if (temp)
-          compositeTemplate = setupTemplateDependencies(temp, helper);
+          compositeTemplate = setupTemplateDependencies(temp, cibProgram);
       }
     }
   }
@@ -401,7 +402,7 @@ bool CibCompound::setupTemplateDependencies(const CppVarType* varType, const Cib
   return compositeTemplate;
 }
 
-void CibCompound::setupTemplateDependencies(const CibHelper& helper)
+void CibCompound::setupTemplateDependencies(const CibProgram& cibProgram)
 {
   bool compositeTemplate = false;
   for (auto& arg : templateArgValues_)
@@ -409,7 +410,7 @@ void CibCompound::setupTemplateDependencies(const CibHelper& helper)
     if (arg.second->objType_ != CppVarType::kObjectType)
       continue;
     const auto* varType = static_cast<CppVarType*>(arg.second.get());
-    compositeTemplate   = setupTemplateDependencies(varType, helper) || compositeTemplate;
+    compositeTemplate   = setupTemplateDependencies(varType, cibProgram) || compositeTemplate;
   }
 
   if (compositeTemplate)

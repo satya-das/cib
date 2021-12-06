@@ -171,26 +171,26 @@ void CibIdMgr::loadMethodIds(std::string className, const CppEnum* methodIdEnum)
     methodIdTable.setNextMethodId(nextMethodId);
 }
 
-void CibIdMgr::assignIds(const CibHelper& helper, const CibParams& cibParams)
+void CibIdMgr::assignIds(const CibProgram& cibProgram, const CibParams& cibParams)
 {
   // First create Ids for global functions
-  const CppCompoundArray& fileAsts = helper.getProgram().getFileAsts();
+  const CppCompoundArray& fileAsts = cibProgram.getFileAsts();
   for (auto& fileAst : fileAsts)
   {
-    assignNsName(static_cast<CibCompound*>(fileAst.get()), helper, cibParams);
+    assignNsName(static_cast<CibCompound*>(fileAst.get()), cibProgram, cibParams);
   }
   for (auto& fileAst : fileAsts)
   {
-    assignIds(static_cast<CibCompound*>(fileAst.get()), helper, cibParams, false);
-    assignIds(static_cast<CibCompound*>(fileAst.get()), helper, cibParams, true);
+    assignIds(static_cast<CibCompound*>(fileAst.get()), cibProgram, cibParams, false);
+    assignIds(static_cast<CibCompound*>(fileAst.get()), cibProgram, cibParams, true);
   }
 }
 
-void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, const CibParams& cibParams)
+void CibIdMgr::assignNsName(CibCompound* compound, const CibProgram& cibProgram, const CibParams& cibParams)
 {
   if (compound->isTemplated())
   {
-    compound->forEachTemplateInstance([&](CibCompound* ins) { this->assignNsName(ins, helper, cibParams); });
+    compound->forEachTemplateInstance([&](CibCompound* ins) { this->assignNsName(ins, cibProgram, cibParams); });
     return;
   }
 
@@ -200,7 +200,7 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
   if (compound->isTemplateInstance())
   {
     compound->forEachOuter([&](CibCompound* outer) {
-      this->assignNsName(outer, helper, cibParams);
+      this->assignNsName(outer, cibProgram, cibParams);
       return false;
     });
   }
@@ -237,15 +237,15 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibHelper& helper, cons
   {
     if (!isPrivate(mem) && isNamespaceLike(mem))
     {
-      assignNsName(CibCompoundEPtr(mem), helper, cibParams);
+      assignNsName(CibCompoundEPtr(mem), cibProgram, cibParams);
     }
   }
 }
 
-void CibIdMgr::assignIds(CibCompound*     compound,
-                         const CibHelper& helper,
-                         const CibParams& cibParams,
-                         bool             forGenericProxy)
+void CibIdMgr::assignIds(CibCompound*      compound,
+                         const CibProgram& cibProgram,
+                         const CibParams&  cibParams,
+                         bool              forGenericProxy)
 {
   if (idsAssigned_.count({compound, forGenericProxy}))
     return;
@@ -256,7 +256,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
   if (compound->isTemplated())
   {
     compound->forEachTemplateInstance(
-      [&](CibCompound* ins) { this->assignIds(ins, helper, cibParams, forGenericProxy); });
+      [&](CibCompound* ins) { this->assignIds(ins, cibProgram, cibParams, forGenericProxy); });
     return;
   }
   if (compound->name().empty())
@@ -285,7 +285,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
 
     const auto& methods   = forGenericProxy ? compound->getAllVirtualMethods() : compound->getNeedsBridgingMethods();
     auto        addMethod = [&](const CibFunctionHelper& func) {
-      const auto sig = func.signature(helper);
+      const auto sig = func.signature(cibProgram);
       cibIdData->addOrUpdateMethod(std::move(sig), func.procName(), func);
     };
     for (auto& func : methods)
@@ -302,7 +302,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
     if (!forGenericProxy)
     {
       compound->forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* parent) {
-        this->assignIds(const_cast<CibCompound*>(parent), helper, cibParams, forGenericProxy);
+        this->assignIds(const_cast<CibCompound*>(parent), cibProgram, cibParams, forGenericProxy);
         if (parent->isShared() || !parent->isEmpty())
         {
           auto castToMethodName = compound->castToBaseName(parent, cibParams);
@@ -342,7 +342,7 @@ void CibIdMgr::assignIds(CibCompound*     compound,
   {
     if (!isPrivate(mem) && isNamespaceLike(mem))
     {
-      assignIds(CibCompoundEPtr(mem), helper, cibParams, forGenericProxy);
+      assignIds(CibCompoundEPtr(mem), cibProgram, cibParams, forGenericProxy);
     }
   }
 }

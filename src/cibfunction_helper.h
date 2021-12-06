@@ -37,7 +37,7 @@
 
 struct CibCompound;
 
-class CibHelper;
+class CibProgram;
 class CibIdData;
 
 /*!
@@ -286,32 +286,32 @@ public:
   }
 
   /// @return signature of this method.
-  std::string signature(const CibHelper& helper, FuncProtoPurpose purpose = kPurposeSignature) const;
+  std::string signature(const CibProgram& cibProgram, FuncProtoPurpose purpose = kPurposeSignature) const;
 
   /// Emits function arguments for function definition/declaration.
-  void emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purpose, const CibHelper& helper) const;
-  void emitSignature(std::ostream& stm, const CibHelper& helper, FuncProtoPurpose purpose) const;
+  void emitArgsForDecl(std::ostream& stm, FuncProtoPurpose purpose, const CibProgram& cibProgram) const;
+  void emitSignature(std::ostream& stm, const CibProgram& cibProgram, FuncProtoPurpose purpose) const;
   /// Emits function arguments for function call.
-  void emitArgsForCall(std::ostream&    stm,
-                       const CibHelper& helper,
-                       const CibParams& cibParams,
-                       FuncProtoPurpose purpose,
-                       CppIndent        indentation) const;
+  void emitArgsForCall(std::ostream&     stm,
+                       const CibProgram& cibProgram,
+                       const CibParams&  cibParams,
+                       FuncProtoPurpose  purpose,
+                       CppIndent         indentation) const;
   /// Emits declaration as originally defined/declared.
-  void emitOrigDecl(std::ostream&    stm,
-                    const CibHelper& helper,
-                    const CibParams& cibParams,
-                    FuncProtoPurpose purpose,
-                    CppIndent        indentation = CppIndent()) const;
+  void emitOrigDecl(std::ostream&     stm,
+                    const CibProgram& cibProgram,
+                    const CibParams&  cibParams,
+                    FuncProtoPurpose  purpose,
+                    CppIndent         indentation = CppIndent()) const;
   void emitCAPIDecl(std::ostream&      stm,
-                    const CibHelper&   helper,
+                    const CibProgram&  cibProgram,
                     const CibParams&   cibParams,
                     const CibCompound* callingOwner,
                     const std::string& capiName,
                     FuncProtoPurpose   purpose) const;
   /// Emits the raw C API definition corresponding to C++ method, meant for library side glue code.
   void emitCAPIDefn(std::ostream&      stm,
-                    const CibHelper&   helper,
+                    const CibProgram&  cibProgram,
                     const CibParams&   cibParams,
                     const CibCompound* callingOwner,
                     const std::string& capiName,
@@ -319,29 +319,29 @@ public:
                     CppIndent          indentation = CppIndent()) const;
   void emitDefn(std::ostream&      stm,
                 bool               asInline,
-                const CibHelper&   helper,
+                const CibProgram&  cibProgram,
                 const CibParams&   cibParams,
                 const CibCompound* callingOwner,
                 const CibIdData*   cibIdData,
                 CppIndent          indentation = CppIndent()) const;
   void emitGenericProxyDefn(std::ostream&      stm,
-                            const CibHelper&   helper,
+                            const CibProgram&  cibProgram,
                             const CibParams&   cibParams,
                             const std::string& capiName,
                             CppIndent          indentation = CppIndent()) const;
   void emitGenericDefn(std::ostream&      stm,
-                       const CibHelper&   helper,
+                       const CibProgram&  cibProgram,
                        const CibParams&   cibParams,
                        const std::string& capiName,
                        FuncProtoPurpose   purpose,
                        CppIndent          indentation = CppIndent()) const;
   /// Emits the ProcType definition for the C++ method, meant for client side glue code.
-  void emitProcType(std::ostream&    stm,
-                    const CibHelper& helper,
-                    const CibParams& cibParams,
-                    FuncProtoPurpose purpose,
-                    CppIndent        indentation = CppIndent()) const;
-  void emitCAPIReturnType(std::ostream& stm, const CibHelper& helper, CppIndent indentation = CppIndent()) const;
+  void emitProcType(std::ostream&     stm,
+                    const CibProgram& cibProgram,
+                    const CibParams&  cibParams,
+                    FuncProtoPurpose  purpose,
+                    CppIndent         indentation = CppIndent()) const;
+  void emitCAPIReturnType(std::ostream& stm, const CibProgram& cibProgram, CppIndent indentation = CppIndent()) const;
 
 private:
   static std::string modifyName(const std::string& funcname);

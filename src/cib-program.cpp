@@ -21,7 +21,7 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "cibhelper.h"
+#include "cib-program.h"
 #include "cibcompound.h"
 #include "cibfunction_helper.h"
 #include "cibidmgr.h"
@@ -48,7 +48,7 @@ std::vector<std::string> collectAllInterfaceFiles(const CibParams& cibParams)
 
 } // namespace
 
-CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr)
+CibProgram::CibProgram(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr)
   : cibCppObjTreeCreated_(false)
   , cibParams_(cibParams)
   , cibIdMgr_(cibIdMgr)
@@ -83,10 +83,10 @@ CibHelper::CibHelper(const CibParams& cibParams, const CppParserOptions& parserO
   buildCibCppObjTree();
 }
 
-void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) const
+void CibProgram::onNewCompound(CibCompound* compound, const CibCompound* parent) const
 {
   program_->addCompound(compound, parent);
-  auto* pThis = const_cast<CibHelper*>(this); // TODO: Fix const_cast.
+  auto* pThis = const_cast<CibProgram*>(this); // TODO: Fix const_cast.
   pThis->resolveInheritance(static_cast<CibCompound*>(compound));
   pThis->markClassType(compound);
   pThis->identifyAbstract(compound);
@@ -95,9 +95,9 @@ void CibHelper::onNewCompound(CibCompound* compound, const CibCompound* parent) 
   cibIdMgr_.assignNsName(compound, *this, cibParams_);
 }
 
-CppObj* CibHelper::resolveVarType(CppVarType*            varType,
-                                  const CppTypeTreeNode* typeNode,
-                                  TypeResolvingFlag      typeResolvingFlag)
+CppObj* CibProgram::resolveVarType(CppVarType*            varType,
+                                   const CppTypeTreeNode* typeNode,
+                                   TypeResolvingFlag      typeResolvingFlag)
 {
   auto* cppObj = resolveTypename(baseType(varType), typeNode, typeResolvingFlag);
   if (cppObj == nullptr)
@@ -122,9 +122,9 @@ CppObj* CibHelper::resolveVarType(CppVarType*            varType,
   return cppObj;
 }
 
-CppObj* CibHelper::resolveTypename(const std::string& name,
-                                   const CibCompound* begScope,
-                                   TypeResolvingFlag  typeResolvingFlag) const
+CppObj* CibProgram::resolveTypename(const std::string& name,
+                                    const CibCompound* begScope,
+                                    TypeResolvingFlag  typeResolvingFlag) const
 {
   CppObj* resolvedType = resolveTypename(name, program_->typeTreeNodeFromCppObj(begScope), typeResolvingFlag);
   if (!resolvedType && begScope)
@@ -138,12 +138,14 @@ CppObj* CibHelper::resolveTypename(const std::string& name,
   return resolvedType;
 }
 
-CppObj* CibHelper::resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag)
+CppObj* CibProgram::resolveVarType(CppVarType*        varType,
+                                   const CibCompound* begScope,
+                                   TypeResolvingFlag  typeResolvingFlag)
 {
   return resolveVarType(varType, program_->typeTreeNodeFromCppObj(begScope), typeResolvingFlag);
 }
 
-void CibHelper::markStlClasses()
+void CibProgram::markStlClasses()
 {
   const auto* stlNode = program_->searchTypeNode("std");
   if (stlNode == nullptr)
@@ -161,7 +163,7 @@ void CibHelper::markStlClasses()
   }
 }
 
-void CibHelper::markStlHelperClasses()
+void CibProgram::markStlHelperClasses()
 {
   const auto* stlNode = program_->searchTypeNode("__zz_cib_stl_helpers");
   if (stlNode == nullptr)
@@ -175,7 +177,7 @@ void CibHelper::markStlHelperClasses()
   }
 }
 
-void CibHelper::buildCibCppObjTree()
+void CibProgram::buildCibCppObjTree()
 {
   markStlClasses();
   markStlHelperClasses();
@@ -204,7 +206,7 @@ void CibHelper::buildCibCppObjTree()
   markNoProxyClasses();
 }
 
-void CibHelper::markNoProxyClasses()
+void CibProgram::markNoProxyClasses()
 {
   for (const auto& noProxyClassName : cibParams_.layoutSharingClasses)
   {
@@ -215,7 +217,7 @@ void CibHelper::markNoProxyClasses()
   }
 }
 
-void CibHelper::markNoCopyClasses()
+void CibProgram::markNoCopyClasses()
 {
   for (const auto& noCopyClassName : cibParams_.noCopyClasses)
   {
@@ -228,7 +230,7 @@ void CibHelper::markNoCopyClasses()
   }
 }
 
-void CibHelper::forceMarkInterfaceClasses()
+void CibProgram::forceMarkInterfaceClasses()
 {
   for (const auto& interfaceClassName : cibParams_.interfaceClasses)
   {
@@ -239,7 +241,7 @@ void CibHelper::forceMarkInterfaceClasses()
   }
 }
 
-CppObj* CibHelper::resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag) const
+CppObj* CibProgram::resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag) const
 {
   const auto getName = [](const CppObj* typeAliasObj) -> std::string {
     if (typeAliasObj->objType_ == CppObjType::kTypedefName)
@@ -346,9 +348,9 @@ static size_t getNestedNameStartPos(const std::string& name, size_t topNameEndPo
   return skipSpaces(name, scopeResolutionStartPos + 2);
 }
 
-CppObj* CibHelper::resolveTypename(const std::string&     name,
-                                   const CppTypeTreeNode* startNode,
-                                   TypeResolvingFlag      typeResolvingFlag) const
+CppObj* CibProgram::resolveTypename(const std::string&     name,
+                                    const CppTypeTreeNode* startNode,
+                                    TypeResolvingFlag      typeResolvingFlag) const
 {
   auto templateArgStart = name.find('<');
   auto typeNode         = [&]() -> const CppTypeTreeNode* {
@@ -415,7 +417,7 @@ CppObj* CibHelper::resolveTypename(const std::string&     name,
   return cppObj;
 }
 
-std::string CibHelper::wxStyleParentHeader(const bfs::path& headerPath) const
+std::string CibProgram::wxStyleParentHeader(const bfs::path& headerPath) const
 {
   if (!cibParams_.wxStyleHeaderDependency)
     return {};
@@ -425,7 +427,7 @@ std::string CibHelper::wxStyleParentHeader(const bfs::path& headerPath) const
   return isHeaderPresent(sameNamedFileInParent) ? sameNamedFileInParent : std::string();
 }
 
-void CibHelper::resolveInheritance(CibCompound* cppCompound)
+void CibProgram::resolveInheritance(CibCompound* cppCompound)
 {
   const CppTypeTreeNode& ownerTypeNode = *program_->typeTreeNodeFromCppObj(cppCompound);
   if (cppCompound->inheritanceList())
@@ -458,7 +460,7 @@ void CibHelper::resolveInheritance(CibCompound* cppCompound)
   }
 }
 
-void CibHelper::evaluateArgs(const CibFunctionHelper& func)
+void CibProgram::evaluateArgs(const CibFunctionHelper& func)
 {
   if (func.isTemplated())
     return;
@@ -491,7 +493,7 @@ void CibHelper::evaluateArgs(const CibFunctionHelper& func)
     }
   }
 }
-void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
+void CibProgram::evaluateReturnType(const CibFunctionHelper& func)
 {
   if (func.isTemplated())
     return;
@@ -517,7 +519,7 @@ void CibHelper::evaluateReturnType(const CibFunctionHelper& func)
   }
 }
 
-void CibHelper::markClassType(CibCompound* cppCompound)
+void CibProgram::markClassType(CibCompound* cppCompound)
 {
   if (cppCompound->isTemplated())
   {
@@ -633,7 +635,7 @@ void CibHelper::markClassType(CibCompound* cppCompound)
   }
 }
 
-void CibHelper::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
+void CibProgram::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
 {
   // TODO: Considers private ctors too.
   // Also for protected ctor/dtor things will be slightly less trivial.
@@ -641,7 +643,7 @@ void CibHelper::setNeedsGenericProxyDefinition(CibCompound* cppCompound)
     cppCompound->setNeedsGenericProxyDefinition();
 }
 
-void CibHelper::markNeedsGenericProxyDefinition(CibCompound* cppCompound)
+void CibProgram::markNeedsGenericProxyDefinition(CibCompound* cppCompound)
 {
   for (auto& mem : cppCompound->members())
   {
@@ -656,7 +658,7 @@ void CibHelper::markNeedsGenericProxyDefinition(CibCompound* cppCompound)
   }
 }
 
-void CibHelper::identifyAbstract(CibCompound* cppCompound)
+void CibProgram::identifyAbstract(CibCompound* cppCompound)
 {
   if (cppCompound->isTemplateInstance())
   {
@@ -674,7 +676,7 @@ void CibHelper::identifyAbstract(CibCompound* cppCompound)
   }
 }
 
-void CibHelper::identifyPobableFacades(CibCompound* cppCompound)
+void CibProgram::identifyPobableFacades(CibCompound* cppCompound)
 {
   for (auto& mem : cppCompound->members())
   {

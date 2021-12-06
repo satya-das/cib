@@ -26,7 +26,7 @@
 #include "cppindent.h"
 #include "cppwriter.h"
 
-#include "cibhelper.h"
+#include "cib-program.h"
 #include "cibparams.h"
 #include "cibtypes.h"
 
@@ -235,8 +235,8 @@ public:
   }
 
 public:
-  void              assignIds(const CibHelper& helper, const CibParams& cibParams);
-  void              assignNsName(CibCompound* compound, const CibHelper& helper, const CibParams& cibParams);
+  void              assignIds(const CibProgram& cibProgram, const CibParams& cibParams);
+  void              assignNsName(CibCompound* compound, const CibProgram& cibProgram, const CibParams& cibParams);
   bool              saveIds(const std::string& idsFilePath, const CibParams& cibParams) const;
   const CibIdTable& getCibIdTable() const
   {
@@ -259,7 +259,7 @@ public:
   size_t      numMethods(const std::string& className) const;
 
 private:
-  void assignIds(CibCompound* compound, const CibHelper& helper, const CibParams& cibParams, bool forGenericProxy);
+  void assignIds(CibCompound* compound, const CibProgram& cibProgram, const CibParams& cibParams, bool forGenericProxy);
 
 private:
   /*!

@@ -17,19 +17,18 @@ if(NOT APPLE)
 endif()
 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
-add_subdirectory(../cppparser  ${CMAKE_BINARY_DIR}/cppparser)
+add_subdirectory(../cppparser ${CMAKE_BINARY_DIR}/cppparser)
 
 include_directories(../common/third_party)
 
 cmake_policy(SET CMP0063 NEW)
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-#############################################
-## CIB
-
+# ############################################
+# # CIB
 set(CIB_SOURCES
 	src/cib.cpp
-	src/cibhelper.cpp
+	src/cib-program.cpp
 	src/cibidmgr.cpp
 	src/main.cpp
 	src/cibobjfactory.cpp
@@ -41,7 +40,7 @@ set(CIB_SOURCES
 )
 
 set(CIB_HEADERS
-	src/cibhelper.h
+	src/cib-program.h
 	src/cibidmgr.h
 	src/cibobjfactory.h
 	src/cibfunction_helper.h
@@ -109,12 +108,12 @@ add_executable(cib
 )
 target_link_libraries(cib
 	PRIVATE
-		cppparser
-		boost_filesystem
+	cppparser
+	boost_filesystem
 )
 target_include_directories(cib
 	PRIVATE
-		../common
+	../common
 )
 
 set(CIB $<TARGET_FILE:cib>)
@@ -156,16 +155,16 @@ add_subdirectory(tests)
 
 if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 else()
-    message("WARNING: Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
+	message("WARNING: Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
 endif()
 
 # It is expected that cib is run for all targets already
 add_custom_target(CibCoverage echo "Running lcov ..."
-    COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o cib.info || echo "Ignore" >/dev/null
-    COMMAND lcov --remove cib.info '*cppparser*' --output-file cib.info
-    COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
-    COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
-    COMMAND lcov --remove cib.info '*boost/*' --output-file cib.info
-    COMMAND lcov --remove cib.info '/usr/*' --output-file cib.info
-    COMMAND genhtml cib.info
+	COMMAND lcov -c -d ${CMAKE_BINARY_DIR}/CMakeFiles/cib.dir -o cib.info || echo "Ignore" >/dev/null
+	COMMAND lcov --remove cib.info '*cppparser*' --output-file cib.info
+	COMMAND lcov --remove cib.info '*third-party/*' --output-file cib.info
+	COMMAND lcov --remove cib.info '*common/*' --output-file cib.info
+	COMMAND lcov --remove cib.info '*boost/*' --output-file cib.info
+	COMMAND lcov --remove cib.info '/usr/*' --output-file cib.info
+	COMMAND genhtml cib.info
 )

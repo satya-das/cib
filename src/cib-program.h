@@ -54,19 +54,21 @@ enum class TypeResolvingFlag : char
 };
 
 /**
- * \brief Provides information about C++ program and related things needed by CIB.
+ * \brief C++ program information for purpose of implementing CIB architecture.
  */
-class CibHelper
+class CibProgram
 {
 public:
-  CibHelper(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr);
-
-  const CppProgram& getProgram() const
-  {
-    return *program_.get();
-  }
+  CibProgram(const CibParams& cibParams, const CppParserOptions& parserOptions, CibIdMgr& cibIdMgr);
 
 public:
+  /**
+   * @return An array of CppCompound each element of which represents AST of a C++ file.
+   */
+  const CppCompoundArray& getFileAsts() const
+  {
+    return program_->getFileAsts();
+  }
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain zero or more scope resolution operators.

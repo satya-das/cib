@@ -22,8 +22,8 @@
  */
 
 #include "cibfunction_helper.h"
+#include "cib-program.h"
 #include "cibcompound.h"
-#include "cibhelper.h"
 #include "cppwriter.h"
 
 #include "cibcompound.h"
@@ -44,10 +44,10 @@ CibCompound* CibFunctionHelper::getOwner() const
   return static_cast<CibCompound*>(func_->owner());
 }
 
-std::string CibFunctionHelper::signature(const CibHelper& helper, FuncProtoPurpose purpose) const
+std::string CibFunctionHelper::signature(const CibProgram& cibProgram, FuncProtoPurpose purpose) const
 {
   std::stringstream tmpbuf;
-  emitSignature(tmpbuf, helper, purpose);
+  emitSignature(tmpbuf, cibProgram, purpose);
   tmpbuf << ';';
   return tmpbuf.str();
 }

@@ -21,12 +21,12 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include "cib-program.h"
 #include "cibcompound.h"
-#include "cibhelper.h"
 
 #include <algorithm>
 
-bool CibHelper::isSmartPtr(const std::string& typeName) const
+bool CibProgram::isSmartPtr(const std::string& typeName) const
 {
   if (smartPtrNames_.count(typeName))
     return true;
@@ -36,7 +36,7 @@ bool CibHelper::isSmartPtr(const std::string& typeName) const
   return isSmartPtr(typeName.substr(0, nameEndPos));
 }
 
-bool CibHelper::isCopyable(const CppVar* var) const
+bool CibProgram::isCopyable(const CppVar* var) const
 {
   if (ptrLevel(var->varType()))
     return true;
@@ -55,7 +55,7 @@ bool CibHelper::isCopyable(const CppVar* var) const
   return true;
 }
 
-std::string CibHelper::convertSmartPtr(const std::string& typeName) const
+std::string CibProgram::convertSmartPtr(const std::string& typeName) const
 {
   auto nameStartPos = typeName.find('<') + 1;
   auto nameEndPos   = typeName.find_last_of('>');
