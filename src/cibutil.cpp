@@ -204,7 +204,7 @@ std::set<const CibCompound*> collectAstDependencies(const std::set<const CppObj*
   std::set<const CibCompound*> asts;
   for (auto obj : cppObjs)
   {
-    auto* ast = CibCompound::getFileAstObj(obj);
+    const auto* ast = CibCompound::getFileAstObj(obj);
     asts.insert(ast);
   }
   return asts;

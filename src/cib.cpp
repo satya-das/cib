@@ -1061,8 +1061,8 @@ void CibCompound::emitUserImplDependencyHeaders(std::ostream&                  s
                                                 const CibParams&               cibParams,
                                                 const std::set<const CppObj*>& dependencies) const
 {
-  auto asts    = collectAstDependencies(dependencies);
-  auto thisAst = getFileAstObj(this);
+  auto        asts    = collectAstDependencies(dependencies);
+  const auto* thisAst = getFileAstObj(this);
   if (!isStlHeader() && !isStlHelpereClass())
     asts.insert(thisAst);
   else
