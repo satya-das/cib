@@ -242,10 +242,10 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibProgram& cibProgram,
   }
 }
 
-void CibIdMgr::assignIds(CibCompound*      compound,
-                         const CibProgram& cibProgram,
-                         const CibParams&  cibParams,
-                         bool              forGenericProxy)
+void CibIdMgr::assignIds(const CibCompound* compound,
+                         const CibProgram&  cibProgram,
+                         const CibParams&   cibParams,
+                         bool               forGenericProxy)
 {
   if (idsAssigned_.count({compound, forGenericProxy}))
     return;
@@ -302,7 +302,7 @@ void CibIdMgr::assignIds(CibCompound*      compound,
     if (!forGenericProxy)
     {
       compound->forEachAncestor(CppAccessType::kPublic, [&](const CibCompound* parent) {
-        this->assignIds(const_cast<CibCompound*>(parent), cibProgram, cibParams, forGenericProxy);
+        this->assignIds(parent, cibProgram, cibParams, forGenericProxy);
         if (parent->isShared() || !parent->isEmpty())
         {
           auto castToMethodName = compound->castToBaseName(parent, cibParams);

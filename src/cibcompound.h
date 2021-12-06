@@ -675,10 +675,6 @@ public:
   void setInterfaceLike()
   {
     props_ |= kClassPropInterface;
-    // forEachParent(CppAccessType::kPublic, [](auto* ancestor) {
-    //   const_cast<CibCompound*>(ancestor)->setInterfaceLike();
-    //   return true;
-    // });
   }
   void setFacadeLike()
   {

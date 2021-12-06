@@ -259,7 +259,10 @@ public:
   size_t      numMethods(const std::string& className) const;
 
 private:
-  void assignIds(CibCompound* compound, const CibProgram& cibProgram, const CibParams& cibParams, bool forGenericProxy);
+  void assignIds(const CibCompound* compound,
+                 const CibProgram&  cibProgram,
+                 const CibParams&   cibParams,
+                 bool               forGenericProxy);
 
 private:
   /*!
