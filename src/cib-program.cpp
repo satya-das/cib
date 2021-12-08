@@ -181,12 +181,12 @@ void CibProgram::buildCibCppObjTree()
 {
   markStlClasses();
   markStlHelperClasses();
+
   forceMarkInterfaceClasses();
+  markNoCopyClasses();
 
   for (auto& fileAst : program_->getFileAsts())
     resolveInheritance(static_cast<CibCompound*>(fileAst.get()));
-
-  markNoCopyClasses();
 
   for (auto& fileAst : program_->getFileAsts())
     markClassType(static_cast<CibCompound*>(fileAst.get()));
@@ -352,8 +352,8 @@ CppObj* CibProgram::resolveTypename(const std::string&     name,
                                     const CppTypeTreeNode* startNode,
                                     TypeResolvingFlag      typeResolvingFlag) const
 {
-  auto templateArgStart = name.find('<');
-  auto typeNode         = [&]() -> const CppTypeTreeNode* {
+  const auto templateArgStart = name.find('<');
+  const auto typeNode         = [&]() -> const CppTypeTreeNode* {
     if (templateArgStart == name.npos)
     {
       return program_->nameLookup(name, startNode);
