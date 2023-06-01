@@ -37,6 +37,7 @@ set(CIB_SOURCES
 	src/cibcompound.cpp
 	src/ciboptionparser.cpp
 	src/cibsmartptr_helper.cpp
+	src/template-instance-manager.cpp
 )
 
 set(CIB_HEADERS
@@ -47,6 +48,7 @@ set(CIB_HEADERS
 	src/cibutil.h
 	src/cibcompound.h
 	src/ciboptionparser.h
+	src/template-instance-manager.h
 )
 
 set(RES_FILE_NAMES
@@ -114,6 +116,7 @@ target_link_libraries(cib
 target_include_directories(cib
 	PRIVATE
 	../common
+	../common/third_party/gsl-lite-0.40.0/include/
 )
 
 set(CIB $<TARGET_FILE:cib>)

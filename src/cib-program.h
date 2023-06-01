@@ -24,6 +24,7 @@
 #pragma once
 
 #include "cppprog.h"
+#include "template-instance-manager.h"
 
 #include <boost/filesystem.hpp>
 
@@ -35,8 +36,6 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct CppObj;
-
 struct CibCompound;
 
 struct CibParams;
@@ -47,10 +46,10 @@ class CibIdMgr;
 
 typedef std::set<std::string> stringset;
 
-enum class TypeResolvingFlag : char
+enum /*class*/ TypeResolvingFlag : char
 {
-  ResolveTillLast,
-  IgnoreStlHelpers,
+  ResolveTillLast  = 0,
+  IgnoreStlHelpers = 1
 };
 
 /**
@@ -67,8 +66,16 @@ public:
    */
   const CppCompoundArray& getFileAsts() const
   {
-    return program_->getFileAsts();
+    return cppProgram_->getFileAsts();
   }
+
+  // TODO: Make it private
+  CppObj* resolveTypename(const std::string&     name,
+                          const CppTypeTreeNode* startNode,
+                          TypeResolvingFlag      typeResolvingFlag);
+  // TODO: Make it private
+  CppObj* resolveTypename(const std::string& name, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag);
+
   /**
    * Resolves a name of type A::B (with or without scope resolution operators).
    * @param name Name which may contain zero or more scope resolution operators.
@@ -77,9 +84,9 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CppTypeTreeNode* typeNode) const
   {
-    return resolveTypename(name, typeNode, TypeResolvingFlag::IgnoreStlHelpers);
+    return getResolvedType(name, typeNode, TypeResolvingFlag::IgnoreStlHelpers);
   }
-  CppObj* resolveTypename(const std::string& name,
+  CppObj* getResolvedType(const std::string& name,
                           const CibCompound* begScope,
                           TypeResolvingFlag  typeResolvingFlag) const;
   /**
@@ -90,18 +97,22 @@ public:
    */
   CppObj* getCppObjFromTypeName(const std::string& name, const CibCompound* begScope) const
   {
-    return resolveTypename(name, begScope, TypeResolvingFlag::IgnoreStlHelpers);
+    return getResolvedType(name, begScope, TypeResolvingFlag::IgnoreStlHelpers);
   }
 
   CppObj* getCppObjFromTypeName(const std::string& name) const
   {
-    return resolveTypename(name, (CibCompound*) nullptr, TypeResolvingFlag::IgnoreStlHelpers);
+    return getResolvedType(name, (CibCompound*) nullptr, TypeResolvingFlag::IgnoreStlHelpers);
   }
 
-  void onNewCompound(CibCompound* compound, const CibCompound* parent) const;
+  /**
+   * @brief Number of instantiation of a template class
+   */
+  size_t numTemplateInstances(const CibCompound* templateClass) const;
 
-  CppObj* resolveVarType(CppVarType* varType, const CppTypeTreeNode* typeNode, TypeResolvingFlag typeResolvingFlag);
-  CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag);
+  bool isUnusedStl(const CibCompound* cppCompound) const;
+
+  void onNewCompound(CibCompound* compound, const CibCompound* parent);
 
   bool isSmartPtr(const std::string& typeName) const;
 
@@ -113,6 +124,8 @@ public:
   {
     return headersSet_.find(fileName) != headersSet_.end();
   }
+
+  void forEachTemplateInstance(const CibCompound* templateClass, std::function<void(CibCompound*)> callable) const;
 
   /**
    * @brief Returns a non empty string if the parent folder contains the same named file.
@@ -131,6 +144,8 @@ private:
   void markStlClasses();
   void markStlHelperClasses();
 
+  CppObj* resolveVarType(CppVarType* varType, const CibCompound* begScope, TypeResolvingFlag typeResolvingFlag);
+
   /**
    * Evaluates argument function to detect attribute of classes used in args.
    */
@@ -141,13 +156,13 @@ private:
    */
   void evaluateReturnType(const CibFunctionHelper& func);
 
-  CppObj* resolveTypename(const std::string&     name,
+  CppObj* getResolvedType(const std::string&     name,
                           const CppTypeTreeNode* typeNode,
                           TypeResolvingFlag      typeResolvingFlag) const;
-  CppObj* resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag) const;
+  CppObj* resolveTypeAlias(CppObj* typeAliasObj, TypeResolvingFlag typeResolvingFlag);
 
   /**
-   * Itmay happen a class is not directly identifiable as facades.
+   * It may happen a class is not directly identifiable as facades.
    * But if it has pure virtual and it's parent is facade then may be this class
    * too is used as facade.
    */
@@ -157,14 +172,30 @@ private:
 private:
   using HeadersSet = std::unordered_set<std::string>;
 
-  bool cibCppObjTreeCreated_;
-
-  std::unique_ptr<CppProgram> program_;
+  CibTemplateInstanceManager  templateInstanceMgr_;
+  bool                        cibCppObjTreeCreated_ = {false};
+  std::unique_ptr<CppProgram> cppProgram_;
   const CibParams&            cibParams_;
   CibIdMgr&                   cibIdMgr_;
   std::set<std::string>       smartPtrNames_;
   std::set<std::string>       uniquePtrNames_;
   HeadersSet                  headersSet_;
+
+  using NameToObj       = std::map<std::string, CppObj*>;
+  using ScopedNameToObj = std::map<const CppTypeTreeNode*, NameToObj>;
+  ScopedNameToObj resolvedNamesRepo_[2]; // One for each value of TypeResolvingFlag
 };
 
 //////////////////////////////////////////////////////////////////////////
+
+inline size_t CibProgram::numTemplateInstances(const CibCompound* templateClass) const
+{
+  return templateInstanceMgr_.numTemplateInstances(templateClass);
+}
+
+// TODO: Use std::function<void(const CibCompound*)> instead.
+inline void CibProgram::forEachTemplateInstance(const CibCompound*                templateClass,
+                                                std::function<void(CibCompound*)> callable) const
+{
+  templateInstanceMgr_.forEachTemplateInstance(templateClass, callable);
+}

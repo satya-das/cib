@@ -473,7 +473,7 @@ template<>
 class Value<int>
 {
 public:
-  Value(const ::Example::Value<int>& __zz_cib_param0)
+  Value(const Value<int>& __zz_cib_param0)
     : Example::Value<int>(__zz_cib_MyHelper::__zz_cib_Copy_0(
             __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
   {}

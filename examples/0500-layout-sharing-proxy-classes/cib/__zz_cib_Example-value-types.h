@@ -16,6 +16,3 @@
   {                                                                                                                    \
   };                                                                                                                   \
   } // namespace __zz_cib_
-
-#include "example.h"
-__ZZ_CIB_DECLARE_VALUE_CLASS(::CPoint)

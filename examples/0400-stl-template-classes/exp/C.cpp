@@ -16,7 +16,7 @@ C::C(C&& rhs)
   __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
-C::C(const ::C& __zz_cib_param0)
+C::C(const C& __zz_cib_param0)
   : C(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}

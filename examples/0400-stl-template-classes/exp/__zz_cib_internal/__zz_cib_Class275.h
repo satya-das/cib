@@ -172,9 +172,9 @@ public:
     : __zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>(__zz_cib_MyHelper::__zz_cib_New_2())
   {}
   template <typename __zz_cib_Dummy = std::pair<bidirectional_reverse_iterator<::C*>*, bidirectional_reverse_iterator<::C*>*>>
-  ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>::reference operator*() const {
-    return __zz_cib_::__zz_cib_FromAbiType<::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>::reference>(
-      __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>::reference>>(
+  reference operator*() const {
+    return __zz_cib_::__zz_cib_FromAbiType<reference>(
+      __zz_cib_MyHelper::__zz_cib_OperatorMul_3<__zz_cib_::__zz_cib_LazyAbiType_t<__zz_cib_Dummy, reference>>(
         __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
       )
     );

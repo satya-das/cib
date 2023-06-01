@@ -1,6 +1,7 @@
 CURRENT ROADMAP:
 ----------------
 Improve and finalize CppParser APIs. - InProgress.
+Remove mutated, const_cast, explicit static_cast to maximum possible.
 
 Add features to cib so that it supports wxWidgets entirely.
 Stretch goal: It appears CppParser can be improved to parse entire wxWidgets headers as-is, witout any modification.

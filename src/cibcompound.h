@@ -48,40 +48,11 @@ class CibIdMgr;
 struct CppFunction;
 struct CibCompound;
 
-enum class TypeResolvingFlag : char;
+enum TypeResolvingFlag : char;
 
-using CibFunctionHelperArray   = std::vector<CibFunctionHelper>;
-using CibCompoundArray         = std::vector<CibCompound*>;
-using CibCppInheritInfo        = std::map<CppAccessType, CibCompoundArray>;
-using TypenameAndResolvingFlag = std::pair<std::string, TypeResolvingFlag>;
-using TypeNameToCppObj         = std::map<TypenameAndResolvingFlag, CppObj*>;
-
-/**
- * Teplate args for creating template instances are unfortunately a bit complex.
- * Template arg can be a typename or an expression.
- * To handle both case template arg is of CppObj* type but in case it is an expression
- * we use existing expression object supplied by the usage or default value.
- * For the case it is typename we need to resolve it and so a new CppVarType object is created which will need deletion.
- * We can also simply clone CppExpr for other case too and not need special deletion but that brings it's own
- * implementation cost. So, this hack. :)
- */
-struct TemplateArgDeleter
-{
-  void operator()(CppObj* obj) const
-  {
-    if (obj->objType_ != CppExpr::kObjectType)
-      delete obj;
-  }
-};
-
-using TemplateArgPtr = std::unique_ptr<CppObj, TemplateArgDeleter>;
-
-using StringVector = std::vector<std::string>;
-using TemplateArgs = StringVector;
-// A set is sufficient but for having order we need map.
-using TemplateInstances = std::map<std::string, CibCompound*>;
-using TmplInstanceCache = std::map<TemplateArgs, TemplateInstances::const_iterator>;
-using TemplateArgValues = std::map<std::string, TemplateArgPtr>;
+using CibFunctionHelperArray = std::vector<CibFunctionHelper>;
+using CibCompoundArray       = std::vector<CibCompound*>;
+using CibCppInheritInfo      = std::map<CppAccessType, CibCompoundArray>;
 
 enum CibClassPropFlags
 {
@@ -119,6 +90,13 @@ struct CibCompound : public CppCompound
 public:
   using CppCompound::CppCompound;
 
+  CibCompound(std::string name, const CibCompound* templateClass, std::vector<CppObj*> templateArgObjects)
+    : CppCompound(std::move(name), templateClass->compoundType())
+    , templateClass_(templateClass)
+    , templateArgObjects_(std::move(templateArgObjects))
+  {
+  }
+
 public:
   CibCppInheritInfo parents_;  // List of all parents from which this compound object is derived.
   CibCppInheritInfo children_; // List of all children which are derived from this compound object.
@@ -142,11 +120,8 @@ private:
   CibFunctionHelperArray         allVirtuals_; // All virtual methods including that of parent classes.
   mutable CibFunctionHelperArray needsClientDefinition_;
   std::set<const CppObj*>        objNeedingBridge_;
-  mutable TypeNameToCppObj       typeNameToCibCppObj_;
-  TemplateInstances              templateInstances_; ///< Meaningful for template classes only.
-  TmplInstanceCache              tmplInstanceCache_;
-  CibCompound*               templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
-  TemplateArgValues          templateArgValues_;
+  const CibCompound*         templateClass_{nullptr}; ///< Valid iff this class is an instatiation of a template class.
+  std::vector<CppObj*>       templateArgObjects_;
   DependentTemplateInstances usedInTemplateInstaces_;
   CibClassId                 clsId_{0};
   std::string                nsName_;
@@ -184,18 +159,6 @@ public:
   bool isStlRelated() const
   {
     return isStlHeader() || isStlHelpereClass();
-  }
-  bool isUnusedStl() const
-  {
-    if (!isStlHeader())
-      return false;
-    bool isUsed = false;
-    forEachNested(CppAccessType::kPublic, [&](const CibCompound* nested) {
-      if (isClassLike(nested) && nested->numTemplateInstances())
-        isUsed = true;
-    });
-
-    return !isUsed;
   }
   const CppHashIf* getMemConditional(const CppObj* mem) const
   {
@@ -259,7 +222,7 @@ public:
   {
     return (templateClass_ != nullptr);
   }
-  CibCompound* templateClass() const
+  const CibCompound* templateClass() const
   {
     return templateClass_;
   }
@@ -344,10 +307,7 @@ public:
     else
       return "}";
   }
-  ///@ return CppObj corresponding to name of a given type
-  CppObj* resolveTypename(const std::string& typeName,
-                          const CibProgram&  cibProgram,
-                          TypeResolvingFlag  typeResolvingFlag) const;
+
   /// Identifies mothods that need to be bridged
   void identifyMethodsToBridge(const CibProgram& cibProgram);
   void identifyAbstract(const CibProgram& cibProgram);
@@ -363,15 +323,6 @@ public:
   {
     return allVirtuals_;
   }
-  CibCompound* getTemplateInstance(const TemplateArgs& templateArgs) const
-  {
-    assert(templateParamList());
-    auto itr = tmplInstanceCache_.find(templateArgs);
-    return (itr == tmplInstanceCache_.end()) ? nullptr : itr->second->second;
-  }
-  CibCompound* getTemplateInstantiation(const std::string& name,
-                                        const CibCompound* instantiationScope,
-                                        const CibProgram&  cibProgram);
 
   ///@ return The outer compound object (class/namespace/etc) that owns this one.
   const CibCompound* outer() const
@@ -517,10 +468,6 @@ public:
   bool isCompositeTemplate() const
   {
     return (props_ & kClassPropCompositeTmpl);
-  }
-  size_t numTemplateInstances() const
-  {
-    return templateInstances_.size();
   }
   bool isOverridable() const
   {
@@ -703,6 +650,11 @@ public:
     return false;
   }
 
+  // TODO: Make these private
+  //! Makes itself aware about templates where this class is used as template argument
+  void setupTemplateDependencies(const CibProgram& cibProgram);
+  bool setupTemplateDependencies(const CppVarType* varType, const CibProgram& cibProgram) const;
+
 public:
   bool forEachParent(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const;
   bool forEachAncestor(CppAccessType accessType, std::function<bool(const CibCompound*)> callable) const;
@@ -717,7 +669,6 @@ public:
   void forEachNested(std::function<void(CibCompound*)> callable);
   bool forEachOuter(std::function<bool(const CibCompound*)> callable) const;
   bool forEachOuter(std::function<bool(CibCompound*)> callable);
-  void forEachTemplateInstance(std::function<void(CibCompound*)> callable) const;
 
   static CibCompound*       getFileAstObj(CppObj* obj);
   static const CibCompound* getFileAstObj(const CppObj* obj);
@@ -798,11 +749,7 @@ private:
   path        getImplDir(const CibParams& cibParams) const;
   std::string getImplPath(const CibParams& cibParams) const;
   std::string implIncludeName(const CibParams& cibParams) const;
-  TemplateInstances::const_iterator addTemplateInstance(CibCompound* templateInstance);
 
-  //! Makes itself aware about templates where this class is used as template argument
-  void setupTemplateDependencies(const CibProgram& cibProgram);
-  bool setupTemplateDependencies(const CppVarType* varType, const CibProgram& cibProgram) const;
   void addDependentTemplateInstance(const CibCompound* templInstance, TemplateArgType argType);
   bool usedReferenceInTemplateInstance(const CibCompound* compound) const;
   void extractTemplateArgumentHardDependencies(std::set<const CppObj*>& argDependencies,
@@ -983,10 +930,4 @@ inline bool CibCompound::forEachOuter(std::function<bool(CibCompound*)> callable
   }
 
   return false;
-}
-
-inline void CibCompound::forEachTemplateInstance(std::function<void(CibCompound*)> callable) const
-{
-  for (auto& ins : templateInstances_)
-    callable(ins.second);
 }

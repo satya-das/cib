@@ -13,7 +13,7 @@ A::A(A&& rhs)
   rhs.__zz_cib_h_ = nullptr;
 }
 
-A::A(const ::A& __zz_cib_param0)
+A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}
@@ -61,17 +61,17 @@ int A::sumInLargeVector() const {
   );
 }
 
-::std::vector<::C>::iterator A::i() {
-  return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C>::iterator>(
-    __zz_cib_MyHelper::i_7<__zz_cib_::__zz_cib_AbiType_t<::std::vector<::C>::iterator>>(
+::A A::i() {
+  return __zz_cib_::__zz_cib_FromAbiType<::A>(
+    __zz_cib_MyHelper::i_7<__zz_cib_::__zz_cib_AbiType_t<::A>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );
 }
 
-::std::vector<::C>::reverse_iterator A::r() {
-  return __zz_cib_::__zz_cib_FromAbiType<::std::vector<::C>::reverse_iterator>(
-    __zz_cib_MyHelper::r_8<__zz_cib_::__zz_cib_AbiType_t<::std::vector<::C>::reverse_iterator>>(
+::A A::r() {
+  return __zz_cib_::__zz_cib_FromAbiType<::A>(
+    __zz_cib_MyHelper::r_8<__zz_cib_::__zz_cib_AbiType_t<::A>>(
       __zz_cib_::__zz_cib_ToAbiType<decltype(this)>(this)
     )
   );

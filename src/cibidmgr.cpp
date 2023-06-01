@@ -190,7 +190,8 @@ void CibIdMgr::assignNsName(CibCompound* compound, const CibProgram& cibProgram,
 {
   if (compound->isTemplated())
   {
-    compound->forEachTemplateInstance([&](CibCompound* ins) { this->assignNsName(ins, cibProgram, cibParams); });
+    cibProgram.forEachTemplateInstance(compound,
+                                       [&](CibCompound* ins) { this->assignNsName(ins, cibProgram, cibParams); });
     return;
   }
 
@@ -255,8 +256,8 @@ void CibIdMgr::assignIds(const CibCompound* compound,
   //  return;
   if (compound->isTemplated())
   {
-    compound->forEachTemplateInstance(
-      [&](CibCompound* ins) { this->assignIds(ins, cibProgram, cibParams, forGenericProxy); });
+    cibProgram.forEachTemplateInstance(
+      compound, [&](CibCompound* ins) { this->assignIds(ins, cibProgram, cibParams, forGenericProxy); });
     return;
   }
   if (compound->name().empty())

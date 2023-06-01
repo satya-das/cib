@@ -11,7 +11,7 @@ A::A()
   : A(__zz_cib_MyHelper::__zz_cib_New_0())
 {}
 
-A::A(const ::A& a)
+A::A(const A& a)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(a)>(a)))
 {}

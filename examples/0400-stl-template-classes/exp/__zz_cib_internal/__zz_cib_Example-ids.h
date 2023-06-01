@@ -152,7 +152,7 @@ namespace __zz_cib_ { namespace Example {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
   enum __zz_cib_MethodId {
-    //#= A(const ::A&);
+    //#= A(const A&);
     __zz_cib_Copy_0 = 0,
     //#= A();
     __zz_cib_New_1 = 1,
@@ -166,9 +166,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
     getObjPtrVec_5 = 5,
     //#= int sumInLargeVector() const;
     sumInLargeVector_6 = 6,
-    //#= ::std::vector<::C>::iterator i();
+    //#= ::A i();
     i_7 = 7,
-    //#= ::std::vector<::C>::reverse_iterator r();
+    //#= ::A r();
     r_8 = 8,
     //#= ::std::list<::C> l() const;
     l_9 = 9,
@@ -180,7 +180,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class284 {
 
 namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class283 {
   enum __zz_cib_MethodId {
-    //#= C(const ::C&);
+    //#= C(const C&);
     __zz_cib_Copy_0 = 0,
     //#= C(int);
     __zz_cib_New_1 = 1,
@@ -204,7 +204,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -232,7 +232,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -260,7 +260,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -288,7 +288,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_iterator<::C>::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -316,7 +316,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C const >::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -344,7 +344,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C* const >::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -372,7 +372,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C*>::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -400,7 +400,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= bidirectional_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>::reference operator*() const;
+    //#= reference operator*() const;
     __zz_cib_OperatorMul_3 = 3,
     //#= ::__zz_cib_stl_helpers::bidirectional_reverse_iterator<::C>::pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
@@ -428,11 +428,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -442,15 +442,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >& operator+=(::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const > operator+(::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >& operator-=(::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const > operator-(::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::C const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -464,7 +464,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::C const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -478,11 +478,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -492,15 +492,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >& operator+=(::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const > operator+(::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >& operator-=(::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const > operator-(::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::C* const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -514,7 +514,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::C* const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C* const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C* const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -528,11 +528,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -542,15 +542,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C*> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>& operator+=(::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*> operator+(::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>& operator-=(::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*> operator-(::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::C*>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -564,7 +564,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::C*>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C*>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C*>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -578,11 +578,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -592,15 +592,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::C> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>& operator+=(::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C> operator+(::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>& operator-=(::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C> operator-(::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::C> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::C>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -614,7 +614,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::C>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::C>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -628,11 +628,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -642,15 +642,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >& operator+=(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const > operator+(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >& operator-=(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const > operator-(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -664,7 +664,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -678,11 +678,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::pointer operator->();
+    //#= pointer operator->();
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -692,15 +692,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference operator[](::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>& operator+=(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>> operator+(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>& operator-=(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>> operator-(::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -714,7 +714,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -728,11 +728,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -742,15 +742,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -764,7 +764,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -778,11 +778,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -792,15 +792,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -814,7 +814,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C* const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -828,11 +828,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -842,15 +842,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -864,7 +864,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C*>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -878,11 +878,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -892,15 +892,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -914,7 +914,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::C>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -928,11 +928,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -942,15 +942,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const > operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -964,7 +964,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*> const >&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -978,11 +978,11 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_Delete_1 = 1,
     //#= vector_reverse_iterator();
     __zz_cib_New_2 = 2,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::reference operator*();
+    //#= reference operator*();
     __zz_cib_OperatorMul_3 = 3,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::pointer operator->() const;
+    //#= pointer operator->() const;
     __zz_cib_OperatorArrow_4 = 4,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::const_reference operator*() const;
+    //#= const_reference operator*() const;
     __zz_cib_OperatorMul_5 = 5,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>& operator++();
     __zz_cib_OperatorInc_6 = 6,
@@ -992,15 +992,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorDec_8 = 8,
     //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> operator--(int);
     __zz_cib_OperatorDec_9 = 9,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::reference operator[](::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type) const;
+    //#= reference operator[](difference_type) const;
     __zz_cib_OperatorIndex_10 = 10,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>& operator+=(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>& operator+=(difference_type);
     __zz_cib_OperatorPlusEq_11 = 11,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> operator+(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> operator+(difference_type) const;
     __zz_cib_OperatorPlus_12 = 12,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>& operator-=(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type);
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>& operator-=(difference_type);
     __zz_cib_OperatorMinusEq_13 = 13,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> operator-(::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type) const;
+    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>> operator-(difference_type) const;
     __zz_cib_OperatorMinus_14 = 14,
     //#= bool operator==(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorCmpEq_15 = 15,
@@ -1014,7 +1014,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class256 { nam
     __zz_cib_OperatorLE_19 = 19,
     //#= bool operator>=(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorGE_20 = 20,
-    //#= ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>::difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>&);
+    //#= difference_type operator-(const ::__zz_cib_stl_helpers::vector_reverse_iterator<::std::list<::C*>>&);
     __zz_cib_OperatorMinus_21 = 21,
     __zz_cib_nextMethodId = 22
   };
@@ -1024,9 +1024,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
   enum __zz_cib_MethodId {
     //#= list();
     __zz_cib_New_0 = 0,
-    //#= list(::std::list<::C*>::size_type);
+    //#= list(size_type);
     __zz_cib_New_1 = 1,
-    //#= list(::std::list<::C*>::size_type, ::C* const&);
+    //#= list(size_type, ::C* const&);
     __zz_cib_New_2 = 2,
     //#= list(const ::std::list<::C*>&);
     __zz_cib_Copy_3 = 3,
@@ -1038,47 +1038,47 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::list<::C*>& operator=(::std::list<::C*>&&);
     __zz_cib_OperatorEqual_7 = 7,
-    //#= void assign(::std::list<::C*>::size_type, ::C* const&);
+    //#= void assign(size_type, ::C* const&);
     assign_8 = 8,
-    //#= ::std::list<::C*>::iterator begin();
+    //#= iterator begin();
     begin_9 = 9,
-    //#= ::std::list<::C*>::const_iterator begin() const;
+    //#= const_iterator begin() const;
     begin_10 = 10,
-    //#= ::std::list<::C*>::iterator end();
+    //#= iterator end();
     end_11 = 11,
-    //#= ::std::list<::C*>::const_iterator end() const;
+    //#= const_iterator end() const;
     end_12 = 12,
-    //#= ::std::list<::C*>::reverse_iterator rbegin();
+    //#= reverse_iterator rbegin();
     rbegin_13 = 13,
-    //#= ::std::list<::C*>::const_reverse_iterator rbegin() const;
+    //#= const_reverse_iterator rbegin() const;
     rbegin_14 = 14,
-    //#= ::std::list<::C*>::reverse_iterator rend();
+    //#= reverse_iterator rend();
     rend_15 = 15,
-    //#= ::std::list<::C*>::const_reverse_iterator rend() const;
+    //#= const_reverse_iterator rend() const;
     rend_16 = 16,
-    //#= ::std::list<::C*>::const_iterator cbegin() const;
+    //#= const_iterator cbegin() const;
     cbegin_17 = 17,
-    //#= ::std::list<::C*>::const_iterator cend() const;
+    //#= const_iterator cend() const;
     cend_18 = 18,
-    //#= ::std::list<::C*>::const_reverse_iterator crbegin() const;
+    //#= const_reverse_iterator crbegin() const;
     crbegin_19 = 19,
-    //#= ::std::list<::C*>::const_reverse_iterator crend() const;
+    //#= const_reverse_iterator crend() const;
     crend_20 = 20,
     //#= bool empty() const;
     empty_21 = 21,
-    //#= ::std::list<::C*>::size_type size() const;
+    //#= size_type size() const;
     size_22 = 22,
-    //#= ::std::list<::C*>::size_type max_size() const;
+    //#= size_type max_size() const;
     max_size_23 = 23,
-    //#= void resize(::std::list<::C*>::size_type);
+    //#= void resize(size_type);
     resize_24 = 24,
-    //#= void resize(::std::list<::C*>::size_type, ::C* const&);
+    //#= void resize(size_type, ::C* const&);
     resize_25 = 25,
-    //#= ::std::list<::C*>::reference front();
+    //#= reference front();
     front_26 = 26,
     //#= ::std::list<::C*>::const_reference front() const;
     front_27 = 27,
-    //#= ::std::list<::C*>::reference back();
+    //#= reference back();
     back_28 = 28,
     //#= ::std::list<::C*>::const_reference back() const;
     back_29 = 29,
@@ -1094,31 +1094,31 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     push_back_34 = 34,
     //#= void pop_back();
     pop_back_35 = 35,
-    //#= ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator, ::C* const&);
+    //#= iterator insert(const_iterator, ::C* const&);
     insert_36 = 36,
-    //#= ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator, ::C*&&);
+    //#= iterator insert(const_iterator, ::C*&&);
     insert_37 = 37,
-    //#= ::std::list<::C*>::iterator insert(::std::list<::C*>::const_iterator, ::std::list<::C*>::size_type, ::C* const&);
+    //#= iterator insert(const_iterator, size_type, ::C* const&);
     insert_38 = 38,
-    //#= ::std::list<::C*>::iterator erase(::std::list<::C*>::const_iterator);
+    //#= iterator erase(const_iterator);
     erase_39 = 39,
-    //#= ::std::list<::C*>::iterator erase(::std::list<::C*>::const_iterator, ::std::list<::C*>::const_iterator);
+    //#= iterator erase(const_iterator, const_iterator);
     erase_40 = 40,
     //#= void swap(::std::list<::C*>&);
     swap_41 = 41,
     //#= void clear();
     clear_42 = 42,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&);
+    //#= void splice(const_iterator, ::std::list<::C*>&);
     splice_43 = 43,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&&);
+    //#= void splice(const_iterator, ::std::list<::C*>&&);
     splice_44 = 44,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&, ::std::list<::C*>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C*>&, const_iterator);
     splice_45 = 45,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&&, ::std::list<::C*>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C*>&&, const_iterator);
     splice_46 = 46,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&, ::std::list<::C*>::const_iterator, ::std::list<::C*>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C*>&, const_iterator, const_iterator);
     splice_47 = 47,
-    //#= void splice(::std::list<::C*>::const_iterator, ::std::list<::C*>&&, ::std::list<::C*>::const_iterator, ::std::list<::C*>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C*>&&, const_iterator, const_iterator);
     splice_48 = 48,
     //#= void reverse();
     reverse_49 = 49,
@@ -1130,9 +1130,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
   enum __zz_cib_MethodId {
     //#= list();
     __zz_cib_New_0 = 0,
-    //#= list(::std::list<::C>::size_type);
+    //#= list(size_type);
     __zz_cib_New_1 = 1,
-    //#= list(::std::list<::C>::size_type, const ::C&);
+    //#= list(size_type, const ::C&);
     __zz_cib_New_2 = 2,
     //#= list(const ::std::list<::C>&);
     __zz_cib_Copy_3 = 3,
@@ -1144,47 +1144,47 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::list<::C>& operator=(::std::list<::C>&&);
     __zz_cib_OperatorEqual_7 = 7,
-    //#= void assign(::std::list<::C>::size_type, const ::C&);
+    //#= void assign(size_type, const ::C&);
     assign_8 = 8,
-    //#= ::std::list<::C>::iterator begin();
+    //#= iterator begin();
     begin_9 = 9,
-    //#= ::std::list<::C>::const_iterator begin() const;
+    //#= const_iterator begin() const;
     begin_10 = 10,
-    //#= ::std::list<::C>::iterator end();
+    //#= iterator end();
     end_11 = 11,
-    //#= ::std::list<::C>::const_iterator end() const;
+    //#= const_iterator end() const;
     end_12 = 12,
-    //#= ::std::list<::C>::reverse_iterator rbegin();
+    //#= reverse_iterator rbegin();
     rbegin_13 = 13,
-    //#= ::std::list<::C>::const_reverse_iterator rbegin() const;
+    //#= const_reverse_iterator rbegin() const;
     rbegin_14 = 14,
-    //#= ::std::list<::C>::reverse_iterator rend();
+    //#= reverse_iterator rend();
     rend_15 = 15,
-    //#= ::std::list<::C>::const_reverse_iterator rend() const;
+    //#= const_reverse_iterator rend() const;
     rend_16 = 16,
-    //#= ::std::list<::C>::const_iterator cbegin() const;
+    //#= const_iterator cbegin() const;
     cbegin_17 = 17,
-    //#= ::std::list<::C>::const_iterator cend() const;
+    //#= const_iterator cend() const;
     cend_18 = 18,
-    //#= ::std::list<::C>::const_reverse_iterator crbegin() const;
+    //#= const_reverse_iterator crbegin() const;
     crbegin_19 = 19,
-    //#= ::std::list<::C>::const_reverse_iterator crend() const;
+    //#= const_reverse_iterator crend() const;
     crend_20 = 20,
     //#= bool empty() const;
     empty_21 = 21,
-    //#= ::std::list<::C>::size_type size() const;
+    //#= size_type size() const;
     size_22 = 22,
-    //#= ::std::list<::C>::size_type max_size() const;
+    //#= size_type max_size() const;
     max_size_23 = 23,
-    //#= void resize(::std::list<::C>::size_type);
+    //#= void resize(size_type);
     resize_24 = 24,
-    //#= void resize(::std::list<::C>::size_type, const ::C&);
+    //#= void resize(size_type, const ::C&);
     resize_25 = 25,
-    //#= ::std::list<::C>::reference front();
+    //#= reference front();
     front_26 = 26,
     //#= ::std::list<::C>::const_reference front() const;
     front_27 = 27,
-    //#= ::std::list<::C>::reference back();
+    //#= reference back();
     back_28 = 28,
     //#= ::std::list<::C>::const_reference back() const;
     back_29 = 29,
@@ -1200,31 +1200,31 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     push_back_34 = 34,
     //#= void pop_back();
     pop_back_35 = 35,
-    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, const ::C&);
+    //#= iterator insert(const_iterator, const ::C&);
     insert_36 = 36,
-    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, ::C&&);
+    //#= iterator insert(const_iterator, ::C&&);
     insert_37 = 37,
-    //#= ::std::list<::C>::iterator insert(::std::list<::C>::const_iterator, ::std::list<::C>::size_type, const ::C&);
+    //#= iterator insert(const_iterator, size_type, const ::C&);
     insert_38 = 38,
-    //#= ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator);
+    //#= iterator erase(const_iterator);
     erase_39 = 39,
-    //#= ::std::list<::C>::iterator erase(::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    //#= iterator erase(const_iterator, const_iterator);
     erase_40 = 40,
     //#= void swap(::std::list<::C>&);
     swap_41 = 41,
     //#= void clear();
     clear_42 = 42,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&);
+    //#= void splice(const_iterator, ::std::list<::C>&);
     splice_43 = 43,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&);
+    //#= void splice(const_iterator, ::std::list<::C>&&);
     splice_44 = 44,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&, ::std::list<::C>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C>&, const_iterator);
     splice_45 = 45,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&, ::std::list<::C>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C>&&, const_iterator);
     splice_46 = 46,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&, ::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C>&, const_iterator, const_iterator);
     splice_47 = 47,
-    //#= void splice(::std::list<::C>::const_iterator, ::std::list<::C>&&, ::std::list<::C>::const_iterator, ::std::list<::C>::const_iterator);
+    //#= void splice(const_iterator, ::std::list<::C>&&, const_iterator, const_iterator);
     splice_48 = 48,
     //#= void reverse();
     reverse_49 = 49,
@@ -1236,9 +1236,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
   enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
-    //#= vector(::std::vector<::C*>::size_type);
+    //#= vector(size_type);
     __zz_cib_New_1 = 1,
-    //#= vector(::std::vector<::C*>::size_type, ::C* const&);
+    //#= vector(size_type, ::C* const&);
     __zz_cib_New_2 = 2,
     //#= vector(const ::std::vector<::C*>&);
     __zz_cib_Copy_3 = 3,
@@ -1250,63 +1250,63 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::vector<::C*>& operator=(::std::vector<::C*>&&);
     __zz_cib_OperatorEqual_7 = 7,
-    //#= void assign(::std::vector<::C*>::size_type, ::C* const&);
+    //#= void assign(size_type, ::C* const&);
     assign_8 = 8,
-    //#= ::std::vector<::C*>::iterator begin();
+    //#= iterator begin();
     begin_9 = 9,
-    //#= ::std::vector<::C*>::const_iterator begin() const;
+    //#= const_iterator begin() const;
     begin_10 = 10,
-    //#= ::std::vector<::C*>::iterator end();
+    //#= iterator end();
     end_11 = 11,
-    //#= ::std::vector<::C*>::const_iterator end() const;
+    //#= const_iterator end() const;
     end_12 = 12,
-    //#= ::std::vector<::C*>::reverse_iterator rbegin();
+    //#= reverse_iterator rbegin();
     rbegin_13 = 13,
-    //#= ::std::vector<::C*>::const_reverse_iterator rbegin() const;
+    //#= const_reverse_iterator rbegin() const;
     rbegin_14 = 14,
-    //#= ::std::vector<::C*>::reverse_iterator rend();
+    //#= reverse_iterator rend();
     rend_15 = 15,
-    //#= ::std::vector<::C*>::const_reverse_iterator rend() const;
+    //#= const_reverse_iterator rend() const;
     rend_16 = 16,
-    //#= ::std::vector<::C*>::const_iterator cbegin() const;
+    //#= const_iterator cbegin() const;
     cbegin_17 = 17,
-    //#= ::std::vector<::C*>::const_iterator cend() const;
+    //#= const_iterator cend() const;
     cend_18 = 18,
-    //#= ::std::vector<::C*>::const_reverse_iterator crbegin() const;
+    //#= const_reverse_iterator crbegin() const;
     crbegin_19 = 19,
-    //#= ::std::vector<::C*>::const_reverse_iterator crend() const;
+    //#= const_reverse_iterator crend() const;
     crend_20 = 20,
     //#= bool empty() const;
     empty_21 = 21,
-    //#= ::std::vector<::C*>::size_type size() const;
+    //#= size_type size() const;
     size_22 = 22,
-    //#= ::std::vector<::C*>::size_type max_size() const;
+    //#= size_type max_size() const;
     max_size_23 = 23,
-    //#= ::std::vector<::C*>::size_type capacity() const;
+    //#= size_type capacity() const;
     capacity_24 = 24,
-    //#= void resize(::std::vector<::C*>::size_type);
+    //#= void resize(size_type);
     resize_25 = 25,
-    //#= void resize(::std::vector<::C*>::size_type, ::C* const&);
+    //#= void resize(size_type, ::C* const&);
     resize_26 = 26,
-    //#= void reserve(::std::vector<::C*>::size_type);
+    //#= void reserve(size_type);
     reserve_27 = 27,
     //#= void shrink_to_fit();
     shrink_to_fit_28 = 28,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference operator[](::std::vector<::C*>::size_type);
+    //#= ::std::vector<::C*>::reference operator[](size_type);
     __zz_cib_OperatorIndex_29 = 29,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference operator[](::std::vector<::C*>::size_type) const;
+    //#= ::std::vector<::C*>::const_reference operator[](size_type) const;
     __zz_cib_OperatorIndex_30 = 30,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference at(::std::vector<::C*>::size_type) const;
+    //#= ::std::vector<::C*>::const_reference at(size_type) const;
     at_31 = 31,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference at(::std::vector<::C*>::size_type);
+    //#= ::std::vector<::C*>::reference at(size_type);
     at_32 = 32,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference front();
+    //#= ::std::vector<::C*>::reference front();
     front_33 = 33,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference front() const;
+    //#= ::std::vector<::C*>::const_reference front() const;
     front_34 = 34,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::reference back();
+    //#= ::std::vector<::C*>::reference back();
     back_35 = 35,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C*>::const_reference back() const;
+    //#= ::std::vector<::C*>::const_reference back() const;
     back_36 = 36,
     //#= ::C** data();
     data_37 = 37,
@@ -1318,15 +1318,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     push_back_40 = 40,
     //#= void pop_back();
     pop_back_41 = 41,
-    //#= ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator, ::C* const&);
+    //#= iterator insert(const_iterator, ::C* const&);
     insert_42 = 42,
-    //#= ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator, ::C*&&);
+    //#= iterator insert(const_iterator, ::C*&&);
     insert_43 = 43,
-    //#= ::std::vector<::C*>::iterator insert(::std::vector<::C*>::const_iterator, ::std::vector<::C*>::size_type, ::C* const&);
+    //#= iterator insert(const_iterator, size_type, ::C* const&);
     insert_44 = 44,
-    //#= ::std::vector<::C*>::iterator erase(::std::vector<::C*>::const_iterator);
+    //#= iterator erase(const_iterator);
     erase_45 = 45,
-    //#= ::std::vector<::C*>::iterator erase(::std::vector<::C*>::const_iterator, ::std::vector<::C*>::const_iterator);
+    //#= iterator erase(const_iterator, const_iterator);
     erase_46 = 46,
     //#= void swap(::std::vector<::C*>&);
     swap_47 = 47,
@@ -1340,9 +1340,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
   enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
-    //#= vector(::std::vector<::C>::size_type);
+    //#= vector(size_type);
     __zz_cib_New_1 = 1,
-    //#= vector(::std::vector<::C>::size_type, const ::C&);
+    //#= vector(size_type, const ::C&);
     __zz_cib_New_2 = 2,
     //#= vector(const ::std::vector<::C>&);
     __zz_cib_Copy_3 = 3,
@@ -1354,63 +1354,63 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::vector<::C>& operator=(::std::vector<::C>&&);
     __zz_cib_OperatorEqual_7 = 7,
-    //#= void assign(::std::vector<::C>::size_type, const ::C&);
+    //#= void assign(size_type, const ::C&);
     assign_8 = 8,
-    //#= ::std::vector<::C>::iterator begin();
+    //#= iterator begin();
     begin_9 = 9,
-    //#= ::std::vector<::C>::const_iterator begin() const;
+    //#= const_iterator begin() const;
     begin_10 = 10,
-    //#= ::std::vector<::C>::iterator end();
+    //#= iterator end();
     end_11 = 11,
-    //#= ::std::vector<::C>::const_iterator end() const;
+    //#= const_iterator end() const;
     end_12 = 12,
-    //#= ::std::vector<::C>::reverse_iterator rbegin();
+    //#= reverse_iterator rbegin();
     rbegin_13 = 13,
-    //#= ::std::vector<::C>::const_reverse_iterator rbegin() const;
+    //#= const_reverse_iterator rbegin() const;
     rbegin_14 = 14,
-    //#= ::std::vector<::C>::reverse_iterator rend();
+    //#= reverse_iterator rend();
     rend_15 = 15,
-    //#= ::std::vector<::C>::const_reverse_iterator rend() const;
+    //#= const_reverse_iterator rend() const;
     rend_16 = 16,
-    //#= ::std::vector<::C>::const_iterator cbegin() const;
+    //#= const_iterator cbegin() const;
     cbegin_17 = 17,
-    //#= ::std::vector<::C>::const_iterator cend() const;
+    //#= const_iterator cend() const;
     cend_18 = 18,
-    //#= ::std::vector<::C>::const_reverse_iterator crbegin() const;
+    //#= const_reverse_iterator crbegin() const;
     crbegin_19 = 19,
-    //#= ::std::vector<::C>::const_reverse_iterator crend() const;
+    //#= const_reverse_iterator crend() const;
     crend_20 = 20,
     //#= bool empty() const;
     empty_21 = 21,
-    //#= ::std::vector<::C>::size_type size() const;
+    //#= size_type size() const;
     size_22 = 22,
-    //#= ::std::vector<::C>::size_type max_size() const;
+    //#= size_type max_size() const;
     max_size_23 = 23,
-    //#= ::std::vector<::C>::size_type capacity() const;
+    //#= size_type capacity() const;
     capacity_24 = 24,
-    //#= void resize(::std::vector<::C>::size_type);
+    //#= void resize(size_type);
     resize_25 = 25,
-    //#= void resize(::std::vector<::C>::size_type, const ::C&);
+    //#= void resize(size_type, const ::C&);
     resize_26 = 26,
-    //#= void reserve(::std::vector<::C>::size_type);
+    //#= void reserve(size_type);
     reserve_27 = 27,
     //#= void shrink_to_fit();
     shrink_to_fit_28 = 28,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference operator[](::std::vector<::C>::size_type);
+    //#= ::std::vector<::C>::reference operator[](size_type);
     __zz_cib_OperatorIndex_29 = 29,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::const_reference operator[](::std::vector<::C>::size_type) const;
+    //#= ::std::vector<::C>::const_reference operator[](size_type) const;
     __zz_cib_OperatorIndex_30 = 30,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::const_reference at(::std::vector<::C>::size_type) const;
+    //#= ::std::vector<::C>::const_reference at(size_type) const;
     at_31 = 31,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference at(::std::vector<::C>::size_type);
+    //#= ::std::vector<::C>::reference at(size_type);
     at_32 = 32,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference front();
+    //#= ::std::vector<::C>::reference front();
     front_33 = 33,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::const_reference front() const;
+    //#= ::std::vector<::C>::const_reference front() const;
     front_34 = 34,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::reference back();
+    //#= ::std::vector<::C>::reference back();
     back_35 = 35,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::C>::const_reference back() const;
+    //#= ::std::vector<::C>::const_reference back() const;
     back_36 = 36,
     //#= ::C* data();
     data_37 = 37,
@@ -1422,15 +1422,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     push_back_40 = 40,
     //#= void pop_back();
     pop_back_41 = 41,
-    //#= ::std::vector<::C>::iterator insert(::std::vector<::C>::const_iterator, const ::C&);
+    //#= iterator insert(const_iterator, const ::C&);
     insert_42 = 42,
-    //#= ::std::vector<::C>::iterator insert(::std::vector<::C>::const_iterator, ::C&&);
+    //#= iterator insert(const_iterator, ::C&&);
     insert_43 = 43,
-    //#= ::std::vector<::C>::iterator insert(::std::vector<::C>::const_iterator, ::std::vector<::C>::size_type, const ::C&);
+    //#= iterator insert(const_iterator, size_type, const ::C&);
     insert_44 = 44,
-    //#= ::std::vector<::C>::iterator erase(::std::vector<::C>::const_iterator);
+    //#= iterator erase(const_iterator);
     erase_45 = 45,
-    //#= ::std::vector<::C>::iterator erase(::std::vector<::C>::const_iterator, ::std::vector<::C>::const_iterator);
+    //#= iterator erase(const_iterator, const_iterator);
     erase_46 = 46,
     //#= void swap(::std::vector<::C>&);
     swap_47 = 47,
@@ -1444,9 +1444,9 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
   enum __zz_cib_MethodId {
     //#= vector();
     __zz_cib_New_0 = 0,
-    //#= vector(::std::vector<::std::list<::C*>>::size_type);
+    //#= vector(size_type);
     __zz_cib_New_1 = 1,
-    //#= vector(::std::vector<::std::list<::C*>>::size_type, const ::std::list<::C*>&);
+    //#= vector(size_type, const ::std::list<::C*>&);
     __zz_cib_New_2 = 2,
     //#= vector(const ::std::vector<::std::list<::C*>>&);
     __zz_cib_Copy_3 = 3,
@@ -1458,63 +1458,63 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     __zz_cib_OperatorEqual_6 = 6,
     //#= ::std::vector<::std::list<::C*>>& operator=(::std::vector<::std::list<::C*>>&&);
     __zz_cib_OperatorEqual_7 = 7,
-    //#= void assign(::std::vector<::std::list<::C*>>::size_type, const ::std::list<::C*>&);
+    //#= void assign(size_type, const ::std::list<::C*>&);
     assign_8 = 8,
-    //#= ::std::vector<::std::list<::C*>>::iterator begin();
+    //#= iterator begin();
     begin_9 = 9,
-    //#= ::std::vector<::std::list<::C*>>::const_iterator begin() const;
+    //#= const_iterator begin() const;
     begin_10 = 10,
-    //#= ::std::vector<::std::list<::C*>>::iterator end();
+    //#= iterator end();
     end_11 = 11,
-    //#= ::std::vector<::std::list<::C*>>::const_iterator end() const;
+    //#= const_iterator end() const;
     end_12 = 12,
-    //#= ::std::vector<::std::list<::C*>>::reverse_iterator rbegin();
+    //#= reverse_iterator rbegin();
     rbegin_13 = 13,
-    //#= ::std::vector<::std::list<::C*>>::const_reverse_iterator rbegin() const;
+    //#= const_reverse_iterator rbegin() const;
     rbegin_14 = 14,
-    //#= ::std::vector<::std::list<::C*>>::reverse_iterator rend();
+    //#= reverse_iterator rend();
     rend_15 = 15,
-    //#= ::std::vector<::std::list<::C*>>::const_reverse_iterator rend() const;
+    //#= const_reverse_iterator rend() const;
     rend_16 = 16,
-    //#= ::std::vector<::std::list<::C*>>::const_iterator cbegin() const;
+    //#= const_iterator cbegin() const;
     cbegin_17 = 17,
-    //#= ::std::vector<::std::list<::C*>>::const_iterator cend() const;
+    //#= const_iterator cend() const;
     cend_18 = 18,
-    //#= ::std::vector<::std::list<::C*>>::const_reverse_iterator crbegin() const;
+    //#= const_reverse_iterator crbegin() const;
     crbegin_19 = 19,
-    //#= ::std::vector<::std::list<::C*>>::const_reverse_iterator crend() const;
+    //#= const_reverse_iterator crend() const;
     crend_20 = 20,
     //#= bool empty() const;
     empty_21 = 21,
-    //#= ::std::vector<::std::list<::C*>>::size_type size() const;
+    //#= size_type size() const;
     size_22 = 22,
-    //#= ::std::vector<::std::list<::C*>>::size_type max_size() const;
+    //#= size_type max_size() const;
     max_size_23 = 23,
-    //#= ::std::vector<::std::list<::C*>>::size_type capacity() const;
+    //#= size_type capacity() const;
     capacity_24 = 24,
-    //#= void resize(::std::vector<::std::list<::C*>>::size_type);
+    //#= void resize(size_type);
     resize_25 = 25,
-    //#= void resize(::std::vector<::std::list<::C*>>::size_type, const ::std::list<::C*>&);
+    //#= void resize(size_type, const ::std::list<::C*>&);
     resize_26 = 26,
-    //#= void reserve(::std::vector<::std::list<::C*>>::size_type);
+    //#= void reserve(size_type);
     reserve_27 = 27,
     //#= void shrink_to_fit();
     shrink_to_fit_28 = 28,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference operator[](::std::vector<::std::list<::C*>>::size_type);
+    //#= ::std::vector<::std::list<::C*>>::reference operator[](size_type);
     __zz_cib_OperatorIndex_29 = 29,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::const_reference operator[](::std::vector<::std::list<::C*>>::size_type) const;
+    //#= ::std::vector<::std::list<::C*>>::const_reference operator[](size_type) const;
     __zz_cib_OperatorIndex_30 = 30,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::const_reference at(::std::vector<::std::list<::C*>>::size_type) const;
+    //#= ::std::vector<::std::list<::C*>>::const_reference at(size_type) const;
     at_31 = 31,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference at(::std::vector<::std::list<::C*>>::size_type);
+    //#= ::std::vector<::std::list<::C*>>::reference at(size_type);
     at_32 = 32,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference front();
+    //#= ::std::vector<::std::list<::C*>>::reference front();
     front_33 = 33,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::const_reference front() const;
+    //#= ::std::vector<::std::list<::C*>>::const_reference front() const;
     front_34 = 34,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::reference back();
+    //#= ::std::vector<::std::list<::C*>>::reference back();
     back_35 = 35,
-    //#= ::__zz_cib_stl_helpers::vector_iterator<::std::list<::C*>>::const_reference back() const;
+    //#= ::std::vector<::std::list<::C*>>::const_reference back() const;
     back_36 = 36,
     //#= ::std::list<::C*>* data();
     data_37 = 37,
@@ -1526,15 +1526,15 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class261 { nam
     push_back_40 = 40,
     //#= void pop_back();
     pop_back_41 = 41,
-    //#= ::std::vector<::std::list<::C*>>::iterator insert(::std::vector<::std::list<::C*>>::const_iterator, const ::std::list<::C*>&);
+    //#= iterator insert(const_iterator, const ::std::list<::C*>&);
     insert_42 = 42,
-    //#= ::std::vector<::std::list<::C*>>::iterator insert(::std::vector<::std::list<::C*>>::const_iterator, ::std::list<::C*>&&);
+    //#= iterator insert(const_iterator, ::std::list<::C*>&&);
     insert_43 = 43,
-    //#= ::std::vector<::std::list<::C*>>::iterator insert(::std::vector<::std::list<::C*>>::const_iterator, ::std::vector<::std::list<::C*>>::size_type, const ::std::list<::C*>&);
+    //#= iterator insert(const_iterator, size_type, const ::std::list<::C*>&);
     insert_44 = 44,
-    //#= ::std::vector<::std::list<::C*>>::iterator erase(::std::vector<::std::list<::C*>>::const_iterator);
+    //#= iterator erase(const_iterator);
     erase_45 = 45,
-    //#= ::std::vector<::std::list<::C*>>::iterator erase(::std::vector<::std::list<::C*>>::const_iterator, ::std::vector<::std::list<::C*>>::const_iterator);
+    //#= iterator erase(const_iterator, const_iterator);
     erase_46 = 46,
     //#= void swap(::std::vector<::std::list<::C*>>&);
     swap_47 = 47,

@@ -135,8 +135,8 @@ struct __zz_cib_Delegator<::A> {
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_0() {
     return new ::A();
   }
-  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const ::A&> a) {
-    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const ::A&>(a));
+  static __zz_cib_AbiType __zz_cib_decl __zz_cib_Copy_1(__zz_cib_AbiType_t<const A&> a) {
+    return new ::A(    __zz_cib_::__zz_cib_FromAbiType<const A&>(a));
   }
   static void __zz_cib_decl __zz_cib_Delete_2(::A* __zz_cib_obj) {
         delete __zz_cib_obj;
@@ -215,7 +215,7 @@ namespace __zz_cib_ { namespace __zz_cib_ids { namespace __zz_cib_Class258 {
   enum __zz_cib_MethodId {
     //#= A();
     __zz_cib_New_0 = 0,
-    //#= A(const ::A&);
+    //#= A(const A&);
     __zz_cib_Copy_1 = 1,
     //#= ~A();
     __zz_cib_Delete_2 = 2,
@@ -664,7 +664,7 @@ A::A()
   : A(__zz_cib_MyHelper::__zz_cib_New_0())
 {}
 
-A::A(const ::A& a)
+A::A(const A& a)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(a)>(a)))
 {}

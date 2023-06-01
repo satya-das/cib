@@ -27,8 +27,8 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C con
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::reference>(
+  static __zz_cib_AbiType_t<reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C const >::operator*()
     );
   }
@@ -118,8 +118,8 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C* co
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::reference>(
+  static __zz_cib_AbiType_t<reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C* const >::operator*()
     );
   }
@@ -209,8 +209,8 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>> 
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::reference>(
+  static __zz_cib_AbiType_t<reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C*>::operator*()
     );
   }
@@ -300,8 +300,8 @@ struct __zz_cib_Delegator<::__zz_cib_stl_helpers::bidirectional_iterator<::C>> :
   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_2() {
     return new __zz_cib_Delegatee();
   }
-  static __zz_cib_AbiType_t<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::__zz_cib_stl_helpers::bidirectional_iterator<::C>::reference>(
+  static __zz_cib_AbiType_t<reference> __zz_cib_decl __zz_cib_OperatorMul_3(const __zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<reference>(
       __zz_cib_obj->::__zz_cib_stl_helpers::bidirectional_iterator<::C>::operator*()
     );
   }

@@ -88,7 +88,7 @@ We know that client side class is not same as library side class. And here the e
    : A(__zz_cib_MyHelper::__zz_cib_New_0())
  {}
  
- A::A(const ::A& a)
+ A::A(const A& a)
    : A(__zz_cib_MyHelper::__zz_cib_Copy_1(
          __zz_cib_::__zz_cib_ToAbiType<decltype(a)>(a)))
  {}
@@ -256,7 +256,7 @@ B::B()
   : B(__zz_cib_MyHelper::__zz_cib_New_0())
 {}
 
-B::B(const ::B& __zz_cib_param0)
+B::B(const B& __zz_cib_param0)
   : B(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}

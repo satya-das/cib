@@ -46,7 +46,7 @@ Base::Base()
   : Base(__zz_cib_MyHelper::__zz_cib_New_0())
 {}
 
-Base::Base(const ::Base& __zz_cib_param0)
+Base::Base(const Base& __zz_cib_param0)
   : Base(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}
@@ -86,7 +86,7 @@ Derived::Derived()
   : Derived(__zz_cib_MyHelper::__zz_cib_New_0())
 {}
 
-Derived::Derived(const ::Derived& __zz_cib_param0)
+Derived::Derived(const Derived& __zz_cib_param0)
   : Derived(__zz_cib_MyHelper::__zz_cib_Copy_1(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}
@@ -120,7 +120,7 @@ A::A(A&& rhs)
   __zz_cib_MyHelper::__zz_cib_AddProxy(this, __zz_cib_h_);
 }
 
-A::A(const ::A& __zz_cib_param0)
+A::A(const A& __zz_cib_param0)
   : A(__zz_cib_MyHelper::__zz_cib_Copy_0(
         __zz_cib_::__zz_cib_ToAbiType<decltype(__zz_cib_param0)>(__zz_cib_param0)))
 {}

@@ -47,13 +47,13 @@ struct __zz_cib_Delegator<::A> : public ::A {
       __zz_cib_obj->::A::sumInLargeVector()
     );
   }
-  static __zz_cib_AbiType_t<::std::vector<::C>::iterator> __zz_cib_decl i_7(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::std::vector<::C>::iterator>(
+  static __zz_cib_AbiType_t<::A> __zz_cib_decl i_7(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::A>(
       __zz_cib_obj->::A::i()
     );
   }
-  static __zz_cib_AbiType_t<::std::vector<::C>::reverse_iterator> __zz_cib_decl r_8(__zz_cib_Delegatee* __zz_cib_obj) {
-    return __zz_cib_ToAbiType<::std::vector<::C>::reverse_iterator>(
+  static __zz_cib_AbiType_t<::A> __zz_cib_decl r_8(__zz_cib_Delegatee* __zz_cib_obj) {
+    return __zz_cib_ToAbiType<::A>(
       __zz_cib_obj->::A::r()
     );
   }

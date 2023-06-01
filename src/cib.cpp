@@ -61,7 +61,7 @@ void emitType(std::ostream&      stm,
       return *origTypeObj;
     auto* resolvedCppObj =
       (typeResolver
-         ? typeResolver->resolveTypename(origTypeObj->baseType(), cibProgram, TypeResolvingFlag::IgnoreStlHelpers)
+         ? cibProgram.getResolvedType(origTypeObj->baseType(), typeResolver, TypeResolvingFlag::IgnoreStlHelpers)
          : nullptr);
     if (resolvedCppObj == nullptr)
       return *origTypeObj;
@@ -868,20 +868,6 @@ void emitInheritanceList(std::ostream& stm, const CibCompoundArray& inhList, Cpp
     stm << sep << accessType << ' ' << (*itr)->longName();
 }
 
-CppObj* CibCompound::resolveTypename(const std::string& typeName,
-                                     const CibProgram&  cibProgram,
-                                     TypeResolvingFlag  typeResolvingFlag) const
-{
-  const auto key = std::make_pair(typeName, typeResolvingFlag);
-  auto       itr = typeNameToCibCppObj_.find(key);
-  if (itr != typeNameToCibCppObj_.end())
-    return itr->second;
-  auto* resolvedType        = cibProgram.resolveTypename(typeName, this, typeResolvingFlag);
-  typeNameToCibCppObj_[key] = resolvedType;
-
-  return resolvedType;
-}
-
 static const CppHashIf* hasHeaderGuard(const CppObjPtrArray& members)
 {
   auto firstNonCommentItr = std::find_if(members.begin(), members.end(), [](const CppObjPtr& mem) {
@@ -932,7 +918,7 @@ void CibCompound::emitUserHeader(const CibProgram& cibProgram,
                                  const CibParams&  cibParams,
                                  const CibIdMgr&   cibIdMgr) const
 {
-  if (!isCppFile(this) || isUnusedStl())
+  if (!isCppFile(this) || cibProgram.isUnusedStl(this))
     return;
 
   const auto usrIncPath = [&]() {
@@ -1127,9 +1113,9 @@ void CibCompound::emitTemplateInstanceSpecializations(std::ostream&     stm,
                                                       const CibIdMgr&   cibIdMgr) const
 {
   forEachNested(CppAccessType::kPublic, [&](const CibCompound* compound) {
-    if (!compound->isTemplated() || compound->templateInstances_.empty())
+    if (!compound->isTemplated() || (cibProgram.numTemplateInstances(compound) == 0))
       return;
-    compound->forEachTemplateInstance([&](CibCompound* templCompound) {
+    cibProgram.forEachTemplateInstance(compound, [&](CibCompound* templCompound) {
       auto          specializationFilename = templCompound->nsName() + ".h";
       auto          specializationFilepath = cibParams.outputPath / getImplDir(cibParams) / specializationFilename;
       std::ofstream tmplStm(specializationFilepath.string(), std::ios_base::out);
@@ -1184,7 +1170,7 @@ void CibCompound::emitImplHeader(const CibProgram& cibProgram,
                                  const CibParams&  cibParams,
                                  const CibIdMgr&   cibIdMgr) const
 {
-  if (!isCppFile(this) || isUnusedStl())
+  if (!isCppFile(this) || cibProgram.isUnusedStl(this))
     return;
 
   auto          implPath = cibParams.outputPath / (getImplPath(cibParams) + "-postdef.h");
@@ -1360,7 +1346,7 @@ void CibCompound::emitImplSource(const CibProgram& cibProgram,
                                  const CibParams&  cibParams,
                                  const CibIdMgr&   cibIdMgr) const
 {
-  if (!isCppFile(this) || isUnusedStl())
+  if (!isCppFile(this) || cibProgram.isUnusedStl(this))
     return;
   bfs::path usrSrcFile = isStlHeader() || isStlHelpereClass()
                            ? bfs::temp_directory_path() / bfs::unique_path()
@@ -1402,17 +1388,17 @@ void CibCompound::collectTemplateArgumentsTypeDependencies(const CibProgram&    
   // TODO addDependency is duplicated in another function.
   // Remove duplication, may be by having dependecy collector as another class.
   const auto addDependency = [&](const std::string& typeName) {
-    auto* resolvedCppObj = resolveTypename(typeName, cibProgram, typeResolvingFlag);
+    auto* resolvedCppObj = cibProgram.getResolvedType(typeName, this, typeResolvingFlag);
     if (!resolvedCppObj && cibProgram.isSmartPtr(typeName))
-      resolvedCppObj = resolveTypename(cibProgram.convertSmartPtr(typeName), cibProgram, typeResolvingFlag);
+      resolvedCppObj = cibProgram.getResolvedType(cibProgram.convertSmartPtr(typeName), this, typeResolvingFlag);
     if (resolvedCppObj)
       cppObjs.insert(resolvedCppObj);
   };
-  for (auto& arg : templateArgValues_)
+  for (auto& arg : templateArgObjects_)
   {
-    if (arg.second->objType_ == CppExpr::kObjectType)
+    if (isExpr(arg))
       continue;
-    const auto* cppVarType = static_cast<const CppVarType*>(arg.second.get());
+    CppEasyPtr<const CppVarType> cppVarType(arg);
     addDependency(baseType(cppVarType));
   }
 }
@@ -1434,7 +1420,7 @@ void CibCompound::collectTemplateInstancesTypeDependencies(const CibProgram&    
 {
   if (!isTemplated())
     return;
-  forEachTemplateInstance([&](CibCompound* tmplInstance) {
+  cibProgram.forEachTemplateInstance(this, [&](CibCompound* tmplInstance) {
     tmplInstance->collectTemplateInstanceTypeDependencies(cibProgram, cppObjs, typeResolvingFlag);
   });
 }
@@ -1449,9 +1435,9 @@ void CibCompound::collectTypeDependenciesInner(const CibProgram&        cibProgr
     return;
 
   auto addDependency = [&](const std::string& typeName) {
-    auto* resolvedCppObj = resolveTypename(typeName, cibProgram, typeResolvingFlag);
+    auto* resolvedCppObj = cibProgram.getResolvedType(typeName, this, typeResolvingFlag);
     if (!resolvedCppObj && cibProgram.isSmartPtr(typeName))
-      resolvedCppObj = resolveTypename(cibProgram.convertSmartPtr(typeName), cibProgram, typeResolvingFlag);
+      resolvedCppObj = cibProgram.getResolvedType(cibProgram.convertSmartPtr(typeName), this, typeResolvingFlag);
     if (resolvedCppObj && !excludeList.count(resolvedCppObj))
       cppObjs.insert(resolvedCppObj);
   };
@@ -1874,7 +1860,7 @@ void CibCompound::identifyAbstract(const CibProgram& cibProgram)
     setAbstract();
 }
 
-static bool shallAddCopyCtor(CibCompound* compound)
+static bool shallAddCopyCtor(const CibCompound* compound)
 {
   if (compound->isTemplateInstance() && (!shallAddCopyCtor(compound->templateClass()) || compound->isAbstract()))
     return false;
@@ -1882,7 +1868,7 @@ static bool shallAddCopyCtor(CibCompound* compound)
          && !compound->isAbstract();
 }
 
-static bool shallAddDefaultCtor(CibCompound* compound)
+static bool shallAddDefaultCtor(const CibCompound* compound)
 {
   if (compound->isTemplateInstance())
     return shallAddDefaultCtor(compound->templateClass()) && !compound->isAbstract();
@@ -1895,7 +1881,7 @@ void CibCompound::identifyMethodsToBridge(const CibProgram& cibProgram)
 {
   if (isTemplated())
   {
-    forEachTemplateInstance([&](CibCompound* templateInstace) {
+    cibProgram.forEachTemplateInstance(this, [&](CibCompound* templateInstace) {
       if (templateInstace->isShared())
         templateInstace->identifyMethodsToBridge(cibProgram);
     });
@@ -2719,7 +2705,7 @@ void CibCompound::emitLibGlueCode(const CibProgram& cibProgram,
                                   const CibIdMgr&   cibIdMgr,
                                   CppIndent         indentation /* = CppIndent */) const
 {
-  if (!isCppFile(this) || isUnusedStl())
+  if (!isCppFile(this) || cibProgram.isUnusedStl(this))
     return;
 
 #if EMIT_HELPER_HEADER
@@ -2747,7 +2733,7 @@ void CibCompound::emitLibGlueCode(const CibProgram& cibProgram,
   auto processCompoundForDelegators = [&](const CibCompound* compound) {
     if (compound->isTemplated())
     {
-      compound->forEachTemplateInstance([&](CibCompound* templateInstace) {
+      cibProgram.forEachTemplateInstance(compound, [&](CibCompound* templateInstace) {
         if (templateInstace->isShared())
         {
           templateInstace->emitDelegators(stm, cibProgram, cibParams, cibIdMgr, indentation);

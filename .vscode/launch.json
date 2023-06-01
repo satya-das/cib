@@ -2123,6 +2123,34 @@
             ]
         },
         {
+            "name": "Run cib for 0400-stl-template-classes",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/cib",
+            "args": [
+                "--input-folder",
+                "${workspaceFolder}/examples/0400-stl-template-classes/pub",
+                "--bind-folder",
+                "${workspaceFolder}/examples/0400-stl-template-classes/cib",
+                "--output-folder",
+                "${workspaceFolder}/examples/0400-stl-template-classes/exp",
+                "--module",
+                "Example"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
             "name": "Run cib for 0050-virtual-function",
             "type": "cppdbg",
             "request": "launch",
