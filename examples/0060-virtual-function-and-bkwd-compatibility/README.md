@@ -74,41 +74,6 @@ There is no surprises that this new client will work with new library. But the o
 The reason of this **ABI stability** is that virtual tables are not shared across components. In previous example we learnt how runtime polymorphism works across component boundary using MethodTable. Let's see the diff of MethodTable of new library:
 
 ```diff
---- ../0050-virtual-function/cib/example.h.cpp
-+++ cib/example.h.cpp
-@@ -20,10 +20,15 @@
-     return new __zz_cib_Delegatee(*__zz_cib_obj);
-   }
-   static __zz_cib_AbiType __zz_cib_decl __zz_cib_New_1() {
-     return new __zz_cib_Delegatee();
-   }
-+  static __zz_cib_AbiType_t<int> __zz_cib_decl AnotherVirtFunc_4(__zz_cib_Delegatee* __zz_cib_obj) {
-+    return __zz_cib_ToAbiType<int>(
-+      __zz_cib_obj->::A::AnotherVirtFunc()
-+    );
-+  }
-   static __zz_cib_AbiType_t<int> __zz_cib_decl VirtFunc_2(__zz_cib_Delegatee* __zz_cib_obj) {
-     return __zz_cib_ToAbiType<int>(
-       __zz_cib_obj->::A::VirtFunc()
-     );
-   }
-@@ -38,13 +43,14 @@
- const __zz_cib_MethodTable* __zz_cib_GetMethodTable() {
-   static const __zz_cib_MTableEntry methodArray[] = {
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_Copy_0),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_New_1),
-     reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::VirtFunc_2),
--    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_Delete_3)
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::__zz_cib_Delete_3),
-+    reinterpret_cast<__zz_cib_MTableEntry> (&__zz_cib_::__zz_cib_Delegator<::A>::AnotherVirtFunc_4)
-   };
--  static const __zz_cib_MethodTable methodTable = { methodArray, 4 };
-+  static const __zz_cib_MethodTable methodTable = { methodArray, 5 };
-   return &methodTable;
- }
- }}
- namespace __zz_cib_ {
- template <>
 
 ```
 

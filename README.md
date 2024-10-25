@@ -121,7 +121,7 @@ ninja && ninja test
 ```
 ### On Windows
 
-Following sequence of commands has been tested and works perfectly:
+Following is what I use and works perfectly:
 
 ```sh
 # Open DOS command window
